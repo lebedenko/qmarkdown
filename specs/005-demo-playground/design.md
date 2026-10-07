@@ -1,0 +1,5 @@
+# 005: design
+
+Approved on 2026-10-07 by the user’s explicit instruction to implement the supplied playground plan. Approval covers these requirements, design, tasks, and verification scope.
+
+Use a Controls SplitView containing two Flickables and a wrapping plain TextArea. Store bundled strings in Samples.qml and role editing/presets in StylePanel.qml. Main owns one MarkdownStyle; a separate untouched default style supplies reset values (including unresolved inline size). Copy font values before changing one field to preserve font resolve masks. Inline code has no independent color API: its color control explicitly edits body color; heading inline code follows heading color. Validate colors with Qt.colorEqual(value, value), catching its invalid-color exception. Use a white preview surface so default library colors remain readable under dark desktop Controls themes. Fixed preview width uses min(available, requested) and centered x. Controls are discovered only in the examples branch; viewer integration tests are conditional on examples being enabled.

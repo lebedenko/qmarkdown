@@ -1,0 +1,23 @@
+version: '3'
+
+tasks:
+  build:
+    desc: Configure and build the library, tests, and examples
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - cmake -S "." -B "build-shared" -DBUILD_TESTING=ON -DQMARKDOWN_BUILD_EXAMPLES=ON
+      - cmake --build "build-shared" --parallel 2
+
+  test:
+    desc: Build and run the CTest suite
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - task: build
+      - ctest --test-dir "build-shared" --output-on-failure
+
+  demo:
+    desc: Build and launch the editable Markdown playground
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - task: build
+      - QML_IMPORT_PATH="{{.TASKFILE_DIR}}/build-shared/qml" "{{.TASKFILE_DIR}}/build-shared/examples/viewer/qmarkdown-viewer"

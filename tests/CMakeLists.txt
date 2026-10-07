@@ -1,0 +1,31 @@
+qt_add_executable(qmarkdown-import-test tst_import.cpp)
+target_link_libraries(qmarkdown-import-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-import-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-import-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-import COMMAND qmarkdown-import-test)
+set_tests_properties(qmarkdown-import PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-parser-test tst_parser.cpp ../src/QMarkdown/private/document.cpp ../src/QMarkdown/private/inline.cpp
+    $<TARGET_OBJECTS:qmarkdown_cmark>)
+target_include_directories(qmarkdown-parser-test PRIVATE ../third_party/cmark/src)
+target_include_directories(qmarkdown-parser-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-parser-test PRIVATE Qt6::Test)
+add_test(NAME qmarkdown-parser COMMAND qmarkdown-parser-test)
+
+qt_add_executable(qmarkdown-view-test tst_view.cpp)
+target_include_directories(qmarkdown-view-test PRIVATE ../src/QMarkdown)
+if(QMARKDOWN_BUILD_EXAMPLES)
+    target_compile_definitions(qmarkdown-view-test PRIVATE QMARKDOWN_VIEWER_SOURCE="${PROJECT_SOURCE_DIR}/examples/viewer/Main.qml")
+    target_link_libraries(qmarkdown-view-test PRIVATE Qt6::QuickControls2)
+endif()
+target_link_libraries(qmarkdown-view-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-view-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-view-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-view COMMAND qmarkdown-view-test)
+set_tests_properties(qmarkdown-view PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

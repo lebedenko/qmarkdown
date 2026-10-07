@@ -1,0 +1,4 @@
+module QMarkdown.Private
+typeinfo private.qmltypes
+depends QtQml.Models auto
+depends QMarkdown auto

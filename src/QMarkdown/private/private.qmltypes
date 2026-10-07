@@ -1,0 +1,34 @@
+import QtQuick.tooling 1.2
+Module {
+    Component {
+        name: "ViewState"
+        prototype: "QObject"
+        exports: ["QMarkdown.Private/ViewState 0.3"]
+        exportMetaObjectRevisions: [3]
+        Property { name: "markdown"; type: "QString"; notify: "markdownChanged" }
+        Property { name: "style"; type: "MarkdownStyle"; isPointer: true; notify: "styleChanged" }
+        Property { name: "blocks"; type: "QAbstractItemModel"; isPointer: true; isReadonly: true }
+        Signal { name: "markdownChanged" }
+        Signal { name: "styleChanged" }
+    }
+    Component {
+        name: "FormattedText"
+        prototype: "QQuickPaintedItem"
+        exports: ["QMarkdown.Private/FormattedText 0.3"]
+        exportMetaObjectRevisions: [3]
+        Property { name: "text"; type: "QString"; notify: "textChanged" }
+        Property { name: "formatRanges"; type: "QVariantList"; notify: "formatRangesChanged" }
+        Property { name: "font"; type: "QFont"; notify: "fontChanged" }
+        Property { name: "codeFont"; type: "QFont"; notify: "codeFontChanged" }
+        Property { name: "color"; type: "QColor"; notify: "colorChanged" }
+        Property { name: "layoutWidth"; type: "double"; notify: "layoutWidthChanged" }
+        Property { name: "logicalHeight"; type: "double"; isReadonly: true; notify: "layoutChanged" }
+        Signal { name: "textChanged" }
+        Signal { name: "formatRangesChanged" }
+        Signal { name: "fontChanged" }
+        Signal { name: "codeFontChanged" }
+        Signal { name: "colorChanged" }
+        Signal { name: "layoutWidthChanged" }
+        Signal { name: "layoutChanged" }
+    }
+}
