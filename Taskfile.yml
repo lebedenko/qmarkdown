@@ -21,3 +21,12 @@ tasks:
     cmds:
       - task: build
       - QML_IMPORT_PATH="{{.TASKFILE_DIR}}/build-shared/qml" "{{.TASKFILE_DIR}}/build-shared/examples/viewer/qmarkdown-viewer"
+
+  benchmark:
+    desc: Run full advisory Release measurements and validate JSON
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - cmake -S . -B build-benchmarks -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=ON
+      - cmake --build build-benchmarks --target qmarkdown-benchmark --parallel 2
+      - QT_QPA_PLATFORM=offscreen QML_IMPORT_PATH="{{.TASKFILE_DIR}}/build-benchmarks/qml" timeout 600 build-benchmarks/tests/qmarkdown-benchmark > build-benchmarks/benchmark.json
+      - python3 scripts/verify-benchmark.py build-benchmarks/benchmark.json

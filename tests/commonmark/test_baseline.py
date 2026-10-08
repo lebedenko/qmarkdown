@@ -10,7 +10,8 @@ import unittest
 
 from baseline import (DATA, HTML_OPTIONS, PARSE_OPTIONS, analyze, compare_ledger,
                       exception, json_text, load_fixtures, run_probe, strict_pass,
-                      validate_fixtures, validate_model, validate_report, validate_response)
+                      validate_fixtures, validate_model, validate_report, validate_response,
+                      validate_authored, load_authored, HTML_BLOCK_IDS)
 from oracle import Uncheckable, canonical_actual, expected, mask_image_ranges, utf16
 
 PROBE = None
@@ -160,6 +161,62 @@ class ProductionModelTest(unittest.TestCase):
             result = subprocess.run([str(Path(PROBE).resolve())], input=json_text(request), capture_output=True, text=True, timeout=10)
             self.assertEqual(result.returncode, 2)
             self.assertFalse(result.stdout)
+
+
+class AuthoredHtmlTest(unittest.TestCase):
+    def setUp(self):
+        self.manifest, all_fixtures = load_fixtures()
+        self.fixtures = [e for e in all_fixtures if e["example"] in HTML_BLOCK_IDS]
+        self.authored = load_authored(self.manifest)
+        self.response = run_probe(PROBE, self.fixtures)
+
+    def test_complete_raw_models_and_comparison_method(self):
+        report = analyze(self.manifest, self.fixtures, self.response)
+        self.assertEqual(report["schema"], 2)
+        self.assertEqual(report["totals"]["model"], {"projection-pass": 43, "mismatch": 0, "uncheckable": 0})
+        for entry in report["examples"]:
+            self.assertEqual(entry["model"]["comparison"], "source-authored")
+            self.assertEqual(entry["nativeModel"], self.authored[entry["example"]])
+
+    def test_missing_ids_checksum_review_and_metadata_are_rejected(self):
+        original = json.loads((DATA / "html-block-expectations.json").read_text())
+        for fault in ("missing", "duplicate", "checksum", "review", "metadata"):
+            value = copy.deepcopy(original)
+            if fault == "missing": value["examples"].pop()
+            if fault == "duplicate": value["examples"][-1] = value["examples"][0]
+            if fault == "checksum": value["fixtureSha256"] = "bad"
+            if fault == "review": value["examples"][0]["review"] = ""
+            if fault == "metadata": value["examples"][0]["model"][1]["ranges"][0]["flags"] = 8
+            with self.subTest(fault=fault), self.assertRaises(ValueError):
+                validate_authored(value, self.manifest)
+        missing = dict(self.authored)
+        missing.pop(148)
+        with self.assertRaisesRegex(ValueError, "Missing authored"):
+            analyze(self.manifest, self.fixtures, self.response, missing)
+
+    def test_literal_boundaries_nesting_and_valid_metadata_faults_mismatch(self):
+        for id_, fault in ((149, "literal"), (190, "boundary"), (174, "nesting"), (175, "metadata")):
+            response = copy.deepcopy(self.response)
+            entry = next(e for e in response["examples"] if e["example"] == id_)
+            if fault == "literal": entry["model"][0]["text"] += "x"
+            if fault == "boundary":
+                entry["model"][0]["text"] += entry["model"].pop(1)["text"]
+            if fault == "nesting": entry["model"] = entry["model"][0]["children"] + entry["model"][1:]
+            if fault == "metadata": entry["model"][0]["tight"] = False
+            report = analyze(self.manifest, self.fixtures, response)
+            self.assertEqual(report["totals"]["model"]["mismatch"], 1)
+            ledger = {"schema": 1, "fixtureSha256": self.manifest["sha256"], "review": "clean", "examples": {}}
+            self.assertEqual(len(compare_ledger(report, ledger)), 1)
+
+    def test_stale_ledger_and_wrong_comparison_method_fail(self):
+        report = analyze(self.manifest, self.fixtures, self.response)
+        ledger = {"schema": 1, "fixtureSha256": self.manifest["sha256"], "review": "stale", "examples": {
+            "148": {"parser": "pass", "model": "uncheckable", "limits": ["html-oracle-unsupported"], "losses": [],
+                    "reason": "old", "modelSha256": "0" * 64, "review": "old HTML oracle"}}}
+        self.assertEqual(len(compare_ledger(report, ledger)), 1)
+        report["examples"][0]["model"]["comparison"] = "html-projection"
+        with self.assertRaisesRegex(ValueError, "comparison method"):
+            validate_report(report, self.manifest, self.fixtures)
 
 
 class ValidationTest(unittest.TestCase):

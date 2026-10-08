@@ -278,13 +278,13 @@ void ResourceController::pump()
         ++m_next; pump();
     });
     watcher->setFuture(promise->future());
-    m_decoder.start([promise, url, bytes = std::move(bytes)]() mutable {
+    m_decoder.start([promise, url, decode = m_decode, bytes = std::move(bytes)]() mutable {
         if (promise->isCanceled()) { promise->finish(); return; }
         if (url.scheme() != "https") {
             QFile file(url.isLocalFile() ? url.toLocalFile() : ":" + url.path());
             if (file.open(QIODevice::ReadOnly) && file.size() <= encodedLimit) bytes = file.read(encodedLimit + 1);
         }
-        if (!promise->isCanceled()) promise->addResult(QMarkdownPrivate::decodeImage(std::move(bytes)));
+        if (!promise->isCanceled()) promise->addResult(decode(std::move(bytes)));
         promise->finish();
     });
 }

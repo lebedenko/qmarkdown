@@ -1,5 +1,9 @@
 #include "private/resourcecontroller.h"
 #include <QBuffer>
+#include <QSemaphore>
+#include <atomic>
+#include <memory>
+#include <thread>
 #include <QDir>
 #include <QTemporaryDir>
 #include <QFile>
@@ -13,6 +17,22 @@ QByteArray png(int width = 20, int height = 10) {
     QImage image(width, height, QImage::Format_ARGB32); image.fill(Qt::red);
     QByteArray bytes; QBuffer buffer(&bytes); buffer.open(QIODevice::WriteOnly); image.save(&buffer, "PNG"); return bytes;
 }
+// Gates own no controller state; the worker keeps them alive after cancellation.
+struct DecodeGate {
+    QSemaphore entered, release, completed;
+    std::atomic<bool> timedOut{false};
+    QImage decode(QByteArray bytes) {
+        entered.release();
+        if (!release.tryAcquire(1, 5000)) timedOut = true;
+        auto result = decodeImage(std::move(bytes));
+        completed.release();
+        return result;
+    }
+};
+struct ReleaseGate {
+    std::shared_ptr<DecodeGate> gate;
+    ~ReleaseGate() { gate->release.release(64); }
+};
 struct Response {
     QByteArray bytes;
     QUrl redirect;
@@ -211,17 +231,95 @@ private slots:
         controller.restart(parse("![](https://a.invalid/0)"), {}, &policy); QVERIFY(controller.images().isEmpty());
         controller.restart({}, {}, &policy);
     }
+    void staleDecoderCompletion_data() {
+        QTest::addColumn<QString>("change");
+        for (const auto &change : {"replacement", "policy", "base", "repeated"})
+            QTest::newRow(change) << QString(change);
+    }
     void staleDecoderCompletion() {
-        ResourceController controller; auto *manager = new FakeManager; controller.setNetworkManager(manager);
+        QFETCH(QString, change);
+        ResourceController controller;
+        auto gate = std::make_shared<DecodeGate>();
+        ReleaseGate cleanup{gate}; // Released before controller's waiting destructor, even on assertion failure.
+        controller.setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
+        auto *manager = new FakeManager; controller.setNetworkManager(manager);
         MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
-        manager->responses[QUrl("https://a.invalid/old")] = {png(4000,4000), {}, QNetworkReply::NoError, true};
-        controller.restart(parse("![](https://a.invalid/old)"), {}, &policy);
-        manager->replies[0]->complete(); // starts a large worker decode
-        manager->responses[QUrl("https://a.invalid/new")] = {png()};
-        controller.restart(parse("![](https://a.invalid/new)"), {}, &policy);
-        QTRY_VERIFY(controller.idle()); QCOMPARE(controller.images().size(), 1);
-        QVERIFY(controller.images().contains(QUrl("https://a.invalid/new")));
-        QVERIFY(!controller.images().contains(QUrl("https://a.invalid/old")));
+        const QUrl old("https://a.invalid/old/image"), next("https://a.invalid/new/image");
+        manager->responses[old] = {png(), {}, QNetworkReply::NoError, true};
+        manager->responses[next] = {png(), {}, QNetworkReply::NoError, true};
+        QSignalSpy published(&controller, &ResourceController::changed);
+        const int repetitions = change == "repeated" ? 5 : 1;
+        for (int iteration = 0; iteration < repetitions; ++iteration) {
+            published.clear();
+            controller.restart(parse("![](image)"), QUrl("https://a.invalid/old/"), &policy);
+            manager->replies.last()->complete();
+            QVERIFY(gate->entered.tryAcquire(1, 2000)); // Cancellation now occurs inside the real decoder wrapper.
+            if (change == "policy") {
+                policy.setAllowedHttpsOrigins({});
+                controller.restart(parse("![](image)"), QUrl("https://a.invalid/old/"), &policy);
+            } else if (change == "base") {
+                controller.restart(parse("![](image)"), QUrl("https://a.invalid/new/"), &policy);
+            } else {
+                if (change == "repeated")
+                    for (int i = 0; i < 20; ++i) controller.restart({}, {}, &policy);
+                controller.restart(parse("![](https://a.invalid/new/image)"), {}, &policy);
+            }
+            gate->release.release();
+            QVERIFY(gate->completed.tryAcquire(1, 2000));
+            QCoreApplication::processEvents();
+            QCOMPARE(published.size(), 0); QVERIFY(controller.images().isEmpty());
+            if (change == "policy") {
+                policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
+                controller.restart(parse("![](https://a.invalid/new/image)"), {}, &policy);
+            }
+            manager->replies.last()->complete();
+            QVERIFY(gate->entered.tryAcquire(1, 2000));
+            QVERIFY(controller.images().isEmpty());
+            gate->release.release();
+            QTRY_VERIFY_WITH_TIMEOUT(controller.idle(), 2000);
+            QCOMPARE(published.size(), 1); QCOMPARE(controller.images().size(), 1);
+            QVERIFY(controller.images().contains(next)); QVERIFY(!controller.images().contains(old));
+            QVERIFY(!gate->timedOut);
+        }
+    }
+    void pendingNetworkDestruction() {
+        auto controller = std::make_unique<ResourceController>();
+        auto *manager = new FakeManager; controller->setNetworkManager(manager);
+        MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
+        manager->responses[QUrl("https://a.invalid/image")] = {png(), {}, QNetworkReply::NoError, true};
+        controller->restart(parse("![](https://a.invalid/image)"), {}, &policy);
+        auto reply = manager->replies.last();
+        bool aborted = false; int publications = 0;
+        connect(reply, &QNetworkReply::finished, this, [&] { aborted = reply->aborted; });
+        connect(controller.get(), &ResourceController::changed, this, [&] { ++publications; });
+        controller.reset();
+        QVERIFY(aborted); QVERIFY(reply.isNull()); QCOMPARE(publications, 0);
+        QCoreApplication::processEvents(); QCOMPARE(publications, 0);
+    }
+    void activeDecodeDestruction() {
+        auto controller = std::make_unique<ResourceController>();
+        auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
+        controller->setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
+        auto *manager = new FakeManager; controller->setNetworkManager(manager);
+        MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
+        manager->responses[QUrl("https://a.invalid/image")] = {png(), {}, QNetworkReply::NoError, true};
+        int publications = 0;
+        connect(controller.get(), &ResourceController::changed, this, [&] { ++publications; });
+        controller->restart(parse("![](https://a.invalid/image)"), {}, &policy);
+        manager->replies.last()->complete(); QVERIFY(gate->entered.tryAcquire(1, 2000));
+        // Release from another thread: destruction on this thread waits for the active worker.
+        auto *watcher = controller->findChild<QFutureWatcherBase *>(); QVERIFY(watcher);
+        QSemaphore cancelled;
+        connect(watcher, &QObject::destroyed, this, [&] { cancelled.release(); });
+        std::atomic<bool> observedCancellation{false};
+        std::thread release([gate, &cancelled, &observedCancellation] {
+            observedCancellation = cancelled.tryAcquire(1, 2000);
+            gate->release.release(); // Also releases on a failed cancellation observation.
+        });
+        controller.reset(); release.join();
+        QVERIFY(observedCancellation);
+        QVERIFY(gate->completed.tryAcquire(1, 2000)); QVERIFY(!gate->timedOut);
+        QCoreApplication::processEvents(); QCOMPARE(publications, 0);
     }
     void deadline() {
         ResourceController controller; auto *manager = new FakeManager; controller.setNetworkManager(manager);

@@ -1,0 +1,51 @@
+name: Linux Qt verification
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  packaging:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        qt: ['6.8.0', '6.11.3']
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Build tools and benchmark fonts
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake ninja-build fonts-noto-core fonts-noto-mono libgl1-mesa-dev libxkbcommon-dev libegl1 libopengl0 libxcb-cursor0 libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-xkb1
+      # Use the pinned Node sub-action directly: the composite wrapper refers to
+      # mutable setup-python@v5 and install-qt-action/action@v4 internally.
+      - uses: jurplel/install-qt-action/action@c6c7281365daef91a238e1c2ddce4eaa94a2991d # v4.1.1
+        with:
+          version: ${{ matrix.qt }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          aqtversion: '==3.3.0'
+          py7zrversion: '==0.22.0'
+          install-deps: 'false'
+          cache: 'false'
+      - name: Shared/static packaging and library-only build
+        run: python3 scripts/verify-packaging.py --qt-root "$QT_ROOT_DIR" --work-dir "$RUNNER_TEMP/packaging"
+      - name: Benchmark execution smoke
+        run: |
+          cmake -S . -B "$RUNNER_TEMP/benchmarks" -DQt6_DIR="$QT_ROOT_DIR/lib/cmake/Qt6" -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=ON
+          cmake --build "$RUNNER_TEMP/benchmarks" --target qmarkdown-benchmark --parallel 2
+          QT_QPA_PLATFORM=offscreen QML_IMPORT_PATH="$RUNNER_TEMP/benchmarks/qml" timeout 120 "$RUNNER_TEMP/benchmarks/tests/qmarkdown-benchmark" --smoke > "$RUNNER_TEMP/benchmarks/benchmark.json"
+          python3 scripts/verify-benchmark.py "$RUNNER_TEMP/benchmarks/benchmark.json"
+      - name: Retain failure evidence
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: qt-${{ matrix.qt }}-failure-evidence
+          path: |
+            ${{ runner.temp }}/packaging/**/Testing/Temporary/*.log
+            ${{ runner.temp }}/packaging/**/commonmark-report.json
+            ${{ runner.temp }}/packaging/**/CMakeConfigureLog.yaml
+            ${{ runner.temp }}/benchmarks/benchmark.json
+          retention-days: 14

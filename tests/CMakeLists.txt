@@ -55,3 +55,16 @@ if(QMARKDOWN_BUILD_EXAMPLES)
         PREFIX "/qmarkdown-samples" BASE "${PROJECT_SOURCE_DIR}/examples/viewer/images"
         FILES "${PROJECT_SOURCE_DIR}/examples/viewer/images/shapes.png" "${PROJECT_SOURCE_DIR}/examples/viewer/images/shapes.jpg")
 endif()
+
+if(QMARKDOWN_BUILD_BENCHMARKS)
+    qt_add_executable(qmarkdown-benchmark benchmark.cpp)
+    target_include_directories(qmarkdown-benchmark PRIVATE ../src/QMarkdown)
+    target_link_libraries(qmarkdown-benchmark PRIVATE QMarkdown::QMarkdown Qt6::Test)
+    target_compile_definitions(qmarkdown-benchmark PRIVATE
+        QMARKDOWN_BUILD_TYPE="$<IF:$<BOOL:$<CONFIG>>,$<CONFIG>,unspecified>"
+        QMARKDOWN_COMPILER="${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+    if(NOT BUILD_SHARED_LIBS)
+        target_link_libraries(qmarkdown-benchmark PRIVATE QMarkdown::QMarkdownPlugin)
+        target_compile_definitions(qmarkdown-benchmark PRIVATE QMARKDOWN_STATIC)
+    endif()
+endif()

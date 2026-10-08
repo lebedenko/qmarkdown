@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build, relocate, and consume both package variants without dependency downloads."""
 
+import argparse
 import os
 from pathlib import Path
 import shutil
@@ -8,7 +9,19 @@ import subprocess
 import tempfile
 
 source = Path(__file__).resolve().parents[1]
-work = Path(tempfile.mkdtemp(prefix="qmarkdown-packaging-"))
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--work-dir", type=Path, help="Keep builds and failure artifacts in this new directory")
+parser.add_argument("--qt-root", type=Path, help="Explicit Qt SDK root; every configuration uses its Qt6Config")
+args = parser.parse_args()
+work = args.work_dir.resolve() if args.work_dir else Path(tempfile.mkdtemp(prefix="qmarkdown-packaging-"))
+work.mkdir(parents=True, exist_ok=True)
+qt_args = []
+if args.qt_root:
+    qt_root = args.qt_root.resolve()
+    qt_config = qt_root / "lib/cmake/Qt6"
+    if not (qt_config / "Qt6Config.cmake").is_file():
+        parser.error("--qt-root must contain lib/cmake/Qt6/Qt6Config.cmake")
+    qt_args = [f"-DQt6_DIR={qt_config}", f"-DCMAKE_PREFIX_PATH={qt_root}"]
 print(f"Verification artifacts: {work}", flush=True)
 
 
@@ -27,7 +40,7 @@ for variant in ("shared", "static"):
     run("cmake", "-S", source, "-B", build,
         f"-DBUILD_SHARED_LIBS={'ON' if variant == 'shared' else 'OFF'}",
         "-DCMAKE_INSTALL_LIBDIR=lib", f"-DCMAKE_INSTALL_PREFIX={prefix}",
-        f"-DQMARKDOWN_QML_INSTALL_DIR={qml_dir}")
+        f"-DQMARKDOWN_QML_INSTALL_DIR={qml_dir}", *qt_args)
     run("cmake", "--build", build, "--parallel", "2")
     run("ctest", "--test-dir", build, "--output-on-failure")
     run("cmake", "--build", build, "--target", "all_qmllint")
@@ -49,7 +62,7 @@ for variant in ("shared", "static"):
         raise RuntimeError("Private cmark headers were installed")
     consumer_build = work / f"consumer-{variant}"
     run("cmake", "-S", consumer_source, "-B", consumer_build,
-        f"-DCMAKE_PREFIX_PATH={relocated}")
+        *qt_args, f"-DCMAKE_PREFIX_PATH={relocated}")
     run("cmake", "--build", consumer_build, "--parallel", "2")
     environment = os.environ.copy()
     environment["QT_QPA_PLATFORM"] = "offscreen"
@@ -61,7 +74,10 @@ for variant in ("shared", "static"):
     if variant == "shared":
         plugin_consumer = work / "consumer-shared-plugin"
         run("cmake", "-S", consumer_source, "-B", plugin_consumer,
-            f"-DCMAKE_PREFIX_PATH={relocated}", "-DQMARKDOWN_CONSUMER_LINK_MODULE=OFF")
+            *qt_args, f"-DCMAKE_PREFIX_PATH={relocated}", "-DQMARKDOWN_CONSUMER_LINK_MODULE=OFF")
         run("cmake", "--build", plugin_consumer, "--parallel", "2")
         run(plugin_consumer / executable, env=environment)
+run("cmake", "-S", source, "-B", work / "library-only", *qt_args,
+    "-DBUILD_TESTING=OFF", "-DQMARKDOWN_BUILD_EXAMPLES=OFF", "-DQMARKDOWN_BUILD_BENCHMARKS=OFF")
+run("cmake", "--build", work / "library-only", "--parallel", "2")
 print("PASS: shared and static relocated package consumers", flush=True)

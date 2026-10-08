@@ -20,7 +20,7 @@ CTest runs `qmarkdown-commonmark-oracle` (authored oracle/model and controlled-f
 
 The parser comparison uses the repository's bundled cmark objects, `CMARK_OPT_DEFAULT`, and exact official expected HTML. `CMARK_OPT_UNSAFE` is used only in the test serializer so recognized raw HTML is included instead of hidden. No HTML is executed, and production still has no HTML renderer.
 
-The second comparison calls production `QMarkdownPrivate::parse` independently. Its raw blocks, metadata and UTF-16 ranges are retained in every JSON report entry. The expected model is derived from official HTML using an independent, deliberately restricted `HTMLParser` oracle, never from probe HTML or production model output. Native renderer/resource tests provide separate presentation evidence.
+The second comparison calls production `QMarkdownPrivate::parse` independently. Its raw blocks, metadata and UTF-16 ranges are retained in every JSON report entry. For IDs 148–167 and 169–191, complete raw models are independently authored from pinned Markdown and CommonMark section 4.6 in `html-block-expectations.json`, including literal text, native boundaries, nesting and metadata. Every ID has a review rationale; exact IDs, corpus checksum and model shape are validated. Other expected models are derived from official HTML using an independent, deliberately restricted `HTMLParser` oracle, never from probe HTML or production model output. Report schema 2 records `source-authored` or `html-projection` per example; the historical `projection-pass` status means the chosen comparison passed. Native renderer/resource tests provide separate presentation evidence.
 
 Short malformed comments (`<!-->` and `<!--->`) are explicitly uncheckable because Python releases differ in their recovery rules. The oracle does not repair malformed HTML or silently ignore unsupported tags. It verifies complete HTML token consumption. It distinguishes character-reference newlines from serialization newlines when HTML preserves that distinction, and checks authored source cases where HTML loses it. Balanced unknown inline tags preserve exact literal opening/closing spelling; unknown block boundaries and ambiguous raw semantic tags are reported as uncheckable.
 
@@ -28,11 +28,11 @@ The comparison preserves text, meaningful whitespace, block order, nesting, head
 
 ## Reviewed gaps
 
-The baseline recorded on 2026-10-08 contains 652 parser passes, 583 model projection passes, zero model mismatches and 69 uncheckable model examples. No parser or adapter defect was established by these checks. This is incomplete model semantic evidence, not full CommonMark conformance.
+The baseline recorded on 2026-10-08 contains 652 parser passes, 626 model passes (583 HTML projections plus 43 source-authored raw models), zero model mismatches and 26 uncheckable model examples. No parser or adapter defect was established by these checks. This is incomplete model semantic evidence, not full CommonMark conformance.
 
 | Distinction | Examples | Interpretation and guard |
 | --- | --- | --- |
-| Raw HTML/token/boundary ambiguity | 68 | HTML-only oracle cannot safely distinguish native literal HTML from semantic HTML output. Literal spelling and native boundaries were inspected; raw-model hashes detect changes. |
+| Raw HTML/token/boundary ambiguity | 25 | HTML-only oracle cannot safely distinguish native literal HTML from semantic HTML output. The remaining ambiguous examples retain reviewed raw-model hashes; the 43 HTML-block examples now have independent complete expectations. |
 | Entity-produced LF versus soft break | 1 (39) | Official HTML contains literal LFs after entity decoding. Production preserves these LFs; treating them as soft breaks would be a false failure. Authored assertion and raw-model hash protect this case. |
 | Complete fence info and code origin | 78 | HTML preserves only the first info word and cannot identify fenced versus indented origin. Raw full-info hashes and authored full-info assertions supplement the independent text/language comparison. |
 | Ordered-list delimiter | 26 | HTML has start/tightness, but loses `.` versus `)`. Source metadata hashes and authored delimiter/start cases supplement comparison. |
@@ -44,7 +44,7 @@ The baseline recorded on 2026-10-08 contains 652 parser passes, 583 model projec
 | Empty link omitted | 2 (484, 487) | No native link span exists for a zero-length text label. |
 | Inline HTML identity projected | 4 | Literal spelling is preserved, but an inline HTML node is indistinguishable from ordinary text. |
 
-Counts overlap: 293 examples have comparison limits and 113 have detected semantic information loss. Uncheckable examples may have additional distinctions that this oracle cannot classify; absence of a listed loss is not evidence of absence. All IDs and reasons are in `ledger.json` and the report, rather than section-wide exclusions.
+Counts overlap: 250 examples have comparison limits and 113 have detected semantic information loss. Uncheckable examples may have additional distinctions that this oracle cannot classify; absence of a listed loss is not evidence of absence. All IDs and reasons are in `ledger.json` and the report, rather than section-wide exclusions.
 
 ## Ledger review
 
@@ -54,6 +54,6 @@ To review a change, inspect the pinned Markdown and official HTML, the raw nativ
 
 ## Recommended follow-up
 
-Prioritize a bounded independent model-oracle improvement for the 43 currently uncheckable HTML-block examples: IDs 148–167 and 169–191. Supply reviewed source-aware expected native boundaries and literal text for those exact examples, including nested quote/list cases 174/175 and mixed native/HTML blocks. This reduces the largest evidence gap for file previews without altering resource permissions or production behavior.
+Feature 012 supplies independent expectations for all 43 HTML-block IDs, including nested quote/list cases 174/175. Each removed ledger entry was previously an HTML-oracle uncheckable case and is now a complete raw-model pass; no other ledger entries changed. Example 148 specifically retains inline closing `pre` in its paragraph because type 7 cannot interrupt a paragraph. Controlled faults cover missing fixtures, altered literal text, boundaries, nesting, metadata, comparison methods and stale ledger entries.
 
-Then address the remaining 26 oracle cases: 21, 31, 39, 201, 308, 309, 344, 475–477, 491, 494, 524, 536, 613–616, 623, 626, 628–631, 642, 643. Separately design whether a private semantic representation should preserve soft-break identity, repeated emphasis depth, empty links and link titles for the v1.0 gate. Those decisions require later approval; Feature 011 does not implement fixes or richer semantics.
+Address the remaining 26 oracle cases: 21, 31, 39, 201, 308, 309, 344, 475–477, 491, 494, 524, 536, 613–616, 623, 626, 628–631, 642, 643. Separately design whether a private semantic representation should preserve soft-break identity, repeated emphasis depth, empty links and link titles for the v1.0 gate. Those decisions require later approval; Feature 011 does not implement fixes or richer semantics.

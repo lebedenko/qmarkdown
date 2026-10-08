@@ -27,6 +27,9 @@ public:
     void restart(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base, MarkdownResourcePolicy *policy);
     bool idle() const { return m_next == m_loads.size() && !m_decoding; }
     const QHash<QUrl, QImage> &images() const { return m_images; }
+    // Private fixture seam; each worker copies its decoder independently of controller lifetime.
+    using Decoder = std::function<QImage(QByteArray)>;
+    void setDecoder(Decoder decoder) { m_decode = std::move(decoder); }
     // Tests inject an isolated manager; production always owns its own manager.
     void setNetworkManager(QNetworkAccessManager *manager);
 signals:
@@ -46,6 +49,7 @@ private:
     void finish(qsizetype index);
     QNetworkAccessManager *m_network;
     QThreadPool m_decoder;
+    Decoder m_decode = QMarkdownPrivate::decodeImage;
     QTimer m_deadline;
     MarkdownResourcePolicy m_policy;
     QVector<Load> m_loads;

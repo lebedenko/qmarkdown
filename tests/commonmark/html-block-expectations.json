@@ -1,0 +1,684 @@
+{
+  "schema": 1,
+  "fixtureSha256": "d431b29d97b6f73e69d547109cf5081578fac931e72afe95639ebe766c1b2a20",
+  "review": "Independently authored from pinned Markdown and CommonMark 0.31.2 section 4.6. Helpers only construct explicit raw model objects; no production output was used.",
+  "examples": [
+    {
+      "example": 148,
+      "review": "Type 6 table stops at blank line despite embedded pre. Closing pre is type 7 and cannot interrupt the emphasis paragraph, so its soft break becomes a space and tag stays inline literal; closing td starts a type 6 block.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<table><tr><td>\n<pre>\n**Hello**,\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "world. </pre>",
+          "ranges": [
+            {
+              "start": 0,
+              "length": 5,
+              "flags": 1
+            }
+          ],
+          "links": [],
+          "images": []
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "</td></tr></table>\n"
+        }
+      ]
+    },
+    {
+      "example": 149,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<table>\n  <tr>\n    <td>\n           hi\n    </td>\n  </tr>\n</table>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "okay.",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 150,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": " <div>\n  *hello*\n         <foo><a>\n"
+        }
+      ]
+    },
+    {
+      "example": 151,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "</div>\n*foo*\n"
+        }
+      ]
+    },
+    {
+      "example": 152,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<DIV CLASS=\"foo\">\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "Markdown",
+          "ranges": [
+            {
+              "start": 0,
+              "length": 8,
+              "flags": 1
+            }
+          ],
+          "links": [],
+          "images": []
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "</DIV>\n"
+        }
+      ]
+    },
+    {
+      "example": 153,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div id=\"foo\"\n  class=\"bar\">\n</div>\n"
+        }
+      ]
+    },
+    {
+      "example": 154,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div id=\"foo\" class=\"bar\n  baz\">\n</div>\n"
+        }
+      ]
+    },
+    {
+      "example": 155,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div>\n*foo*\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "bar",
+          "ranges": [
+            {
+              "start": 0,
+              "length": 3,
+              "flags": 1
+            }
+          ],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 156,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div id=\"foo\"\n*hi*\n"
+        }
+      ]
+    },
+    {
+      "example": 157,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div class\nfoo\n"
+        }
+      ]
+    },
+    {
+      "example": 158,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div *???-&&&-<---\n*foo*\n"
+        }
+      ]
+    },
+    {
+      "example": 159,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div><a href=\"bar\">*foo*</a></div>\n"
+        }
+      ]
+    },
+    {
+      "example": 160,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<table><tr><td>\nfoo\n</td></tr></table>\n"
+        }
+      ]
+    },
+    {
+      "example": 161,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div></div>\n``` c\nint x = 33;\n```\n"
+        }
+      ]
+    },
+    {
+      "example": 162,
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<a href=\"foo\">\n*bar*\n</a>\n"
+        }
+      ]
+    },
+    {
+      "example": 163,
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<Warning>\n*bar*\n</Warning>\n"
+        }
+      ]
+    },
+    {
+      "example": 164,
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<i class=\"foo\">\n*bar*\n</i>\n"
+        }
+      ]
+    },
+    {
+      "example": 165,
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "</ins>\n*bar*\n"
+        }
+      ]
+    },
+    {
+      "example": 166,
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<del>\n*foo*\n</del>\n"
+        }
+      ]
+    },
+    {
+      "example": 167,
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<del>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "foo",
+          "ranges": [
+            {
+              "start": 0,
+              "length": 3,
+              "flags": 1
+            }
+          ],
+          "links": [],
+          "images": []
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "</del>\n"
+        }
+      ]
+    },
+    {
+      "example": 169,
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n</code></pre>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "okay",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 170,
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<script type=\"text/javascript\">\n// JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n</script>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "okay",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 171,
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<textarea>\n\n*foo*\n\n_bar_\n\n</textarea>\n"
+        }
+      ]
+    },
+    {
+      "example": 172,
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<style\n  type=\"text/css\">\nh1 {color:red;}\n\np {color:blue;}\n</style>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "okay",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 173,
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<style\n  type=\"text/css\">\n\nfoo\n"
+        }
+      ]
+    },
+    {
+      "example": 174,
+      "review": "Quote prefix is removed; blank line ends quote and its type 6 HTML block; following bar is outside quote.",
+      "model": [
+        {
+          "kind": "Quote",
+          "children": [
+            {
+              "kind": "HtmlBlock",
+              "text": "<div>\nfoo\n"
+            }
+          ]
+        },
+        {
+          "kind": "Paragraph",
+          "text": "bar",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 175,
+      "review": "Each list marker starts a separate tight item; first contains HTML, second contains an ordinary paragraph; unordered start is 0 and delimiter is dot.",
+      "model": [
+        {
+          "kind": "List",
+          "ordered": false,
+          "start": 0,
+          "delimiter": ".",
+          "tight": true,
+          "children": [
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "HtmlBlock",
+                  "text": "<div>\n"
+                }
+              ]
+            },
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "Paragraph",
+                  "text": "foo",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "example": 176,
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<style>p{color:red;}</style>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "foo",
+          "ranges": [
+            {
+              "start": 0,
+              "length": 3,
+              "flags": 1
+            }
+          ],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 177,
+      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<!-- foo -->*bar*\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "baz",
+          "ranges": [
+            {
+              "start": 0,
+              "length": 3,
+              "flags": 1
+            }
+          ],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 178,
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<script>\nfoo\n</script>1. *bar*\n"
+        }
+      ]
+    },
+    {
+      "example": 179,
+      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<!-- Foo\n\nbar\n   baz -->\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "okay",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 180,
+      "review": "Type 3 processing instruction ends after the line containing ?>; internal blank lines remain literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<?php\n\n  echo '>';\n\n?>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "okay",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 181,
+      "review": "Type 4 declaration ends after the line containing >.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<!DOCTYPE html>\n"
+        }
+      ]
+    },
+    {
+      "example": 182,
+      "review": "Type 5 CDATA ends after the line containing ]]>; internal blank lines remain literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "okay",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 183,
+      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "  <!-- foo -->\n"
+        },
+        {
+          "kind": "CodeBlock",
+          "text": "<!-- foo -->\n",
+          "infoString": ""
+        }
+      ]
+    },
+    {
+      "example": 184,
+      "review": "Two-space type 6 HTML ends at blank line; four-space div is indented code.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "  <div>\n"
+        },
+        {
+          "kind": "CodeBlock",
+          "text": "<div>\n",
+          "infoString": ""
+        }
+      ]
+    },
+    {
+      "example": 185,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "Foo",
+          "ranges": [],
+          "links": [],
+          "images": []
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "<div>\nbar\n</div>\n"
+        }
+      ]
+    },
+    {
+      "example": 186,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div>\nbar\n</div>\n*foo*\n"
+        }
+      ]
+    },
+    {
+      "example": 187,
+      "review": "Type 7 cannot interrupt a paragraph; soft breaks become spaces and the inline tag stays literal.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "Foo <a href=\"bar\"> baz",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "example": 188,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div>\n"
+        },
+        {
+          "kind": "Paragraph",
+          "text": "Emphasized text.",
+          "ranges": [
+            {
+              "start": 0,
+              "length": 10,
+              "flags": 1
+            }
+          ],
+          "links": [],
+          "images": []
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "</div>\n"
+        }
+      ]
+    },
+    {
+      "example": 189,
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<div>\n*Emphasized* text.\n</div>\n"
+        }
+      ]
+    },
+    {
+      "example": 190,
+      "review": "Blank lines split type 6 table/tr/td closing-tag blocks; td content stays literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<table>\n"
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "<tr>\n"
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "<td>\nHi\n</td>\n"
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "</tr>\n"
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "</table>\n"
+        }
+      ]
+    },
+    {
+      "example": 191,
+      "review": "Blank lines split type 6 blocks; four-space td region is code with four spaces removed, including its internal indentation.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<table>\n"
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "  <tr>\n"
+        },
+        {
+          "kind": "CodeBlock",
+          "text": "<td>\n  Hi\n</td>\n",
+          "infoString": ""
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "  </tr>\n"
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "</table>\n"
+        }
+      ]
+    }
+  ]
+}
