@@ -8,6 +8,8 @@
 #include <QFont>
 #include <QColor>
 #include <QMouseEvent>
+#include <QTemporaryDir>
+#include <QImage>
 #include <QtQml/QQmlExtensionPlugin>
 #include <QDebug>
 #include <memory>
@@ -24,7 +26,7 @@ int main(int argc, char *argv[])
     QQmlComponent component(&engine);
     component.setData(
             "import QtQuick\n"
-            "import QMarkdown 0.6\n"
+            "import QMarkdown 0.7\n"
             "MarkdownView {\n"
             "    width: 180\n"
             "    property bool activated: false\n"
@@ -161,5 +163,23 @@ int main(int argc, char *argv[])
     if (!settle([&] { return height() > 0 && !findBody(view); })) return 6;
     view->setProperty("markdown", "");
     if (!settle([&] { return height() == 0; })) return 7;
+    QTemporaryDir directory;
+    QImage image(80, 40, QImage::Format_RGB32); image.fill(Qt::red);
+    if (!image.save(directory.filePath("image.png"))) return 27;
+    view->setProperty("baseUrl", QUrl::fromLocalFile(directory.filePath("document.md")));
+    view->setProperty("markdown", "![description](image.png)");
+    if (!settle([&] { return findText(view, "description") != nullptr; })) return 28;
+    auto *policy = view->property("resourcePolicy").value<QObject *>();
+    if (!policy || policy->property("allowQrc").toBool() || !policy->property("allowedFileRoots").value<QList<QUrl>>().isEmpty()) return 29;
+    policy->setProperty("allowedFileRoots", QVariant::fromValue(QList<QUrl>{QUrl::fromLocalFile(directory.path())}));
+    std::function<QQuickItem *(QQuickItem *)> findImage = [&](QQuickItem *item) -> QQuickItem * {
+        if (item->objectName() == "markdownImage") return item;
+        for (auto *child : item->childItems()) if (auto *found = findImage(child)) return found;
+        return nullptr;
+    };
+    if (!settle([&] { return findImage(view) && height() == 40; })) return 30;
+    if (findImage(view)->width() != 80) return 31;
+    policy->setProperty("allowedFileRoots", QVariant::fromValue(QList<QUrl>{}));
+    if (!settle([&] { return !findImage(view) && findText(view, "description"); })) return 32;
     return 0;
 }

@@ -1,16 +1,21 @@
 #pragma once
 #include "inline.h"
 #include <QString>
+#include <QImage>
 #include <QVector>
 
 namespace QMarkdownPrivate {
-enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock };
+enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Image, Segments };
 struct Block {
     BlockKind kind;
     QString text;
     int level = 0;
     QVector<InlineRange> ranges;
     QVector<LinkSpan> links;
+    QVector<ImageSpan> images;
+    QImage image;
+    QString imageLink;
+    bool imageLinked = false;
     QString infoString;
     QVector<Block> children;
     bool ordered = false;

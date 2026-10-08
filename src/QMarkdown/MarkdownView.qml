@@ -6,6 +6,8 @@ import QMarkdown.Private
 Item {
     id: root
     signal linkActivated(string destination)
+    property alias baseUrl: viewState.baseUrl
+    property alias resourcePolicy: viewState.resourcePolicy
     property alias markdown: viewState.markdown
     property alias style: viewState.style
     readonly property real contentHeight: width > 0 ? blocks.height : 0
@@ -37,6 +39,50 @@ Item {
             model: sequence.width > 0 ? sequence.model : null
             delegate: DelegateChooser {
                 role: "renderKind"
+                DelegateChoice {
+                    roleValue: 9
+                    delegate: Loader {
+                        id: segments
+                        required property var childBlocks
+                        width: sequence.width
+                        sourceComponent: sequenceComponent
+                        onLoaded: {
+                            const loaded = item as BlockSequence
+                            loaded.model = Qt.binding(function() { return segments.childBlocks })
+                            loaded.style = Qt.binding(function() { return sequence.style })
+                            loaded.gap = Qt.binding(function() { return sequence.gap })
+                        }
+                    }
+                }
+                DelegateChoice {
+                    roleValue: 8
+                    delegate: Item {
+                        id: imageRow
+                        required property var imageData
+                        required property string imageLink
+                        required property bool imageLinked
+                        width: sequence.width
+                        height: imagePaint.implicitHeight
+                        ImageItem {
+                            id: imagePaint
+                            objectName: "markdownImage"
+                            image: imageRow.imageData
+                            width: Math.min(imageRow.width, imagePaint.naturalWidth)
+                            height: implicitHeight
+                            HoverHandler { cursorShape: imageRow.imageLinked ? Qt.PointingHandCursor : Qt.ArrowCursor }
+                            TapHandler {
+                                acceptedButtons: Qt.LeftButton
+                                gesturePolicy: TapHandler.DragThreshold
+                                enabled: imageRow.imageLinked
+                                onTapped: function(eventPoint, button) {
+                                    if (eventPoint.position.x >= 0 && eventPoint.position.x < imagePaint.width
+                                        && eventPoint.position.y >= 0 && eventPoint.position.y < imagePaint.height)
+                                        root.linkActivated(imageRow.imageLink)
+                                }
+                            }
+                        }
+                    }
+                }
                 DelegateChoice {
                     roleValue: 4
                     delegate: Column {

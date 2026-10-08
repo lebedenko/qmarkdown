@@ -15,6 +15,16 @@ class ImportTest : public QObject
     Q_OBJECT
 
 private slots:
+    void resourcePolicyConfiguration() {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QMarkdown 0.7\nMarkdownView { baseUrl: 'qrc:/documents/readme.md'; resourcePolicy: MarkdownResourcePolicy { allowedFileRoots: ['file:///tmp/images/']; allowedHttpsOrigins: ['https://example.invalid']; allowQrc: true } }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create()); QVERIFY(object);
+        QCOMPARE(object->property("baseUrl").toUrl(), QUrl("qrc:/documents/readme.md"));
+        auto *policy = object->property("resourcePolicy").value<QObject *>(); QVERIFY(policy);
+        QCOMPARE(policy->property("allowedFileRoots").value<QList<QUrl>>(), QList<QUrl>{QUrl("file:///tmp/images/")});
+        QCOMPARE(policy->property("allowedHttpsOrigins").value<QList<QUrl>>(), QList<QUrl>{QUrl("https://example.invalid")});
+        QVERIFY(policy->property("allowQrc").toBool());
+    }
     void importsModule()
     {
         QQmlEngine engine;

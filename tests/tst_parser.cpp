@@ -6,6 +6,24 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void imageMetadata() {
+        const auto content = parseInline(QString::fromUtf8("😀 ![**é** [inner](ignored) ![nested](no)](a\\*b?x=1&amp;y=2 \"title &amp;\")![](empty) [![*linked*](image)]()"));
+        QCOMPARE(content.images.size(), 3);
+        QCOMPARE(content.images[0].start, 3);
+        QCOMPARE(content.images[0].destination, "a*b?x=1&y=2");
+        QCOMPARE(content.images[0].title, "title &");
+        QCOMPARE(content.text.mid(content.images[0].start, content.images[0].length), "é inner nested");
+        QCOMPARE(content.images[1].length, 0);
+        QCOMPARE(content.images[1].start, content.images[0].start + content.images[0].length);
+        QVERIFY(!content.images[0].linked);
+        // Unresolved references still follow cmark's literal projection.
+        const auto blocks = parse("> - # [![*linked*][id]](outer)\n\n[id]: image.png \"caption\"");
+        const auto &heading = blocks[0].children[0].children[0].children[0];
+        QCOMPARE(heading.images.size(), 1); QVERIFY(heading.images[0].linked);
+        QCOMPARE(heading.images[0].enclosingLink, "outer"); QCOMPARE(heading.images[0].title, "caption");
+        QCOMPARE(heading.text, "linked"); QCOMPARE(heading.ranges[0].flags, int(Emphasis));
+    }
+
     void linkDestinations_data()
     {
         QTest::addColumn<QString>("source");

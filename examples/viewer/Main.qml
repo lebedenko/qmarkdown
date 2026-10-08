@@ -78,7 +78,7 @@ ApplicationWindow {
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Links report destinations to the host; image descriptions and HTML stay literal; full CommonMark rendering is unfinished."
+            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Links report destinations to the host; authorized PNG/JPEG images use native rows and HTML stays literal; full CommonMark rendering is unfinished."
         }
         Label {
             objectName: "lastDestination"
@@ -146,6 +146,7 @@ ApplicationWindow {
                         contentHeight: preview.contentHeight
                         ScrollBar.vertical: ScrollBar {}
                         MarkdownView {
+                            resourcePolicy: MarkdownResourcePolicy { allowQrc: true }
                             id: preview
                             objectName: "preview"
                             width: window.previewWidth > 0 ? Math.min(previewScroll.width, window.previewWidth) : previewScroll.width

@@ -18,3 +18,7 @@ if(NOT BUILD_SHARED_LIBS)
     target_link_libraries(qmarkdown-viewer PRIVATE QMarkdown::QMarkdownPlugin)
     target_compile_definitions(qmarkdown-viewer PRIVATE QMARKDOWN_STATIC)
 endif()
+
+qt_add_resources(qmarkdown-viewer "sample_images"
+    PREFIX "/qmarkdown-samples" BASE "${CMAKE_CURRENT_SOURCE_DIR}/images"
+    FILES images/shapes.png images/shapes.jpg)

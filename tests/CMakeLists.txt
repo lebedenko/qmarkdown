@@ -12,7 +12,7 @@ qt_add_executable(qmarkdown-parser-test tst_parser.cpp ../src/QMarkdown/private/
     $<TARGET_OBJECTS:qmarkdown_cmark>)
 target_include_directories(qmarkdown-parser-test PRIVATE ../third_party/cmark/src)
 target_include_directories(qmarkdown-parser-test PRIVATE ../src/QMarkdown)
-target_link_libraries(qmarkdown-parser-test PRIVATE Qt6::Test)
+target_link_libraries(qmarkdown-parser-test PRIVATE Qt6::Test Qt6::Gui)
 add_test(NAME qmarkdown-parser COMMAND qmarkdown-parser-test)
 
 qt_add_executable(qmarkdown-view-test tst_view.cpp)
@@ -29,3 +29,14 @@ endif()
 add_test(NAME qmarkdown-view COMMAND qmarkdown-view-test)
 set_tests_properties(qmarkdown-view PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-resource-test tst_resources.cpp)
+target_include_directories(qmarkdown-resource-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-resource-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+add_test(NAME qmarkdown-resources COMMAND qmarkdown-resource-test)
+
+if(QMARKDOWN_BUILD_EXAMPLES)
+    qt_add_resources(qmarkdown-view-test "sample_images"
+        PREFIX "/qmarkdown-samples" BASE "${PROJECT_SOURCE_DIR}/examples/viewer/images"
+        FILES "${PROJECT_SOURCE_DIR}/examples/viewer/images/shapes.png" "${PROJECT_SOURCE_DIR}/examples/viewer/images/shapes.jpg")
+endif()

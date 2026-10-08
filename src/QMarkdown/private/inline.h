@@ -14,10 +14,19 @@ struct LinkSpan {
     int length = 0;
     QString destination;
 };
+struct ImageSpan {
+    int start = 0;
+    int length = 0;
+    QString destination;
+    QString title;
+    QString enclosingLink;
+    bool linked = false;
+};
 struct InlineContent {
     QString text;
     QVector<InlineRange> ranges;
     QVector<LinkSpan> links;
+    QVector<ImageSpan> images;
 };
 InlineContent parseInline(const QString &source);
 }

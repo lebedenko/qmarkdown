@@ -1,5 +1,8 @@
 #include "private/formattedtext.h"
 #include "markdownstyle.h"
+#include "markdownresourcepolicy.h"
+#include <QTemporaryDir>
+#include <QImage>
 #include <QScreen>
 #include "private/inline.h"
 #include <QGuiApplication>
@@ -81,6 +84,98 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void imageRowsAndPolicyLifecycle() {
+        QTemporaryDir temp; QVERIFY(temp.isValid());
+        QImage image(120, 60, QImage::Format_ARGB32); image.fill(Qt::green);
+        QVERIFY(image.save(temp.filePath("image.png")));
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 240 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create()); auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(300, 500); view->setParentItem(window.contentItem()); window.show();
+        QSignalSpy links(view, SIGNAL(linkActivated(QString)));
+        view->setProperty("markdown", "before **![*alt*](image.png)** after");
+        QTRY_VERIFY(content(view) > 0); QVERIFY(named(view, "markdownImage").isEmpty());
+        QCOMPARE(painted(view).size(), 1); QCOMPARE(painted(view)[0]->text(), "before alt after");
+        view->setProperty("baseUrl", QUrl::fromLocalFile(temp.filePath("document.md")));
+        auto policy = std::make_unique<MarkdownResourcePolicy>();
+        view->setProperty("resourcePolicy", QVariant::fromValue(policy.get()));
+        QVERIFY(named(view, "markdownImage").isEmpty());
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        QTRY_COMPARE(named(view, "markdownImage").size(), 1);
+        auto *row = named(view, "markdownImage")[0]; QTRY_COMPARE(row->width(), 120); QTRY_COMPARE(row->height(), 60);
+        QCOMPARE(texts(view).size(), 2); QCOMPARE(texts(view)[0]->property("text").toString(), "before ");
+        QCOMPARE(texts(view)[1]->property("text").toString(), " after");
+        const auto initialHeight = content(view);
+        view->setWidth(40); QTRY_COMPARE(named(view, "markdownImage")[0]->width(), 40);
+        QTRY_COMPARE(named(view, "markdownImage")[0]->height(), 20);
+        QVERIFY(content(view) > 20); view->setWidth(0); QTRY_COMPARE(content(view), 0); QVERIFY(named(view, "markdownImage").isEmpty());
+        view->setWidth(240); QTRY_COMPARE(content(view), initialHeight);
+        view->setProperty("markdown", "[![](image.png)](outer:link)");
+        QTRY_COMPARE(named(view, "markdownImage").size(), 1); QTRY_COMPARE(content(view), 60);
+        row = named(view, "markdownImage")[0]; const QPoint hit = row->mapToScene(QPointF(20,20)).toPoint();
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, hit); QTRY_COMPARE(links.size(), 1); QCOMPARE(links[0][0].toString(), "outer:link");
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, QPoint(200,20)); QCOMPARE(links.size(), 1);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, hit);
+        view->setWidth(10); QTRY_COMPARE(row->width(), 10);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, hit); QCOMPARE(links.size(), 1);
+        view->setWidth(240); QTRY_COMPARE(row->width(), 120);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, hit); QTest::mouseMove(&window, hit + QPoint(30,30));
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, hit + QPoint(30,30)); QCOMPARE(links.size(), 1);
+        view->setProperty("markdown", "# before ![alt](image.png) after\n\n> - ![alt](image.png)![](image.png)");
+        QTRY_COMPARE(named(view, "markdownImage").size(), 3);
+        const auto rows = named(view, "markdownImage"); QCOMPARE(rows[1]->parentItem()->parentItem(), rows[2]->parentItem()->parentItem());
+        QTRY_COMPARE(rows[2]->parentItem()->y(), rows[1]->parentItem()->y() + rows[1]->height());
+        policy->setAllowedFileRoots({}); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())}); QTRY_COMPARE(named(view, "markdownImage").size(), 3);
+        policy.reset(); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
+        auto *defaults = view->property("resourcePolicy").value<MarkdownResourcePolicy *>(); QVERIFY(defaults);
+        QVERIFY(defaults->allowedFileRoots().isEmpty()); QVERIFY(!defaults->allowQrc());
+        defaults->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())}); QTRY_COMPARE(named(view, "markdownImage").size(), 3);
+        QVERIFY(QQmlProperty(view, "resourcePolicy", &engine).reset()); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
+        defaults->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        view->setProperty("resourcePolicy", QVariant::fromValue<MarkdownResourcePolicy *>(nullptr)); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
+        view->setProperty("markdown", ""); QTRY_COMPARE(content(view), 0);
+    }
+    void linkedImageTouchAndScrolling() {
+        QTemporaryDir temp; QImage image(120,300,QImage::Format_RGB32); image.fill(Qt::blue); QVERIFY(image.save(temp.filePath("image.png")));
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nFlickable { width: 180; height: 100; contentHeight: view.contentHeight; clip: true; MarkdownView { id: view; objectName: 'view'; width: 180; markdown: '[![alt](image.png)](image:link)' } }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        auto *host = qobject_cast<QQuickItem *>(object.get()); auto *view = object->findChild<QQuickItem *>("view"); QVERIFY(host); QVERIFY(view);
+        QQuickWindow window; window.resize(200,120); host->setParentItem(window.contentItem()); window.show();
+        view->setProperty("baseUrl", QUrl::fromLocalFile(temp.filePath("document.md")));
+        auto *policy = view->property("resourcePolicy").value<MarkdownResourcePolicy *>(); QVERIFY(policy);
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())}); QTRY_COMPARE(content(view), 300);
+        QSignalSpy activation(view, SIGNAL(linkActivated(QString)));
+        auto *device = QTest::createTouchDevice();
+        QTest::touchEvent(&window, device).press(0, QPoint(20,20), &window);
+        QTest::touchEvent(&window, device).release(0, QPoint(20,20), &window);
+        QTRY_COMPARE(activation.size(), 1); QCOMPARE(activation.takeFirst()[0].toString(), "image:link");
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, QPoint(20,80));
+        QTest::mouseMove(&window, QPoint(20,55), 20); QTest::mouseMove(&window, QPoint(20,20), 20);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, QPoint(20,20));
+        QTRY_VERIFY(host->property("contentY").toDouble() > 0); QCOMPARE(activation.size(), 0);
+        QVERIFY(QMetaObject::invokeMethod(host, "cancelFlick")); host->setProperty("contentY", 0);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, QPoint(20,20));
+        policy->setAllowedFileRoots({}); QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, QPoint(20,20));
+        QCOMPARE(activation.size(), 0); QTRY_VERIFY(named(view,"markdownImage").isEmpty());
+    }
+    void sharedImagePolicy() {
+        QTemporaryDir temp; QImage image(80,40,QImage::Format_RGB32); image.fill(Qt::red); QVERIFY(image.save(temp.filePath("image.png")));
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nItem { width: 300; height: 300; MarkdownResourcePolicy { id: p; objectName: \"policy\" } MarkdownView { objectName: \"a\"; width: 150; resourcePolicy: p; markdown: \"![alt](image.png)\" } MarkdownView { objectName: \"b\"; width: 30; resourcePolicy: p; markdown: \"![alt](image.png)\" } }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        QQuickWindow window; window.resize(300,300); qobject_cast<QQuickItem *>(object.get())->setParentItem(window.contentItem()); window.show();
+        auto *policy = object->findChild<MarkdownResourcePolicy *>("policy"); QVERIFY(policy);
+        auto *a = object->findChild<QQuickItem *>("a"), *b = object->findChild<QQuickItem *>("b"); QVERIFY(a); QVERIFY(b);
+        const auto base = QUrl::fromLocalFile(temp.filePath("document.md")); a->setProperty("baseUrl", base); b->setProperty("baseUrl", base);
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        QTRY_COMPARE(named(a,"markdownImage").size(), 1); QTRY_COMPARE(named(b,"markdownImage").size(), 1);
+        QTRY_COMPARE(content(a), 40); QTRY_COMPARE(content(b), 15);
+        a->setProperty("baseUrl", QUrl()); QTRY_VERIFY(named(a,"markdownImage").isEmpty()); QCOMPARE(named(b,"markdownImage").size(), 1);
+        policy->setAllowedFileRoots({}); QTRY_VERIFY(named(b,"markdownImage").isEmpty());
+    }
     void initTestCase() {
 #ifdef QMARKDOWN_VIEWER_SOURCE
         qml_register_types_QMarkdownViewer_Tools();
@@ -109,7 +204,7 @@ private slots:
         QQmlEngine engine;
         RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.6\nMarkdownView { width: 250 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 250 }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
@@ -154,7 +249,7 @@ private slots:
     {
         QQmlEngine engine; RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.6\n"
+        component.setData("import QtQuick\nimport QMarkdown 0.7\n"
                           "Flickable { width: 240; height: 100; contentHeight: view.contentHeight; clip: true; "
                           "MarkdownView { id: view; objectName: 'view'; width: 240 } }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
@@ -184,7 +279,7 @@ private slots:
     void linkHitBoundariesAndLiveHover()
     {
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.6\nMarkdownView { width: 240 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 240 }", {});
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; window.resize(300, 200); view->setParentItem(window.contentItem()); window.show();
@@ -221,7 +316,7 @@ private slots:
     void linkStyleLifecycle()
     {
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.6\n"
+        component.setData("import QtQuick\nimport QMarkdown 0.7\n"
                           "Item { MarkdownStyle { id: shared; objectName: 'shared' } "
                           "MarkdownStyle { id: other; objectName: 'other'; linkColor: '#112233'; linkUnderline: false } "
                           "MarkdownView { objectName: 'a'; width: 200; markdown: '[a](x)'; style: shared } "
@@ -258,7 +353,7 @@ private slots:
     {
         QFETCH(bool, points);
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.6\nMarkdownView { width: 110 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 110 }", {});
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
@@ -1216,9 +1311,11 @@ private slots:
         QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
         QTRY_COMPARE(color("link"), QColor("#2299bb")); QVERIFY(style->property("linkUnderline").toBool());
         if (qEnvironmentVariableIsSet("QMARKDOWN_CAPTURE_THEME")) {
-            window->setProperty("sampleIndex", 8);
+            window->resize(1000, 1250);
+            window->setProperty("sampleIndex", 9);
             window->findChild<QObject *>("styleToggle")->setProperty("checked", true);
             QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
+            QTRY_COMPARE(named(preview, "markdownImage").size(), 2);
             for (const bool dark : {false, true}) {
                 QVERIFY(setPalette(dark));
                 for (const bool alternate : {false, true}) {

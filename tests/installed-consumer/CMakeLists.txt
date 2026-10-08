@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 project(QMarkdownInstalledConsumer LANGUAGES CXX)
-find_package(QMarkdown 0.6 CONFIG REQUIRED)
+find_package(QMarkdown 0.7 CONFIG REQUIRED)
 add_executable(qmarkdown-consumer main.cpp)
 target_compile_features(qmarkdown-consumer PRIVATE cxx_std_17)
 option(QMARKDOWN_CONSUMER_LINK_MODULE "Link the backing library" ON)

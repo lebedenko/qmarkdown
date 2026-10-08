@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(QMarkdown VERSION 0.6.0 LANGUAGES C CXX)
+project(QMarkdown VERSION 0.7.0 LANGUAGES C CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -9,7 +9,7 @@ option(BUILD_TESTING "Build tests" ${PROJECT_IS_TOP_LEVEL})
 set(QMARKDOWN_QML_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt6/qml" CACHE STRING
     "QML import directory, relative to the installation prefix or absolute")
 
-find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core Gui Qml Quick Network)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)

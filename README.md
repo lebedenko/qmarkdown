@@ -2,7 +2,7 @@
 
 A standalone Qt/QML Markdown rendering library under development, independent of any other project. The library owns Markdown semantics and rendering behavior; applications supply typography and colors. Markdown source feeds a private parser, document model, and native Qt Quick block components, without document-level HTML, QTextDocument, or WebEngine rendering.
 
-**Status:** version `0.6.0` / QML module `0.6` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. Feature 009 is approved on 2026-10-08. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links and autolinks report decoded destinations to the host; images display inert formatted descriptions and HTML stays literal. This iteration does not claim full CommonMark conformance.
+**Status:** version `0.7.0` / QML module `0.7` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. Feature 010 is approved on 2026-10-08. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links and autolinks report decoded destinations to the host; opt-in PNG/JPEG images use native rows with formatted description fallbacks and HTML stays literal. This iteration does not claim full CommonMark conformance.
 
 ## Build and check
 
@@ -51,9 +51,9 @@ Fonts support logical pixels (`pixelSize`) and points (`pointSize` in QML, `setP
 
 Qt's QML font getters synthesize the other unit. Its subproperty setters also prefer an already explicit pixel size when both units are set, and may warn when changing a point font to pixels. Use whole-font assignments to select a different unit, or C++ `QFont::setPointSizeF`/`setPixelSize` on a copy to preserve all fields. For fractional QML edits, set `pointSize` on a point-based role (for example `style.bodyFont.pointSize = 12.5`). The playground handles both transitions through a local native helper without changing the library API.
 
-Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Current package/import versions are 0.6.0/0.6. See [Feature 008](specs/008-font-units/requirements.md).
+Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Current package/import versions are 0.7.0/0.7. See [Feature 008](specs/008-font-units/requirements.md).
 
-Links and images display their formatted labels/descriptions; autolinks display text. Links activate only by reporting destinations to the host; no resources load. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser caps opening fence lengths at 255; very long fence closers consequently follow that upstream limitation. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
+Links display formatted labels; images retain formatted descriptions until an authorized PNG/JPEG is ready; autolinks display text. Links activate only by reporting destinations to the host; image resources are denied by default. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser caps opening fence lengths at 255; very long fence closers consequently follow that upstream limitation. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
 
 Launch the editable source/preview example:
 
@@ -68,13 +68,13 @@ The playground supplies theme-aware styling: the preview surface and Neutral tex
 ## Consume an installed package
 
 ```cmake
-find_package(QMarkdown 0.6 CONFIG REQUIRED)
+find_package(QMarkdown 0.7 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
 ```qml
 import QtQuick
-import QMarkdown 0.6
+import QMarkdown 0.7
 
 MarkdownView {
     width: 480
@@ -139,4 +139,24 @@ MarkdownView {
 }
 ```
 
-`linkActivated(string destination)` reports the cmark-decoded string unchanged, including empty destinations, relative paths, fragments and custom schemes. Primary clicks and touch taps activate links; dragging to scroll cancels activation. The view never opens URLs or loads resources. Links inside image descriptions are inert; an enclosing link includes the description. Keyboard link traversal, accessibility and visited states are deferred. See [Feature 009](specs/009-host-controlled-links/requirements.md).
+`linkActivated(string destination)` reports the cmark-decoded string unchanged, including empty destinations, relative paths, fragments and custom schemes. Primary clicks and touch taps activate links; dragging to scroll cancels activation. The view never navigates links. Image access uses the separate opt-in resource policy. Links inside image descriptions are inert; an enclosing link includes the description. Keyboard link traversal, accessibility and visited states are deferred. See [Feature 009](specs/009-host-controlled-links/requirements.md).
+
+### Images and host resource policy
+
+```qml
+MarkdownView {
+    markdown: "Before ![description](photos/image.png) after"
+    baseUrl: "file:///home/user/documents/readme.md"
+    resourcePolicy: MarkdownResourcePolicy {
+        allowedFileRoots: ["file:///home/user/documents/photos/"]
+        allowedHttpsOrigins: ["https://images.example.org", "https://cdn.example.org:8443"]
+        allowQrc: false
+    }
+}
+```
+
+All image permissions default to denied. Relative image destinations resolve only against explicit `baseUrl`; no working directory or component URL is inferred. Local roots must be existing absolute directory URLs with an empty or `localhost` authority. Canonical path boundaries reject traversal and symlink escapes. HTTPS entries must be origins only (no credentials, paths other than `/`, queries or fragments); every redirect needs independent authorization. `allowQrc: true` opts into application resources. Shared policies update views live; supplied objects remain host-owned, and null/reset/destruction restores view-owned deny-all defaults.
+
+Ready PNG/JPEG images occupy separate native rows within their paragraph or heading, preserving text order and formatting. They keep aspect ratio, shrink to available width, never upscale, and use oriented pixel sizes as logical dimensions. This release does not compose images inline. Loading, denied, invalid or failed images retain formatted descriptions. Image-description links and nested description images remain inert; an enclosing link activates only over the displayed image rectangle and cancels when dragging to scroll. HTML remains literal and triggers no requests.
+
+The isolated per-view loader permits four fetches and one decoder, with a 15-second total deadline, five manual redirects, an 8 MiB encoded limit, 16 megapixels per image, and 64 MiB retained decoded images admitted in document order. Network requests use normal TLS validation and no cookies, supplied credentials or disk cache. Unsupported formats (including SVG, data URLs and animation), missing decoders and exhausted budgets keep descriptions. Markdown, base URL and policy changes cancel pending work and discard cached images; failed loads do not retry automatically. Qt Network is a package dependency, including static consumers. The playground's Images sample authorizes bundled qrc PNG/JPEG assets only.
