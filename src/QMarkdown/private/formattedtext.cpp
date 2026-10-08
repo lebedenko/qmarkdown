@@ -1,5 +1,6 @@
 #include "formattedtext.h"
 #include "inline.h"
+#include "formatintervals.h"
 #include <QFontMetricsF>
 #include <QGlyphRun>
 #include <QPainter>
@@ -7,7 +8,6 @@
 #include <QQuickWindow>
 #include <QScreen>
 #include <cmath>
-#include <algorithm>
 
 namespace {
 QFont layoutFont(QFont font)
@@ -98,34 +98,10 @@ void FormattedText::updatePolish()
         option.setAlignment(Qt::AlignLeft);
         m_layout->setTextOption(option);
         QList<QTextLayout::FormatRange> formats;
-        QList<int> boundaries{0, int(m_text.size())};
-        const auto addBoundaries = [&](const QVariantList &spans) {
-            for (const auto &value : spans) {
-                const auto span = value.toMap();
-                const int start = span.value("start").toInt(), length = span.value("length").toInt();
-                if (start < 0 || length <= 0 || start > m_text.size() || length > m_text.size() - start) continue;
-                boundaries.append(start); boundaries.append(start + length);
-            }
-        };
-        addBoundaries(m_ranges); addBoundaries(m_links);
-        std::sort(boundaries.begin(), boundaries.end());
-        boundaries.erase(std::unique(boundaries.begin(), boundaries.end()), boundaries.end());
-        for (int i = 0; i + 1 < boundaries.size(); ++i) {
-            const int start = boundaries[i], length = boundaries[i + 1] - start;
-            int flags = 0;
-            bool linked = false;
-            for (const auto &value : m_ranges) {
-                const auto range = value.toMap();
-                if (start >= range.value("start").toInt()
-                    && start < range.value("start").toInt() + range.value("length").toInt())
-                    flags |= range.value("flags").toInt();
-            }
-            for (const auto &value : m_links) {
-                const auto link = value.toMap();
-                if (start >= link.value("start").toInt()
-                    && start < link.value("start").toInt() + link.value("length").toInt()) linked = true;
-            }
-            if (!flags && !linked) continue;
+        const auto intervals = QMarkdownPrivate::prepareFormatIntervals(int(m_text.size()), m_ranges, m_links);
+        for (const auto &interval : intervals) {
+            const int start = interval.start, length = interval.length, flags = interval.flags;
+            const bool linked = interval.linked;
             QFont resolved = flags & QMarkdownPrivate::Code ? m_codeFont.resolve(m_layoutFont) : m_layoutFont;
             if ((flags & QMarkdownPrivate::Code) && (m_codeFont.resolveMask() & QFont::SizeResolved))
                 resolved = layoutFont(resolved);

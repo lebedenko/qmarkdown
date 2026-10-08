@@ -891,6 +891,43 @@ private slots:
         QCOMPARE(changes.count(), 4);
         QCOMPARE(style->property("inlineCodeFont").value<QFont>().resolve(heading).weight(), initial.weight());
     }
+    void combinedFormatsAndLiveRanges()
+    {
+        FormattedText item;
+        QQuickWindow window; item.setParentItem(window.contentItem());
+        QFont body("Noto Sans"); body.setPixelSize(18); item.setFont(body);
+        QFont code("Noto Sans Mono"); code.setPixelSize(20); item.setCodeFont(code);
+        item.setText(QString::fromUtf8("a😀b code")); item.setLayoutWidth(100);
+        const auto span = [](int start, int length, int flags = 0) {
+            return QVariantMap{{"start", start}, {"length", length}, {"flags", flags}};
+        };
+        item.setFormatRanges({span(1, 2, 1), span(1, 2, 2), span(1, 2, 4)});
+        item.setLinkSpans({span(0, 4)}); item.setLinkColor(QColor("#123456"));
+        item.ensurePolished();
+        QVERIFY(item.layout()); QCOMPARE(item.layout()->formats().size(), 3);
+        const auto combined = item.layout()->formats()[1];
+        QCOMPARE(combined.start, 1); QCOMPARE(combined.length, 2);
+        QCOMPARE(combined.format.font().family(), code.family());
+        QCOMPARE(combined.format.font().pixelSize(), 20);
+        QVERIFY(combined.format.font().italic());
+        QCOMPARE(combined.format.font().weight(), QFont::Bold);
+        QCOMPARE(combined.format.foreground().color(), QColor("#123456"));
+        QVERIFY(combined.format.fontUnderline());
+        item.setFormatRanges({span(5, 4, 2)}); item.setLinkSpans({span(5, 4)});
+        item.setLinkUnderline(false); item.ensurePolished();
+        QCOMPARE(item.layout()->formats().size(), 1);
+        const auto replacement = item.layout()->formats()[0];
+        QCOMPARE(replacement.start, 5); QCOMPARE(replacement.length, 4);
+        QCOMPARE(replacement.format.font().family(), body.family());
+        QVERIFY(!replacement.format.font().italic());
+        QCOMPARE(replacement.format.font().weight(), QFont::Bold);
+        QVERIFY(!replacement.format.fontUnderline());
+        QCOMPARE(replacement.format.foreground().color(), QColor("#123456"));
+        item.setFormatRanges({}); item.setLinkSpans({}); item.ensurePolished();
+        QVERIFY(item.layout()->formats().isEmpty());
+        QVERIFY(item.logicalHeight() > 0);
+    }
+
     void formattedFontAndLayout()
     {
         QQmlEngine engine;

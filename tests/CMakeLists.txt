@@ -1,3 +1,9 @@
+qt_add_executable(qmarkdown-formatintervals-test tst_formatintervals.cpp
+    ../src/QMarkdown/private/formatintervals.cpp)
+target_include_directories(qmarkdown-formatintervals-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-formatintervals-test PRIVATE Qt6::Test)
+add_test(NAME qmarkdown-formatintervals COMMAND qmarkdown-formatintervals-test)
+
 qt_add_executable(qmarkdown-import-test tst_import.cpp)
 target_link_libraries(qmarkdown-import-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
 if(NOT BUILD_SHARED_LIBS)
@@ -57,6 +63,13 @@ if(QMARKDOWN_BUILD_EXAMPLES)
 endif()
 
 if(QMARKDOWN_BUILD_BENCHMARKS)
+    qt_add_executable(qmarkdown-inline-benchmark inlinebenchmark.cpp
+        ../src/QMarkdown/private/formatintervals.cpp)
+    target_include_directories(qmarkdown-inline-benchmark PRIVATE ../src/QMarkdown)
+    target_link_libraries(qmarkdown-inline-benchmark PRIVATE Qt6::Core)
+    target_compile_definitions(qmarkdown-inline-benchmark PRIVATE
+        QMARKDOWN_BUILD_TYPE="$<IF:$<BOOL:$<CONFIG>>,$<CONFIG>,unspecified>"
+        QMARKDOWN_COMPILER="${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
     qt_add_executable(qmarkdown-benchmark benchmark.cpp)
     target_include_directories(qmarkdown-benchmark PRIVATE ../src/QMarkdown)
     target_link_libraries(qmarkdown-benchmark PRIVATE QMarkdown::QMarkdown Qt6::Test)

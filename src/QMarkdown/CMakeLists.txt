@@ -15,7 +15,7 @@ qt_add_qml_module(QMarkdown
     QML_FILES MarkdownView.qml
     SOURCES markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
         private/document.h private/document.cpp private/viewstate.h private/viewstate.cpp
-        private/inline.h private/inlineadapter.h private/inline.cpp private/formattedtext.h private/formattedtext.cpp
+        private/inline.h private/inlineadapter.h private/inline.cpp private/formattedtext.h private/formattedtext.cpp private/formatintervals.h private/formatintervals.cpp
 )
 target_include_directories(QMarkdown PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/private")
 target_sources(QMarkdown PRIVATE $<TARGET_OBJECTS:qmarkdown_cmark>)
