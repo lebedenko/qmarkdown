@@ -16,7 +16,7 @@ task demo
 
 `build` configures `build-shared` with tests and examples enabled and builds with two parallel jobs. `test` builds first, then runs CTest. `demo` builds first, then opens the editable playground with its QML import path configured, inheriting your display environment. CMake's generator and build-type defaults are preserved.
 
-Requires CMake ≥3.21, C99 and C++17 compilers, and Qt ≥6.8 Core, Gui, Qml, Quick, and Network. Tests additionally require Qt Test and Python ≥3.9 (standard library only). Local verification used Qt 6.12.0 on Linux; Qt 6.8 compatibility has not yet been executed. Dependencies are not downloaded by this project. [cmark 0.31.2](third_party/cmark/PROVENANCE.md) is bundled privately with prefixed symbols and complete [license notices](third_party/cmark/COPYING); no external cmark package is needed.
+Requires CMake ≥3.21, C99 and C++17 compilers, and Qt ≥6.8 Core, Gui, Qml, Quick, and Network. Tests additionally require Qt Test and Python ≥3.9 (standard library only). Local verification has exercised Qt 6.8.0, 6.11.3 and 6.12.0 on Linux; see the specification verification records for environments and limits. Ordinary CMake builds do not download dependencies; the explicit CI tasks below provision an isolated container. [cmark 0.31.2](third_party/cmark/PROVENANCE.md) is bundled privately with prefixed symbols and complete [license notices](third_party/cmark/COPYING); no external cmark package is needed.
 
 ```sh
 cmake -S . -B build-shared -DCMAKE_INSTALL_PREFIX=/tmp/qmarkdown-install
@@ -173,7 +173,18 @@ The isolated per-view loader permits four fetches and one decoder, with a 15-sec
 
 ## Verification hardening and advisory benchmarks
 
-[Feature 012](specs/012-verification-hardening/requirements.md) retains package/module 0.7.0/0.7. The [Linux workflow](.github/workflows/linux-qt.yml) targets Ubuntu 24.04 with downloaded Qt 6.8.0 and 6.11.3 SDKs. These are pending CI compatibility checks; local Qt 6.12.0 results do not establish either target's compatibility. CI alone provisions dependencies; project builds and tests remain offline.
+[Feature 012](specs/012-verification-hardening/requirements.md) retains package/module 0.7.0/0.7. The [Linux workflow](.github/workflows/linux-qt.yml) verifies Qt 6.8.0 and 6.11.3 in the same digest-pinned Ubuntu 24.04 amd64 image and with the same [runner](scripts/run-ci.py) and [commands](scripts/ci-container.sh) as these local tasks:
+
+```sh
+task ci-6.8
+task ci-6.11
+```
+
+These tasks require a Linux host, Task, Python ≥3.9, Git, Docker and access to its running daemon. They download the pinned image, Ubuntu packages, Noto fonts, pinned aqtinstall/py7zr and the selected official Qt SDK inside each fresh container; network access and sufficient disk space are required. Host Qt, fonts and display settings are not used. No GitHub token or push is needed. Each run verifies shared/static builds, CTest, QML lint, symbol privacy, installed/relocated consumers, library-only builds and validated Release benchmark smoke output. Checks run as your UID/GID with offscreen/Fusion rendering, and failures return nonzero.
+
+The runner copies current tracked and nonignored untracked files into a read-only source snapshot, including uncommitted edits and deletions. Ignored files, Git metadata, `.aws`, `.codex`, `.agents`, `.ssh`, `.env*`, `.pem` and `.key` files are excluded. Outputs remain under `build-ci/<Qt version>/<unique run>/`, covered by the existing `/build*/` ignore rule. Inspect `ci.log`, `environment.json`, `result.json`, `tool-versions.txt`, package manifests, `packaging/` reports and `benchmarks/benchmark.json`. Existing run directories are never overwritten. To choose a new or empty output directory, use `python3 scripts/run-ci.py --qt 6.8.0 --artifact-dir /path/to/output`. Ctrl-C or the 35-minute timeout stops this run's container and retains evidence.
+
+Local tasks exercise the same container verification commands as GitHub. Hosted checkout/artifact-upload actions, host kernels and future changes to external package repositories remain outside that parity; matching the pinned starting image does not freeze every downloaded dependency. Local success does not guarantee a successful hosted workflow. See [Feature 014 verification](specs/014-local-ci/verification.md) for actual results; no remote run is implied. Ordinary project builds and tests remain offline.
 
 `QMARKDOWN_BUILD_BENCHMARKS` defaults off and requires `BUILD_TESTING=ON`. Run `task benchmark` for Release measurements, or configure/build `qmarkdown-benchmark` and run it with `QT_QPA_PLATFORM=offscreen` and the build's `QML_IMPORT_PATH`. `--smoke` limits workload sizes for CI. Validate output with `python3 scripts/verify-benchmark.py report.json`. The executable is excluded from CTest and installation.
 

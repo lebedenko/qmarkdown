@@ -1,6 +1,7 @@
 @PACKAGE_INIT@
+# Dependency configs can replace PACKAGE_PREFIX_DIR with CMake <= 3.29.
+set_and_check(QMarkdown_QML_IMPORT_PATH "@PACKAGE_QMARKDOWN_QML_INSTALL_DIR@")
 include(CMakeFindDependencyMacro)
 find_dependency(Qt6 6.8 COMPONENTS Core Gui Qml Quick Network)
 include("${CMAKE_CURRENT_LIST_DIR}/QMarkdownTargets.cmake")
-set_and_check(QMarkdown_QML_IMPORT_PATH "@PACKAGE_QMARKDOWN_QML_INSTALL_DIR@")
 check_required_components(QMarkdown)

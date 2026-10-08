@@ -1,6 +1,18 @@
 version: '3'
 
 tasks:
+  ci-6.8:
+    desc: Run the GitHub verification container with Qt 6.8.0
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - python3 scripts/run-ci.py --qt 6.8.0
+
+  ci-6.11:
+    desc: Run the GitHub verification container with Qt 6.11.3
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - python3 scripts/run-ci.py --qt 6.11.3
+
   build:
     desc: Configure and build the library, tests, and examples
     dir: '{{.TASKFILE_DIR}}'
