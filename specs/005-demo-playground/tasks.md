@@ -11,3 +11,13 @@ Approved on 2026-10-07 by the user’s explicit instruction to implement the sup
 | T5 Verify and record actual evidence | R1–R5 | V1–V4 screenshots and interaction |
 
 T1–T5 completed. Actual results and platform limits are recorded in [verification](verification.md).
+
+Theme correction approved on 2026-10-07 by the user's “Implement the plan.”
+
+| Task | Requirements | Checks |
+| --- | --- | --- |
+| T6 Bind host surface, label and default Markdown colors to palette | R6 | V5 light/dark and live palette regression |
+| T7 Restore live bindings on Neutral/Reset; adaptive Alternate and persistent manual edits | R3,R6 | V5 presets, invalid input, role overrides, font/spacing reset |
+| T8 Update README and record actual checks/captures | R6 | V5 focused viewer/full view/lint; V6 light/dark Neutral/Alternate inspection |
+
+T6–T8 completed. Theme correction results are recorded in [verification](verification.md).

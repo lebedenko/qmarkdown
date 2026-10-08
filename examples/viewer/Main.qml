@@ -26,7 +26,18 @@ ApplicationWindow {
     function resetStyle() { stylePanel.resetStyle() }
     onSampleIndexChanged: loadSample()
     Samples { id: samples }
-    MarkdownStyle { id: hostStyle; objectName: "hostStyle" }
+    MarkdownStyle {
+        id: hostStyle
+        objectName: "hostStyle"
+        bodyColor: window.palette.text
+        h1Color: window.palette.text
+        h2Color: window.palette.text
+        h3Color: window.palette.text
+        h4Color: window.palette.text
+        h5Color: window.palette.text
+        h6Color: window.palette.text
+        codeBlockColor: window.palette.text
+    }
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 12
@@ -56,6 +67,8 @@ ApplicationWindow {
             visible: styleToggle.checked
             Layout.fillWidth: true
             targetStyle: hostStyle
+            defaultTextColor: window.palette.text
+            previewBackgroundColor: window.palette.base
         }
         Label {
             Layout.fillWidth: true
@@ -104,13 +117,13 @@ ApplicationWindow {
                 }
             }
             Pane {
-                background: Rectangle { color: "white" }
+                background: Rectangle { objectName: "previewBackground"; color: window.palette.base }
                 SplitView.fillWidth: true
                 SplitView.minimumWidth: 200
                 padding: 8
                 ColumnLayout {
                     anchors.fill: parent
-                    Label { text: "Native preview"; color: "#202020" }
+                    Label { objectName: "previewLabel"; text: "Native preview"; color: window.palette.text }
                     Flickable {
                         id: previewScroll
                         objectName: "previewScroll"

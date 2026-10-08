@@ -7,6 +7,9 @@ import QMarkdown
 ColumnLayout {
     id: panel
     required property MarkdownStyle targetStyle
+    required property color defaultTextColor
+    required property color previewBackgroundColor
+    readonly property bool darkSurface: previewBackgroundColor.hslLightness < 0.5
     readonly property var roles: ["body", "h1", "h2", "h3", "h4", "h5", "h6", "inlineCode", "codeBlock"]
     property int selectedRole: 0
     property int revision: 0
@@ -33,7 +36,8 @@ ColumnLayout {
     function resetStyle() {
         for (const name of roles) {
             targetStyle[name + "Font"] = defaults[name + "Font"]
-            if (name !== "inlineCode") targetStyle[name + "Color"] = defaults[name + "Color"]
+            if (name !== "inlineCode")
+                targetStyle[name + "Color"] = Qt.binding(function() { return panel.defaultTextColor })
         }
         targetStyle.blockSpacing = defaults.blockSpacing
         refresh()
@@ -42,11 +46,12 @@ ColumnLayout {
         resetStyle()
         if (alternate) {
             targetStyle.bodyFont.pixelSize = 20
-            targetStyle.bodyColor = "#194c39"
+            targetStyle.bodyColor = Qt.binding(function() { return panel.darkSurface ? "#82cba7" : "#194c39" })
             targetStyle.h1Font.pixelSize = 40
-            for (let i = 1; i <= 6; ++i) targetStyle["h" + i + "Color"] = "#743a86"
+            for (let i = 1; i <= 6; ++i)
+                targetStyle["h" + i + "Color"] = Qt.binding(function() { return panel.darkSurface ? "#d8a0e5" : "#743a86" })
             targetStyle.codeBlockFont.pixelSize = 22
-            targetStyle.codeBlockColor = "#305b9c"
+            targetStyle.codeBlockColor = Qt.binding(function() { return panel.darkSurface ? "#8db9f2" : "#305b9c" })
             targetStyle.inlineCodeFont.family = "serif"
             targetStyle.blockSpacing = 16
         }

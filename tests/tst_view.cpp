@@ -465,6 +465,107 @@ private slots:
         QCOMPARE(texts(a)[0]->property("text").toString(), QString("title"));
     }
 #ifdef QMARKDOWN_VIEWER_SOURCE
+    void viewerTheme()
+    {
+        QQmlEngine engine;
+        QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *editor = window->findChild<QObject *>("editor"); QVERIFY(editor);
+        auto *panel = window->findChild<QObject *>("stylePanel"); QVERIFY(panel);
+        auto *style = preview->property("style").value<QObject *>(); QVERIFY(style);
+        const auto bodyFont = style->property("bodyFont").value<QFont>();
+        const auto inlineFont = style->property("inlineCodeFont").value<QFont>();
+        const auto spacing = style->property("blockSpacing");
+        const QStringList roles = {"body", "h1", "h2", "h3", "h4", "h5", "h6", "codeBlock"};
+        const auto color = [style](const QString &role) {
+            return style->property((role + "Color").toUtf8().constData()).value<QColor>();
+        };
+        const auto setPalette = [window](bool dark) {
+            const QColor surface(dark ? "#18212b" : "#ffffff");
+            const QColor text(dark ? "#eeeeee" : "#202020");
+            bool ok = true;
+            for (const auto &role : {"base", "window", "button"})
+                ok = QQmlProperty::write(window, QString("palette.") + role, surface) && ok;
+            for (const auto &role : {"text", "windowText", "buttonText"})
+                ok = QQmlProperty::write(window, QString("palette.") + role, text) && ok;
+            return ok;
+        };
+        QVERIFY(setPalette(true));
+        QTRY_COMPARE(color("body"), QColor("#eeeeee"));
+        auto *surface = window->findChild<QObject *>("previewBackground"); QVERIFY(surface);
+        auto *label = window->findChild<QObject *>("previewLabel"); QVERIFY(label);
+        editor->setProperty("text", "# H1\n## H2\n### H3\n#### H4\n##### H5\n###### H6\n\nBody\n\n*Emphasis* and `code`\n\n```\nfenced\n```\n");
+        QTRY_COMPARE(texts(preview).size(), 8);
+        QTRY_COMPARE(painted(preview).size(), 1);
+        for (const bool dark : {false, true}) {
+            QVERIFY(setPalette(dark));
+            const QColor expected(dark ? "#eeeeee" : "#202020");
+            QTRY_COMPARE(surface->property("color").value<QColor>(), QColor(dark ? "#18212b" : "#ffffff"));
+            QTRY_COMPARE(label->property("color").value<QColor>(), expected);
+            for (const auto &role : roles) QTRY_COMPARE(color(role), expected);
+            for (auto *text : texts(preview)) QTRY_COMPARE(text->property("color").value<QColor>(), expected);
+            QTRY_COMPARE(painted(preview)[0]->color(), expected);
+        }
+        panel->setProperty("selectedRole", 0);
+        QVariant accepted;
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "invalid-color")));
+        QVERIFY(!accepted.toBool());
+        QVERIFY(setPalette(false));
+        QTRY_COMPARE(color("body"), QColor("#202020"));
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "#123456")));
+        QVERIFY(accepted.toBool());
+        QVERIFY(setPalette(true));
+        QTRY_COMPARE(color("body"), QColor("#123456"));
+        for (const auto &role : roles.mid(1)) QTRY_COMPARE(color(role), QColor("#eeeeee"));
+        QTRY_COMPARE(painted(preview)[0]->color(), QColor("#123456"));
+        panel->setProperty("selectedRole", 7);
+        QVERIFY(QMetaObject::invokeMethod(panel, "editFont", Q_ARG(QVariant, "pixelSize"), Q_ARG(QVariant, 25)));
+        style->setProperty("blockSpacing", 30);
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
+        QCOMPARE(preview->property("style").value<QObject *>(), style);
+        QCOMPARE(style->property("bodyFont").value<QFont>(), bodyFont);
+        QCOMPARE(style->property("inlineCodeFont").value<QFont>().resolveMask(), inlineFont.resolveMask());
+        QCOMPARE(style->property("blockSpacing"), spacing);
+        QVERIFY(setPalette(false));
+        for (const auto &role : roles) QTRY_COMPARE(color(role), QColor("#202020"));
+        QVERIFY(QMetaObject::invokeMethod(window, "switchStyle"));
+        QTRY_COMPARE(color("body"), QColor("#194c39"));
+        QTRY_COMPARE(color("h1"), QColor("#743a86"));
+        QTRY_COMPARE(color("codeBlock"), QColor("#305b9c"));
+        QVERIFY(setPalette(true));
+        QTRY_COMPARE(color("body"), QColor("#82cba7"));
+        for (int i = 1; i <= 6; ++i) QTRY_COMPARE(color("h" + QString::number(i)), QColor("#d8a0e5"));
+        QTRY_COMPARE(color("codeBlock"), QColor("#8db9f2"));
+        panel->setProperty("selectedRole", 1);
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "#abcdef")));
+        QVERIFY(accepted.toBool());
+        QVERIFY(setPalette(false));
+        QTRY_COMPARE(color("h1"), QColor("#abcdef"));
+        QTRY_COMPARE(color("h2"), QColor("#743a86"));
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyPreset", Q_ARG(QVariant, false)));
+        QVERIFY(setPalette(true));
+        for (const auto &role : roles) QTRY_COMPARE(color(role), QColor("#eeeeee"));
+        QCOMPARE(style->property("bodyFont").value<QFont>(), bodyFont);
+        QCOMPARE(style->property("blockSpacing"), spacing);
+        if (qEnvironmentVariableIsSet("QMARKDOWN_CAPTURE_THEME")) {
+            QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
+            for (const bool dark : {false, true}) {
+                QVERIFY(setPalette(dark));
+                for (const bool alternate : {false, true}) {
+                    QVERIFY(QMetaObject::invokeMethod(panel, "applyPreset", Q_ARG(QVariant, alternate)));
+                    QSignalSpy frames(window, &QQuickWindow::frameSwapped);
+                    window->update();
+                    QTRY_VERIFY(!frames.isEmpty());
+                    const auto path = qEnvironmentVariable("QMARKDOWN_CAPTURE_THEME")
+                        + (dark ? ".dark" : ".light") + (alternate ? ".alternate.png" : ".neutral.png");
+                    QVERIFY(window->grabWindow().save(path));
+                }
+            }
+        }
+    }
     void viewer()
     {
         QQmlEngine engine;

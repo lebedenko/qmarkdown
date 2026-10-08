@@ -57,6 +57,8 @@ QML_IMPORT_PATH="$PWD/build-shared/qml" build-shared/examples/viewer/qmarkdown-v
 
 The playground offers six bundled samples, live editing, independently scrollable panes with a draggable divider, Fit/240/480/720 preview widths, and collapsible role-based style controls with Neutral/Alternate presets and reset. It starts with Overview; Reload sample restores the selected source and Clear empties it. All state stays in memory. Qt Quick Controls is required only when `QMARKDOWN_BUILD_EXAMPLES=ON`; library-only builds do not require it.
 
+The playground supplies theme-aware styling: the preview surface and Neutral text follow the application palette, and Alternate accents adapt to light/dark surfaces. Manual color edits persist across theme changes until Neutral or Reset restores live theme colors. The library's default colors remain unchanged; host applications own theming.
+
 ## Consume an installed package
 
 ```cmake

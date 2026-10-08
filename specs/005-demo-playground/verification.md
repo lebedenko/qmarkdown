@@ -2,6 +2,8 @@
 
 Planned: V1 startup, samples/reload/clear/live edits, width/height, overflow, minimum layout, pointer/keyboard/divider; V2 role changes, invalid colors, presets/reset; V3 shared/static CTest, QML lint, examples-disabled build; V4 overview/fenced captures under both presets.
 
+Theme correction planned checks (approved 2026-10-07): V5 explicit light/dark application palettes and live changes on one window; surface/label/all Markdown colors; adaptive Alternate; persistent manual override and invalid-input binding preservation; Neutral/Reset restoring bindings, style identity, typography, spacing and inline inheritance; focused viewer tests, complete view suite and QML lint. V6 capture and inspect light/dark Neutral and Alternate previews. Actual theme correction results will be recorded separately below.
+
 Actual results (2026-10-07, Qt 6.11.2, offscreen platform):
 
 - V1/V2: focused `qmarkdown-view-test viewer` passed with warnings treated as failures. Covers all six samples, selection/reload scroll resets, clear, live source updates, fixed-width cap and wrapping/height increases, long-source overflow, role selection preserving settings, family edits preserving unresolved inline size, explicit size override, invalid-color rejection, valid color, Alternate/reset and stable style identity. Pointer Clear/Reload, keyboard source editing and preset activation, and pointer divider drag passed. Expanded style panel leaves more than 150 px of preview height at 800×600.
@@ -12,3 +14,10 @@ Actual results (2026-10-07, Qt 6.11.2, offscreen platform):
 
 Changed files: root/example/test CMake lists; viewer Main.qml, new Samples.qml and StylePanel.qml; tests/tst_view.cpp; README.md and specs/README.md; all four Feature 005 records. Library code, parser behavior, APIs and package version are unchanged.
 
+## Theme correction actual results (2026-10-07)
+
+- Regression reproduced before the fix: `qmarkdown-view-test viewerTheme` failed because body color stayed #202020 after setting a dark window palette with #eeeeee text.
+- V5: `qmarkdown-view-test viewerTheme viewer` passed all 4 checks including initialization/cleanup, with warnings treated as failures. Covers live light/dark palette changes; preview surface/label; body, H1–H6, fenced and formatted/inline text; invalid edits preserving bindings; manual body/heading overrides persisting while other roles update; Neutral/Reset restoring theme tracking; style identity, font/inline resolve-mask and spacing restoration; adaptive Alternate accents. Existing playground interactions/layout checks also passed.
+- Complete shared view suite: 13 passed, zero failures/skips. Shared viewer build and `all_qmllint` passed; the pre-existing unused-import informational message in the import-only example remains, with no warnings.
+- V6: captured and visually inspected Overview under light/dark Neutral and Alternate. Final artifacts: `/tmp/qmarkdown-theme.light.neutral.png`, `/tmp/qmarkdown-theme.light.alternate.png`, `/tmp/qmarkdown-theme.dark.neutral.png`, `/tmp/qmarkdown-theme.dark.alternate.png`. Both surfaces show readable text and adaptive accents. Captures use explicit window palettes with Qt Quick Controls Basic on the offscreen platform; the same theme regression also passed with the default Controls style. No interactive desktop/system-theme transition was manually verified.
+- Changed files: viewer Main.qml and StylePanel.qml; tests/tst_view.cpp; README.md; Feature 005 requirements, design, tasks and verification. No library code, parser, API, dependency or version changes.
