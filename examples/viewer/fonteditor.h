@@ -1,7 +1,23 @@
 #pragma once
 #include <QObject>
 #include <QFont>
+#include <QDoubleValidator>
+#include <QLocale>
 #include <QtQml/qqmlregistration.h>
+
+// SpinBox owns formatting. Qt 6.8 applies fixup while its text binding is
+// evaluating; rewriting the text there can re-enter that binding on unit changes.
+class SizeValidator : public QDoubleValidator
+{
+    Q_OBJECT
+    QML_ELEMENT
+    Q_PROPERTY(QString locale READ localeName WRITE setLocaleName NOTIFY changed)
+public:
+    using QDoubleValidator::QDoubleValidator;
+    QString localeName() const { return locale().name(); }
+    void setLocaleName(const QString &name) { setLocale(QLocale(name)); }
+    void fixup(QString &) const override {}
+};
 
 // QML font getters synthesize the other unit, and setters can reject a switch.
 // Keep native size inspection and conversion local to the playground.

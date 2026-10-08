@@ -520,8 +520,11 @@ private slots:
         // Italic can change widths; compare unformatted native Text against a
         // formatted renderer with the same font and content directly.
         auto *formatted = painted(a)[0];
+        const auto originalRanges = formatted->formatRanges();
         formatted->setFormatRanges({});
         QTRY_COMPARE(formatted->logicalHeight(), texts(a)[0]->height());
+        formatted->setFormatRanges(originalRanges);
+        QTRY_COMPARE(content(a), content(b));
         const auto headingCode = painted(a)[1]->layout()->formats()[0].format.font();
         QCOMPARE(headingCode.pointSizeF(), 19.5);
         QCOMPARE(painted(a)[2]->layout()->formats()[0].format.font().pointSizeF(), 13.25);
@@ -1399,13 +1402,17 @@ private slots:
         QCOMPARE(style->bodyFont().pointSizeF(), qRound(11.25 * dpi / 72) * 72.0 / dpi);
         QCOMPARE(style->bodyFont().resolveMask(), mask);
         QTRY_COMPARE(units->property("currentIndex").toInt(), 1);
-        // Exercise the SpinBox's fractional input conversion and user signal.
+        // Exercise the SpinBox's fractional conversion and actual user input.
         const auto parser = engine.newQObject(size).property("valueFromText");
         const auto parsed = parser.call({QJSValue("23.75"), engine.evaluate("Qt.locale('en_US')")});
         QVERIFY2(!parsed.isError(), qPrintable(parsed.toString()));
         QCOMPARE(parsed.toInt(), 2375);
-        size->setProperty("value", 2375);
-        QVERIFY(QMetaObject::invokeMethod(size, "valueModified"));
+        auto *sizeInput = size->property("contentItem").value<QQuickItem *>(); QVERIFY(sizeInput);
+        sizeInput->forceActiveFocus();
+        QVERIFY(QMetaObject::invokeMethod(sizeInput, "selectAll"));
+        for (const QChar ch : QString("23.75")) QTest::keyClick(window, ch.toLatin1());
+        QTest::keyClick(window, Qt::Key_Return);
+        QTRY_COMPARE(size->property("value").toInt(), 2375);
         QTRY_COMPARE(style->bodyFont().pointSizeF(), 23.75);
         QTRY_VERIFY(content(preview) > initialHeight);
         const auto inherited = style->inlineCodeFont();
@@ -1532,7 +1539,10 @@ private slots:
             QVERIFY(window->grabWindow().save(qEnvironmentVariable("QMARKDOWN_CAPTURE_VIEWER") + ".minimum.png"));
         }
         const auto paneWidth = sourceScroll->width();
-        const QPoint divider = sourceScroll->mapToScene(QPointF(sourceScroll->width() + 10, sourceScroll->height()/2)).toPoint();
+        // The native handle width varies with the Qt version and control style.
+        const auto sourceEdge = sourceScroll->mapToScene(QPointF(sourceScroll->width(), sourceScroll->height()/2));
+        const auto previewEdge = previewScroll->mapToScene(QPointF(0, previewScroll->height()/2));
+        const QPoint divider = ((sourceEdge + previewEdge) / 2).toPoint();
         QTest::mousePress(window, Qt::LeftButton, Qt::NoModifier, divider);
         QTest::mouseMove(window, divider + QPoint(60, 0), 30);
         QTest::mouseRelease(window, Qt::LeftButton, Qt::NoModifier, divider + QPoint(60, 0));

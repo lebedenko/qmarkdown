@@ -8,4 +8,4 @@ Approved on 2026-10-08 by the explicit user instruction to implement the supplie
 - [x] T4 → R4: opt-in executable/Task, JSON validation/smoke and full Release measurements; disabled builds and install exclusion.
 - [x] Documentation: README, specification index, roadmap and conformance inventory; record actual evidence separately.
 
-Implementation and local verification are complete; full Release benchmark output passed validation. The two CI target versions remain pending remote execution; no compatibility claim is made.
+Implementation and initial local verification are complete; full Release benchmark output passed validation. The first remote Qt matrix run failed in viewer tests; the diagnosis and follow-up verification are recorded in verification.md. A remote run of the fixes remains pending.

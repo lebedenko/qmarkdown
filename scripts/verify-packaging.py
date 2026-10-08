@@ -61,8 +61,11 @@ for variant in ("shared", "static"):
     if list(relocated.rglob("cmark*.h")):
         raise RuntimeError("Private cmark headers were installed")
     consumer_build = work / f"consumer-{variant}"
+    # Keep the selected SDK searchable for its tools and transitive dependencies.
+    consumer_qt_args = [arg for arg in qt_args if not arg.startswith("-DCMAKE_PREFIX_PATH=")]
+    consumer_prefix = f"{relocated};{qt_root}" if args.qt_root else str(relocated)
     run("cmake", "-S", consumer_source, "-B", consumer_build,
-        *qt_args, f"-DCMAKE_PREFIX_PATH={relocated}")
+        *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}")
     run("cmake", "--build", consumer_build, "--parallel", "2")
     environment = os.environ.copy()
     environment["QT_QPA_PLATFORM"] = "offscreen"
@@ -74,7 +77,7 @@ for variant in ("shared", "static"):
     if variant == "shared":
         plugin_consumer = work / "consumer-shared-plugin"
         run("cmake", "-S", consumer_source, "-B", plugin_consumer,
-            *qt_args, f"-DCMAKE_PREFIX_PATH={relocated}", "-DQMARKDOWN_CONSUMER_LINK_MODULE=OFF")
+            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}", "-DQMARKDOWN_CONSUMER_LINK_MODULE=OFF")
         run("cmake", "--build", plugin_consumer, "--parallel", "2")
         run(plugin_consumer / executable, env=environment)
 run("cmake", "-S", source, "-B", work / "library-only", *qt_args,

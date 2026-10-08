@@ -7,7 +7,7 @@
 #include <QTimer>
 #include <QFont>
 #include <QColor>
-#include <QMouseEvent>
+#include <QtTest/QTest>
 #include <QTemporaryDir>
 #include <QImage>
 #include <QtQml/QQmlExtensionPlugin>
@@ -143,18 +143,19 @@ int main(int argc, char *argv[])
     font.setPixelSize(12); style->setProperty("bodyFont", font);
     if (!settle([&] { return height() < pointHeight; })) return 22;
     view->setProperty("markdown", "[**linked**](../guide&amp;part)");
-    if (!settle([&] { return findText(view, "linked") != nullptr; })) return 23;
+    if (!settle([&] {
+        auto *item = findText(view, "linked");
+        return item && item->property("logicalHeight").toDouble() > 0;
+    })) return 23;
     auto *linked = findText(view, "linked");
     if (!linked || linked->property("linkSpans").toList().size() != 1
         || linked->property("linkSpans").toList()[0].toMap().value("destination").toString() != "../guide&part"
         || view->metaObject()->indexOfSignal("linkActivated(QString)") < 0
         || style->property("linkColor").value<QColor>() != QColor("#0066cc")
         || !style->property("linkUnderline").toBool()) return 24;
-    const QPointF click = linked->mapToScene(QPointF(5 - linked->x(), 5 - linked->y()));
-    const QPointF globalClick = window.mapToGlobal(click.toPoint());
-    QMouseEvent press(QEvent::MouseButtonPress, click, click, globalClick, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
-    QMouseEvent release(QEvent::MouseButtonRelease, click, click, globalClick, Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
-    QCoreApplication::sendEvent(&window, &press); QCoreApplication::sendEvent(&window, &release);
+    const QPointF click = linked->mapToScene(QPointF(5 - linked->x(),
+        linked->property("logicalHeight").toDouble()/2 - linked->y()));
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, click.toPoint());
     if (!view->property("activated").toBool() || view->property("lastDestination").toString() != "../guide&part") return 26;
     style->setProperty("linkColor", QColor("#abcdef")); style->setProperty("linkUnderline", false);
     if (!settle([&] { return linked->property("linkColor").value<QColor>() == QColor("#abcdef")

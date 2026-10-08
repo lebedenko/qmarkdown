@@ -44,11 +44,30 @@ Environment: Arch Linux x86_64, Qt 6.12.0, GCC 16.2.1 (20260810), CMake 4.4.4, s
 
 Counts were identical across all ten measured runs for each workload. Initial smoke/full output exposed a DejaVu-to-Noto font substitution; that evidence was superseded. The executable now requires Noto Sans and Noto Sans Mono explicitly and rejects substitution; CI installs them. No production rendering optimization was made in response to timings.
 
-## CI review and unavailable execution
+## Initial CI review before remote execution
 
 Workflow YAML structure, triggers, Qt matrix and direct 40-character action pins were validated locally. Actionlint is not installed, so that check was unavailable. No GitHub workflow was dispatched or repository metadata changed; Ubuntu 24.04 / Qt 6.8.0 and 6.11.3 compatibility remains **pending CI execution**. A successful local Qt 6.12.0 run cannot establish those targets. Incompatibilities must be reported without weakening tests or silently raising the minimum.
 
 The [official SDK directory](https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/) lists `qt6_680` and `qt6_6113`. Read-only GitHub tag/source inspection confirmed checkout v4.2.2 (`11bd71901bbe5b1630ceea73d27597364c9af683`), upload-artifact v4.6.2 (`ea165f8d65b6e75b540449e92b4886f43607fa02`) and install-qt-action v4.1.1 (`c6c7281365daef91a238e1c2ddce4eaa94a2991d`). The [Qt installer descriptor](https://github.com/jurplel/install-qt-action/blob/c6c7281365daef91a238e1c2ddce4eaa94a2991d/action/action.yml) is a Node20 sub-action; invoking it directly avoids the composite wrapper's mutable nested action references. CI provisions Ubuntu build/runtime dependencies and Noto fonts explicitly, disables the action's implicit apt installation, and pins aqtinstall 3.3.0 / py7zr 0.22.0. Qt is selected explicitly for packaging, consumers, library-only and benchmark configurations. Failure artifacts retain CTest logs, CommonMark reports and configure evidence.
+
+## CI failure follow-up (2026-10-09)
+
+The user explicitly requested fixes after inspecting [run 37835853141](https://github.com/lebedenko/qmarkdown/actions/runs/37835853141), commit `210497e7ed1f5be66c7d39adbfe68ebecddd6068`. Both Ubuntu jobs compiled successfully and failed in shared-build `qmarkdown-view`, before static packaging or benchmarks could run.
+
+- Both versions reported heights 544 versus 499 in `pointRenderingAndRuntimeUnits`: the test removed italic ranges from only one view for a native-text comparison and did not restore them before comparing shared-style views. Restore those ranges before subsequent comparisons.
+- Qt 6.8.0 reported Fusion SpinBox text-binding loops. Its SpinBox calls validator `fixup()` from the content item's text-change handler, rewriting display text during binding evaluation. The viewer's size validator now retains QDoubleValidator range/precision checks and the control's locale, uses standard notation, and leaves text normalization to the SpinBox formatter. This helper is confined to the existing viewer tools module; the library API and renderer are unchanged.
+- The preview-clear failure followed the warnings: QtTest skips asynchronous retry waits once the test has failed. Clearing passes when the warnings are fixed; no production document-clearing change was needed.
+- The divider test's fixed offset misses Fusion's two-pixel handle. Derive the drag point from the gap between the source and preview panes instead. Fractional size editing now uses real keyboard input rather than setting a value and emitting a user signal manually.
+- Follow-up packaging reached a separate SDK-selection defect: consumer configuration overwrote `CMAKE_PREFIX_PATH` with the relocated package alone. On a host with system Qt 6.12, Qt 6.8 then selected incompatible system CoreTools. Both direct and plugin-only consumer configurations now search the relocated package and the explicit SDK together; `Qt6_DIR` stays explicit.
+- The installed Qt 6.8 consumer then returned 26 because its manually delivered mouse events did not exercise the platform event path used by native input. The probe now waits for linked-text layout, clicks within the rendered line, and uses `QTest::mouseClick`, as the existing interaction suite does. Qt Test is a dependency of this test driver only, not of the installed library or its CMake exports.
+
+Local verification uses official Linux Qt 6.8.0 and 6.11.3 SDKs downloaded under `/tmp/qmarkdown-ci-qt`, on Arch Linux with GCC 16.2.1. Controls use Fusion and rendering uses offscreen, matching the failing CI control style. This is local SDK evidence, not a successful Ubuntu Actions rerun.
+
+- Focused `pointRenderingAndRuntimeUnits viewerTheme viewerFontUnits viewer` runs: **all four scenarios passed on both SDKs**, including actual fractional keyboard entry, unit changes, preview clearing and divider dragging.
+- Release benchmark `--smoke` runs and `scripts/verify-benchmark.py`: **passed on both SDKs**.
+- Final `QT_QUICK_CONTROLS_STYLE=Fusion python3 scripts/verify-packaging.py --qt-root /tmp/qmarkdown-ci-qt/<version>/gcc_64 --work-dir /tmp/qmarkdown-ci-packaging-final-<version>` runs: **both passed**, using version/directory pairs `6.8.0`/`6.8` and `6.11.3`/`6.11`. Each shared/static variant passed all **seven CTest entries**, `all_qmllint`, 140-symbol parser privacy checks, install/relocation metadata and notices, and installed consumers. Shared direct-link and plugin-only consumers passed; static consumers passed with the custom `share/qml` directory. Both library-only builds passed. Logs are `/tmp/qmarkdown-ci-packaging-final-6.8.log` and `/tmp/qmarkdown-ci-packaging-final-6.11.log`.
+- Qt 6.8 `all_qmllint` exits zero with native type-resolution warnings involving QQuickPaintedItem/private render types and QColor metadata; this is not a warning-free lint claim. Qt 6.11 retains the informational unused import in the import-only example.
+- `python3 -m py_compile scripts/verify-packaging.py` and `git diff --check`: **passed**. Fixes remain local; no commit, push or remote rerun was performed.
 
 ## Limits
 

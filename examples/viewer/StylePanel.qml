@@ -137,6 +137,7 @@ ColumnLayout {
             onActivated: panel.changeUnit(currentIndex === 1)
         }
         SpinBox {
+            id: sizeField
             objectName: "sizeField"
             readonly property int factor: panel.pointUnit ? 100 : 1
             from: factor; to: 512 * factor; editable: true
@@ -148,7 +149,9 @@ ColumnLayout {
             valueFromText: function(text, locale) {
                 return Math.round(Number.fromLocaleString(locale, text) * factor)
             }
-            validator: DoubleValidator {
+            validator: SizeValidator {
+                locale: sizeField.locale.name
+                notation: SizeValidator.StandardNotation
                 bottom: 1; top: 512
                 decimals: panel.pointUnit ? 2 : 0
             }
