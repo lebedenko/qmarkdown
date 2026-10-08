@@ -8,6 +8,8 @@ class MarkdownStyle : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
+    Q_PROPERTY(QColor thematicBreakColor READ thematicBreakColor WRITE setThematicBreakColor NOTIFY thematicBreakColorChanged FINAL)
+    Q_PROPERTY(qreal thematicBreakThickness READ thematicBreakThickness WRITE setThematicBreakThickness NOTIFY thematicBreakThicknessChanged FINAL)
     Q_PROPERTY(QFont codeBlockFont READ codeBlockFont WRITE setCodeBlockFont NOTIFY codeBlockFontChanged FINAL)
     Q_PROPERTY(QColor codeBlockColor READ codeBlockColor WRITE setCodeBlockColor NOTIFY codeBlockColorChanged FINAL)
     Q_PROPERTY(QFont inlineCodeFont READ inlineCodeFont WRITE setInlineCodeFont NOTIFY inlineCodeFontChanged FINAL)
@@ -29,6 +31,10 @@ class MarkdownStyle : public QObject
 public:
     explicit MarkdownStyle(QObject *parent = nullptr);
     void restoreDefaults();
+    QColor thematicBreakColor() const { return m_thematicBreakColor; }
+    void setThematicBreakColor(const QColor &value);
+    qreal thematicBreakThickness() const { return m_thematicBreakThickness; }
+    void setThematicBreakThickness(qreal value);
     QFont codeBlockFont() const { return m_codeBlockFont; }
     void setCodeBlockFont(const QFont &value);
     QColor codeBlockColor() const { return m_codeBlockColor; }
@@ -66,6 +72,8 @@ public:
     qreal blockSpacing() const { return m_blockSpacing; }
     void setBlockSpacing(qreal value);
 signals:
+    void thematicBreakColorChanged();
+    void thematicBreakThicknessChanged();
     void codeBlockFontChanged();
     void codeBlockColorChanged();
     void inlineCodeFontChanged();
@@ -85,6 +93,8 @@ signals:
     void h6ColorChanged();
     void blockSpacingChanged();
 private:
+    QColor m_thematicBreakColor;
+    qreal m_thematicBreakThickness = 1;
     QFont m_codeBlockFont, m_defaultCodeBlockFont;
     QColor m_codeBlockColor;
     QFont m_inlineCodeFont, m_defaultInlineCodeFont;

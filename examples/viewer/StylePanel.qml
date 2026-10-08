@@ -33,12 +33,20 @@ ColumnLayout {
         refresh()
         return true
     }
+    function applyRuleColor(value) {
+        if (!isValidColor(value)) return false
+        targetStyle.thematicBreakColor = value
+        refresh()
+        return true
+    }
     function resetStyle() {
         for (const name of roles) {
             targetStyle[name + "Font"] = defaults[name + "Font"]
             if (name !== "inlineCode")
                 targetStyle[name + "Color"] = Qt.binding(function() { return panel.defaultTextColor })
         }
+        targetStyle.thematicBreakColor = Qt.binding(function() { return panel.defaultTextColor })
+        targetStyle.thematicBreakThickness = defaults.thematicBreakThickness
         targetStyle.blockSpacing = defaults.blockSpacing
         refresh()
     }
@@ -52,6 +60,8 @@ ColumnLayout {
                 targetStyle["h" + i + "Color"] = Qt.binding(function() { return panel.darkSurface ? "#d8a0e5" : "#743a86" })
             targetStyle.codeBlockFont.pixelSize = 22
             targetStyle.codeBlockColor = Qt.binding(function() { return panel.darkSurface ? "#8db9f2" : "#305b9c" })
+            targetStyle.thematicBreakColor = Qt.binding(function() { return panel.darkSurface ? "#d8a0e5" : "#743a86" })
+            targetStyle.thematicBreakThickness = 3
             targetStyle.inlineCodeFont.family = "serif"
             targetStyle.blockSpacing = 16
         }
@@ -67,7 +77,7 @@ ColumnLayout {
         Label { text: "Text role" }
         ComboBox {
             objectName: "roleSelector"
-            model: ["Body", "H1", "H2", "H3", "H4", "H5", "H6", "Inline code", "Fenced code"]
+            model: ["Body", "H1", "H2", "H3", "H4", "H5", "H6", "Inline code", "Code blocks"]
             currentIndex: panel.selectedRole
             onActivated: panel.selectedRole = currentIndex
         }
@@ -111,4 +121,26 @@ ColumnLayout {
             text: panel.role === "inlineCode" ? "Size inherits until edited; heading code uses heading color." : ""
         }
     }
+    RowLayout {
+        Label { text: "Thematic break color" }
+        TextField {
+            id: ruleColorField
+            objectName: "ruleColorField"
+            Layout.preferredWidth: 180
+            text: { panel.revision; return panel.targetStyle.thematicBreakColor.toString() }
+            readonly property bool validColor: panel.isValidColor(text)
+            color: validColor ? palette.text : "#b02020"
+            onEditingFinished: panel.applyRuleColor(text)
+        }
+        Label { text: ruleColorField.validColor ? "" : "Invalid color"; color: "#b02020" }
+        Label { text: "Thickness (px)" }
+        SpinBox {
+            objectName: "ruleThicknessField"
+            from: 0; to: 16; editable: true
+            value: panel.targetStyle.thematicBreakThickness
+            onValueModified: panel.targetStyle.thematicBreakThickness = value
+        }
+        Item { Layout.fillWidth: true }
+    }
+
 }

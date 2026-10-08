@@ -20,6 +20,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
             ranges.append(QVariantMap{{"start", range.start}, {"length", range.length}, {"flags", range.flags}});
         return ranges;
     }
+    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::ThematicBreak) return 3;
     if (role == Qt::UserRole + 4) return block.kind == QMarkdownPrivate::BlockKind::CodeBlock ? 2 : (block.ranges.isEmpty() ? 0 : 1);
     return {};
 }
@@ -64,8 +65,8 @@ void ViewState::resetStyle()
 namespace {
 void registerPrivateTypes()
 {
-    qmlRegisterType<FormattedText>("QMarkdown.Private", 0, 3, "FormattedText");
-    qmlRegisterType<ViewState>("QMarkdown.Private", 0, 3, "ViewState");
+    qmlRegisterType<FormattedText>("QMarkdown.Private", 0, 4, "FormattedText");
+    qmlRegisterType<ViewState>("QMarkdown.Private", 0, 4, "ViewState");
 }
 }
 Q_COREAPP_STARTUP_FUNCTION(registerPrivateTypes)

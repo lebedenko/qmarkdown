@@ -21,6 +21,15 @@ Item {
             delegate: DelegateChooser {
                 role: "renderKind"
                 DelegateChoice {
+                    roleValue: 3
+                    delegate: Rectangle {
+                        width: blocks.width
+                        height: Number.isFinite(viewState.style.thematicBreakThickness)
+                            ? Math.max(0, viewState.style.thematicBreakThickness) : 1
+                        color: viewState.style.thematicBreakColor
+                    }
+                }
+                DelegateChoice {
                     roleValue: 2
                     delegate: Text {
                         id: codeBlock

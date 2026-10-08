@@ -15,6 +15,7 @@
 #include <QtTest/QTest>
 #include <memory>
 #include <limits>
+#include <cmath>
 #ifdef QMARKDOWN_STATIC
 Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
 #endif
@@ -64,13 +65,114 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
 private slots:
     void init() { QTest::failOnWarning(); }
+    void leafLayoutAndStyle()
+    {
+        RequestFactory factory;
+        QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
+        QQmlComponent component(&engine);
+        component.setData(
+            "import QtQuick\nimport QMarkdown 0.4\n"
+            "Item { MarkdownStyle { id: shared; objectName: 'shared' }"
+            " MarkdownStyle { id: other; objectName: 'other'; thematicBreakThickness: 9 }"
+            " MarkdownView { objectName: 'a'; width: 240; style: shared }"
+            " MarkdownView { objectName: 'b'; width: 240; style: shared } }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *host = qobject_cast<QQuickItem *>(object.get()); QVERIFY(host);
+        auto *a = host->findChild<QQuickItem *>("a"); auto *b = host->findChild<QQuickItem *>("b");
+        auto *shared = host->findChild<QObject *>("shared"); auto *other = host->findChild<QObject *>("other");
+        QVERIFY(a && b && shared && other);
+        const QString source = "Title\n===\n*Second*\n---\n***\n    <b> &amp; [x](https://example.invalid) ![x](https://example.invalid/x)  \n\n      residual\n\n___\nafter";
+        a->setProperty("markdown", source); b->setProperty("markdown", source);
+        QQuickWindow window; host->setParentItem(window.contentItem()); window.resize(600, 600); window.show();
+        QTRY_COMPARE(texts(a).size(), 3); QTRY_COMPARE(painted(a).size(), 1);
+        QTRY_VERIFY(content(a) > 0);
+        const auto children = texts(a)[0]->parentItem()->childItems();
+        // Column also owns the Repeater; the six block delegates precede it.
+        QList<QQuickItem *> blocks;
+        for (auto *child : children) if (child->width() == a->width()) blocks.append(child);
+        QCOMPARE(blocks.size(), 6);
+        auto *rule = blocks[2]; auto *rule2 = blocks[4];
+        QTRY_COMPARE(rule->height(), 1.0); QCOMPARE(rule->width(), 240.0);
+        QCOMPARE(rule->property("color").value<QColor>(), QColor("#202020"));
+        QCOMPARE(texts(a)[0]->property("text").toString(), QString("Title"));
+        QCOMPARE(texts(a)[0]->property("font").value<QFont>(), shared->property("h1Font").value<QFont>());
+        QCOMPARE(painted(a)[0]->text(), QString("Second"));
+        QCOMPARE(painted(a)[0]->font(), shared->property("h2Font").value<QFont>());
+        auto *code = texts(a)[1];
+        QCOMPARE(code->property("text").toString(), QString("<b> &amp; [x](https://example.invalid) ![x](https://example.invalid/x)  \n\n  residual"));
+        QCOMPARE(code->property("textFormat").toInt(), 0);
+        QCOMPARE(code->property("font").value<QFont>(), shared->property("codeBlockFont").value<QFont>());
+        for (int i = 1; i < blocks.size(); ++i)
+            QTRY_COMPARE(blocks[i]->y(), blocks[i-1]->y() + blocks[i-1]->height() + 8);
+        QTRY_COMPARE(content(a), blocks.last()->y() + blocks.last()->height());
+        const auto initial = content(a);
+        a->setWidth(90); QTRY_VERIFY(content(a) > initial); QTRY_COMPARE(rule->width(), 90.0);
+        a->setWidth(240); QTRY_COMPARE(content(a), initial);
+        QSignalSpy thickness(shared, SIGNAL(thematicBreakThicknessChanged()));
+        QSignalSpy colors(shared, SIGNAL(thematicBreakColorChanged()));
+        QVERIFY(thickness.isValid() && colors.isValid());
+        shared->setProperty("thematicBreakThickness", 4.5);
+        shared->setProperty("thematicBreakColor", QColor("#123456"));
+        QTRY_COMPARE(rule->height(), 4.5); QTRY_COMPARE(rule2->height(), 4.5);
+        QTRY_COMPARE(content(a), initial + 7); QTRY_COMPARE(content(b), content(a));
+        QTRY_COMPARE(rule->property("color").value<QColor>(), QColor("#123456"));
+        shared->setProperty("thematicBreakThickness", 4.5);
+        shared->setProperty("thematicBreakColor", QColor("#123456"));
+        QCOMPARE(thickness.count(), 1); QCOMPARE(colors.count(), 1);
+        for (const qreal value : {qreal(-1), qreal(0), std::numeric_limits<qreal>::infinity(),
+                                 -std::numeric_limits<qreal>::infinity(), std::numeric_limits<qreal>::quiet_NaN()}) {
+            shared->setProperty("thematicBreakThickness", value);
+            QTRY_COMPARE(rule->height(), std::isfinite(value) ? 0.0 : 1.0);
+            QTRY_COMPARE(rule2->height(), rule->height());
+            if (rule->height() > 0) {
+                for (int i = 1; i < blocks.size(); ++i)
+                    QTRY_COMPARE(blocks[i]->y(), blocks[i-1]->y() + blocks[i-1]->height() + 8);
+                QTRY_COMPARE(content(a), initial);
+            } else {
+                QTRY_COMPARE(blocks[3]->y(), blocks[1]->y() + blocks[1]->height() + 8);
+                QTRY_COMPARE(blocks[5]->y(), blocks[3]->y() + blocks[3]->height() + 8);
+                QTRY_COMPARE(content(a), initial - 18);
+            }
+        }
+        const int notifications = thickness.count();
+        shared->setProperty("thematicBreakThickness", std::numeric_limits<qreal>::quiet_NaN());
+        QCOMPARE(thickness.count(), notifications);
+        a->setProperty("style", QVariant::fromValue(other)); QTRY_COMPARE(rule->height(), 9.0);
+        shared->setProperty("thematicBreakThickness", 2); QTRY_COMPARE(rule->height(), 9.0);
+        delete other; QTRY_COMPARE(rule->height(), 1.0);
+        QTRY_COMPARE(rule->property("color").value<QColor>(), QColor("#202020"));
+        auto *defaults = a->property("style").value<QObject *>();
+        defaults->setProperty("thematicBreakThickness", 7);
+        defaults->setProperty("thematicBreakColor", QColor(Qt::red));
+        QTRY_COMPARE(rule->height(), 7.0);
+        QVERIFY(QQmlProperty(a, "style", &engine).reset());
+        QTRY_COMPARE(rule->height(), 1.0);
+        QTRY_COMPARE(rule->property("color").value<QColor>(), QColor("#202020"));
+        QTRY_COMPARE(content(a), initial);
+        QSignalSpy activation(code, SIGNAL(linkActivated(QString))); QVERIFY(activation.isValid());
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, code->mapToScene(QPointF(20, 10)).toPoint());
+        QCOMPARE(activation.count(), 0); QCOMPARE(factory.requests, 0);
+        for (const int width : {0, -1}) {
+            a->setWidth(width); QTRY_COMPARE(content(a), 0.0);
+            QTRY_VERIFY(texts(a).isEmpty());
+            a->setWidth(240); QTRY_COMPARE(content(a), initial);
+        }
+        a->setWidth(0); QTRY_COMPARE(content(a), 0.0);
+        a->setProperty("markdown", "---"); a->setWidth(240); QTRY_COMPARE(content(a), 1.0);
+        QTRY_VERIFY(texts(a).isEmpty()); QTRY_VERIFY(painted(a).isEmpty());
+        a->setProperty("markdown", "replacement"); QTRY_COMPARE(texts(a).size(), 1);
+        QTRY_COMPARE(texts(a)[0]->property("text").toString(), QString("replacement"));
+        a->setProperty("markdown", ""); QTRY_COMPARE(content(a), 0.0);
+        QCOMPARE(factory.requests, 0);
+    }
     void fencedLayoutAndStyle()
     {
         RequestFactory factory;
         QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
         component.setData(
-            "import QtQuick\nimport QMarkdown 0.3\n"
+            "import QtQuick\nimport QMarkdown 0.4\n"
             "Item { MarkdownStyle { id: shared; objectName: 'shared' }"
             " MarkdownStyle { id: other; objectName: 'other'; codeBlockFont.pixelSize: 40 }"
             " MarkdownView { objectName: 'a'; width: 240; style: shared }"
@@ -194,7 +296,7 @@ private slots:
         component.setData(
             "\n"
             "            import QtQuick\n"
-            "            import QMarkdown 0.3\n"
+            "            import QMarkdown 0.4\n"
             "            MarkdownView {\n"
             "                width: 260\n"
             "                markdown: \"# ***`Heading`***\\n\\n*Italic* **bold** `code with spaces` שלום é 日本語 😀 longunbrokenword\\n\\n##\"\n"
@@ -479,7 +581,7 @@ private slots:
         const auto bodyFont = style->property("bodyFont").value<QFont>();
         const auto inlineFont = style->property("inlineCodeFont").value<QFont>();
         const auto spacing = style->property("blockSpacing");
-        const QStringList roles = {"body", "h1", "h2", "h3", "h4", "h5", "h6", "codeBlock"};
+        const QStringList roles = {"body", "h1", "h2", "h3", "h4", "h5", "h6", "codeBlock", "thematicBreak"};
         const auto color = [style](const QString &role) {
             return style->property((role + "Color").toUtf8().constData()).value<QColor>();
         };
@@ -535,10 +637,13 @@ private slots:
         QTRY_COMPARE(color("body"), QColor("#194c39"));
         QTRY_COMPARE(color("h1"), QColor("#743a86"));
         QTRY_COMPARE(color("codeBlock"), QColor("#305b9c"));
+        QTRY_COMPARE(color("thematicBreak"), QColor("#743a86"));
+        QCOMPARE(style->property("thematicBreakThickness").toDouble(), 3.0);
         QVERIFY(setPalette(true));
         QTRY_COMPARE(color("body"), QColor("#82cba7"));
         for (int i = 1; i <= 6; ++i) QTRY_COMPARE(color("h" + QString::number(i)), QColor("#d8a0e5"));
         QTRY_COMPARE(color("codeBlock"), QColor("#8db9f2"));
+        QTRY_COMPARE(color("thematicBreak"), QColor("#d8a0e5"));
         panel->setProperty("selectedRole", 1);
         QVERIFY(QMetaObject::invokeMethod(panel, "applyColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "#abcdef")));
         QVERIFY(accepted.toBool());
@@ -550,7 +655,20 @@ private slots:
         for (const auto &role : roles) QTRY_COMPARE(color(role), QColor("#eeeeee"));
         QCOMPARE(style->property("bodyFont").value<QFont>(), bodyFont);
         QCOMPARE(style->property("blockSpacing"), spacing);
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyRuleColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "invalid-color")));
+        QVERIFY(!accepted.toBool());
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyRuleColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "#456789")));
+        QVERIFY(accepted.toBool());
+        style->setProperty("thematicBreakThickness", 6);
+        QVERIFY(setPalette(false)); QTRY_COMPARE(color("thematicBreak"), QColor("#456789"));
+        QVERIFY(setPalette(true)); QTRY_COMPARE(color("thematicBreak"), QColor("#456789"));
+        QCOMPARE(style->property("thematicBreakThickness").toDouble(), 6.0);
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
+        QTRY_COMPARE(color("thematicBreak"), QColor("#eeeeee"));
+        QCOMPARE(style->property("thematicBreakThickness").toDouble(), 1.0);
         if (qEnvironmentVariableIsSet("QMARKDOWN_CAPTURE_THEME")) {
+            window->setProperty("sampleIndex", 6);
+            window->findChild<QObject *>("styleToggle")->setProperty("checked", true);
             QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
             for (const bool dark : {false, true}) {
                 QVERIFY(setPalette(dark));
@@ -601,7 +719,7 @@ private slots:
         auto *style = preview->property("style").value<QObject *>(); QVERIFY(style);
         auto *sourceScroll = window->findChild<QQuickItem *>("sourceScroll"); QVERIFY(sourceScroll);
         auto *previewScroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(previewScroll);
-        for (int sample = 0; sample < 6; ++sample) {
+        for (int sample = 0; sample < 7; ++sample) {
             window->setProperty("sampleIndex", sample);
             QTRY_COMPARE(editor->property("text"), window->property("sample"));
             QVERIFY(!editor->property("text").toString().isEmpty());

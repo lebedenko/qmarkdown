@@ -29,3 +29,8 @@ Each numbered feature contains these four records. Requirements define observabl
 - [005: design](005-demo-playground/design.md)
 - [005: tasks](005-demo-playground/tasks.md)
 - [005: verification](005-demo-playground/verification.md)
+
+- [006: core leaf block requirements](006-core-leaf-blocks/requirements.md)
+- [006: design](006-core-leaf-blocks/design.md)
+- [006: tasks](006-core-leaf-blocks/tasks.md)
+- [006: verification](006-core-leaf-blocks/verification.md)

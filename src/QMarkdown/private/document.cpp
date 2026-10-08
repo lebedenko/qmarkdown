@@ -39,6 +39,26 @@ QString deindent(const QString &line, int columns)
     }
     return QString(qMax(0, column - columns), u' ') + line.mid(i);
 }
+int setextLevel(const QString &line, qsizetype indent)
+{
+    if (indent < 0 || indent == line.size()) return 0;
+    const auto marker = line[indent];
+    if (marker != u'=' && marker != u'-') return 0;
+    return trim(line.mid(indent + run(line, indent, marker))).isEmpty()
+        ? (marker == u'=' ? 1 : 2) : 0;
+}
+bool thematicBreak(const QString &line, qsizetype indent)
+{
+    if (indent < 0 || indent == line.size()) return false;
+    const auto marker = line[indent];
+    if (marker != u'*' && marker != u'-' && marker != u'_') return false;
+    qsizetype count = 0;
+    for (qsizetype i = indent; i < line.size(); ++i) {
+        if (line[i] == marker) ++count;
+        else if (!space(line[i])) return false;
+    }
+    return count >= 3;
+}
 QString decodeInfo(const QString &source)
 {
     const auto input = (QStringLiteral("~~~ ") + source + QStringLiteral("\n~~~\n")).toUtf8();
@@ -62,7 +82,9 @@ QVector<Block> parse(QString source)
     source.replace(u'\r', u'\n');
     source.replace(QChar(0), QChar(0xfffd));
     QVector<Block> blocks;
-    QString paragraph, fence, info;
+    enum class State { Paragraph, FencedCode, IndentedCode };
+    State state = State::Paragraph;
+    QString paragraph, fence, info, indented, pendingBlanks;
     int fenceIndent = 0;
     QChar marker;
     qsizetype fenceLength = 0;
@@ -75,15 +97,49 @@ QVector<Block> parse(QString source)
         const QString &line = lines[n];
         if (n + 1 == lines.size() && line.isEmpty()) break;
         const auto indent = indentation(line);
-        if (fenceLength) {
+        if (state == State::FencedCode) {
             if (indent >= 0 && run(line, indent, marker) >= fenceLength
                 && trim(line.mid(indent + run(line, indent, marker))).isEmpty()) {
                 blocks.append({BlockKind::CodeBlock, fence, 0, {}, info});
                 fence.clear();
                 fenceLength = 0;
+                state = State::Paragraph;
             } else {
                 fence += deindent(line, fenceIndent) + u'\n';
             }
+            continue;
+        }
+        const bool blank = trim(line).isEmpty();
+        if (state == State::IndentedCode) {
+            if (blank) {
+                pendingBlanks += deindent(line, 4) + u'\n';
+                continue;
+            }
+            if (indent < 0) {
+                indented += pendingBlanks + deindent(line, 4) + u'\n';
+                pendingBlanks.clear();
+                continue;
+            }
+            blocks.append({BlockKind::CodeBlock, indented});
+            indented.clear();
+            pendingBlanks.clear();
+            state = State::Paragraph;
+            // The terminating line still needs ordinary block classification.
+        }
+        if (!blank && indent < 0 && paragraph.isEmpty()) {
+            state = State::IndentedCode;
+            indented = deindent(line, 4) + u'\n';
+            continue;
+        }
+        const int level = setextLevel(line, indent);
+        if (!paragraph.isEmpty() && level) {
+            blocks.append({BlockKind::Heading, paragraph, level});
+            paragraph.clear();
+            continue;
+        }
+        if (thematicBreak(line, indent)) {
+            flush();
+            blocks.append({BlockKind::ThematicBreak, {}});
             continue;
         }
         if (indent >= 0 && indent < line.size()
@@ -94,6 +150,7 @@ QVector<Block> parse(QString source)
                 flush();
                 marker = line[indent];
                 fenceLength = length;
+                state = State::FencedCode;
                 fenceIndent = int(indent);
                 info = decodeInfo(trim(line.mid(indent + length)));
                 fence.clear();
@@ -122,9 +179,10 @@ QVector<Block> parse(QString source)
         }
     }
     flush();
-    if (fenceLength) blocks.append({BlockKind::CodeBlock, fence, 0, {}, info});
+    if (state == State::IndentedCode) blocks.append({BlockKind::CodeBlock, indented});
+    if (state == State::FencedCode) blocks.append({BlockKind::CodeBlock, fence, 0, {}, info});
     for (auto &block : blocks) {
-        if (block.kind == BlockKind::CodeBlock) continue;
+        if (block.kind == BlockKind::CodeBlock || block.kind == BlockKind::ThematicBreak) continue;
         const auto content = parseInline(block.text);
         block.text = content.text;
         block.ranges = content.ranges;

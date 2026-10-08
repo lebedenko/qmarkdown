@@ -36,6 +36,8 @@ MarkdownStyle::MarkdownStyle(QObject *parent) : QObject(parent)
 
 void MarkdownStyle::restoreDefaults()
 {
+    setThematicBreakColor(QColor("#202020"));
+    setThematicBreakThickness(1);
     setCodeBlockFont(m_defaultCodeBlockFont);
     setCodeBlockColor(QColor("#202020"));
     setInlineCodeFont(m_defaultInlineCodeFont);
@@ -180,4 +182,19 @@ void MarkdownStyle::setCodeBlockColor(const QColor &value)
     if (m_codeBlockColor == value) return;
     m_codeBlockColor = value;
     emit codeBlockColorChanged();
+}
+
+void MarkdownStyle::setThematicBreakColor(const QColor &value)
+{
+    if (m_thematicBreakColor == value) return;
+    m_thematicBreakColor = value;
+    emit thematicBreakColorChanged();
+}
+
+void MarkdownStyle::setThematicBreakThickness(qreal value)
+{
+    if (m_thematicBreakThickness == value
+        || (std::isnan(m_thematicBreakThickness) && std::isnan(value))) return;
+    m_thematicBreakThickness = value;
+    emit thematicBreakThicknessChanged();
 }

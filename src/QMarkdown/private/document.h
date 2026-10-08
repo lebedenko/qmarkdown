@@ -4,7 +4,7 @@
 #include <QVector>
 
 namespace QMarkdownPrivate {
-enum class BlockKind { Paragraph, Heading, CodeBlock };
+enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak };
 struct Block {
     BlockKind kind;
     QString text;

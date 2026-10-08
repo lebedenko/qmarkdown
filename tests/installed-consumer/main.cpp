@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     QQmlComponent component(&engine);
     component.setData(
             "import QtQuick\n"
-            "import QMarkdown 0.3\n"
+            "import QMarkdown 0.4\n"
             "MarkdownView {\n"
             "    width: 180\n"
             "    function editCode() { style.inlineCodeFont.pixelSize = 80; style.codeBlockFont.pixelSize = 32; style.codeBlockColor = \"#345678\" }\n"
@@ -87,6 +87,28 @@ int main(int argc, char *argv[])
     if (!block || block->property("font").value<QFont>().pixelSize() != 32
         || block->property("color").value<QColor>() != QColor("#345678")
         || block->property("textFormat").toInt() != 0) return 11;
+    view->setProperty("markdown", "Setext\n===\n***\n    literal indented\n\nend");
+    std::function<QQuickItem *(QQuickItem *, const QString &)> findText =
+        [&](QQuickItem *item, const QString &text) -> QQuickItem * {
+            if (item->property("text").toString() == text) return item;
+            for (auto *child : item->childItems()) if (auto *found = findText(child, text)) return found;
+            return nullptr;
+        };
+    if (!settle([&] { return findText(view, "literal indented") != nullptr; })) return 12;
+    auto *heading = findText(view, "Setext");
+    auto *indented = findText(view, "literal indented");
+    if (!heading || heading->property("font").value<QFont>() != style->property("h1Font").value<QFont>()
+        || indented->property("font").value<QFont>().pixelSize() != 32) return 13;
+    QQuickItem *rule = nullptr;
+    for (auto *child : heading->parentItem()->childItems())
+        if (child->metaObject()->indexOfProperty("color") >= 0
+            && child->metaObject()->indexOfProperty("text") < 0) rule = child;
+    if (!rule || rule->width() != view->width() || rule->height() != 1) return 14;
+    const auto beforeRule = height();
+    style->setProperty("thematicBreakColor", QColor("#abcdef"));
+    style->setProperty("thematicBreakThickness", 5);
+    if (!settle([&] { return height() == beforeRule + 4; })
+        || rule->height() != 5 || rule->property("color").value<QColor>() != QColor("#abcdef")) return 15;
     view->setProperty("markdown", "replacement");
     if (!settle([&] { return height() > 0 && !findBody(view); })) return 6;
     view->setProperty("markdown", "");
