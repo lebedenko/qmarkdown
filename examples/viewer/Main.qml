@@ -38,6 +38,7 @@ ApplicationWindow {
         h6Color: window.palette.text
         codeBlockColor: window.palette.text
         thematicBreakColor: window.palette.text
+        quoteRuleColor: window.palette.base.hslLightness < 0.5 ? "#a0a0a0" : "#707070"
     }
     ColumnLayout {
         anchors.fill: parent
@@ -74,7 +75,7 @@ ApplicationWindow {
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings and thematic breaks. Links, images and HTML remain literal; full CommonMark rendering is unfinished."
+            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Resource labels are inert and HTML stays literal; full CommonMark rendering is unfinished."
         }
         SplitView {
             id: split

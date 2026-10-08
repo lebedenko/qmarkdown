@@ -62,16 +62,131 @@ class ViewTest : public QObject
         }
         return result;
     }
+    static QList<QQuickItem *> named(QQuickItem *item, const QString &name)
+    {
+        QList<QQuickItem *> result;
+        for (auto *child : item->childItems()) {
+            if (child->objectName() == name) result.append(child);
+            result.append(named(child, name));
+        }
+        return result;
+    }
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
 private slots:
     void init() { QTest::failOnWarning(); }
+    void containerLayoutAndStyle()
+    {
+        RequestFactory factory;
+        QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
+        QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.5\nMarkdownView { width: 280 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *style = view->property("style").value<QObject *>(); QVERIFY(style);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(400, 600); window.show();
+        auto find = [&](const QString &text) -> QQuickItem * {
+            for (auto *item : texts(view)) if (item->property("text").toString() == text) return item;
+            return nullptr;
+        };
+        view->setProperty("markdown", "9) first\n10) second");
+        QTRY_VERIFY(find("9)") && find("10)") && find("first") && find("second"));
+        QTRY_VERIFY(content(view) > 0);
+        auto *first = find("first"); auto *second = find("second");
+        auto *row1 = first->parentItem()->parentItem()->parentItem();
+        auto *row2 = second->parentItem()->parentItem()->parentItem();
+        QTRY_COMPARE(row2->y(), row1->height());
+        QCOMPARE(find("9)")->y(), 0.0);
+        QCOMPARE(first->parentItem()->parentItem()->x(), qMax(24.0, QFontMetricsF(style->property("bodyFont").value<QFont>()).horizontalAdvance("10)") + 8));
+        const auto bodyFont = style->property("bodyFont").value<QFont>();
+        auto largerFont = bodyFont; largerFont.setPixelSize(40);
+        style->setProperty("bodyFont", largerFont);
+        QTRY_COMPARE(first->parentItem()->parentItem()->x(), QFontMetricsF(largerFont).horizontalAdvance("10)") + 8);
+        style->setProperty("bodyFont", bodyFont);
+        view->setProperty("markdown", "- first\n\n- second");
+        QTRY_VERIFY(find("first") && find("second"));
+        first = find("first"); second = find("second");
+        row1 = first->parentItem()->parentItem()->parentItem(); row2 = second->parentItem()->parentItem()->parentItem();
+        QTRY_COMPARE(row2->y(), row1->height() + 8);
+        view->setProperty("markdown", "- outer\n  - nestedA\n\n  - nestedB\n- end");
+        QTRY_VERIFY(find("nestedA") && find("nestedB"));
+        first = find("nestedA"); second = find("nestedB");
+        row1 = first->parentItem()->parentItem()->parentItem(); row2 = second->parentItem()->parentItem()->parentItem();
+        QTRY_COMPARE(row2->y(), row1->height() + 8);
+        view->setProperty("markdown", "> quoted\n>\n> another");
+        QTRY_VERIFY(find("quoted") && find("another"));
+        QTRY_COMPARE(named(view, "quoteRule").size(), 1);
+        auto *rule = named(view, "quoteRule")[0];
+        QTRY_COMPARE(rule->width(), 2.0);
+        QTRY_COMPARE(rule->height(), content(view));
+        QTRY_COMPARE(find("another")->y(), find("quoted")->height() + 8);
+        QCOMPARE(find("quoted")->parentItem()->parentItem()->x(), 16.0);
+        QSignalSpy indent(style, SIGNAL(quoteIndentChanged()));
+        QSignalSpy thickness(style, SIGNAL(quoteRuleThicknessChanged()));
+        QSignalSpy listIndent(style, SIGNAL(listIndentChanged()));
+        QSignalSpy color(style, SIGNAL(quoteRuleColorChanged()));
+        style->setProperty("quoteIndent", 32); style->setProperty("quoteIndent", 32);
+        QCOMPARE(indent.count(), 1);
+        QTRY_COMPARE(find("quoted")->parentItem()->parentItem()->x(), 32.0);
+        style->setProperty("quoteRuleThickness", 4); style->setProperty("quoteRuleColor", QColor("#abcdef"));
+        QCOMPARE(thickness.count(), 1); QCOMPARE(color.count(), 1);
+        QTRY_COMPARE(rule->width(), 4.0); QCOMPARE(rule->property("color").value<QColor>(), QColor("#abcdef"));
+        const auto nan = std::numeric_limits<double>::quiet_NaN();
+        style->setProperty("quoteIndent", nan); style->setProperty("quoteIndent", nan);
+        QCOMPARE(indent.count(), 2);
+        QTRY_COMPARE(find("quoted")->parentItem()->parentItem()->x(), 16.0);
+        style->setProperty("quoteRuleThickness", -2); QTRY_COMPARE(rule->width(), 0.0);
+        style->setProperty("quoteRuleThickness", std::numeric_limits<double>::infinity()); QTRY_COMPARE(rule->width(), 2.0);
+        view->setWidth(1); QTRY_COMPARE(find("quoted")->width(), 1.0);
+        QTRY_COMPARE(rule->width(), 0.0);
+        view->setWidth(0); QTRY_COMPARE(content(view), 0.0); QTRY_VERIFY(texts(view).isEmpty());
+        view->setWidth(280); QTRY_VERIFY(find("quoted"));
+        view->setProperty("markdown", ">");
+        QTRY_COMPARE(content(view), QFontMetricsF(style->property("bodyFont").value<QFont>()).height());
+        view->setProperty("markdown", "-\n-");
+        QTRY_COMPARE(content(view), 2 * QFontMetricsF(style->property("bodyFont").value<QFont>()).height());
+        view->setProperty("markdown", ">\n\n-\n- > nested\n  > - item");
+        QTRY_VERIFY(find("nested") && find("item")); QTRY_VERIFY(content(view) > 0);
+        style->setProperty("listIndent", 50); style->setProperty("listIndent", 50); QCOMPARE(listIndent.count(), 1);
+        view->setWidth(2); QTRY_VERIFY(content(view) > 0);
+        view->setWidth(280);
+        view->setProperty("markdown", "- **one**  \n  two\n- ![*image*](https://example.invalid/x)\n\n> [link](https://example.invalid)");
+        QTRY_COMPARE(painted(view).size(), 2); QTRY_VERIFY(find("link"));
+        QTRY_VERIFY(painted(view)[0]->logicalHeight() > QFontMetricsF(style->property("bodyFont").value<QFont>()).height());
+        QCOMPARE(factory.requests, 0);
+        view->setProperty("markdown", "replacement"); QTRY_COMPARE(texts(view).size(), 1);
+        QTRY_VERIFY(named(view, "quoteRule").isEmpty());
+        view->setProperty("markdown", ""); QTRY_COMPARE(content(view), 0.0);
+        view->setProperty("markdown", "> first\n>\n> second");
+        QTRY_VERIFY(find("first"));
+        QQmlComponent styleComponent(&engine);
+        styleComponent.setData("import QMarkdown 0.5\nMarkdownStyle { quoteIndent: 48; quoteRuleThickness: 5 }", {});
+        std::unique_ptr<QObject> shared(styleComponent.create()); QVERIFY(shared);
+        std::unique_ptr<QObject> secondObject(component.create());
+        auto *other = qobject_cast<QQuickItem *>(secondObject.get()); QVERIFY(other);
+        other->setParentItem(window.contentItem());
+        other->setProperty("markdown", "> other");
+        view->setProperty("style", QVariant::fromValue(shared.get()));
+        other->setProperty("style", QVariant::fromValue(shared.get()));
+        QTRY_COMPARE(find("first")->parentItem()->parentItem()->x(), 48.0);
+        QTRY_COMPARE(named(other, "quoteRule").size(), 1);
+        QTRY_COMPARE(named(other, "quoteRule")[0]->width(), 5.0);
+        shared->setProperty("quoteRuleThickness", 7);
+        QTRY_COMPARE(named(view, "quoteRule")[0]->width(), 7.0);
+        QTRY_COMPARE(named(other, "quoteRule")[0]->width(), 7.0);
+        QVERIFY(QQmlProperty(view, "style", &engine).reset());
+        QTRY_COMPARE(find("first")->parentItem()->parentItem()->x(), 16.0);
+        QTRY_COMPARE(named(view, "quoteRule")[0]->width(), 2.0);
+        shared.reset(); QTRY_COMPARE(named(other, "quoteRule")[0]->width(), 2.0);
+        QCOMPARE(other->property("style").value<QObject *>()->property("listIndent").toDouble(), 24.0);
+    }
     void leafLayoutAndStyle()
     {
         RequestFactory factory;
         QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
         component.setData(
-            "import QtQuick\nimport QMarkdown 0.4\n"
+            "import QtQuick\nimport QMarkdown 0.5\n"
             "Item { MarkdownStyle { id: shared; objectName: 'shared' }"
             " MarkdownStyle { id: other; objectName: 'other'; thematicBreakThickness: 9 }"
             " MarkdownView { objectName: 'a'; width: 240; style: shared }"
@@ -172,7 +287,7 @@ private slots:
         QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
         component.setData(
-            "import QtQuick\nimport QMarkdown 0.4\n"
+            "import QtQuick\nimport QMarkdown 0.5\n"
             "Item { MarkdownStyle { id: shared; objectName: 'shared' }"
             " MarkdownStyle { id: other; objectName: 'other'; codeBlockFont.pixelSize: 40 }"
             " MarkdownView { objectName: 'a'; width: 240; style: shared }"
@@ -296,7 +411,7 @@ private slots:
         component.setData(
             "\n"
             "            import QtQuick\n"
-            "            import QMarkdown 0.4\n"
+            "            import QMarkdown 0.5\n"
             "            MarkdownView {\n"
             "                width: 260\n"
             "                markdown: \"# ***`Heading`***\\n\\n*Italic* **bold** `code with spaces` שלום é 日本語 😀 longunbrokenword\\n\\n##\"\n"
@@ -666,8 +781,26 @@ private slots:
         QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
         QTRY_COMPARE(color("thematicBreak"), QColor("#eeeeee"));
         QCOMPARE(style->property("thematicBreakThickness").toDouble(), 1.0);
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyQuoteColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "invalid-color")));
+        QVERIFY(!accepted.toBool());
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyQuoteColor", Q_RETURN_ARG(QVariant, accepted), Q_ARG(QVariant, "#345678")));
+        QVERIFY(accepted.toBool());
+        QVERIFY(setPalette(false)); QTRY_COMPARE(color("quoteRule"), QColor("#345678"));
+        style->setProperty("listIndent", 60); style->setProperty("quoteIndent", 40); style->setProperty("quoteRuleThickness", 6);
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
+        QCOMPARE(style->property("listIndent").toDouble(), 24.0);
+        QCOMPARE(style->property("quoteIndent").toDouble(), 16.0);
+        QCOMPARE(style->property("quoteRuleThickness").toDouble(), 2.0);
+        QTRY_COMPARE(color("quoteRule"), QColor("#707070"));
+        QVERIFY(setPalette(true)); QTRY_COMPARE(color("quoteRule"), QColor("#a0a0a0"));
+        QVERIFY(QMetaObject::invokeMethod(window, "switchStyle"));
+        QTRY_COMPARE(color("quoteRule"), QColor("#d8a0e5"));
+        QCOMPARE(style->property("listIndent").toDouble(), 32.0);
+        QCOMPARE(style->property("quoteIndent").toDouble(), 24.0);
+        QCOMPARE(style->property("quoteRuleThickness").toDouble(), 3.0);
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
         if (qEnvironmentVariableIsSet("QMARKDOWN_CAPTURE_THEME")) {
-            window->setProperty("sampleIndex", 6);
+            window->setProperty("sampleIndex", 7);
             window->findChild<QObject *>("styleToggle")->setProperty("checked", true);
             QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
             for (const bool dark : {false, true}) {
@@ -825,14 +958,14 @@ private slots:
         component.setData(
             "import QtQuick\n"
             "import QMarkdown\n"
-            "MarkdownView { width: 300; markdown: \"<img src='https://example.invalid/x'> ![x](https://example.invalid/x) [link](https://example.invalid) &amp; *literal*\" }\n", {});
+            "MarkdownView { width: 300; markdown: \"a <img src='https://example.invalid/x'> ![x](https://example.invalid/x) [link](https://example.invalid) &amp; *literal*\" }\n", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QTRY_COMPARE(painted(view).size(), 1);
         QVERIFY(painted(view)[0]->text().contains("<img"));
-        QVERIFY(painted(view)[0]->text().contains("![x](https://example.invalid/x)"));
-        QVERIFY(painted(view)[0]->text().contains("[link](https://example.invalid)"));
+        QVERIFY(painted(view)[0]->text().contains("x link"));
+        QVERIFY(painted(view)[0]->text().contains("link"));
         QVERIFY(!painted(view)[0]->text().contains("&amp;"));
         QCOMPARE(painted(view)[0]->metaObject()->indexOfSignal("linkActivated(QString)"), -1);
         QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(400, 400); window.show();

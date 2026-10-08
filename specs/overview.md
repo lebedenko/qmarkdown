@@ -22,7 +22,7 @@ The brief's directory tree, C++ renderer interface, `MarkdownDocument.append`, `
 
 | Decision | Required resolution |
 | --- | --- |
-| Parser and dialect | Feature 001 implements a focused private parser without new dependencies, CommonMark-aligned paragraph/ATX structure, and explicit literal fallback. Feature 003, approved on 2026-10-07, now uses privately bundled cmark 0.31.2 for bounded inline parsing while retaining that block splitter. Neither slice claims full conformance. |
+| Parser and dialect | Feature 001 implements a focused private parser without new dependencies, CommonMark-aligned paragraph/ATX structure, and explicit literal fallback. Feature 003 introduced privately bundled cmark 0.31.2 for bounded inlines; Feature 007 now uses it for the entire document and recursive native containers. Full conformance remains unverified. |
 | Minimum Qt version | Feature 002 selects Qt ≥6.8; local scaffold verification uses Qt 6.11.2. Qt 6.8 execution remains unverified. |
 | Packaging | Feature 002 provides `QMarkdown`, `QMarkdown::QMarkdown`, shared/static packages, and an import-only example. Feature 001 adds MarkdownView and MarkdownStyle with native rendering. |
 | Licensing | MIT, attributed to qt-markdown contributors; see the repository LICENSE. Bundled cmark retains its complete applicable notices, installed with the package; see [provenance](../third_party/cmark/PROVENANCE.md). Check future dependencies separately. |
@@ -32,3 +32,5 @@ Feature 002 resolves scaffold packaging, licensing, and minimum Qt requirements.
 Feature 004, approved on 2026-10-07, adds bounded top-level native fenced code blocks and independent font/color styling in version 0.3.0. See [004 verification](004-fenced-code-blocks/verification.md) for actual checks and limitations.
 
 Feature 006, explicitly approved on 2026-10-08, adds bounded top-level Setext headings, thematic breaks and indented code in package 0.4.0 / module 0.4. It preserves paragraph joining and unsupported-container fallback; nested lists/block quotes are deferred to Feature 007. Full conformance remains unverified. See [006 requirements](006-core-leaf-blocks/requirements.md), [design](006-core-leaf-blocks/design.md) and [verification](006-core-leaf-blocks/verification.md).
+
+Feature 007, approved for implementation on 2026-10-08, supersedes unsupported-container/resource-source fallback with native recursive lists/quotes and inert formatted labels in package 0.5.0 / module 0.5. Production parsing now adapts one cmark tree. Hard breaks and reference definitions follow cmark; HTML stays literal. Full conformance and resource rendering remain deferred. See [requirements](007-container-blocks/requirements.md), [design](007-container-blocks/design.md), [tasks](007-container-blocks/tasks.md) and [verification](007-container-blocks/verification.md).

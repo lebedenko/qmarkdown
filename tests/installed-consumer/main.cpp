@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     QQmlComponent component(&engine);
     component.setData(
             "import QtQuick\n"
-            "import QMarkdown 0.4\n"
+            "import QMarkdown 0.5\n"
             "MarkdownView {\n"
             "    width: 180\n"
             "    function editCode() { style.inlineCodeFont.pixelSize = 80; style.codeBlockFont.pixelSize = 32; style.codeBlockColor = \"#345678\" }\n"
@@ -109,6 +109,22 @@ int main(int argc, char *argv[])
     style->setProperty("thematicBreakThickness", 5);
     if (!settle([&] { return height() == beforeRule + 4; })
         || rule->height() != 5 || rule->property("color").value<QColor>() != QColor("#abcdef")) return 15;
+    view->setProperty("markdown", "9) first\n10) second\n\n> quote\n> - nested");
+    if (!settle([&] { return findText(view, "9)") && findText(view, "10)")
+        && findText(view, "nested") && height() > 0; })) return 16;
+    std::function<QQuickItem *(QQuickItem *)> findQuote = [&](QQuickItem *item) -> QQuickItem * {
+        if (item->objectName() == "quoteRule") return item;
+        for (auto *child : item->childItems()) if (auto *found = findQuote(child)) return found;
+        return nullptr;
+    };
+    auto *quoteRule = findQuote(view);
+    if (!quoteRule || quoteRule->width() != 2 || quoteRule->height() <= 0) return 17;
+    style->setProperty("quoteRuleColor", QColor("#fedcba"));
+    style->setProperty("quoteRuleThickness", 4);
+    style->setProperty("quoteIndent", 32);
+    style->setProperty("listIndent", 40);
+    if (!settle([&] { return quoteRule->width() == 4; })
+        || quoteRule->property("color").value<QColor>() != QColor("#fedcba")) return 18;
     view->setProperty("markdown", "replacement");
     if (!settle([&] { return height() > 0 && !findBody(view); })) return 6;
     view->setProperty("markdown", "");

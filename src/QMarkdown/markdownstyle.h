@@ -28,6 +28,10 @@ class MarkdownStyle : public QObject
     Q_PROPERTY(QFont h6Font READ h6Font WRITE setH6Font NOTIFY h6FontChanged FINAL)
     Q_PROPERTY(QColor h6Color READ h6Color WRITE setH6Color NOTIFY h6ColorChanged FINAL)
     Q_PROPERTY(qreal blockSpacing READ blockSpacing WRITE setBlockSpacing NOTIFY blockSpacingChanged FINAL)
+    Q_PROPERTY(qreal listIndent READ listIndent WRITE setListIndent NOTIFY listIndentChanged FINAL)
+    Q_PROPERTY(qreal quoteIndent READ quoteIndent WRITE setQuoteIndent NOTIFY quoteIndentChanged FINAL)
+    Q_PROPERTY(QColor quoteRuleColor READ quoteRuleColor WRITE setQuoteRuleColor NOTIFY quoteRuleColorChanged FINAL)
+    Q_PROPERTY(qreal quoteRuleThickness READ quoteRuleThickness WRITE setQuoteRuleThickness NOTIFY quoteRuleThicknessChanged FINAL)
 public:
     explicit MarkdownStyle(QObject *parent = nullptr);
     void restoreDefaults();
@@ -71,6 +75,14 @@ public:
     void setH6Color(const QColor &value);
     qreal blockSpacing() const { return m_blockSpacing; }
     void setBlockSpacing(qreal value);
+    qreal listIndent() const { return m_listIndent; }
+    void setListIndent(qreal value);
+    qreal quoteIndent() const { return m_quoteIndent; }
+    void setQuoteIndent(qreal value);
+    QColor quoteRuleColor() const { return m_quoteRuleColor; }
+    void setQuoteRuleColor(const QColor &value);
+    qreal quoteRuleThickness() const { return m_quoteRuleThickness; }
+    void setQuoteRuleThickness(qreal value);
 signals:
     void thematicBreakColorChanged();
     void thematicBreakThicknessChanged();
@@ -92,7 +104,15 @@ signals:
     void h6FontChanged();
     void h6ColorChanged();
     void blockSpacingChanged();
+    void listIndentChanged();
+    void quoteIndentChanged();
+    void quoteRuleColorChanged();
+    void quoteRuleThicknessChanged();
 private:
+    qreal m_listIndent = 24;
+    qreal m_quoteIndent = 16;
+    QColor m_quoteRuleColor = QColor("#808080");
+    qreal m_quoteRuleThickness = 2;
     QColor m_thematicBreakColor;
     qreal m_thematicBreakThickness = 1;
     QFont m_codeBlockFont, m_defaultCodeBlockFont;

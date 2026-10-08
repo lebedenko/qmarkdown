@@ -14,7 +14,4 @@ struct InlineContent {
     QVector<InlineRange> ranges;
 };
 InlineContent parseInline(const QString &source);
-// Shared validation boundary: accepts only complete, single-line UTF-8 spans.
-bool sourceSpan(const QByteArray &source, int startLine, int startColumn,
-                int endLine, int endColumn, int minimum, QByteArray *result);
 }

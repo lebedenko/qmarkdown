@@ -34,3 +34,10 @@ Each numbered feature contains these four records. Requirements define observabl
 - [006: design](006-core-leaf-blocks/design.md)
 - [006: tasks](006-core-leaf-blocks/tasks.md)
 - [006: verification](006-core-leaf-blocks/verification.md)
+
+Feature 007, approved for implementation on 2026-10-08, supersedes unsupported-container/resource-source fallback with native recursive lists/quotes and inert formatted labels in package 0.5.0 / module 0.5. Production parsing now adapts one cmark tree. Hard breaks and reference definitions follow cmark; HTML stays literal. Full conformance and resource rendering remain deferred. See [requirements](007-container-blocks/requirements.md), [design](007-container-blocks/design.md), [tasks](007-container-blocks/tasks.md) and [verification](007-container-blocks/verification.md).
+
+- [007: native container requirements](007-container-blocks/requirements.md)
+- [007: design](007-container-blocks/design.md)
+- [007: tasks](007-container-blocks/tasks.md)
+- [007: verification](007-container-blocks/verification.md)

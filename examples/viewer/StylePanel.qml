@@ -39,6 +39,12 @@ ColumnLayout {
         refresh()
         return true
     }
+    function applyQuoteColor(value) {
+        if (!isValidColor(value)) return false
+        targetStyle.quoteRuleColor = value
+        refresh()
+        return true
+    }
     function resetStyle() {
         for (const name of roles) {
             targetStyle[name + "Font"] = defaults[name + "Font"]
@@ -47,6 +53,10 @@ ColumnLayout {
         }
         targetStyle.thematicBreakColor = Qt.binding(function() { return panel.defaultTextColor })
         targetStyle.thematicBreakThickness = defaults.thematicBreakThickness
+        targetStyle.quoteRuleColor = Qt.binding(function() { return panel.darkSurface ? "#a0a0a0" : "#707070" })
+        targetStyle.quoteRuleThickness = defaults.quoteRuleThickness
+        targetStyle.quoteIndent = defaults.quoteIndent
+        targetStyle.listIndent = defaults.listIndent
         targetStyle.blockSpacing = defaults.blockSpacing
         refresh()
     }
@@ -63,6 +73,10 @@ ColumnLayout {
             targetStyle.thematicBreakColor = Qt.binding(function() { return panel.darkSurface ? "#d8a0e5" : "#743a86" })
             targetStyle.thematicBreakThickness = 3
             targetStyle.inlineCodeFont.family = "serif"
+            targetStyle.quoteRuleColor = Qt.binding(function() { return panel.darkSurface ? "#d8a0e5" : "#743a86" })
+            targetStyle.quoteRuleThickness = 3
+            targetStyle.quoteIndent = 24
+            targetStyle.listIndent = 32
             targetStyle.blockSpacing = 16
         }
         refresh()
@@ -139,6 +153,34 @@ ColumnLayout {
             from: 0; to: 16; editable: true
             value: panel.targetStyle.thematicBreakThickness
             onValueModified: panel.targetStyle.thematicBreakThickness = value
+        }
+        Item { Layout.fillWidth: true }
+    }
+
+    RowLayout {
+        Label { text: "List indent" }
+        SpinBox {
+            objectName: "listIndentField"; from: 0; to: 96; editable: true
+            value: panel.targetStyle.listIndent
+            onValueModified: panel.targetStyle.listIndent = value
+        }
+        Label { text: "Quote indent" }
+        SpinBox {
+            objectName: "quoteIndentField"; from: 0; to: 96; editable: true
+            value: panel.targetStyle.quoteIndent
+            onValueModified: panel.targetStyle.quoteIndent = value
+        }
+        Label { text: "Quote rule" }
+        TextField {
+            objectName: "quoteColorField"; Layout.preferredWidth: 120
+            text: { panel.revision; return panel.targetStyle.quoteRuleColor.toString() }
+            color: panel.isValidColor(text) ? palette.text : "#b02020"
+            onEditingFinished: panel.applyQuoteColor(text)
+        }
+        SpinBox {
+            objectName: "quoteThicknessField"; from: 0; to: 16; editable: true
+            value: panel.targetStyle.quoteRuleThickness
+            onValueModified: panel.targetStyle.quoteRuleThickness = value
         }
         Item { Layout.fillWidth: true }
     }

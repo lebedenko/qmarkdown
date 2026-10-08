@@ -1,8 +1,4 @@
 #include "private/document.h"
-#include "private/inlineadapter.h"
-#include "../third_party/cmark/symbols.h"
-#include <cmark.h>
-#include <memory>
 #include <QtTest/QTest>
 using namespace QMarkdownPrivate;
 
@@ -55,7 +51,7 @@ private slots:
         const QString literal = "*em* `code` \\x &amp; <b>x</b> [link](https://example.com) ![x](x) - list > quote --- ===";
         auto blocks = parse(literal + "\n# title\nbody\n---\n\nend");
         QCOMPARE(blocks.size(), 4);
-        QCOMPARE(blocks[0].text, QString("em code \\x & <b>x</b> [link](https://example.com) ![x](x) - list > quote --- ==="));
+        QCOMPARE(blocks[0].text, QString("em code \\x & <b>x</b> link x - list > quote --- ==="));
         QCOMPARE(blocks[0].ranges.size(), 2);
         QCOMPARE(blocks[1].text, QString("title"));
         QCOMPARE(blocks[2].text, QString("body"));
@@ -236,85 +232,80 @@ private slots:
         QCOMPARE(adjacent.ranges.size(), 1);
         QCOMPARE(adjacent.ranges[0].length, 2);
     }
-    void preservedSource_data()
+    void inertLabels_data()
     {
-        QTest::addColumn<QString>("construct");
-        for (const QString &source : {QString("[**label**](https://example.invalid/a?x=1&amp;y=2 'title')"),
-             QString("![*image*](image.png)"), QString("<https://example.invalid/a>"),
-             QString("<user@example.invalid>"), QString("<b data-x='&amp;'>"),
-             QString("</b>"), QString("<!-- *comment* -->"),
-             QString(R"([x](<with space> "title"))"), QString("[a\\]b](target)")})
-            QTest::newRow(qPrintable(source)) << source;
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<QString>("display");
+        QTest::addColumn<int>("flags");
+        QTest::newRow("link") << "[**label**](https://example.invalid/a?x=1&amp;y=2 'title')" << "label" << int(Strong);
+        QTest::newRow("image") << "![*image*](image.png)" << "image" << int(Emphasis);
+        QTest::newRow("autolink") << "<https://example.invalid/a>" << "https://example.invalid/a" << 0;
+        QTest::newRow("email") << "<user@example.invalid>" << "user@example.invalid" << 0;
+        QTest::newRow("html") << "<b data-x='&amp;'>" << "<b data-x='&amp;'>" << 0;
+        QTest::newRow("closing-html") << "</b>" << "</b>" << 0;
+        QTest::newRow("comment") << "<!-- *comment* -->" << "<!-- *comment* -->" << 0;
+        QTest::newRow("space-target") << QString(R"([x](<with space> "title"))") << "x" << 0;
+        QTest::newRow("escaped-label") << "[a\\]b](target)" << "a]b" << 0;
     }
-    void preservedSource()
+    void inertLabels()
     {
-        QFETCH(QString, construct);
-        const QString prefix = QString::fromUtf8("😀 é 日本語 ") + "&amp; \\* ";
-        const auto content = parseInline(prefix + construct + " *tail*");
-        QCOMPARE(content.text, QString::fromUtf8("😀 é 日本語 & * ") + construct + " tail");
-        QCOMPARE(content.ranges.size(), 1);
-        QCOMPARE(content.ranges[0].start, int(content.text.size() - 4));
-        const auto wrapped = parseInline("**" + construct + "**");
-        QCOMPARE(wrapped.text, construct);
-        QCOMPARE(wrapped.ranges.size(), 1);
-        QCOMPARE(wrapped.ranges[0].flags, int(Strong));
-    }
-    void conservativeFallback()
-    {
-        // The adapter's contract is one normalized line; additional blocks or
-        // unexpected softbreak nodes reject the entire result, including formats.
-        for (const QString &source : {QString("*one*\n\n# two"), QString("*one*\ntwo")}) {
-            const auto content = parseInline(source);
-            QCOMPARE(content.text, source);
-            QVERIFY(content.ranges.isEmpty());
+        QFETCH(QString, source); QFETCH(QString, display); QFETCH(int, flags);
+        const QString prefix = QString::fromUtf8("😀 é 日本語 & * ");
+        const auto block = parse(QString::fromUtf8("😀 é 日本語 &amp; ") + "\\* " + source + " *tail*")[0];
+        QCOMPARE(block.text, prefix + display + " tail");
+        QCOMPARE(block.ranges.size(), flags ? 2 : 1);
+        if (flags) {
+            QCOMPARE(block.ranges[0].start, prefix.size());
+            QCOMPARE(block.ranges[0].length, display.size());
+            QCOMPARE(block.ranges[0].flags, flags);
         }
-        QByteArray span;
-        const QByteArray source = QString::fromUtf8("abc 😀 xyz").toUtf8();
-        QVERIFY(sourceSpan(source, 1, 5, 1, 8, 0, &span));
-        QCOMPARE(QString::fromUtf8(span), QString::fromUtf8("😀"));
-        QVERIFY(!sourceSpan(source, 1, 6, 1, 8, 0, &span));
-        QVERIFY(!sourceSpan(source, 1, 5, 1, 7, 0, &span));
-        QVERIFY(!sourceSpan(source, 2, 5, 2, 8, 0, &span));
-        QVERIFY(!sourceSpan(source, 1, 5, 1, 99, 0, &span));
-        QVERIFY(!sourceSpan(source, 1, 0, 1, 8, 0, &span));
-        QVERIFY(!sourceSpan(source, 1, 5, 1, 4, 0, &span));
-        QVERIFY(!sourceSpan(source, 1, 5, 1, 8, 9, &span));
-        QVERIFY(!sourceSpan(QByteArray("\xff"), 1, 1, 1, 1, 0, &span));
-        QVERIFY(!sourceSpan(QByteArray("\xc2"), 1, 1, 1, 1, 0, &span));
+        QCOMPARE(block.ranges.last().start, block.text.size() - 4);
     }
-    void invalidAdapterTree()
+    void containersAndInlineMigration()
     {
-        const QString original = "*good* [label](target)";
-        const QByteArray input = "QMarkdownInline " + original.toUtf8();
-        using Owner = std::unique_ptr<cmark_node, decltype(&cmark_node_free)>;
-        Owner document(cmark_parse_document(input.constData(), input.size(), CMARK_OPT_DEFAULT), &cmark_node_free);
-        auto *paragraph = cmark_node_first_child(document.get());
-        QVERIFY(paragraph);
-        // A public-created node has no valid source span. It follows valid
-        // formatted content, so the whole-block fallback must discard that too.
-        auto *invalid = cmark_node_new(CMARK_NODE_HTML_INLINE);
-        QVERIFY(cmark_node_set_literal(invalid, "<b>"));
-        QVERIFY(cmark_node_append_child(paragraph, invalid));
-        auto result = adaptInlineDocument(original, document.get());
-        QCOMPARE(result.text, original);
-        QVERIFY(result.ranges.isEmpty());
-        cmark_node_free(invalid);
-        auto *unexpected = cmark_node_new(CMARK_NODE_SOFTBREAK);
-        QVERIFY(cmark_node_append_child(paragraph, unexpected));
-        result = adaptInlineDocument(original, document.get());
-        QCOMPARE(result.text, original);
-        QVERIFY(result.ranges.isEmpty());
-        cmark_node_free(unexpected);
-        auto *extra = cmark_node_new(CMARK_NODE_PARAGRAPH);
-        QVERIFY(cmark_node_append_child(document.get(), extra));
-        result = adaptInlineDocument(original, document.get());
-        QCOMPARE(result.text, original);
-        QVERIFY(result.ranges.isEmpty());
-        cmark_node_free(extra);
-        QVERIFY(cmark_node_set_literal(cmark_node_first_child(paragraph), "wrong sentinel"));
-        result = adaptInlineDocument(original, document.get());
-        QCOMPARE(result.text, original);
-        QVERIFY(result.ranges.isEmpty());
+        for (const QString &marker : {QString("-"), QString("+"), QString("*")}) {
+            const auto b = parse(marker + " a\n" + marker + "\n" + marker + " b");
+            QCOMPARE(b[0].kind, BlockKind::List);
+            QCOMPARE(b[0].children.size(), 3);
+            QVERIFY(b[0].children[1].children.isEmpty());
+            QVERIFY(b[0].tight);
+        }
+        for (const QString &delimiter : {QString("."), QString(")")}) {
+            const auto b = parse("9" + delimiter + " a\n10" + delimiter + " b");
+            QVERIFY(b[0].ordered);
+            QCOMPARE(b[0].start, 9);
+            QCOMPARE(b[0].delimiter, delimiter[0]);
+        }
+        QCOMPARE(parse("- a\n\n- b")[0].tight, false);
+        const auto nestedLoose = parse("- outer\n  - a\n\n  - b\n- end")[0];
+        QVERIFY(nestedLoose.tight);
+        QVERIFY(!nestedLoose.children[0].children[1].tight);
+        QCOMPARE(parse("- a\n+ b").size(), 2);
+        QCOMPARE(parse("paragraph\n2. stays")[0].text, QString("paragraph 2. stays"));
+        QCOMPARE(parse("paragraph\n1. interrupts").size(), 2);
+        QCOMPARE(parse("- a\n  ---")[0].children[0].children[0].kind, BlockKind::Heading);
+        const auto nested = parse("> - *a*\n>   continuation\n>   - b\n>     > quote\n>\n> # heading\n>\n> ---\n>\n>     code\n>\n> ~~~\n> fence\n> ~~~");
+        QCOMPARE(nested[0].kind, BlockKind::Quote);
+        const auto children = nested[0].children;
+        QCOMPARE(children.size(), 5);
+        QCOMPARE(children[0].children[0].children[0].text, QString("a continuation"));
+        QCOMPARE(children[0].children[0].children[1].kind, BlockKind::List);
+        QCOMPARE(children[1].kind, BlockKind::Heading);
+        QCOMPARE(children[2].kind, BlockKind::ThematicBreak);
+        QCOMPARE(children[3].text, QString("code\n"));
+        QCOMPARE(children[4].text, QString("fence\n"));
+        QCOMPARE(parse("- a\n\t- b")[0].children[0].children[1].kind, BlockKind::List);
+        QCOMPARE(parse("> lazy\ncontinuation")[0].children[0].text, QString("lazy continuation"));
+        QCOMPARE(parse("***")[0].kind, BlockKind::ThematicBreak);
+        QCOMPARE(parse(">")[0].children.size(), 0);
+        const auto labels = parse("[*label*][id] ![**image**](x) <https://example.invalid>\n\n[id]: /url");
+        QCOMPARE(labels.size(), 1);
+        QCOMPARE(labels[0].text, QString("label image https://example.invalid"));
+        QCOMPARE(labels[0].ranges.size(), 2);
+        QCOMPARE(parse("[missing][id]")[0].text, QString("[missing][id]"));
+        QCOMPARE(parse("*one*  \ntwo\\\nthree\nfour")[0].text, QString("one\ntwo\nthree four"));
+        QCOMPARE(parse("<div>\n*literal* &amp;\n</div>")[0].text, QString("<div>\n*literal* &amp;\n</div>\n"));
+        QCOMPARE(parse("a <b>*b*</b>")[0].text, QString("a <b>b</b>"));
     }
     void headingAndFenceFormatting()
     {
@@ -327,7 +318,7 @@ private slots:
         QCOMPARE(blocks[2].text, QString("*literal* &amp;\n"));
         QVERIFY(blocks[2].ranges.isEmpty());
         QCOMPARE(blocks[3].text, QString("next"));
-        QCOMPARE(parse("[x]: /url\n[x]")[0].text, QString("[x]: /url [x]"));
+        QCOMPARE(parse("[x]: /url\n[x]")[0].text, QString("x"));
     }
     void fences_data()
     {
@@ -346,7 +337,8 @@ private slots:
         QTest::newRow("final-no-newline") << "```\nx" << "x\n";
         QTest::newRow("final-newline") << "```\nx\n" << "x\n";
         QTest::newRow("literal") << "```\n*em* `code` &amp; <b> 日本語 😀\n```" << "*em* `code` &amp; <b> 日本語 😀\n";
-        QTest::newRow("long") << QString(300, '`') + "\nx\n" + QString(299, '`') + "\n" + QString(301, '`') << "x\n" + QString(299, '`') + "\n";
+        // cmark 0.31.2 caps the stored opener length at 255.
+        QTest::newRow("long") << QString(300, '`') + "\nx\n" + QString(299, '`') + "\n" + QString(301, '`') << "x\n";
         QTest::newRow("suffix-tab") << "~~~\nx\n   ~~~~ \t" << "x\n";
         QTest::newRow("closer-indent4") << "~~~\n    ~~~\n~~~" << "    ~~~\n";
     }
@@ -357,7 +349,7 @@ private slots:
             auto normalized = source;
             normalized.replace("\n", ending);
             const auto blocks = parse("before\n" + normalized);
-            QCOMPARE(blocks.size(), 2);
+            QCOMPARE(blocks.size(), source.startsWith(QString(300, '`')) ? 3 : 2);
             QCOMPARE(blocks[1].kind, BlockKind::CodeBlock);
             QCOMPARE(blocks[1].text, expected);
             QVERIFY(blocks[1].ranges.isEmpty());

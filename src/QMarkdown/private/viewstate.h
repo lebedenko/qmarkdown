@@ -15,6 +15,7 @@ public:
     void replace(QVector<QMarkdownPrivate::Block> blocks);
 private:
     QVector<QMarkdownPrivate::Block> m_blocks;
+    QVector<BlockModel *> m_children;
 };
 
 class ViewState : public QObject

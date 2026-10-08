@@ -12,21 +12,132 @@ Item {
     implicitHeight: contentHeight
 
     ViewState { id: viewState }
-    Column {
+    Loader {
         id: blocks
         width: Math.max(0, root.width)
-        spacing: Number.isFinite(viewState.style.blockSpacing) ? Math.max(0, viewState.style.blockSpacing) : 8
+        sourceComponent: sequenceComponent
+        onLoaded: {
+            const loaded = item as BlockSequence
+            loaded.model = Qt.binding(function() { return root.width > 0 ? viewState.blocks : null })
+        }
+    }
+    Component {
+        id: sequenceComponent
+        BlockSequence {}
+    }
+    component BlockSequence: Column {
+        id: sequence
+        property var model: null
+        property var style: viewState.style
+        property real gap: Number.isFinite(style.blockSpacing) ? Math.max(0, style.blockSpacing) : 8
+
+        spacing: gap
         Repeater {
-            model: root.width > 0 ? viewState.blocks : null
+            model: sequence.width > 0 ? sequence.model : null
             delegate: DelegateChooser {
                 role: "renderKind"
                 DelegateChoice {
+                    roleValue: 4
+                    delegate: Column {
+                        id: list
+                        required property var childBlocks
+                        required property bool tightList
+                        required property var markers
+                        width: sequence.width
+                        readonly property real itemGap: tightList ? 0
+                            : (Number.isFinite(sequence.style.blockSpacing) ? Math.max(0, sequence.style.blockSpacing) : 8)
+                        spacing: itemGap
+                        FontMetrics { id: markerMetrics; font: sequence.style.bodyFont }
+                        readonly property real markerWidth: {
+                            // Invokable measurements need an explicit font dependency.
+                            const fontDependency = markerMetrics.font
+                            return markers.reduce(function(w, marker) { return Math.max(w, markerMetrics.advanceWidth(marker)) }, 0)
+                        }
+                        readonly property real gutter: Math.min(Math.max(0, width - 1), Math.max(
+                            Number.isFinite(sequence.style.listIndent) ? Math.max(0, sequence.style.listIndent) : 24,
+                            markerWidth + 8))
+                        Repeater {
+                            model: list.childBlocks
+                            delegate: Item {
+                                id: row
+                                required property int index
+                                required property var childBlocks
+                                width: list.width
+                                height: Math.max(markerMetrics.height, itemLoader.item ? (itemLoader.item as Item).height : 0)
+                                Text {
+                                    objectName: "listMarker"
+                                    text: list.markers[row.index]
+                                    width: Math.max(0, list.gutter - 8)
+                                    horizontalAlignment: Text.AlignRight
+                                    font: sequence.style.bodyFont
+                                    color: sequence.style.bodyColor
+                                    textFormat: Text.PlainText
+                                }
+                                Loader {
+                                    id: itemLoader
+                                    x: list.gutter
+                                    width: Math.max(0, row.width - x)
+                                    sourceComponent: sequenceComponent
+                                    onLoaded: {
+                                        const loaded = item as BlockSequence
+                                        loaded.model = Qt.binding(function() { return row.childBlocks })
+                                        loaded.style = Qt.binding(function() { return sequence.style })
+                                        loaded.gap = Qt.binding(function() { return list.itemGap })
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                DelegateChoice {
+                    roleValue: 5
+                    delegate: Item {
+                        id: quote
+                        required property var childBlocks
+                        width: sequence.width
+                        readonly property real thickness: Number.isFinite(sequence.style.quoteRuleThickness) ? Math.max(0, sequence.style.quoteRuleThickness) : 2
+                        readonly property real inset: Math.min(Math.max(0, width - 1), Math.max(thickness + 8,
+                            Number.isFinite(sequence.style.quoteIndent) ? Math.max(0, sequence.style.quoteIndent) : 16))
+                        height: Math.max(quoteMetrics.height, quoteLoader.item ? (quoteLoader.item as Item).height : 0)
+                        FontMetrics { id: quoteMetrics; font: sequence.style.bodyFont }
+                        Rectangle {
+                            objectName: "quoteRule"
+                            width: Math.min(quote.thickness, quote.inset)
+                            height: quote.height
+                            color: sequence.style.quoteRuleColor
+                        }
+                        Loader {
+                            id: quoteLoader
+                            x: quote.inset
+                            width: Math.max(0, quote.width - x)
+                            sourceComponent: sequenceComponent
+                            onLoaded: {
+                                const loaded = item as BlockSequence
+                                loaded.model = Qt.binding(function() { return quote.childBlocks })
+                                loaded.style = Qt.binding(function() { return sequence.style })
+                            }
+                        }
+                    }
+                }
+                DelegateChoice {
+                    roleValue: 7
+                    delegate: Text {
+                        required property string blockText
+                        width: sequence.width
+                        text: blockText.endsWith("\n") ? blockText.slice(0, -1) : blockText
+                        textFormat: Text.PlainText
+                        wrapMode: Text.Wrap
+                        font: sequence.style.bodyFont
+                        color: sequence.style.bodyColor
+                    }
+                }
+                DelegateChoice {
                     roleValue: 3
                     delegate: Rectangle {
-                        width: blocks.width
-                        height: Number.isFinite(viewState.style.thematicBreakThickness)
-                            ? Math.max(0, viewState.style.thematicBreakThickness) : 1
-                        color: viewState.style.thematicBreakColor
+                        width: sequence.width
+                        height: Number.isFinite(sequence.style.thematicBreakThickness)
+                            ? Math.max(0, sequence.style.thematicBreakThickness) : 1
+                        color: sequence.style.thematicBreakColor
                     }
                 }
                 DelegateChoice {
@@ -34,14 +145,14 @@ Item {
                     delegate: Text {
                         id: codeBlock
                         required property string blockText
-                        width: blocks.width
+                        width: sequence.width
                         text: blockText.endsWith("\n") ? blockText.slice(0, -1) : blockText
                         textFormat: Text.PlainText
                         wrapMode: Text.Wrap
                         horizontalAlignment: Text.AlignLeft
                         elide: Text.ElideNone
-                        font: viewState.style.codeBlockFont
-                        color: viewState.style.codeBlockColor
+                        font: sequence.style.codeBlockFont
+                        color: sequence.style.codeBlockColor
                         height: text.length === 0 ? codeMetrics.height : implicitHeight
                         FontMetrics { id: codeMetrics; font: codeBlock.font }
                     }
@@ -52,24 +163,24 @@ Item {
                         id: blockItem
                         required property string blockText
                         required property int headingLevel
-                        width: blocks.width
+                        width: sequence.width
                         text: blockText
                         textFormat: Text.PlainText
                         wrapMode: Text.Wrap
                         horizontalAlignment: Text.AlignLeft
                         elide: Text.ElideNone
-                        font: headingLevel === 1 ? viewState.style.h1Font
-                            : headingLevel === 2 ? viewState.style.h2Font
-                            : headingLevel === 3 ? viewState.style.h3Font
-                            : headingLevel === 4 ? viewState.style.h4Font
-                            : headingLevel === 5 ? viewState.style.h5Font
-                            : headingLevel === 6 ? viewState.style.h6Font : viewState.style.bodyFont
-                        color: headingLevel === 1 ? viewState.style.h1Color
-                            : headingLevel === 2 ? viewState.style.h2Color
-                            : headingLevel === 3 ? viewState.style.h3Color
-                            : headingLevel === 4 ? viewState.style.h4Color
-                            : headingLevel === 5 ? viewState.style.h5Color
-                            : headingLevel === 6 ? viewState.style.h6Color : viewState.style.bodyColor
+                        font: headingLevel === 1 ? sequence.style.h1Font
+                            : headingLevel === 2 ? sequence.style.h2Font
+                            : headingLevel === 3 ? sequence.style.h3Font
+                            : headingLevel === 4 ? sequence.style.h4Font
+                            : headingLevel === 5 ? sequence.style.h5Font
+                            : headingLevel === 6 ? sequence.style.h6Font : sequence.style.bodyFont
+                        color: headingLevel === 1 ? sequence.style.h1Color
+                            : headingLevel === 2 ? sequence.style.h2Color
+                            : headingLevel === 3 ? sequence.style.h3Color
+                            : headingLevel === 4 ? sequence.style.h4Color
+                            : headingLevel === 5 ? sequence.style.h5Color
+                            : headingLevel === 6 ? sequence.style.h6Color : sequence.style.bodyColor
                         height: blockText.length === 0 && headingLevel > 0 ? metrics.height : implicitHeight
                         FontMetrics { id: metrics; font: blockItem.font }
                     }
@@ -81,26 +192,26 @@ Item {
                         required property string blockText
                         required property int headingLevel
                         required property var formatRanges
-                        width: blocks.width
+                        width: sequence.width
                         height: painted.logicalHeight
                         FormattedText {
                             id: painted
                             text: formattedBlock.blockText
                             formatRanges: formattedBlock.formatRanges
                             layoutWidth: formattedBlock.width
-                            codeFont: viewState.style.inlineCodeFont
-                            font: formattedBlock.headingLevel === 1 ? viewState.style.h1Font
-                                : formattedBlock.headingLevel === 2 ? viewState.style.h2Font
-                                : formattedBlock.headingLevel === 3 ? viewState.style.h3Font
-                                : formattedBlock.headingLevel === 4 ? viewState.style.h4Font
-                                : formattedBlock.headingLevel === 5 ? viewState.style.h5Font
-                                : formattedBlock.headingLevel === 6 ? viewState.style.h6Font : viewState.style.bodyFont
-                            color: formattedBlock.headingLevel === 1 ? viewState.style.h1Color
-                                : formattedBlock.headingLevel === 2 ? viewState.style.h2Color
-                                : formattedBlock.headingLevel === 3 ? viewState.style.h3Color
-                                : formattedBlock.headingLevel === 4 ? viewState.style.h4Color
-                                : formattedBlock.headingLevel === 5 ? viewState.style.h5Color
-                                : formattedBlock.headingLevel === 6 ? viewState.style.h6Color : viewState.style.bodyColor
+                            codeFont: sequence.style.inlineCodeFont
+                            font: formattedBlock.headingLevel === 1 ? sequence.style.h1Font
+                                : formattedBlock.headingLevel === 2 ? sequence.style.h2Font
+                                : formattedBlock.headingLevel === 3 ? sequence.style.h3Font
+                                : formattedBlock.headingLevel === 4 ? sequence.style.h4Font
+                                : formattedBlock.headingLevel === 5 ? sequence.style.h5Font
+                                : formattedBlock.headingLevel === 6 ? sequence.style.h6Font : sequence.style.bodyFont
+                            color: formattedBlock.headingLevel === 1 ? sequence.style.h1Color
+                                : formattedBlock.headingLevel === 2 ? sequence.style.h2Color
+                                : formattedBlock.headingLevel === 3 ? sequence.style.h3Color
+                                : formattedBlock.headingLevel === 4 ? sequence.style.h4Color
+                                : formattedBlock.headingLevel === 5 ? sequence.style.h5Color
+                                : formattedBlock.headingLevel === 6 ? sequence.style.h6Color : sequence.style.bodyColor
                         }
                     }
                 }

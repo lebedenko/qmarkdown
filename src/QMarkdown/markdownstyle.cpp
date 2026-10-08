@@ -55,6 +55,10 @@ void MarkdownStyle::restoreDefaults()
     setH5Color(QColor("#202020"));
     setH6Font(m_defaulth6Font);
     setH6Color(QColor("#202020"));
+    setListIndent(24);
+    setQuoteIndent(16);
+    setQuoteRuleColor(QColor("#808080"));
+    setQuoteRuleThickness(2);
     setBlockSpacing(8);
 }
 
@@ -197,4 +201,32 @@ void MarkdownStyle::setThematicBreakThickness(qreal value)
         || (std::isnan(m_thematicBreakThickness) && std::isnan(value))) return;
     m_thematicBreakThickness = value;
     emit thematicBreakThicknessChanged();
+}
+
+void MarkdownStyle::setListIndent(qreal value)
+{
+    if (m_listIndent == value || (std::isnan(m_listIndent) && std::isnan(value))) return;
+    m_listIndent = value;
+    emit listIndentChanged();
+}
+
+void MarkdownStyle::setQuoteIndent(qreal value)
+{
+    if (m_quoteIndent == value || (std::isnan(m_quoteIndent) && std::isnan(value))) return;
+    m_quoteIndent = value;
+    emit quoteIndentChanged();
+}
+
+void MarkdownStyle::setQuoteRuleColor(const QColor &value)
+{
+    if (m_quoteRuleColor == value) return;
+    m_quoteRuleColor = value;
+    emit quoteRuleColorChanged();
+}
+
+void MarkdownStyle::setQuoteRuleThickness(qreal value)
+{
+    if (m_quoteRuleThickness == value || (std::isnan(m_quoteRuleThickness) && std::isnan(value))) return;
+    m_quoteRuleThickness = value;
+    emit quoteRuleThicknessChanged();
 }
