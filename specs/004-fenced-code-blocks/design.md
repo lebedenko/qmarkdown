@@ -25,3 +25,5 @@ Retaining the splitter avoids broader block-parsing changes; native Text avoids 
 Update CMake package/module versions to 0.3.0/0.3, QML imports, private runtime registration and tooling metadata, viewer and relocated installed-consumer fixtures. Update current README/spec overview/roadmap claims after verification; preserve historical feature records. No selection, resource loading, custom renderers or styling beyond font/color is introduced.
 
 The [task mapping](tasks.md) and [planned checks](verification.md) define the approval scope. The user explicitly approved these documents on 2026-10-07; the recorded scope is R1–R6 and T1–T7.
+
+Typography amendment: [Feature 008](../008-font-units/requirements.md) supersedes fixed pixel defaults and the pixel-only playground editor. The historical scope and approval above are preserved.

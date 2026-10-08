@@ -5,32 +5,26 @@
 
 MarkdownStyle::MarkdownStyle(QObject *parent) : QObject(parent)
 {
-    m_defaultCodeBlockFont = QGuiApplication::font();
-    m_defaultCodeBlockFont.setFamily(QFontDatabase::systemFont(QFontDatabase::FixedFont).family());
-    m_defaultCodeBlockFont.setPixelSize(16);
-    m_defaultCodeBlockFont.setWeight(QFont::Normal);
-    m_defaultInlineCodeFont.setFamily(QFontDatabase::systemFont(QFontDatabase::FixedFont).family());
     m_defaultbodyFont = QGuiApplication::font();
-    m_defaultbodyFont.setPixelSize(16);
     m_defaultbodyFont.setWeight(QFont::Normal);
-    m_defaulth1Font = QGuiApplication::font();
-    m_defaulth1Font.setPixelSize(32);
-    m_defaulth1Font.setWeight(QFont::Bold);
-    m_defaulth2Font = QGuiApplication::font();
-    m_defaulth2Font.setPixelSize(28);
-    m_defaulth2Font.setWeight(QFont::Bold);
-    m_defaulth3Font = QGuiApplication::font();
-    m_defaulth3Font.setPixelSize(24);
-    m_defaulth3Font.setWeight(QFont::Bold);
-    m_defaulth4Font = QGuiApplication::font();
-    m_defaulth4Font.setPixelSize(20);
-    m_defaulth4Font.setWeight(QFont::Bold);
-    m_defaulth5Font = QGuiApplication::font();
-    m_defaulth5Font.setPixelSize(18);
-    m_defaulth5Font.setWeight(QFont::Bold);
-    m_defaulth6Font = QGuiApplication::font();
-    m_defaulth6Font.setPixelSize(16);
-    m_defaulth6Font.setWeight(QFont::Bold);
+    m_defaultCodeBlockFont = m_defaultbodyFont;
+    m_defaultCodeBlockFont.setFamily(QFontDatabase::systemFont(QFontDatabase::FixedFont).family());
+    m_defaultInlineCodeFont.setFamily(QFontDatabase::systemFont(QFontDatabase::FixedFont).family());
+    const auto headingFont = [this](qreal proportion) {
+        QFont font = m_defaultbodyFont;
+        if (font.pixelSize() > 0)
+            font.setPixelSize(qMax(1, qRound(font.pixelSize() * proportion)));
+        else
+            font.setPointSizeF(font.pointSizeF() * proportion);
+        font.setWeight(QFont::Bold);
+        return font;
+    };
+    m_defaulth1Font = headingFont(2);
+    m_defaulth2Font = headingFont(1.75);
+    m_defaulth3Font = headingFont(1.5);
+    m_defaulth4Font = headingFont(1.25);
+    m_defaulth5Font = headingFont(1.125);
+    m_defaulth6Font = headingFont(1);
     restoreDefaults();
 }
 

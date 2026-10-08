@@ -1,4 +1,6 @@
 #include "private/formattedtext.h"
+#include "markdownstyle.h"
+#include <QScreen>
 #include "private/inline.h"
 #include <QGuiApplication>
 #include <QFontMetricsF>
@@ -7,6 +9,7 @@
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QQmlProperty>
+#include <QJSValue>
 #include <QQuickItem>
 #include <QQuickWindow>
 #include <QNetworkAccessManager>
@@ -18,6 +21,10 @@
 #include <cmath>
 #ifdef QMARKDOWN_STATIC
 Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
+#endif
+
+#ifdef QMARKDOWN_VIEWER_SOURCE
+void qml_register_types_QMarkdownViewer_Tools();
 #endif
 
 class RequestManager : public QNetworkAccessManager
@@ -72,8 +79,177 @@ class ViewTest : public QObject
         return result;
     }
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
+    QFont savedApplicationFont;
 private slots:
-    void init() { QTest::failOnWarning(); }
+    void initTestCase() {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        qml_register_types_QMarkdownViewer_Tools();
+#endif
+    }
+    void init() {
+        QTest::failOnWarning();
+        savedApplicationFont = QGuiApplication::font();
+        QFont font = savedApplicationFont; font.setPixelSize(16);
+        QGuiApplication::setFont(font);
+    }
+    void cleanup() { QGuiApplication::setFont(savedApplicationFont); }
+    void applicationTypography_data()
+    {
+        QTest::addColumn<bool>("pixels");
+        QTest::newRow("pixels") << true;
+        QTest::newRow("fractional-points") << false;
+    }
+    void applicationTypography()
+    {
+        QFETCH(bool, pixels);
+        QFont application = QGuiApplication::font();
+        if (pixels) application.setPixelSize(13);
+        else application.setPointSizeF(10.25);
+        application.setWeight(QFont::Black);
+        QGuiApplication::setFont(application);
+        MarkdownStyle style;
+        QCOMPARE(style.bodyFont().weight(), QFont::Normal);
+        QCOMPARE(style.bodyFont().pixelSize(), application.pixelSize());
+        QCOMPARE(style.bodyFont().pointSizeF(), application.pointSizeF());
+        const qreal ratios[] = {2, 1.75, 1.5, 1.25, 1.125, 1};
+        const QFont headings[] = {style.h1Font(), style.h2Font(), style.h3Font(),
+                                  style.h4Font(), style.h5Font(), style.h6Font()};
+        for (int i = 0; i < 6; ++i) {
+            QCOMPARE(headings[i].weight(), QFont::Bold);
+            if (pixels) QCOMPARE(headings[i].pixelSize(), qRound(13 * ratios[i]));
+            else QCOMPARE(headings[i].pointSizeF(), 10.25 * ratios[i]);
+        }
+        QCOMPARE(style.codeBlockFont().pixelSize(), application.pixelSize());
+        QCOMPARE(style.codeBlockFont().pointSizeF(), application.pointSizeF());
+        QCOMPARE(style.codeBlockFont().weight(), QFont::Normal);
+        QCOMPARE(style.codeBlockFont().family(), QFontDatabase::systemFont(QFontDatabase::FixedFont).family());
+        for (const auto &block : {style.bodyFont(), style.h1Font()}) {
+            const auto code = style.inlineCodeFont().resolve(block);
+            QCOMPARE(code.pixelSize(), block.pixelSize());
+            QCOMPARE(code.pointSizeF(), block.pointSizeF());
+        }
+        const auto snapshot = style.bodyFont();
+        QSignalSpy changes(&style, &MarkdownStyle::bodyFontChanged);
+        QFont edited = snapshot; edited.setPointSizeF(23.75);
+        style.setBodyFont(edited); style.setBodyFont(edited);
+        QCOMPARE(changes.count(), 1);
+        QCOMPARE(style.h1Font(), headings[0]);
+        QCOMPARE(style.codeBlockFont().pointSizeF(), application.pointSizeF());
+        QCOMPARE(style.codeBlockFont().pixelSize(), application.pixelSize());
+        edited.setPixelSize(27); style.setBodyFont(edited);
+        QCOMPARE(changes.count(), 2);
+        application.setPointSizeF(41); QGuiApplication::setFont(application);
+        style.restoreDefaults();
+        QCOMPARE(style.bodyFont(), snapshot);
+        QCOMPARE(changes.count(), 3);
+        MarkdownStyle fresh;
+        QCOMPARE(fresh.bodyFont().pointSizeF(), 41.0);
+    }
+    void nativePointLayout_data()
+    {
+        QTest::addColumn<qreal>("points");
+        QTest::newRow("eighth") << qreal(13.125);
+        QTest::newRow("quarter") << qreal(13.25);
+        QTest::newRow("near-half") << qreal(13.49);
+    }
+    void nativePointLayout()
+    {
+        QFETCH(qreal, points);
+        QFont application = QGuiApplication::font(); application.setPointSizeF(points);
+        QGuiApplication::setFont(application);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown\nMarkdownView { width: 150; markdown: 'same words wrap over several lines here\\n\\n*same words wrap over several lines here*' }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
+        QTRY_COMPARE(painted(view).size(), 1);
+        auto *inlineText = painted(view)[0]; inlineText->setFormatRanges({});
+        QTRY_VERIFY(inlineText->layout());
+        QTRY_COMPARE(inlineText->logicalHeight(), texts(view)[0]->height());
+        qreal lineWidth = 0;
+        for (int i = 0; i < inlineText->layout()->lineCount(); ++i)
+            lineWidth = qMax(lineWidth, inlineText->layout()->lineAt(i).naturalTextWidth());
+        QCOMPARE(lineWidth, texts(view)[0]->property("contentWidth").toDouble());
+        // Returning to the application font after another assignment goes
+        // through native Text's setter and therefore does round to half points.
+        auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        QFont edited = style->bodyFont(); edited.setPointSizeF(24.75); style->setBodyFont(edited);
+        QTRY_COMPARE(inlineText->layout()->font().pointSizeF(), 25.0);
+        edited.setPointSizeF(points); style->setBodyFont(edited);
+        QTRY_COMPARE(inlineText->logicalHeight(), texts(view)[0]->height());
+        QCOMPARE(inlineText->font().pointSizeF(), points);
+    }
+    void pointRenderingAndRuntimeUnits()
+    {
+        QFont application = QGuiApplication::font(); application.setPointSizeF(13.25);
+        QGuiApplication::setFont(application);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(
+            "import QtQuick\nimport QMarkdown\n"
+            "Item { width: 250; height: 600\n"
+            " MarkdownStyle { id: shared; objectName: 'shared'; bodyFont.pointSize: 13.25; h1Font.pointSize: 19.5 }\n"
+            " MarkdownView { id: a; objectName: 'a'; width: 180; style: shared; markdown: 'same words wrap over several lines here\\n\\n*same words wrap over several lines here*\\n\\n# `heading`\\n\\n`body`' }\n"
+            " MarkdownView { objectName: 'b'; width: 180; style: shared; markdown: a.markdown }\n"
+            " function points() { shared.bodyFont.pointSize = 24.75 }\n"
+            " function pixels() { shared.bodyFont.pixelSize = 12 }\n"
+            " MarkdownStyle { id: other; objectName: 'pointReplacement'; bodyFont.pointSize: 17.5 }\n"
+            " function replace() { a.style = other }\n"
+            " function reset() { a.style = null }\n"
+            "}", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *host = qobject_cast<QQuickItem *>(object.get()); QVERIFY(host);
+        auto *a = host->findChild<QQuickItem *>("a");
+        auto *b = host->findChild<QQuickItem *>("b");
+        auto *style = host->findChild<MarkdownStyle *>("shared"); QVERIFY(a && b && style);
+        QQuickWindow window; host->setParentItem(window.contentItem()); window.show();
+        QTRY_COMPARE(painted(a).size(), 3);
+        QTRY_VERIFY(painted(a)[0]->layout());
+        // Italic can change widths; compare unformatted native Text against a
+        // formatted renderer with the same font and content directly.
+        auto *formatted = painted(a)[0];
+        formatted->setFormatRanges({});
+        QTRY_COMPARE(formatted->logicalHeight(), texts(a)[0]->height());
+        const auto headingCode = painted(a)[1]->layout()->formats()[0].format.font();
+        QCOMPARE(headingCode.pointSizeF(), 19.5);
+        QCOMPARE(painted(a)[2]->layout()->formats()[0].format.font().pointSizeF(), 13.25);
+        const auto initial = content(a);
+        QSignalSpy notifications(style, &MarkdownStyle::bodyFontChanged);
+        QVERIFY(QMetaObject::invokeMethod(host, "points"));
+        QTRY_VERIFY(content(a) > initial); QTRY_COMPARE(content(a), content(b));
+        QCOMPARE(style->bodyFont().pointSizeF(), 24.75);
+        QCOMPARE(style->bodyFont().pixelSize(), -1);
+        QCOMPARE(notifications.count(), 1);
+        QTest::ignoreMessage(QtWarningMsg, "Both point size and pixel size set. Using pixel size.");
+        QVERIFY(QMetaObject::invokeMethod(host, "pixels"));
+        QTRY_VERIFY(content(a) < initial); QTRY_COMPARE(content(a), content(b));
+        QCOMPARE(style->bodyFont().pixelSize(), 12);
+        QCOMPARE(style->bodyFont().pointSizeF(), -1.0);
+        QCOMPARE(notifications.count(), 2);
+        QTest::ignoreMessage(QtWarningMsg, "Both point size and pixel size set. Using pixel size.");
+        QVERIFY(QMetaObject::invokeMethod(host, "points"));
+        QCOMPARE(style->bodyFont().pixelSize(), 12);
+        QCOMPARE(notifications.count(), 2);
+        QFont whole = style->bodyFont(); whole.setPointSizeF(31.5);
+        style->setBodyFont(whole);
+        QTRY_VERIFY(content(a) > initial);
+        // Screen/DPI notifications must invalidate cached private layouts.
+        QSignalSpy layoutChanges(formatted, &FormattedText::layoutChanged);
+        QVERIFY(QMetaObject::invokeMethod(window.screen(), "logicalDotsPerInchChanged", Q_ARG(qreal, window.screen()->logicalDotsPerInch())));
+        QTRY_VERIFY(layoutChanges.count() > 0);
+        QVERIFY(QMetaObject::invokeMethod(host, "reset"));
+        QTRY_COMPARE(a->property("style").value<QObject *>()->property("bodyFont").value<QFont>().pointSizeF(), 13.25);
+        QTRY_VERIFY(content(a) < content(b));
+        QVERIFY(QMetaObject::invokeMethod(host, "replace"));
+        QTRY_COMPARE(a->property("style").value<QObject *>()->property("bodyFont").value<QFont>().pointSizeF(), 17.5);
+        delete host->findChild<MarkdownStyle *>("pointReplacement");
+        QTRY_COMPARE(a->property("style").value<QObject *>()->property("bodyFont").value<QFont>().pointSizeF(), 13.25);
+        const auto beforeScreenChange = layoutChanges.count();
+        QVERIFY(QMetaObject::invokeMethod(&window, "screenChanged", Q_ARG(QScreen *, window.screen())));
+        QTRY_VERIFY(layoutChanges.count() > beforeScreenChange);
+
+    }
     void containerLayoutAndStyle()
     {
         RequestFactory factory;
@@ -816,6 +992,70 @@ private slots:
                 }
             }
         }
+    }
+    void viewerFontUnits()
+    {
+        QFont application = QGuiApplication::font(); application.setPointSizeF(11.25);
+        QGuiApplication::setFont(application);
+        QQmlEngine engine;
+        QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *panel = window->findChild<QObject *>("stylePanel"); QVERIFY(panel);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *style = preview->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        auto *units = window->findChild<QObject *>("unitSelector"); QVERIFY(units);
+        auto *size = window->findChild<QObject *>("sizeField"); QVERIFY(size);
+        QTRY_COMPARE(units->property("currentIndex").toInt(), 1);
+        QCOMPARE(size->property("value").toInt(), 1125);
+        const auto initialHeight = content(preview);
+        QFont decorated = style->bodyFont();
+        decorated.setUnderline(true); decorated.setLetterSpacing(QFont::AbsoluteSpacing, 1.25);
+        style->setBodyFont(decorated);
+        const auto mask = decorated.resolveMask();
+        const auto dpi = panel->property("logicalDpi").toDouble(); QVERIFY(dpi > 0);
+        QVERIFY(QMetaObject::invokeMethod(panel, "changeUnit", Q_ARG(QVariant, false)));
+        QTRY_COMPARE(units->property("currentIndex").toInt(), 0);
+        QCOMPARE(style->bodyFont().pixelSize(), qRound(11.25 * dpi / 72));
+        QVERIFY(style->bodyFont().underline());
+        QCOMPARE(style->bodyFont().letterSpacing(), 1.25);
+        QCOMPARE(style->bodyFont().resolveMask(), mask);
+        QVERIFY(QMetaObject::invokeMethod(panel, "changeUnit", Q_ARG(QVariant, true)));
+        QCOMPARE(style->bodyFont().pointSizeF(), qRound(11.25 * dpi / 72) * 72.0 / dpi);
+        QCOMPARE(style->bodyFont().resolveMask(), mask);
+        QTRY_COMPARE(units->property("currentIndex").toInt(), 1);
+        // Exercise the SpinBox's fractional input conversion and user signal.
+        const auto parser = engine.newQObject(size).property("valueFromText");
+        const auto parsed = parser.call({QJSValue("23.75"), engine.evaluate("Qt.locale('en_US')")});
+        QVERIFY2(!parsed.isError(), qPrintable(parsed.toString()));
+        QCOMPARE(parsed.toInt(), 2375);
+        size->setProperty("value", 2375);
+        QVERIFY(QMetaObject::invokeMethod(size, "valueModified"));
+        QTRY_COMPARE(style->bodyFont().pointSizeF(), 23.75);
+        QTRY_VERIFY(content(preview) > initialHeight);
+        const auto inherited = style->inlineCodeFont();
+        panel->setProperty("selectedRole", 7);
+        QTRY_COMPARE(units->property("currentIndex").toInt(), 1);
+        QCOMPARE(panel->property("fontSize").toDouble(), 23.75);
+        QVERIFY(QMetaObject::invokeMethod(panel, "changeUnit", Q_ARG(QVariant, true)));
+        QCOMPARE(style->inlineCodeFont().resolveMask(), inherited.resolveMask());
+        QVERIFY(QMetaObject::invokeMethod(panel, "editFont", Q_ARG(QVariant, "family"), Q_ARG(QVariant, "serif")));
+        QCOMPARE(style->inlineCodeFont().resolveMask(), inherited.resolveMask());
+        QVERIFY(QMetaObject::invokeMethod(panel, "changeUnit", Q_ARG(QVariant, false)));
+        QCOMPARE(style->inlineCodeFont().pixelSize(), qRound(23.75 * dpi / 72));
+        QCOMPARE(style->inlineCodeFont().resolveMask(), inherited.resolveMask() | QFont::SizeResolved);
+        QCOMPARE(style->inlineCodeFont().family(), QString("serif"));
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyPreset", Q_ARG(QVariant, true)));
+        QCOMPARE(style->bodyFont().pixelSize(), 20);
+        QCOMPARE(style->h1Font().pixelSize(), 40);
+        QCOMPARE(style->codeBlockFont().pixelSize(), 22);
+        QGuiApplication::setFont(decorated);
+        QVERIFY(QMetaObject::invokeMethod(panel, "resetStyle"));
+        QCOMPARE(style->bodyFont().pointSizeF(), 11.25);
+        QCOMPARE(style->inlineCodeFont().resolveMask(), inherited.resolveMask());
+        QVERIFY(QMetaObject::invokeMethod(panel, "applyPreset", Q_ARG(QVariant, false)));
+        QCOMPARE(style->bodyFont().pointSizeF(), 11.25);
     }
     void viewer()
     {

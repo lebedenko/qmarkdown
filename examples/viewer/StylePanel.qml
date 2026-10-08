@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QMarkdown
+import QMarkdownViewer.Tools
 
 ColumnLayout {
     id: panel
@@ -15,7 +16,28 @@ ColumnLayout {
     property int revision: 0
     readonly property string role: roles[selectedRole]
     readonly property string colorRole: role === "inlineCode" ? "body" : role
+    // The preview shares this window and screen; Screen density is logical dots/mm.
+    readonly property real logicalDpi: Screen.logicalPixelDensity * 25.4
+    FontEditor { id: fontEditor }
+    readonly property font effectiveFont: {
+        panel.revision
+        const font = targetStyle[role + "Font"]
+        return role === "inlineCode" && !fontEditor.hasSize(font)
+            ? targetStyle.bodyFont : font
+    }
+    readonly property bool pointUnit: fontEditor.points(effectiveFont)
+    readonly property real fontSize: fontEditor.size(effectiveFont)
     MarkdownStyle { id: defaults }
+    function changeUnit(points) {
+        if (points === pointUnit) return
+        const size = points ? fontSize * 72 / logicalDpi : Math.max(1, Math.round(fontSize * logicalDpi / 72))
+        targetStyle[role + "Font"] = fontEditor.resized(targetStyle[role + "Font"], points, size)
+        refresh()
+    }
+    function editSize(size) {
+        targetStyle[role + "Font"] = fontEditor.resized(targetStyle[role + "Font"], pointUnit, size)
+        refresh()
+    }
     function refresh() { revision++ }
     function editFont(field, value) {
         let font = targetStyle[role + "Font"]
@@ -63,12 +85,12 @@ ColumnLayout {
     function applyPreset(alternate) {
         resetStyle()
         if (alternate) {
-            targetStyle.bodyFont.pixelSize = 20
+            targetStyle.bodyFont = fontEditor.resized(targetStyle.bodyFont, false, 20)
             targetStyle.bodyColor = Qt.binding(function() { return panel.darkSurface ? "#82cba7" : "#194c39" })
-            targetStyle.h1Font.pixelSize = 40
+            targetStyle.h1Font = fontEditor.resized(targetStyle.h1Font, false, 40)
             for (let i = 1; i <= 6; ++i)
                 targetStyle["h" + i + "Color"] = Qt.binding(function() { return panel.darkSurface ? "#d8a0e5" : "#743a86" })
-            targetStyle.codeBlockFont.pixelSize = 22
+            targetStyle.codeBlockFont = fontEditor.resized(targetStyle.codeBlockFont, false, 22)
             targetStyle.codeBlockColor = Qt.binding(function() { return panel.darkSurface ? "#8db9f2" : "#305b9c" })
             targetStyle.thematicBreakColor = Qt.binding(function() { return panel.darkSurface ? "#d8a0e5" : "#743a86" })
             targetStyle.thematicBreakThickness = 3
@@ -102,12 +124,30 @@ ColumnLayout {
             text: { panel.revision; return panel.targetStyle[panel.role + "Font"].family }
             onEditingFinished: if (text.trim().length) panel.editFont("family", text.trim())
         }
-        Label { text: "Size (px)" }
+        Label { text: "Size" }
+        ComboBox {
+            objectName: "unitSelector"
+            model: ["px", "pt"]
+            currentIndex: panel.pointUnit ? 1 : 0
+            onActivated: panel.changeUnit(currentIndex === 1)
+        }
         SpinBox {
             objectName: "sizeField"
-            from: 8; to: 72; editable: true
-            value: { panel.revision; const size = panel.targetStyle[panel.role + "Font"].pixelSize; return size > 0 ? size : panel.targetStyle.bodyFont.pixelSize }
-            onValueModified: panel.editFont("pixelSize", value)
+            readonly property int factor: panel.pointUnit ? 100 : 1
+            from: factor; to: 512 * factor; editable: true
+            stepSize: factor
+            value: Math.round(panel.fontSize * factor)
+            textFromValue: function(value, locale) {
+                return Number(value / factor).toLocaleString(locale, 'f', panel.pointUnit ? 2 : 0)
+            }
+            valueFromText: function(text, locale) {
+                return Math.round(Number.fromLocaleString(locale, text) * factor)
+            }
+            validator: DoubleValidator {
+                bottom: 1; top: 512
+                decimals: panel.pointUnit ? 2 : 0
+            }
+            onValueModified: panel.editSize(value / factor)
         }
     }
     RowLayout {

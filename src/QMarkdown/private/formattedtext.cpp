@@ -3,11 +3,48 @@
 #include <QFontMetricsF>
 #include <QGlyphRun>
 #include <QPainter>
+#include <QGuiApplication>
+#include <QQuickWindow>
+#include <QScreen>
 #include <cmath>
 
+namespace {
+QFont layoutFont(QFont font)
+{
+    // Match native Qt Quick Text's half-point layout resolution while keeping
+    // the public font and its resolve mask untouched.
+    if (font.pointSizeF() > 0)
+        font.setPointSizeF(qRound(font.pointSizeF() * 2) / qreal(2));
+    return font;
+}
+}
 FormattedText::FormattedText(QQuickItem *parent) : QQuickPaintedItem(parent)
 {
     setAntialiasing(true);
+    connect(this, &QQuickItem::windowChanged, this, &FormattedText::observeWindow);
+    observeWindow(window());
+}
+void FormattedText::observeWindow(QQuickWindow *window)
+{
+    disconnect(m_windowScreenConnection);
+    if (window)
+        m_windowScreenConnection = connect(window, &QWindow::screenChanged, this,
+                                           [this, window] { observeScreen(window); });
+    observeScreen(window);
+}
+void FormattedText::observeScreen(QQuickWindow *window)
+{
+    disconnect(m_screenDpiConnection);
+    auto *screen = window ? window->screen() : QGuiApplication::primaryScreen();
+    if (screen)
+        m_screenDpiConnection = connect(screen, &QScreen::logicalDotsPerInchChanged,
+                                       this, [this] { polish(); });
+    polish();
+}
+void FormattedText::itemChange(ItemChange change, const ItemChangeData &data)
+{
+    QQuickPaintedItem::itemChange(change, data);
+    if (change == ItemDevicePixelRatioHasChanged) polish();
 }
 void FormattedText::setText(const QString &value)
 {
@@ -22,6 +59,9 @@ void FormattedText::setFormatRanges(const QVariantList &value)
 void FormattedText::setFont(const QFont &value)
 {
     if (m_font == value && m_font.resolveMask() == value.resolveMask()) return;
+    // Native Text ignores resolve-mask-only changes and keeps its initial
+    // application font unrounded until a different font is assigned.
+    if (m_font != value) m_layoutFont = layoutFont(value);
     m_font = value; emit fontChanged(); polish();
 }
 void FormattedText::setCodeFont(const QFont &value)
@@ -50,7 +90,7 @@ void FormattedText::updatePolish()
         // QTextLayout is a paragraph layout: use its native line separator for
         // decoded LF characters, keeping every UTF-16 range offset unchanged.
         layoutText.replace(u'\n', QChar::LineSeparator);
-        m_layout = std::make_unique<QTextLayout>(layoutText, m_font);
+        m_layout = std::make_unique<QTextLayout>(layoutText, m_layoutFont);
         m_layout->setCacheEnabled(true);
         QTextOption option;
         option.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
@@ -66,7 +106,9 @@ void FormattedText::updatePolish()
             if (start < previousEnd || length <= 0 || start > m_text.size()
                 || length > m_text.size() - start) continue;
             previousEnd = start + length;
-            QFont resolved = flags & QMarkdownPrivate::Code ? m_codeFont.resolve(m_font) : m_font;
+            QFont resolved = flags & QMarkdownPrivate::Code ? m_codeFont.resolve(m_layoutFont) : m_layoutFont;
+            if ((flags & QMarkdownPrivate::Code) && (m_codeFont.resolveMask() & QFont::SizeResolved))
+                resolved = layoutFont(resolved);
             if (flags & QMarkdownPrivate::Emphasis) resolved.setItalic(true);
             if (flags & QMarkdownPrivate::Strong) resolved.setWeight(qMax(resolved.weight(), QFont::Bold));
             QTextCharFormat format;
@@ -83,7 +125,7 @@ void FormattedText::updatePolish()
             m_logicalHeight += line.height();
         }
         m_layout->endLayout();
-        if (m_text.isEmpty()) m_logicalHeight = QFontMetricsF(m_font).height();
+        if (m_text.isEmpty()) m_logicalHeight = QFontMetricsF(m_layoutFont).height();
         // Raster bounds include ink overhang; wrapping and parent geometry retain
         // the host's logical width and native line height.
         QRectF bounds(0, 0, m_layoutWidth, m_logicalHeight);

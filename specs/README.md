@@ -41,3 +41,10 @@ Feature 007, approved for implementation on 2026-10-08, supersedes unsupported-c
 - [007: design](007-container-blocks/design.md)
 - [007: tasks](007-container-blocks/tasks.md)
 - [007: verification](007-container-blocks/verification.md)
+
+- [008: font units and application typography](008-font-units/requirements.md)
+- [008: design](008-font-units/design.md)
+- [008: tasks](008-font-units/tasks.md)
+- [008: verification](008-font-units/verification.md)
+
+Feature 008 was approved on 2026-10-08 through the explicit implementation request. It supersedes earlier fixed pixel font defaults; historical approvals remain intact.

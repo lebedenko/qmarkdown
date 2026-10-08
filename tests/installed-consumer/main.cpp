@@ -125,6 +125,17 @@ int main(int argc, char *argv[])
     style->setProperty("listIndent", 40);
     if (!settle([&] { return quoteRule->width() == 4; })
         || quoteRule->property("color").value<QColor>() != QColor("#fedcba")) return 18;
+    view->setProperty("markdown", "same words wrap over several lines here\n\n*same words wrap over several lines here*");
+    font.setPointSizeF(13.25);
+    style->setProperty("bodyFont", font);
+    if (!settle([&] { return findText(view, "same words wrap over several lines here") != nullptr; })) return 19;
+    auto *pointText = findText(view, "same words wrap over several lines here");
+    if (pointText->property("font").value<QFont>().pointSizeF() != 13.25) return 20;
+    const auto pointHeight = height();
+    font.setPointSizeF(30.75); style->setProperty("bodyFont", font);
+    if (!settle([&] { return height() > pointHeight; })) return 21;
+    font.setPixelSize(12); style->setProperty("bodyFont", font);
+    if (!settle([&] { return height() < pointHeight; })) return 22;
     view->setProperty("markdown", "replacement");
     if (!settle([&] { return height() > 0 && !findBody(view); })) return 6;
     view->setProperty("markdown", "");

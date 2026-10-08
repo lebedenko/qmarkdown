@@ -10,3 +10,5 @@ Approved on 2026-10-07 by the user’s explicit instruction to implement the sup
 - R6: The host preview surface and label follow the application palette; body, H1–H6 and fenced code follow palette text in Neutral/default mode. Alternate adapts its accents to light/dark preview surfaces. Manual color edits persist across palette changes until Neutral or Reset restores live theme bindings. Invalid edits leave existing bindings intact.
 
 Theme correction approved on 2026-10-07 by the user's “Implement the plan.” Approval covers R6, the updated design/tasks, and palette regression and visual checks; it supersedes the fixed white preview decision.
+
+Typography amendment: [Feature 008](../008-font-units/requirements.md) supersedes fixed pixel defaults and the pixel-only playground editor. The historical scope and approval above are preserved.

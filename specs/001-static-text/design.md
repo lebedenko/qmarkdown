@@ -72,3 +72,5 @@ Each view owns one private default style. The public style property returns the 
 ## Approval boundary
 
 Approval recorded 2026-10-07 covers [requirements](requirements.md), this design, and [tasks](tasks.md). Public resource policies, streaming, extension registries, and full core semantics remain later work. Implementation is authorized within that scope; changes to scope require renewed approval.
+
+Typography amendment: [Feature 008](../008-font-units/requirements.md) supersedes fixed pixel defaults and the pixel-only playground editor. The historical scope and approval above are preserved.

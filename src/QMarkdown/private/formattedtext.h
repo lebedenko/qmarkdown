@@ -43,10 +43,14 @@ signals:
     void layoutChanged();
 protected:
     void updatePolish() override;
+    void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    void observeWindow(QQuickWindow *window);
+    void observeScreen(QQuickWindow *window);
+    QMetaObject::Connection m_windowScreenConnection, m_screenDpiConnection;
     QString m_text;
     QVariantList m_ranges;
-    QFont m_font, m_codeFont;
+    QFont m_font, m_codeFont, m_layoutFont;
     QColor m_color = Qt::black;
     qreal m_layoutWidth = 0, m_logicalHeight = 0;
     QPointF m_paintOffset;

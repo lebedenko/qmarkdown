@@ -21,3 +21,5 @@ Extend the bounded static-text slice with inline emphasis, strong emphasis, and 
 R1–R4 intentionally supersede Feature 001's literal-inline requirements for paragraphs/headings and add one style property. Feature 001's historical verification remains intact. Unsupported block semantics, hard breaks, semantic fenced blocks, selection, streaming, resource policies, extension renderers, and official conformance-suite imports remain outside this slice. No compatibility switch preserves the old literal-inline behavior.
 
 See [design](design.md), [tasks](tasks.md), and [verification](verification.md).
+
+Typography amendment: [Feature 008](../008-font-units/requirements.md) supersedes fixed pixel defaults and the pixel-only playground editor. The historical scope and approval above are preserved.

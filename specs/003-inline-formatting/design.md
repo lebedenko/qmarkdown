@@ -29,3 +29,5 @@ Add inlineCodeFont to MarkdownStyle using its existing setter/notification/defau
 Bump project/module versions to 0.2.0/0.2 and update examples, tooling metadata, and installed consumers. Retain shared, plugin-only shared, and static packaging paths. Extend the viewer's editable examples with nested formatting, escapes/entities, code, literal resource syntax, and an alternate code font. Update current documentation only after implementation verification, clearly separating Feature 003 from Feature 001 history.
 
 The [task/check mapping](tasks.md) defines the approval scope. Verification records actual commands, Qt/compiler versions, counts, failures, limitations, and viewer capture inspection. Qt 6.8 execution may be claimed only if available and tested; adding minimum-version infrastructure is excluded.
+
+Typography amendment: [Feature 008](../008-font-units/requirements.md) supersedes fixed pixel defaults and the pixel-only playground editor. The historical scope and approval above are preserved.

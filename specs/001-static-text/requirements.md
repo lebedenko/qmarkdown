@@ -25,3 +25,5 @@ R1 trimming matches supported ordinary paragraph handling, not unsupported inden
 Inline formatting, semantic code blocks, lists, quotes, links, images, rules, tables, highlighting, selection/copy actions, streaming, extension renderers, resource fetching, HTML execution, and performance targets. Full CommonMark precedence and nested containers require later approved specifications.
 
 See [design](design.md), [tasks](tasks.md), and [verification](verification.md). Implementation is authorized within this approved package.
+
+Typography amendment: [Feature 008](../008-font-units/requirements.md) supersedes fixed pixel defaults and the pixel-only playground editor. The historical scope and approval above are preserved.

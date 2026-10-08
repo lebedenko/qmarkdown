@@ -18,3 +18,5 @@ Extend version 0.2.0 with native top-level fenced code blocks; deliver package 0
 Lists, block quotes, indented code, highlighting, copy actions, custom fence renderers and full CommonMark conformance are outside scope. Full conformance remains unverified.
 
 See [design](design.md), [tasks](tasks.md), and [verification](verification.md).
+
+Typography amendment: [Feature 008](../008-font-units/requirements.md) supersedes fixed pixel defaults and the pixel-only playground editor. The historical scope and approval above are preserved.
