@@ -24,3 +24,7 @@ Feature 007, approved for implementation on 2026-10-08, supersedes unsupported-c
 Feature 009: [host-controlled links](009-host-controlled-links/requirements.md), approved on 2026-10-08 for 0.6.0/0.6. See [design](009-host-controlled-links/design.md), [tasks](009-host-controlled-links/tasks.md), and [verification](009-host-controlled-links/verification.md). Hosts own navigation; resource rendering remains deferred.
 
 Feature 010: [images and host resource policy](010-images-and-resource-policy/requirements.md), approved on 2026-10-08 for 0.7.0/0.7. See design, tasks and verification in that directory.
+
+## CommonMark verification baseline
+
+[Feature 011: CommonMark conformance baseline](011-commonmark-baseline/requirements.md) was approved on 2026-10-08 and implemented after Feature 010. The pinned official corpus establishes separate bundled-parser and production-model evidence, with explicit limits and regression checks. Package/module 0.7.0/0.7 and production behavior remain unchanged. The recommended follow-up is independent native-model coverage for 43 uncheckable HTML-block examples before broader syntax work; this is a proposal requiring its own approval. The baseline does not satisfy the v1.0 gate. See [design](011-commonmark-baseline/design.md), [tasks](011-commonmark-baseline/tasks.md) and [verification](011-commonmark-baseline/verification.md).

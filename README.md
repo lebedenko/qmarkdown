@@ -16,7 +16,7 @@ task demo
 
 `build` configures `build-shared` with tests and examples enabled and builds with two parallel jobs. `test` builds first, then runs CTest. `demo` builds first, then opens the editable playground with its QML import path configured, inheriting your display environment. CMake's generator and build-type defaults are preserved.
 
-Requires CMake ≥3.21, C99 and C++17 compilers, and Qt ≥6.8 Core, Gui, Qml, and Quick. Tests additionally require Qt Test. Local verification used Qt 6.12.0 on Linux; Qt 6.8 compatibility has not yet been executed. Dependencies are not downloaded by this project. [cmark 0.31.2](third_party/cmark/PROVENANCE.md) is bundled privately with prefixed symbols and complete [license notices](third_party/cmark/COPYING); no external cmark package is needed.
+Requires CMake ≥3.21, C99 and C++17 compilers, and Qt ≥6.8 Core, Gui, Qml, Quick, and Network. Tests additionally require Qt Test and Python ≥3.9 (standard library only). Local verification used Qt 6.12.0 on Linux; Qt 6.8 compatibility has not yet been executed. Dependencies are not downloaded by this project. [cmark 0.31.2](third_party/cmark/PROVENANCE.md) is bundled privately with prefixed symbols and complete [license notices](third_party/cmark/COPYING); no external cmark package is needed.
 
 ```sh
 cmake -S . -B build-shared -DCMAKE_INSTALL_PREFIX=/tmp/qmarkdown-install
@@ -37,7 +37,17 @@ cmake --build build-static --parallel 2
 ctest --test-dir build-static --output-on-failure
 ```
 
-`QMARKDOWN_BUILD_EXAMPLES` and `BUILD_TESTING` default on for standalone builds and off when included with `add_subdirectory`. Both can be overridden. Disable tests with `-DBUILD_TESTING=OFF` to avoid requiring Qt Test. GNU install directories are supported. `QMARKDOWN_QML_INSTALL_DIR` defaults to `${CMAKE_INSTALL_LIBDIR}/qt6/qml`; for relocation, supply a relative path such as `-DQMARKDOWN_QML_INSTALL_DIR=share/qml`. Absolute destinations are supported but remain tied to that location.
+`QMARKDOWN_BUILD_EXAMPLES` and `BUILD_TESTING` default on for standalone builds and off when included with `add_subdirectory`. Both can be overridden. Disable tests with `-DBUILD_TESTING=OFF` to avoid requiring Qt Test or Python. GNU install directories are supported. `QMARKDOWN_QML_INSTALL_DIR` defaults to `${CMAKE_INSTALL_LIBDIR}/qt6/qml`; for relocation, supply a relative path such as `-DQMARKDOWN_QML_INSTALL_DIR=share/qml`. Absolute destinations are supported but remain tied to that location.
+
+## CommonMark evidence
+
+Feature 011 adds a pinned offline baseline, without changing the 0.7 API or production behavior. After building tests, run:
+
+```sh
+python3 scripts/verify-commonmark.py
+```
+
+The runner checks all 652 CommonMark 0.31.2 examples through the privately bundled parser and the production native model separately, writing `build-shared/tests/commonmark-report.json`. The recorded baseline has 652 parser passes, 583 native projection passes and 69 uncheckable model examples. `--strict` currently exits with failure because comparison limits and semantic information loss remain; passing baseline CTest does not establish full conformance. See the [runner and gap inventory](tests/commonmark/README.md), [fixture provenance/license](tests/commonmark/PROVENANCE.md), and [Feature 011 verification](specs/011-commonmark-baseline/verification.md).
 
 ## Rendering and viewer
 

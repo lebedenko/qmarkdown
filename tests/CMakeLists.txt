@@ -15,6 +15,21 @@ target_include_directories(qmarkdown-parser-test PRIVATE ../src/QMarkdown)
 target_link_libraries(qmarkdown-parser-test PRIVATE Qt6::Test Qt6::Gui)
 add_test(NAME qmarkdown-parser COMMAND qmarkdown-parser-test)
 
+# Test-only evidence for the bundled parser and production model, with offline fixtures.
+find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
+qt_add_executable(qmarkdown-commonmark-probe commonmark/probe.cpp
+    ../src/QMarkdown/private/document.cpp ../src/QMarkdown/private/inline.cpp
+    $<TARGET_OBJECTS:qmarkdown_cmark>)
+target_include_directories(qmarkdown-commonmark-probe PRIVATE ../third_party/cmark/src ../src/QMarkdown)
+target_link_libraries(qmarkdown-commonmark-probe PRIVATE Qt6::Core Qt6::Gui)
+add_test(NAME qmarkdown-commonmark-oracle
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/commonmark/test_baseline.py"
+        --probe "$<TARGET_FILE:qmarkdown-commonmark-probe>")
+add_test(NAME qmarkdown-commonmark
+    COMMAND "${Python3_EXECUTABLE}" "${PROJECT_SOURCE_DIR}/scripts/verify-commonmark.py"
+        --probe "$<TARGET_FILE:qmarkdown-commonmark-probe>"
+        --report "${CMAKE_CURRENT_BINARY_DIR}/commonmark-report.json")
+
 qt_add_executable(qmarkdown-view-test tst_view.cpp)
 target_include_directories(qmarkdown-view-test PRIVATE ../src/QMarkdown)
 if(QMARKDOWN_BUILD_EXAMPLES)

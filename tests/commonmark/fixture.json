@@ -1,0 +1,9 @@
+{
+  "version": "0.31.2",
+  "url": "https://spec.commonmark.org/0.31.2/spec.json",
+  "sha256": "d431b29d97b6f73e69d547109cf5081578fac931e72afe95639ebe766c1b2a20",
+  "count": 652,
+  "license": "CC-BY-SA-4.0",
+  "author": "John MacFarlane",
+  "acquired": "2026-10-08"
+}
