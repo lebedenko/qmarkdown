@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QFont>
 #include <QColor>
+#include <QMouseEvent>
 #include <QtQml/QQmlExtensionPlugin>
 #include <QDebug>
 #include <memory>
@@ -23,9 +24,12 @@ int main(int argc, char *argv[])
     QQmlComponent component(&engine);
     component.setData(
             "import QtQuick\n"
-            "import QMarkdown 0.5\n"
+            "import QMarkdown 0.6\n"
             "MarkdownView {\n"
             "    width: 180\n"
+            "    property bool activated: false\n"
+            "    property string lastDestination\n"
+            "    onLinkActivated: function(destination) { activated = true; lastDestination = destination }\n"
             "    function editCode() { style.inlineCodeFont.pixelSize = 80; style.codeBlockFont.pixelSize = 32; style.codeBlockColor = \"#345678\" }\n"
             "    markdown: \"# *Title*\\n\\n**Body** `code`\\n``` info\\n  literal *code*\\nlonglonglonglonglonglonglonglonglonglonglonglong\\n```\\n~~~\\n\\tspaces\\n~~~\"\n"
             "    style: MarkdownStyle { bodyColor: \"#123456\" }\n"
@@ -136,6 +140,23 @@ int main(int argc, char *argv[])
     if (!settle([&] { return height() > pointHeight; })) return 21;
     font.setPixelSize(12); style->setProperty("bodyFont", font);
     if (!settle([&] { return height() < pointHeight; })) return 22;
+    view->setProperty("markdown", "[**linked**](../guide&amp;part)");
+    if (!settle([&] { return findText(view, "linked") != nullptr; })) return 23;
+    auto *linked = findText(view, "linked");
+    if (!linked || linked->property("linkSpans").toList().size() != 1
+        || linked->property("linkSpans").toList()[0].toMap().value("destination").toString() != "../guide&part"
+        || view->metaObject()->indexOfSignal("linkActivated(QString)") < 0
+        || style->property("linkColor").value<QColor>() != QColor("#0066cc")
+        || !style->property("linkUnderline").toBool()) return 24;
+    const QPointF click = linked->mapToScene(QPointF(5 - linked->x(), 5 - linked->y()));
+    const QPointF globalClick = window.mapToGlobal(click.toPoint());
+    QMouseEvent press(QEvent::MouseButtonPress, click, click, globalClick, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent release(QEvent::MouseButtonRelease, click, click, globalClick, Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+    QCoreApplication::sendEvent(&window, &press); QCoreApplication::sendEvent(&window, &release);
+    if (!view->property("activated").toBool() || view->property("lastDestination").toString() != "../guide&part") return 26;
+    style->setProperty("linkColor", QColor("#abcdef")); style->setProperty("linkUnderline", false);
+    if (!settle([&] { return linked->property("linkColor").value<QColor>() == QColor("#abcdef")
+        && !linked->property("linkUnderline").toBool(); })) return 25;
     view->setProperty("markdown", "replacement");
     if (!settle([&] { return height() > 0 && !findBody(view); })) return 6;
     view->setProperty("markdown", "");

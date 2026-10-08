@@ -8,6 +8,7 @@ import QMarkdownViewer.Tools
 ColumnLayout {
     id: panel
     required property MarkdownStyle targetStyle
+    required property color defaultLinkColor
     required property color defaultTextColor
     required property color previewBackgroundColor
     readonly property bool darkSurface: previewBackgroundColor.hslLightness < 0.5
@@ -73,6 +74,8 @@ ColumnLayout {
             if (name !== "inlineCode")
                 targetStyle[name + "Color"] = Qt.binding(function() { return panel.defaultTextColor })
         }
+        targetStyle.linkColor = Qt.binding(function() { return panel.defaultLinkColor })
+        targetStyle.linkUnderline = defaults.linkUnderline
         targetStyle.thematicBreakColor = Qt.binding(function() { return panel.defaultTextColor })
         targetStyle.thematicBreakThickness = defaults.thematicBreakThickness
         targetStyle.quoteRuleColor = Qt.binding(function() { return panel.darkSurface ? "#a0a0a0" : "#707070" })
@@ -85,6 +88,8 @@ ColumnLayout {
     function applyPreset(alternate) {
         resetStyle()
         if (alternate) {
+            targetStyle.linkColor = Qt.binding(function() { return panel.darkSurface ? "#8db9f2" : "#305b9c" })
+            targetStyle.linkUnderline = false
             targetStyle.bodyFont = fontEditor.resized(targetStyle.bodyFont, false, 20)
             targetStyle.bodyColor = Qt.binding(function() { return panel.darkSurface ? "#82cba7" : "#194c39" })
             targetStyle.h1Font = fontEditor.resized(targetStyle.h1Font, false, 40)
@@ -197,6 +202,23 @@ ColumnLayout {
         Item { Layout.fillWidth: true }
     }
 
+    RowLayout {
+        Label { text: "Link color" }
+        TextField {
+            objectName: "linkColorField"; Layout.preferredWidth: 180
+            text: { panel.revision; return panel.targetStyle.linkColor.toString() }
+            color: panel.isValidColor(text) ? palette.text : "#b02020"
+            onEditingFinished: {
+                if (panel.isValidColor(text)) { panel.targetStyle.linkColor = text; panel.refresh() }
+            }
+        }
+        CheckBox {
+            objectName: "linkUnderlineField"; text: "Underline links"
+            checked: panel.targetStyle.linkUnderline
+            onToggled: panel.targetStyle.linkUnderline = checked
+        }
+        Item { Layout.fillWidth: true }
+    }
     RowLayout {
         Label { text: "List indent" }
         SpinBox {

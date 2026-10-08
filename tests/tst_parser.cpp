@@ -6,6 +6,46 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void linkDestinations_data()
+    {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<QString>("label");
+        QTest::addColumn<QString>("destination");
+        QTest::newRow("inline-decoded") << "[x](a\\*b?x=1&amp;y=2)" << "x" << "a*b?x=1&y=2";
+        QTest::newRow("reference") << "[label][id]\n\n[id]: ../a#part" << "label" << "../a#part";
+        QTest::newRow("collapsed") << "[label][]\n\n[label]: #part" << "label" << "#part";
+        QTest::newRow("shortcut") << "[label]\n\n[label]: custom:action" << "label" << "custom:action";
+        QTest::newRow("empty") << "[empty]()" << "empty" << "";
+        QTest::newRow("uri") << "<https://example.invalid/a>" << "https://example.invalid/a" << "https://example.invalid/a";
+        QTest::newRow("email") << "<me@example.invalid>" << "me@example.invalid" << "mailto:me@example.invalid";
+        QTest::newRow("formatted") << "[**a** *b* `c`](#x)" << "a b c" << "#x";
+    }
+    void linkDestinations()
+    {
+        QFETCH(QString, source); QFETCH(QString, label); QFETCH(QString, destination);
+        const auto blocks = parse(source);
+        QCOMPARE(blocks.size(), 1); QCOMPARE(blocks[0].text, label);
+        QCOMPARE(blocks[0].links.size(), 1);
+        QCOMPARE(blocks[0].links[0].start, 0);
+        QCOMPARE(blocks[0].links[0].length, label.size());
+        QCOMPARE(blocks[0].links[0].destination, destination);
+    }
+    void linkSpansAndImages()
+    {
+        const auto content = parseInline(QString::fromUtf8("😀 [é](same)[日本語](same) ![**a** [b](inner)](image) [![*c*](image)](outer)"));
+        QCOMPARE(content.text, QString::fromUtf8("😀 é日本語 a b c"));
+        QCOMPARE(content.links.size(), 3);
+        QCOMPARE(content.links[0].start, 3); QCOMPARE(content.links[0].length, 1);
+        QCOMPARE(content.links[1].start, 4); QCOMPARE(content.links[1].length, 3);
+        QCOMPARE(content.links[2].destination, "outer");
+        QCOMPARE(content.text.mid(content.links[2].start, content.links[2].length), "c");
+        QVERIFY(!content.ranges.isEmpty());
+        QVERIFY(parseInline("[unresolved][missing] ` [x](code) ` <a href='html'>x</a>").links.isEmpty());
+        QVERIFY(parse("    [code](inert)")[0].links.isEmpty());
+        const auto quote = parse("> - # [heading](#x)");
+        QCOMPARE(quote[0].children[0].children[0].children[0].links[0].destination, "#x");
+    }
+
     void normalization()
     {
         const QString expected = QString::fromUtf8("a  b\tc é 日本語 😀\u00a0");

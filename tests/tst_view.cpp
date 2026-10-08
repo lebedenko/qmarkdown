@@ -93,6 +93,222 @@ private slots:
         QGuiApplication::setFont(font);
     }
     void cleanup() { QGuiApplication::setFont(savedApplicationFont); }
+    void linkInteraction_data()
+    {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<QString>("destination");
+        QTest::newRow("paragraph") << "[**link** `code`](custom:x&amp;y)" << "custom:x&y";
+        QTest::newRow("heading") << "# [link](#part)" << "#part";
+        QTest::newRow("nested") << "> - [link](../relative)" << "../relative";
+        QTest::newRow("empty") << "[link]()" << "";
+        QTest::newRow("image-in-link") << "[![link](https://example.invalid/img)](outer)" << "outer";
+    }
+    void linkInteraction()
+    {
+        QFETCH(QString, source); QFETCH(QString, destination);
+        QQmlEngine engine;
+        RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
+        QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.6\nMarkdownView { width: 250 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(300, 300); view->setParentItem(window.contentItem()); window.show();
+        view->setProperty("markdown", source);
+        QTRY_COMPARE(painted(view).size(), 1);
+        auto *item = painted(view)[0]; QTRY_VERIFY(item->logicalHeight() > 0);
+        QSignalSpy activation(view, SIGNAL(linkActivated(QString))); QVERIFY(activation.isValid());
+        const QPoint point = item->mapToScene(QPointF(5 - item->x(), item->logicalHeight()/2 - item->y())).toPoint();
+        QTest::mouseMove(&window, point);
+        QTRY_COMPARE(item->property("hoveredLink").toInt(), 0);
+        QTRY_COMPARE(window.cursor().shape(), Qt::PointingHandCursor);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QCOMPARE(activation.size(), 1); QCOMPARE(activation.takeFirst()[0].toString(), destination);
+        QTest::mouseClick(&window, Qt::RightButton, Qt::NoModifier, point);
+        QCOMPARE(activation.size(), 0);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QTest::mouseMove(&window, point + QPoint(80, 50));
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QCOMPARE(activation.size(), 0);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, QPoint(240, 10));
+        QCOMPARE(activation.size(), 0);
+        QTest::mouseMove(&window, QPoint(240, 10));
+        QTRY_COMPARE(item->property("hoveredLink").toInt(), -1);
+        QTRY_COMPARE(window.cursor().shape(), Qt::ArrowCursor);
+        auto *device = QTest::createTouchDevice();
+        QTest::touchEvent(&window, device).press(0, point, &window);
+        QTest::touchEvent(&window, device).release(0, point, &window);
+        QTRY_COMPARE(activation.size(), 1); QCOMPARE(activation.takeFirst()[0].toString(), destination);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, point);
+        view->setProperty("markdown", "[replacement](other)");
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QCOMPARE(activation.size(), 0);
+        QTRY_COMPARE(painted(view).size(), 1);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, point);
+        view->setProperty("markdown", "");
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QCOMPARE(activation.size(), 0);
+        QCOMPARE(factory.requests, 0);
+    }
+    void inactiveLinksAndScrolling()
+    {
+        QQmlEngine engine; RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
+        QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.6\n"
+                          "Flickable { width: 240; height: 100; contentHeight: view.contentHeight; clip: true; "
+                          "MarkdownView { id: view; objectName: 'view'; width: 240 } }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *host = qobject_cast<QQuickItem *>(object.get()); QVERIFY(host);
+        auto *view = host->findChild<QQuickItem *>("view"); QVERIFY(view);
+        QQuickWindow window; window.resize(300, 200); host->setParentItem(window.contentItem()); window.show();
+        QSignalSpy activation(view, SIGNAL(linkActivated(QString)));
+        const QStringList inertSources = {"ordinary text", "![**image** [inner](inert)](https://example.invalid/image)",
+                                         "`[code](inert)`", "    [code](inert)", "<a href='inert'>HTML</a>"};
+        for (const auto &source : inertSources) {
+            view->setProperty("markdown", source);
+            QTRY_VERIFY(content(view) > 0);
+            QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, QPoint(10, 10));
+            QCOMPARE(activation.size(), 0);
+        }
+        view->setProperty("markdown", "[" + QString("scrolling link words ").repeated(80) + "](scroll:link)");
+        QTRY_COMPARE(painted(view).size(), 1); QTRY_VERIFY(content(view) > 100);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, QPoint(20, 80));
+        QTest::mouseMove(&window, QPoint(20, 55), 20);
+        QTest::mouseMove(&window, QPoint(20, 20), 20);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, QPoint(20, 20));
+        QTRY_VERIFY(host->property("contentY").toDouble() > 0);
+        QCOMPARE(activation.size(), 0);
+        QCOMPARE(factory.requests, 0);
+    }
+    void linkHitBoundariesAndLiveHover()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.6\nMarkdownView { width: 240 }", {});
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(300, 200); view->setParentItem(window.contentItem()); window.show();
+        view->setProperty("markdown", "[abc  \ndef](one)[ghi](one)");
+        QTRY_COMPARE(painted(view).size(), 1);
+        auto *item = painted(view)[0]; QTRY_VERIFY(item->layout() && item->layout()->lineCount() == 2);
+        const auto first = item->layout()->lineAt(0);
+        const qreal y = first.height()/2 - item->y();
+        QCOMPARE(item->linkAt(-0.1-item->x(), y), -1);
+        QCOMPARE(item->linkAt(0.1-item->x(), y), 0);
+        // A hard-break separator occupies no clickable cell.
+        const qreal end = first.cursorToX(3);
+        QCOMPARE(item->linkAt(end+0.1-item->x(), y), -1);
+        QCOMPARE(item->linkAt(1-item->x(), -0.1-item->y()), -1);
+        const auto second = item->layout()->lineAt(1);
+        const qreal boundary = second.cursorToX(7);
+        QCOMPARE(item->linkAt(boundary-0.1-item->x(), second.y()+second.height()/2-item->y()), 0);
+        QCOMPARE(item->linkAt(boundary+0.1-item->x(), second.y()+second.height()/2-item->y()), 1);
+        QSignalSpy activation(view, SIGNAL(linkActivated(QString)));
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+                          item->mapToScene(QPointF(boundary+2-item->x(), second.y()+second.height()/2-item->y())).toPoint());
+        QCOMPARE(activation.size(), 1); QCOMPARE(activation.takeFirst()[0].toString(), "one");
+        view->setProperty("markdown", "[abc](one) plain");
+        QTRY_COMPARE(painted(view).size(), 1); item = painted(view)[0];
+        QTRY_VERIFY(item->layout());
+        const QPoint hoverPoint(70, 8);
+        QTest::mouseMove(&window, hoverPoint); QTRY_COMPARE(item->property("hoveredLink").toInt(), -1);
+        auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        auto font = style->bodyFont(); font.setPixelSize(60); style->setBodyFont(font);
+        QTRY_COMPARE(item->property("hoveredLink").toInt(), 0);
+        font.setPixelSize(16); style->setBodyFont(font);
+        QTRY_COMPARE(item->property("hoveredLink").toInt(), -1);
+    }
+    void linkStyleLifecycle()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.6\n"
+                          "Item { MarkdownStyle { id: shared; objectName: 'shared' } "
+                          "MarkdownStyle { id: other; objectName: 'other'; linkColor: '#112233'; linkUnderline: false } "
+                          "MarkdownView { objectName: 'a'; width: 200; markdown: '[a](x)'; style: shared } "
+                          "MarkdownView { objectName: 'b'; width: 200; markdown: '[b](x)'; style: shared } }", {});
+        std::unique_ptr<QObject> object(component.create());
+        auto *host = qobject_cast<QQuickItem *>(object.get()); QVERIFY(host);
+        auto *a = host->findChild<QQuickItem *>("a"), *b = host->findChild<QQuickItem *>("b");
+        auto *shared = host->findChild<MarkdownStyle *>("shared"), *other = host->findChild<MarkdownStyle *>("other");
+        QVERIFY(a && b && shared && other);
+        QQuickWindow window; host->setParentItem(window.contentItem()); window.show();
+        QTRY_VERIFY(!painted(a).isEmpty() && !painted(b).isEmpty());
+        QTRY_VERIFY(painted(a)[0]->layout() && painted(b)[0]->layout());
+        shared->setLinkColor(QColor("#998877")); shared->setLinkUnderline(false);
+        for (auto *view : {a, b}) {
+            QTRY_COMPARE(painted(view)[0]->layout()->formats()[0].format.foreground().color(), QColor("#998877"));
+            QVERIFY(!painted(view)[0]->layout()->formats()[0].format.fontUnderline());
+        }
+        a->setProperty("style", QVariant::fromValue(other));
+        QTRY_COMPARE(painted(a)[0]->linkColor(), QColor("#112233"));
+        delete other;
+        QTRY_COMPARE(painted(a)[0]->linkColor(), QColor("#0066cc"));
+        QTRY_VERIFY(painted(a)[0]->linkUnderline());
+        delete shared;
+        QTRY_COMPARE(painted(b)[0]->linkColor(), QColor("#0066cc"));
+        QTRY_VERIFY(painted(b)[0]->linkUnderline());
+    }
+    void linkLayout_data()
+    {
+        QTest::addColumn<bool>("points");
+        QTest::newRow("pixels") << false;
+        QTest::newRow("points") << true;
+    }
+    void linkLayout()
+    {
+        QFETCH(bool, points);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.6\nMarkdownView { width: 110 }", {});
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
+        auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        auto font = style->bodyFont();
+        if (points) font.setPointSizeF(13.25); else font.setPixelSize(18);
+        style->setBodyFont(font);
+        view->setProperty("markdown", QString::fromUtf8("plain [**long** *link* `code` אבג 😀 more words](one)[next](one)"));
+        QTRY_COMPARE(painted(view).size(), 1);
+        auto *item = painted(view)[0]; QTRY_VERIFY(item->layout() && item->layout()->lineCount() > 1);
+        const auto checkHits = [&] {
+            const auto *layout = item->layout();
+            const auto links = item->linkSpans();
+            for (int i = 0; i < layout->lineCount(); ++i) {
+                const auto line = layout->lineAt(i);
+                for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
+                    if (!layout->isValidCursorPosition(pos) || item->text()[pos] == u'\n') continue;
+                    const qreal a = line.cursorToX(pos, QTextLine::Leading), b = line.cursorToX(pos, QTextLine::Trailing);
+                    if (qAbs(a - b) < 0.1) continue;
+                    int expected = -1;
+                    for (int k = 0; k < links.size(); ++k) {
+                        const auto link = links[k].toMap();
+                        if (pos >= link["start"].toInt() && pos < link["start"].toInt() + link["length"].toInt()) expected = k;
+                    }
+                    QCOMPARE(item->linkAt((a+b)/2 - item->x(), line.y()+line.height()/2 - item->y()), expected);
+                }
+                QCOMPARE(item->linkAt(line.naturalTextWidth()+10-item->x(), line.y()+line.height()/2-item->y()), -1);
+            }
+        };
+        checkHits();
+        bool strong = false, emphasis = false, code = false;
+        for (const auto &format : item->layout()->formats()) {
+            QCOMPARE(format.format.foreground().color(), style->linkColor());
+            QVERIFY(format.format.fontUnderline());
+            strong |= format.format.font().weight() >= QFont::Bold;
+            emphasis |= format.format.font().italic();
+            code |= format.format.font().family() == style->inlineCodeFont().family();
+        }
+        QVERIFY(strong && emphasis && code);
+        style->setLinkColor(QColor("#cc3322")); style->setLinkUnderline(false);
+        QTRY_COMPARE(item->layout()->formats()[0].format.foreground().color(), QColor("#cc3322"));
+        QVERIFY(!item->layout()->formats()[0].format.fontUnderline());
+        view->setWidth(240); QTRY_COMPARE(item->layoutWidth(), 240); QTRY_VERIFY(item->width() >= 240);
+        checkHits();
+        QSignalSpy colorSpy(style, &MarkdownStyle::linkColorChanged), underlineSpy(style, &MarkdownStyle::linkUnderlineChanged);
+        style->setLinkColor(style->linkColor()); style->setLinkUnderline(false);
+        QCOMPARE(colorSpy.size(), 0); QCOMPARE(underlineSpy.size(), 0);
+        style->restoreDefaults(); QCOMPARE(style->linkColor(), QColor("#0066cc")); QVERIFY(style->linkUnderline());
+        QCOMPARE(colorSpy.size(), 1); QCOMPARE(underlineSpy.size(), 1);
+    }
     void applicationTypography_data()
     {
         QTest::addColumn<bool>("pixels");
@@ -327,7 +543,7 @@ private slots:
         view->setWidth(2); QTRY_VERIFY(content(view) > 0);
         view->setWidth(280);
         view->setProperty("markdown", "- **one**  \n  two\n- ![*image*](https://example.invalid/x)\n\n> [link](https://example.invalid)");
-        QTRY_COMPARE(painted(view).size(), 2); QTRY_VERIFY(find("link"));
+        QTRY_COMPARE(painted(view).size(), 3); QCOMPARE(painted(view)[2]->text(), "link");
         QTRY_VERIFY(painted(view)[0]->logicalHeight() > QFontMetricsF(style->property("bodyFont").value<QFont>()).height());
         QCOMPARE(factory.requests, 0);
         view->setProperty("markdown", "replacement"); QTRY_COMPARE(texts(view).size(), 1);
@@ -975,8 +1191,32 @@ private slots:
         QCOMPARE(style->property("quoteIndent").toDouble(), 24.0);
         QCOMPARE(style->property("quoteRuleThickness").toDouble(), 3.0);
         QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
+        window->setProperty("sampleIndex", 8);
+        QTRY_VERIFY(!painted(preview).isEmpty());
+        auto *linkedHeading = painted(preview)[0];
+        QTRY_VERIFY(linkedHeading->logicalHeight() > 0);
+        auto *destinationLabel = window->findChild<QObject *>("lastDestination"); QVERIFY(destinationLabel);
+        QTest::mouseClick(window, Qt::LeftButton, Qt::NoModifier,
+                          linkedHeading->mapToScene(QPointF(8-linkedHeading->x(), 12-linkedHeading->y())).toPoint());
+        QTRY_COMPARE(destinationLabel->property("text").toString(), "Last activated: #heading");
+        QCOMPARE(destinationLabel->property("textFormat").toInt(), 0);
+        QVERIFY(QQmlProperty::write(window, "palette.link", QColor("#2299bb")));
+        QTRY_COMPARE(color("link"), QColor("#2299bb"));
+        auto *linkField = window->findChild<QObject *>("linkColorField"); QVERIFY(linkField);
+        linkField->setProperty("text", "invalid-color");
+        QVERIFY(QMetaObject::invokeMethod(linkField, "editingFinished"));
+        QCOMPARE(color("link"), QColor("#2299bb"));
+        linkField->setProperty("text", "#334455");
+        QVERIFY(QMetaObject::invokeMethod(linkField, "editingFinished"));
+        QCOMPARE(color("link"), QColor("#334455"));
+        QVERIFY(QMetaObject::invokeMethod(window, "switchStyle"));
+        QVERIFY(!style->property("linkUnderline").toBool());
+        QVERIFY(setPalette(false)); QTRY_COMPARE(color("link"), QColor("#305b9c"));
+        QVERIFY(setPalette(true)); QTRY_COMPARE(color("link"), QColor("#8db9f2"));
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
+        QTRY_COMPARE(color("link"), QColor("#2299bb")); QVERIFY(style->property("linkUnderline").toBool());
         if (qEnvironmentVariableIsSet("QMARKDOWN_CAPTURE_THEME")) {
-            window->setProperty("sampleIndex", 7);
+            window->setProperty("sampleIndex", 8);
             window->findChild<QObject *>("styleToggle")->setProperty("checked", true);
             QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
             for (const bool dark : {false, true}) {

@@ -5,6 +5,7 @@ import QMarkdown.Private
 
 Item {
     id: root
+    signal linkActivated(string destination)
     property alias markdown: viewState.markdown
     property alias style: viewState.style
     readonly property real contentHeight: width > 0 ? blocks.height : 0
@@ -191,6 +192,7 @@ Item {
                         id: formattedBlock
                         required property string blockText
                         required property int headingLevel
+                        required property var linkSpans
                         required property var formatRanges
                         width: sequence.width
                         height: painted.logicalHeight
@@ -198,6 +200,39 @@ Item {
                             id: painted
                             text: formattedBlock.blockText
                             formatRanges: formattedBlock.formatRanges
+                            linkSpans: formattedBlock.linkSpans
+                            linkColor: sequence.style.linkColor
+                            linkUnderline: sequence.style.linkUnderline
+                            property int hoveredLink: -1
+                            property int pressedLink: -1
+                            function updateHover() {
+                                const position = painted.mapFromItem(null, hover.point.scenePosition)
+                                hoveredLink = hover.hovered ? painted.linkAt(position.x, position.y) : -1
+                            }
+                            onLayoutChanged: updateHover()
+                            onTextChanged: { pressedLink = -1; updateHover() }
+                            onLinkSpansChanged: { pressedLink = -1; updateHover() }
+                            HoverHandler {
+                                id: hover
+                                cursorShape: painted.hoveredLink >= 0 ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                onHoveredChanged: painted.updateHover()
+                                onPointChanged: painted.updateHover()
+                            }
+                            TapHandler {
+                                id: tap
+                                acceptedButtons: Qt.LeftButton
+                                gesturePolicy: TapHandler.DragThreshold
+                                onPressedChanged: {
+                                    if (pressed) painted.pressedLink = painted.linkAt(point.position.x, point.position.y)
+                                }
+                                onCanceled: painted.pressedLink = -1
+                                onTapped: function(eventPoint, button) {
+                                    const hit = painted.linkAt(eventPoint.position.x, eventPoint.position.y)
+                                    if (hit >= 0 && hit === painted.pressedLink)
+                                        root.linkActivated(painted.linkDestination(hit))
+                                    painted.pressedLink = -1
+                                }
+                            }
                             layoutWidth: formattedBlock.width
                             codeFont: sequence.style.inlineCodeFont
                             font: formattedBlock.headingLevel === 1 ? sequence.style.h1Font

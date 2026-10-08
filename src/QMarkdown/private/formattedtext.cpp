@@ -7,6 +7,7 @@
 #include <QQuickWindow>
 #include <QScreen>
 #include <cmath>
+#include <algorithm>
 
 namespace {
 QFont layoutFont(QFont font)
@@ -49,7 +50,7 @@ void FormattedText::itemChange(ItemChange change, const ItemChangeData &data)
 void FormattedText::setText(const QString &value)
 {
     if (m_text == value) return;
-    m_text = value; emit textChanged(); polish();
+    m_text = value; m_layout.reset(); emit textChanged(); polish();
 }
 void FormattedText::setFormatRanges(const QVariantList &value)
 {
@@ -97,15 +98,34 @@ void FormattedText::updatePolish()
         option.setAlignment(Qt::AlignLeft);
         m_layout->setTextOption(option);
         QList<QTextLayout::FormatRange> formats;
-        int previousEnd = 0;
-        for (const auto &value : m_ranges) {
-            const auto range = value.toMap();
-            const int start = range.value("start").toInt();
-            const int length = range.value("length").toInt();
-            const int flags = range.value("flags").toInt();
-            if (start < previousEnd || length <= 0 || start > m_text.size()
-                || length > m_text.size() - start) continue;
-            previousEnd = start + length;
+        QList<int> boundaries{0, int(m_text.size())};
+        const auto addBoundaries = [&](const QVariantList &spans) {
+            for (const auto &value : spans) {
+                const auto span = value.toMap();
+                const int start = span.value("start").toInt(), length = span.value("length").toInt();
+                if (start < 0 || length <= 0 || start > m_text.size() || length > m_text.size() - start) continue;
+                boundaries.append(start); boundaries.append(start + length);
+            }
+        };
+        addBoundaries(m_ranges); addBoundaries(m_links);
+        std::sort(boundaries.begin(), boundaries.end());
+        boundaries.erase(std::unique(boundaries.begin(), boundaries.end()), boundaries.end());
+        for (int i = 0; i + 1 < boundaries.size(); ++i) {
+            const int start = boundaries[i], length = boundaries[i + 1] - start;
+            int flags = 0;
+            bool linked = false;
+            for (const auto &value : m_ranges) {
+                const auto range = value.toMap();
+                if (start >= range.value("start").toInt()
+                    && start < range.value("start").toInt() + range.value("length").toInt())
+                    flags |= range.value("flags").toInt();
+            }
+            for (const auto &value : m_links) {
+                const auto link = value.toMap();
+                if (start >= link.value("start").toInt()
+                    && start < link.value("start").toInt() + link.value("length").toInt()) linked = true;
+            }
+            if (!flags && !linked) continue;
             QFont resolved = flags & QMarkdownPrivate::Code ? m_codeFont.resolve(m_layoutFont) : m_layoutFont;
             if ((flags & QMarkdownPrivate::Code) && (m_codeFont.resolveMask() & QFont::SizeResolved))
                 resolved = layoutFont(resolved);
@@ -113,6 +133,10 @@ void FormattedText::updatePolish()
             if (flags & QMarkdownPrivate::Strong) resolved.setWeight(qMax(resolved.weight(), QFont::Bold));
             QTextCharFormat format;
             format.setFont(resolved);
+            if (linked) {
+                format.setForeground(m_linkColor);
+                format.setFontUnderline(m_linkUnderline);
+            }
             formats.append({start, length, format});
         }
         m_layout->setFormats(formats);
@@ -147,4 +171,50 @@ void FormattedText::paint(QPainter *painter)
     if (!m_layout) return;
     painter->setPen(m_color);
     m_layout->draw(painter, m_paintOffset);
+}
+
+void FormattedText::setLinkSpans(const QVariantList &value)
+{
+    if (m_links == value) return;
+    m_links = value; m_layout.reset(); emit linkSpansChanged(); polish();
+}
+void FormattedText::setLinkColor(const QColor &value)
+{
+    if (m_linkColor == value) return;
+    m_linkColor = value; emit linkColorChanged(); polish();
+}
+void FormattedText::setLinkUnderline(bool value)
+{
+    if (m_linkUnderline == value) return;
+    m_linkUnderline = value; emit linkUnderlineChanged(); polish();
+}
+int FormattedText::linkAt(qreal x, qreal y) const
+{
+    if (!m_layout || m_layout->text().size() != m_text.size()) return -1;
+    const QPointF point = QPointF(x, y) - m_paintOffset;
+    for (int lineIndex = 0; lineIndex < m_layout->lineCount(); ++lineIndex) {
+        const auto line = m_layout->lineAt(lineIndex);
+        if (point.y() < line.y() || point.y() >= line.y() + line.height()) continue;
+        // Character cells, rather than nearest-cursor rounding, exclude blank
+        // line tails and retain disjoint visual runs in bidirectional labels.
+        for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
+            if (!m_layout->isValidCursorPosition(pos) || m_text[pos] == u'\n'
+                || m_text[pos] == QChar::LineSeparator) continue;
+            const qreal leading = line.cursorToX(pos, QTextLine::Leading);
+            const qreal trailing = line.cursorToX(pos, QTextLine::Trailing);
+            if (point.x() < qMin(leading, trailing) || point.x() >= qMax(leading, trailing)) continue;
+            for (int identity = 0; identity < m_links.size(); ++identity) {
+                const auto link = m_links[identity].toMap();
+                const int start = link.value("start").toInt();
+                if (pos >= start && pos < start + link.value("length").toInt()) return identity;
+            }
+            return -1;
+        }
+    }
+    return -1;
+}
+QString FormattedText::linkDestination(int identity) const
+{
+    return identity >= 0 && identity < m_links.size()
+        ? m_links[identity].toMap().value("destination").toString() : QString();
 }

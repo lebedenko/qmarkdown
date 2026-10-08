@@ -10,6 +10,7 @@ struct Block {
     QString text;
     int level = 0;
     QVector<InlineRange> ranges;
+    QVector<LinkSpan> links;
     QString infoString;
     QVector<Block> children;
     bool ordered = false;

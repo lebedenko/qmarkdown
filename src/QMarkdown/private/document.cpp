@@ -45,6 +45,7 @@ QVector<Block> adaptBlocks(cmark_node *node)
             const auto content = adaptInlineNodes(cmark_node_first_child(node));
             block.text = content.text;
             block.ranges = content.ranges;
+            block.links = content.links;
         } else if (block.kind == BlockKind::List || block.kind == BlockKind::ListItem || block.kind == BlockKind::Quote) {
             block.children = adaptBlocks(cmark_node_first_child(node));
         }

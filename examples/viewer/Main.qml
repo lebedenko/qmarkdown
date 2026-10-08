@@ -12,6 +12,7 @@ ApplicationWindow {
     minimumHeight: 600
     visible: true
     title: "QMarkdown playground"
+    property string lastDestination: "No link activated"
     property int sampleIndex: 0
     property int previewWidth: 0
     readonly property string sample: samples.sources[sampleIndex]
@@ -29,6 +30,7 @@ ApplicationWindow {
     MarkdownStyle {
         id: hostStyle
         objectName: "hostStyle"
+        linkColor: window.palette.link
         bodyColor: window.palette.text
         h1Color: window.palette.text
         h2Color: window.palette.text
@@ -69,13 +71,21 @@ ApplicationWindow {
             visible: styleToggle.checked
             Layout.fillWidth: true
             targetStyle: hostStyle
+            defaultLinkColor: window.palette.link
             defaultTextColor: window.palette.text
             previewBackgroundColor: window.palette.base
         }
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Resource labels are inert and HTML stays literal; full CommonMark rendering is unfinished."
+            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Links report destinations to the host; image descriptions and HTML stay literal; full CommonMark rendering is unfinished."
+        }
+        Label {
+            objectName: "lastDestination"
+            Layout.fillWidth: true
+            textFormat: Text.PlainText
+            wrapMode: Text.Wrap
+            text: window.lastDestination
         }
         SplitView {
             id: split
@@ -142,6 +152,7 @@ ApplicationWindow {
                             x: (previewScroll.width - width) / 2
                             markdown: editor.text
                             style: hostStyle
+                            onLinkActivated: function(destination) { window.lastDestination = "Last activated: " + destination }
                         }
                     }
                 }

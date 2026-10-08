@@ -30,6 +30,8 @@ MarkdownStyle::MarkdownStyle(QObject *parent) : QObject(parent)
 
 void MarkdownStyle::restoreDefaults()
 {
+    setLinkColor(QColor("#0066cc"));
+    setLinkUnderline(true);
     setThematicBreakColor(QColor("#202020"));
     setThematicBreakThickness(1);
     setCodeBlockFont(m_defaultCodeBlockFont);
@@ -223,4 +225,17 @@ void MarkdownStyle::setQuoteRuleThickness(qreal value)
     if (m_quoteRuleThickness == value || (std::isnan(m_quoteRuleThickness) && std::isnan(value))) return;
     m_quoteRuleThickness = value;
     emit quoteRuleThicknessChanged();
+}
+
+void MarkdownStyle::setLinkColor(const QColor &value)
+{
+    if (m_linkColor == value) return;
+    m_linkColor = value;
+    emit linkColorChanged();
+}
+void MarkdownStyle::setLinkUnderline(bool value)
+{
+    if (m_linkUnderline == value) return;
+    m_linkUnderline = value;
+    emit linkUnderlineChanged();
 }

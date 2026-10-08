@@ -13,12 +13,18 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     const auto &block = m_blocks[index.row()];
     if (role == Qt::UserRole) return block.text;
     if (role == Qt::UserRole + 1) return block.level;
-    if (role == Qt::UserRole + 2) return !block.ranges.isEmpty();
+    if (role == Qt::UserRole + 2) return (!block.ranges.isEmpty() || !block.links.isEmpty());
     if (role == Qt::UserRole + 3) {
         QVariantList ranges;
         for (const auto &range : block.ranges)
             ranges.append(QVariantMap{{"start", range.start}, {"length", range.length}, {"flags", range.flags}});
         return ranges;
+    }
+    if (role == Qt::UserRole + 8) {
+        QVariantList links;
+        for (const auto &link : block.links)
+            links.append(QVariantMap{{"start", link.start}, {"length", link.length}, {"destination", link.destination}});
+        return links;
     }
     if (role == Qt::UserRole + 5) return QVariant::fromValue(static_cast<QAbstractItemModel *>(m_children[index.row()]));
     if (role == Qt::UserRole + 6) return block.tight;
@@ -33,14 +39,14 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::ListItem) return 6;
     if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::HtmlBlock) return 7;
     if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::ThematicBreak) return 3;
-    if (role == Qt::UserRole + 4) return block.kind == QMarkdownPrivate::BlockKind::CodeBlock ? 2 : (block.ranges.isEmpty() ? 0 : 1);
+    if (role == Qt::UserRole + 4) return block.kind == QMarkdownPrivate::BlockKind::CodeBlock ? 2 : (block.ranges.isEmpty() && block.links.isEmpty() ? 0 : 1);
     return {};
 }
 QHash<int, QByteArray> BlockModel::roleNames() const
 {
     return {{Qt::UserRole, "blockText"}, {Qt::UserRole + 1, "headingLevel"},
             {Qt::UserRole + 2, "formatted"}, {Qt::UserRole + 3, "formatRanges"}, {Qt::UserRole + 4, "renderKind"}, {Qt::UserRole + 5, "childBlocks"},
-            {Qt::UserRole + 6, "tightList"}, {Qt::UserRole + 7, "markers"}};
+            {Qt::UserRole + 6, "tightList"}, {Qt::UserRole + 7, "markers"}, {Qt::UserRole + 8, "linkSpans"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::Block> blocks)
 {
@@ -90,8 +96,8 @@ void ViewState::resetStyle()
 namespace {
 void registerPrivateTypes()
 {
-    qmlRegisterType<FormattedText>("QMarkdown.Private", 0, 5, "FormattedText");
-    qmlRegisterType<ViewState>("QMarkdown.Private", 0, 5, "ViewState");
+    qmlRegisterType<FormattedText>("QMarkdown.Private", 0, 6, "FormattedText");
+    qmlRegisterType<ViewState>("QMarkdown.Private", 0, 6, "ViewState");
 }
 }
 Q_COREAPP_STARTUP_FUNCTION(registerPrivateTypes)

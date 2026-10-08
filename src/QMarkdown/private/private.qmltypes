@@ -3,8 +3,8 @@ Module {
     Component {
         name: "ViewState"
         prototype: "QObject"
-        exports: ["QMarkdown.Private/ViewState 0.5"]
-        exportMetaObjectRevisions: [5]
+        exports: ["QMarkdown.Private/ViewState 0.6"]
+        exportMetaObjectRevisions: [6]
         Property { name: "markdown"; type: "QString"; notify: "markdownChanged" }
         Property { name: "style"; type: "MarkdownStyle"; isPointer: true; notify: "styleChanged" }
         Property { name: "blocks"; type: "QAbstractItemModel"; isPointer: true; isReadonly: true }
@@ -14,10 +14,18 @@ Module {
     Component {
         name: "FormattedText"
         prototype: "QQuickPaintedItem"
-        exports: ["QMarkdown.Private/FormattedText 0.5"]
-        exportMetaObjectRevisions: [5]
+        exports: ["QMarkdown.Private/FormattedText 0.6"]
+        exportMetaObjectRevisions: [6]
         Property { name: "text"; type: "QString"; notify: "textChanged" }
         Property { name: "formatRanges"; type: "QVariantList"; notify: "formatRangesChanged" }
+        Property { name: "linkSpans"; type: "QVariantList"; notify: "linkSpansChanged" }
+        Property { name: "linkColor"; type: "QColor"; notify: "linkColorChanged" }
+        Property { name: "linkUnderline"; type: "bool"; notify: "linkUnderlineChanged" }
+        Signal { name: "linkSpansChanged" }
+        Signal { name: "linkColorChanged" }
+        Signal { name: "linkUnderlineChanged" }
+        Method { name: "linkAt"; type: "int"; Parameter { name: "x"; type: "double" } Parameter { name: "y"; type: "double" } }
+        Method { name: "linkDestination"; type: "QString"; Parameter { name: "identity"; type: "int" } }
         Property { name: "font"; type: "QFont"; notify: "fontChanged" }
         Property { name: "codeFont"; type: "QFont"; notify: "codeFontChanged" }
         Property { name: "color"; type: "QColor"; notify: "colorChanged" }

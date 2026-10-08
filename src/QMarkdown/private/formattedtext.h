@@ -11,6 +11,9 @@ class FormattedText : public QQuickPaintedItem
     QML_ANONYMOUS
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged FINAL)
     Q_PROPERTY(QVariantList formatRanges READ formatRanges WRITE setFormatRanges NOTIFY formatRangesChanged FINAL)
+    Q_PROPERTY(QVariantList linkSpans READ linkSpans WRITE setLinkSpans NOTIFY linkSpansChanged FINAL)
+    Q_PROPERTY(QColor linkColor READ linkColor WRITE setLinkColor NOTIFY linkColorChanged FINAL)
+    Q_PROPERTY(bool linkUnderline READ linkUnderline WRITE setLinkUnderline NOTIFY linkUnderlineChanged FINAL)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged FINAL)
     Q_PROPERTY(QFont codeFont READ codeFont WRITE setCodeFont NOTIFY codeFontChanged FINAL)
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged FINAL)
@@ -32,8 +35,19 @@ public:
     void setCodeFont(const QFont &value);
     void setColor(const QColor &value);
     void setLayoutWidth(qreal value);
+    QVariantList linkSpans() const { return m_links; }
+    QColor linkColor() const { return m_linkColor; }
+    bool linkUnderline() const { return m_linkUnderline; }
+    void setLinkSpans(const QVariantList &value);
+    void setLinkColor(const QColor &value);
+    void setLinkUnderline(bool value);
+    Q_INVOKABLE int linkAt(qreal x, qreal y) const;
+    Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void linkSpansChanged();
+    void linkColorChanged();
+    void linkUnderlineChanged();
     void textChanged();
     void formatRangesChanged();
     void fontChanged();
@@ -49,7 +63,9 @@ private:
     void observeScreen(QQuickWindow *window);
     QMetaObject::Connection m_windowScreenConnection, m_screenDpiConnection;
     QString m_text;
-    QVariantList m_ranges;
+    QVariantList m_ranges, m_links;
+    QColor m_linkColor = QColor("#0066cc");
+    bool m_linkUnderline = true;
     QFont m_font, m_codeFont, m_layoutFont;
     QColor m_color = Qt::black;
     qreal m_layoutWidth = 0, m_logicalHeight = 0;

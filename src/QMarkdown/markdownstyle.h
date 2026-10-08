@@ -8,6 +8,8 @@ class MarkdownStyle : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
+    Q_PROPERTY(QColor linkColor READ linkColor WRITE setLinkColor NOTIFY linkColorChanged FINAL)
+    Q_PROPERTY(bool linkUnderline READ linkUnderline WRITE setLinkUnderline NOTIFY linkUnderlineChanged FINAL)
     Q_PROPERTY(QColor thematicBreakColor READ thematicBreakColor WRITE setThematicBreakColor NOTIFY thematicBreakColorChanged FINAL)
     Q_PROPERTY(qreal thematicBreakThickness READ thematicBreakThickness WRITE setThematicBreakThickness NOTIFY thematicBreakThicknessChanged FINAL)
     Q_PROPERTY(QFont codeBlockFont READ codeBlockFont WRITE setCodeBlockFont NOTIFY codeBlockFontChanged FINAL)
@@ -35,6 +37,10 @@ class MarkdownStyle : public QObject
 public:
     explicit MarkdownStyle(QObject *parent = nullptr);
     void restoreDefaults();
+    QColor linkColor() const { return m_linkColor; }
+    void setLinkColor(const QColor &value);
+    bool linkUnderline() const { return m_linkUnderline; }
+    void setLinkUnderline(bool value);
     QColor thematicBreakColor() const { return m_thematicBreakColor; }
     void setThematicBreakColor(const QColor &value);
     qreal thematicBreakThickness() const { return m_thematicBreakThickness; }
@@ -84,6 +90,8 @@ public:
     qreal quoteRuleThickness() const { return m_quoteRuleThickness; }
     void setQuoteRuleThickness(qreal value);
 signals:
+    void linkColorChanged();
+    void linkUnderlineChanged();
     void thematicBreakColorChanged();
     void thematicBreakThicknessChanged();
     void codeBlockFontChanged();
@@ -109,6 +117,8 @@ signals:
     void quoteRuleColorChanged();
     void quoteRuleThicknessChanged();
 private:
+    QColor m_linkColor;
+    bool m_linkUnderline = true;
     qreal m_listIndent = 24;
     qreal m_quoteIndent = 16;
     QColor m_quoteRuleColor = QColor("#808080");

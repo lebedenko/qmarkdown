@@ -2,7 +2,7 @@
 
 A standalone Qt/QML Markdown rendering library under development, independent of any other project. The library owns Markdown semantics and rendering behavior; applications supply typography and colors. Markdown source feeds a private parser, document model, and native Qt Quick block components, without document-level HTML, QTextDocument, or WebEngine rendering.
 
-**Status:** version `0.5.0` / QML module `0.5` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. Feature 007 is approved on 2026-10-08. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links, images and autolinks display inert labels; HTML stays literal. This iteration does not claim full CommonMark conformance.
+**Status:** version `0.6.0` / QML module `0.6` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. Feature 009 is approved on 2026-10-08. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links and autolinks report decoded destinations to the host; images display inert formatted descriptions and HTML stays literal. This iteration does not claim full CommonMark conformance.
 
 ## Build and check
 
@@ -51,9 +51,9 @@ Fonts support logical pixels (`pixelSize`) and points (`pointSize` in QML, `setP
 
 Qt's QML font getters synthesize the other unit. Its subproperty setters also prefer an already explicit pixel size when both units are set, and may warn when changing a point font to pixels. Use whole-font assignments to select a different unit, or C++ `QFont::setPointSizeF`/`setPixelSize` on a copy to preserve all fields. For fractional QML edits, set `pointSize` on a point-based role (for example `style.bodyFont.pointSize = 12.5`). The playground handles both transitions through a local native helper without changing the library API.
 
-Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Package/import versions remain 0.5.0/0.5. See [Feature 008](specs/008-font-units/requirements.md).
+Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Current package/import versions are 0.6.0/0.6. See [Feature 008](specs/008-font-units/requirements.md).
 
-Links and images display their formatted labels/descriptions; autolinks display text. No resources load or activate. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser caps opening fence lengths at 255; very long fence closers consequently follow that upstream limitation. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
+Links and images display their formatted labels/descriptions; autolinks display text. Links activate only by reporting destinations to the host; no resources load. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser caps opening fence lengths at 255; very long fence closers consequently follow that upstream limitation. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
 
 Launch the editable source/preview example:
 
@@ -68,13 +68,13 @@ The playground supplies theme-aware styling: the preview surface and Neutral tex
 ## Consume an installed package
 
 ```cmake
-find_package(QMarkdown 0.5 CONFIG REQUIRED)
+find_package(QMarkdown 0.6 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
 ```qml
 import QtQuick
-import QMarkdown 0.5
+import QMarkdown 0.6
 
 MarkdownView {
     width: 480
@@ -125,3 +125,18 @@ The script builds both variants, runs tests and lint, installs into temporary pr
 See [core leaf block verification](specs/006-core-leaf-blocks/verification.md), [fenced code verification](specs/004-fenced-code-blocks/verification.md), [inline formatting verification](specs/003-inline-formatting/verification.md), [standards and conformance](specs/standards.md), [rendering verification](specs/001-static-text/verification.md) and [scaffold verification](specs/002-project-scaffold/verification.md), [specifications](specs/README.md), [overview](specs/overview.md), [roadmap](specs/roadmap.md), and [project instructions](AGENTS.md). Authored library code is licensed under the [MIT license](LICENSE), attributed to qt-markdown contributors. The bundled cmark sources retain their own [notices](third_party/cmark/COPYING), also installed with the package. No stable API or ABI is promised by this early release.
 
 Container style defaults: `listIndent: 24`, `quoteIndent: 16`, `quoteRuleColor: "#808080"`, `quoteRuleThickness: 2`. All notify on changes and support shared styles and the established default-style reset/destruction lifecycle. See [Feature 007](specs/007-container-blocks/requirements.md) and its [verification](specs/007-container-blocks/verification.md).
+
+### Host-controlled links
+
+```qml
+MarkdownView {
+    markdown: "[Guide](../guide.md#intro)"
+    style: MarkdownStyle { linkColor: "#0066cc"; linkUnderline: true }
+    onLinkActivated: function(destination) {
+        // Validate, resolve and navigate according to your application's policy.
+        console.log(destination)
+    }
+}
+```
+
+`linkActivated(string destination)` reports the cmark-decoded string unchanged, including empty destinations, relative paths, fragments and custom schemes. Primary clicks and touch taps activate links; dragging to scroll cancels activation. The view never opens URLs or loads resources. Links inside image descriptions are inert; an enclosing link includes the description. Keyboard link traversal, accessibility and visited states are deferred. See [Feature 009](specs/009-host-controlled-links/requirements.md).

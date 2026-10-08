@@ -9,9 +9,15 @@ struct InlineRange {
     int length = 0;
     int flags = 0;
 };
+struct LinkSpan {
+    int start = 0;
+    int length = 0;
+    QString destination;
+};
 struct InlineContent {
     QString text;
     QVector<InlineRange> ranges;
+    QVector<LinkSpan> links;
 };
 InlineContent parseInline(const QString &source);
 }
