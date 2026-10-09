@@ -1,0 +1,67 @@
+[
+  {
+    "qt": "6.8.0",
+    "run": "cold",
+    "artifacts": "build-ci/6.8.0/20261009T155444Z-sefpgseb",
+    "imageReused": false,
+    "status": "passed",
+    "exitCode": 0,
+    "imageId": "sha256:1ad4a38e850a65c522afc76e2bc9d2713a27b4328ca685486422b0aecec40ff6",
+    "recipeFingerprint": "db06b26a120c76628c52922ca8480048919e9effd7365642fc3424259f1c4f6a",
+    "preparationSeconds": 1245.137,
+    "verificationSeconds": 114.107,
+    "elapsedSeconds": 1359.316
+  },
+  {
+    "qt": "6.8.0",
+    "run": "warm",
+    "artifacts": "build-ci/6.8.0/20261009T164828Z-4qx3jwny",
+    "imageReused": true,
+    "status": "passed",
+    "exitCode": 0,
+    "imageId": "sha256:1ad4a38e850a65c522afc76e2bc9d2713a27b4328ca685486422b0aecec40ff6",
+    "recipeFingerprint": "db06b26a120c76628c52922ca8480048919e9effd7365642fc3424259f1c4f6a",
+    "preparationSeconds": 0.011,
+    "verificationSeconds": 112.277,
+    "elapsedSeconds": 112.302
+  },
+  {
+    "qt": "6.11.3",
+    "run": "failed cold",
+    "artifacts": "build-ci/6.11.3/20261009T155447Z-9trczyoa",
+    "imageReused": false,
+    "status": "preparation failed",
+    "exitCode": 1,
+    "imageId": null,
+    "recipeFingerprint": "b3272724001d7a919276c9d0e636f48e9f9be630da48ad106c1c7f45df9d7c06",
+    "preparationSeconds": 1316.781,
+    "verificationSeconds": 0,
+    "elapsedSeconds": 1316.782
+  },
+  {
+    "qt": "6.11.3",
+    "run": "cold retry",
+    "artifacts": "build-ci/6.11.3/20261009T161908Z-zdume6fs",
+    "imageReused": false,
+    "status": "passed",
+    "exitCode": 0,
+    "imageId": "sha256:f4725ca42c718e11d607116b5cb912d2a854d26b97045334897297b0196f7b18",
+    "recipeFingerprint": "b3272724001d7a919276c9d0e636f48e9f9be630da48ad106c1c7f45df9d7c06",
+    "preparationSeconds": 1269.341,
+    "verificationSeconds": 118.778,
+    "elapsedSeconds": 1388.155
+  },
+  {
+    "qt": "6.11.3",
+    "run": "warm",
+    "artifacts": "build-ci/6.11.3/20261009T164848Z-h93if9ri",
+    "imageReused": true,
+    "status": "passed",
+    "exitCode": 0,
+    "imageId": "sha256:f4725ca42c718e11d607116b5cb912d2a854d26b97045334897297b0196f7b18",
+    "recipeFingerprint": "b3272724001d7a919276c9d0e636f48e9f9be630da48ad106c1c7f45df9d7c06",
+    "preparationSeconds": 0.012,
+    "verificationSeconds": 119.856,
+    "elapsedSeconds": 119.882
+  }
+]
