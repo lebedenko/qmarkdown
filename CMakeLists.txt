@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(QMarkdown VERSION 0.7.0 LANGUAGES C CXX)
+project(QMarkdown VERSION 1.0.0 LANGUAGES C CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -25,7 +25,7 @@ configure_package_config_file(cmake/QMarkdownConfig.cmake.in
     INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/QMarkdown"
     PATH_VARS QMARKDOWN_QML_INSTALL_DIR)
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/QMarkdownConfigVersion.cmake"
-    VERSION ${PROJECT_VERSION} COMPATIBILITY SameMinorVersion)
+    VERSION ${PROJECT_VERSION} COMPATIBILITY SameMajorVersion)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/QMarkdownConfig.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/QMarkdownConfigVersion.cmake"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/QMarkdown")

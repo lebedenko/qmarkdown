@@ -6,14 +6,14 @@ endif()
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
-    VERSION 0.7
+    VERSION 1.0
     PLUGIN_TARGET QMarkdownPlugin
     CLASS_NAME QMarkdownPlugin
     RESOURCE_PREFIX /qt/qml
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml/QMarkdown"
     OUTPUT_TARGETS qmarkdown_auxiliary_targets
     QML_FILES MarkdownView.qml
-    SOURCES markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
+    SOURCES private/decodescheduler.h private/decodescheduler.cpp markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
         private/document.h private/document.cpp private/viewstate.h private/viewstate.cpp
         private/inline.h private/inlineadapter.h private/inline.cpp private/formattedtext.h private/formattedtext.cpp private/formatintervals.h private/formatintervals.cpp
 )
@@ -22,7 +22,7 @@ target_sources(QMarkdown PRIVATE $<TARGET_OBJECTS:qmarkdown_cmark>)
 target_include_directories(QMarkdown PRIVATE "${PROJECT_SOURCE_DIR}/third_party/cmark/src")
 add_library(QMarkdown::QMarkdown ALIAS QMarkdown)
 target_link_libraries(QMarkdown PUBLIC Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::Network)
-set_target_properties(QMarkdown PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION 0)
+set_target_properties(QMarkdown PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION 1)
 
 install(TARGETS QMarkdown ${qmarkdown_auxiliary_targets}
     EXPORT QMarkdownTargets

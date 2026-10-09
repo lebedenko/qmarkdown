@@ -15,9 +15,35 @@ class ImportTest : public QObject
     Q_OBJECT
 
 private slots:
+    void publicTypes_data()
+    {
+        QTest::addColumn<QByteArray>("version");
+        QTest::addColumn<QByteArray>("type");
+        QTest::addColumn<bool>("accepted");
+        for (const QByteArray &version : {QByteArray("1.0"), QByteArray(""), QByteArray("0.7")}) {
+            for (const QByteArray &type : {QByteArray("MarkdownView"), QByteArray("MarkdownStyle"), QByteArray("MarkdownResourcePolicy")}) {
+                QTest::newRow((version + "-" + type).constData()) << version << type << (version != "0.7");
+            }
+        }
+    }
+    void publicTypes()
+    {
+        QFETCH(QByteArray, version); QFETCH(QByteArray, type); QFETCH(bool, accepted);
+        QQmlEngine engine;
+        QQmlComponent component(&engine);
+        component.setData("import QMarkdown " + version + "\n" + type + " {}", {});
+        if (accepted) {
+            QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+            std::unique_ptr<QObject> object(component.create());
+            QVERIFY(object);
+        } else {
+            QVERIFY(component.isError());
+            QVERIFY2(component.errorString().contains("version 0.7 is not installed"), qPrintable(component.errorString()));
+        }
+    }
     void resourcePolicyConfiguration() {
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QMarkdown 0.7\nMarkdownView { baseUrl: 'qrc:/documents/readme.md'; resourcePolicy: MarkdownResourcePolicy { allowedFileRoots: ['file:///tmp/images/']; allowedHttpsOrigins: ['https://example.invalid']; allowQrc: true } }", {});
+        component.setData("import QMarkdown 1.0\nMarkdownView { baseUrl: 'qrc:/documents/readme.md'; resourcePolicy: MarkdownResourcePolicy { allowedFileRoots: ['file:///tmp/images/']; allowedHttpsOrigins: ['https://example.invalid']; allowQrc: true } }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create()); QVERIFY(object);
         QCOMPARE(object->property("baseUrl").toUrl(), QUrl("qrc:/documents/readme.md"));
         auto *policy = object->property("resourcePolicy").value<QObject *>(); QVERIFY(policy);

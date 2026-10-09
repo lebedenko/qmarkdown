@@ -452,8 +452,8 @@ private slots:
         QTest::newRow("final-no-newline") << "```\nx" << "x\n";
         QTest::newRow("final-newline") << "```\nx\n" << "x\n";
         QTest::newRow("literal") << "```\n*em* `code` &amp; <b> 日本語 😀\n```" << "*em* `code` &amp; <b> 日本語 😀\n";
-        // cmark 0.31.2 caps the stored opener length at 255.
-        QTest::newRow("long") << QString(300, '`') + "\nx\n" + QString(299, '`') + "\n" + QString(301, '`') << "x\n";
+        // A shorter closer remains literal content, even beyond 255 characters.
+        QTest::newRow("long") << QString(300, '`') + "\nx\n" + QString(299, '`') + "\n" + QString(301, '`') << "x\n" + QString(299, '`') + "\n";
         QTest::newRow("suffix-tab") << "~~~\nx\n   ~~~~ \t" << "x\n";
         QTest::newRow("closer-indent4") << "~~~\n    ~~~\n~~~" << "    ~~~\n";
     }
@@ -464,10 +464,62 @@ private slots:
             auto normalized = source;
             normalized.replace("\n", ending);
             const auto blocks = parse("before\n" + normalized);
-            QCOMPARE(blocks.size(), source.startsWith(QString(300, '`')) ? 3 : 2);
+            QCOMPARE(blocks.size(), 2);
             QCOMPARE(blocks[1].kind, BlockKind::CodeBlock);
             QCOMPARE(blocks[1].text, expected);
             QVERIFY(blocks[1].ranges.isEmpty());
+        }
+    }
+    void longFences_data()
+    {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<QString>("expected");
+        QTest::addColumn<bool>("closed");
+        for (const QChar marker : {QChar('`'), QChar('~')}) {
+            for (const int length : {254, 255, 256, 300, 4096}) {
+                for (const int delta : {-1, 0, 1, 2, 3}) {
+                    for (const QString &ending : {QString("\n"), QString("\r\n"), QString("\r")}) {
+                        const QString opener(length, marker);
+                        const QString closer(length + (delta <= 1 ? delta : 0),
+                                             delta == 3 ? (marker == '`' ? '~' : '`') : marker);
+                        const bool closed = delta == 0 || delta == 1;
+                        QString source = opener + "\nx\n";
+                        QString expected = "x\n";
+                        if (delta != 2) {
+                            source += closer + "\n";
+                            if (!closed) expected += closer + "\n";
+                        }
+                        source += "after\n";
+                        if (!closed) expected += "after\n";
+                        source.replace("\n", ending);
+                        const auto name = QString("%1-%2-%3-%4").arg(marker).arg(length).arg(delta).arg(ending.size() == 2 ? "crlf" : ending == "\r" ? "cr" : "lf").toUtf8();
+                        QTest::newRow(name.constData()) << source << expected << closed;
+                    }
+                }
+            }
+        }
+    }
+    void longFences()
+    {
+        QFETCH(QString, source); QFETCH(QString, expected); QFETCH(bool, closed);
+        const auto blocks = parse(source);
+        QCOMPARE(blocks.size(), closed ? 2 : 1);
+        QCOMPARE(blocks[0].kind, BlockKind::CodeBlock);
+        QCOMPARE(blocks[0].text, expected);
+        if (closed) QCOMPARE(blocks[1].text, QString("after"));
+        for (const QString &prefix : {QString("> "), QString("  ")}) {
+            QString nested = source;
+            nested.replace("\r\n", "\n"); nested.replace("\r", "\n");
+            nested.replace("\n", "\n" + prefix);
+            nested.chop(prefix.size());
+            nested.prepend(prefix == "> " ? prefix : QString("- "));
+            const auto containers = parse(nested);
+            QCOMPARE(containers.size(), 1);
+            const auto children = prefix == "> " ? containers[0].children : containers[0].children[0].children;
+            QCOMPARE(children.size(), closed ? 2 : 1);
+            QCOMPARE(children[0].kind, BlockKind::CodeBlock);
+            QCOMPARE(children[0].text, expected);
+            if (closed) QCOMPARE(children[1].text, QString("after"));
         }
     }
     void fenceInfo()

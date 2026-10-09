@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     QQmlComponent component(&engine);
     component.setData(
             "import QtQuick\n"
-            "import QMarkdown 0.7\n"
+            "import QMarkdown 1.0\n"
             "MarkdownView {\n"
             "    width: 180\n"
             "    property bool activated: false\n"

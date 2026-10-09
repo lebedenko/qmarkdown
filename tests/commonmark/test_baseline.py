@@ -277,6 +277,50 @@ class ProductionModelTest(unittest.TestCase):
         self.check('<div>\n*x*\n</div>\n', [{"kind": "HtmlBlock", "text": "<div>\n*x*\n</div>\n"}])
         self.check('before <b>x</b> after', [paragraph('before <b>x</b> after')])
 
+    def test_long_fences_source_derived_html_and_models(self):
+        # Supplementary source assertions, independent of the official corpus/ledger.
+        cases, wants = [], []
+        for marker in ("`", "~"):
+            for length in (254, 255, 256, 300, 4096):
+                for delta in (-1, 0, 1, None, "other"):
+                    closed = delta in (0, 1)
+                    closer = ("~" if marker == "`" else "`") * length if delta == "other" else marker * (length + (delta or 0))
+                    lines = [marker * length, "x"]
+                    literal = "x\n"
+                    if delta is not None:
+                        lines.append(closer)
+                        if not closed:
+                            literal += closer + "\n"
+                    lines.append("after")
+                    if not closed:
+                        literal += "after\n"
+                    model = [{"kind": "CodeBlock", "text": literal, "infoString": ""}]
+                    html = "<pre><code>" + literal + "</code></pre>\n"
+                    if closed:
+                        model += complete_plain([paragraph("after")])
+                        html += "<p>after</p>\n"
+                    for ending in ("\n", "\r\n", "\r"):
+                        for container in ("plain", "quote", "list"):
+                            source = ending.join(lines) + ending
+                            want, rendered = model, html
+                            if container == "quote":
+                                source = ending.join("> " + line for line in lines) + ending
+                                want = [{"kind": "Quote", "children": model}]
+                                rendered = "<blockquote>\n" + html + "</blockquote>\n"
+                            elif container == "list":
+                                source = "- " + lines[0] + ending + ending.join("  " + line for line in lines[1:]) + ending
+                                want = [{"kind": "List", "ordered": False, "start": 0, "delimiter": ".", "tight": True,
+                                         "children": [{"kind": "ListItem", "children": model}]}]
+                                rendered = "<ul>\n<li>\n" + html.replace("<p>after</p>\n", "after") + "</li>\n</ul>\n"
+                            case = fixture(source, rendered)
+                            case["example"] = len(cases) + 1
+                            cases.append(case); wants.append(want)
+        response = run_probe(PROBE, cases)
+        for case, actual, want in zip(cases, response["examples"], wants):
+            with self.subTest(example=case["example"]):
+                self.assertEqual(actual["html"], case["html"])
+                self.assertEqual(actual["model"], want)
+
     def test_original_unicode_literal_spaces_and_escapes_in_destinations(self):
         self.check('[α](<a b>) [β](a%20b) [γ](é)', [paragraph('α β γ', links=[
             link(0, 1, 'a b'), link(2, 1, 'a%20b'), link(4, 1, 'é')])])

@@ -130,9 +130,9 @@ void ViewState::resetStyle()
 namespace {
 void registerPrivateTypes()
 {
-    qmlRegisterType<FormattedText>("QMarkdown.Private", 0, 7, "FormattedText");
-    qmlRegisterType<ImageItem>("QMarkdown.Private", 0, 7, "ImageItem");
-    qmlRegisterType<ViewState>("QMarkdown.Private", 0, 7, "ViewState");
+    qmlRegisterType<FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
+    qmlRegisterType<ImageItem>("QMarkdown.Private", 1, 0, "ImageItem");
+    qmlRegisterType<ViewState>("QMarkdown.Private", 1, 0, "ViewState");
 }
 }
 Q_COREAPP_STARTUP_FUNCTION(registerPrivateTypes)

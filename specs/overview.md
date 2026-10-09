@@ -1,5 +1,14 @@
 # Project overview
 
+## Current 1.0 candidate direction
+
+[Iteration 021](021-v1-release-candidate/requirements.md) is approved for Linux amd64 candidate 1.0.0 / QML 1.0, Qt >=6.8, C++17 and CMake >=3.21. Pinned Qt 6.8.0/6.11.3, host Qt and native Wayland execution are separate evidence; see [actual verification](021-v1-release-candidate/verification.md) for gate status. Features 017/019/020 establish complete official-corpus semantics, representative native presentation and responsive decoder lifecycle. This candidate corrects long fences without upgrading cmark or changing the official corpus.
+
+Documented public QML properties, signals, behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes stay private; no installed C++ headers, public C++ ABI or portable binary guarantee. Consumers use compatible Qt/toolchains and migrate 0.7 imports/package requests to 1.0; unversioned imports work and legacy aliases are absent.
+
+Accepted limits: separate PNG/JPEG image rows, literal HTML, full replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Optional syntax, streaming, selection/copy, renderer extensions, performance optimization and broader platforms are deferred. Local candidate readiness requires every iteration 021 gate; hosted execution remains a later pre-publication follow-up. Historical iteration descriptions below retain their original versions and evidence.
+
+
 ## Accepted project direction
 
 `qt-markdown` is a standalone reusable Qt/QML Markdown rendering library, independent of any other project, with chat and file preview as initial use cases. The product is the library; an editable example viewer demonstrates integration. Hosts own visual identity, resource permissions, and navigation decisions. The library owns parsing semantics and rendering behavior.
@@ -8,7 +17,7 @@ Markdown source flows through a private parser into a document/AST model and the
 
 The model should allow block-oriented rendering and later evolution toward streaming without committing to an incremental algorithm or stable block identity in feature 001. Full replacement and full parsing are sufficient for the initial slice.
 
-Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a v1.0 release gate. See [standards and conformance](standards.md) for parsing, native presentation, resource-policy boundaries, and selected GFM extensions. Feature 001 delivers the separately approved bounded static-text slice. Full conformance is not verified.
+Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a v1.0 release gate. See [standards and conformance](standards.md) for parsing, native presentation, resource-policy boundaries, and selected GFM extensions. Feature 001 delivers the separately approved bounded static-text slice. Official-corpus semantics are verified by Feature 017; broader release evidence is tracked by iteration 021.
 
 ## Planned capabilities
 
@@ -22,8 +31,8 @@ The brief's directory tree, C++ renderer interface, `MarkdownDocument.append`, `
 
 | Decision | Required resolution |
 | --- | --- |
-| Parser and dialect | Feature 001 implements a focused private parser without new dependencies, CommonMark-aligned paragraph/ATX structure, and explicit literal fallback. Feature 003 introduced privately bundled cmark 0.31.2 for bounded inlines; Feature 007 now uses it for the entire document and recursive native containers. Full conformance remains unverified. |
-| Minimum Qt version | Feature 002 selects Qt ≥6.8; local scaffold verification uses Qt 6.11.2. Qt 6.8 execution remains unverified. |
+| Parser and dialect | Feature 001 implements a focused private parser without new dependencies, CommonMark-aligned paragraph/ATX structure, and explicit literal fallback. Feature 003 introduced privately bundled cmark 0.31.2 for bounded inlines; Feature 007 now uses it for the entire document and recursive native containers. Official-corpus semantic evidence is complete; iteration 021 supplies the long-fence correction and release checks. |
+| Minimum Qt version | Feature 002 selects Qt ≥6.8; historical scaffold verification used Qt 6.11.2. Subsequent local CI verifies pinned Qt 6.8.0 and 6.11.3; candidate results are tracked separately. |
 | Packaging | Feature 002 provides `QMarkdown`, `QMarkdown::QMarkdown`, shared/static packages, and an import-only example. Feature 001 adds MarkdownView and MarkdownStyle with native rendering. |
 | Licensing | MIT, attributed to qt-markdown contributors; see the repository LICENSE. Bundled cmark retains its complete applicable notices, installed with the package; see [provenance](../third_party/cmark/PROVENANCE.md). Check future dependencies separately. |
 

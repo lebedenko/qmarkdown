@@ -16,7 +16,6 @@ namespace {
 constexpr qint64 encodedLimit = 8 * 1024 * 1024;
 constexpr qint64 pixelLimit = 16 * 1000 * 1000;
 constexpr qint64 retainedLimit = 64 * 1024 * 1024;
-constexpr int deadlineMs = 15000;
 bool origin(const QUrl &url) {
     return url.isValid() && url.scheme() == "https" && !url.host().isEmpty()
         && url.userInfo().isEmpty() && !url.authority().contains(u'@')
@@ -142,20 +141,22 @@ QVector<Block> projectImages(const QVector<Block> &blocks, const QHash<QUrl, QIm
 
 ResourceController::ResourceController(QObject *parent) : QObject(parent), m_network(new QNetworkAccessManager(this)), m_policy(this)
 {
-    m_decoder.setMaxThreadCount(1);
+    m_scheduler = QMarkdownPrivate::DecodeScheduler::instance();
     m_network->setCookieJar(new EmptyCookies(m_network));
     m_deadline.setInterval(25);
     connect(&m_deadline, &QTimer::timeout, this, [this] {
+        if (m_job && m_next < m_loads.size() && m_loads[m_next].elapsed.elapsed() >= m_admissionTimeout)
+            m_scheduler->cancel(m_job);
         for (qsizetype i = m_next; i < qMin(m_next + 4, m_loads.size()); ++i) {
             auto &load = m_loads[i];
-            if (load.started && !load.done && load.elapsed.elapsed() >= deadlineMs) {
+            if (load.started && !load.done && load.elapsed.elapsed() >= m_admissionTimeout) {
                 if (load.reply) load.reply->abort();
                 finish(i);
             }
         }
     });
 }
-ResourceController::~ResourceController() { cancel(); m_decoder.waitForDone(); }
+ResourceController::~ResourceController() { cancel(); }
 void ResourceController::setNetworkManager(QNetworkAccessManager *manager) {
     cancel(); delete m_network; m_network = manager; manager->setParent(this);
     manager->setCookieJar(new EmptyCookies(manager));
@@ -163,13 +164,14 @@ void ResourceController::setNetworkManager(QNetworkAccessManager *manager) {
 void ResourceController::cancel()
 {
     ++m_generation;
-    m_decoder.clear();
+    if (m_scheduler) m_scheduler->cancel(m_job);
+    m_job.reset();
     if (m_watcher) m_watcher->cancel();
     delete m_watcher; m_watcher = nullptr;
     m_deadline.stop();
     for (auto &load : m_loads) if (load.reply) { disconnect(load.reply, nullptr, this, nullptr); load.reply->abort(); load.reply->deleteLater(); }
     m_loads.clear(); m_images.clear(); m_next = 0; m_retained = 0;
-    // An old decoder can still finish; the single-worker pool serializes generations.
+    // Detached workers retain only their copied input and shared job state.
     m_decoding = false;
 }
 void ResourceController::restart(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base, MarkdownResourcePolicy *policy)
@@ -203,7 +205,7 @@ void ResourceController::request(qsizetype index)
 {
     auto &load = m_loads[index];
     const auto url = QMarkdownPrivate::authorizedResource(load.url, m_policy);
-    if (url.isEmpty() || load.elapsed.elapsed() >= deadlineMs) { load.bytes.clear(); finish(index); return; }
+    if (url.isEmpty() || load.elapsed.elapsed() >= m_admissionTimeout) { load.bytes.clear(); finish(index); return; }
     load.url = url;
     QNetworkRequest request(url);
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy);
@@ -212,7 +214,7 @@ void ResourceController::request(qsizetype index)
     request.setAttribute(QNetworkRequest::AuthenticationReuseAttribute, QNetworkRequest::Manual);
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
     request.setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
-    request.setTransferTimeout(deadlineMs);
+    request.setTransferTimeout(m_admissionTimeout);
     auto *reply = m_network->get(request); load.reply = reply;
     reply->setReadBufferSize(64 * 1024);
     const auto generation = m_generation;
@@ -229,7 +231,7 @@ void ResourceController::request(qsizetype index)
         auto &load = m_loads[index];
         const auto redirect = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
         const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-        if (reply->error() != QNetworkReply::NoError || load.elapsed.elapsed() >= deadlineMs) { load.bytes.clear(); finish(index); return; }
+        if (reply->error() != QNetworkReply::NoError || load.elapsed.elapsed() >= m_admissionTimeout) { load.bytes.clear(); finish(index); return; }
         if (!redirect.isEmpty() && status >= 300 && status < 400) {
             disconnect(reply, nullptr, this, nullptr); reply->deleteLater(); load.reply = nullptr; load.bytes.clear();
             if (++load.redirects > 5) { finish(index); return; }
@@ -264,28 +266,34 @@ void ResourceController::pump()
     const auto index = m_next;
     const auto url = load.url;
     auto bytes = std::move(load.bytes);
-    auto promise = std::make_shared<QPromise<QImage>>(); promise->start();
-    auto *watcher = new QFutureWatcher<QImage>(this);
-    m_watcher = watcher;
-    connect(watcher, &QFutureWatcher<QImage>::finished, this, [this, watcher, generation, index] {
-        const auto image = watcher->result(); watcher->deleteLater();
-        if (generation != m_generation) return;
-        m_watcher = nullptr;
-        m_decoding = false;
-        if (!image.isNull() && m_loads[index].elapsed.elapsed() < deadlineMs && m_retained + image.sizeInBytes() <= retainedLimit) {
-            m_images.insert(m_loads[index].key, image); m_retained += image.sizeInBytes(); emit changed();
-        }
-        if (generation != m_generation) return;
-        ++m_next; pump();
-    });
-    watcher->setFuture(promise->future());
-    m_decoder.start([promise, url, decode = m_decode, bytes = std::move(bytes)]() mutable {
-        if (promise->isCanceled()) { promise->finish(); return; }
+    const QDeadlineTimer deadline(qMax<qint64>(0, m_admissionTimeout - load.elapsed.elapsed()));
+    auto job = m_scheduler->submit([url, deadline, decode = m_decode, bytes = std::move(bytes)](const QMarkdownPrivate::DecodeJob &state) mutable {
+        if (state.promise.isCanceled() || deadline.hasExpired()) return QImage{};
         if (url.scheme() != "https") {
             QFile file(url.isLocalFile() ? url.toLocalFile() : ":" + url.path());
             if (file.open(QIODevice::ReadOnly) && file.size() <= encodedLimit) bytes = file.read(encodedLimit + 1);
         }
-        if (!promise->isCanceled()) promise->addResult(decode(std::move(bytes)));
-        promise->finish();
+        if (state.promise.isCanceled() || deadline.hasExpired()) return QImage{};
+        return decode(std::move(bytes));
+    }, deadline);
+    m_job = job;
+    auto *watcher = new QFutureWatcher<QImage>(this);
+    m_watcher = watcher;
+    connect(watcher, &QFutureWatcher<QImage>::finished, this, [this, watcher, generation, index, job] {
+        watcher->deleteLater();
+        if (generation != m_generation || job != m_job) return;
+        m_watcher = nullptr;
+        m_job.reset();
+        m_decoding = false;
+        const auto future = watcher->future();
+        if (!future.isCanceled() && future.resultCount() > 0 && !job->deadline.hasExpired()) {
+            const auto image = future.result();
+            if (!image.isNull() && m_loads[index].elapsed.elapsed() < m_admissionTimeout && m_retained + image.sizeInBytes() <= retainedLimit) {
+                m_images.insert(m_loads[index].key, image); m_retained += image.sizeInBytes(); emit changed();
+            }
+        }
+        if (generation != m_generation) return;
+        ++m_next; pump();
     });
+    watcher->setFuture(job->promise.future());
 }

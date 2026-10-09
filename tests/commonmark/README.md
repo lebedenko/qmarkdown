@@ -14,7 +14,7 @@ python3 scripts/verify-commonmark.py --probe build-static/tests/qmarkdown-common
 
 `--strict` fails if any official parser comparison fails, any model example is mismatched/uncheckable, or any comparison limit/information loss remains. An unchanged reviewed baseline can pass CTest while strict conformance fails. Exit codes: 0 for an unchanged baseline (and complete evidence if strict was requested), 1 for baseline changes or incomplete strict evidence, 2 for invalid input/output/ledger or execution errors. Strict mode still writes the full report.
 
-CTest runs `qmarkdown-commonmark-oracle` (authored oracle/model and controlled-fault checks) and `qmarkdown-commonmark` (all official examples). Python ≥3.9 is needed only when `BUILD_TESTING=ON`. The runner uses only its standard library, makes no requests and invokes the private probe once for the full corpus. Shared/static packages, imports and version remain 0.7.0/0.7.
+CTest runs `qmarkdown-commonmark-oracle` (authored oracle/model and controlled-fault checks) and `qmarkdown-commonmark` (all official examples). Python ≥3.9 is needed only when `BUILD_TESTING=ON`. The runner uses only its standard library, makes no requests and invokes the private probe once for the full corpus. Current shared/static package/module versions are 1.0.0/1.0. Supplementary long-fence probe tests use source-derived HTML and complete model expectations outside the unchanged 652-example official corpus and ledger.
 
 ## Evidence boundaries
 

@@ -58,14 +58,29 @@ for variant in ("shared", "static"):
         raise RuntimeError("Incomplete installed cmark notices")
     if not (notices / "PROVENANCE.md").is_file():
         raise RuntimeError("Missing installed cmark provenance")
-    if list(relocated.rglob("cmark*.h")):
-        raise RuntimeError("Private cmark headers were installed")
+    if list(relocated.rglob("*.h")):
+        raise RuntimeError("Private C++/cmark headers were installed")
     consumer_build = work / f"consumer-{variant}"
     # Keep the selected SDK searchable for its tools and transitive dependencies.
     consumer_qt_args = [arg for arg in qt_args if not arg.startswith("-DCMAKE_PREFIX_PATH=")]
     consumer_prefix = f"{relocated};{qt_root}" if args.qt_root else str(relocated)
     run("cmake", "-S", consumer_source, "-B", consumer_build,
         *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}")
+    for version, exact, accepted in (("1.0", False, True), ("1.0.0", True, True),
+                                     ("0.7", False, False), ("1.1", False, False), ("2.0", False, False)):
+        request_build = work / f"request-{variant}-{version}"
+        command = ["cmake", "-S", str(consumer_source), "-B", str(request_build),
+                   *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
+                   f"-DQMARKDOWN_REQUEST_VERSION={version}",
+                   f"-DQMARKDOWN_REQUEST_EXACT={'ON' if exact else 'OFF'}"]
+        result = subprocess.run(command, capture_output=True, text=True)
+        (work / f"request-{variant}-{version}.log").write_text(result.stdout + result.stderr)
+        if (result.returncode == 0) != accepted:
+            raise RuntimeError(f"Unexpected package compatibility: {variant} {version}: {result.stdout}{result.stderr}")
+        if not accepted and ("compatible with requested version" not in " ".join(result.stderr.split())
+                             or "version: 1.0.0" not in result.stderr):
+            raise RuntimeError(f"Package request failed for an unrelated reason: {result.stderr}")
+        print(f"PASS: {variant} package request {version}, exact={exact}, accepted={accepted}", flush=True)
     run("cmake", "--build", consumer_build, "--parallel", "2")
     environment = os.environ.copy()
     environment["QT_QPA_PLATFORM"] = "offscreen"

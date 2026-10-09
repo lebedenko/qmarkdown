@@ -1,5 +1,14 @@
 # Staged roadmap
 
+## Current 1.0 candidate direction
+
+[Iteration 021](021-v1-release-candidate/requirements.md) is approved for Linux amd64 candidate 1.0.0 / QML 1.0, Qt >=6.8, C++17 and CMake >=3.21. Pinned Qt 6.8.0/6.11.3, host Qt and native Wayland execution are separate evidence; see [actual verification](021-v1-release-candidate/verification.md) for gate status. Features 017/019/020 establish complete official-corpus semantics, representative native presentation and responsive decoder lifecycle. This candidate corrects long fences without upgrading cmark or changing the official corpus.
+
+Documented public QML properties, signals, behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes stay private; no installed C++ headers, public C++ ABI or portable binary guarantee. Consumers use compatible Qt/toolchains and migrate 0.7 imports/package requests to 1.0; unversioned imports work and legacy aliases are absent.
+
+Accepted limits: separate PNG/JPEG image rows, literal HTML, full replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Optional syntax, streaming, selection/copy, renderer extensions, performance optimization and broader platforms are deferred. Local candidate readiness requires every iteration 021 gate; hosted execution remains a later pre-publication follow-up. Historical iteration descriptions below retain their original versions and evidence.
+
+
 These stages preserve the brief's direction. Version labels describe intended scope, not shipped releases or schedules. Each feature needs its own requirements, design, tasks, and approval. The [standards reference](standards.md) defines the pinned target and future conformance evidence.
 
 | Stage | Intended scope |
@@ -13,7 +22,7 @@ These stages preserve the brief's direction. Version labels describe intended sc
 | Renderer extensions | Syntax highlighting, extension renderer API, Mermaid, math, and custom fenced-block renderers, subject to dependency and policy decisions. Footnotes and other richer syntax require separate specifications. |
 | v1.0 conformance gate | All pinned CommonMark 0.31.2 official examples pass semantic checks, with native renderer verification and documented resource/HTML behavior. Record reproducible commands and actual counts. Streaming and optional extensions are not gates. |
 
-The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Full v1.0 readiness remains **not declared**.
+The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Iteration 021 records local candidate readiness separately from a published v1.0 release.
 
 First-slice fallback rendering is temporary behavior for unsupported syntax. The approved feature 001 design aligns supported paragraph/ATX structure with CommonMark 0.31.2 and specifies literal inline and protected-fence fallback, concrete styling, sizing, and updates. Feature 003 supersedes the paragraph/heading literal-inline behavior with bounded emphasis/strong/code and escapes/entities while retaining the block splitter and protected fences. Feature 004 supersedes protected fences with bounded native code rendering and independent font/color. Full block precedence, remaining inline semantics, and fenced-block extensions require later approved revisions. The standards target does not authorize implementation. Feature 002 approval and scaffold scope remain unchanged.
 

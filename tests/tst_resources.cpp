@@ -3,7 +3,11 @@
 #include <QSemaphore>
 #include <atomic>
 #include <memory>
+#include <QProcess>
+#include <QCoreApplication>
 #include <thread>
+#include <chrono>
+#include <cstdio>
 #include <QDir>
 #include <QTemporaryDir>
 #include <QFile>
@@ -243,7 +247,7 @@ private slots:
         QFETCH(QString, change);
         ResourceController controller;
         auto gate = std::make_shared<DecodeGate>();
-        ReleaseGate cleanup{gate}; // Released before controller's waiting destructor, even on assertion failure.
+        ReleaseGate cleanup{gate}; // Bounded failure cleanup also releases detached workers.
         controller.setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
         auto *manager = new FakeManager; controller.setNetworkManager(manager);
         MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
@@ -310,19 +314,152 @@ private slots:
         connect(controller.get(), &ResourceController::changed, this, [&] { ++publications; });
         controller->restart(parse("![](https://a.invalid/image)"), {}, &policy);
         manager->replies.last()->complete(); QVERIFY(gate->entered.tryAcquire(1, 2000));
-        // Release from another thread: destruction on this thread waits for the active worker.
-        auto *watcher = controller->findChild<QFutureWatcherBase *>(); QVERIFY(watcher);
-        QSemaphore cancelled;
-        connect(watcher, &QObject::destroyed, this, [&] { cancelled.release(); });
-        std::atomic<bool> observedCancellation{false};
-        std::thread release([gate, &cancelled, &observedCancellation] {
-            observedCancellation = cancelled.tryAcquire(1, 2000);
-            gate->release.release(); // Also releases on a failed cancellation observation.
-        });
-        controller.reset(); release.join();
-        QVERIFY(observedCancellation);
+        QElapsedTimer elapsed; elapsed.start();
+        controller.reset();
+        QVERIFY2(elapsed.elapsed() < 1000, "Controller teardown waited for decoder");
+        QCOMPARE(gate->completed.available(), 0);
+        gate->release.release();
         QVERIFY(gate->completed.tryAcquire(1, 2000)); QVERIFY(!gate->timedOut);
         QCoreApplication::processEvents(); QCOMPARE(publications, 0);
+    }
+    void freshDecodeBesideStale_data() {
+        QTest::addColumn<bool>("replacement");
+        QTest::newRow("replacement") << true;
+        QTest::newRow("new-controller") << false;
+    }
+    void freshDecodeBesideStale() {
+        QFETCH(bool, replacement);
+        QTemporaryDir temp; write(temp.filePath("image.png"), png());
+        MarkdownResourcePolicy policy; policy.setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        const auto base = QUrl::fromLocalFile(temp.filePath("document.md"));
+        const auto blocks = parse("![alt](image.png)");
+        auto stale = std::make_unique<ResourceController>();
+        auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
+        stale->setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
+        stale->restart(blocks, base, &policy);
+        QVERIFY(gate->entered.tryAcquire(1, 2000));
+        ResourceController fresh;
+        auto *current = replacement ? stale.get() : &fresh;
+        if (!replacement) stale.reset();
+        current->setDecoder(decodeImage);
+        QSignalSpy publications(current, &ResourceController::changed);
+        current->restart(blocks, base, &policy);
+        QTRY_VERIFY_WITH_TIMEOUT(current->idle(), 2000);
+        QCOMPARE(publications.size(), 1); QCOMPARE(current->images().size(), 1);
+        QCOMPARE(gate->completed.available(), 0);
+        gate->release.release(); QVERIFY(gate->completed.tryAcquire(1, 2000));
+        QCoreApplication::processEvents(); QCOMPARE(publications.size(), 1);
+        QVERIFY(!gate->timedOut);
+    }
+    void queuedCancellationAndFifo() {
+        QTemporaryDir temp; write(temp.filePath("image.png"), png());
+        MarkdownResourcePolicy policy; policy.setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        const auto base = QUrl::fromLocalFile(temp.filePath("document.md"));
+        const auto blocks = parse("![](image.png)");
+        ResourceController first, second, third, fourth, replaced;
+        auto a = std::make_shared<DecodeGate>(), b = std::make_shared<DecodeGate>();
+        auto c = std::make_shared<DecodeGate>(), d = std::make_shared<DecodeGate>();
+        auto e = std::make_shared<DecodeGate>();
+        ReleaseGate ca{a}, cb{b}, cc{c}, cd{d}, ce{e};
+        auto start = [&](ResourceController &controller, const std::shared_ptr<DecodeGate> &gate) {
+            controller.setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
+            controller.restart(blocks, base, &policy);
+        };
+        start(first, a); start(second, b);
+        QVERIFY(a->entered.tryAcquire(1, 2000)); QVERIFY(b->entered.tryAcquire(1, 2000));
+        auto obsolete = std::make_shared<std::atomic<int>>(0);
+        auto victim = std::make_unique<ResourceController>();
+        victim->setDecoder([obsolete](QByteArray) { ++*obsolete; return QImage{}; });
+        victim->restart(blocks, base, &policy);
+        start(third, c); start(fourth, d);
+        QList<std::weak_ptr<int>> obsoleteStorage;
+        for (int i = 0; i < 30; ++i) {
+            auto storage = std::make_shared<int>(i); obsoleteStorage.append(storage);
+            replaced.setDecoder([obsolete, storage](QByteArray) { ++*obsolete; return QImage{}; });
+            replaced.restart(blocks, base, &policy);
+        }
+        start(replaced, e);
+        victim.reset(); // Cancelling one queued controller leaves the others intact.
+        for (const auto &storage : obsoleteStorage) QVERIFY(storage.expired());
+        QCoreApplication::processEvents();
+        QVERIFY(!c->entered.tryAcquire(1, 100));
+        QCOMPARE(d->entered.available(), 0); QCOMPARE(e->entered.available(), 0);
+        b->release.release(); QVERIFY(c->entered.tryAcquire(1, 2000));
+        QCOMPARE(d->entered.available(), 0); QCOMPARE(e->entered.available(), 0);
+        c->release.release(); QVERIFY(d->entered.tryAcquire(1, 2000));
+        QCOMPARE(e->entered.available(), 0);
+        d->release.release(); QVERIFY(e->entered.tryAcquire(1, 2000));
+        QCOMPARE(a->completed.available(), 0); // The second slot alone served the FIFO.
+        e->release.release(); a->release.release();
+        QTRY_VERIFY_WITH_TIMEOUT(first.idle() && second.idle() && third.idle() && fourth.idle() && replaced.idle(), 2000);
+        QCOMPARE(obsolete->load(), 0);
+        for (auto *controller : {&first, &second, &third, &fourth, &replaced}) QCOMPARE(controller->images().size(), 1);
+        for (const auto &gate : {a, b, c, d, e}) QVERIFY(!gate->timedOut);
+    }
+    void queuedDeadline() {
+        QTemporaryDir temp; write(temp.filePath("image.png"), png());
+        MarkdownResourcePolicy policy; policy.setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        const auto base = QUrl::fromLocalFile(temp.filePath("document.md"));
+        const auto blocks = parse("![](image.png)");
+        ResourceController first, second, queued;
+        auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
+        for (auto *controller : {&first, &second}) {
+            controller->setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
+            controller->restart(blocks, base, &policy);
+        }
+        QVERIFY(gate->entered.tryAcquire(2, 2000));
+        auto invoked = std::make_shared<std::atomic<int>>(0);
+        queued.setAdmissionTimeout(100); // Private fixture seam; production remains 15 seconds.
+        queued.setDecoder([invoked](QByteArray bytes) { ++*invoked; return decodeImage(std::move(bytes)); });
+        queued.restart(blocks, base, &policy);
+        QTRY_VERIFY_WITH_TIMEOUT(queued.idle(), 2000);
+        QCOMPARE(invoked->load(), 0); QVERIFY(queued.images().isEmpty());
+        QCOMPARE(gate->completed.available(), 0);
+        gate->release.release(2);
+        QTRY_VERIFY_WITH_TIMEOUT(first.idle() && second.idle(), 2000);
+        QCOMPARE(invoked->load(), 0); QVERIFY(!gate->timedOut);
+    }
+    void queuedExpiryAtDispatch() {
+        DecodeScheduler scheduler;
+        auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
+        auto first = scheduler.submit([gate](const DecodeJob &) { return gate->decode(png()); }, QDeadlineTimer(15000));
+        auto second = scheduler.submit([gate](const DecodeJob &) { return gate->decode(png()); }, QDeadlineTimer(15000));
+        QVERIFY(gate->entered.tryAcquire(2, 2000));
+        auto invoked = std::make_shared<std::atomic<int>>(0);
+        const QDeadlineTimer deadline(50);
+        auto expired = scheduler.submit([invoked](const DecodeJob &) { ++*invoked; return QImage{}; }, deadline);
+        QTRY_VERIFY_WITH_TIMEOUT(deadline.hasExpired(), 2000);
+        QVERIFY(!expired->promise.future().isFinished());
+        gate->release.release(2);
+        QTRY_VERIFY_WITH_TIMEOUT(expired->promise.future().isFinished(), 2000);
+        QCOMPARE(invoked->load(), 0); QCOMPARE(expired->promise.future().resultCount(), 0);
+        QVERIFY(!gate->timedOut);
+    }
+    void expiredDecodeCannotPublish() {
+        QTemporaryDir temp; write(temp.filePath("image.png"), png());
+        MarkdownResourcePolicy policy; policy.setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        ResourceController controller; controller.setAdmissionTimeout(100);
+        auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
+        controller.setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
+        controller.restart(parse("![](image.png)"), QUrl::fromLocalFile(temp.filePath("document.md")), &policy);
+        QVERIFY(gate->entered.tryAcquire(1, 2000));
+        auto *watcher = controller.findChild<QFutureWatcherBase *>(); QVERIFY(watcher);
+        QTRY_VERIFY_WITH_TIMEOUT(watcher->isCanceled(), 2000);
+        gate->release.release(); QTRY_VERIFY_WITH_TIMEOUT(controller.idle(), 2000);
+        QVERIFY(controller.images().isEmpty()); QVERIFY(!gate->timedOut);
+    }
+    void applicationShutdownDrain() {
+        QProcess child;
+        child.start(QCoreApplication::applicationFilePath(), {"--scheduler-shutdown-child"});
+        struct Cleanup { QProcess &child; ~Cleanup() { if (child.state() != QProcess::NotRunning) { child.write("release\n"); child.waitForBytesWritten(1000); if (!child.waitForFinished(6000)) { child.kill(); child.waitForFinished(2000); } } } } cleanup{child};
+        QVERIFY(child.waitForStarted(2000));
+        QByteArray output;
+        QTRY_VERIFY_WITH_TIMEOUT((output += child.readAllStandardOutput()).contains("draining\n"), 2000);
+        QVERIFY(!child.waitForFinished(100)); // Shutdown cannot finish while both codecs are held.
+        child.write("release\n"); QVERIFY(child.waitForBytesWritten(2000));
+        QVERIFY(child.waitForFinished(6000)); output += child.readAllStandardOutput();
+        QCOMPARE(child.exitStatus(), QProcess::NormalExit); QCOMPARE(child.exitCode(), 0);
+        QVERIFY2(output.contains("drained\n"), output.constData());
     }
     void deadline() {
         ResourceController controller; auto *manager = new FakeManager; controller.setNetworkManager(manager);
@@ -348,5 +485,38 @@ private slots:
         QVERIFY(!controller.images().contains(QUrl("https://a.invalid/4")));
     }
 };
-QTEST_GUILESS_MAIN(ResourceTest)
+int main(int argc, char **argv)
+{
+    auto app = std::make_unique<QCoreApplication>(argc, argv);
+    if (app->arguments().contains("--scheduler-shutdown-child")) {
+        auto *scheduler = DecodeScheduler::instance();
+        auto gate = std::make_shared<DecodeGate>();
+        auto first = scheduler->submit([gate](const DecodeJob &) { return gate->decode(png()); }, QDeadlineTimer(15000));
+        auto second = scheduler->submit([gate](const DecodeJob &) { return gate->decode(png()); }, QDeadlineTimer(15000));
+        if (!gate->entered.tryAcquire(2, 2000)) { gate->release.release(2); return 1; }
+        std::atomic<bool> queuedRan{false}, queuedCancelled{false};
+        auto queued = scheduler->submit([&queuedRan](const DecodeJob &) { queuedRan = true; return QImage{}; }, QDeadlineTimer(15000));
+        auto future = queued->promise.future();
+        std::thread release([gate, future, &queuedCancelled]() mutable {
+            // waitForFinished() consults Qt's global thread pool, whose lifetime
+            // ends during application teardown. Observe our dedicated job only.
+            const QDeadlineTimer deadline(3000);
+            while (!future.isFinished() && !deadline.hasExpired())
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            queuedCancelled = future.isCanceled() && future.isFinished();
+            if (!queuedCancelled) { gate->release.release(2); return; }
+            std::puts("draining"); std::fflush(stdout);
+            char line[32]; std::fgets(line, sizeof(line), stdin);
+            gate->release.release(2);
+        });
+        std::puts("ready"); std::fflush(stdout);
+        app.reset(); // Application ownership must cancel the queue and drain both workers.
+        release.join();
+        if (queuedRan || !queuedCancelled || gate->timedOut || !first->promise.future().isFinished() || !second->promise.future().isFinished()) return 2;
+        if (gate->completed.available() != 2 || first->promise.future().resultCount() || second->promise.future().resultCount()) return 3;
+        std::puts("drained"); return 0;
+    }
+    ResourceTest test;
+    return QTest::qExec(&test, argc, argv);
+}
 #include "tst_resources.moc"

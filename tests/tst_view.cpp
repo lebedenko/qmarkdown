@@ -106,7 +106,7 @@ private slots:
     {
         QFETCH(QString, source); QFETCH(QString, display); QFETCH(bool, formatted); QFETCH(int, lines);
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 480 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 480 }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
@@ -133,7 +133,7 @@ private slots:
     void mixedDocumentHiddenTransitions()
     {
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 300 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 300 }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
@@ -165,6 +165,52 @@ private slots:
         QTRY_COMPARE(texts(view)[0]->property("font").value<QFont>().pixelSize(), 23);
         view->setProperty("markdown", ""); QTRY_COMPARE(content(view), 0); QTRY_COMPARE(view->implicitHeight(), 0);
     }
+    void activeDecodeTeardown_data()
+    {
+        QTest::addColumn<bool>("destroyEngine");
+        QTest::newRow("view") << false;
+        QTest::newRow("engine") << true;
+    }
+    void activeDecodeTeardown()
+    {
+        QFETCH(bool, destroyEngine);
+        QTemporaryDir temp; QVERIFY(temp.isValid());
+        QImage image(20, 10, QImage::Format_ARGB32); image.fill(Qt::green);
+        QVERIFY(image.save(temp.filePath("image.png")));
+        auto engine = std::make_unique<QQmlEngine>();
+        auto component = std::make_unique<QQmlComponent>(engine.get());
+        component->setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 240 }", {});
+        QVERIFY2(component->isReady(), qPrintable(component->errorString()));
+        std::unique_ptr<QObject> object(component->create()); QVERIFY(object);
+        QPointer<ResourceController> controller = object->findChild<ResourceController *>(); QVERIFY(controller);
+        struct Gate { QSemaphore entered, release, completed; std::atomic<bool> timedOut{false}; };
+        auto gate = std::make_shared<Gate>();
+        struct Cleanup { std::shared_ptr<Gate> gate; ~Cleanup() { gate->release.release(); } } cleanup{gate};
+        controller->setDecoder([gate](QByteArray bytes) {
+            gate->entered.release();
+            if (!gate->release.tryAcquire(1, 5000)) gate->timedOut = true;
+            auto result = QMarkdownPrivate::decodeImage(std::move(bytes));
+            gate->completed.release(); return result;
+        });
+        object->setProperty("baseUrl", QUrl::fromLocalFile(temp.filePath("document.md")));
+        auto *policy = object->property("resourcePolicy").value<MarkdownResourcePolicy *>(); QVERIFY(policy);
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        int publications = 0;
+        connect(controller, &ResourceController::changed, this, [&] { ++publications; });
+        object->setProperty("markdown", "![alt](image.png)");
+        QVERIFY(gate->entered.tryAcquire(1, 2000));
+        component.reset();
+        QElapsedTimer elapsed; elapsed.start();
+        if (destroyEngine) {
+            object->setParent(engine.get()); // The engine owns this host-created root explicitly.
+            object.release();
+            engine.reset();
+        } else object.reset();
+        QVERIFY2(elapsed.elapsed() < 1000, "Native teardown waited for the held decoder");
+        QVERIFY(controller.isNull()); QCOMPARE(gate->completed.available(), 0);
+        gate->release.release(); QVERIFY(gate->completed.tryAcquire(1, 2000));
+        QCoreApplication::processEvents(); QCOMPARE(publications, 0); QVERIFY(!gate->timedOut);
+    }
     void staleImageCompletionPresentation_data()
     {
         QTest::addColumn<bool>("revoke");
@@ -178,7 +224,7 @@ private slots:
         QImage image(20, 10, QImage::Format_ARGB32); image.fill(Qt::green);
         QVERIFY(image.save(temp.filePath("image.png")));
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 240 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 240 }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
@@ -222,7 +268,7 @@ private slots:
         QImage image(120, 60, QImage::Format_ARGB32); image.fill(Qt::green);
         QVERIFY(image.save(temp.filePath("image.png")));
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 240 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 240 }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create()); auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; window.resize(300, 500); view->setParentItem(window.contentItem()); window.show();
@@ -247,10 +293,13 @@ private slots:
         auto *row = named(view, "markdownImage")[0]; QTRY_COMPARE(row->width(), 120); QTRY_COMPARE(row->height(), 60);
         QCOMPARE(texts(view).size(), 2); QCOMPARE(texts(view)[0]->property("text").toString(), "before ");
         QCOMPARE(texts(view)[1]->property("text").toString(), " after");
+        // Resource arrival creates rows before their enclosing Column is polished.
+        QTRY_VERIFY(texts(view)[0]->height() > 0 && texts(view)[1]->height() > 0);
+        QTRY_COMPARE(content(view), texts(view)[0]->height() + 60 + texts(view)[1]->height() + 16);
         const auto initialHeight = content(view);
         view->setWidth(40); QTRY_COMPARE(named(view, "markdownImage")[0]->width(), 40);
         QTRY_COMPARE(named(view, "markdownImage")[0]->height(), 20);
-        QVERIFY(content(view) > 20); view->setWidth(0); QTRY_COMPARE(content(view), 0); QVERIFY(named(view, "markdownImage").isEmpty());
+        QTRY_VERIFY(content(view) > 20); view->setWidth(0); QTRY_COMPARE(content(view), 0); QVERIFY(named(view, "markdownImage").isEmpty());
         view->setWidth(240); QTRY_COMPARE(content(view), initialHeight);
         policy->setAllowedFileRoots({}); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
         QTRY_COMPARE(painted(view).size(), 1); QTRY_VERIFY(painted(view)[0]->layout());
@@ -297,7 +346,7 @@ private slots:
     void linkedImageTouchAndScrolling() {
         QTemporaryDir temp; QImage image(120,300,QImage::Format_RGB32); image.fill(Qt::blue); QVERIFY(image.save(temp.filePath("image.png")));
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nFlickable { width: 180; height: 100; contentHeight: view.contentHeight; clip: true; MarkdownView { id: view; objectName: 'view'; width: 180; markdown: '[![alt](image.png)](image:link)' } }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nFlickable { width: 180; height: 100; contentHeight: view.contentHeight; clip: true; MarkdownView { id: view; objectName: 'view'; width: 180; markdown: '[![alt](image.png)](image:link)' } }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
         auto *host = qobject_cast<QQuickItem *>(object.get()); auto *view = object->findChild<QQuickItem *>("view"); QVERIFY(host); QVERIFY(view);
         QQuickWindow window; window.resize(200,120); host->setParentItem(window.contentItem()); window.show();
@@ -321,7 +370,7 @@ private slots:
     void sharedImagePolicy() {
         QTemporaryDir temp; QImage image(80,40,QImage::Format_RGB32); image.fill(Qt::red); QVERIFY(image.save(temp.filePath("image.png")));
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nItem { width: 300; height: 300; MarkdownResourcePolicy { id: p; objectName: \"policy\" } MarkdownView { objectName: \"a\"; width: 150; resourcePolicy: p; markdown: \"![alt](image.png)\" } MarkdownView { objectName: \"b\"; width: 30; resourcePolicy: p; markdown: \"![alt](image.png)\" } }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nItem { width: 300; height: 300; MarkdownResourcePolicy { id: p; objectName: \"policy\" } MarkdownView { objectName: \"a\"; width: 150; resourcePolicy: p; markdown: \"![alt](image.png)\" } MarkdownView { objectName: \"b\"; width: 30; resourcePolicy: p; markdown: \"![alt](image.png)\" } }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
         QQuickWindow window; window.resize(300,300); qobject_cast<QQuickItem *>(object.get())->setParentItem(window.contentItem()); window.show();
         auto *policy = object->findChild<MarkdownResourcePolicy *>("policy"); QVERIFY(policy);
@@ -362,16 +411,22 @@ private slots:
         QQmlEngine engine;
         RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 250 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 250 }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; window.resize(300, 300); view->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
         view->setProperty("markdown", source);
         QTRY_COMPARE(painted(view).size(), 1);
         auto *item = painted(view)[0]; QTRY_VERIFY(item->logicalHeight() > 0);
         QSignalSpy activation(view, SIGNAL(linkActivated(QString))); QVERIFY(activation.isValid());
-        const QPoint point = item->mapToScene(QPointF(5 - item->x(), item->logicalHeight()/2 - item->y())).toPoint();
+        QTRY_VERIFY(item->layout() && item->layout()->lineCount() > 0);
+        // Hit the first text line, including labels that wrap on desktop fonts.
+        const auto line = item->layout()->lineAt(0);
+        const QPoint point = item->mapToScene(QPointF(5, line.y() + line.height()/2)).toPoint();
+        QCOMPARE(item->linkAt(5, line.y() + line.height()/2), 0);
+        QTest::mouseMove(&window, QPoint(240, 250));
         QTest::mouseMove(&window, point);
         QTRY_COMPARE(item->property("hoveredLink").toInt(), 0);
         QTRY_COMPARE(window.cursor().shape(), Qt::PointingHandCursor);
@@ -407,7 +462,7 @@ private slots:
     {
         QQmlEngine engine; RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\n"
+        component.setData("import QtQuick\nimport QMarkdown 1.0\n"
                           "Flickable { width: 240; height: 100; contentHeight: view.contentHeight; clip: true; "
                           "MarkdownView { id: view; objectName: 'view'; width: 240 } }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
@@ -437,7 +492,7 @@ private slots:
     void linkHitBoundariesAndLiveHover()
     {
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 240 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 240 }", {});
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; window.resize(300, 200); view->setParentItem(window.contentItem()); window.show();
@@ -474,7 +529,7 @@ private slots:
     void linkStyleLifecycle()
     {
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\n"
+        component.setData("import QtQuick\nimport QMarkdown 1.0\n"
                           "Item { MarkdownStyle { id: shared; objectName: 'shared' } "
                           "MarkdownStyle { id: other; objectName: 'other'; linkColor: '#112233'; linkUnderline: false } "
                           "MarkdownView { objectName: 'a'; width: 200; markdown: '[a](x)'; style: shared } "
@@ -511,7 +566,7 @@ private slots:
     {
         QFETCH(bool, points);
         QQmlEngine engine; QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 110 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 110 }", {});
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
@@ -727,7 +782,7 @@ private slots:
         RequestFactory factory;
         QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
-        component.setData("import QtQuick\nimport QMarkdown 0.5\nMarkdownView { width: 280 }", {});
+        component.setData("import QtQuick\nimport QMarkdown 1.0\nMarkdownView { width: 280 }", {});
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
@@ -808,7 +863,7 @@ private slots:
         view->setProperty("markdown", "> first\n>\n> second");
         QTRY_VERIFY(find("first"));
         QQmlComponent styleComponent(&engine);
-        styleComponent.setData("import QMarkdown 0.5\nMarkdownStyle { quoteIndent: 48; quoteRuleThickness: 5 }", {});
+        styleComponent.setData("import QMarkdown 1.0\nMarkdownStyle { quoteIndent: 48; quoteRuleThickness: 5 }", {});
         std::unique_ptr<QObject> shared(styleComponent.create()); QVERIFY(shared);
         std::unique_ptr<QObject> secondObject(component.create());
         auto *other = qobject_cast<QQuickItem *>(secondObject.get()); QVERIFY(other);
@@ -834,7 +889,7 @@ private slots:
         QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
         component.setData(
-            "import QtQuick\nimport QMarkdown 0.5\n"
+            "import QtQuick\nimport QMarkdown 1.0\n"
             "Item { MarkdownStyle { id: shared; objectName: 'shared' }"
             " MarkdownStyle { id: other; objectName: 'other'; thematicBreakThickness: 9 }"
             " MarkdownView { objectName: 'a'; width: 240; style: shared }"
@@ -935,7 +990,7 @@ private slots:
         QQmlEngine engine; engine.setNetworkAccessManagerFactory(&factory);
         QQmlComponent component(&engine);
         component.setData(
-            "import QtQuick\nimport QMarkdown 0.5\n"
+            "import QtQuick\nimport QMarkdown 1.0\n"
             "Item { MarkdownStyle { id: shared; objectName: 'shared' }"
             " MarkdownStyle { id: other; objectName: 'other'; codeBlockFont.pixelSize: 40 }"
             " MarkdownView { objectName: 'a'; width: 240; style: shared }"
@@ -1096,7 +1151,7 @@ private slots:
         component.setData(
             "\n"
             "            import QtQuick\n"
-            "            import QMarkdown 0.5\n"
+            "            import QMarkdown 1.0\n"
             "            MarkdownView {\n"
             "                width: 260\n"
             "                markdown: \"# ***`Heading`***\\n\\n*Italic* **bold** `code with spaces` שלום é 日本語 😀 longunbrokenword\\n\\n##\"\n"

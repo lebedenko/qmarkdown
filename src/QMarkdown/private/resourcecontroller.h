@@ -3,7 +3,7 @@
 #include "document.h"
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QThreadPool>
+#include "decodescheduler.h"
 #include <QTimer>
 #include <QElapsedTimer>
 #include <QHash>
@@ -30,6 +30,7 @@ public:
     // Private fixture seam; each worker copies its decoder independently of controller lifetime.
     using Decoder = std::function<QImage(QByteArray)>;
     void setDecoder(Decoder decoder) { m_decode = std::move(decoder); }
+    void setAdmissionTimeout(int milliseconds) { m_admissionTimeout = milliseconds; }
     // Tests inject an isolated manager; production always owns its own manager.
     void setNetworkManager(QNetworkAccessManager *manager);
 signals:
@@ -48,7 +49,8 @@ private:
     void request(qsizetype index);
     void finish(qsizetype index);
     QNetworkAccessManager *m_network;
-    QThreadPool m_decoder;
+    QPointer<QMarkdownPrivate::DecodeScheduler> m_scheduler;
+    std::shared_ptr<QMarkdownPrivate::DecodeJob> m_job;
     Decoder m_decode = QMarkdownPrivate::decodeImage;
     QTimer m_deadline;
     MarkdownResourcePolicy m_policy;
@@ -58,5 +60,6 @@ private:
     qsizetype m_next = 0;
     qint64 m_retained = 0;
     QPointer<QFutureWatcher<QImage>> m_watcher;
+    int m_admissionTimeout = 15000;
     bool m_decoding = false;
 };
