@@ -5,6 +5,9 @@
 #include <QImage>
 #include <QScreen>
 #include "private/inline.h"
+#include "private/resourcecontroller.h"
+#include <QSemaphore>
+#include <atomic>
 #include <QGuiApplication>
 #include <QFontMetricsF>
 #include <QFontDatabase>
@@ -84,6 +87,136 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void retainedSemanticsPresentation_data()
+    {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<QString>("display");
+        QTest::addColumn<bool>("formatted");
+        QTest::addColumn<int>("lines");
+        QTest::newRow("soft-break") << "*one\ntwo*" << "one two" << true << 1;
+        QTest::newRow("hard-break") << "*one  \ntwo*" << "one\ntwo" << true << 2;
+        QTest::newRow("escaped-entity") << "\\*literal\\* &amp; &#65;" << "*literal* & A" << false << 1;
+        QTest::newRow("nested-emphasis") << "***nested***" << "nested" << true << 1;
+        QTest::newRow("link-title") << "[label](custom:target \"private title\")" << "label" << true << 1;
+        QTest::newRow("empty-link") << "before [](custom:target) after" << "before  after" << false << 1;
+        QTest::newRow("inline-html") << "*before* <b>&amp;</b> after" << "before <b>&</b> after" << true << 1;
+        QTest::newRow("html-block") << "<div>\n*literal* &amp;\n</div>" << "<div>\n*literal* &amp;\n</div>" << false << 3;
+    }
+    void retainedSemanticsPresentation()
+    {
+        QFETCH(QString, source); QFETCH(QString, display); QFETCH(bool, formatted); QFETCH(int, lines);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 480 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(500, 300); window.show();
+        view->setProperty("markdown", source);
+        QTRY_VERIFY(content(view) > 0);
+        if (formatted) {
+            QTRY_COMPARE(painted(view).size(), 1);
+            auto *item = painted(view)[0]; QTRY_VERIFY(item->layout());
+            QCOMPARE(item->text(), display); QCOMPARE(item->layout()->lineCount(), lines);
+            if (source == "***nested***") {
+                QCOMPARE(item->layout()->formats().size(), 1);
+                QVERIFY(item->layout()->formats()[0].format.font().italic());
+                QCOMPARE(item->layout()->formats()[0].format.font().weight(), QFont::Bold);
+            }
+        } else {
+            QTRY_COMPARE(texts(view).size(), 1);
+            QCOMPARE(texts(view)[0]->property("text").toString(), display);
+            QCOMPARE(texts(view)[0]->property("textFormat").toInt(), 0);
+            QCOMPARE(texts(view)[0]->property("lineCount").toInt(), lines);
+        }
+        QCOMPARE(view->implicitHeight(), content(view));
+    }
+    void mixedDocumentHiddenTransitions()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 300 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(400, 600); window.show();
+        view->setProperty("markdown", "> - **old**\n\n# old heading");
+        QTRY_VERIFY(content(view) > 0);
+        view->setWidth(0); QTRY_COMPARE(content(view), 0); QTRY_COMPARE(view->implicitHeight(), 0);
+        QTRY_VERIFY(texts(view).isEmpty() && painted(view).isEmpty());
+        auto font = style->bodyFont(); font.setPixelSize(23); style->setBodyFont(font);
+        style->setBlockSpacing(13);
+        view->setProperty("markdown", "> - **new words that wrap at narrow widths**\n>\n>   tail\n\n# new heading\n\n```\nnew code\n```");
+        view->setWidth(300);
+        QTRY_COMPARE(painted(view).size(), 1); QTRY_COMPARE(texts(view).size(), 4);
+        QTRY_COMPARE(painted(view)[0]->text(), "new words that wrap at narrow widths");
+        QTRY_COMPARE(painted(view)[0]->font().pixelSize(), 23);
+        QTRY_COMPARE(named(view, "quoteRule").size(), 1);
+        QTRY_VERIFY(content(view) > 0); QTRY_COMPARE(view->implicitHeight(), content(view));
+        QStringList displayed;
+        for (auto *item : texts(view)) displayed.append(item->property("text").toString());
+        QCOMPARE(displayed, QStringList({"•", "tail", "new heading", "new code"}));
+        QTRY_COMPARE(content(view), texts(view).last()->mapToItem(view, QPointF(0, texts(view).last()->height())).y());
+        const auto wide = content(view);
+        view->setWidth(50); QTRY_VERIFY(content(view) > wide); QTRY_COMPARE(view->implicitHeight(), content(view));
+        view->setWidth(300); QTRY_COMPARE(content(view), wide);
+        view->setProperty("markdown", "replacement");
+        QTRY_VERIFY(painted(view).isEmpty() && named(view, "quoteRule").isEmpty());
+        QTRY_COMPARE(texts(view).size(), 1); QTRY_COMPARE(texts(view)[0]->property("text").toString(), "replacement");
+        QTRY_COMPARE(texts(view)[0]->property("font").value<QFont>().pixelSize(), 23);
+        view->setProperty("markdown", ""); QTRY_COMPARE(content(view), 0); QTRY_COMPARE(view->implicitHeight(), 0);
+    }
+    void staleImageCompletionPresentation_data()
+    {
+        QTest::addColumn<bool>("revoke");
+        QTest::newRow("replacement") << false;
+        QTest::newRow("policy-revocation") << true;
+    }
+    void staleImageCompletionPresentation()
+    {
+        QFETCH(bool, revoke);
+        QTemporaryDir temp; QVERIFY(temp.isValid());
+        QImage image(20, 10, QImage::Format_ARGB32); image.fill(Qt::green);
+        QVERIFY(image.save(temp.filePath("image.png")));
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 0.7\nMarkdownView { width: 240 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *controller = object->findChild<ResourceController *>(); QVERIFY(controller);
+        struct Gate { QSemaphore entered, release, completed; std::atomic<bool> timedOut{false}; };
+        auto gate = std::make_shared<Gate>();
+        // Release before view destruction even when an assertion returns early.
+        struct Release { std::shared_ptr<Gate> gate; ~Release() { gate->release.release(); } } cleanup{gate};
+        controller->setDecoder([gate](QByteArray bytes) {
+            gate->entered.release();
+            if (!gate->release.tryAcquire(1, 5000)) gate->timedOut = true;
+            auto result = QMarkdownPrivate::decodeImage(std::move(bytes));
+            gate->completed.release(); return result;
+        });
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300, 300); window.show();
+        view->setProperty("baseUrl", QUrl::fromLocalFile(temp.filePath("document.md")));
+        auto *policy = view->property("resourcePolicy").value<MarkdownResourcePolicy *>(); QVERIFY(policy);
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        view->setProperty("markdown", "![*alt*](image.png)");
+        QVERIFY(gate->entered.tryAcquire(1, 2000));
+        QTRY_COMPARE(painted(view).size(), 1); QTRY_COMPARE(painted(view)[0]->text(), "alt");
+        if (revoke) policy->setAllowedFileRoots({});
+        else view->setProperty("markdown", "**replacement**");
+        QSignalSpy published(controller, &ResourceController::changed);
+        gate->release.release();
+        // Drain the worker before settling the view, so stale completion was exercised.
+        QVERIFY(gate->completed.tryAcquire(1, 2000));
+        QTRY_COMPARE(painted(view).size(), 1);
+        QTRY_COMPARE(painted(view)[0]->text(), revoke ? "alt" : "replacement");
+        QCoreApplication::processEvents();
+        QVERIFY(named(view, "markdownImage").isEmpty()); QCOMPARE(published.size(), 0);
+        QVERIFY(!gate->timedOut);
+        controller->setDecoder(QMarkdownPrivate::decodeImage);
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        view->setProperty("markdown", "![new](image.png)");
+        QTRY_COMPARE(named(view, "markdownImage").size(), 1);
+        QCOMPARE(published.size(), 1);
+    }
     void imageRowsAndPolicyLifecycle() {
         QTemporaryDir temp; QVERIFY(temp.isValid());
         QImage image(120, 60, QImage::Format_ARGB32); image.fill(Qt::green);
@@ -97,6 +230,14 @@ private slots:
         view->setProperty("markdown", "before **![*alt*](image.png)** after");
         QTRY_VERIFY(content(view) > 0); QVERIFY(named(view, "markdownImage").isEmpty());
         QCOMPARE(painted(view).size(), 1); QCOMPARE(painted(view)[0]->text(), "before alt after");
+        QTRY_VERIFY(painted(view)[0]->layout());
+        const auto fallbackFormats = painted(view)[0]->layout()->formats();
+        QVERIFY(!fallbackFormats.isEmpty());
+        bool formattedAlt = false;
+        for (const auto &range : fallbackFormats)
+            if (range.start <= 7 && range.start + range.length >= 10)
+                formattedAlt |= range.format.font().italic() && range.format.font().weight() >= QFont::Bold;
+        QVERIFY(formattedAlt);
         view->setProperty("baseUrl", QUrl::fromLocalFile(temp.filePath("document.md")));
         auto policy = std::make_unique<MarkdownResourcePolicy>();
         view->setProperty("resourcePolicy", QVariant::fromValue(policy.get()));
@@ -111,6 +252,18 @@ private slots:
         QTRY_COMPARE(named(view, "markdownImage")[0]->height(), 20);
         QVERIFY(content(view) > 20); view->setWidth(0); QTRY_COMPARE(content(view), 0); QVERIFY(named(view, "markdownImage").isEmpty());
         view->setWidth(240); QTRY_COMPARE(content(view), initialHeight);
+        policy->setAllowedFileRoots({}); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
+        QTRY_COMPARE(painted(view).size(), 1); QTRY_VERIFY(painted(view)[0]->layout());
+        QCOMPARE(painted(view)[0]->text(), "before alt after");
+        const auto restoredFormats = painted(view)[0]->layout()->formats();
+        QCOMPARE(restoredFormats.size(), fallbackFormats.size());
+        for (int i = 0; i < fallbackFormats.size(); ++i) {
+            QCOMPARE(restoredFormats[i].start, fallbackFormats[i].start);
+            QCOMPARE(restoredFormats[i].length, fallbackFormats[i].length);
+            QCOMPARE(restoredFormats[i].format, fallbackFormats[i].format);
+        }
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        QTRY_COMPARE(named(view, "markdownImage").size(), 1);
         view->setProperty("markdown", "[![](image.png)](outer:link)");
         QTRY_COMPARE(named(view, "markdownImage").size(), 1); QTRY_COMPARE(content(view), 60);
         row = named(view, "markdownImage")[0]; const QPoint hit = row->mapToScene(QPointF(20,20)).toPoint();
@@ -127,6 +280,10 @@ private slots:
         const auto rows = named(view, "markdownImage"); QCOMPARE(rows[1]->parentItem()->parentItem(), rows[2]->parentItem()->parentItem());
         QTRY_COMPARE(rows[2]->parentItem()->y(), rows[1]->parentItem()->y() + rows[1]->height());
         policy->setAllowedFileRoots({}); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
+        QTRY_COMPARE(texts(view).size(), 3);
+        QCOMPARE(texts(view)[0]->property("text").toString(), "before alt after");
+        QCOMPARE(texts(view)[1]->property("text").toString(), "•");
+        QCOMPARE(texts(view)[2]->property("text").toString(), "alt");
         policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())}); QTRY_COMPARE(named(view, "markdownImage").size(), 3);
         policy.reset(); QTRY_VERIFY(named(view, "markdownImage").isEmpty());
         auto *defaults = view->property("resourcePolicy").value<MarkdownResourcePolicy *>(); QVERIFY(defaults);
@@ -196,6 +353,7 @@ private slots:
         QTest::newRow("heading") << "# [link](#part)" << "#part";
         QTest::newRow("nested") << "> - [link](../relative)" << "../relative";
         QTest::newRow("empty") << "[link]()" << "";
+        QTest::newRow("autolink") << "<https://example.invalid/path>" << "https://example.invalid/path";
         QTest::newRow("image-in-link") << "[![link](https://example.invalid/img)](outer)" << "outer";
     }
     void linkInteraction()
