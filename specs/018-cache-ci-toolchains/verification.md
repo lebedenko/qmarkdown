@@ -35,3 +35,20 @@ Image identity stayed unchanged across each successful cold/warm pair:
 Warm preparation logs contain only the reuse record; verification logs contain no apt/pip/Qt installation commands. Each pair has identical recipe fingerprints and byte-identical aqt logs, installer/Ubuntu package manifests, OS information and Qt-version provenance copied from the image. Tool evidence confirms UID/GID 1000 and read-only source mounts. Project snapshots, packaging directories and benchmark builds are fresh for every run. Docker reported the common dependency layer cached for the second Qt version and the retry.
 
 [Run evidence](run-evidence.json) retains fingerprints, immutable IDs, relative artifact paths and precise timings for all five attempts. Full local logs/build reports remain in those ignored build-ci directories. Hosted cache restoration remains unverified.
+
+## Hosted bootstrap follow-up (2026-10-10)
+
+[GitHub run 37993963391](https://github.com/lebedenko/qmarkdown/actions/runs/37993963391), at commit `bf5c58cf14ebad3aed13568f938d41b4a01d1a41`, failed for both Qt versions before toolchain preparation or project tests. The original attempt and `gh run rerun 37993963391 --failed` both timed out fetching a Docker Hub authentication token while pulling `moby/buildkit:buildx-stable-1` in setup-buildx-action.
+
+The workflow now bootstraps BuildKit from `mirror.gcr.io/moby/buildkit:buildx-stable-1` and configures `mirror.gcr.io` as the Docker Hub registry mirror using [Docker's documented BuildKit configuration](https://docs.docker.com/build/buildkit/configure/#registry-mirror). Action pins, Qt versions, the pinned Ubuntu base, and cache settings remain unchanged. Google's mirror caches public images; its availability and cache retention are not guaranteed.
+
+Actual local checks:
+
+- Workflow YAML parsed with PyYAML; inline BuildKit configuration parsed with `tomllib`. The pinned setup-buildx action declares both configuration inputs. Actionlint was unavailable for this follow-up.
+- `python3 tests/test_ci_runner.py`: 13 tests passed.
+- `docker buildx imagetools inspect mirror.gcr.io/moby/buildkit:buildx-stable-1`: passed; observed index digest `sha256:cec9f139f45e93c5c69c60f8b07cfad9f43f4ef6b6a6cd917527fea5ff2e3dea`.
+- `docker buildx create --name qmarkdown-gh-mirror-37993963391 --driver docker-container --driver-opt image=mirror.gcr.io/moby/buildkit:buildx-stable-1 --buildkitd-config /tmp/qmarkdown-buildkit-mirror.toml --bootstrap`: passed. Inspection confirmed running BuildKit v0.33.1 and the registry mirror configuration.
+- `docker buildx build --builder qmarkdown-gh-mirror-37993963391 --platform linux/amd64 --progress plain --output=type=cacheonly /tmp/qmarkdown-buildkit-mirror-smoke`: passed. The smoke Dockerfile used the unchanged toolchain Ubuntu digest `sha256:f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b` and checked `/etc/os-release`.
+- `git diff --check`: passed.
+
+Logs remain locally under `/tmp/qmarkdown-gh-failed-37993963391.log`, `/tmp/qmarkdown-gh-rerun-37993963391.log`, and `/tmp/qmarkdown-buildkit-mirror-smoke.log`. Hosted execution of the patched workflow and hosted cache restoration remain pending until publication of this change. The existing 1.0 candidate archive and its recorded verification snapshot are unchanged.
