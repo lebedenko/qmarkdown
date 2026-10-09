@@ -1,0 +1,107 @@
+{
+  "6.8.0": {
+    "artifacts": "/tmp/qmarkdown-022-qt680",
+    "result": {
+      "status": "passed",
+      "exitCode": 0,
+      "imageId": "sha256:1ad4a38e850a65c522afc76e2bc9d2713a27b4328ca685486422b0aecec40ff6",
+      "recipeFingerprint": "db06b26a120c76628c52922ca8480048919e9effd7365642fc3424259f1c4f6a",
+      "preparationSeconds": 0.012,
+      "verificationSeconds": 214.454,
+      "elapsedSeconds": 214.485
+    }
+  },
+  "6.11.3": {
+    "artifacts": "/tmp/qmarkdown-022-qt6113",
+    "result": {
+      "status": "passed",
+      "exitCode": 0,
+      "imageId": "sha256:f4725ca42c718e11d607116b5cb912d2a854d26b97045334897297b0196f7b18",
+      "recipeFingerprint": "b3272724001d7a919276c9d0e636f48e9f9be630da48ad106c1c7f45df9d7c06",
+      "preparationSeconds": 0.012,
+      "verificationSeconds": 227.774,
+      "elapsedSeconds": 227.807
+    }
+  },
+  "final-6.8.0": {
+    "artifacts": "/tmp/qmarkdown-022-final680",
+    "result": {
+      "status": "passed",
+      "exitCode": 0,
+      "imageId": "sha256:1ad4a38e850a65c522afc76e2bc9d2713a27b4328ca685486422b0aecec40ff6",
+      "recipeFingerprint": "db06b26a120c76628c52922ca8480048919e9effd7365642fc3424259f1c4f6a",
+      "preparationSeconds": 0.011,
+      "verificationSeconds": 211.153,
+      "elapsedSeconds": 211.179
+    }
+  },
+  "archive": {
+    "path": "/tmp/qmarkdown-022-final680/release-package/qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+    "sha256": "b4a25d8566b279f626b9c39c0c940f899689b6e8c3a8ed8e2516de7a2f08196d",
+    "bytes": 327763
+  },
+  "sameBinaryConsumers": {
+    "6.8.0": {
+      "log": "/tmp/qmarkdown-022-binary680/output.log",
+      "result": "passed",
+      "linked": true,
+      "pluginOnly": true,
+      "realUsrInstallation": true,
+      "qmarkdownLibraryPathOverride": false,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-022-current-source,dst=/source,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-022-final680/release-package,dst=/binary,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-022-binary680,dst=/checks",
+        "qmarkdown-ci:6.8.0-amd64-db06b26a120c76628c52922ca8480048919e9effd7365642fc3424259f1c4f6a",
+        "python3",
+        "/source/scripts/verify-release-package.py",
+        "--archive",
+        "/binary/qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+        "--qt-root",
+        "/opt/Qt/6.8.0/gcc_64",
+        "--work-dir",
+        "/checks/results",
+        "--real-install"
+      ]
+    },
+    "6.11.3": {
+      "log": "/tmp/qmarkdown-022-binary6113/output.log",
+      "result": "passed",
+      "linked": true,
+      "pluginOnly": true,
+      "realUsrInstallation": true,
+      "qmarkdownLibraryPathOverride": false,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-022-current-source,dst=/source,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-022-final680/release-package,dst=/binary,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-022-binary6113,dst=/checks",
+        "qmarkdown-ci:6.11.3-amd64-b3272724001d7a919276c9d0e636f48e9f9be630da48ad106c1c7f45df9d7c06",
+        "python3",
+        "/source/scripts/verify-release-package.py",
+        "--archive",
+        "/binary/qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+        "--qt-root",
+        "/opt/Qt/6.11.3/gcc_64",
+        "--work-dir",
+        "/checks/results",
+        "--real-install"
+      ]
+    }
+  }
+}

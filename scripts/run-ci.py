@@ -128,6 +128,8 @@ def docker_command(source, artifacts, qt, name, image_id):
         "--env", f"CI_QT_VERSION={qt}",
         "--env", f"CI_UID={os.getuid()}",
         "--env", f"CI_GID={os.getgid()}",
+        "--env", "CI_SOURCE_COMMIT=" + subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=SOURCE, text=True).strip(),
         image_id, "timeout", "--signal=TERM", "--kill-after=30s", "35m",
         "bash", "/source/scripts/ci-container.sh",
     ]
