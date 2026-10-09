@@ -140,6 +140,86 @@ def encoded_destination(value):
     return quote(value, safe="-_.+!*'(),%#@?=;:/&$~")
 
 
+def normalize_inline(nodes):
+    """Only adjacent Text siblings may coalesce; containers and breaks survive."""
+    result = []
+    for node in nodes:
+        value = dict(node)
+        if "children" in value:
+            value["children"] = normalize_inline(value["children"])
+        if value["kind"] == "Text":
+            if result and result[-1]["kind"] == "Text":
+                result[-1]["literal"] += value["literal"]
+                continue
+        result.append(value)
+    return result
+
+
+def semantic_html(items):
+    """Retain the HTML evidence's containers, never infer Markdown from output."""
+    result = []
+    for item in items:
+        if isinstance(item, str):
+            parts = item.split("\n")
+            for index, part in enumerate(parts):
+                if index:
+                    result.append({"kind": "SoftBreak"})
+                if part:
+                    result.append({"kind": "Text", "literal": part})
+        elif isinstance(item, Entity):
+            result.append({"kind": "Text", "literal": item.text})
+        elif isinstance(item, Literal):
+            result.append({"kind": "Html", "literal": item.text})
+        elif item.tag in {"em", "strong", "a"}:
+            value = {"kind": {"em": "Emphasis", "strong": "Strong", "a": "Link"}[item.tag],
+                     "children": semantic_html(item.children)}
+            if item.tag == "a":
+                value.update(destination=item.attrs["href"], title=item.attrs.get("title", ""))
+            result.append(value)
+        elif item.tag == "code":
+            result.append({"kind": "Code", "literal": "".join(c.text if isinstance(c, Entity) else c for c in item.children)})
+        elif item.tag == "br":
+            result.append({"kind": "HardBreak"})
+        elif item.tag == "img":
+            # HTML exposes only rendered alt text. Interior source nodes are checked
+            # by source-authored fixtures and parser tests, not invented here.
+            result.append({"kind": "Image", "destination": item.attrs["src"],
+                           "title": item.attrs.get("title", ""), "description": item.attrs["alt"]})
+        else:
+            result.append({"kind": "Html", "literal": item.opening})
+            result.extend(semantic_html(item.children))
+            if item.closing:
+                result.append({"kind": "Html", "literal": item.closing})
+    return normalize_inline(result)
+
+
+def image_description(nodes):
+    result = ""
+    for node in nodes:
+        kind = node["kind"]
+        if kind in {"Text", "Code", "Html"}:
+            result += node["literal"]
+        elif kind in {"SoftBreak", "HardBreak"}:
+            result += "\n"
+        else:
+            result += image_description(node["children"])
+    return result
+
+
+def canonical_inline(nodes):
+    result = []
+    for node in nodes:
+        value = dict(node)
+        if value["kind"] == "Image":
+            value["description"] = image_description(value.pop("children"))
+        elif "children" in value:
+            value["children"] = canonical_inline(value["children"])
+        if "destination" in value:
+            value["destination"] = encoded_destination(value["destination"])
+        result.append(value)
+    return normalize_inline(result)
+
+
 class Projection:
     def __init__(self):
         self.limits = set()
@@ -152,7 +232,7 @@ class Projection:
             if not literal and "\n\n" in text:
                 raise Uncheckable("literal-newline-or-softbreak-ambiguous")
             if not literal and "\n" in text:
-                self.losses.add("softbreak-kind-projected")
+                self.limits.add("softbreak-or-decoded-lf-source-unavailable")
                 text = text.replace("\n", " ")
             start = utf16(result["text"])
             result["text"] += text
@@ -174,7 +254,6 @@ class Projection:
                     continue
                 if isinstance(item, Literal):
                     append(item.text, flags, literal=True)
-                    self.losses.add("inline-html-identity-projected")
                     continue
                 if item.tag in BLOCKS:
                     raise Uncheckable("block-tag-in-inline-context")
@@ -183,13 +262,11 @@ class Projection:
                     append(item.opening, flags, literal=True)
                     visit(item.children, flags, enclosing)
                     append(item.closing, flags, literal=True)
-                    self.losses.add("inline-html-identity-projected")
                     continue
+                self.limits.add("inline-html-or-generated-tag-source-unavailable")
                 if item.tag in {"em", "strong"}:
                     attributes(item, ())
                     bit = 1 if item.tag == "em" else 2
-                    if flags & bit:
-                        self.losses.add("repeated-emphasis-depth-flattened")
                     visit(item.children, flags | bit, enclosing)
                 elif item.tag == "code":
                     attributes(item, ())
@@ -204,8 +281,6 @@ class Projection:
                     attributes(item, ("href", "title"), ("href",))
                     if enclosing is not None:
                         raise Uncheckable("nested-html-links")
-                    if item.attrs.get("title"):
-                        self.losses.add("link-title-omitted")
                     start = utf16(result["text"])
                     url = item.attrs["href"]
                     self.limits.add("url-original-escape-spelling-unavailable")
@@ -213,8 +288,6 @@ class Projection:
                     length = utf16(result["text"]) - start
                     if length:
                         result["links"].append({"start": start, "length": length, "destination": url})
-                    else:
-                        self.losses.add("empty-link-omitted")
                 elif item.tag == "img":
                     attributes(item, ("src", "alt", "title"), ("src", "alt"))
                     if item.children:
@@ -237,7 +310,9 @@ class Projection:
                 output.append(item)
             return output
 
-        visit(breaks(children))
+        children = breaks(children)
+        visit(children)
+        result["inlines"] = semantic_html(children)
         return result
 
     def blocks(self, children, item_context=False):
@@ -347,6 +422,7 @@ def canonical_actual(blocks):
             if not value["ordered"]:
                 value.pop("start")
         if "images" in value:
+            value["inlines"] = canonical_inline(value["inlines"])
             value = mask_image_ranges(value)
             value["links"] = [{**link, "destination": encoded_destination(link["destination"])} for link in value["links"]]
             value["images"] = [{**image, "destination": encoded_destination(image["destination"]),

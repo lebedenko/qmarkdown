@@ -12,13 +12,38 @@ from baseline import (DATA, HTML_OPTIONS, PARSE_OPTIONS, analyze, compare_ledger
                       exception, json_text, load_fixtures, run_probe, strict_pass,
                       validate_fixtures, validate_model, validate_report, validate_response,
                       validate_authored, load_authored, HTML_BLOCK_IDS, REMAINING_IDS)
-from oracle import Uncheckable, canonical_actual, expected, mask_image_ranges, utf16
+from oracle import Uncheckable, canonical_actual, expected, mask_image_ranges, utf16, normalize_inline
 
 PROBE = None
 
 
 def paragraph(text, ranges=None, links=None, images=None):
     return {"kind": "Paragraph", "text": text, "ranges": ranges or [], "links": links or [], "images": images or []}
+
+
+def presentation(blocks):
+    result = []
+    for block in blocks:
+        value = {k: v for k, v in block.items() if k != "inlines"}
+        if "children" in value:
+            value["children"] = presentation(value["children"])
+        result.append(value)
+    return result
+
+
+def text_node(text):
+    return {"kind": "Text", "literal": text}
+
+
+def complete_plain(blocks):
+    """Synthetic validation cases have plain text semantics, not parser output."""
+    result = copy.deepcopy(blocks)
+    for block in result:
+        if block["kind"] in ("Paragraph", "Heading"):
+            block["inlines"] = [text_node(block["text"])] if block["text"] else []
+        if "children" in block:
+            block["children"] = complete_plain(block["children"])
+    return result
 
 
 def link(start, length, destination):
@@ -41,7 +66,7 @@ def fixture(markdown="hello\n", html="<p>hello</p>\n"):
 
 class OracleTest(unittest.TestCase):
     def project(self, html):
-        return expected(html)[0]
+        return presentation(expected(html)[0])
 
     def test_nested_formatting_has_utf16_offsets(self):
         self.assertEqual(self.project("<p>😀 <strong>é <em>b</em> <code>c</code></strong></p>\n"),
@@ -50,8 +75,9 @@ class OracleTest(unittest.TestCase):
 
     def test_soft_and_hard_breaks_have_different_text(self):
         blocks, limits, losses = expected("<p>soft\nnext<br />\nhard <em>x<br />\ny</em></p>\n")
-        self.assertEqual(blocks, [paragraph("soft next\nhard x\ny", [span(15, 3, 1)])])
-        self.assertIn("softbreak-kind-projected", losses)
+        self.assertEqual(presentation(blocks), [paragraph("soft next\nhard x\ny", [span(15, 3, 1)])])
+        self.assertEqual(losses, [])
+        self.assertIn("softbreak-or-decoded-lf-source-unavailable", limits)
 
     def test_entity_newlines_are_not_rewritten_as_softbreaks(self):
         self.assertEqual(self.project("<p>a&#10;&#10;b &amp; &lt; &#x1f600;</p>\n"), [paragraph("a\n\nb & < 😀")])
@@ -80,7 +106,7 @@ class OracleTest(unittest.TestCase):
 
     def test_image_metadata_and_enclosing_empty_destination(self):
         blocks, limits, losses = expected('<p><a href=""><img src="a&amp;b" alt="😀é" title="x &quot;y&quot;" /><img src="b" alt="" /></a></p>\n')
-        self.assertEqual(blocks, [paragraph("😀é", links=[link(0, 3, "")],
+        self.assertEqual(presentation(blocks), [paragraph("😀é", links=[link(0, 3, "")],
             images=[image(0, 3, "a&b", 'x "y"', linked=True), image(3, 0, "b", linked=True)])])
         self.assertIn("image-description-formatting-unavailable", limits)
 
@@ -88,15 +114,15 @@ class OracleTest(unittest.TestCase):
         value = paragraph("abcde", [span(0, 5, 2)], images=[image(1, 2, "a"), image(3, 0, "b")])
         self.assertEqual(mask_image_ranges(value)["ranges"], [span(0, 1, 2), span(3, 2, 2)])
 
-    def test_link_title_empty_link_and_repeated_emphasis_are_visible_losses(self):
+    def test_link_title_empty_link_and_repeated_emphasis_preserve_presentation(self):
         blocks, limits, losses = expected('<p><a href="x" title="t"></a><em><em>x</em></em></p>\n')
-        self.assertEqual(blocks, [paragraph("x", [span(0, 1, 1)])])
-        self.assertEqual(losses, ["empty-link-omitted", "link-title-omitted", "repeated-emphasis-depth-flattened"])
+        self.assertEqual(presentation(blocks), [paragraph("x", [span(0, 1, 1)])])
+        self.assertEqual(losses, [])
 
     def test_balanced_unknown_inline_html_is_literal(self):
         blocks, limits, losses = expected('<p>before <B title="&amp;">x</B > <!-- y --> after</p>\n')
-        self.assertEqual(blocks, [paragraph('before <B title="&amp;">x</B > <!-- y --> after')])
-        self.assertIn("inline-html-identity-projected", losses)
+        self.assertEqual(presentation(blocks), [paragraph('before <B title="&amp;">x</B > <!-- y --> after')])
+        self.assertEqual(losses, [])
 
     def test_raw_or_malformed_html_is_never_silently_dropped(self):
         for html in ('<div>\nx\n</div>\n', '<div incomplete\n', '<p>x<a></p>\n', '<p>x</p>\n<unfinished',
@@ -110,15 +136,120 @@ class OracleTest(unittest.TestCase):
                 expected(html)
 
     def test_urls_compare_encoded_form_without_changing_probe_destinations(self):
-        actual = [paragraph("x", links=[link(0, 1, "é a%20b")])]
-        self.assertEqual(canonical_actual(actual), self.project('<p><a href="%C3%A9%20a%20b">x</a></p>\n'))
+        actual = [{**paragraph("x", links=[link(0, 1, "é a%20b")]), "inlines": [
+            {"kind": "Link", "destination": "é a%20b", "title": "", "children": [text_node("x")]}]}]
+        self.assertEqual(presentation(canonical_actual(actual)), self.project('<p><a href="%C3%A9%20a%20b">x</a></p>\n'))
         self.assertEqual(actual[0]["links"][0]["destination"], "é a%20b")
+
+
+class SemanticTest(unittest.TestCase):
+    def nodes(self, markdown):
+        response = run_probe(PROBE, [fixture(markdown)])
+        return normalize_inline(response["examples"][0]["model"][0]["inlines"])
+
+    def test_breaks_entity_newlines_and_code_remain_distinct(self):
+        self.assertEqual(self.nodes("😀&#10;é\nnext  \nhard `x`"), [
+            text_node("😀\né"), {"kind": "SoftBreak"}, text_node("next"),
+            {"kind": "HardBreak"}, text_node("hard "), {"kind": "Code", "literal": "x"}])
+        html = "<p>😀&#10;é\nnext<br />\nhard <code>x</code></p>\n"
+        self.assertEqual(expected(html)[0][0]["inlines"], self.nodes("😀&#10;é\nnext  \nhard `x`"))
+
+    def test_reference_titles_empty_links_and_nested_emphasis(self):
+        want = [{"kind": "Link", "destination": "a*b?x=1&y=2", "title": "t &", "children": [
+            {"kind": "Emphasis", "children": [{"kind": "Emphasis", "children": [text_node("é")]}]}]},
+            {"kind": "Link", "destination": "empty", "title": "caption", "children": []}]
+        self.assertEqual(self.nodes('[*_é_*][id][](empty "caption")\n\n[id]: a\\*b?x=1&amp;y=2 "t &amp;"'), want)
+
+    def test_literal_html_keeps_identity_and_exact_spelling(self):
+        want = [text_node("a "), {"kind": "Html", "literal": "<B title='&amp;'>"},
+                text_node("x"), {"kind": "Html", "literal": "</B>"},
+                {"kind": "Html", "literal": "<!-- y -->"}]
+        self.assertEqual(self.nodes("a <B title='&amp;'>x</B><!-- y -->"), want)
+        self.assertEqual(expected("<p>a <B title='&amp;'>x</B><!-- y --></p>\n")[0][0]["inlines"], want)
+
+    def test_image_description_tree_is_retained_but_html_check_is_bounded(self):
+        markdown = '![**é** [inner](ignored "t") ![*猫*](nested "n")](img "pic")'
+        want = [{"kind": "Image", "destination": "img", "title": "pic", "children": [
+            {"kind": "Strong", "children": [text_node("é")]}, text_node(" "),
+            {"kind": "Link", "destination": "ignored", "title": "t", "children": [text_node("inner")]},
+            text_node(" "), {"kind": "Image", "destination": "nested", "title": "n", "children": [
+                {"kind": "Emphasis", "children": [text_node("猫")]}]}]}]
+        self.assertEqual(self.nodes(markdown), want)
+        response = run_probe(PROBE, [fixture(markdown, '<p><img src="img" alt="é inner 猫" title="pic" /></p>\n')])
+        actual = response["examples"][0]["model"][0]
+        self.assertEqual(actual["links"], [])
+        self.assertEqual(len(actual["images"]), 1)
+        expected_blocks, limits, _ = expected('<p><img src="img" alt="é inner 猫" title="pic" /></p>\n')
+        self.assertEqual(canonical_actual([actual]), expected_blocks)
+        self.assertIn("image-description-formatting-unavailable", limits)
+
+    def test_normalization_only_merges_adjacent_text(self):
+        self.assertEqual(normalize_inline([text_node("")]), [text_node("")])
+        nodes = [text_node("a"), text_node("b"), {"kind": "SoftBreak"}, text_node("c"),
+                 {"kind": "Emphasis", "children": [text_node("d"), text_node("e")]},
+                 {"kind": "Emphasis", "children": [text_node("f")]}]
+        self.assertEqual(normalize_inline(nodes), [text_node("ab"), {"kind": "SoftBreak"}, text_node("c"),
+            {"kind": "Emphasis", "children": [text_node("de")]},
+            {"kind": "Emphasis", "children": [text_node("f")]}])
+
+    def test_semantic_faults_mismatch_with_presentation_unchanged(self):
+        manifest, _ = load_fixtures()
+        cases = [
+            ("a\nb", "<p>a\nb</p>\n", "break"),
+            ('[x](url "title")', '<p><a href="url" title="title">x</a></p>\n', "title"),
+            ('[](url)', '<p><a href="url"></a></p>\n', "empty"),
+            ('*_*x*_*', '<p><em><em><em>x</em></em></em></p>\n', "nesting"),
+            ('a <b>x</b>', '<p>a <b>x</b></p>\n', "html")]
+        for markdown, html, fault in cases:
+            fixtures = [fixture(markdown, html)]
+            response = run_probe(PROBE, fixtures)
+            good = analyze(manifest, fixtures, response)
+            self.assertEqual(good["totals"]["model"]["mismatch"], 0)
+            original_presentation = presentation(response["examples"][0]["model"])
+            nodes = response["examples"][0]["model"][0]["inlines"]
+            if fault == "break": nodes[1]["kind"] = "HardBreak"
+            if fault == "title": nodes[0]["title"] = ""
+            if fault == "empty": nodes.clear()
+            if fault == "nesting": nodes[:] = nodes[0]["children"]
+            if fault == "html":
+                for node in nodes:
+                    if node["kind"] == "Html": node["kind"] = "Text"
+            with self.subTest(fault=fault):
+                self.assertEqual(presentation(response["examples"][0]["model"]), original_presentation)
+                bad = analyze(manifest, fixtures, response)
+                self.assertEqual(bad["totals"]["model"]["mismatch"], 1)
+                ledger = {"schema": 1, "fixtureSha256": manifest["sha256"], "review": "reviewed", "examples": {}}
+                if exception(good["examples"][0]):
+                    ledger["examples"]["1"] = {**exception(good["examples"][0]), "review": "reviewed"}
+                self.assertEqual(len(compare_ledger(bad, ledger)), 1)
+
+    def test_inline_validation_rejects_missing_unknown_and_wrong_fields(self):
+        for node in ({"kind": "Other"}, {"kind": "SoftBreak", "literal": " "},
+                     {"kind": "Link", "destination": "x", "children": []},
+                     {"kind": "Emphasis", "children": "x"}, {"kind": "Text", "literal": 1}):
+            block = {**paragraph("x"), "inlines": [node]}
+            with self.subTest(node=node), self.assertRaises(ValueError):
+                validate_model([block])
+
+    def test_stale_report_and_authored_formats_are_rejected(self):
+        manifest, fixtures = load_fixtures()
+        response = run_probe(PROBE, fixtures[:1])
+        report = analyze(manifest, fixtures[:1], response)
+        report["schema"] = 2
+        with self.assertRaisesRegex(ValueError, "provenance"):
+            validate_report(report, manifest, fixtures[:1])
+        for filename, ids, annotations in (("html-block-expectations.json", HTML_BLOCK_IDS, False),
+                                          ("remaining-expectations.json", REMAINING_IDS, True)):
+            authored = json.loads((DATA / filename).read_text())
+            authored["schema"] = 1
+            with self.assertRaisesRegex(ValueError, "provenance"):
+                validate_authored(authored, manifest, ids, annotations)
 
 
 class ProductionModelTest(unittest.TestCase):
     def check(self, markdown, want):
         response = run_probe(PROBE, [fixture(markdown)])
-        self.assertEqual(response["examples"][0]["model"], want)
+        self.assertEqual(presentation(response["examples"][0]["model"]), want)
 
     def test_unicode_images_links_and_decoded_titles(self):
         self.check('😀 **é** [日本](a?x=1&amp;y=2 "title") ![*猫*](img "pic") ![](empty)\n',
@@ -172,7 +303,7 @@ class AuthoredHtmlTest(unittest.TestCase):
 
     def test_complete_raw_models_and_comparison_method(self):
         report = analyze(self.manifest, self.fixtures, self.response)
-        self.assertEqual(report["schema"], 2)
+        self.assertEqual(report["schema"], 3)
         self.assertEqual(report["totals"]["model"], {"projection-pass": 43, "mismatch": 0, "uncheckable": 0})
         for entry in report["examples"]:
             self.assertEqual(entry["model"]["comparison"], "source-authored")
@@ -230,14 +361,14 @@ class RemainingAuthoredTest(unittest.TestCase):
         report = analyze(self.manifest, self.fixtures, self.response)
         self.assertEqual(report['totals']['model'], {'projection-pass': 26, 'mismatch': 0, 'uncheckable': 0})
         self.assertEqual(report['totals']['examplesWithLimits'], 0)
-        self.assertEqual(report['totals']['examplesWithLosses'], 21)
+        self.assertEqual(report['totals']['examplesWithLosses'], 0)
         for entry, authored in zip(report['examples'], self.original['examples']):
             with self.subTest(example=entry['example']):
                 self.assertEqual(entry['nativeModel'], authored['model'])
                 self.assertEqual(entry['model']['comparison'], 'source-authored')
                 for category in ('limits', 'losses'):
                     self.assertEqual(entry['model'][category], authored[category])
-        self.assertFalse(strict_pass(report))
+        self.assertTrue(strict_pass(report))
         self.assertEqual(json_text(report), json_text(analyze(self.manifest, self.fixtures, self.response)))
 
     def test_fixture_provenance_exact_ids_reviews_and_metadata(self):
@@ -283,7 +414,7 @@ class RemainingAuthoredTest(unittest.TestCase):
 
     def test_report_cannot_hide_or_change_annotations_or_comparison(self):
         original = analyze(self.manifest, self.fixtures, self.response)
-        for category, value in (('losses', []), ('losses', ['other']), ('limits', ['other']),
+        for category, value in (('losses', ['other']), ('limits', ['other']),
                                 ('comparison', 'html-projection')):
             report = copy.deepcopy(original)
             entry = next(e for e in report['examples'] if e['example'] == 494)
@@ -310,8 +441,8 @@ class ValidationTest(unittest.TestCase):
     def setUp(self):
         self.manifest, _ = load_fixtures()
         self.fixtures = [fixture()]
-        self.response = {"schema": 1, "qt": "test", "cmark": "0.31.2", "parseOptions": PARSE_OPTIONS,
-            "htmlOptions": HTML_OPTIONS, "examples": [{"example": 1, "html": '<p>hello</p>\n', "model": [paragraph('hello')]}]}
+        self.response = {"schema": 2, "qt": "test", "cmark": "0.31.2", "parseOptions": PARSE_OPTIONS,
+            "htmlOptions": HTML_OPTIONS, "examples": [{"example": 1, "html": '<p>hello</p>\n', "model": complete_plain([paragraph('hello')])}]}
         self.report = analyze(self.manifest, self.fixtures, self.response)
         self.ledger = {"schema": 1, "fixtureSha256": self.manifest["sha256"], "review": "Authored clean case", "examples": {}}
 
@@ -337,7 +468,7 @@ class ValidationTest(unittest.TestCase):
 
     def test_response_unknown_fields_ids_versions_options_and_missing_examples_fail(self):
         cases = []
-        for key, value in (('unknown', 1), ('schema', True), ('cmark', 'other'), ('parseOptions', 'other'), ('examples', [])):
+        for key, value in (('unknown', 1), ('schema', True), ('schema', 1), ('cmark', 'other'), ('parseOptions', 'other'), ('examples', [])):
             cases.append({**self.response, key: value})
         wrong_id = copy.deepcopy(self.response)
         wrong_id['examples'][0]['example'] = 2
@@ -353,7 +484,7 @@ class ValidationTest(unittest.TestCase):
                  [paragraph('abc', images=[image(1, 2, 'a'), image(2, 0, 'b')])])
         for blocks in cases:
             with self.subTest(blocks=blocks), self.assertRaises(ValueError):
-                validate_model(blocks)
+                validate_model(complete_plain(blocks))
 
     def test_report_missing_examples_unknown_fields_totals_and_diff_tampering_fail(self):
         for key, value in (('examples', []), ('unknown', 1), ('totals', {}), ('sections', {})):
@@ -374,7 +505,7 @@ class ValidationTest(unittest.TestCase):
 
     def test_baseline_rejects_new_parser_model_and_oracle_failures(self):
         self.assertFalse(compare_ledger(self.report, self.ledger))
-        for target, value in (('html', '<p>wrong</p>\n'), ('model', [paragraph('wrong')])):
+        for target, value in (('html', '<p>wrong</p>\n'), ('model', complete_plain([paragraph('wrong')]))):
             response = copy.deepcopy(self.response)
             response['examples'][0][target] = value
             report = analyze(self.manifest, self.fixtures, response)
@@ -391,11 +522,11 @@ class ValidationTest(unittest.TestCase):
 
     def test_unchanged_status_with_worse_evidence_cannot_pass_and_improvement_needs_review(self):
         response = copy.deepcopy(self.response)
-        response['examples'][0]['model'] = [paragraph('wrong')]
+        response['examples'][0]['model'] = complete_plain([paragraph('wrong')])
         report = analyze(self.manifest, self.fixtures, response)
         self.ledger['examples']['1'] = {**exception(report['examples'][0]), 'review': 'Authored known mismatch'}
         self.assertFalse(compare_ledger(report, self.ledger))
-        response['examples'][0]['model'] = [paragraph('worse')]
+        response['examples'][0]['model'] = complete_plain([paragraph('worse')])
         worse = analyze(self.manifest, self.fixtures, response)
         self.assertEqual(len(compare_ledger(worse, self.ledger)), 1)
         self.assertEqual(len(compare_ledger(self.report, self.ledger)), 1)

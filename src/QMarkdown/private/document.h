@@ -22,6 +22,7 @@ struct Block {
     int start = 1;
     QChar delimiter = u'.';
     bool tight = true;
+    QVector<InlineNode> inlines;
 };
 QVector<Block> parse(QString source);
 }

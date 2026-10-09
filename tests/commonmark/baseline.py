@@ -63,11 +63,31 @@ def load_fixtures(directory=DATA):
     return manifest, examples
 
 
+def validate_inline(nodes):
+    require(isinstance(nodes, list), "Invalid inline array")
+    for node in nodes:
+        require(isinstance(node, dict), "Invalid inline node")
+        kind = node.get("kind")
+        require(kind in ("Text", "Code", "Html", "SoftBreak", "HardBreak", "Emphasis", "Strong", "Link", "Image"),
+                "Unknown inline kind")
+        literal = kind in ("Text", "Code", "Html")
+        container = kind in ("Emphasis", "Strong", "Link", "Image")
+        target = kind in ("Link", "Image")
+        keys(node, ("kind", *(("literal",) if literal else ()), *(("children",) if container else ()),
+                    *(("destination", "title") if target else ())), "inline node")
+        if literal:
+            require(isinstance(node["literal"], str), "Invalid inline literal")
+        if container:
+            validate_inline(node["children"])
+        if target:
+            require(all(isinstance(node[k], str) for k in ("destination", "title")), "Invalid inline target")
+
+
 def validate_model(blocks, context="root"):
     require(isinstance(blocks, list), "Invalid block array")
     fields = {
-        "Paragraph": ("kind", "text", "ranges", "links", "images"),
-        "Heading": ("kind", "level", "text", "ranges", "links", "images"),
+        "Paragraph": ("kind", "text", "ranges", "links", "images", "inlines"),
+        "Heading": ("kind", "level", "text", "ranges", "links", "images", "inlines"),
         "CodeBlock": ("kind", "text", "infoString"), "HtmlBlock": ("kind", "text"),
         "ThematicBreak": ("kind",),
         "List": ("kind", "ordered", "start", "delimiter", "tight", "children"),
@@ -93,6 +113,7 @@ def validate_model(blocks, context="root"):
             validate_model(block["children"], kind)
         if kind not in ("Paragraph", "Heading"):
             continue
+        validate_inline(block["inlines"])
         size = utf16(block["text"])
         # Boundaries must never bisect an astral character's surrogate pair.
         boundaries = {0}
@@ -132,7 +153,7 @@ AUTHORED_IDS = HTML_BLOCK_IDS + REMAINING_IDS
 
 def validate_authored(value, manifest, ids=HTML_BLOCK_IDS, annotations=False):
     keys(value, ("schema", "fixtureSha256", "review", "examples"), "authored expectations")
-    require(type(value["schema"]) is int and value["schema"] == 1
+    require(type(value["schema"]) is int and value["schema"] == 2
             and value["fixtureSha256"] == manifest["sha256"], "Invalid authored provenance")
     require(isinstance(value["review"], str) and value["review"].strip(), "Missing authored review")
     require(isinstance(value["examples"], list), "Invalid authored examples")
@@ -165,7 +186,7 @@ def load_remaining(manifest):
 
 def validate_response(response, examples):
     keys(response, ("schema", "qt", "cmark", "parseOptions", "htmlOptions", "examples"), "probe response")
-    require(type(response["schema"]) is int and response["schema"] == 1, "Invalid probe schema")
+    require(type(response["schema"]) is int and response["schema"] == 2, "Invalid probe schema")
     require(isinstance(response["qt"], str) and response["qt"], "Invalid Qt version")
     require(response["cmark"] == "0.31.2", "Unexpected bundled parser")
     require(response["parseOptions"] == PARSE_OPTIONS and response["htmlOptions"] == HTML_OPTIONS, "Unexpected parser options")
@@ -191,6 +212,19 @@ def difference(want, actual):
                                       fromfile="expected", tofile="actual"))
 
 
+def normalize_model(blocks):
+    from oracle import normalize_inline
+    result = []
+    for block in blocks:
+        value = dict(block)
+        if "inlines" in value:
+            value["inlines"] = normalize_inline(value["inlines"])
+        if "children" in value:
+            value["children"] = normalize_model(value["children"])
+        result.append(value)
+    return result
+
+
 def analyze(manifest, fixtures, response, authored=None):
     validate_response(response, fixtures)
     authored = load_authored(manifest) if authored is None else authored
@@ -211,7 +245,8 @@ def analyze(manifest, fixtures, response, authored=None):
                     require(fixture["example"] in authored, "Missing authored expectation")
                     want, limits, losses = authored[fixture["example"]], [], []
                 validate_model(want)
-                projection = actual["model"]
+                want = normalize_model(want)
+                projection = normalize_model(actual["model"])
             else:
                 want, limits, losses = expected(fixture["html"])
                 projection = canonical_actual(actual["model"])
@@ -224,7 +259,7 @@ def analyze(manifest, fixtures, response, authored=None):
         model["comparison"] = "source-authored" if fixture["example"] in AUTHORED_IDS else "html-projection"
         results.append({"example": fixture["example"], "section": fixture["section"], "parser": parser, "model": model,
                         "nativeModel": actual["model"]})
-    report = {"schema": 2, "commonmark": manifest["version"], "fixtureSha256": manifest["sha256"],
+    report = {"schema": 3, "commonmark": manifest["version"], "fixtureSha256": manifest["sha256"],
               "tools": {"python": platform.python_version(), "qt": response["qt"], "cmark": response["cmark"]},
               "parseOptions": response["parseOptions"], "htmlOptions": response["htmlOptions"],
               "examples": results, "totals": totals(results), "sections": {}}
@@ -248,7 +283,7 @@ def validate_report(report, manifest, fixtures):
     keys(report["tools"], ("python", "qt", "cmark"), "report tools")
     require(all(isinstance(v, str) and v for v in report["tools"].values()), "Invalid report tools")
     require(report["parseOptions"] == PARSE_OPTIONS and report["htmlOptions"] == HTML_OPTIONS, "Invalid report options")
-    require(type(report["schema"]) is int and report["schema"] == 2 and report["commonmark"] == manifest["version"]
+    require(type(report["schema"]) is int and report["schema"] == 3 and report["commonmark"] == manifest["version"]
             and report["fixtureSha256"] == manifest["sha256"], "Invalid report provenance")
     require(isinstance(report["examples"], list) and len(report["examples"]) == len(fixtures), "Invalid report count")
     remaining = load_remaining(manifest)

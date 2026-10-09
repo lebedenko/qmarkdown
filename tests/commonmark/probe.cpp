@@ -13,6 +13,34 @@
 using namespace QMarkdownPrivate;
 
 namespace {
+QJsonArray serializeInline(const QVector<InlineNode> &nodes)
+{
+    QJsonArray result;
+    for (const auto &node : nodes) {
+        QJsonObject value;
+        switch (node.kind) {
+        case InlineKind::Text: value["kind"] = "Text"; break;
+        case InlineKind::Code: value["kind"] = "Code"; break;
+        case InlineKind::Html: value["kind"] = "Html"; break;
+        case InlineKind::SoftBreak: value["kind"] = "SoftBreak"; break;
+        case InlineKind::HardBreak: value["kind"] = "HardBreak"; break;
+        case InlineKind::Emphasis: value["kind"] = "Emphasis"; break;
+        case InlineKind::Strong: value["kind"] = "Strong"; break;
+        case InlineKind::Link: value["kind"] = "Link"; break;
+        case InlineKind::Image: value["kind"] = "Image"; break;
+        }
+        if (node.kind == InlineKind::Text || node.kind == InlineKind::Code || node.kind == InlineKind::Html)
+            value["literal"] = node.literal;
+        else if (node.kind != InlineKind::SoftBreak && node.kind != InlineKind::HardBreak)
+            value["children"] = serializeInline(node.children);
+        if (node.kind == InlineKind::Link || node.kind == InlineKind::Image) {
+            value["destination"] = node.destination;
+            value["title"] = node.title;
+        }
+        result.append(value);
+    }
+    return result;
+}
 QJsonArray serialize(const QVector<Block> &blocks)
 {
     QJsonArray result;
@@ -23,6 +51,7 @@ QJsonArray serialize(const QVector<Block> &blocks)
         case BlockKind::Heading: {
             value["kind"] = block.kind == BlockKind::Heading ? "Heading" : "Paragraph";
             value["text"] = block.text;
+            value["inlines"] = serializeInline(block.inlines);
             if (block.kind == BlockKind::Heading) value["level"] = block.level;
             QJsonArray ranges, links, images;
             for (const auto &range : block.ranges)
@@ -101,7 +130,7 @@ int main(int argc, char **argv)
         cmark_get_default_mem_allocator()->free(html);
         results.append(QJsonObject{{"example", id}, {"html", rendered}, {"model", serialize(parse(source))}});
     }
-    const QJsonDocument response(QJsonObject{{"schema", 1}, {"qt", qVersion()},
+    const QJsonDocument response(QJsonObject{{"schema", 2}, {"qt", qVersion()},
         {"cmark", cmark_version_string()}, {"parseOptions", "CMARK_OPT_DEFAULT"},
         {"htmlOptions", "CMARK_OPT_UNSAFE (test serializer only)"}, {"examples", results}});
     const auto bytes = response.toJson(QJsonDocument::Compact);

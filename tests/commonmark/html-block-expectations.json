@@ -1,11 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "fixtureSha256": "d431b29d97b6f73e69d547109cf5081578fac931e72afe95639ebe766c1b2a20",
-  "review": "Independently authored from pinned Markdown and CommonMark 0.31.2 section 4.6. Helpers only construct explicit raw model objects; no production output was used.",
+  "review": "Independently authored from pinned Markdown and CommonMark 0.31.2 section 4.6. Helpers only construct explicit raw model objects; no production output was used. Iteration 016: all 69 source cases reviewed for owned inline identity; adjacent text only is normalized.",
   "examples": [
     {
       "example": 148,
-      "review": "Type 6 table stops at blank line despite embedded pre. Closing pre is type 7 and cannot interrupt the emphasis paragraph, so its soft break becomes a space and tag stays inline literal; closing td starts a type 6 block.",
+      "review": "Type 6 table stops at blank line despite embedded pre. Closing pre is type 7 and cannot interrupt the emphasis paragraph, so its soft break becomes a space and tag stays inline literal; closing td starts a type 6 block. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -22,7 +22,29 @@
             }
           ],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Emphasis",
+              "children": [
+                {
+                  "kind": "Text",
+                  "literal": "world"
+                }
+              ]
+            },
+            {
+              "kind": "Text",
+              "literal": "."
+            },
+            {
+              "kind": "SoftBreak"
+            },
+            {
+              "kind": "Html",
+              "literal": "</pre>"
+            }
+          ]
         },
         {
           "kind": "HtmlBlock",
@@ -32,7 +54,7 @@
     },
     {
       "example": 149,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -43,13 +65,19 @@
           "text": "okay.",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "okay."
+            }
+          ]
         }
       ]
     },
     {
       "example": 150,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -59,7 +87,7 @@
     },
     {
       "example": 151,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -69,7 +97,7 @@
     },
     {
       "example": 152,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -86,7 +114,18 @@
             }
           ],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Emphasis",
+              "children": [
+                {
+                  "kind": "Text",
+                  "literal": "Markdown"
+                }
+              ]
+            }
+          ]
         },
         {
           "kind": "HtmlBlock",
@@ -96,7 +135,7 @@
     },
     {
       "example": 153,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -106,7 +145,7 @@
     },
     {
       "example": 154,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -116,7 +155,7 @@
     },
     {
       "example": 155,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -133,13 +172,24 @@
             }
           ],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Emphasis",
+              "children": [
+                {
+                  "kind": "Text",
+                  "literal": "bar"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "example": 156,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -149,7 +199,7 @@
     },
     {
       "example": 157,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -159,7 +209,7 @@
     },
     {
       "example": 158,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -169,7 +219,7 @@
     },
     {
       "example": 159,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -179,7 +229,7 @@
     },
     {
       "example": 160,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -189,7 +239,7 @@
     },
     {
       "example": 161,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -199,7 +249,7 @@
     },
     {
       "example": 162,
-      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -209,7 +259,7 @@
     },
     {
       "example": 163,
-      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -219,7 +269,7 @@
     },
     {
       "example": 164,
-      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -229,7 +279,7 @@
     },
     {
       "example": 165,
-      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -239,7 +289,7 @@
     },
     {
       "example": 166,
-      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -249,7 +299,7 @@
     },
     {
       "example": 167,
-      "review": "Type 7 complete tag on its own line: blank line terminates the literal block.",
+      "review": "Type 7 complete tag on its own line: blank line terminates the literal block. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -266,7 +316,18 @@
             }
           ],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Emphasis",
+              "children": [
+                {
+                  "kind": "Text",
+                  "literal": "foo"
+                }
+              ]
+            }
+          ]
         },
         {
           "kind": "HtmlBlock",
@@ -276,7 +337,7 @@
     },
     {
       "example": 169,
-      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -287,13 +348,19 @@
           "text": "okay",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "okay"
+            }
+          ]
         }
       ]
     },
     {
       "example": 170,
-      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -304,13 +371,19 @@
           "text": "okay",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "okay"
+            }
+          ]
         }
       ]
     },
     {
       "example": 171,
-      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -320,7 +393,7 @@
     },
     {
       "example": 172,
-      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -331,13 +404,19 @@
           "text": "okay",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "okay"
+            }
+          ]
         }
       ]
     },
     {
       "example": 173,
-      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -347,7 +426,7 @@
     },
     {
       "example": 174,
-      "review": "Quote prefix is removed; blank line ends quote and its type 6 HTML block; following bar is outside quote.",
+      "review": "Quote prefix is removed; blank line ends quote and its type 6 HTML block; following bar is outside quote. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "Quote",
@@ -363,13 +442,19 @@
           "text": "bar",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "bar"
+            }
+          ]
         }
       ]
     },
     {
       "example": 175,
-      "review": "Each list marker starts a separate tight item; first contains HTML, second contains an ordinary paragraph; unordered start is 0 and delimiter is dot.",
+      "review": "Each list marker starts a separate tight item; first contains HTML, second contains an ordinary paragraph; unordered start is 0 and delimiter is dot. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "List",
@@ -395,7 +480,13 @@
                   "text": "foo",
                   "ranges": [],
                   "links": [],
-                  "images": []
+                  "images": [],
+                  "inlines": [
+                    {
+                      "kind": "Text",
+                      "literal": "foo"
+                    }
+                  ]
                 }
               ]
             }
@@ -405,7 +496,7 @@
     },
     {
       "example": 176,
-      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -422,13 +513,24 @@
             }
           ],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Emphasis",
+              "children": [
+                {
+                  "kind": "Text",
+                  "literal": "foo"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "example": 177,
-      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code.",
+      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -445,13 +547,24 @@
             }
           ],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Emphasis",
+              "children": [
+                {
+                  "kind": "Text",
+                  "literal": "baz"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "example": 178,
-      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates.",
+      "review": "Type 1 pre/script/style/textarea: closing tag ends after its entire line; blank lines remain literal; EOF also terminates. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -461,7 +574,7 @@
     },
     {
       "example": 179,
-      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code.",
+      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -472,13 +585,19 @@
           "text": "okay",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "okay"
+            }
+          ]
         }
       ]
     },
     {
       "example": 180,
-      "review": "Type 3 processing instruction ends after the line containing ?>; internal blank lines remain literal.",
+      "review": "Type 3 processing instruction ends after the line containing ?>; internal blank lines remain literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -489,13 +608,19 @@
           "text": "okay",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "okay"
+            }
+          ]
         }
       ]
     },
     {
       "example": 181,
-      "review": "Type 4 declaration ends after the line containing >.",
+      "review": "Type 4 declaration ends after the line containing >. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -505,7 +630,7 @@
     },
     {
       "example": 182,
-      "review": "Type 5 CDATA ends after the line containing ]]>; internal blank lines remain literal.",
+      "review": "Type 5 CDATA ends after the line containing ]]>; internal blank lines remain literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -516,13 +641,19 @@
           "text": "okay",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "okay"
+            }
+          ]
         }
       ]
     },
     {
       "example": 183,
-      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code.",
+      "review": "Type 2 comment ends after the line containing -->; four-space indentation instead creates code. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -537,7 +668,7 @@
     },
     {
       "example": 184,
-      "review": "Two-space type 6 HTML ends at blank line; four-space div is indented code.",
+      "review": "Two-space type 6 HTML ends at blank line; four-space div is indented code. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -552,14 +683,20 @@
     },
     {
       "example": 185,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "Paragraph",
           "text": "Foo",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "Foo"
+            }
+          ]
         },
         {
           "kind": "HtmlBlock",
@@ -569,7 +706,7 @@
     },
     {
       "example": 186,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -579,20 +716,40 @@
     },
     {
       "example": 187,
-      "review": "Type 7 cannot interrupt a paragraph; soft breaks become spaces and the inline tag stays literal.",
+      "review": "Type 7 cannot interrupt a paragraph; soft breaks become spaces and the inline tag stays literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "Paragraph",
           "text": "Foo <a href=\"bar\"> baz",
           "ranges": [],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Text",
+              "literal": "Foo"
+            },
+            {
+              "kind": "SoftBreak"
+            },
+            {
+              "kind": "Html",
+              "literal": "<a href=\"bar\">"
+            },
+            {
+              "kind": "SoftBreak"
+            },
+            {
+              "kind": "Text",
+              "literal": "baz"
+            }
+          ]
         }
       ]
     },
     {
       "example": 188,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -609,7 +766,22 @@
             }
           ],
           "links": [],
-          "images": []
+          "images": [],
+          "inlines": [
+            {
+              "kind": "Emphasis",
+              "children": [
+                {
+                  "kind": "Text",
+                  "literal": "Emphasized"
+                }
+              ]
+            },
+            {
+              "kind": "Text",
+              "literal": " text."
+            }
+          ]
         },
         {
           "kind": "HtmlBlock",
@@ -619,7 +791,7 @@
     },
     {
       "example": 189,
-      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal.",
+      "review": "Type 6 block tag: literal lines continue until a blank line or container end; inline syntax remains literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -629,7 +801,7 @@
     },
     {
       "example": 190,
-      "review": "Blank lines split type 6 table/tr/td closing-tag blocks; td content stays literal.",
+      "review": "Blank lines split type 6 table/tr/td closing-tag blocks; td content stays literal. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",
@@ -655,7 +827,7 @@
     },
     {
       "example": 191,
-      "review": "Blank lines split type 6 blocks; four-space td region is code with four spaces removed, including its internal indentation.",
+      "review": "Blank lines split type 6 blocks; four-space td region is code with four spaces removed, including its internal indentation. Inline tree reviewed from source: literal tokens stay Html; source line breaks stay SoftBreak; entity LFs stay Text; emphasis containers retained.",
       "model": [
         {
           "kind": "HtmlBlock",

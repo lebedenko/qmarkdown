@@ -98,9 +98,9 @@ QImage decodeImage(QByteArray bytes)
 }
 namespace {
 Block textSlice(const Block &block, int start, int end) {
-    Block result = block;
+    Block result{block.kind, {}};
+    result.level = block.level;
     result.text = block.text.mid(start, end - start);
-    result.images.clear(); result.ranges.clear(); result.links.clear();
     for (const auto &range : block.ranges) {
         const int a = qMax(start, range.start), b = qMin(end, range.start + range.length);
         if (a < b) result.ranges.append({a - start, b - a, range.flags});
@@ -132,6 +132,7 @@ QVector<Block> projectImages(const QVector<Block> &blocks, const QHash<QUrl, QIm
             if (start < block.text.size()) segments.append(textSlice(block, start, block.text.size()));
             block.kind = BlockKind::Segments; block.children = std::move(segments);
             block.images.clear(); block.text.clear(); block.ranges.clear(); block.links.clear();
+            block.inlines.clear();
         }
         result.append(std::move(block));
     }

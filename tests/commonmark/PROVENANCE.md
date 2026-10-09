@@ -20,3 +20,5 @@ Authored test code and review notes retain the repository's MIT license. The led
 `html-block-expectations.json` includes adapted literal Markdown from the pinned CommonMark examples and is distributed under the same CC BY-SA 4.0 license, attributed to John MacFarlane. Native-model boundaries/metadata and per-ID review notes were independently authored by qt-markdown contributors on 2026-10-08; no production output generated these expectations.
 
 `remaining-expectations.json` adapts literal Markdown from the same pinned corpus under CC BY-SA 4.0, attributed to John MacFarlane. Native-model expectations, per-ID rationales and semantic annotations were independently authored by qt-markdown contributors on 2026-10-09 from the Markdown and CommonMark 0.31.2 rules; no production output generated the expectations.
+
+Feature 016 (2026-10-09) extends both authored fixtures to schema 2 with independently source/rule-reviewed inline trees. No production output generated these expectations. The pinned upstream corpus and its checksum/license remain unchanged. The reviewed ledger fingerprints now include semantic trees; probe/report formats are 2/3 respectively.

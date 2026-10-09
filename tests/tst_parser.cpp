@@ -6,6 +6,63 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void retainedBreaksAndLiteralIdentity() {
+        const auto blocks = parse(QString::fromUtf8("😀&#10;é\nnext  \nhard <b>`code`</b><!-- literal -->"));
+        const auto &nodes = blocks[0].inlines;
+        QCOMPARE(nodes.size(), 9);
+        QCOMPARE(nodes[0].kind, InlineKind::Text);
+        QCOMPARE(nodes[0].literal, QString::fromUtf8("😀\né"));
+        QCOMPARE(nodes[1].kind, InlineKind::SoftBreak);
+        QCOMPARE(nodes[3].kind, InlineKind::HardBreak);
+        QCOMPARE(nodes[5].kind, InlineKind::Html); QCOMPARE(nodes[5].literal, "<b>");
+        QCOMPARE(nodes[6].kind, InlineKind::Code); QCOMPARE(nodes[6].literal, "code");
+        QCOMPARE(nodes[7].kind, InlineKind::Html); QCOMPARE(nodes[7].literal, "</b>");
+        QCOMPARE(nodes[8].kind, InlineKind::Html); QCOMPARE(nodes[8].literal, "<!-- literal -->");
+        QCOMPARE(blocks[0].text, QString::fromUtf8("😀\né next\nhard <b>code</b><!-- literal -->"));
+        QCOMPARE(blocks[0].ranges[0].start, 18);
+    }
+    void retainedNestingTitlesAndEmptyLinks() {
+        const auto blocks = parse("# [*_é_*][id][](empty \"caption\") **__strong__**\n\n[id]: a\\*b?x=1&amp;y=2 \"t &amp;\"");
+        const auto &nodes = blocks[0].inlines;
+        QCOMPARE(blocks[0].kind, BlockKind::Heading);
+        QCOMPARE(nodes[0].kind, InlineKind::Link);
+        QCOMPARE(nodes[0].destination, "a*b?x=1&y=2"); QCOMPARE(nodes[0].title, "t &");
+        QCOMPARE(nodes[0].children[0].kind, InlineKind::Emphasis);
+        QCOMPARE(nodes[0].children[0].children[0].kind, InlineKind::Emphasis);
+        QCOMPARE(nodes[0].children[0].children[0].children[0].literal, "é");
+        QCOMPARE(nodes[1].kind, InlineKind::Link);
+        QVERIFY(nodes[1].children.isEmpty()); QCOMPARE(nodes[1].title, "caption");
+        QCOMPARE(nodes[3].kind, InlineKind::Strong);
+        QCOMPARE(nodes[3].children[0].kind, InlineKind::Strong);
+        QCOMPARE(blocks[0].links.size(), 1);
+        QCOMPARE(blocks[0].ranges[0].flags, int(Emphasis));
+        QCOMPARE(blocks[0].ranges[1].flags, int(Strong));
+        const auto trimmed = parse("[x] \nnext\n\n[x]: url")[0].inlines;
+        QCOMPARE(trimmed.size(), 3);
+        QCOMPARE(trimmed[0].kind, InlineKind::Link);
+        QCOMPARE(trimmed[1].kind, InlineKind::SoftBreak);
+        QCOMPARE(trimmed[2].literal, "next");
+        QVERIFY(parse("#")[0].inlines.isEmpty());
+        QVERIFY(parse("    code")[0].inlines.isEmpty());
+    }
+    void retainedImageDescriptionsAndFixturePrefix() {
+        const auto content = parseInline(QString::fromUtf8("![**é** [inner](ignored \"t\") ![*猫*](nested \"n\")](img \"pic\")![](empty)"));
+        QCOMPARE(content.nodes.size(), 2);
+        const auto &image = content.nodes[0];
+        QCOMPARE(image.kind, InlineKind::Image); QCOMPARE(image.title, "pic");
+        QCOMPARE(image.children[0].kind, InlineKind::Strong);
+        QCOMPARE(image.children[2].kind, InlineKind::Link); QCOMPARE(image.children[2].title, "t");
+        QCOMPARE(image.children[4].kind, InlineKind::Image); QCOMPARE(image.children[4].title, "n");
+        QCOMPARE(image.children[4].children[0].kind, InlineKind::Emphasis);
+        QVERIFY(content.nodes[1].children.isEmpty());
+        QVERIFY(content.links.isEmpty()); QCOMPARE(content.images.size(), 2);
+        QCOMPARE(content.images[0].start, 0); QCOMPARE(content.images[1].length, 0);
+        QCOMPARE(content.text, QString::fromUtf8("é inner 猫"));
+        QCOMPARE(parseInline("plain").nodes[0].literal, "plain");
+        QVERIFY(parseInline("").nodes.isEmpty());
+        QCOMPARE(parseInline("*x*").nodes[0].kind, InlineKind::Emphasis);
+    }
+
     void imageMetadata() {
         const auto content = parseInline(QString::fromUtf8("😀 ![**é** [inner](ignored) ![nested](no)](a\\*b?x=1&amp;y=2 \"title &amp;\")![](empty) [![*linked*](image)]()"));
         QCOMPARE(content.images.size(), 3);

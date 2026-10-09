@@ -158,6 +158,9 @@ private slots:
         QCOMPARE(projected[0].children[0].text, QString::fromUtf8("😀 before "));
         QCOMPARE(projected[0].children[1].kind, BlockKind::Image);
         QCOMPARE(projected[0].children[2].text, " after ");
+        QVERIFY(!blocks[0].inlines.isEmpty());
+        QVERIFY(projected[0].inlines.isEmpty());
+        for (const auto &segment : projected[0].children) QVERIFY(segment.inlines.isEmpty());
         QCOMPARE(projected[0].children[2].ranges[0].start, 0); QCOMPARE(projected[0].children[2].ranges[0].length, 6);
         controller.restart({}, base, &policy); QVERIFY(controller.images().isEmpty());
     }
