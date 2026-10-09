@@ -85,4 +85,7 @@ jobs:
             ${{ runner.temp }}/qmarkdown-ci/packaging/**/commonmark-report.json
             ${{ runner.temp }}/qmarkdown-ci/packaging/**/CMakeConfigureLog.yaml
             ${{ runner.temp }}/qmarkdown-ci/benchmarks/benchmark.json
+            ${{ runner.temp }}/qmarkdown-ci/release-package/build/Testing/Temporary/*.log
+            ${{ runner.temp }}/qmarkdown-ci/release-verification/**/CMakeConfigureLog.yaml
+            ${{ runner.temp }}/qmarkdown-ci/release-real/**/CMakeConfigureLog.yaml
           retention-days: 14

@@ -29,6 +29,8 @@ class CiRunnerTest(unittest.TestCase):
         (self.source / "tracked.txt").write_text("old")
         (self.source / "deleted.txt").write_text("deleted")
         subprocess.run(["git", "-C", self.source, "add", "."], check=True)
+        subprocess.run(["git", "-C", self.source, "-c", "user.name=Test",
+                        "-c", "user.email=test@example.invalid", "commit", "-qm", "fixture"], check=True)
         (self.source / "tracked.txt").write_text("uncommitted edit")
         (self.source / "deleted.txt").unlink()
         (self.source / "new.txt").write_text("untracked source")

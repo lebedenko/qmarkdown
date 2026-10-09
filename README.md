@@ -4,11 +4,11 @@ A standalone Qt/QML Markdown rendering library under development, independent of
 
 **Status:** release candidate `1.0.0` / QML module `1.0` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links and autolinks report decoded destinations to the host; opt-in PNG/JPEG images use native rows with formatted description fallbacks and HTML stays literal. Strict semantic checks pass all 652 pinned CommonMark examples; native presentation and release readiness are assessed separately.
 
-## 1.0 candidate compatibility
+## 1.0 compatibility
 
-Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Pinned verification uses Qt 6.8.0 and 6.11.3; host and native Wayland evidence are recorded separately in [iteration 021](specs/021-v1-release-candidate/verification.md). Candidate readiness depends on all local gates; hosted GitHub execution remains a pre-publication follow-up.
+Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Pinned verification uses Qt 6.8.0 and 6.11.3; host and native Wayland evidence are recorded separately in [iteration 021](specs/021-v1-release-candidate/verification.md). Release publication additionally requires the [release packaging workflow](.github/workflows/release.yml) to pass both pinned suites and installed binary checks.
 
-Throughout 1.x, documented public QML properties, signals and behavior of MarkdownView, MarkdownStyle and MarkdownResourcePolicy, and documented CMake integration remain backward compatible. Native implementation classes and QMarkdown.Private are private. No C++ headers are installed and no public C++ ABI compatibility is promised. Build consumers against a compatible Qt/toolchain; portable prebuilt binaries are not promised.
+Throughout 1.x, documented public QML properties, signals and behavior of MarkdownView, MarkdownStyle and MarkdownResourcePolicy, and documented CMake integration remain backward compatible. Native implementation classes and QMarkdown.Private are private. No C++ headers are installed and no public C++ ABI compatibility is promised. Build consumers against a compatible Qt/toolchain; a bounded Ubuntu 24.04 x86_64 archive built with Qt 6.8.0 is described in the [binary installation instructions](docs/release-install.md). Newer Qt compatibility is specific test evidence, not a universal binary guarantee.
 
 Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: this 1.0.0 candidate accepts 1.0 and exact 1.0.0, and rejects 0.7, 1.1 and 2.0. See [CHANGELOG](CHANGELOG.md).
 

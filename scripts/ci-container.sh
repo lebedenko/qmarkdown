@@ -12,8 +12,16 @@ if [[ "${1:-}" != "verify" ]]; then
     mkdir /tmp/qmarkdown-cache /tmp/qmarkdown-runtime
     chown "$CI_UID:$CI_GID" /tmp/qmarkdown-cache /tmp/qmarkdown-runtime
     chmod 700 /tmp/qmarkdown-runtime
-    exec setpriv --reuid="$CI_UID" --regid="$CI_GID" --clear-groups \
+    setpriv --reuid="$CI_UID" --regid="$CI_GID" --clear-groups \
         bash /source/scripts/ci-container.sh verify
+    QT_ROOT_DIR="/opt/Qt/$CI_QT_VERSION/gcc_64"
+    export QT_QPA_PLATFORM=offscreen QT_QUICK_CONTROLS_STYLE=Fusion
+    export PATH="$QT_ROOT_DIR/bin:$PATH"
+    python3 /source/scripts/verify-release-package.py \
+        --archive /artifacts/release-package/*.tar.gz --qt-root "$QT_ROOT_DIR" \
+        --work-dir /artifacts/release-real --real-install
+    chown -R "$CI_UID:$CI_GID" /artifacts/release-real
+    exit 0
 fi
 
 export QT_ROOT_DIR="/opt/Qt/$CI_QT_VERSION/gcc_64"
@@ -23,6 +31,8 @@ export LC_ALL=C.UTF-8 LANG=C.UTF-8
 export XDG_CACHE_HOME=/tmp/qmarkdown-cache XDG_RUNTIME_DIR=/tmp/qmarkdown-runtime
 unset QML_IMPORT_PATH QML2_IMPORT_PATH QT_PLUGIN_PATH LD_LIBRARY_PATH
 cd /artifacts
+python3 /source/tests/test_release_installer.py
+python3 /source/tests/test_release_upload.py
 {
     printf 'Qt: %s\nUID: %s\nGID: %s\n' "$CI_QT_VERSION" "$(id -u)" "$(id -g)"
     uname -a
@@ -43,3 +53,9 @@ QML_IMPORT_PATH=/artifacts/benchmarks/qml timeout 120 \
     /artifacts/benchmarks/tests/qmarkdown-benchmark --smoke > /artifacts/benchmarks/benchmark.json
 python3 /source/scripts/verify-benchmark.py /artifacts/benchmarks/benchmark.json
 echo "PASS: Ubuntu container packaging and benchmark smoke"
+
+python3 /source/scripts/build-release-package.py --qt-root "$QT_ROOT_DIR" \
+    --work-dir /artifacts/release-package --source-commit "$CI_SOURCE_COMMIT"
+python3 /source/scripts/verify-release-package.py \
+    --archive /artifacts/release-package/*.tar.gz --qt-root "$QT_ROOT_DIR" \
+    --work-dir /artifacts/release-verification
