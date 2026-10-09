@@ -1,0 +1,553 @@
+{
+  "schema": 1,
+  "fixtureSha256": "d431b29d97b6f73e69d547109cf5081578fac931e72afe95639ebe766c1b2a20",
+  "review": "Independently authored from pinned Markdown and CommonMark 0.31.2 rules for HTML blocks/inlines, entities, lists and links. No production output used. Complete raw comparisons retain reviewed semantic losses.",
+  "examples": [
+    {
+      "example": 21,
+      "review": "Type 7 complete tag begins a block; backslash in the attribute stays literal.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<a href=\"/bar\\/)\">\n"
+        }
+      ],
+      "limits": [],
+      "losses": []
+    },
+    {
+      "example": 31,
+      "review": "Type 7 block retains entity spelling without decoding attributes.",
+      "model": [
+        {
+          "kind": "HtmlBlock",
+          "text": "<a href=\"&ouml;&ouml;.html\">\n"
+        }
+      ],
+      "limits": [],
+      "losses": []
+    },
+    {
+      "example": 39,
+      "review": "Numeric references decode to two literal LFs, not source soft breaks.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "foo\n\nbar",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": []
+    },
+    {
+      "example": 201,
+      "review": "Invalid reference destination leaves two paragraphs; bar is inline HTML.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "[foo]: <bar>(baz)",
+          "ranges": [],
+          "links": [],
+          "images": []
+        },
+        {
+          "kind": "Paragraph",
+          "text": "[foo]",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 308,
+      "review": "Standalone comment splits two tight lists.",
+      "model": [
+        {
+          "kind": "List",
+          "ordered": false,
+          "start": 0,
+          "delimiter": ".",
+          "tight": true,
+          "children": [
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "Paragraph",
+                  "text": "foo",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                }
+              ]
+            },
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "Paragraph",
+                  "text": "bar",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "<!-- -->\n"
+        },
+        {
+          "kind": "List",
+          "ordered": false,
+          "start": 0,
+          "delimiter": ".",
+          "tight": true,
+          "children": [
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "Paragraph",
+                  "text": "baz",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                }
+              ]
+            },
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "Paragraph",
+                  "text": "bim",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "limits": [],
+      "losses": []
+    },
+    {
+      "example": 309,
+      "review": "Blank lines loosen list; comment ends it; four-space code is outside list.",
+      "model": [
+        {
+          "kind": "List",
+          "ordered": false,
+          "start": 0,
+          "delimiter": ".",
+          "tight": false,
+          "children": [
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "Paragraph",
+                  "text": "foo",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                },
+                {
+                  "kind": "Paragraph",
+                  "text": "notcode",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                }
+              ]
+            },
+            {
+              "kind": "ListItem",
+              "children": [
+                {
+                  "kind": "Paragraph",
+                  "text": "foo",
+                  "ranges": [],
+                  "links": [],
+                  "images": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "HtmlBlock",
+          "text": "<!-- -->\n"
+        },
+        {
+          "kind": "CodeBlock",
+          "text": "code\n",
+          "infoString": ""
+        }
+      ],
+      "limits": [],
+      "losses": []
+    },
+    {
+      "example": 344,
+      "review": "Backtick inside raw attribute cannot open a code span; trailing backtick is unmatched.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "<a href=\"`\">`",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 475,
+      "review": "Attribute star cannot close emphasis; raw img creates no native image.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "*<img src=\"foo\" title=\"*\"/>",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 476,
+      "review": "Attribute delimiters cannot close strong emphasis or create a link.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "**<a href=\"**\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 477,
+      "review": "Attribute underscores cannot close strong emphasis.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "__<a href=\"__\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 491,
+      "review": "Newline invalidates angle link destination; multiline foo tag remains literal inline HTML.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "[link](<foo\nbar>)",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 494,
+      "review": "Three invalid destinations remain text; only complete b tag is HTML; two source breaks join as spaces.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "[a](<b)c [a](<b)c> [a](<b>c)",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected",
+        "softbreak-kind-projected"
+      ]
+    },
+    {
+      "example": 524,
+      "review": "Bracket and destination spelling in attribute cannot complete a link.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "[foo <bar attr=\"](baz)\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 536,
+      "review": "Reference-looking attribute stays raw HTML; definition contributes no block.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "[foo <bar attr=\"][ref]\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 613,
+      "review": "Unclosed raw inline tags retain spelling; no semantic link span.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "<a><bab><c2c>",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 614,
+      "review": "Self-closing inline tags are literal and do not create links.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "<a/><b2/>",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 615,
+      "review": "Whitespace and internal tag newline survive exactly; newline is not a soft break.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "<a  /><b2\ndata=\"foo\" >",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 616,
+      "review": "Quoted tag-like text and multiline attributes remain one literal tag without emphasis.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "<a foo=\"bar\" bam = 'baz <em>\"</em>'\n_boolean zoop:33=zoop:33 />",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 623,
+      "review": "Unmatched inline closing tags retain exact spelling.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "</a></foo >",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 626,
+      "review": "Short comments end at their first greater-than; subsequent arrow text stays text in separate paragraphs.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "foo <!--> foo -->",
+          "ranges": [],
+          "links": [],
+          "images": []
+        },
+        {
+          "kind": "Paragraph",
+          "text": "foo <!---> foo -->",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 628,
+      "review": "Inline declaration remains literal.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "foo <!ELEMENT br EMPTY>",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 629,
+      "review": "Inline CDATA retains delimiters and contents without entity decoding.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "foo <![CDATA[>&<]]>",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 630,
+      "review": "Entity spelling inside raw inline attribute is not decoded.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "foo <a href=\"&ouml;\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 631,
+      "review": "Backslash escape inside raw attribute stays literal.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "foo <a href=\"\\*\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 642,
+      "review": "Two spaces and newline inside tag remain literal, not a hard break.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "<a href=\"foo  \nbar\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    },
+    {
+      "example": 643,
+      "review": "Backslash and newline inside attribute remain literal, not a hard break.",
+      "model": [
+        {
+          "kind": "Paragraph",
+          "text": "<a href=\"foo\\\nbar\">",
+          "ranges": [],
+          "links": [],
+          "images": []
+        }
+      ],
+      "limits": [],
+      "losses": [
+        "inline-html-identity-projected"
+      ]
+    }
+  ]
+}

@@ -125,25 +125,42 @@ def validate_model(blocks, context="root"):
 HTML_BLOCK_IDS = list(range(148, 168)) + list(range(169, 192))
 
 
-def validate_authored(value, manifest):
+REMAINING_IDS = [21, 31, 39, 201, 308, 309, 344, 475, 476, 477, 491, 494,
+                 524, 536, 613, 614, 615, 616, 623, 626, 628, 629, 630, 631, 642, 643]
+AUTHORED_IDS = HTML_BLOCK_IDS + REMAINING_IDS
+
+
+def validate_authored(value, manifest, ids=HTML_BLOCK_IDS, annotations=False):
     keys(value, ("schema", "fixtureSha256", "review", "examples"), "authored expectations")
     require(type(value["schema"]) is int and value["schema"] == 1
             and value["fixtureSha256"] == manifest["sha256"], "Invalid authored provenance")
     require(isinstance(value["review"], str) and value["review"].strip(), "Missing authored review")
     require(isinstance(value["examples"], list), "Invalid authored examples")
+    expected_ids = ids
     ids = []
     for entry in value["examples"]:
-        keys(entry, ("example", "review", "model"), "authored example")
+        keys(entry, ("example", "review", "model", *(("limits", "losses") if annotations else ())), "authored example")
+        if annotations:
+            for category in ("limits", "losses"):
+                values = entry[category]
+                require(isinstance(values, list) and all(isinstance(v, str) and v.strip() for v in values)
+                        and values == sorted(set(values)), f"Invalid authored {category}")
         require(integer(entry["example"]), "Invalid authored ID")
         require(isinstance(entry["review"], str) and entry["review"].strip(), "Missing per-ID authored review")
         validate_model(entry["model"])
         ids.append(entry["example"])
-    require(ids == HTML_BLOCK_IDS, "Missing, duplicate or unexpected authored IDs")
-    return {e["example"]: e["model"] for e in value["examples"]}
+    require(ids == expected_ids, "Missing, duplicate or unexpected authored IDs")
+    return {e["example"]: ({k: e[k] for k in ("model", "limits", "losses")} if annotations else e["model"])
+            for e in value["examples"]}
 
 
 def load_authored(manifest):
     return validate_authored(json.loads((DATA / "html-block-expectations.json").read_text()), manifest)
+
+
+def load_remaining(manifest):
+    return validate_authored(json.loads((DATA / "remaining-expectations.json").read_text()),
+                             manifest, REMAINING_IDS, annotations=True)
 
 
 def validate_response(response, examples):
@@ -177,6 +194,7 @@ def difference(want, actual):
 def analyze(manifest, fixtures, response, authored=None):
     validate_response(response, fixtures)
     authored = load_authored(manifest) if authored is None else authored
+    remaining = load_remaining(manifest)
     results = []
     for fixture, actual in zip(fixtures, response["examples"]):
         parser = {"status": "pass" if fixture["html"] == actual["html"] else "fail"}
@@ -184,10 +202,14 @@ def analyze(manifest, fixtures, response, authored=None):
             parser.update(expected=fixture["html"], actual=actual["html"],
                           diff=difference(fixture["html"], actual["html"]))
         try:
-            source_authored = fixture["example"] in HTML_BLOCK_IDS
+            source_authored = fixture["example"] in AUTHORED_IDS
             if source_authored:
-                require(fixture["example"] in authored, "Missing authored expectation")
-                want, limits, losses = authored[fixture["example"]], [], []
+                if fixture["example"] in REMAINING_IDS:
+                    entry = remaining[fixture["example"]]
+                    want, limits, losses = entry["model"], entry["limits"], entry["losses"]
+                else:
+                    require(fixture["example"] in authored, "Missing authored expectation")
+                    want, limits, losses = authored[fixture["example"]], [], []
                 validate_model(want)
                 projection = actual["model"]
             else:
@@ -199,7 +221,7 @@ def analyze(manifest, fixtures, response, authored=None):
                 model.update(expected=want, actual=projection, diff=difference(json_text(want), json_text(projection)))
         except Uncheckable as error:
             model = {"status": "uncheckable", "reason": str(error), "limits": ["html-oracle-unsupported"], "losses": []}
-        model["comparison"] = "source-authored" if fixture["example"] in HTML_BLOCK_IDS else "html-projection"
+        model["comparison"] = "source-authored" if fixture["example"] in AUTHORED_IDS else "html-projection"
         results.append({"example": fixture["example"], "section": fixture["section"], "parser": parser, "model": model,
                         "nativeModel": actual["model"]})
     report = {"schema": 2, "commonmark": manifest["version"], "fixtureSha256": manifest["sha256"],
@@ -229,6 +251,7 @@ def validate_report(report, manifest, fixtures):
     require(type(report["schema"]) is int and report["schema"] == 2 and report["commonmark"] == manifest["version"]
             and report["fixtureSha256"] == manifest["sha256"], "Invalid report provenance")
     require(isinstance(report["examples"], list) and len(report["examples"]) == len(fixtures), "Invalid report count")
+    remaining = load_remaining(manifest)
     for entry, fixture in zip(report["examples"], fixtures):
         keys(entry, ("example", "section", "parser", "model", "nativeModel"), "report example")
         validate_model(entry["nativeModel"])
@@ -241,9 +264,11 @@ def validate_report(report, manifest, fixtures):
         require(status in ("projection-pass", "mismatch", "uncheckable"), "Invalid model status")
         keys(model, ("status", "comparison", "limits", "losses", *(("expected", "actual", "diff") if status == "mismatch"
              else ("reason",) if status == "uncheckable" else ())), "model result")
-        require(model["comparison"] == ("source-authored" if fixture["example"] in HTML_BLOCK_IDS else "html-projection"), "Invalid comparison method")
+        require(model["comparison"] == ("source-authored" if fixture["example"] in AUTHORED_IDS else "html-projection"), "Invalid comparison method")
         if model["comparison"] == "source-authored":
-            require(status != "uncheckable" and not model["limits"] and not model["losses"], "Invalid authored evidence limits")
+            annotations = remaining.get(fixture["example"], {"limits": [], "losses": []})
+            require(status != "uncheckable" and all(model[k] == annotations[k] for k in ("limits", "losses")),
+                    "Invalid authored evidence limits/losses")
         for category in ("limits", "losses"):
             values = model[category]
             require(isinstance(values, list) and all(isinstance(v, str) and v for v in values)

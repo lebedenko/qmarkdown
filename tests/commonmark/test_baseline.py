@@ -11,7 +11,7 @@ import unittest
 from baseline import (DATA, HTML_OPTIONS, PARSE_OPTIONS, analyze, compare_ledger,
                       exception, json_text, load_fixtures, run_probe, strict_pass,
                       validate_fixtures, validate_model, validate_report, validate_response,
-                      validate_authored, load_authored, HTML_BLOCK_IDS)
+                      validate_authored, load_authored, HTML_BLOCK_IDS, REMAINING_IDS)
 from oracle import Uncheckable, canonical_actual, expected, mask_image_ranges, utf16
 
 PROBE = None
@@ -217,6 +217,93 @@ class AuthoredHtmlTest(unittest.TestCase):
         report["examples"][0]["model"]["comparison"] = "html-projection"
         with self.assertRaisesRegex(ValueError, "comparison method"):
             validate_report(report, self.manifest, self.fixtures)
+
+
+class RemainingAuthoredTest(unittest.TestCase):
+    def setUp(self):
+        self.manifest, fixtures = load_fixtures()
+        self.fixtures = [e for e in fixtures if e['example'] in REMAINING_IDS]
+        self.response = run_probe(PROBE, self.fixtures)
+        self.original = json.loads((DATA / 'remaining-expectations.json').read_text())
+
+    def test_all_raw_models_and_semantic_annotations(self):
+        report = analyze(self.manifest, self.fixtures, self.response)
+        self.assertEqual(report['totals']['model'], {'projection-pass': 26, 'mismatch': 0, 'uncheckable': 0})
+        self.assertEqual(report['totals']['examplesWithLimits'], 0)
+        self.assertEqual(report['totals']['examplesWithLosses'], 21)
+        for entry, authored in zip(report['examples'], self.original['examples']):
+            with self.subTest(example=entry['example']):
+                self.assertEqual(entry['nativeModel'], authored['model'])
+                self.assertEqual(entry['model']['comparison'], 'source-authored')
+                for category in ('limits', 'losses'):
+                    self.assertEqual(entry['model'][category], authored[category])
+        self.assertFalse(strict_pass(report))
+        self.assertEqual(json_text(report), json_text(analyze(self.manifest, self.fixtures, self.response)))
+
+    def test_fixture_provenance_exact_ids_reviews_and_metadata(self):
+        for fault in ('missing', 'duplicate', 'unexpected', 'checksum', 'schema', 'review',
+                      'entry-review', 'metadata', 'missing-losses', 'loss-type', 'duplicate-loss',
+                      'unsorted-losses', 'invalid-limits'):
+            value = copy.deepcopy(self.original)
+            first = value['examples'][0]
+            if fault == 'missing': value['examples'].pop()
+            if fault == 'duplicate': value['examples'][-1] = first
+            if fault == 'unexpected': first['example'] = 22
+            if fault == 'checksum': value['fixtureSha256'] = 'bad'
+            if fault == 'schema': value['schema'] = True
+            if fault == 'review': value['review'] = ' '
+            if fault == 'entry-review': first['review'] = ''
+            if fault == 'metadata': first['model'][0]['unknown'] = True
+            if fault == 'missing-losses': del first['losses']
+            if fault == 'loss-type': first['losses'] = [False]
+            if fault == 'duplicate-loss': first['losses'] = ['x', 'x']
+            if fault == 'unsorted-losses': first['losses'] = ['z', 'a']
+            if fault == 'invalid-limits': first['limits'] = [' ']
+            with self.subTest(fault=fault), self.assertRaises(ValueError):
+                validate_authored(value, self.manifest, REMAINING_IDS, annotations=True)
+
+    def test_text_newlines_boundaries_nesting_and_metadata_faults(self):
+        for id_, fault in ((630, 'entity'), (39, 'newlines'), (642, 'tag-newline'),
+                           (201, 'boundary'), (308, 'nesting'), (309, 'metadata')):
+            response = copy.deepcopy(self.response)
+            entry = next(e for e in response['examples'] if e['example'] == id_)
+            blocks = entry['model']
+            if fault == 'entity': blocks[0]['text'] = blocks[0]['text'].replace('&ouml;', 'ö')
+            if fault == 'newlines': blocks[0]['text'] = 'foo  bar'
+            if fault == 'tag-newline': blocks[0]['text'] = blocks[0]['text'].replace('\n', ' ')
+            if fault == 'boundary': blocks[0]['text'] += blocks.pop(1)['text']
+            if fault == 'nesting': blocks[0]['children'][0]['children'] = [{'kind': 'Quote', 'children': blocks[0]['children'][0]['children']}]
+            if fault == 'metadata': blocks[0]['tight'] = True
+            report = analyze(self.manifest, self.fixtures, response)
+            with self.subTest(fault=fault):
+                self.assertEqual(report['totals']['model']['mismatch'], 1)
+                ledger = json.loads((DATA / 'ledger.json').read_text())
+                ledger['examples'] = {k: v for k, v in ledger['examples'].items() if int(k) in REMAINING_IDS}
+                self.assertEqual([e['example'] for e in compare_ledger(report, ledger)], [id_])
+
+    def test_report_cannot_hide_or_change_annotations_or_comparison(self):
+        original = analyze(self.manifest, self.fixtures, self.response)
+        for category, value in (('losses', []), ('losses', ['other']), ('limits', ['other']),
+                                ('comparison', 'html-projection')):
+            report = copy.deepcopy(original)
+            entry = next(e for e in report['examples'] if e['example'] == 494)
+            entry['model'][category] = value
+            with self.subTest(category=category, value=value), self.assertRaises(ValueError):
+                validate_report(report, self.manifest, self.fixtures)
+        report = copy.deepcopy(original)
+        del report['examples'][0]['model']['losses']
+        with self.assertRaises(ValueError):
+            validate_report(report, self.manifest, self.fixtures)
+
+    def test_stale_uncheckable_ledger_fails(self):
+        report = analyze(self.manifest, self.fixtures, self.response)
+        ledger = json.loads((DATA / 'ledger.json').read_text())
+        ledger['examples'] = {k: v for k, v in ledger['examples'].items() if int(k) in REMAINING_IDS}
+        self.assertFalse(compare_ledger(report, ledger))
+        ledger['examples']['21'] = {'parser': 'pass', 'model': 'uncheckable',
+            'limits': ['html-oracle-unsupported'], 'losses': [], 'reason': 'old',
+            'modelSha256': '0' * 64, 'review': 'stale exception'}
+        self.assertEqual([e['example'] for e in compare_ledger(report, ledger)], [21])
 
 
 class ValidationTest(unittest.TestCase):

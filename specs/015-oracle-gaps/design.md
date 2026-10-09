@@ -1,0 +1,5 @@
+# Design
+
+Approved on 2026-10-09 through the user’s explicit instruction to implement the Iteration 015 plan. Approval covers requirements, design, tasks and verification below; production behavior and versions remain 0.7.0/0.7.
+
+Use a separate source-authored JSON fixture pinned to the corpus checksum. Author literal block trees from Markdown and CommonMark rules, with per-ID rationales. Generalize selection to the union of both exact ID sets, preserve the legacy fixture format, and attach empty legacy annotations. New entries require sorted unique limits/losses. Validate report annotations against reviewed fixtures rather than assuming source-authored means lossless. Route authored cases to exact raw equality without canonicalization. Review ledger exceptions per ID, retaining only actual losses/limits and unchanged production hashes. Semantic retention is the next workstream; GFM, streaming, selection/copy and performance remain deferred. A genuine production mismatch blocks this scope and requires separate approval.

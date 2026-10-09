@@ -18,3 +18,5 @@ sha256sum tests/commonmark/spec.json
 Authored test code and review notes retain the repository's MIT license. The ledger stores authored review classifications and model fingerprints, not modified copies of upstream fixtures. Tests, fixture notices and reports are not installed with the QMarkdown package; the existing bundled cmark notices remain unchanged.
 
 `html-block-expectations.json` includes adapted literal Markdown from the pinned CommonMark examples and is distributed under the same CC BY-SA 4.0 license, attributed to John MacFarlane. Native-model boundaries/metadata and per-ID review notes were independently authored by qt-markdown contributors on 2026-10-08; no production output generated these expectations.
+
+`remaining-expectations.json` adapts literal Markdown from the same pinned corpus under CC BY-SA 4.0, attributed to John MacFarlane. Native-model expectations, per-ID rationales and semantic annotations were independently authored by qt-markdown contributors on 2026-10-09 from the Markdown and CommonMark 0.31.2 rules; no production output generated the expectations.
