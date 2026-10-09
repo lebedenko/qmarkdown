@@ -40,7 +40,9 @@ def main():
         if args.strict and not strict_pass(report):
             print("FAIL: strict conformance requires no failures, uncheckable examples, unresolved comparison limits or semantic loss.", file=sys.stderr)
             return 1
-        print("PASS: reviewed baseline unchanged; full CommonMark conformance is not established.")
+        print("PASS: reviewed baseline unchanged; " +
+              ("pinned corpus semantic evidence complete; release readiness is separate." if strict_pass(report)
+               else "full CommonMark conformance is not established."))
         return 0
     except (ValueError, OSError, subprocess.SubprocessError) as error:
         print(f"CommonMark baseline error: {error}", file=sys.stderr)

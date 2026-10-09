@@ -149,6 +149,29 @@ HTML_BLOCK_IDS = list(range(148, 168)) + list(range(169, 192))
 REMAINING_IDS = [21, 31, 39, 201, 308, 309, 344, 475, 476, 477, 491, 494,
                  524, 536, 613, 614, 615, 616, 623, 626, 628, 629, 630, 631, 642, 643]
 AUTHORED_IDS = HTML_BLOCK_IDS + REMAINING_IDS
+# Exact iteration 016 ledger union; independent of the now-empty ledger.
+SEMANTIC_IDS = [
+    1, 2, 3, 5, 6, 7, 8, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 28, 32, 33, 34, 35, 36, 37, 46,
+    48, 49, 56, 66, 69, 70, 80, 81, 82, 85, 87, 88, 93, 95, 100, 104, 105, 106, 107, 109, 110, 111,
+    112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+    131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 168, 192,
+    193, 194, 195, 196, 198, 200, 202, 203, 204, 205, 206, 211, 212, 213, 214, 215, 216, 217, 218,
+    220, 222, 223, 224, 225, 226, 228, 229, 230, 231, 232, 233, 236, 237, 238, 243, 247, 250, 251,
+    252, 253, 254, 257, 259, 263, 264, 265, 267, 268, 270, 271, 272, 273, 274, 278, 283, 285, 286,
+    287, 288, 289, 290, 291, 292, 293, 296, 297, 299, 302, 304, 305, 311, 312, 313, 318, 321, 324,
+    327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 345, 346,
+    349, 350, 355, 356, 357, 364, 367, 369, 370, 373, 376, 377, 378, 381, 382, 384, 389, 390, 393,
+    394, 395, 396, 399, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416,
+    417, 418, 419, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 437, 438, 440, 441,
+    442, 443, 444, 445, 446, 447, 449, 450, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462,
+    463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 478, 479, 480, 481, 482, 483, 484,
+    485, 486, 487, 489, 490, 492, 495, 496, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 509,
+    510, 512, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 525, 526, 527, 528, 529, 530, 531,
+    532, 533, 534, 535, 537, 538, 539, 540, 541, 542, 543, 544, 549, 550, 552, 553, 554, 555, 556,
+    557, 558, 559, 560, 561, 562, 564, 565, 566, 567, 568, 569, 570, 571, 572, 573, 574, 575, 576,
+    577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588, 589, 591, 593, 594, 595, 596, 597,
+    598, 599, 600, 601, 603, 604, 605, 621, 633, 634, 635, 636, 637, 638, 639, 640, 641, 648, 649
+]
 
 
 def validate_authored(value, manifest, ids=HTML_BLOCK_IDS, annotations=False):
@@ -182,6 +205,58 @@ def load_authored(manifest):
 def load_remaining(manifest):
     return validate_authored(json.loads((DATA / "remaining-expectations.json").read_text()),
                              manifest, REMAINING_IDS, annotations=True)
+
+
+def validate_semantic(value, manifest):
+    # The new fixture has its own version; existing authored structures stay v2.
+    keys(value, ("schema", "fixtureSha256", "review", "examples"), "semantic expectations")
+    require(type(value["schema"]) is int and value["schema"] == 1, "Invalid semantic provenance")
+    return validate_authored({**value, "schema": 2}, manifest, SEMANTIC_IDS)
+
+
+def load_semantic(manifest):
+    return validate_semantic(json.loads((DATA / "semantic-expectations.json").read_text()), manifest)
+
+
+def comparison_check(method, want, actual, limits, losses):
+    check = {"method": method, "status": "projection-pass" if want == actual else "mismatch",
+             "limits": limits, "losses": losses}
+    if want != actual:
+        check.update(expected=want, actual=actual, diff=difference(json_text(want), json_text(actual)))
+    return check
+
+
+def model_result(fixture, actual, authored, remaining, semantic):
+    id_ = fixture["example"]
+    checks = []
+    if id_ not in AUTHORED_IDS:
+        try:
+            want, limits, losses = expected(fixture["html"])
+            checks.append(comparison_check("html-projection", want, canonical_actual(actual), limits, losses))
+        except Uncheckable as error:
+            checks.append({"method": "html-projection", "status": "uncheckable", "reason": str(error),
+                           "limits": ["html-oracle-unsupported"], "losses": []})
+    if id_ in AUTHORED_IDS or id_ in SEMANTIC_IDS:
+        if id_ in REMAINING_IDS:
+            source = remaining[id_]
+            want, limits, losses = source["model"], source["limits"], source["losses"]
+        else:
+            source = authored if id_ in HTML_BLOCK_IDS else semantic
+            require(id_ in source, "Missing authored expectation")
+            want, limits, losses = source[id_], [], []
+        validate_model(want)
+        checks.append(comparison_check("source-authored", normalize_model(want), normalize_model(actual), limits, losses))
+    # A complete passing source check resolves only aggregate annotations.
+    complete = any(c["method"] == "source-authored" and c["status"] == "projection-pass"
+                   and not c["limits"] and not c["losses"] for c in checks)
+    failed = next((c for c in checks if c["status"] != "projection-pass"), None)
+    model = {"status": failed["status"] if failed else "projection-pass",
+             "comparison": "+".join(c["method"] for c in checks), "checks": checks,
+             "limits": [] if complete else sorted({v for c in checks for v in c["limits"]}),
+             "losses": [] if complete else sorted({v for c in checks for v in c["losses"]})}
+    if failed:
+        model.update({k: failed[k] for k in ("expected", "actual", "diff", "reason") if k in failed})
+    return model
 
 
 def validate_response(response, examples):
@@ -229,37 +304,17 @@ def analyze(manifest, fixtures, response, authored=None):
     validate_response(response, fixtures)
     authored = load_authored(manifest) if authored is None else authored
     remaining = load_remaining(manifest)
+    semantic = load_semantic(manifest)
     results = []
     for fixture, actual in zip(fixtures, response["examples"]):
         parser = {"status": "pass" if fixture["html"] == actual["html"] else "fail"}
         if parser["status"] == "fail":
             parser.update(expected=fixture["html"], actual=actual["html"],
                           diff=difference(fixture["html"], actual["html"]))
-        try:
-            source_authored = fixture["example"] in AUTHORED_IDS
-            if source_authored:
-                if fixture["example"] in REMAINING_IDS:
-                    entry = remaining[fixture["example"]]
-                    want, limits, losses = entry["model"], entry["limits"], entry["losses"]
-                else:
-                    require(fixture["example"] in authored, "Missing authored expectation")
-                    want, limits, losses = authored[fixture["example"]], [], []
-                validate_model(want)
-                want = normalize_model(want)
-                projection = normalize_model(actual["model"])
-            else:
-                want, limits, losses = expected(fixture["html"])
-                projection = canonical_actual(actual["model"])
-            model = {"status": "projection-pass" if want == projection else "mismatch",
-                     "limits": limits, "losses": losses}
-            if model["status"] == "mismatch":
-                model.update(expected=want, actual=projection, diff=difference(json_text(want), json_text(projection)))
-        except Uncheckable as error:
-            model = {"status": "uncheckable", "reason": str(error), "limits": ["html-oracle-unsupported"], "losses": []}
-        model["comparison"] = "source-authored" if fixture["example"] in AUTHORED_IDS else "html-projection"
+        model = model_result(fixture, actual["model"], authored, remaining, semantic)
         results.append({"example": fixture["example"], "section": fixture["section"], "parser": parser, "model": model,
                         "nativeModel": actual["model"]})
-    report = {"schema": 3, "commonmark": manifest["version"], "fixtureSha256": manifest["sha256"],
+    report = {"schema": 4, "commonmark": manifest["version"], "fixtureSha256": manifest["sha256"],
               "tools": {"python": platform.python_version(), "qt": response["qt"], "cmark": response["cmark"]},
               "parseOptions": response["parseOptions"], "htmlOptions": response["htmlOptions"],
               "examples": results, "totals": totals(results), "sections": {}}
@@ -283,10 +338,12 @@ def validate_report(report, manifest, fixtures):
     keys(report["tools"], ("python", "qt", "cmark"), "report tools")
     require(all(isinstance(v, str) and v for v in report["tools"].values()), "Invalid report tools")
     require(report["parseOptions"] == PARSE_OPTIONS and report["htmlOptions"] == HTML_OPTIONS, "Invalid report options")
-    require(type(report["schema"]) is int and report["schema"] == 3 and report["commonmark"] == manifest["version"]
+    require(type(report["schema"]) is int and report["schema"] == 4 and report["commonmark"] == manifest["version"]
             and report["fixtureSha256"] == manifest["sha256"], "Invalid report provenance")
     require(isinstance(report["examples"], list) and len(report["examples"]) == len(fixtures), "Invalid report count")
     remaining = load_remaining(manifest)
+    authored = load_authored(manifest)
+    semantic = load_semantic(manifest)
     for entry, fixture in zip(report["examples"], fixtures):
         keys(entry, ("example", "section", "parser", "model", "nativeModel"), "report example")
         validate_model(entry["nativeModel"])
@@ -295,21 +352,11 @@ def validate_report(report, manifest, fixtures):
         require(isinstance(parser, dict) and isinstance(model, dict), "Invalid report result objects")
         require(parser.get("status") in ("pass", "fail"), "Invalid parser status")
         keys(parser, ("status",) if parser["status"] == "pass" else ("status", "expected", "actual", "diff"), "parser result")
-        status = model.get("status")
-        require(status in ("projection-pass", "mismatch", "uncheckable"), "Invalid model status")
-        keys(model, ("status", "comparison", "limits", "losses", *(("expected", "actual", "diff") if status == "mismatch"
-             else ("reason",) if status == "uncheckable" else ())), "model result")
-        require(model["comparison"] == ("source-authored" if fixture["example"] in AUTHORED_IDS else "html-projection"), "Invalid comparison method")
-        if model["comparison"] == "source-authored":
-            annotations = remaining.get(fixture["example"], {"limits": [], "losses": []})
-            require(status != "uncheckable" and all(model[k] == annotations[k] for k in ("limits", "losses")),
-                    "Invalid authored evidence limits/losses")
-        for category in ("limits", "losses"):
-            values = model[category]
-            require(isinstance(values, list) and all(isinstance(v, str) and v for v in values)
-                    and values == sorted(set(values)), f"Invalid report {category}")
-        if status == "uncheckable":
-            require(isinstance(model["reason"], str) and model["reason"], "Missing uncheckable reason")
+        # Recompute every required check from pinned evidence. This rejects missing
+        # checks, fabricated passes, lost HTML annotations and forged aggregation.
+        require(model == model_result(fixture, entry["nativeModel"], authored, remaining, semantic),
+                "Invalid model checks or aggregate evidence")
+        status = model["status"]
         if parser["status"] == "fail":
             require(parser["expected"] == fixture["html"] and isinstance(parser["actual"], str)
                     and parser["actual"] != parser["expected"]

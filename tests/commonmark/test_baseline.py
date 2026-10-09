@@ -11,7 +11,8 @@ import unittest
 from baseline import (DATA, HTML_OPTIONS, PARSE_OPTIONS, analyze, compare_ledger,
                       exception, json_text, load_fixtures, run_probe, strict_pass,
                       validate_fixtures, validate_model, validate_report, validate_response,
-                      validate_authored, load_authored, HTML_BLOCK_IDS, REMAINING_IDS)
+                      validate_authored, load_authored, HTML_BLOCK_IDS, REMAINING_IDS,
+                      validate_semantic, SEMANTIC_IDS)
 from oracle import Uncheckable, canonical_actual, expected, mask_image_ranges, utf16, normalize_inline
 
 PROBE = None
@@ -60,7 +61,7 @@ def span(start, length, flags):
 
 
 def fixture(markdown="hello\n", html="<p>hello</p>\n"):
-    return {"example": 1, "markdown": markdown, "html": html, "section": "Authored",
+    return {"example": 4, "markdown": markdown, "html": html, "section": "Authored",
             "start_line": 1, "end_line": 2}
 
 
@@ -220,7 +221,7 @@ class SemanticTest(unittest.TestCase):
                 self.assertEqual(bad["totals"]["model"]["mismatch"], 1)
                 ledger = {"schema": 1, "fixtureSha256": manifest["sha256"], "review": "reviewed", "examples": {}}
                 if exception(good["examples"][0]):
-                    ledger["examples"]["1"] = {**exception(good["examples"][0]), "review": "reviewed"}
+                    ledger["examples"]["4"] = {**exception(good["examples"][0]), "review": "reviewed"}
                 self.assertEqual(len(compare_ledger(bad, ledger)), 1)
 
     def test_inline_validation_rejects_missing_unknown_and_wrong_fields(self):
@@ -303,7 +304,7 @@ class AuthoredHtmlTest(unittest.TestCase):
 
     def test_complete_raw_models_and_comparison_method(self):
         report = analyze(self.manifest, self.fixtures, self.response)
-        self.assertEqual(report["schema"], 3)
+        self.assertEqual(report["schema"], 4)
         self.assertEqual(report["totals"]["model"], {"projection-pass": 43, "mismatch": 0, "uncheckable": 0})
         for entry in report["examples"]:
             self.assertEqual(entry["model"]["comparison"], "source-authored")
@@ -346,7 +347,7 @@ class AuthoredHtmlTest(unittest.TestCase):
                     "reason": "old", "modelSha256": "0" * 64, "review": "old HTML oracle"}}}
         self.assertEqual(len(compare_ledger(report, ledger)), 1)
         report["examples"][0]["model"]["comparison"] = "html-projection"
-        with self.assertRaisesRegex(ValueError, "comparison method"):
+        with self.assertRaisesRegex(ValueError, "checks or aggregate"):
             validate_report(report, self.manifest, self.fixtures)
 
 
@@ -437,12 +438,120 @@ class RemainingAuthoredTest(unittest.TestCase):
         self.assertEqual([e['example'] for e in compare_ledger(report, ledger)], [21])
 
 
+class CompleteSemanticTest(unittest.TestCase):
+    def setUp(self):
+        self.manifest, corpus = load_fixtures()
+        self.fixtures = [e for e in corpus if e['example'] in (15, 143, 195, 296, 573, 168, 648)]
+        self.response = run_probe(PROBE, self.fixtures)
+
+    def test_complete_corpus_has_both_required_checks_and_no_exceptions(self):
+        manifest, corpus = load_fixtures()
+        report = analyze(manifest, corpus, run_probe(PROBE, corpus))
+        self.assertEqual(report['totals']['parser'], {'pass': 652, 'fail': 0})
+        self.assertEqual(report['totals']['model'], {'projection-pass': 652, 'mismatch': 0, 'uncheckable': 0})
+        self.assertTrue(strict_pass(report))
+        counts = {'source-authored': 0, 'html-projection': 0}
+        for e in report['examples']:
+            for check in e['model']['checks']:
+                counts[check['method']] += 1
+            if e['example'] in SEMANTIC_IDS:
+                self.assertEqual([c['method'] for c in e['model']['checks']], ['html-projection', 'source-authored'])
+                self.assertTrue(e['model']['checks'][0]['limits'])
+                self.assertEqual(e['model']['limits'], [])
+        self.assertEqual(counts, {'source-authored': 459, 'html-projection': 583})
+        ledger = json.loads((DATA / 'ledger.json').read_text())
+        self.assertEqual(ledger['examples'], {})
+        self.assertEqual(compare_ledger(report, ledger), [])
+
+    def test_source_detects_each_previously_opaque_fault(self):
+        for id_, fault in ((143, 'info'), (296, 'delimiter'), (195, 'url'),
+                           (573, 'image'), (168, 'html'), (648, 'break')):
+            response = copy.deepcopy(self.response)
+            block = next(e for e in response['examples'] if e['example'] == id_)['model'][0]
+            if fault == 'info': block['infoString'] = 'ruby'
+            if fault == 'delimiter': block['delimiter'] = '.'
+            if fault == 'url':
+                block['links'][0]['destination'] = 'my%20url'
+                block['inlines'][0]['destination'] = 'my%20url'
+            if fault == 'image':
+                block['inlines'][0]['children'] = [text_node('foo bar')]
+            if fault == 'html':
+                for node in block['inlines']:
+                    if node['kind'] == 'Html': node['kind'] = 'Text'
+            if fault == 'break': block['inlines'][1] = text_node('\n')
+            report = analyze(self.manifest, self.fixtures, response)
+            entry = next(e for e in report['examples'] if e['example'] == id_)
+            with self.subTest(fault=fault):
+                self.assertEqual(entry['model']['checks'][1]['status'], 'mismatch')
+                self.assertEqual(entry['model']['status'], 'mismatch')
+                self.assertTrue(entry['model']['limits'])
+                self.assertFalse(strict_pass(report))
+                self.assertTrue(entry['model']['checks'][1]['diff'])
+                if fault in ('info', 'delimiter', 'url', 'image'):
+                    self.assertEqual(entry['model']['checks'][0]['status'], 'projection-pass')
+
+    def test_failed_html_is_required_even_when_source_passes(self):
+        fixtures = copy.deepcopy(self.fixtures)
+        fixtures[0]['html'] = '<p>wrong</p>\n'
+        report = analyze(self.manifest, fixtures, self.response)
+        model = report['examples'][0]['model']
+        self.assertEqual([c['status'] for c in model['checks']], ['mismatch', 'projection-pass'])
+        self.assertEqual(model['status'], 'mismatch')
+        self.assertFalse(strict_pass(report))
+
+    def test_missing_failing_or_fabricated_checks_cannot_clear_limits(self):
+        original = analyze(self.manifest, self.fixtures, self.response)
+        for fault in ('missing', 'failed', 'method', 'html-limits', 'aggregate', 'diff', 'schema'):
+            report = copy.deepcopy(original)
+            model = report['examples'][0]['model']
+            if fault == 'missing': model['checks'].pop()
+            if fault == 'failed': model['checks'][1]['status'] = 'mismatch'
+            if fault == 'method': model['checks'][1]['method'] = 'html-projection'
+            if fault == 'html-limits': model['checks'][0]['limits'] = []
+            if fault == 'aggregate': model['limits'] = model['checks'][0]['limits']
+            if fault == 'diff': model['checks'][0]['diff'] = 'hidden'
+            if fault == 'schema': report['schema'] = 3
+            with self.subTest(fault=fault), self.assertRaises(ValueError):
+                validate_report(report, self.manifest, self.fixtures)
+        from baseline import model_result, load_remaining, load_semantic
+        with self.assertRaisesRegex(ValueError, 'Missing authored'):
+            model_result(self.fixtures[0], self.response['examples'][0]['model'],
+                         load_authored(self.manifest), load_remaining(self.manifest), {})
+
+    def test_new_fixture_rejects_bad_ids_provenance_models_and_reviews(self):
+        original = json.loads((DATA / 'semantic-expectations.json').read_text())
+        for fault in ('missing', 'duplicate', 'unexpected', 'checksum', 'schema', 'model', 'review'):
+            value = copy.deepcopy(original)
+            if fault == 'missing': value['examples'].pop()
+            if fault == 'duplicate': value['examples'][-1] = value['examples'][0]
+            if fault == 'unexpected': value['examples'][-1]['example'] = 652
+            if fault == 'checksum': value['fixtureSha256'] = 'bad'
+            if fault == 'schema': value['schema'] = 2
+            if fault == 'model': value['examples'][0]['model'][0]['infoString'] = None
+            if fault == 'review': value['examples'][0]['review'] = ' '
+            with self.subTest(fault=fault), self.assertRaises(ValueError):
+                validate_semantic(value, self.manifest)
+
+    def test_individual_review_maps_exact_previous_limit_set(self):
+        from baseline import load_semantic
+        review = json.loads((DATA.parent.parent / 'specs/017-complete-semantic-evidence/ledger-review.json').read_text())
+        source = json.loads((DATA / 'semantic-expectations.json').read_text())
+        self.assertEqual(review['fixtureSha256'], self.manifest['sha256'])
+        self.assertEqual([e['example'] for e in review['examples']], SEMANTIC_IDS)
+        corpus = {e['example']: e for e in load_fixtures()[1]}
+        for entry, authored in zip(review['examples'], source['examples']):
+            self.assertEqual(entry['formerLimits'], expected(corpus[entry['example']]['html'])[1])
+            self.assertEqual(entry['formerLosses'], [])
+            self.assertEqual(entry['review'], authored['review'])
+            self.assertEqual(entry['sourceEvidence'], 'tests/commonmark/semantic-expectations.json#example='+str(entry['example']))
+
+
 class ValidationTest(unittest.TestCase):
     def setUp(self):
         self.manifest, _ = load_fixtures()
         self.fixtures = [fixture()]
         self.response = {"schema": 2, "qt": "test", "cmark": "0.31.2", "parseOptions": PARSE_OPTIONS,
-            "htmlOptions": HTML_OPTIONS, "examples": [{"example": 1, "html": '<p>hello</p>\n', "model": complete_plain([paragraph('hello')])}]}
+            "htmlOptions": HTML_OPTIONS, "examples": [{"example": 4, "html": '<p>hello</p>\n', "model": complete_plain([paragraph('hello')])}]}
         self.report = analyze(self.manifest, self.fixtures, self.response)
         self.ledger = {"schema": 1, "fixtureSha256": self.manifest["sha256"], "review": "Authored clean case", "examples": {}}
 
@@ -524,7 +633,7 @@ class ValidationTest(unittest.TestCase):
         response = copy.deepcopy(self.response)
         response['examples'][0]['model'] = complete_plain([paragraph('wrong')])
         report = analyze(self.manifest, self.fixtures, response)
-        self.ledger['examples']['1'] = {**exception(report['examples'][0]), 'review': 'Authored known mismatch'}
+        self.ledger['examples']['4'] = {**exception(report['examples'][0]), 'review': 'Authored known mismatch'}
         self.assertFalse(compare_ledger(report, self.ledger))
         response['examples'][0]['model'] = complete_plain([paragraph('worse')])
         worse = analyze(self.manifest, self.fixtures, response)
@@ -545,7 +654,7 @@ class ValidationTest(unittest.TestCase):
                          [fixture('![*x*](i)', '<p><img src="i" alt="x" /></p>\n')]):
             response = run_probe(PROBE, fixtures)
             report = analyze(self.manifest, fixtures, response)
-            ledger = {**self.ledger, 'examples': {'1': {**exception(report['examples'][0]), 'review': 'Authored opaque-field case'}}}
+            ledger = {**self.ledger, 'examples': {'4': {**exception(report['examples'][0]), 'review': 'Authored opaque-field case'}}}
             self.assertFalse(compare_ledger(report, ledger))
             changed = copy.deepcopy(response)
             if changed['examples'][0]['model'][0]['kind'] == 'HtmlBlock':
