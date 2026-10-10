@@ -1,0 +1,241 @@
+{
+  "documentationPR": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38079312354",
+    "headSha": "499a7e318c9eba88d23a28c48fa668edbfe963e6",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "packaging (6.11.3)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38079312354/job/114292769504"
+      },
+      {
+        "name": "packaging (6.8.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38079312354/job/114292769668"
+      }
+    ]
+  },
+  "manualVerification": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38081830236",
+    "headSha": "b83cd2354eb7fed929fa3b08a21282c1e9f9bfff",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "build (6.8.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38081830236/job/114300165045"
+      },
+      {
+        "name": "build (6.11.3)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38081830236/job/114300165166"
+      },
+      {
+        "name": "binary-compatibility (6.8.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38081830236/job/114301423638"
+      },
+      {
+        "name": "binary-compatibility (6.11.3)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38081830236/job/114301423671"
+      },
+      {
+        "name": "upload",
+        "conclusion": "skipped",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38081830236/job/114301732183"
+      }
+    ]
+  },
+  "publicationWorkflow": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38082688908",
+    "headSha": "b83cd2354eb7fed929fa3b08a21282c1e9f9bfff",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "build (6.8.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38082688908/job/114302683354"
+      },
+      {
+        "name": "build (6.11.3)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38082688908/job/114302683578"
+      },
+      {
+        "name": "binary-compatibility (6.11.3)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38082688908/job/114303861660"
+      },
+      {
+        "name": "binary-compatibility (6.8.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38082688908/job/114303861673"
+      },
+      {
+        "name": "upload",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38082688908/job/114304153777"
+      }
+    ]
+  },
+  "release": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/lebedenko/qmarkdown/releases/assets/628904021",
+        "contentType": "application/x-gtar",
+        "createdAt": "2026-10-10T20:18:01Z",
+        "digest": "sha256:5138203a9af44dcdfa728d4fcbcee581cf6c9c177531b056d342f44bb731876a",
+        "downloadCount": 0,
+        "id": "RA_kwDOU_-rjs4lfFBV",
+        "label": "",
+        "name": "qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+        "size": 327766,
+        "state": "uploaded",
+        "updatedAt": "2026-10-10T20:18:01Z",
+        "url": "https://github.com/lebedenko/qmarkdown/releases/download/v1.0.0/qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/lebedenko/qmarkdown/releases/assets/628904020",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-10-10T20:18:01Z",
+        "digest": "sha256:a86b3f0263d5c41163e3c57e9e0b3e2a34c5f7b5e8d810944b6f5a6ebb2fb364",
+        "downloadCount": 0,
+        "id": "RA_kwDOU_-rjs4lfFBU",
+        "label": "",
+        "name": "qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256",
+        "size": 114,
+        "state": "uploaded",
+        "updatedAt": "2026-10-10T20:18:01Z",
+        "url": "https://github.com/lebedenko/qmarkdown/releases/download/v1.0.0/qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256"
+      }
+    ],
+    "isPrerelease": false,
+    "publishedAt": "2026-10-10T20:10:18Z",
+    "tagName": "v1.0.0",
+    "url": "https://github.com/lebedenko/qmarkdown/releases/tag/v1.0.0"
+  },
+  "tagCommit": "b83cd2354eb7fed929fa3b08a21282c1e9f9bfff",
+  "manualArchiveReview": {
+    "sha256": "43a004a7f032039f74e78b921e6711c76da271eda51dedf3e7956b1bdc3ac0da",
+    "bytes": 327769,
+    "metadata": {
+      "version": "1.0.0",
+      "sourceCommit": "b83cd2354eb7fed929fa3b08a21282c1e9f9bfff",
+      "architecture": "x86_64",
+      "qtVersion": "6.8.0",
+      "buildType": "Release",
+      "os": "Ubuntu 24.04",
+      "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+    },
+    "manifest": {
+      "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "bf4586da62a33b80c0d69542882d2d347892b922e0b91ea1011dc285aa204727"
+      },
+      "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfigVersion.cmake": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "f1e79939dfaba0392f914537e69e0ad7ba208bd0e661cb35004e4ad51c3c1310"
+      },
+      "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets-release.cmake": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "52ff68c77f76eb60ad0263e9cd5cda97c3013d7bbd4ce4c2bbee6f2ca288ddec"
+      },
+      "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets.cmake": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "2cdac8138f5d564998960056722483bb993a849a43490e83635a1bf1fa444241"
+      },
+      "usr/lib/x86_64-linux-gnu/libQMarkdown.so": {
+        "kind": "link",
+        "target": "libQMarkdown.so.1"
+      },
+      "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1": {
+        "kind": "link",
+        "target": "libQMarkdown.so.1.0.0"
+      },
+      "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.0.0": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "85d9bc8f72050b22b718874ba20785502a5ff3264dab8c65214b8e06b1ea7032"
+      },
+      "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/MarkdownView.qml": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "d34e1727b5b9fb43e8282ae6c593ba5e1ebcbbc37b959dee59f790145cb44586"
+      },
+      "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/private.qmltypes": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "54196159d9ea5e0253614b4abc001a608c4aa19a332bc421baa7ee251ece979f"
+      },
+      "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/qmldir": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "8088e762877a4586ddd0cde1b3eb8158b1a9a8a421acc7411281204504d452e1"
+      },
+      "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/QMarkdown.qmltypes": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "9d53c9750c5aac4fc7285d17bdc775f38fe946e0ffc8d3aedc1661f3211c3ed5"
+      },
+      "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "d888dfca116fba6e9939afde4eb798fa60d1ece538ce5e4155431022bea1e8ce"
+      },
+      "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/qmldir": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "0960a4f8a4c254ff4611a7832a17ba5387ca2c9d73618498b44610fb9f034f2e"
+      },
+      "usr/share/licenses/QMarkdown/LICENSE": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "d4320f43a35dd36792fa5375bfcb603b9c1c089f5913048eec2d06c5293f96e3"
+      },
+      "usr/share/licenses/QMarkdown/cmark/COPYING": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "c22e885f33b821bddb24cf007145e5540655b6c0f403e49e6c76a93c28e6d9a9"
+      },
+      "usr/share/licenses/QMarkdown/cmark/PROVENANCE.md": {
+        "kind": "file",
+        "mode": 420,
+        "sha256": "c373778cca24c64a1490b68df36b07ab04f3b99c05f0ff4271f4e28474d52767"
+      }
+    }
+  },
+  "publishedArchiveReview": {
+    "name": "qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+    "sha256": "5138203a9af44dcdfa728d4fcbcee581cf6c9c177531b056d342f44bb731876a",
+    "bytes": 327766,
+    "metadata": {
+      "version": "1.0.0",
+      "sourceCommit": "b83cd2354eb7fed929fa3b08a21282c1e9f9bfff",
+      "architecture": "x86_64",
+      "qtVersion": "6.8.0",
+      "buildType": "Release",
+      "os": "Ubuntu 24.04",
+      "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+    }
+  },
+  "publishedAssetLifecycle": {
+    "result": "passed",
+    "runtime": "Qt 6.8.0",
+    "imageId": "sha256:1ad4a38e850a65c522afc76e2bc9d2713a27b4328ca685486422b0aecec40ff6",
+    "disposableUbuntuContainer": true,
+    "realUsrInstallationAndRemoval": true,
+    "linkedAndPluginOnlyConsumers": true,
+    "logSha256": "79a2b66f6b725105555ac909ca27bd4670d17dc5fef484c3295245f3d0f25d1f"
+  }
+}
