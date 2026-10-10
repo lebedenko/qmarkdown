@@ -72,3 +72,13 @@ imports, and mixed font-unit warnings remain nonfatal. Qt 6.11.3 results establi
 compatibility for this archive and tested environment only. Live asset uploads and
 hosted workflow execution were not performed; upload policy was tested without
 network writes. No v1.0.0 tag or first release was created.
+
+## Subsequent hosted verification
+
+[PR #1](https://github.com/lebedenko/qmarkdown/pull/1) merged as
+`1277478aebbc9e76c0d6f4efc4c9220824f19aae`.
+[Run 37999664817](https://github.com/lebedenko/qmarkdown/actions/runs/37999664817)
+verified PR head `e65b4d3193ed158dedfc3184484875a0f6ffdeb3`: both
+`packaging (6.8.0)` and `packaging (6.11.3)` succeeded. The historical
+local-only statements above describe the original verification session.
+First stable publication is now explicitly authorized under Feature 023.
