@@ -14,6 +14,23 @@ Item {
     implicitWidth: 0
     implicitHeight: contentHeight
 
+    function metric(value: real): real {
+        return Number.isFinite(value) ? Math.max(0, value) : 0
+    }
+    function headingStyle(style: var, level: int): var {
+        return level > 0 ? style.headings["h" + level] : null
+    }
+    component HeadingSeparator: Rectangle {
+        required property var headingStyle
+        property bool suppressed: false
+        readonly property bool enabledDecoration: !suppressed && headingStyle !== null
+            && headingStyle.separatorVisible
+        readonly property real decorationSpacing: enabledDecoration ? root.metric(headingStyle.separatorSpacing) : 0
+        height: enabledDecoration ? root.metric(headingStyle.separatorThickness) : 0
+        color: headingStyle !== null ? headingStyle.separatorColor : "transparent"
+        objectName: "headingSeparator"
+    }
+
     ViewState { id: viewState }
     Loader {
         id: blocks
@@ -31,6 +48,7 @@ Item {
     component BlockSequence: Column {
         id: sequence
         property var model: null
+        property bool suppressHeadingSeparators: false
         property var style: viewState.style
         property real gap: Number.isFinite(style.blockSpacing) ? Math.max(0, style.blockSpacing) : 8
 
@@ -41,16 +59,30 @@ Item {
                 role: "renderKind"
                 DelegateChoice {
                     roleValue: 9
-                    delegate: Loader {
+                    delegate: Item {
                         id: segments
                         required property var childBlocks
+                        required property int headingLevel
                         width: sequence.width
-                        sourceComponent: sequenceComponent
-                        onLoaded: {
-                            const loaded = item as BlockSequence
-                            loaded.model = Qt.binding(function() { return segments.childBlocks })
-                            loaded.style = Qt.binding(function() { return sequence.style })
-                            loaded.gap = Qt.binding(function() { return sequence.gap })
+                        height: segmentRows.height + segmentRule.decorationSpacing + segmentRule.height
+                        Loader {
+                            id: segmentRows
+                            width: segments.width
+                            sourceComponent: sequenceComponent
+                            onLoaded: {
+                                const loaded = item as BlockSequence
+                                loaded.model = Qt.binding(function() { return segments.childBlocks })
+                                loaded.style = Qt.binding(function() { return sequence.style })
+                                loaded.gap = Qt.binding(function() { return sequence.gap })
+                                loaded.suppressHeadingSeparators = true
+                            }
+                        }
+                        HeadingSeparator {
+                            id: segmentRule
+                            width: segments.width
+                            y: segmentRows.height + decorationSpacing
+                            headingStyle: root.headingStyle(sequence.style, segments.headingLevel)
+                            suppressed: sequence.suppressHeadingSeparators
                         }
                     }
                 }
@@ -189,19 +221,34 @@ Item {
                 }
                 DelegateChoice {
                     roleValue: 2
-                    delegate: Text {
-                        id: codeBlock
+                    delegate: Rectangle {
+                        id: codeSurface
                         required property string blockText
                         width: sequence.width
-                        text: blockText.endsWith("\n") ? blockText.slice(0, -1) : blockText
-                        textFormat: Text.PlainText
-                        wrapMode: Text.Wrap
-                        horizontalAlignment: Text.AlignLeft
-                        elide: Text.ElideNone
-                        font: sequence.style.codeBlockFont
-                        color: sequence.style.codeBlockColor
-                        height: text.length === 0 ? codeMetrics.height : implicitHeight
-                        FontMetrics { id: codeMetrics; font: codeBlock.font }
+                        readonly property real padX: Math.min(root.metric(sequence.style.codeBlock.horizontalPadding),
+                            Math.max(0, (width - 1) / 2))
+                        readonly property real padY: root.metric(sequence.style.codeBlock.verticalPadding)
+                        height: codeBlock.height + 2 * padY
+                        color: sequence.style.codeBlock.backgroundColor
+                        border.color: sequence.style.codeBlock.borderColor
+                        border.width: root.metric(sequence.style.codeBlock.borderWidth)
+                        radius: root.metric(sequence.style.codeBlock.cornerRadius)
+                        objectName: "codeSurface"
+                        Text {
+                            id: codeBlock
+                            x: codeSurface.padX
+                            y: codeSurface.padY
+                            width: Math.max(1, codeSurface.width - 2 * codeSurface.padX)
+                            text: codeSurface.blockText.endsWith("\n") ? codeSurface.blockText.slice(0, -1) : codeSurface.blockText
+                            textFormat: Text.PlainText
+                            wrapMode: Text.Wrap
+                            horizontalAlignment: Text.AlignLeft
+                            elide: Text.ElideNone
+                            font: sequence.style.codeBlockFont
+                            color: sequence.style.codeBlockColor
+                            height: text.length === 0 ? codeMetrics.height : implicitHeight
+                            FontMetrics { id: codeMetrics; font: codeBlock.font }
+                        }
                     }
                 }
                 DelegateChoice {
@@ -228,7 +275,15 @@ Item {
                             : headingLevel === 4 ? sequence.style.h4Color
                             : headingLevel === 5 ? sequence.style.h5Color
                             : headingLevel === 6 ? sequence.style.h6Color : sequence.style.bodyColor
-                        height: blockText.length === 0 && headingLevel > 0 ? metrics.height : implicitHeight
+                        readonly property real textHeight: blockText.length === 0 && headingLevel > 0 ? metrics.height : implicitHeight
+                        height: textHeight + plainRule.decorationSpacing + plainRule.height
+                        HeadingSeparator {
+                            id: plainRule
+                            width: blockItem.width
+                            y: blockItem.textHeight + decorationSpacing
+                            headingStyle: root.headingStyle(sequence.style, blockItem.headingLevel)
+                            suppressed: sequence.suppressHeadingSeparators
+                        }
                         FontMetrics { id: metrics; font: blockItem.font }
                     }
                 }
@@ -241,7 +296,14 @@ Item {
                         required property var linkSpans
                         required property var formatRanges
                         width: sequence.width
-                        height: painted.logicalHeight
+                        height: painted.logicalHeight + formattedRule.decorationSpacing + formattedRule.height
+                        HeadingSeparator {
+                            id: formattedRule
+                            width: formattedBlock.width
+                            y: painted.logicalHeight + decorationSpacing
+                            headingStyle: root.headingStyle(sequence.style, formattedBlock.headingLevel)
+                            suppressed: sequence.suppressHeadingSeparators
+                        }
                         FormattedText {
                             id: painted
                             text: formattedBlock.blockText
@@ -281,6 +343,9 @@ Item {
                             }
                             layoutWidth: formattedBlock.width
                             codeFont: sequence.style.inlineCodeFont
+                            codeForeground: sequence.style.inlineCode.foreground
+                            codeBackground: sequence.style.inlineCode.backgroundColor
+                            codeCornerRadius: sequence.style.inlineCode.cornerRadius
                             font: formattedBlock.headingLevel === 1 ? sequence.style.h1Font
                                 : formattedBlock.headingLevel === 2 ? sequence.style.h2Font
                                 : formattedBlock.headingLevel === 3 ? sequence.style.h3Font

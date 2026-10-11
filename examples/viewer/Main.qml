@@ -65,20 +65,27 @@ ApplicationWindow {
             }
         }
         CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
-        StylePanel {
-            id: stylePanel
-            objectName: "stylePanel"
+        ScrollView {
+            id: styleScroll
             visible: styleToggle.checked
             Layout.fillWidth: true
-            targetStyle: hostStyle
-            defaultLinkColor: window.palette.link
-            defaultTextColor: window.palette.text
-            previewBackgroundColor: window.palette.base
+            Layout.preferredHeight: Math.min(stylePanel.implicitHeight, 220)
+            clip: true
+            contentWidth: availableWidth
+            StylePanel {
+                id: stylePanel
+                objectName: "stylePanel"
+                width: styleScroll.availableWidth
+                targetStyle: hostStyle
+                defaultLinkColor: window.palette.link
+                defaultTextColor: window.palette.text
+                previewBackgroundColor: window.palette.base
+            }
         }
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Links report destinations to the host; authorized PNG/JPEG images use native rows and HTML stays literal; all 652 pinned CommonMark semantic checks pass. The 1.0 candidate retains documented native presentation limits."
+            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Links report destinations to the host; authorized PNG/JPEG images use native rows and HTML stays literal; all 652 pinned CommonMark semantic checks pass. Opt-in 1.1 presets retain host ownership and documented native presentation limits."
         }
         Label {
             objectName: "lastDestination"

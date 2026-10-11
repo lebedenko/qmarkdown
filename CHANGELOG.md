@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 — unreleased
+
+- Add opt-in fixed light/dark Polished and Minimal presets, grouped heading/inline-code/code-block styling, explicit override tracking and binding-preserving resets. Legacy remains the default; existing flat properties and 1.0 imports remain supported.
+- Add native heading separators, inline code backgrounds and code block surfaces without parser or resource-policy changes.
+- Centralize reproducible minimum/development Qt verification targets (6.8.0/6.12.0), with stable hosted packaging check names.
+- Add playground controls, presentation fixtures and installed 1.1 consumers alongside existing 1.0 consumers. Publication is a separate task.
+
 ## 1.0.0 — 2026-10-10
 
 - Prepare Linux amd64 support with Qt >=6.8, C++17 and CMake >=3.21; QML module version 1.0 and shared-library SOVERSION 1.
