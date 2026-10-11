@@ -1,0 +1,538 @@
+{
+  "releaseCommit": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+  "recordedOnUTC": "2026-10-11",
+  "preparationPR": {
+    "headRefOid": "452ac3bebcb00073ee38f9f20685478de45591f5",
+    "mergeCommit": {
+      "oid": "b71740c7e0f26b0709f5e929a79e8d01dba56071"
+    },
+    "mergedAt": "2026-10-11T19:58:29Z",
+    "state": "MERGED",
+    "url": "https://github.com/lebedenko/qmarkdown/pull/7"
+  },
+  "preparationWorkflow": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38168514689",
+    "headSha": "452ac3bebcb00073ee38f9f20685478de45591f5",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "pull_request",
+    "jobs": [
+      {
+        "name": "targets",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38168514689/job/114555991839"
+      },
+      {
+        "name": "packaging (minimum)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38168514689/job/114556013993"
+      },
+      {
+        "name": "packaging (development)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38168514689/job/114556014011"
+      }
+    ]
+  },
+  "packagingWorkflow": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170247957",
+    "headSha": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "push",
+    "jobs": [
+      {
+        "name": "targets",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170247957/job/114561172075"
+      },
+      {
+        "name": "packaging (minimum)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170247957/job/114561196291"
+      },
+      {
+        "name": "packaging (development)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170247957/job/114561196318"
+      }
+    ]
+  },
+  "manualVerificationWorkflow": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170250021",
+    "headSha": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "workflow_dispatch",
+    "jobs": [
+      {
+        "name": "targets",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170250021/job/114561182002"
+      },
+      {
+        "name": "build (development, 6.12.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170250021/job/114561203129"
+      },
+      {
+        "name": "build (minimum, 6.8.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170250021/job/114561203160"
+      },
+      {
+        "name": "binary-compatibility (minimum, 6.8.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170250021/job/114562668585"
+      },
+      {
+        "name": "binary-compatibility (development, 6.12.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170250021/job/114562668684"
+      },
+      {
+        "name": "upload",
+        "conclusion": "skipped",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38170250021/job/114563006997"
+      }
+    ]
+  },
+  "publicationWorkflow": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38174337574",
+    "headSha": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "release",
+    "jobs": [
+      {
+        "name": "targets",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38174337574/job/114573381700"
+      },
+      {
+        "name": "build (minimum, 6.8.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38174337574/job/114573402056"
+      },
+      {
+        "name": "build (development, 6.12.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38174337574/job/114573402080"
+      },
+      {
+        "name": "binary-compatibility (minimum, 6.8.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38174337574/job/114574893507"
+      },
+      {
+        "name": "binary-compatibility (development, 6.12.0)",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38174337574/job/114574893553"
+      },
+      {
+        "name": "upload",
+        "conclusion": "success",
+        "status": "completed",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38174337574/job/114575219133"
+      }
+    ]
+  },
+  "release": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/lebedenko/qmarkdown/releases/assets/631806078",
+        "contentType": "application/x-gtar",
+        "createdAt": "2026-10-11T21:05:57Z",
+        "digest": "sha256:4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+        "downloadCount": 0,
+        "id": "RA_kwDOU_-rjs4lqJh-",
+        "label": "",
+        "name": "qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+        "size": 386887,
+        "state": "uploaded",
+        "updatedAt": "2026-10-11T21:05:57Z",
+        "url": "https://github.com/lebedenko/qmarkdown/releases/download/v1.1.0/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/lebedenko/qmarkdown/releases/assets/631806079",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-10-11T21:05:57Z",
+        "digest": "sha256:affad54d3ac52aebddb4c9c265d5c50bce3b07eb3aadbe0ad0984c4fa3417811",
+        "downloadCount": 0,
+        "id": "RA_kwDOU_-rjs4lqJh_",
+        "label": "",
+        "name": "qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256",
+        "size": 114,
+        "state": "uploaded",
+        "updatedAt": "2026-10-11T21:05:57Z",
+        "url": "https://github.com/lebedenko/qmarkdown/releases/download/v1.1.0/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256"
+      }
+    ],
+    "isDraft": false,
+    "isPrerelease": false,
+    "publishedAt": "2026-10-11T20:57:09Z",
+    "tagName": "v1.1.0",
+    "url": "https://github.com/lebedenko/qmarkdown/releases/tag/v1.1.0"
+  },
+  "latestRelease": {
+    "draft": false,
+    "html_url": "https://github.com/lebedenko/qmarkdown/releases/tag/v1.1.0",
+    "prerelease": false,
+    "published_at": "2026-10-11T20:57:09Z",
+    "tag_name": "v1.1.0"
+  },
+  "annotatedTag": {
+    "objectSha": "4cf88984cce5c431a7dedf778524c0ae27fed749",
+    "tag": "v1.1.0",
+    "message": "QMarkdown 1.1.0\n-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgwwoMJD8sB+ULfVHr2Hf88qNOat\nM93f+DuGWtztjDImMAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5\nAAAAQEbs/BOz23zdsy/1j89/DTKG4OEjz8Yyj/vsuIrJwLrnqw59wFy80lBjjYzSgZIN1J\nnx6WmYDyuKTwf8CPmotQw=\n-----END SSH SIGNATURE-----\n",
+    "targetCommit": "b71740c7e0f26b0709f5e929a79e8d01dba56071"
+  },
+  "manualArchiveReview": {
+    "archive": {
+      "name": "qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+      "bytes": 386890,
+      "sha256": "7dbd0f9d481c97f737e69842e59029ae7a01c696b001596a562a6dd70f63acf9",
+      "metadata": {
+        "version": "1.1.0",
+        "sourceCommit": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+        "architecture": "x86_64",
+        "qtVersion": "6.8.0",
+        "buildType": "Release",
+        "os": "Ubuntu 24.04",
+        "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+        "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+      },
+      "manifest": {
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "bf4586da62a33b80c0d69542882d2d347892b922e0b91ea1011dc285aa204727"
+        },
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfigVersion.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "8ce273f716b2ade8534c4ea6c1f914938707f046abb847b7e21ad639d11ef5bd"
+        },
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets-release.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "b7a754e8280ea45dd4b1e0ae20b86e4c2a751a77c1785ce3d62a6f5b243990df"
+        },
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "2cdac8138f5d564998960056722483bb993a849a43490e83635a1bf1fa444241"
+        },
+        "usr/lib/x86_64-linux-gnu/libQMarkdown.so": {
+          "kind": "link",
+          "target": "libQMarkdown.so.1"
+        },
+        "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1": {
+          "kind": "link",
+          "target": "libQMarkdown.so.1.1.0"
+        },
+        "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.1.0": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "73e7488492542f53a1d8077453ba470663e1cc65ede96560c3db517b3722b03d"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/MarkdownView.qml": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "a298c1a34abf767c33480551311a3419b860088dae3d6667eeab9210cfeb8ec4"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/private.qmltypes": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "d506412a4a1a2e240caccb8191af14927b6a703688dce36d5302b3e02f1b434a"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/qmldir": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "8088e762877a4586ddd0cde1b3eb8158b1a9a8a421acc7411281204504d452e1"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/QMarkdown.qmltypes": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "3e6860b3201ddb6ef0d3f31b52bd8f0216dcac83b9f826188bfa8b858a8f98ae"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "d888dfca116fba6e9939afde4eb798fa60d1ece538ce5e4155431022bea1e8ce"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/qmldir": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "0960a4f8a4c254ff4611a7832a17ba5387ca2c9d73618498b44610fb9f034f2e"
+        },
+        "usr/share/licenses/QMarkdown/LICENSE": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "d4320f43a35dd36792fa5375bfcb603b9c1c089f5913048eec2d06c5293f96e3"
+        },
+        "usr/share/licenses/QMarkdown/cmark/COPYING": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "c22e885f33b821bddb24cf007145e5540655b6c0f403e49e6c76a93c28e6d9a9"
+        },
+        "usr/share/licenses/QMarkdown/cmark/PROVENANCE.md": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "c373778cca24c64a1490b68df36b07ab04f3b99c05f0ff4271f4e28474d52767"
+        }
+      }
+    },
+    "runtimes": {
+      "6.8.0": {
+        "tag": "qmarkdown-ci:6.8.0-amd64-5250bfc752c0ade27e1b7f7d17245bac213d18bae0e1444a59866d0908c328eb",
+        "recipeFingerprint": "5250bfc752c0ade27e1b7f7d17245bac213d18bae0e1444a59866d0908c328eb",
+        "qt": "6.8.0",
+        "platform": "linux/amd64",
+        "imageId": "sha256:c86a4410435bb165acbeb7d8c916bf5f8c676a9a278a4a0ff2962d7bccdfcddd",
+        "status": "passed",
+        "archiveSha256": "7dbd0f9d481c97f737e69842e59029ae7a01c696b001596a562a6dd70f63acf9",
+        "allRegularArchiveFilesMatch": true,
+        "stagedAndRealInstallRemoval": true,
+        "qml10And11LinkedAndPluginOnly": true,
+        "logSha256": "a39b7b80ae1e644fc817854772cd940507f3a6373e57e798d191ccd4fdb7ed38"
+      },
+      "6.12.0": {
+        "tag": "qmarkdown-ci:6.12.0-amd64-cd9bd81d976102b6207bf21b82ce072161d5277f104d78f80a97abb2d15de3bb",
+        "recipeFingerprint": "cd9bd81d976102b6207bf21b82ce072161d5277f104d78f80a97abb2d15de3bb",
+        "qt": "6.12.0",
+        "platform": "linux/amd64",
+        "imageId": "sha256:bbeddddd1caacf8a5a901f00f841ffe753e22a286cf0efbf03ec143af273e66c",
+        "status": "passed",
+        "archiveSha256": "7dbd0f9d481c97f737e69842e59029ae7a01c696b001596a562a6dd70f63acf9",
+        "allRegularArchiveFilesMatch": true,
+        "stagedAndRealInstallRemoval": true,
+        "qml10And11LinkedAndPluginOnly": true,
+        "logSha256": "64cf5204e96476c6ae7e17208eaff3f34e9fbb60168683cf6eb6722643b84225"
+      }
+    }
+  },
+  "publicationArchiveReview": {
+    "archive": {
+      "name": "qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+      "bytes": 386887,
+      "sha256": "4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+      "metadata": {
+        "version": "1.1.0",
+        "sourceCommit": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+        "architecture": "x86_64",
+        "qtVersion": "6.8.0",
+        "buildType": "Release",
+        "os": "Ubuntu 24.04",
+        "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+        "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+      },
+      "manifest": {
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "bf4586da62a33b80c0d69542882d2d347892b922e0b91ea1011dc285aa204727"
+        },
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfigVersion.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "8ce273f716b2ade8534c4ea6c1f914938707f046abb847b7e21ad639d11ef5bd"
+        },
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets-release.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "b7a754e8280ea45dd4b1e0ae20b86e4c2a751a77c1785ce3d62a6f5b243990df"
+        },
+        "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets.cmake": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "2cdac8138f5d564998960056722483bb993a849a43490e83635a1bf1fa444241"
+        },
+        "usr/lib/x86_64-linux-gnu/libQMarkdown.so": {
+          "kind": "link",
+          "target": "libQMarkdown.so.1"
+        },
+        "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1": {
+          "kind": "link",
+          "target": "libQMarkdown.so.1.1.0"
+        },
+        "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.1.0": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "f8232bc70aa9d4c5f44c1d60fce70226f80c93a5bae8702e1d1112d3dbee3952"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/MarkdownView.qml": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "a298c1a34abf767c33480551311a3419b860088dae3d6667eeab9210cfeb8ec4"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/private.qmltypes": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "d506412a4a1a2e240caccb8191af14927b6a703688dce36d5302b3e02f1b434a"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/qmldir": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "8088e762877a4586ddd0cde1b3eb8158b1a9a8a421acc7411281204504d452e1"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/QMarkdown.qmltypes": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "3e6860b3201ddb6ef0d3f31b52bd8f0216dcac83b9f826188bfa8b858a8f98ae"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "d888dfca116fba6e9939afde4eb798fa60d1ece538ce5e4155431022bea1e8ce"
+        },
+        "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/qmldir": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "0960a4f8a4c254ff4611a7832a17ba5387ca2c9d73618498b44610fb9f034f2e"
+        },
+        "usr/share/licenses/QMarkdown/LICENSE": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "d4320f43a35dd36792fa5375bfcb603b9c1c089f5913048eec2d06c5293f96e3"
+        },
+        "usr/share/licenses/QMarkdown/cmark/COPYING": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "c22e885f33b821bddb24cf007145e5540655b6c0f403e49e6c76a93c28e6d9a9"
+        },
+        "usr/share/licenses/QMarkdown/cmark/PROVENANCE.md": {
+          "kind": "file",
+          "mode": 420,
+          "sha256": "c373778cca24c64a1490b68df36b07ab04f3b99c05f0ff4271f4e28474d52767"
+        }
+      }
+    },
+    "runtimes": {
+      "6.8.0": {
+        "tag": "qmarkdown-ci:6.8.0-amd64-5250bfc752c0ade27e1b7f7d17245bac213d18bae0e1444a59866d0908c328eb",
+        "recipeFingerprint": "5250bfc752c0ade27e1b7f7d17245bac213d18bae0e1444a59866d0908c328eb",
+        "qt": "6.8.0",
+        "platform": "linux/amd64",
+        "imageId": "sha256:c86a4410435bb165acbeb7d8c916bf5f8c676a9a278a4a0ff2962d7bccdfcddd",
+        "status": "passed",
+        "archiveSha256": "4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+        "allRegularArchiveFilesMatch": true,
+        "stagedAndRealInstallRemoval": true,
+        "qml10And11LinkedAndPluginOnly": true,
+        "logSha256": "ad20539c2276066d5e4ec1e49bc31365e9de16c315c1e4e5b44a4a74d49979d9"
+      },
+      "6.12.0": {
+        "tag": "qmarkdown-ci:6.12.0-amd64-cd9bd81d976102b6207bf21b82ce072161d5277f104d78f80a97abb2d15de3bb",
+        "recipeFingerprint": "cd9bd81d976102b6207bf21b82ce072161d5277f104d78f80a97abb2d15de3bb",
+        "qt": "6.12.0",
+        "platform": "linux/amd64",
+        "imageId": "sha256:bbeddddd1caacf8a5a901f00f841ffe753e22a286cf0efbf03ec143af273e66c",
+        "status": "passed",
+        "archiveSha256": "4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+        "allRegularArchiveFilesMatch": true,
+        "stagedAndRealInstallRemoval": true,
+        "qml10And11LinkedAndPluginOnly": true,
+        "logSha256": "7c5be5bc7bfa444dbd52b97e3547e61ec845d3f916939085b596bd976d313d65"
+      }
+    }
+  },
+  "publishedDownloadReview": {
+    "checksumIndependentlyVerified": true,
+    "matchesGithubAssetDigestAndSize": true,
+    "bytesMatchPublicationArtifact": true,
+    "sha256": "4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+    "bytes": 386887,
+    "sourceCommit": "b71740c7e0f26b0709f5e929a79e8d01dba56071"
+  },
+  "publishedAssetLifecycle": {
+    "6.8.0": {
+      "status": "passed",
+      "exitCode": 0,
+      "qt": "6.8.0",
+      "imageId": "sha256:282d3a0067f87cd3b25049c53111d3e414d60c7020b40b3bb35a1886d9657086",
+      "platform": "linux/amd64",
+      "network": "none",
+      "sourceSnapshotSha": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+      "archiveSha256": "4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+      "allRegularArchiveFilesMatch": true,
+      "stagedAndRealInstallRemoval": true,
+      "qml10And11LinkedAndPluginOnly": true,
+      "log": "published-asset-qt6.8.0-verification.log",
+      "logSha256": "c308146b6715175ec362933de983645735b0f41b283b0b5fbafe8a9897b86e60"
+    },
+    "6.12.0": {
+      "status": "passed",
+      "exitCode": 0,
+      "qt": "6.12.0",
+      "imageId": "sha256:2b326e68eafb4b387f104ac44a0b2aea43ce421cbfb3ff01671a664ccf5f6e9c",
+      "platform": "linux/amd64",
+      "network": "none",
+      "sourceSnapshotSha": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+      "archiveSha256": "4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+      "allRegularArchiveFilesMatch": true,
+      "stagedAndRealInstallRemoval": true,
+      "qml10And11LinkedAndPluginOnly": true,
+      "log": "published-asset-qt6.12.0-verification.log",
+      "logSha256": "00d306640bb944d2d30219d35d861820a46428ca7bd694602409021dad7f743c"
+    }
+  },
+  "hostedImageIds": {
+    "candidate-packaging.log": {
+      "packaging (minimum)": "sha256:c86a4410435bb165acbeb7d8c916bf5f8c676a9a278a4a0ff2962d7bccdfcddd",
+      "packaging (development)": "sha256:bbeddddd1caacf8a5a901f00f841ffe753e22a286cf0efbf03ec143af273e66c"
+    },
+    "manual-release.log": {
+      "build (development, 6.12.0)": "sha256:bbeddddd1caacf8a5a901f00f841ffe753e22a286cf0efbf03ec143af273e66c",
+      "build (minimum, 6.8.0)": "sha256:c86a4410435bb165acbeb7d8c916bf5f8c676a9a278a4a0ff2962d7bccdfcddd",
+      "binary-compatibility (minimum, 6.8.0)": "sha256:c86a4410435bb165acbeb7d8c916bf5f8c676a9a278a4a0ff2962d7bccdfcddd",
+      "binary-compatibility (development, 6.12.0)": "sha256:bbeddddd1caacf8a5a901f00f841ffe753e22a286cf0efbf03ec143af273e66c"
+    },
+    "publication-release.log": {
+      "build (minimum, 6.8.0)": "sha256:c86a4410435bb165acbeb7d8c916bf5f8c676a9a278a4a0ff2962d7bccdfcddd",
+      "build (development, 6.12.0)": "sha256:bbeddddd1caacf8a5a901f00f841ffe753e22a286cf0efbf03ec143af273e66c",
+      "binary-compatibility (minimum, 6.8.0)": "sha256:c86a4410435bb165acbeb7d8c916bf5f8c676a9a278a4a0ff2962d7bccdfcddd",
+      "binary-compatibility (development, 6.12.0)": "sha256:bbeddddd1caacf8a5a901f00f841ffe753e22a286cf0efbf03ec143af273e66c"
+    }
+  },
+  "verification": {
+    "sharedStaticCtest": "10/10 each on both exact SDKs",
+    "strictCommonMark": "652 parser/model passes and strict_pass asserted in passing qmarkdown-commonmark-oracle complete-corpus test; no mismatches/uncheckable/limits/losses",
+    "qmlLint": "passed (retained nonfatal diagnostics)",
+    "installedRelocatedConsumers": "1.0/1.1 shared/static, linked/plugin-only as applicable",
+    "documentationLinksAndWhitespace": "passed",
+    "productionWorkflowProtectionChanges": false
+  },
+  "mainAndTagUnchanged": true,
+  "protectionsUnchanged": true,
+  "protectionSnapshotSha256": "1f4f0d6a4abd3f25bd625949d9edee7cd3fa399c137af31f5bfbe3300aaf9153",
+  "logHashes": {
+    "candidate-packaging.log": "7cbdb7ea41a1b8e52a467ec3ce1792eab35f345f1d39a6fe6484d57f97f9560e",
+    "manual-release.log": "2f53ef8ac66643125a0b085ba09ac3142abe8837d154ea45c8805318b72fa3db",
+    "publication-release.log": "691cc1f56200b9206b3989832fd00071b0b757dda6c4a66d3ef15cc640c921cc"
+  },
+  "retainedLocalArtifacts": "build-ci/027-hosted",
+  "initialDevelopmentContainerLaunch": {
+    "exitCode": 125,
+    "cause": "Mistyped local image ID; no verification executed. Corrected to the recorded installed image ID; final full run passed with exit 0.",
+    "retainedLog": "build-ci/027-hosted/published-check-6.12.0/initial-launch.log"
+  },
+  "evidenceBranch": "docs/v1.1.0-publication-evidence"
+}
