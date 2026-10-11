@@ -1,0 +1,108 @@
+{
+  "sourceCommit": "34b09492403cc9778fadd2ab7ca9d08ff9d90a18",
+  "local": {
+    "minimum": {
+      "status": "passed",
+      "exitCode": 0,
+      "imageId": "sha256:282d3a0067f87cd3b25049c53111d3e414d60c7020b40b3bb35a1886d9657086",
+      "recipeFingerprint": "5250bfc752c0ade27e1b7f7d17245bac213d18bae0e1444a59866d0908c328eb",
+      "preparationSeconds": 140.284,
+      "verificationSeconds": 189.049,
+      "elapsedSeconds": 329.361,
+      "qt": "6.8.0",
+      "platform": "linux/amd64"
+    },
+    "development": {
+      "status": "passed",
+      "exitCode": 0,
+      "imageId": "sha256:2b326e68eafb4b387f104ac44a0b2aea43ce421cbfb3ff01671a664ccf5f6e9c",
+      "recipeFingerprint": "cd9bd81d976102b6207bf21b82ce072161d5277f104d78f80a97abb2d15de3bb",
+      "preparationSeconds": 0.361,
+      "verificationSeconds": 198.524,
+      "elapsedSeconds": 198.909,
+      "qt": "6.12.0",
+      "platform": "linux/amd64"
+    }
+  },
+  "hosted": {
+    "minimum": {
+      "tag": "qmarkdown-ci:6.8.0-amd64-5250bfc752c0ade27e1b7f7d17245bac213d18bae0e1444a59866d0908c328eb",
+      "recipeFingerprint": "5250bfc752c0ade27e1b7f7d17245bac213d18bae0e1444a59866d0908c328eb",
+      "qt": "6.8.0",
+      "platform": "linux/amd64",
+      "imageId": "sha256:3497f79b52acc2a848b6c6002724161ba5d067f22f24ec1366f3f789bf805289",
+      "imageOutcome": "success",
+      "archiveVerification": "passed"
+    },
+    "development": {
+      "tag": "qmarkdown-ci:6.12.0-amd64-cd9bd81d976102b6207bf21b82ce072161d5277f104d78f80a97abb2d15de3bb",
+      "recipeFingerprint": "cd9bd81d976102b6207bf21b82ce072161d5277f104d78f80a97abb2d15de3bb",
+      "qt": "6.12.0",
+      "platform": "linux/amd64",
+      "imageId": "sha256:304980bbcda05a7de86658be1c4fd3609cd917185f81275140a6ac7154cc4b8e",
+      "imageOutcome": "success",
+      "archiveVerification": "passed"
+    }
+  },
+  "archive": {
+    "name": "qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+    "sha256": "53317ad32ff0ba70a45c142c29ca2e8a7d6f511f698af5bd18f460e011753e7d",
+    "metadata": {
+      "version": "1.0.0",
+      "sourceCommit": "34b09492403cc9778fadd2ab7ca9d08ff9d90a18",
+      "architecture": "x86_64",
+      "qtVersion": "6.8.0",
+      "buildType": "Release",
+      "os": "Ubuntu 24.04",
+      "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+    }
+  },
+  "releaseWorkflow": {
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38155796438",
+    "conclusion": "success",
+    "commit": "34b09492403cc9778fadd2ab7ca9d08ff9d90a18",
+    "jobs": [
+      {
+        "name": "targets",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38155796438/job/114518395760"
+      },
+      {
+        "name": "build (development, 6.12.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38155796438/job/114518415026"
+      },
+      {
+        "name": "build (minimum, 6.8.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38155796438/job/114518415101"
+      },
+      {
+        "name": "binary-compatibility (minimum, 6.8.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38155796438/job/114520148544"
+      },
+      {
+        "name": "binary-compatibility (development, 6.12.0)",
+        "conclusion": "success",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38155796438/job/114520148550"
+      },
+      {
+        "name": "upload",
+        "conclusion": "skipped",
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38155796438/job/114520696361"
+      }
+    ]
+  },
+  "packagingWorkflow": "https://github.com/lebedenko/qmarkdown/actions/runs/38155634638",
+  "sourcePr": "https://github.com/lebedenko/qmarkdown/pull/4",
+  "ruleset": {
+    "id": 24818691,
+    "contexts": [
+      "packaging (minimum)",
+      "packaging (development)"
+    ],
+    "otherWritableFieldsPreserved": true
+  }
+}
