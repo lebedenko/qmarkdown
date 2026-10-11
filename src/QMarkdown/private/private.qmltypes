@@ -41,6 +41,12 @@ Module {
         Method { name: "linkDestination"; type: "QString"; Parameter { name: "identity"; type: "int" } }
         Property { name: "font"; type: "QFont"; notify: "fontChanged" }
         Property { name: "codeFont"; type: "QFont"; notify: "codeFontChanged" }
+        Property { name: "codeForeground"; type: "QColor"; notify: "codeForegroundChanged" }
+        Property { name: "codeBackground"; type: "QColor"; notify: "codeBackgroundChanged" }
+        Property { name: "codeCornerRadius"; type: "double"; notify: "codeCornerRadiusChanged" }
+        Signal { name: "codeForegroundChanged" }
+        Signal { name: "codeBackgroundChanged" }
+        Signal { name: "codeCornerRadiusChanged" }
         Property { name: "color"; type: "QColor"; notify: "colorChanged" }
         Property { name: "layoutWidth"; type: "double"; notify: "layoutWidthChanged" }
         Property { name: "logicalHeight"; type: "double"; isReadonly: true; notify: "layoutChanged" }

@@ -2,7 +2,7 @@
 
 A standalone Qt/QML Markdown rendering library independent of any other project. The library owns Markdown semantics and rendering behavior; applications supply typography and colors. Markdown source feeds a private parser, document model, and native Qt Quick block components, without document-level HTML, QTextDocument, or WebEngine rendering.
 
-**Status:** `1.0.0` / QML module `1.0` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links and autolinks report decoded destinations to the host; opt-in PNG/JPEG images use native rows with formatted description fallbacks and HTML stays literal. Strict semantic checks pass all 652 pinned CommonMark examples; native presentation and release readiness are assessed separately.
+**Status:** `1.1.0` / QML module `1.1` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links and autolinks report decoded destinations to the host; opt-in PNG/JPEG images use native rows with formatted description fallbacks and HTML stays literal. Strict semantic checks pass all 652 pinned CommonMark examples; native presentation and release readiness are assessed separately.
 
 ## 1.0 compatibility
 
@@ -10,7 +10,7 @@ Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Configured
 
 Throughout 1.x, documented public QML properties, signals and behavior of MarkdownView, MarkdownStyle and MarkdownResourcePolicy, and documented CMake integration remain backward compatible. Native implementation classes and QMarkdown.Private are private. No C++ headers are installed and no public C++ ABI compatibility is promised. Build consumers against a compatible Qt/toolchain; a bounded Ubuntu 24.04 x86_64 archive built with Qt 6.8.0 is described in the [binary installation instructions](docs/release-install.md). Newer Qt compatibility is specific test evidence, not a universal binary guarantee.
 
-Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: 1.0.0 accepts 1.0 and exact 1.0.0, and rejects 0.7, 1.1 and 2.0. See [CHANGELOG](CHANGELOG.md).
+Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: 1.1.0 accepts 1.0, 1.1 and exact 1.1.0, and rejects exact 1.0.0, 0.7, 1.2 and 2.0. See [CHANGELOG](CHANGELOG.md).
 
 Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Optional syntax, streaming, selection/copy, renderer extensions, further performance optimization and broader platform support remain deferred.
 
@@ -73,7 +73,7 @@ Fonts support logical pixels (`pixelSize`) and points (`pointSize` in QML, `setP
 
 Qt's QML font getters synthesize the other unit. Its subproperty setters also prefer an already explicit pixel size when both units are set, and may warn when changing a point font to pixels. Use whole-font assignments to select a different unit, or C++ `QFont::setPointSizeF`/`setPixelSize` on a copy to preserve all fields. For fractional QML edits, set `pointSize` on a point-based role (for example `style.bodyFont.pointSize = 12.5`). The playground handles both transitions through a local native helper without changing the library API.
 
-Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Current package/import versions are 1.0.0/1.0. See [Feature 008](specs/008-font-units/requirements.md).
+Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Current package/import versions are 1.1.0/1.1; existing 1.0 imports retain Legacy defaults. See [Feature 008](specs/008-font-units/requirements.md).
 
 Links display formatted labels; images retain formatted descriptions until an authorized PNG/JPEG is ready; autolinks display text. Links activate only by reporting destinations to the host; image resources are denied by default. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser retains complete opening fence lengths; shorter matching fences remain code content, including openers longer than 255 characters. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
 
@@ -86,6 +86,28 @@ QML_IMPORT_PATH="$PWD/build-shared/qml" build-shared/examples/viewer/qmarkdown-v
 The playground offers eight bundled samples, live editing, independently scrollable panes with a draggable divider, Fit/240/480/720 preview widths, and collapsible role-based style controls with a px/pt selector, fractional point editing, and dedicated list/quote and thematic-break controls, Neutral/Alternate presets and reset. It starts with Overview; Reload sample restores the selected source and Clear empties it. Neutral and Reset restore application-based construction defaults; Alternate retains its explicit pixel sizes. Inline code displays the inherited body size until edited; selecting or reading it does not create an override, and heading code still inherits heading typography. Editing its size/unit creates an explicit override. All state stays in memory. Qt Quick Controls is required only when `QMARKDOWN_BUILD_EXAMPLES=ON`; library-only builds do not require it.
 
 The playground supplies theme-aware styling: the preview surface and Neutral text follow the application palette, and Alternate accents adapt to light/dark surfaces. Manual color edits persist across theme changes until Neutral or Reset restores live theme colors. The library's default colors remain unchanged; host applications own theming.
+
+## Styling presets (1.1)
+
+Opt in with `import QMarkdown 1.1` and `MarkdownStyle.preset`. `Legacy` remains the default. `PolishedLight`, `PolishedDark`, `MinimalLight`, and `MinimalDark` use fixed palettes; hosts still paint the background and control resources and navigation. See the [styling API](docs/styling.md) for grouped properties, aliases, override/reset behavior and preset values.
+
+```qml
+import QtQuick
+import QMarkdown 1.1
+
+MarkdownView {
+    width: 480
+    markdown: "# Title\n\nBody with `code`\n\n```\nliteral code\n```"
+    style: MarkdownStyle {
+        preset: MarkdownStyle.PolishedLight
+        headings.h1.color: "#194c39"
+        inlineCode.cornerRadius: 3
+        codeBlock.horizontalPadding: 16
+    }
+}
+```
+
+The playground adds a library preset selector, heading separator and code metric controls, and a reset-to-preset button. Existing Neutral/Alternate controls continue demonstrating host theme and font customization; their explicit values override library presets until reset.
 
 ## Consume an installed package
 
@@ -206,6 +228,6 @@ Local tasks exercise the same container verification commands as GitHub. Hosted 
 
 Benchmarks use exact deterministic ASCII workloads at 1 KiB, 10 KiB, 100 KiB and 1 MiB, plus a dense formatting paragraph capped at 10 KiB. Parsing, recursive model replacement and Markdown assignment through settled native QML layout are measured separately. Two warmups precede ten measurements at 480 pixels with Noto Sans/Noto Sans Mono at 16 pixels. Both named fonts must be installed; substitution fails explicitly. JSON records resolved body/code fonts, build/compiler/Qt/platform information, workload bytes, durations, medians/maxima, total Qt Quick item counts (including structural items), and root model reset counts. Sequential real local decoding of 1/8/32 distinct PNGs uses controlled gates and the production projection/reset path; each arrival settles layout before the next completion. It measures the current full resets, without optimizing them. Results are advisory, with no allocation, GPU or streaming claims. See [actual verification](specs/012-verification-hardening/verification.md).
 
-Resource lifecycle tests use a private copied decoder callable and real decoding behind synchronization gates. Cancelled queued jobs are removed immediately; stale or expired results cannot publish images. Controllers, MarkdownView and QML engines can be destroyed while decoding remains active. A fresh generation or another view can decode beside one cancelled active job; two occupied workers can delay fresh work. Running codecs cannot be interrupted. Application teardown stops admission, cancels queued jobs and waits for active workers. See [Feature 020 verification](specs/020-responsive-decoder-lifecycle/verification.md); lifecycle behavior is retained by the 1.0.0/1.0 candidate.
+Resource lifecycle tests use a private copied decoder callable and real decoding behind synchronization gates. Cancelled queued jobs are removed immediately; stale or expired results cannot publish images. Controllers, MarkdownView and QML engines can be destroyed while decoding remains active. A fresh generation or another view can decode beside one cancelled active job; two occupied workers can delay fresh work. Running codecs cannot be interrupted. Application teardown stops admission, cancels queued jobs and waits for active workers. See [Feature 020 verification](specs/020-responsive-decoder-lifecycle/verification.md); lifecycle behavior is retained by 1.1.0/1.1.
 
 Feature 013 uses a private event sweep for inline format preparation. With the same benchmark option enabled, build `qmarkdown-inline-benchmark` and run `build-benchmarks/tests/qmarkdown-inline-benchmark > inline-report.json`; validate with `python3 scripts/verify-inline-benchmark.py inline-report.json`. It compares the production sweep with the previous preparation algorithm at 1,024–8,192 formatting spans, with/without overlapping links, requiring equal output before recording two warmups and ten measurements. It is excluded from CTest and installation; timings impose no CI thresholds. See [Feature 013 verification](specs/013-inline-format-performance/verification.md) for measured results and limits.

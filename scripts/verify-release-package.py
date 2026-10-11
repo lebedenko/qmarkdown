@@ -142,12 +142,12 @@ def consume(root, qt, work):
                LD_LIBRARY_PATH=str(qt / 'lib'))
     env.pop('QML2_IMPORT_PATH', None)
     env.pop('QT_PLUGIN_PATH', None)
-    for link in ('ON', 'OFF'):
-        build = work / link
+    for link, styling in (('ON', 'OFF'), ('OFF', 'OFF'), ('ON', 'ON'), ('OFF', 'ON')):
+        build = work / (link + "-styling" if styling == "ON" else link)
         run('cmake', '-S', SOURCE / 'tests/installed-consumer', '-B', build,
             f'-DCMAKE_PREFIX_PATH={prefix};{qt}', f'-DQt6_DIR={qt}/lib/cmake/Qt6',
             f'-DQMarkdown_DIR={prefix}/lib/x86_64-linux-gnu/cmake/QMarkdown',
-            f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}')
+            f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}', f'-DQMARKDOWN_STYLING_CONSUMER={styling}')
         run('cmake', '--build', build, '--parallel', '2')
         executable = build / 'qmarkdown-consumer'
         if link == 'OFF':

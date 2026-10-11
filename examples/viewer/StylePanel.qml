@@ -69,6 +69,8 @@ ColumnLayout {
         return true
     }
     function resetStyle() {
+        targetStyle.preset = MarkdownStyle.Legacy
+        targetStyle.resetOverrides()
         for (const name of roles) {
             targetStyle[name + "Font"] = defaults[name + "Font"]
             if (name !== "inlineCode")
@@ -108,6 +110,44 @@ ColumnLayout {
         }
         refresh()
     }
+    Label { text: "Library presentation"; font.bold: true }
+    ComboBox {
+        objectName: "presetSelector"
+        model: ["Legacy", "Polished light", "Polished dark", "Minimal light", "Minimal dark"]
+        currentIndex: panel.targetStyle.preset
+        onActivated: function(index) { panel.targetStyle.preset = index; panel.refresh() }
+        Layout.fillWidth: true
+    }
+    Button {
+        text: "Reset overrides to selected preset"
+        objectName: "resetOverridesButton"
+        onClicked: { panel.targetStyle.resetOverrides(); panel.refresh() }
+    }
+    CheckBox {
+        text: "H1 separator"
+        checked: panel.targetStyle.headings.h1.separatorVisible
+        onClicked: panel.targetStyle.headings.h1.separatorVisible = checked
+    }
+    RowLayout {
+        Label { text: "Code padding" }
+        SpinBox {
+            from: 0; to: 100
+            value: panel.targetStyle.codeBlock.horizontalPadding
+            onValueModified: {
+                panel.targetStyle.codeBlock.horizontalPadding = value
+                panel.targetStyle.codeBlock.verticalPadding = value
+            }
+        }
+    }
+    RowLayout {
+        Label { text: "Inline code radius" }
+        SpinBox {
+            from: 0; to: 30
+            value: panel.targetStyle.inlineCode.cornerRadius
+            onValueModified: panel.targetStyle.inlineCode.cornerRadius = value
+        }
+    }
+    Label { text: "Host typography and colors"; font.bold: true }
     RowLayout {
         Button { text: "Neutral"; objectName: "neutralButton"; onClicked: panel.applyPreset(false) }
         Button { text: "Alternate"; objectName: "alternateButton"; onClicked: panel.applyPreset(true) }

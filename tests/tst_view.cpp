@@ -1016,7 +1016,9 @@ private slots:
         QCOMPARE(shared->property("codeBlockColor").value<QColor>(), QColor("#202020"));
         QTRY_COMPARE(items[2]->height(), QFontMetricsF(font).height());
         QTRY_VERIFY(qAbs(items[3]->height() - 2 * items[2]->height()) < 2);
-        for (int i = 1; i < items.size(); ++i) QTRY_COMPARE(items[i]->y(), items[i-1]->y() + items[i-1]->height() + 8);
+        for (int i = 1; i < items.size(); ++i)
+            QTRY_COMPARE(items[i]->mapToItem(a, QPointF()).y(),
+                         items[i-1]->mapToItem(a, QPointF()).y() + items[i-1]->height() + 8);
         QFont body = shared->property("bodyFont").value<QFont>();
         QFont inlineFont = shared->property("inlineCodeFont").value<QFont>();
         QFont independent = body; independent.setPixelSize(48);
