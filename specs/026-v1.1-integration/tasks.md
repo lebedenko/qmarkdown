@@ -8,3 +8,5 @@ Approved on 2026-10-11 through the explicit instruction to implement the supplie
 4. R3: Prepare roadmap/index and release-note updates, retain unreleased changelog, review and merge a documentation PR with required checks.
 5. R4/R5: Identify the final main SHA; obtain both hosted packaging passes and manually dispatch release verification at that SHA.
 6. R6: Download/review archive and runtime evidence, record actual results on a separate branch without modifying candidate main.
+
+All six tasks completed on 2026-10-11. See [actual verification](verification.md) and [machine-readable evidence](run-evidence.json). Candidate main remains at the verified SHA; actual records are retained on a separate evidence branch.
