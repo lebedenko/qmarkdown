@@ -69,6 +69,8 @@ ColumnLayout {
         return true
     }
     function resetStyle() {
+        targetStyle.preset = MarkdownStyle.Legacy
+        targetStyle.resetOverrides()
         for (const name of roles) {
             targetStyle[name + "Font"] = defaults[name + "Font"]
             if (name !== "inlineCode")

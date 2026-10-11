@@ -215,10 +215,10 @@ private slots:
         std::unique_ptr<QObject> object(component.create());
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(400, 800); window.show();
-        view->setProperty("markdown", "# one\n\n## *two*\n\n### three\n\n#\n\n> ## quoted\n\n- # listed\n\n```\n  literal *x*  \n```\n\n```\n```\n\n    longlonglonglonglonglonglonglong");
+        view->setProperty("markdown", "# one\n\n## *two*\n\n### three\n\n#\n\n> ## quoted\n\n- # listed\n\n```\n  literal *x*  \n```\n\n```\n```\n\n    longlonglonglonglonglonglonglong\n\n> ~~~\n> nested quote\n> ~~~\n\n- item\n\n      nested list");
         QTRY_VERIFY(textItem(view, "one"));
         auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
-        QTRY_COMPARE(named(view, "codeSurface").size(), 3);
+        QTRY_COMPARE(named(view, "codeSurface").size(), 5);
         int visibleRules = 0;
         for (auto *rule : named(view, "headingSeparator")) if (rule->height() > 0) {
             ++visibleRules;
@@ -245,6 +245,35 @@ private slots:
         view->setWidth(0.5); style->codeBlock()->setHorizontalPadding(100);
         QTRY_VERIFY(literal->width() >= 1.0);
         QVERIFY(std::isfinite(view->property("contentHeight").toDouble()));
+    }
+    void separatorAtEveryLevel_data()
+    {
+        QTest::addColumn<int>("level");
+        for (int i = 1; i <= 6; ++i) QTest::newRow(qPrintable(QString("h%1").arg(i))) << i;
+    }
+    void separatorAtEveryLevel()
+    {
+        QFETCH(int, level);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.1\nMarkdownView { width: 180 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300, 500); window.show();
+        auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        auto *group = style->headings()->property(qPrintable(QString("h%1").arg(level))).value<QObject *>(); QVERIFY(group);
+        group->setProperty("separatorVisible", true); group->setProperty("separatorThickness", 3);
+        group->setProperty("separatorSpacing", 4); group->setProperty("separatorColor", QColor(Qt::red));
+        const QString prefix(level, '#');
+        view->setProperty("markdown", prefix + " plain\n\n" + prefix + " *formatted*");
+        QTRY_COMPARE(named(view, "headingSeparator").size(), 2);
+        for (auto *rule : named(view, "headingSeparator")) {
+            QCOMPARE(rule->height(), 3.0); QCOMPARE(rule->width(), 180.0);
+            QCOMPARE(rule->property("color").value<QColor>(), QColor(Qt::red));
+            QTRY_VERIFY(rule->y() > 4);
+        }
+        QVERIFY(QQmlProperty(group, "separatorVisible", &engine).reset());
+        for (auto *rule : named(view, "headingSeparator")) QTRY_COMPARE(rule->height(), 0.0);
     }
     void headingImageTransitions()
     {
