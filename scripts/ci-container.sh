@@ -2,10 +2,7 @@
 # Runtime initialization and checks for local tasks and the GitHub matrix.
 set -euo pipefail
 
-case "${CI_QT_VERSION:-}" in
-    6.8.0|6.11.3) ;;
-    *) echo "Unsupported CI Qt version" >&2; exit 2 ;;
-esac
+python3 /source/scripts/ci-toolchain/qt_versions.py --validate-version "${CI_QT_VERSION:-}"
 
 if [[ "${1:-}" != "verify" ]]; then
     install -o "$CI_UID" -g "$CI_GID" -m 644 /opt/qmarkdown-provenance/* /artifacts/

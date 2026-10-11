@@ -23,6 +23,8 @@ add_test(NAME qmarkdown-parser COMMAND qmarkdown-parser-test)
 
 # Test-only evidence for the bundled parser and production model, with offline fixtures.
 find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
+add_test(NAME qmarkdown-qt-versions
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_qt_versions.py")
 qt_add_executable(qmarkdown-commonmark-probe commonmark/probe.cpp
     ../src/QMarkdown/private/document.cpp ../src/QMarkdown/private/inline.cpp
     $<TARGET_OBJECTS:qmarkdown_cmark>)
