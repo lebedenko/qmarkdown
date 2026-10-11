@@ -20,7 +20,7 @@ private slots:
         QTest::addColumn<QByteArray>("version");
         QTest::addColumn<QByteArray>("type");
         QTest::addColumn<bool>("accepted");
-        for (const QByteArray &version : {QByteArray("1.0"), QByteArray(""), QByteArray("0.7")}) {
+        for (const QByteArray &version : {QByteArray("1.0"), QByteArray("1.1"), QByteArray(""), QByteArray("0.7")}) {
             for (const QByteArray &type : {QByteArray("MarkdownView"), QByteArray("MarkdownStyle"), QByteArray("MarkdownResourcePolicy")}) {
                 QTest::newRow((version + "-" + type).constData()) << version << type << (version != "0.7");
             }

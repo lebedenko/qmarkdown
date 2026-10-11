@@ -2,7 +2,169 @@
 #include <QObject>
 #include <QFont>
 #include <QColor>
+#include <QVariant>
+#include <QHash>
+#include <QSet>
 #include <QtQml/qqmlregistration.h>
+
+class MarkdownStyle;
+
+class HeadingStyle : public QObject
+{
+    Q_OBJECT
+    QML_ANONYMOUS
+    QML_ADDED_IN_VERSION(1, 1)
+    Q_PROPERTY(QFont font READ font WRITE setFont RESET resetFont NOTIFY fontChanged FINAL)
+    Q_PROPERTY(QColor color READ color WRITE setColor RESET resetColor NOTIFY colorChanged FINAL)
+    Q_PROPERTY(bool separatorVisible READ separatorVisible WRITE setSeparatorVisible RESET resetSeparatorVisible NOTIFY separatorVisibleChanged FINAL)
+    Q_PROPERTY(QColor separatorColor READ separatorColor WRITE setSeparatorColor RESET resetSeparatorColor NOTIFY separatorColorChanged FINAL)
+    Q_PROPERTY(qreal separatorThickness READ separatorThickness WRITE setSeparatorThickness RESET resetSeparatorThickness NOTIFY separatorThicknessChanged FINAL)
+    Q_PROPERTY(qreal separatorSpacing READ separatorSpacing WRITE setSeparatorSpacing RESET resetSeparatorSpacing NOTIFY separatorSpacingChanged FINAL)
+public:
+    HeadingStyle(MarkdownStyle *style, const QString &prefix);
+    QFont font() const;
+    void setFont(const QFont &value);
+    void resetFont();
+    QColor color() const;
+    void setColor(const QColor &value);
+    void resetColor();
+    bool separatorVisible() const;
+    void setSeparatorVisible(bool value);
+    void resetSeparatorVisible();
+    QColor separatorColor() const;
+    void setSeparatorColor(const QColor &value);
+    void resetSeparatorColor();
+    qreal separatorThickness() const;
+    void setSeparatorThickness(qreal value);
+    void resetSeparatorThickness();
+    qreal separatorSpacing() const;
+    void setSeparatorSpacing(qreal value);
+    void resetSeparatorSpacing();
+signals:
+    void fontChanged();
+    void colorChanged();
+    void separatorVisibleChanged();
+    void separatorColorChanged();
+    void separatorThicknessChanged();
+    void separatorSpacingChanged();
+private:
+    MarkdownStyle *m_style;
+    QString m_prefix;
+};
+
+class InlineCodeStyle : public QObject
+{
+    Q_OBJECT
+    QML_ANONYMOUS
+    QML_ADDED_IN_VERSION(1, 1)
+    Q_PROPERTY(QFont font READ font WRITE setFont RESET resetFont NOTIFY fontChanged FINAL)
+    Q_PROPERTY(QColor foreground READ foreground WRITE setForeground RESET resetForeground NOTIFY foregroundChanged FINAL)
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET resetBackgroundColor NOTIFY backgroundColorChanged FINAL)
+    Q_PROPERTY(qreal cornerRadius READ cornerRadius WRITE setCornerRadius RESET resetCornerRadius NOTIFY cornerRadiusChanged FINAL)
+public:
+    InlineCodeStyle(MarkdownStyle *style, const QString &prefix);
+    QFont font() const;
+    void setFont(const QFont &value);
+    void resetFont();
+    QColor foreground() const;
+    void setForeground(const QColor &value);
+    void resetForeground();
+    QColor backgroundColor() const;
+    void setBackgroundColor(const QColor &value);
+    void resetBackgroundColor();
+    qreal cornerRadius() const;
+    void setCornerRadius(qreal value);
+    void resetCornerRadius();
+signals:
+    void fontChanged();
+    void foregroundChanged();
+    void backgroundColorChanged();
+    void cornerRadiusChanged();
+private:
+    MarkdownStyle *m_style;
+    QString m_prefix;
+};
+
+class CodeBlockStyle : public QObject
+{
+    Q_OBJECT
+    QML_ANONYMOUS
+    QML_ADDED_IN_VERSION(1, 1)
+    Q_PROPERTY(QFont font READ font WRITE setFont RESET resetFont NOTIFY fontChanged FINAL)
+    Q_PROPERTY(QColor color READ color WRITE setColor RESET resetColor NOTIFY colorChanged FINAL)
+    Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET resetBackgroundColor NOTIFY backgroundColorChanged FINAL)
+    Q_PROPERTY(QColor borderColor READ borderColor WRITE setBorderColor RESET resetBorderColor NOTIFY borderColorChanged FINAL)
+    Q_PROPERTY(qreal borderWidth READ borderWidth WRITE setBorderWidth RESET resetBorderWidth NOTIFY borderWidthChanged FINAL)
+    Q_PROPERTY(qreal cornerRadius READ cornerRadius WRITE setCornerRadius RESET resetCornerRadius NOTIFY cornerRadiusChanged FINAL)
+    Q_PROPERTY(qreal horizontalPadding READ horizontalPadding WRITE setHorizontalPadding RESET resetHorizontalPadding NOTIFY horizontalPaddingChanged FINAL)
+    Q_PROPERTY(qreal verticalPadding READ verticalPadding WRITE setVerticalPadding RESET resetVerticalPadding NOTIFY verticalPaddingChanged FINAL)
+public:
+    CodeBlockStyle(MarkdownStyle *style, const QString &prefix);
+    QFont font() const;
+    void setFont(const QFont &value);
+    void resetFont();
+    QColor color() const;
+    void setColor(const QColor &value);
+    void resetColor();
+    QColor backgroundColor() const;
+    void setBackgroundColor(const QColor &value);
+    void resetBackgroundColor();
+    QColor borderColor() const;
+    void setBorderColor(const QColor &value);
+    void resetBorderColor();
+    qreal borderWidth() const;
+    void setBorderWidth(qreal value);
+    void resetBorderWidth();
+    qreal cornerRadius() const;
+    void setCornerRadius(qreal value);
+    void resetCornerRadius();
+    qreal horizontalPadding() const;
+    void setHorizontalPadding(qreal value);
+    void resetHorizontalPadding();
+    qreal verticalPadding() const;
+    void setVerticalPadding(qreal value);
+    void resetVerticalPadding();
+signals:
+    void fontChanged();
+    void colorChanged();
+    void backgroundColorChanged();
+    void borderColorChanged();
+    void borderWidthChanged();
+    void cornerRadiusChanged();
+    void horizontalPaddingChanged();
+    void verticalPaddingChanged();
+private:
+    MarkdownStyle *m_style;
+    QString m_prefix;
+};
+
+class HeadingStyles : public QObject
+{
+    Q_OBJECT
+    QML_ANONYMOUS
+    QML_ADDED_IN_VERSION(1, 1)
+    Q_PROPERTY(HeadingStyle *h1 READ h1 CONSTANT FINAL)
+    Q_PROPERTY(HeadingStyle *h2 READ h2 CONSTANT FINAL)
+    Q_PROPERTY(HeadingStyle *h3 READ h3 CONSTANT FINAL)
+    Q_PROPERTY(HeadingStyle *h4 READ h4 CONSTANT FINAL)
+    Q_PROPERTY(HeadingStyle *h5 READ h5 CONSTANT FINAL)
+    Q_PROPERTY(HeadingStyle *h6 READ h6 CONSTANT FINAL)
+public:
+    explicit HeadingStyles(MarkdownStyle *style);
+    HeadingStyle *h1() const { return m_h1; }
+    HeadingStyle *h2() const { return m_h2; }
+    HeadingStyle *h3() const { return m_h3; }
+    HeadingStyle *h4() const { return m_h4; }
+    HeadingStyle *h5() const { return m_h5; }
+    HeadingStyle *h6() const { return m_h6; }
+private:
+    HeadingStyle *m_h1;
+    HeadingStyle *m_h2;
+    HeadingStyle *m_h3;
+    HeadingStyle *m_h4;
+    HeadingStyle *m_h5;
+    HeadingStyle *m_h6;
+};
 
 class MarkdownStyle : public QObject
 {
@@ -34,62 +196,75 @@ class MarkdownStyle : public QObject
     Q_PROPERTY(qreal quoteIndent READ quoteIndent WRITE setQuoteIndent NOTIFY quoteIndentChanged FINAL)
     Q_PROPERTY(QColor quoteRuleColor READ quoteRuleColor WRITE setQuoteRuleColor NOTIFY quoteRuleColorChanged FINAL)
     Q_PROPERTY(qreal quoteRuleThickness READ quoteRuleThickness WRITE setQuoteRuleThickness NOTIFY quoteRuleThicknessChanged FINAL)
+    Q_PROPERTY(Preset preset READ preset WRITE setPreset NOTIFY presetChanged REVISION(1, 1) FINAL)
+    Q_PROPERTY(HeadingStyles *headings READ headings CONSTANT REVISION(1, 1) FINAL)
+    Q_PROPERTY(InlineCodeStyle *inlineCode READ inlineCode CONSTANT REVISION(1, 1) FINAL)
+    Q_PROPERTY(CodeBlockStyle *codeBlock READ codeBlock CONSTANT REVISION(1, 1) FINAL)
 public:
+    enum Preset { Legacy, PolishedLight, PolishedDark, MinimalLight, MinimalDark };
+    Q_ENUM(Preset)
     explicit MarkdownStyle(QObject *parent = nullptr);
     void restoreDefaults();
-    QColor linkColor() const { return m_linkColor; }
+    Q_INVOKABLE Q_REVISION(1, 1) void resetOverrides();
+    Preset preset() const { return m_preset; }
+    void setPreset(Preset value);
+    HeadingStyles *headings() const { return m_headings; }
+    InlineCodeStyle *inlineCode() const { return m_inlineCode; }
+    CodeBlockStyle *codeBlock() const { return m_codeBlock; }
+    QColor linkColor() const { return value("linkColor").value<QColor>(); }
     void setLinkColor(const QColor &value);
-    bool linkUnderline() const { return m_linkUnderline; }
+    bool linkUnderline() const { return value("linkUnderline").value<bool>(); }
     void setLinkUnderline(bool value);
-    QColor thematicBreakColor() const { return m_thematicBreakColor; }
+    QColor thematicBreakColor() const { return value("thematicBreakColor").value<QColor>(); }
     void setThematicBreakColor(const QColor &value);
-    qreal thematicBreakThickness() const { return m_thematicBreakThickness; }
+    qreal thematicBreakThickness() const { return value("thematicBreakThickness").value<qreal>(); }
     void setThematicBreakThickness(qreal value);
-    QFont codeBlockFont() const { return m_codeBlockFont; }
+    QFont codeBlockFont() const { return value("codeBlock.font").value<QFont>(); }
     void setCodeBlockFont(const QFont &value);
-    QColor codeBlockColor() const { return m_codeBlockColor; }
+    QColor codeBlockColor() const { return value("codeBlock.color").value<QColor>(); }
     void setCodeBlockColor(const QColor &value);
-    QFont inlineCodeFont() const { return m_inlineCodeFont; }
+    QFont inlineCodeFont() const { return value("inlineCode.font").value<QFont>(); }
     void setInlineCodeFont(const QFont &value);
-    QFont bodyFont() const { return m_bodyFont; }
+    QFont bodyFont() const { return value("bodyFont").value<QFont>(); }
     void setBodyFont(const QFont &value);
-    QColor bodyColor() const { return m_bodyColor; }
+    QColor bodyColor() const { return value("bodyColor").value<QColor>(); }
     void setBodyColor(const QColor &value);
-    QFont h1Font() const { return m_h1Font; }
+    QFont h1Font() const { return value("h1.font").value<QFont>(); }
     void setH1Font(const QFont &value);
-    QColor h1Color() const { return m_h1Color; }
+    QColor h1Color() const { return value("h1.color").value<QColor>(); }
     void setH1Color(const QColor &value);
-    QFont h2Font() const { return m_h2Font; }
+    QFont h2Font() const { return value("h2.font").value<QFont>(); }
     void setH2Font(const QFont &value);
-    QColor h2Color() const { return m_h2Color; }
+    QColor h2Color() const { return value("h2.color").value<QColor>(); }
     void setH2Color(const QColor &value);
-    QFont h3Font() const { return m_h3Font; }
+    QFont h3Font() const { return value("h3.font").value<QFont>(); }
     void setH3Font(const QFont &value);
-    QColor h3Color() const { return m_h3Color; }
+    QColor h3Color() const { return value("h3.color").value<QColor>(); }
     void setH3Color(const QColor &value);
-    QFont h4Font() const { return m_h4Font; }
+    QFont h4Font() const { return value("h4.font").value<QFont>(); }
     void setH4Font(const QFont &value);
-    QColor h4Color() const { return m_h4Color; }
+    QColor h4Color() const { return value("h4.color").value<QColor>(); }
     void setH4Color(const QColor &value);
-    QFont h5Font() const { return m_h5Font; }
+    QFont h5Font() const { return value("h5.font").value<QFont>(); }
     void setH5Font(const QFont &value);
-    QColor h5Color() const { return m_h5Color; }
+    QColor h5Color() const { return value("h5.color").value<QColor>(); }
     void setH5Color(const QColor &value);
-    QFont h6Font() const { return m_h6Font; }
+    QFont h6Font() const { return value("h6.font").value<QFont>(); }
     void setH6Font(const QFont &value);
-    QColor h6Color() const { return m_h6Color; }
+    QColor h6Color() const { return value("h6.color").value<QColor>(); }
     void setH6Color(const QColor &value);
-    qreal blockSpacing() const { return m_blockSpacing; }
+    qreal blockSpacing() const { return value("blockSpacing").value<qreal>(); }
     void setBlockSpacing(qreal value);
-    qreal listIndent() const { return m_listIndent; }
+    qreal listIndent() const { return value("listIndent").value<qreal>(); }
     void setListIndent(qreal value);
-    qreal quoteIndent() const { return m_quoteIndent; }
+    qreal quoteIndent() const { return value("quoteIndent").value<qreal>(); }
     void setQuoteIndent(qreal value);
-    QColor quoteRuleColor() const { return m_quoteRuleColor; }
+    QColor quoteRuleColor() const { return value("quoteRuleColor").value<QColor>(); }
     void setQuoteRuleColor(const QColor &value);
-    qreal quoteRuleThickness() const { return m_quoteRuleThickness; }
+    qreal quoteRuleThickness() const { return value("quoteRuleThickness").value<qreal>(); }
     void setQuoteRuleThickness(qreal value);
 signals:
+    void presetChanged();
     void linkColorChanged();
     void linkUnderlineChanged();
     void thematicBreakColorChanged();
@@ -117,30 +292,17 @@ signals:
     void quoteRuleColorChanged();
     void quoteRuleThicknessChanged();
 private:
-    QColor m_linkColor;
-    bool m_linkUnderline = true;
-    qreal m_listIndent = 24;
-    qreal m_quoteIndent = 16;
-    QColor m_quoteRuleColor = QColor("#808080");
-    qreal m_quoteRuleThickness = 2;
-    QColor m_thematicBreakColor;
-    qreal m_thematicBreakThickness = 1;
-    QFont m_codeBlockFont, m_defaultCodeBlockFont;
-    QColor m_codeBlockColor;
-    QFont m_inlineCodeFont, m_defaultInlineCodeFont;
-    QFont m_bodyFont, m_defaultbodyFont;
-    QColor m_bodyColor;
-    QFont m_h1Font, m_defaulth1Font;
-    QColor m_h1Color;
-    QFont m_h2Font, m_defaulth2Font;
-    QColor m_h2Color;
-    QFont m_h3Font, m_defaulth3Font;
-    QColor m_h3Color;
-    QFont m_h4Font, m_defaulth4Font;
-    QColor m_h4Color;
-    QFont m_h5Font, m_defaulth5Font;
-    QColor m_h5Color;
-    QFont m_h6Font, m_defaulth6Font;
-    QColor m_h6Color;
-    qreal m_blockSpacing = 8;
+    friend class HeadingStyle;
+    friend class InlineCodeStyle;
+    friend class CodeBlockStyle;
+    QVariant value(const QString &key) const { return m_values.value(key); }
+    void setValue(const QString &key, const QVariant &value, bool explicitOverride = true);
+    void resetValue(const QString &key);
+    void applyPreset();
+    QHash<QString, QVariant> m_values, m_defaults;
+    QSet<QString> m_overrides;
+    Preset m_preset = Legacy;
+    HeadingStyles *m_headings;
+    InlineCodeStyle *m_inlineCode;
+    CodeBlockStyle *m_codeBlock;
 };

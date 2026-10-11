@@ -16,6 +16,9 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(bool linkUnderline READ linkUnderline WRITE setLinkUnderline NOTIFY linkUnderlineChanged FINAL)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged FINAL)
     Q_PROPERTY(QFont codeFont READ codeFont WRITE setCodeFont NOTIFY codeFontChanged FINAL)
+    Q_PROPERTY(QColor codeForeground READ codeForeground WRITE setCodeForeground NOTIFY codeForegroundChanged FINAL)
+    Q_PROPERTY(QColor codeBackground READ codeBackground WRITE setCodeBackground NOTIFY codeBackgroundChanged FINAL)
+    Q_PROPERTY(qreal codeCornerRadius READ codeCornerRadius WRITE setCodeCornerRadius NOTIFY codeCornerRadiusChanged FINAL)
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged FINAL)
     Q_PROPERTY(qreal layoutWidth READ layoutWidth WRITE setLayoutWidth NOTIFY layoutWidthChanged FINAL)
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
@@ -25,6 +28,12 @@ public:
     QVariantList formatRanges() const { return m_ranges; }
     QFont font() const { return m_font; }
     QFont codeFont() const { return m_codeFont; }
+    QColor codeForeground() const { return m_codeForeground; }
+    QColor codeBackground() const { return m_codeBackground; }
+    qreal codeCornerRadius() const { return m_codeCornerRadius; }
+    void setCodeForeground(const QColor &value);
+    void setCodeBackground(const QColor &value);
+    void setCodeCornerRadius(qreal value);
     QColor color() const { return m_color; }
     qreal layoutWidth() const { return m_layoutWidth; }
     qreal logicalHeight() const { return m_logicalHeight; }
@@ -53,6 +62,9 @@ signals:
     void fontChanged();
     void codeFontChanged();
     void colorChanged();
+    void codeForegroundChanged();
+    void codeBackgroundChanged();
+    void codeCornerRadiusChanged();
     void layoutWidthChanged();
     void layoutChanged();
 protected:
@@ -67,6 +79,10 @@ private:
     QColor m_linkColor = QColor("#0066cc");
     bool m_linkUnderline = true;
     QFont m_font, m_codeFont, m_layoutFont;
+    QColor m_codeForeground;
+    QColor m_codeBackground = Qt::transparent;
+    qreal m_codeCornerRadius = 0;
+    QVector<QRectF> m_codeRects;
     QColor m_color = Qt::black;
     qreal m_layoutWidth = 0, m_logicalHeight = 0;
     QPointF m_paintOffset;

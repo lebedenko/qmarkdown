@@ -108,7 +108,8 @@ int main(int argc, char *argv[])
     QQuickItem *rule = nullptr;
     for (auto *child : heading->parentItem()->childItems())
         if (child->metaObject()->indexOfProperty("color") >= 0
-            && child->metaObject()->indexOfProperty("text") < 0) rule = child;
+            && child->metaObject()->indexOfProperty("text") < 0
+            && child->objectName() != "codeSurface") rule = child;
     if (!rule || rule->width() != view->width() || rule->height() != 1) return 14;
     const auto beforeRule = height();
     style->setProperty("thematicBreakColor", QColor("#abcdef"));
