@@ -139,7 +139,7 @@ sys.exit(17)
         first = runner.image_metadata("6.8.0", context)
         (self.source / "tracked.txt").write_text("another edit")
         self.assertEqual(first, runner.image_metadata("6.8.0", context))
-        self.assertNotEqual(first, runner.image_metadata("6.11.3", context))
+        self.assertNotEqual(first, runner.image_metadata("6.12.0", context))
         with patch.object(runner, "PLATFORM", "linux/arm64"):
             self.assertNotEqual(first, runner.image_metadata("6.8.0", context))
         (context / "Dockerfile").write_text("FROM changed\n")
@@ -148,6 +148,29 @@ sys.exit(17)
             self.assertEqual(self.invoke("--image-metadata"), 0)
         self.assertFalse(self.work.exists())
         self.assertFalse(self.commands.exists())
+
+    def test_roles_resolve_to_exact_targets_without_docker(self):
+        for role, version in (("minimum", "6.8.0"), ("development", "6.12.0")):
+            with self.subTest(role=role), patch.object(sys, "argv", [
+                    "run-ci.py", "--qt-role", role, "--image-metadata"]):
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    self.assertEqual(runner.main(), 0)
+                self.assertEqual(json.loads(output.getvalue())["qt"], version)
+        self.assertFalse(self.commands.exists())
+
+    def test_configuration_and_helper_invalidate_image_identity(self):
+        context = self.source / "scripts" / "ci-toolchain"
+        first = runner.image_metadata("6.8.0", context)
+        (context / "qt-versions.json").write_text('{"minimum": "6.8.0"}')
+        second = runner.image_metadata("6.8.0", context)
+        self.assertNotEqual(first, second)
+        (context / "qt_versions.py").write_text("# changed helper")
+        self.assertNotEqual(second, runner.image_metadata("6.8.0", context))
+        current = runner.image_metadata("6.8.0", context)
+        (context / "__pycache__").mkdir()
+        (context / "__pycache__" / "qt_versions.pyc").write_bytes(b"cache")
+        self.assertEqual(current, runner.image_metadata("6.8.0", context))
 
     def test_cancellation_during_preparation_never_starts_checks(self):
         original_wait = subprocess.Popen.wait

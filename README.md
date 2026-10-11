@@ -6,7 +6,7 @@ A standalone Qt/QML Markdown rendering library independent of any other project.
 
 ## 1.0 compatibility
 
-Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Pinned verification uses Qt 6.8.0 and 6.11.3; host and native Wayland evidence are recorded separately in [iteration 021](specs/021-v1-release-candidate/verification.md). Release publication additionally requires the [release packaging workflow](.github/workflows/release.yml) to pass both pinned suites and installed binary checks.
+Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Configured verification targets are Qt 6.8.0 and 6.12.0; host and native Wayland evidence are recorded separately in [iteration 021](specs/021-v1-release-candidate/verification.md). Release publication additionally requires the [release packaging workflow](.github/workflows/release.yml) to pass both pinned suites and installed binary checks.
 
 Throughout 1.x, documented public QML properties, signals and behavior of MarkdownView, MarkdownStyle and MarkdownResourcePolicy, and documented CMake integration remain backward compatible. Native implementation classes and QMarkdown.Private are private. No C++ headers are installed and no public C++ ABI compatibility is promised. Build consumers against a compatible Qt/toolchain; a bounded Ubuntu 24.04 x86_64 archive built with Qt 6.8.0 is described in the [binary installation instructions](docs/release-install.md). Newer Qt compatibility is specific test evidence, not a universal binary guarantee.
 
@@ -185,12 +185,14 @@ The isolated per-view loader permits four fetches and sequential image admission
 
 ## Verification hardening and advisory benchmarks
 
-[Feature 012](specs/012-verification-hardening/requirements.md) established verification hardening before the 1.0 candidate. The [Linux workflow](.github/workflows/linux-qt.yml) verifies Qt 6.8.0 and 6.11.3 in toolchain images derived from the same digest-pinned Ubuntu 24.04 amd64 base and with the same [runner](scripts/run-ci.py) and [commands](scripts/ci-container.sh) as these local tasks:
+[Feature 012](specs/012-verification-hardening/requirements.md) established verification hardening before the 1.0 candidate. The [Linux workflow](.github/workflows/linux-qt.yml) targets Qt 6.8.0 and 6.12.0 in toolchain images derived from the same digest-pinned Ubuntu 24.04 amd64 base and with the same [runner](scripts/run-ci.py) and [commands](scripts/ci-container.sh) as these local tasks:
 
 ```sh
-task ci-6.8
-task ci-6.11
+task ci-minimum
+task ci-development
 ```
+
+Targets are defined in [qt-versions.json](scripts/ci-toolchain/qt-versions.json). SDK upgrades require an explicit configuration edit and fresh verification. `ci-6.8` remains an alias for `ci-minimum`; `ci-development` replaces `ci-6.11`. The runner accepts `--qt-role minimum|development` or an exact configured `--qt` version.
 
 These tasks require a Linux host, Task, Python ≥3.9, Git, Docker and access to its running daemon. The first run builds a reusable toolchain image containing the pinned Ubuntu base, packages, Noto fonts, pinned aqtinstall/py7zr and selected official Qt SDK; network access and sufficient disk space are required for preparation. Later runs reuse the installed local image. Provisioning file, Qt version or platform changes select a new image; project source edits do not. Explicit refresh uses `python3 scripts/run-ci.py --qt 6.8.0 --rebuild-image` (uncached provisioning). `--image-metadata` prints the tag, recipe fingerprint, Qt version and platform without Docker access or filesystem writes. Images are not automatically pruned. Host Qt, fonts and display settings are not used. No GitHub token or push is needed. Each run verifies shared/static builds, CTest, QML lint, symbol privacy, installed/relocated consumers, library-only builds and validated Release benchmark smoke output. Checks run as your UID/GID with offscreen/Fusion rendering, and failures return nonzero.
 

@@ -1,17 +1,22 @@
 version: '3'
 
 tasks:
-  ci-6.8:
-    desc: Run the GitHub verification container with Qt 6.8.0
+  ci-minimum:
+    desc: Run verification with the configured minimum Qt SDK
     dir: '{{.TASKFILE_DIR}}'
     cmds:
-      - python3 scripts/run-ci.py --qt 6.8.0
+      - python3 scripts/run-ci.py --qt-role minimum
 
-  ci-6.11:
-    desc: Run the GitHub verification container with Qt 6.11.3
+  ci-development:
+    desc: Run verification with the configured development-host Qt SDK
     dir: '{{.TASKFILE_DIR}}'
     cmds:
-      - python3 scripts/run-ci.py --qt 6.11.3
+      - python3 scripts/run-ci.py --qt-role development
+
+  ci-6.8:
+    desc: Alias for ci-minimum
+    cmds:
+      - task: ci-minimum
 
   build:
     desc: Configure and build the library, tests, and examples

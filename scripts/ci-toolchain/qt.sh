@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-case "$CI_QT_VERSION" in 6.8.0|6.11.3) ;; *) exit 2 ;; esac
+python3 /opt/provision/qt_versions.py --validate-version "$CI_QT_VERSION"
 cd /opt/qmarkdown-provenance
 /opt/aqt/bin/aqt install-qt linux desktop "$CI_QT_VERSION" linux_gcc_64 -O /opt/Qt
 qt_root="/opt/Qt/$CI_QT_VERSION/gcc_64"
