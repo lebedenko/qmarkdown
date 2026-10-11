@@ -1,12 +1,12 @@
 # Staged roadmap
 
-## Current 1.1 integration direction
+## Current 1.1 release direction
 
 Version 1.0.0 was published through [iteration 023](023-stable-release/verification.md). [Iteration 025](025-styling-presets/requirements.md) implements package 1.1.0 / QML 1.1 styling: opt-in Polished and Minimal light/dark presets, permanent heading/inline-code/code-block groups, explicit overrides and binding-preserving resets, and native heading/code decorations. Legacy remains the default and existing QML 1.0 imports and flat style properties remain compatible. Hosts own visual identity, backgrounds, scrolling, navigation and resource authorization. See [styling documentation](../docs/styling.md).
 
 [Iteration 024](024-development-host-qt/verification.md) pins minimum Qt 6.8.0 and development Qt 6.12.0 for Linux amd64 verification. Support remains Qt >=6.8, C++17 and CMake >=3.21. Documented QML behavior and CMake integration remain compatible throughout 1.x; QMarkdown.Private/native classes remain private, with no installed C++ headers, public C++ ABI or portable binary guarantee. Package 1.1.0 accepts 1.0/1.1 requests and EXACT 1.1.0; EXACT 1.0.0 requires the historical package.
 
-[Iteration 026](026-v1.1-integration/requirements.md) integrates CI and styling through protected ordinary merges and verifies the final main SHA as a release candidate. Actual candidate status belongs in its [verification record](026-v1.1-integration/verification.md). [Draft release notes](../docs/release-notes-1.1.0.md) and the unreleased changelog prepare a later release; tagging and publication require a separate approved plan.
+[Iteration 026](026-v1.1-integration/requirements.md) integrates CI and styling through protected ordinary merges and verifies the final main SHA as a release candidate. Actual candidate status belongs in its [verification record](026-v1.1-integration/verification.md). [Iteration 027](027-stable-v1.1-release/requirements.md) is approved to integrate the candidate evidence and finalized [release notes](../docs/release-notes-1.1.0.md), verify the new final commit, and tag/publish stable v1.1.0. Actual publication status is recorded separately in its [verification record](027-stable-v1.1-release/verification.md).
 
 Accepted limits remain separate PNG/JPEG image rows, literal HTML, full replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Selection/copy, GFM, streaming, highlighting, renderer extensions, inline-code padding/borders, arbitrary style inheritance, further performance optimization and broader platforms are deferred. Historical iteration descriptions below retain their original versions and evidence.
 

@@ -5,16 +5,16 @@ not included. Provide Qt Core, Gui, Qml, Quick and Network and their Ubuntu
 system dependencies. Python 3.9+ and the standard Ubuntu `readlink`, `sudo`
 and `ldconfig` tools are required for installation. Development consumers also
 need CMake >=3.21, a C++17 compiler and the matching Qt development SDK.
-The same Qt 6.8.0-built archive is tested with Qt 6.11.3; this is specific
+The same Qt 6.8.0-built archive is tested with exact Qt 6.8.0 and 6.12.0; this is specific
 verification evidence, not a guarantee for every newer Qt or distribution.
 
-Download the archive and its `.sha256` companion from the stable GitHub release.
+Download the archive and its `.sha256` companion from the [v1.1.0 stable GitHub release](https://github.com/lebedenko/qmarkdown/releases/tag/v1.1.0).
 Verify before extracting, then run from the enclosing package directory:
 
 ```sh
-sha256sum -c qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256
-tar -xzf qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8.tar.gz
-cd qmarkdown-1.0.0-ubuntu24.04-x86_64-qt6.8
+sha256sum -c qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256
+tar -xzf qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz
+cd qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8
 sudo ./install.sh
 ```
 
@@ -25,9 +25,11 @@ by the system linker (for an external SDK, configure its library directory in
 ld.so.conf and run ldconfig). Do not mix incompatible Qt libraries in one process.
 
 CMake discovers `/usr/lib/x86_64-linux-gnu/cmake/QMarkdown` through its normal
-system search. Use `find_package(QMarkdown 1.0 CONFIG REQUIRED)` and link
+system search. Use `find_package(QMarkdown 1.1 CONFIG REQUIRED)` and link
 `QMarkdown::QMarkdown`. For an external Qt SDK, configure `CMAKE_PREFIX_PATH`
-with its root. Import `QMarkdown 1.0` in QML. If your Qt installation does not
+with its root. Import `QMarkdown 1.1` in QML for the styling additions. Existing
+QML 1.0 imports and CMake 1.0 requests remain supported with Legacy defaults;
+EXACT 1.0.0 requires the historical package. If your Qt installation does not
 search Ubuntu's QML directory, set:
 
 ```sh
