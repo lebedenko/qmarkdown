@@ -1,11 +1,11 @@
 # Changelog
 
-## 1.1.0 — unreleased
+## 1.1.0 — 2026-10-11
 
 - Add opt-in fixed light/dark Polished and Minimal presets, grouped heading/inline-code/code-block styling, explicit override tracking and binding-preserving resets. Legacy remains the default; existing flat properties and 1.0 imports remain supported.
 - Add native heading separators, inline code backgrounds and code block surfaces without parser or resource-policy changes.
 - Centralize reproducible minimum/development Qt verification targets (6.8.0/6.12.0), with stable hosted packaging check names.
-- Add playground controls, presentation fixtures and installed 1.1 consumers alongside existing 1.0 consumers. Publication is a separate task.
+- Add playground controls, presentation fixtures and installed 1.1 consumers alongside existing 1.0 consumers. See [release notes](docs/release-notes-1.1.0.md) for installation and compatibility.
 
 ## 1.0.0 — 2026-10-10
 
