@@ -8,6 +8,7 @@
 #include <QQuickWindow>
 #include <QScreen>
 #include <cmath>
+#include <algorithm>
 
 namespace {
 QFont layoutFont(QFont font)
@@ -75,6 +76,22 @@ void FormattedText::setColor(const QColor &value)
     if (m_color == value) return;
     m_color = value; emit colorChanged(); polish();
 }
+void FormattedText::setCodeForeground(const QColor &value)
+{
+    if (m_codeForeground == value) return;
+    m_codeForeground = value; emit codeForegroundChanged(); polish();
+}
+void FormattedText::setCodeBackground(const QColor &value)
+{
+    if (m_codeBackground == value) return;
+    m_codeBackground = value; emit codeBackgroundChanged(); update();
+}
+void FormattedText::setCodeCornerRadius(qreal value)
+{
+    value = std::isfinite(value) ? qMax(qreal(0), value) : 0;
+    if (m_codeCornerRadius == value) return;
+    m_codeCornerRadius = value; emit codeCornerRadiusChanged(); update();
+}
 void FormattedText::setLayoutWidth(qreal value)
 {
     value = std::isfinite(value) ? qMax(qreal(0), value) : 0;
@@ -84,6 +101,7 @@ void FormattedText::setLayoutWidth(qreal value)
 void FormattedText::updatePolish()
 {
     m_layout.reset();
+    m_codeRects.clear();
     m_logicalHeight = 0;
     m_paintOffset = {};
     if (m_layoutWidth > 0) {
@@ -109,6 +127,8 @@ void FormattedText::updatePolish()
             if (flags & QMarkdownPrivate::Strong) resolved.setWeight(qMax(resolved.weight(), QFont::Bold));
             QTextCharFormat format;
             format.setFont(resolved);
+            if ((flags & QMarkdownPrivate::Code) && m_codeForeground.isValid())
+                format.setForeground(m_codeForeground);
             if (linked) {
                 format.setForeground(m_linkColor);
                 format.setFontUnderline(m_linkUnderline);
@@ -125,6 +145,34 @@ void FormattedText::updatePolish()
             m_logicalHeight += line.height();
         }
         m_layout->endLayout();
+        // Use the same visual character cells as link hit testing, including
+        // disjoint bidi runs and complete grapheme cells. No layout padding.
+        qsizetype intervalIndex = 0;
+        const bool hasCode = std::any_of(intervals.cbegin(), intervals.cend(), [](const auto &interval) {
+            return interval.flags & QMarkdownPrivate::Code;
+        });
+        for (int i = 0; hasCode && i < m_layout->lineCount(); ++i) {
+            const auto line = m_layout->lineAt(i);
+            QVector<QRectF> cells;
+            for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
+                if (!m_layout->isValidCursorPosition(pos) || m_text[pos] == u'\n') continue;
+                while (intervalIndex < intervals.size()
+                       && pos >= intervals[intervalIndex].start + intervals[intervalIndex].length)
+                    ++intervalIndex;
+                if (intervalIndex == intervals.size() || pos < intervals[intervalIndex].start
+                    || !(intervals[intervalIndex].flags & QMarkdownPrivate::Code)) continue;
+                const qreal a = line.cursorToX(pos, QTextLine::Leading);
+                const qreal b = line.cursorToX(pos, QTextLine::Trailing);
+                if (a != b) cells.append(QRectF(qMin(a, b), line.y(), std::abs(b - a), line.height()));
+            }
+            std::sort(cells.begin(), cells.end(), [](const QRectF &a, const QRectF &b) { return a.left() < b.left(); });
+            for (const auto &cell : cells) {
+                if (!m_codeRects.isEmpty() && m_codeRects.last().top() == cell.top()
+                    && cell.left() <= m_codeRects.last().right() + 0.01)
+                    m_codeRects.last() = m_codeRects.last().united(cell);
+                else m_codeRects.append(cell);
+            }
+        }
         if (m_text.isEmpty()) m_logicalHeight = QFontMetricsF(m_layoutFont).height();
         // Raster bounds include ink overhang; wrapping and parent geometry retain
         // the host's logical width and native line height.
@@ -145,6 +193,13 @@ void FormattedText::updatePolish()
 void FormattedText::paint(QPainter *painter)
 {
     if (!m_layout) return;
+    painter->save();
+    painter->translate(m_paintOffset);
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(m_codeBackground);
+    for (const auto &rect : m_codeRects)
+        painter->drawRoundedRect(rect, m_codeCornerRadius, m_codeCornerRadius);
+    painter->restore();
     painter->setPen(m_color);
     m_layout->draw(painter, m_paintOffset);
 }

@@ -83,3 +83,19 @@ if(QMARKDOWN_BUILD_BENCHMARKS)
         target_compile_definitions(qmarkdown-benchmark PRIVATE QMARKDOWN_STATIC)
     endif()
 endif()
+
+qt_add_executable(qmarkdown-styling-test tst_styling.cpp)
+target_include_directories(qmarkdown-styling-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-styling-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+target_compile_definitions(qmarkdown-styling-test PRIVATE
+    QMARKDOWN_PRESENTATION_DIR="${CMAKE_CURRENT_BINARY_DIR}/presentation")
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-styling-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-styling-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-styling COMMAND qmarkdown-styling-test)
+add_test(NAME qmarkdown-styling-fractional COMMAND qmarkdown-styling-test)
+set_tests_properties(qmarkdown-styling PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+set_tests_properties(qmarkdown-styling-fractional PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_SCALE_FACTOR=1.25;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
