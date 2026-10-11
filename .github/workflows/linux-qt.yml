@@ -7,13 +7,25 @@ on:
 permissions:
   contents: read
 jobs:
+  targets:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.targets.outputs.matrix }}
+      minimum: ${{ steps.targets.outputs.minimum }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - id: targets
+        run: |
+          echo "matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)" >> "$GITHUB_OUTPUT"
+          echo "minimum=$(python3 scripts/ci-toolchain/qt_versions.py --role minimum)" >> "$GITHUB_OUTPUT"
   packaging:
+    name: packaging (${{ matrix.role }})
+    needs: targets
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     strategy:
       fail-fast: false
-      matrix:
-        qt: ['6.8.0', '6.11.3']
+      matrix: ${{ fromJSON(needs.targets.outputs.matrix) }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Resolve toolchain identity

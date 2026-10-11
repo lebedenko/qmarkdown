@@ -78,3 +78,5 @@ Feature 020: [responsive image-decoder lifecycle](020-responsive-decoder-lifecyc
 Feature 022: [release packaging](022-release-packaging/requirements.md), approved on 2026-10-10 through the explicit implementation request. See [design](022-release-packaging/design.md), [tasks](022-release-packaging/tasks.md) and [actual verification](022-release-packaging/verification.md). Tag and first-release creation remain separate.
 
 Feature 023: [stable 1.0.0 release](023-stable-release/requirements.md), approved on 2026-10-10 through the supplied release plan. See [design](023-stable-release/design.md), [tasks](023-stable-release/tasks.md) and [verification](023-stable-release/verification.md). Includes protected PR merge, exact-commit verification, tagging, publication and published-asset checks.
+
+Feature 024: [development-host Qt verification](024-development-host-qt/requirements.md), approved on 2026-10-11 through the supplied implementation plan. See design, tasks and actual verification in that directory. Configuration targets Qt 6.8.0 and 6.12.0; successful provisioning and hosted migration remain gates.

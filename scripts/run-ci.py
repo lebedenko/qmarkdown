@@ -3,6 +3,8 @@
 
 import argparse
 import hashlib
+import runpy
+from types import SimpleNamespace
 from datetime import datetime, timezone
 import json
 import os
@@ -17,7 +19,10 @@ import time
 import uuid
 
 PLATFORM = "linux/amd64"
-QT_VERSIONS = ("6.8.0", "6.11.3")
+qt_versions = SimpleNamespace(**runpy.run_path(
+    str(Path(__file__).resolve().parent / "ci-toolchain" / "qt_versions.py")))
+QT_TARGETS = qt_versions.load_versions()
+QT_VERSIONS = tuple(QT_TARGETS.values())
 TIMEOUT_SECONDS = 35 * 60
 SOURCE = Path(__file__).resolve().parents[1]
 
@@ -25,7 +30,7 @@ SOURCE = Path(__file__).resolve().parents[1]
 def image_metadata(qt, context):
     digest = hashlib.sha256()
     for path in sorted(context.rglob("*")):
-        if path.is_file():
+        if path.is_file() and "__pycache__" not in path.parts and path.suffix != ".pyc":
             name = path.relative_to(context).as_posix().encode()
             content = path.read_bytes()
             digest.update(len(name).to_bytes(8, "big") + name)
@@ -153,12 +158,16 @@ def stop_container(name, process):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--qt", choices=QT_VERSIONS, required=True)
+    selection = parser.add_mutually_exclusive_group(required=True)
+    selection.add_argument("--qt", choices=QT_VERSIONS)
+    selection.add_argument("--qt-role", choices=qt_versions.ROLES)
     parser.add_argument("--artifact-dir", type=Path,
                         help="New or empty directory; defaults to build-ci/<Qt>/<unique run>")
     parser.add_argument("--rebuild-image", action="store_true", help="Refresh provisioning without build cache")
     parser.add_argument("--image-metadata", action="store_true", help="Print image identity JSON without Docker or writes")
     args = parser.parse_args()
+    if args.qt_role:
+        args.qt = QT_TARGETS[args.qt_role]
     context = SOURCE / "scripts" / "ci-toolchain"
     metadata = image_metadata(args.qt, context)
     if args.image_metadata:
