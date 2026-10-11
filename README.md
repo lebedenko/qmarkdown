@@ -4,13 +4,13 @@ A standalone Qt/QML Markdown rendering library independent of any other project.
 
 **Status:** `1.1.0` / QML module `1.1` provides native paragraphs, headings, rules, code, ordered/unordered and nested lists, block quotes and mixed containers, with emphasis/strong/code and CommonMark escapes/entities. A single privately bundled cmark 0.31.2 parse supplies block and inline semantics. Links and autolinks report decoded destinations to the host; opt-in PNG/JPEG images use native rows with formatted description fallbacks and HTML stays literal. Strict semantic checks pass all 652 pinned CommonMark examples; native presentation and release readiness are assessed separately.
 
-## 1.0 compatibility
+## 1.x compatibility
 
 Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Configured verification targets are Qt 6.8.0 and 6.12.0; host and native Wayland evidence are recorded separately in [iteration 021](specs/021-v1-release-candidate/verification.md). Release publication additionally requires the [release packaging workflow](.github/workflows/release.yml) to pass both pinned suites and installed binary checks.
 
 Throughout 1.x, documented public QML properties, signals and behavior of MarkdownView, MarkdownStyle and MarkdownResourcePolicy, and documented CMake integration remain backward compatible. Native implementation classes and QMarkdown.Private are private. No C++ headers are installed and no public C++ ABI compatibility is promised. Build consumers against a compatible Qt/toolchain; a bounded Ubuntu 24.04 x86_64 archive built with Qt 6.8.0 is described in the [binary installation instructions](docs/release-install.md). Newer Qt compatibility is specific test evidence, not a universal binary guarantee.
 
-Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: 1.1.0 accepts 1.0, 1.1 and exact 1.1.0, and rejects exact 1.0.0, 0.7, 1.2 and 2.0. See [CHANGELOG](CHANGELOG.md).
+Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: 1.1.0 accepts 1.0, 1.1 and exact 1.1.0, and rejects exact 1.0.0, 0.7, 1.2 and 2.0. See [CHANGELOG](CHANGELOG.md). Release changes and installation commands are summarized in the [1.1.0 release notes](docs/release-notes-1.1.0.md).
 
 Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Optional syntax, streaming, selection/copy, renderer extensions, further performance optimization and broader platform support remain deferred.
 
