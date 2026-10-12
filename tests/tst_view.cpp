@@ -9,6 +9,8 @@
 #include <QSemaphore>
 #include <atomic>
 #include <QGuiApplication>
+#include <QClipboard>
+#include <QMimeData>
 #include <QFontMetricsF>
 #include <QFontDatabase>
 #include <QSignalSpy>
@@ -87,6 +89,194 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void codeActionsText_data()
+    {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<QString>("expected");
+        QTest::newRow("fence") << "```cpp ignored\n \t<literal>  \n\n```" << " \t<literal>  \n\n";
+        QTest::newRow("indented") << "    one  \n    \ttwo\n" << "one  \n\ttwo\n";
+        QTest::newRow("nested-fence") << "> - ```\n>   nested\n>   ```" << "nested\n";
+        QTest::newRow("nested-indented") << ">     nested  \n" << "nested  \n";
+        QTest::newRow("empty") << "```\n```" << "";
+        QTest::newRow("unicode") << QString::fromUtf8("~~~\nλ 😀 é\n~~~") << QString::fromUtf8("λ 😀 é\n");
+    }
+    void codeActionsText()
+    {
+        QFETCH(QString, source); QFETCH(QString, expected);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.2
+MarkdownView {
+    width: 300
+    codeBlockActions: Item {
+        required property string codeText
+        required property var requestCopy
+        objectName: "actions"
+        implicitHeight: 24
+        function activate() { requestCopy() }
+    }
+})", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QSignalSpy requests(view, SIGNAL(codeBlockCopyRequested(QString)));
+        view->setProperty("markdown", source);
+        QTRY_COMPARE(named(view, "actions").size(), 1);
+        auto *action = named(view, "actions")[0];
+        QCOMPARE(action->property("codeText").toString(), expected);
+        QVERIFY(QMetaObject::invokeMethod(action, "activate"));
+        QCOMPARE(requests.size(), 1);
+        QCOMPARE(requests[0][0].toString(), expected);
+    }
+    void codeActionsLifecycleAndGeometry()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.2
+Item {
+    property Component first: Component {
+        Item {
+            required property string codeText
+            required property var requestCopy
+            objectName: "actions"
+            implicitHeight: width < 100 ? 40 : 20
+            function activate() { requestCopy() }
+        }
+    }
+    property Component second: Component {
+        Item {
+            required property string codeText
+            required property var requestCopy
+            objectName: "actions"
+            implicitHeight: 30
+        }
+    }
+    MarkdownView {
+        objectName: "view"; width: 300
+        markdown: "```\none\n```\n\n```\ntwo\n```"
+        style: MarkdownStyle { codeBlock.horizontalPadding: 10; codeBlock.verticalPadding: 7 }
+    }
+    MarkdownView { objectName: "other"; width: 200; markdown: "```\nother\n```" }
+})", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create()); QVERIFY(object);
+        auto *view = object->findChild<QQuickItem *>("view"); QVERIFY(view);
+        auto *other = object->findChild<QQuickItem *>("other"); QVERIFY(other);
+        QQuickWindow window; window.resize(400, 600);
+        view->setParentItem(window.contentItem()); other->setParentItem(window.contentItem()); window.show();
+        QSignalSpy requests(view, SIGNAL(codeBlockCopyRequested(QString)));
+        QSignalSpy otherRequests(other, SIGNAL(codeBlockCopyRequested(QString)));
+        QTRY_COMPARE(named(view, "codeSurface").size(), 2);
+        QTRY_VERIFY(content(view) > 0);
+        const auto baseline = content(view);
+        const auto first = object->property("first");
+        view->setProperty("codeBlockActions", first);
+        other->setProperty("codeBlockActions", first);
+        QTRY_COMPARE(named(view, "actions").size(), 2);
+        QTRY_COMPARE(content(view), baseline + 40);
+        const auto actions = named(view, "actions");
+        for (int i = 0; i < actions.size(); ++i) {
+            auto *action = actions[i];
+            QCOMPARE(action->width(), 280.0); QCOMPARE(action->height(), 20.0);
+            QCOMPARE(action->parentItem()->y(), 7.0);
+            auto *surface = action->parentItem()->parentItem();
+            auto *code = texts(surface)[0];
+            QCOMPARE(code->y(), 27.0);
+            QCOMPARE(surface->height(), code->height() + 34);
+            QVERIFY(QMetaObject::invokeMethod(action, "activate"));
+            QCOMPARE(requests.size(), i + 1);
+            QCOMPARE(requests[i][0], action->property("codeText"));
+        }
+        QTRY_COMPARE(named(other, "actions").size(), 1);
+        QVERIFY(QMetaObject::invokeMethod(named(other, "actions")[0], "activate"));
+        QCOMPARE(otherRequests.size(), 1); QCOMPARE(requests.size(), 2);
+        auto stale = actions[0]->property("requestCopy").value<QJSValue>();
+        QPointer<QQuickItem> removed = actions[0];
+        view->setProperty("codeBlockActions", object->property("second"));
+        stale.call(); QCOMPARE(requests.size(), 2);
+        QTRY_VERIFY(removed.isNull());
+        QTRY_COMPARE(content(view), baseline + 60);
+        view->setProperty("codeBlockActions", first);
+        QTRY_COMPARE(named(view, "actions").size(), 2);
+        view->setWidth(60);
+        QTRY_COMPARE(named(view, "actions")[0]->width(), 40.0);
+        QTRY_COMPARE(named(view, "actions")[0]->height(), 40.0);
+        auto *action = named(view, "actions")[0];
+        for (double invalid : {-10.0, std::numeric_limits<double>::infinity(),
+                               std::numeric_limits<double>::quiet_NaN()}) {
+            action->setImplicitHeight(invalid);
+            QTRY_COMPARE(action->height(), 0.0);
+            QCOMPARE(texts(action->parentItem()->parentItem())[0]->y(), 7.0);
+        }
+        stale = action->property("requestCopy").value<QJSValue>();
+        view->setWidth(0); QTRY_COMPARE(content(view), 0);
+        QTRY_VERIFY(named(view, "actions").isEmpty());
+        stale.call(); QCOMPARE(requests.size(), 2);
+        view->setWidth(1); QTRY_COMPARE(named(view, "actions").size(), 2);
+        QCOMPARE(named(view, "actions")[0]->width(), 1.0);
+        stale = named(view, "actions")[0]->property("requestCopy").value<QJSValue>();
+        view->setProperty("markdown", "```\nreplacement\n```");
+        QTRY_COMPARE(named(view, "actions").size(), 1);
+        QTRY_COMPARE(named(view, "actions")[0]->property("codeText").toString(), QString("replacement\n"));
+        stale.call(); QCOMPARE(requests.size(), 2);
+        view->setProperty("markdown", "```\none\n```\n\n```\ntwo\n```");
+        view->setWidth(300); QTRY_COMPARE(named(view, "actions").size(), 2);
+        QTRY_COMPARE(named(view, "actions")[0]->property("codeText").toString(), QString("one\n"));
+        stale = named(view, "actions")[0]->property("requestCopy").value<QJSValue>();
+        QVERIFY(view->setProperty("codeBlockActions", QVariant::fromValue<QQmlComponent *>(nullptr)));
+        QVERIFY(!view->property("codeBlockActions").value<QQmlComponent *>());
+        stale.call(); QCOMPARE(requests.size(), 2);
+        QTRY_COMPARE(content(view), baseline);
+        view->setProperty("codeBlockActions", first);
+        QTRY_COMPARE(named(view, "actions").size(), 2);
+        stale = named(view, "actions")[0]->property("requestCopy").value<QJSValue>();
+        delete view;
+        QVERIFY(!stale.call().isError());
+    }
+    void codeActionsCreationFailure()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.2
+MarkdownView {
+    width: 200; markdown: "```\nstill rendered\n```"
+    codeBlockActions: QtObject {
+        required property string codeText
+        required property var requestCopy
+    }
+})", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        QTest::ignoreMessage(QtWarningMsg, "QMarkdown: codeBlockActions must create an Item with codeText and requestCopy properties");
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QTRY_COMPARE(texts(view).size(), 1);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300, 300); window.show();
+        QCOMPARE(texts(view)[0]->property("text").toString(), QString("still rendered"));
+        QTRY_VERIFY(content(view) > 0);
+    }
+    void codeActionsMissingRequiredProperty()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.2
+MarkdownView {
+    width: 200; markdown: "```\nstill rendered\n```"
+    codeBlockActions: Item {
+        required property string codeText
+        required property var requestCopy
+        required property int extra
+    }
+})", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        QTest::ignoreMessage(QtWarningMsg, QRegularExpression(".*Required property extra was not initialized.*"));
+        QTest::ignoreMessage(QtWarningMsg, "QMarkdown: codeBlockActions must create an Item with codeText and requestCopy properties");
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300, 300); window.show();
+        QTRY_COMPARE(texts(view).size(), 1);
+        QCOMPARE(texts(view)[0]->property("text").toString(), QString("still rendered"));
+        QTRY_VERIFY(content(view) > 0);
+    }
     void retainedSemanticsPresentation_data()
     {
         QTest::addColumn<QString>("source");
@@ -1457,7 +1647,16 @@ private slots:
         auto *surface = window->findChild<QObject *>("previewBackground"); QVERIFY(surface);
         auto *label = window->findChild<QObject *>("previewLabel"); QVERIFY(label);
         editor->setProperty("text", "# H1\n## H2\n### H3\n#### H4\n##### H5\n###### H6\n\nBody\n\n*Emphasis* and `code`\n\n```\nfenced\n```\n");
-        QTRY_COMPARE(texts(preview).size(), 8);
+        const auto documentTexts = [preview] {
+            auto result = texts(preview);
+            result.removeIf([preview](QQuickItem *text) {
+                for (auto *parent = text->parentItem(); parent && parent != preview; parent = parent->parentItem())
+                    if (parent->objectName() == "copyButton") return true;
+                return false;
+            });
+            return result;
+        };
+        QTRY_COMPARE(documentTexts().size(), 8);
         QTRY_COMPARE(painted(preview).size(), 1);
         for (const bool dark : {false, true}) {
             QVERIFY(setPalette(dark));
@@ -1465,7 +1664,7 @@ private slots:
             QTRY_COMPARE(surface->property("color").value<QColor>(), QColor(dark ? "#18212b" : "#ffffff"));
             QTRY_COMPARE(label->property("color").value<QColor>(), expected);
             for (const auto &role : roles) QTRY_COMPARE(color(role), expected);
-            for (auto *text : texts(preview)) QTRY_COMPARE(text->property("color").value<QColor>(), expected);
+            for (auto *text : documentTexts()) QTRY_COMPARE(text->property("color").value<QColor>(), expected);
             QTRY_COMPARE(painted(preview)[0]->color(), expected);
         }
         panel->setProperty("selectedRole", 0);
@@ -1652,6 +1851,45 @@ private slots:
         QCOMPARE(style->inlineCodeFont().resolveMask(), inherited.resolveMask());
         QVERIFY(QMetaObject::invokeMethod(panel, "applyPreset", Q_ARG(QVariant, false)));
         QCOMPARE(style->bodyFont().pointSizeF(), 11.25);
+    }
+    void viewerCopy()
+    {
+        QQmlEngine engine;
+        QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        if (QGuiApplication::platformName() == "wayland") {
+            window->requestActivate();
+            QVERIFY(QTest::qWaitForWindowActive(window));
+        }
+        auto *editor = window->findChild<QObject *>("editor"); QVERIFY(editor);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        editor->setProperty("text", "```\n  literal 😀\n\n```");
+        QTRY_COMPARE(named(preview, "copyButton").size(), 1);
+        auto *button = named(preview, "copyButton")[0];
+        QSignalSpy requests(preview, SIGNAL(codeBlockCopyRequested(QString)));
+        button->forceActiveFocus(); QTRY_VERIFY(button->hasActiveFocus());
+        QTest::keyClick(window, Qt::Key_Space);
+        QTRY_COMPARE(requests.size(), 1);
+        QCOMPARE(QGuiApplication::clipboard()->text(), QString::fromUtf8("  literal 😀\n\n"));
+        QVERIFY(!QGuiApplication::clipboard()->mimeData()->hasHtml());
+        QCOMPARE(button->property("text").toString(), QString("Copied"));
+        QTRY_COMPARE(button->property("text").toString(), QString("Copy"));
+        const QPoint point = button->mapToScene(QPointF(button->width() / 2, button->height() / 2)).toPoint();
+        QTest::mouseClick(window, Qt::LeftButton, Qt::NoModifier, point);
+        QTRY_COMPARE(requests.size(), 2);
+        auto *device = QTest::createTouchDevice();
+        QTest::touchEvent(window, device).press(0, point, window);
+        QTest::touchEvent(window, device).release(0, point, window);
+        QTRY_COMPARE(requests.size(), 3);
+        const QString evidence = qEnvironmentVariable("QMARKDOWN_COPY_EVIDENCE");
+        if (!evidence.isEmpty()) QVERIFY(window->grabWindow().save(evidence));
+        auto *editorItem = qobject_cast<QQuickItem *>(editor); QVERIFY(editorItem);
+        editorItem->forceActiveFocus(); QTRY_VERIFY(editorItem->hasActiveFocus());
+        QTest::keyClick(window, Qt::Key_A, Qt::ControlModifier);
+        QTest::keyClick(window, Qt::Key_V, Qt::ControlModifier);
+        QTRY_COMPARE(editor->property("text").toString(), QString::fromUtf8("  literal 😀\n\n"));
     }
     void viewer()
     {

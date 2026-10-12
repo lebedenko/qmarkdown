@@ -1,6 +1,6 @@
 # Styling in QMarkdown 1.1
 
-Use `import QtQuick` and `import QMarkdown 1.1` for the new API. Package 1.1.0 accepts CMake requests for 1.0 and 1.1 and EXACT 1.1.0; EXACT 1.0.0 requests require that historical package. Existing QML 1.0 consumers continue to work with Legacy defaults.
+Use `import QtQuick` and `import QMarkdown 1.1` for the new API. The unreleased 1.2.0 candidate accepts compatible 1.0/1.1/1.2 CMake requests and EXACT 1.2.0; exact earlier versions require historical packages. Existing QML 1.0 consumers continue to work with Legacy defaults.
 
 `MarkdownStyle.preset` defaults to `MarkdownStyle.Legacy`. Additional presets are `PolishedLight`, `PolishedDark`, `MinimalLight`, and `MinimalDark`. These are fixed palettes, with no application-theme subscription or document background. The host owns backgrounds, scrolling, navigation, and resource authorization.
 
@@ -37,6 +37,6 @@ style.headings.h1.color = undefined
 
 `style.resetOverrides()` clears all overrides and restores the selected preset's construction-based values. It updates native state without removing host QML bindings; those bindings can update the property again when their inputs change. The library's private default-style lifecycle resets to Legacy construction snapshots. Reading properties and switching the selector creates no overrides.
 
-Heading separators appear once after the complete heading, including headings split into text and authorized image rows. Fenced and indented code remain literal native Text inside native surfaces, including empty blocks. New decoration metrics render nonnegative; NaN and infinities render as zero. Horizontal code padding clamps to leave at least one text pixel at positive widths; indivisible glyphs can still overhang very narrow views. Borders do not add implicit padding. Selection/copy, inline padding/borders, highlighting and arbitrary style inheritance remain deferred.
+Heading separators appear once after the complete heading, including headings split into text and authorized image rows. Fenced and indented code remain literal native Text inside native surfaces, including empty blocks. New decoration metrics render nonnegative; NaN and infinities render as zero. Horizontal code padding clamps to leave at least one text pixel at positive widths; indivisible glyphs can still overhang very narrow views. Borders do not add implicit padding. [Host-controlled code-block copy actions](code-block-actions.md) are available in 1.2. Document-wide selection, inline padding/borders, highlighting and arbitrary style inheritance remain deferred.
 
 The playground's Neutral/Reset controls restore Legacy and host theme bindings; Alternate starts from that baseline and adds host overrides. The host theme controls use explicit bindings. Selecting a library preset preserves those host overrides; use “Reset overrides to selected preset” to preview the preset palette. The host preview surface remains independent of the preset.

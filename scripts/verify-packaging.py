@@ -63,12 +63,13 @@ for variant in ("shared", "static"):
     consumer_build = work / f"consumer-{variant}"
     # Keep the selected SDK searchable for its tools and transitive dependencies.
     consumer_qt_args = [arg for arg in qt_args if not arg.startswith("-DCMAKE_PREFIX_PATH=")]
+    consumer_qt_args.append(f"-DQMARKDOWN_PACKAGE_PREFIX={relocated}")
     consumer_prefix = f"{relocated};{qt_root}" if args.qt_root else str(relocated)
     run("cmake", "-S", consumer_source, "-B", consumer_build,
         *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}")
     for version, exact, accepted in (("1.0", False, True), ("1.0.0", True, False),
-                                     ("1.1", False, True), ("1.1.0", True, True),
-                                     ("0.7", False, False), ("1.2", False, False), ("2.0", False, False)):
+                                     ("1.1", False, True), ("1.1.0", True, False),
+                                     ("0.7", False, False), ("1.2", False, True), ("1.2.0", True, True), ("1.3", False, False), ("2.0", False, False)):
         request_build = work / f"request-{variant}-{version}"
         command = ["cmake", "-S", str(consumer_source), "-B", str(request_build),
                    *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
@@ -80,7 +81,7 @@ for variant in ("shared", "static"):
             raise RuntimeError(f"Unexpected package compatibility: {variant} {version}: {result.stdout}{result.stderr}")
         expected_error = "exactly matches requested version" if exact else "compatible with requested version"
         if not accepted and (expected_error not in " ".join(result.stderr.split())
-                             or "version: 1.1.0" not in result.stderr):
+                             or "version: 1.2.0" not in result.stderr):
             raise RuntimeError(f"Package request failed for an unrelated reason: {result.stderr}")
         print(f"PASS: {variant} package request {version}, exact={exact}, accepted={accepted}", flush=True)
     run("cmake", "--build", consumer_build, "--parallel", "2")
@@ -97,6 +98,14 @@ for variant in ("shared", "static"):
         "-DQMARKDOWN_STYLING_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.1")
     run("cmake", "--build", styling_build, "--parallel", "2")
     run(styling_build / executable, env=environment)
+    for link in (("ON", "OFF") if variant == "shared" else ("ON",)):
+        actions_build = work / f"actions-{variant}-{link}"
+        run("cmake", "-S", consumer_source, "-B", actions_build,
+            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
+            "-DQMARKDOWN_ACTIONS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.2.0",
+            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
+        run("cmake", "--build", actions_build, "--parallel", "2")
+        run(actions_build / executable, env=environment)
     if variant == "shared":
         plugin_consumer = work / "consumer-shared-plugin"
         run("cmake", "-S", consumer_source, "-B", plugin_consumer,

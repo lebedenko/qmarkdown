@@ -1,6 +1,6 @@
 # Specifications
 
-Current status: **published 1.1.0 / QML 1.1**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 026](026-v1.1-integration/verification.md) records completed integration; [iteration 027](027-stable-v1.1-release/verification.md) records completed publication and downloaded-asset checks. Earlier entries retain historical scope, versions and environments.
+Current status: **unreleased 1.2.0 / QML 1.2 candidate; published stable 1.1.0 / QML 1.1**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 026](026-v1.1-integration/verification.md) records completed integration; [iteration 027](027-stable-v1.1-release/verification.md) records completed publication and downloaded-asset checks. Earlier entries retain historical scope, versions and environments.
 
 ## Historical feature records
 
@@ -98,3 +98,7 @@ Feature 028: [post-release upkeep requirements](028-post-release-upkeep/requirem
 Feature 030: [Arch packaging integration](030-arch-packaging-integration/requirements.md), approved on 2026-10-12 through the supplied implementation plan. See [design](030-arch-packaging-integration/design.md), [mapped tasks](030-arch-packaging-integration/tasks.md) and [verification](030-arch-packaging-integration/verification.md). Completion requires fresh final-PR and exact-main distribution gates; final evidence is retained separately.
 
 Iteration 030 final exact-main gates passed for `45fd78e973b64b2f719d5bc07b4f6e0c22225b29`; final results and retained logs are published separately on `docs/arch-packaging-integration-evidence`. Existing v1.1.0 assets remain unchanged.
+
+Iteration 031: [host-controlled code-block copy actions](031-code-block-copy-actions/requirements.md), approved on 2026-10-12 under the original local iteration-030 plan; renumbered because main owns 030 for Arch integration. Implementation and historical local verification are retained in [design](031-code-block-copy-actions/design.md), [tasks](031-code-block-copy-actions/tasks.md) and [verification](031-code-block-copy-actions/verification.md). Package 1.2.0/QML 1.2 remains unreleased.
+
+Iteration 032: [1.2 candidate integration](032-v1.2-integration/requirements.md), approved on 2026-10-12 through the supplied plan. See [design](032-v1.2-integration/design.md), [mapped tasks](032-v1.2-integration/tasks.md) and [planned/actual verification](032-v1.2-integration/verification.md). Publication remains a separate iteration; published stable is 1.1.0.
