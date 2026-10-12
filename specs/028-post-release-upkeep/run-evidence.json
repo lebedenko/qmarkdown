@@ -1,0 +1,614 @@
+{
+  "recordedOnUTC": "2026-10-12",
+  "evidenceBranch": "docs/post-release-upkeep-evidence",
+  "pr": {
+    "headRefOid": "190dbfea1176bffec6d234287c8ceeb23f90e330",
+    "mergeCommit": {
+      "oid": "0e75af8a8935b0faac1915adc6db80add5332972"
+    },
+    "mergedAt": "2026-10-12T09:15:54Z",
+    "state": "MERGED",
+    "url": "https://github.com/lebedenko/qmarkdown/pull/8"
+  },
+  "prWorkflow": {
+    "conclusion": "success",
+    "headSha": "190dbfea1176bffec6d234287c8ceeb23f90e330",
+    "jobs": [
+      {
+        "completedAt": "2026-10-12T09:03:41Z",
+        "conclusion": "success",
+        "databaseId": 114738303434,
+        "name": "targets",
+        "startedAt": "2026-10-12T09:03:36Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-12T09:03:37Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-12T09:03:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:38Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 2,
+            "startedAt": "2026-10-12T09:03:37Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:39Z",
+            "conclusion": "success",
+            "name": "Run echo \"matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)\" >> \"$GITHUB_OUTPUT\"",
+            "number": 3,
+            "startedAt": "2026-10-12T09:03:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:39Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 6,
+            "startedAt": "2026-10-12T09:03:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:39Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 7,
+            "startedAt": "2026-10-12T09:03:39Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38227439595/job/114738303434"
+      },
+      {
+        "completedAt": "2026-10-12T09:09:55Z",
+        "conclusion": "success",
+        "databaseId": 114738344806,
+        "name": "packaging (minimum)",
+        "startedAt": "2026-10-12T09:03:44Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-12T09:03:48Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-12T09:03:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:50Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 2,
+            "startedAt": "2026-10-12T09:03:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:50Z",
+            "conclusion": "success",
+            "name": "Resolve toolchain identity",
+            "number": 3,
+            "startedAt": "2026-10-12T09:03:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:04:05Z",
+            "conclusion": "success",
+            "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 4,
+            "startedAt": "2026-10-12T09:03:50Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:05:00Z",
+            "conclusion": "success",
+            "name": "Prepare toolchain image",
+            "number": 5,
+            "startedAt": "2026-10-12T09:04:05Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:05:00Z",
+            "conclusion": "success",
+            "name": "Record hosted image preparation",
+            "number": 6,
+            "startedAt": "2026-10-12T09:05:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:09:49Z",
+            "conclusion": "success",
+            "name": "Ubuntu container packaging and benchmark smoke",
+            "number": 7,
+            "startedAt": "2026-10-12T09:05:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:09:49Z",
+            "conclusion": "skipped",
+            "name": "Retain failure evidence",
+            "number": 8,
+            "startedAt": "2026-10-12T09:09:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:09:51Z",
+            "conclusion": "success",
+            "name": "Post Prepare toolchain image",
+            "number": 14,
+            "startedAt": "2026-10-12T09:09:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:09:52Z",
+            "conclusion": "success",
+            "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 15,
+            "startedAt": "2026-10-12T09:09:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:09:52Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 16,
+            "startedAt": "2026-10-12T09:09:52Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:09:52Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-12T09:09:52Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38227439595/job/114738344806"
+      },
+      {
+        "completedAt": "2026-10-12T09:10:43Z",
+        "conclusion": "success",
+        "databaseId": 114738344862,
+        "name": "packaging (development)",
+        "startedAt": "2026-10-12T09:03:43Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-12T09:03:47Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-12T09:03:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:48Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 2,
+            "startedAt": "2026-10-12T09:03:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:48Z",
+            "conclusion": "success",
+            "name": "Resolve toolchain identity",
+            "number": 3,
+            "startedAt": "2026-10-12T09:03:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:03:57Z",
+            "conclusion": "success",
+            "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 4,
+            "startedAt": "2026-10-12T09:03:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:04:34Z",
+            "conclusion": "success",
+            "name": "Prepare toolchain image",
+            "number": 5,
+            "startedAt": "2026-10-12T09:03:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:04:34Z",
+            "conclusion": "success",
+            "name": "Record hosted image preparation",
+            "number": 6,
+            "startedAt": "2026-10-12T09:04:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:10:39Z",
+            "conclusion": "success",
+            "name": "Ubuntu container packaging and benchmark smoke",
+            "number": 7,
+            "startedAt": "2026-10-12T09:04:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:10:39Z",
+            "conclusion": "skipped",
+            "name": "Retain failure evidence",
+            "number": 8,
+            "startedAt": "2026-10-12T09:10:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:10:40Z",
+            "conclusion": "success",
+            "name": "Post Prepare toolchain image",
+            "number": 14,
+            "startedAt": "2026-10-12T09:10:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:10:41Z",
+            "conclusion": "success",
+            "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 15,
+            "startedAt": "2026-10-12T09:10:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:10:41Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 16,
+            "startedAt": "2026-10-12T09:10:41Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:10:41Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-12T09:10:41Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38227439595/job/114738344862"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38227439595"
+  },
+  "mainWorkflow": {
+    "conclusion": "success",
+    "headSha": "0e75af8a8935b0faac1915adc6db80add5332972",
+    "jobs": [
+      {
+        "completedAt": "2026-10-12T09:16:05Z",
+        "conclusion": "success",
+        "databaseId": 114742704123,
+        "name": "targets",
+        "startedAt": "2026-10-12T09:15:59Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-12T09:16:01Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-12T09:16:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:02Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 2,
+            "startedAt": "2026-10-12T09:16:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:02Z",
+            "conclusion": "success",
+            "name": "Run echo \"matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)\" >> \"$GITHUB_OUTPUT\"",
+            "number": 3,
+            "startedAt": "2026-10-12T09:16:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:02Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 6,
+            "startedAt": "2026-10-12T09:16:02Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:02Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 7,
+            "startedAt": "2026-10-12T09:16:02Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38228755606/job/114742704123"
+      },
+      {
+        "completedAt": "2026-10-12T09:22:31Z",
+        "conclusion": "success",
+        "databaseId": 114742750840,
+        "name": "packaging (minimum)",
+        "startedAt": "2026-10-12T09:16:07Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-12T09:16:09Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-12T09:16:07Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:09Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 2,
+            "startedAt": "2026-10-12T09:16:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:10Z",
+            "conclusion": "success",
+            "name": "Resolve toolchain identity",
+            "number": 3,
+            "startedAt": "2026-10-12T09:16:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:19Z",
+            "conclusion": "success",
+            "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 4,
+            "startedAt": "2026-10-12T09:16:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:58Z",
+            "conclusion": "success",
+            "name": "Prepare toolchain image",
+            "number": 5,
+            "startedAt": "2026-10-12T09:16:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:58Z",
+            "conclusion": "success",
+            "name": "Record hosted image preparation",
+            "number": 6,
+            "startedAt": "2026-10-12T09:16:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:28Z",
+            "conclusion": "success",
+            "name": "Ubuntu container packaging and benchmark smoke",
+            "number": 7,
+            "startedAt": "2026-10-12T09:16:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:28Z",
+            "conclusion": "skipped",
+            "name": "Retain failure evidence",
+            "number": 8,
+            "startedAt": "2026-10-12T09:22:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:29Z",
+            "conclusion": "success",
+            "name": "Post Prepare toolchain image",
+            "number": 14,
+            "startedAt": "2026-10-12T09:22:28Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:29Z",
+            "conclusion": "success",
+            "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 15,
+            "startedAt": "2026-10-12T09:22:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:30Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 16,
+            "startedAt": "2026-10-12T09:22:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:30Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-12T09:22:30Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38228755606/job/114742750840"
+      },
+      {
+        "completedAt": "2026-10-12T09:23:01Z",
+        "conclusion": "success",
+        "databaseId": 114742750862,
+        "name": "packaging (development)",
+        "startedAt": "2026-10-12T09:16:07Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-12T09:16:09Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-12T09:16:07Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:09Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 2,
+            "startedAt": "2026-10-12T09:16:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:09Z",
+            "conclusion": "success",
+            "name": "Resolve toolchain identity",
+            "number": 3,
+            "startedAt": "2026-10-12T09:16:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:15Z",
+            "conclusion": "success",
+            "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 4,
+            "startedAt": "2026-10-12T09:16:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:48Z",
+            "conclusion": "success",
+            "name": "Prepare toolchain image",
+            "number": 5,
+            "startedAt": "2026-10-12T09:16:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:16:49Z",
+            "conclusion": "success",
+            "name": "Record hosted image preparation",
+            "number": 6,
+            "startedAt": "2026-10-12T09:16:48Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:57Z",
+            "conclusion": "success",
+            "name": "Ubuntu container packaging and benchmark smoke",
+            "number": 7,
+            "startedAt": "2026-10-12T09:16:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:57Z",
+            "conclusion": "skipped",
+            "name": "Retain failure evidence",
+            "number": 8,
+            "startedAt": "2026-10-12T09:22:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:59Z",
+            "conclusion": "success",
+            "name": "Post Prepare toolchain image",
+            "number": 14,
+            "startedAt": "2026-10-12T09:22:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:59Z",
+            "conclusion": "success",
+            "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+            "number": 15,
+            "startedAt": "2026-10-12T09:22:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:59Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "number": 16,
+            "startedAt": "2026-10-12T09:22:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-12T09:22:59Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-12T09:22:59Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38228755606/job/114742750862"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38228755606"
+  },
+  "localVerification": {
+    "documentationOnly": true,
+    "iteration027Unchanged": true,
+    "markdownLinksChecked": 245,
+    "markdownLinksPassed": true,
+    "publicationJsonValid": true,
+    "markdownJsonWhitespace": "passed",
+    "fullDiffWhitespace": "pre-existing CMake trailing spaces in retained logs; preserved unchanged",
+    "runtimeLogSha256": {
+      "6.8.0": "c308146b6715175ec362933de983645735b0f41b283b0b5fbafe8a9897b86e60",
+      "6.12.0": "00d306640bb944d2d30219d35d861820a46428ca7bd694602409021dad7f743c"
+    },
+    "mainDocumentationMatchesPrHead": true
+  },
+  "releaseIntegrity": {
+    "tag": "v1.1.0",
+    "tagObject": "4cf88984cce5c431a7dedf778524c0ae27fed749",
+    "releaseCommit": "b71740c7e0f26b0709f5e929a79e8d01dba56071",
+    "releaseUrl": "https://github.com/lebedenko/qmarkdown/releases/tag/v1.1.0",
+    "releaseId": 409917643,
+    "releaseMetadataBodyAndAssetsUnchanged": true,
+    "assets": [
+      {
+        "id": 631806078,
+        "name": "qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+        "size": 386887,
+        "digest": "sha256:4630a877db87e5763ff5b028b3fc6043ad537e38d32f77d8b7873f8d3118c865",
+        "url": "https://github.com/lebedenko/qmarkdown/releases/download/v1.1.0/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz"
+      },
+      {
+        "id": 631806079,
+        "name": "qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256",
+        "size": 114,
+        "digest": "sha256:affad54d3ac52aebddb4c9c265d5c50bce3b07eb3aadbe0ad0984c4fa3417811",
+        "url": "https://github.com/lebedenko/qmarkdown/releases/download/v1.1.0/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256"
+      }
+    ]
+  },
+  "protections": {
+    "unchanged": true,
+    "id": 24818691,
+    "bypassActors": [],
+    "requiredChecks": [
+      "packaging (minimum)",
+      "packaging (development)"
+    ],
+    "strict": true
+  },
+  "noNewLocalRuntimeTests": true,
+  "retainedLocalArtifacts": "/tmp/qmarkdown-028-evidence",
+  "hostedLogSha256": {
+    "pr-packaging.log": "ed18958df6e3231d94e3f6868913a0c6ba631fde564731457450c06464501746",
+    "main-packaging.log": "26263c9b463ba8f75268f4c6bf9eb24f5ccc7f9097e4bd74000d0b304609bfe9"
+  },
+  "mainAndTagConfirmedAfterChecks": true
+}
