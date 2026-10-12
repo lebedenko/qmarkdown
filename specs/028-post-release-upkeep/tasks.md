@@ -9,3 +9,5 @@ Approved on 2026-10-12 through the explicit instruction to implement the Iterati
 | Review and validate complete PR diff | R1, R2, R3 | Documentation-only scope, whitespace, links, JSON, both log hashes |
 | Push PR and merge through protections | R4 | Both required checks on final revision; ordinary merge |
 | Verify main and fixed tag; retain evidence separately | R1, R3, R4 | Main contents, both main checks, original tag commit, PR URL/merge SHA |
+
+All five tasks completed on 2026-10-12 UTC. See [actual verification](verification.md) and [machine-readable evidence](run-evidence.json). Final results are retained on docs/post-release-upkeep-evidence; main contains the integrated publication evidence and corrected summaries.
