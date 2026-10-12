@@ -1,0 +1,51 @@
+{
+  "sourceCommit": "bc12ea98e33d98250358916ff0ca25197620164b",
+  "version": "1.1.0",
+  "pkgrel": "1",
+  "sourceSha256": "c3f7937ea1a0d01cade07c7442ded4c7a61b41a98e1eea7bd522b5fe3acbdcd7",
+  "imageId": "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+  "repoDigests": [
+    "archlinux@sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd"
+  ],
+  "architecture": "amd64",
+  "package": "qmarkdown-1.1.0-1-x86_64.pkg.tar.zst",
+  "packageSha256": "30d5c47295163444bae768350b6f2406c84292cafb24c71a9dc7b966caecdbeb",
+  "packageBytes": 371853,
+  "artifactDirectory": "/tmp/qmarkdown-arch-029-snapshot",
+  "buildChecks": {
+    "ctestPassed": 10,
+    "qmlLint": "passed",
+    "parserSymbols": "140 prefixed external definitions; exports private"
+  },
+  "packageVerification": "passed in a fresh container with corrected private metadata allowlist",
+  "consumers": [
+    "linked",
+    "plugin-only",
+    "linked styling",
+    "plugin-only styling"
+  ],
+  "upgrade": "1.1.0-1 -> 1.1.0-2; temporary artifact not exported",
+  "removal": "database entry and all package files absent",
+  "namcap": "no errors; warnings retained in verification log",
+  "publication": "not performed",
+  "hostPackageOperations": "none",
+  "toolingSha256": {
+    "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356",
+    "build-arch-package.py": "0086d6815f4d570ac1c9065b735a2918ff8a0135de09dac523a499e49320fd9e",
+    "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+    "verify.py": "1cdd36553ace47e31b564c2c433e879598197dba99094271def9242775abe559"
+  },
+  "correctedVerificationToolingSha256": {
+    "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356",
+    "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+    "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+    "verify.py": "5f0845c499ef2ef3bf325d253229b311975c582e4ff99f25b1b43be430991aee"
+  },
+  "evidenceSha256": {
+    "arch-build-packages.txt": "b40817433434f05b671e594695c221c798aa8a7a19d6795e2a78376ed13cd773",
+    "arch-build.log": "23a231f846f926982028656c2cde9aaabbe918eb51a3f048af0c89f4be7c8b8b",
+    "arch-package-info.txt": "8f21be6eb55bdf33f88fe729ce8e47c0c6352dff8d410d2a146d76db57971f02",
+    "arch-verification-packages.txt": "9fbc6c4e2e0d2f5cbe53c4ad5c988661cf62d492ff080c388561a8356213e59d",
+    "arch-verification.log": "40a3bf882999c948f0de331383d1486ba5e9104449f6d717cf2943b212720455"
+  }
+}
