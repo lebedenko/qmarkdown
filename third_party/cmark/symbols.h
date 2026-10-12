@@ -1,5 +1,6 @@
 // All external definitions in the pinned cmark library, derived with nm.
 #pragma once
+#define cmark_node_get_task_state qmarkdown_cmark_node_get_task_state
 #define DEFAULT_MEM_ALLOCATOR qmarkdown_cmark_DEFAULT_MEM_ALLOCATOR
 #define _scan_at qmarkdown_cmark__scan_at
 #define _scan_atx_heading_start qmarkdown_cmark__scan_atx_heading_start

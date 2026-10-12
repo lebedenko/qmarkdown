@@ -594,6 +594,10 @@ char *cmark_render_latex(cmark_node *root, int options, int width);
  */
 #define CMARK_OPT_DEFAULT 0
 
+/* QMarkdown-private opt-in task-list recognition, disabled by default. */
+#define CMARK_OPT_QMARKDOWN_TASK_LISTS (1 << 18)
+CMARK_EXPORT int cmark_node_get_task_state(cmark_node *node);
+
 /**
  * ### Options affecting rendering
  */

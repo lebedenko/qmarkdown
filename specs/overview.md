@@ -1,5 +1,7 @@
 # Project overview
 
+Local candidate: [035 opt-in GFM task lists](035-gfm-task-lists/requirements.md), approved on 2026-10-13, adds read-only indicators in package 1.3.0 / QML 1.3. Tables, strikethrough and extended autolinks remain deferred; this is not full GFM conformance. See [actual verification](035-gfm-task-lists/verification.md) for execution status.
+
 ## Current published status
 
 Package **1.2.0 / QML 1.2** is published as stable/latest on **2026-10-12 UTC** through [iteration 033](033-stable-v1.2-release/verification.md), following completed protected integration in [iteration 032](032-v1.2-integration/verification.md). Optional [code-block actions](../docs/code-block-actions.md) are released with host-owned clipboard handling. Styling includes opt-in Polished/Minimal light/dark presets, grouped heading/code properties and native decorations; Legacy remains the default. Existing QML 1.0/1.1 imports and flat style properties remain compatible. Hosts own visual identity, backgrounds, scrolling, navigation and resource authorization.
@@ -10,7 +12,7 @@ The evidence contracts remain separate: [iteration 017](017-complete-semantic-ev
 
 Documented public QML behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes remain private; no C++ headers are installed and no public C++ ABI is promised. Package 1.2.0 accepts same-major 1.0/1.1/1.2 requests and EXACT 1.2.0; EXACT 1.0.0/1.1.0 requires the historical packages.
 
-Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Document-wide selection/copy, GFM, streaming, highlighting, renderer extensions, inline-code padding/borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
+Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Document-wide selection/copy, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code padding/borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
 ## Accepted project direction

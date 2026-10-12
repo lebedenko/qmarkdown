@@ -398,6 +398,31 @@ static cmark_node *add_child(cmark_parser *parser, cmark_node *parent,
   return child;
 }
 
+// QMarkdown: recognize raw task syntax before inline decoding can create brackets.
+static void process_task_marker(cmark_node *paragraph) {
+  cmark_node *item = paragraph->parent;
+  bufsize_t pos = 0;
+  if (paragraph->type != CMARK_NODE_PARAGRAPH || !item ||
+      item->type != CMARK_NODE_ITEM || item->first_child != paragraph)
+    return;
+  while (pos < paragraph->len && paragraph->data[pos] == ' ')
+    ++pos;
+  if (paragraph->len - pos < 4 || paragraph->data[pos] != '[' ||
+      paragraph->data[pos + 2] != ']' ||
+      !cmark_isspace(paragraph->data[pos + 3]))
+    return;
+  unsigned char mark = paragraph->data[pos + 1];
+  if (mark != 'x' && mark != 'X' && !cmark_isspace(mark))
+    return;
+  item->as.list.task_state = (mark == 'x' || mark == 'X') ? 2 : 1;
+  pos += 3;
+  while (pos < paragraph->len && cmark_isspace(paragraph->data[pos]))
+    ++pos;
+  paragraph->len -= pos;
+  memmove(paragraph->data, paragraph->data + pos, paragraph->len);
+  paragraph->data[paragraph->len] = 0;
+}
+
 // Walk through node and all children, recursively, parsing
 // string content into inline content where appropriate.
 static void process_inlines(cmark_mem *mem, cmark_node *root,
@@ -410,6 +435,8 @@ static void process_inlines(cmark_mem *mem, cmark_node *root,
     cur = cmark_iter_get_node(iter);
     if (ev_type == CMARK_EVENT_ENTER) {
       if (contains_inlines(S_type(cur))) {
+        if (options & CMARK_OPT_QMARKDOWN_TASK_LISTS)
+          process_task_marker(cur);
         cmark_parse_inlines(mem, cur, refmap, options);
         mem->free(cur->data);
         cur->data = NULL;

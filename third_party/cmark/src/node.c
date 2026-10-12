@@ -4,6 +4,10 @@
 
 #include "node.h"
 
+int cmark_node_get_task_state(cmark_node *node) {
+  return node && node->type == CMARK_NODE_ITEM ? node->as.list.task_state : 0;
+}
+
 static void S_node_unlink(cmark_node *node);
 
 bool cmark_node_is_block(cmark_node *node) {

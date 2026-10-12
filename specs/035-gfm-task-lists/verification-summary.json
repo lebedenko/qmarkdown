@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "approvalDate": "2026-10-13",
+  "dateTimezone": "Europe/Kyiv",
+  "baseCommit": "8f1a5f3ff7a7dd444aa77ed0f2b11be9865140a7",
+  "sourceState": "uncommitted approved feature with preserved user edits",
+  "candidateVersion": "1.3.0",
+  "qmlVersion": "1.3",
+  "buildInputs": {
+    "count": 139,
+    "aggregateSha256": "168c5535218e42ae8c4e1946c3dc84ee3186f0f128a72267bc86a55dd734f614",
+    "algorithm": "SHA256 of sorted relative-path, NUL, file-SHA256, LF records",
+    "minimumSnapshotMatches": true,
+    "developmentSnapshotMatches": true
+  },
+  "host": {
+    "qt": "6.12.0",
+    "compiler": "GCC 16.2.1",
+    "ctestShared": {
+      "passed": 12,
+      "failed": 0
+    },
+    "ctestStatic": {
+      "passed": 12,
+      "failed": 0
+    },
+    "strictCommonMark": {
+      "examples": 652,
+      "examplesWithLimits": 0,
+      "examplesWithLosses": 0,
+      "model": {
+        "mismatch": 0,
+        "projection-pass": 652,
+        "uncheckable": 0
+      },
+      "parser": {
+        "fail": 0,
+        "pass": 652
+      }
+    },
+    "prefixedCmarkDefinitions": 141,
+    "screenshot": "build-shared/035-task-lists.png"
+  },
+  "containers": {
+    "minimum": {
+      "artifactDirectory": "build-ci/6.8.0/20261012T212039Z-vf20t6mx",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:86b377c037a80ab8c512796c76d2c9ef99981690e8e5f3907fd2c8cd7b7a8a41",
+        "recipeFingerprint": "f3fde433f7ade39fa1df99a5fc0ac1e65db28ae0e3170ae12266e0334d807c8e",
+        "preparationSeconds": 0.012,
+        "verificationSeconds": 252.678,
+        "elapsedSeconds": 252.741
+      },
+      "imageReused": true,
+      "commonmark": {
+        "shared": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        },
+        "static": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        }
+      },
+      "ctestShared": {
+        "passed": 12,
+        "failed": 0
+      },
+      "ctestStatic": {
+        "passed": 12,
+        "failed": 0
+      },
+      "package": {
+        "name": "qmarkdown-1.3.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+        "sha256": "668e274a4ea453a42da1c244f1ab4eb91edda836155d006d0a4985860851bb98"
+      },
+      "snapshotBaseCommit": "8f1a5f3ff7a7dd444aa77ed0f2b11be9865140a7"
+    },
+    "development": {
+      "artifactDirectory": "build-ci/6.12.0/20261012T212057Z-fzq9ftjz",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:b4803e6959677074632b41529374eb256c8db80bce1c2d61d051c6b7441170ad",
+        "recipeFingerprint": "08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1",
+        "preparationSeconds": 1933.353,
+        "verificationSeconds": 278.643,
+        "elapsedSeconds": 2212.061
+      },
+      "imageReused": false,
+      "commonmark": {
+        "shared": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        },
+        "static": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        }
+      },
+      "ctestShared": {
+        "passed": 12,
+        "failed": 0
+      },
+      "ctestStatic": {
+        "passed": 12,
+        "failed": 0
+      },
+      "package": {
+        "name": "qmarkdown-1.3.0-ubuntu24.04-x86_64-qt6.12.tar.gz",
+        "sha256": "33620e61635c4954b8c0ca2a0fbd2a134801b4bb07a2145ca86d4b3047260b91"
+      },
+      "snapshotBaseCommit": "8f1a5f3ff7a7dd444aa77ed0f2b11be9865140a7"
+    }
+  },
+  "delivery": "Local checks preceded commits. Commit, push and PR creation subsequently authorized on 2026-10-13. Hosted checks remain PR delivery work; exact-commit Arch lifecycle remains release delivery work. Merge, tag and publication are not requested."
+}
