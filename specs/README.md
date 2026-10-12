@@ -96,3 +96,5 @@ Feature 028: [post-release upkeep requirements](028-post-release-upkeep/requirem
 - [029: Arch release packaging requirements](029-arch-release-packaging/requirements.md), approved on 2026-10-12. See [design](029-arch-release-packaging/design.md), [mapped tasks](029-arch-release-packaging/tasks.md) and [planned/actual verification](029-arch-release-packaging/verification.md). Future stable release tooling; existing published assets remain unchanged.
 
 Feature 030: [Arch packaging integration](030-arch-packaging-integration/requirements.md), approved on 2026-10-12 through the supplied implementation plan. See [design](030-arch-packaging-integration/design.md), [mapped tasks](030-arch-packaging-integration/tasks.md) and [verification](030-arch-packaging-integration/verification.md). Completion requires fresh final-PR and exact-main distribution gates; final evidence is retained separately.
+
+Iteration 030 final exact-main gates passed for `45fd78e973b64b2f719d5bc07b4f6e0c22225b29`; final results and retained logs are published separately on `docs/arch-packaging-integration-evidence`. Existing v1.1.0 assets remain unchanged.
