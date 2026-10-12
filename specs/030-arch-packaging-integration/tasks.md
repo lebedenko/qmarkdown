@@ -10,4 +10,4 @@ Approved on 2026-10-12 by the explicit instruction to implement the supplied ite
 | Protected merge and exact-main verification | R2, R5 | Fresh main checks/manual run and baseline comparison |
 | Download and retain final evidence | R3, R4 | Independent checksum/provenance validation and evidence branch |
 
-Completion remains pending until all exact-main gates pass.
+All tasks completed on 2026-10-12. Final PR and exact-main gates passed; downloaded artifacts were independently validated and final evidence is retained on docs/arch-packaging-integration-evidence.
