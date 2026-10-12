@@ -68,3 +68,5 @@ publication. Failed runs retain diagnostic artifacts. Release tags must be `vX.Y
 match the CMake version, and point into main history. Asset reruns accept identical
 bytes and refuse replacement of differing assets. Tag creation and release
 publication are separate maintainer actions.
+
+The integrated release workflow builds and verifies a [pacman-owned Arch Linux package](arch-install.md). Uploads require both Ubuntu and Arch gates, and validate both archive/checksum pairs before publication. The existing v1.1.0 assets remain unchanged.

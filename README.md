@@ -109,6 +109,8 @@ MarkdownView {
 
 The playground adds a library preset selector, heading separator and code metric controls, and a reset-to-preset button. Existing Neutral/Alternate controls continue demonstrating host theme and font customization; their explicit values override library presets until reset.
 
+The integrated release workflow builds and verifies a pacman-owned [Arch Linux package](docs/arch-install.md), built and verified in disposable Arch containers. Existing v1.1.0 assets are unchanged.
+
 ## Consume an installed package
 
 ```cmake
