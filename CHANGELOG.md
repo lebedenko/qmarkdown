@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 — candidate (unreleased)
+
+- Add optional host-controlled action headers to fenced/indented code blocks, including nested and empty blocks. `codeBlockActions` delegates receive exact `codeText` and an invalidated-on-removal `requestCopy` callback; requests emit `codeBlockCopyRequested`.
+- Preserve default code geometry and library dependencies. Hosts own controls, clipboard, accessibility and feedback; the playground demonstrates plain-text Copy with brief feedback.
+- Prepare QML 1.2 and installed action consumers, retaining QML 1.0/1.1 compatibility. CMake accepts compatible earlier 1.x requests and EXACT 1.2.0; exact historical versions require historical packages.
+- See [the action contract](docs/code-block-actions.md) and [iteration 031 local verification](specs/031-code-block-copy-actions/verification.md). [Candidate release notes](docs/release-notes-1.2.0.md) and [iteration 032](specs/032-v1.2-integration/verification.md) track integration; publication remains separate.
+
 ## 1.1.0 — 2026-10-11
 
 - Add opt-in fixed light/dark Polished and Minimal presets, grouped heading/inline-code/code-block styling, explicit override tracking and binding-preserving resets. Legacy remains the default; existing flat properties and 1.0 imports remain supported.

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "exitCode": 0,
+  "imageId": "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+  "recipeFingerprint": "2add78586d9166989bb69d132d566b790126776ffcd62a4d82252de1805a1c06",
+  "preparationSeconds": 6.048,
+  "verificationSeconds": 256.463,
+  "elapsedSeconds": 262.534
+}
