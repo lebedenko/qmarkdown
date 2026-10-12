@@ -61,4 +61,4 @@ Current rolling repositories are intentional. Recorded environment evidence
 does not promise identical bytes from a later rebuild. No AUR publishing,
 package repository hosting or signing infrastructure is included.
 
-The v1.2.0 publication and downloaded-asset gates are tracked in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication is pending at release preparation.
+The v1.2.0 publication and downloaded-asset results are recorded in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication and independent downloaded-asset acceptance passed.
