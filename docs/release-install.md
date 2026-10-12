@@ -8,13 +8,13 @@ need CMake >=3.21, a C++17 compiler and the matching Qt development SDK.
 The same Qt 6.8.0-built archive is tested with exact Qt 6.8.0 and 6.12.0; this is specific
 verification evidence, not a guarantee for every newer Qt or distribution.
 
-Download the archive and its `.sha256` companion from the [v1.1.0 stable GitHub release](https://github.com/lebedenko/qmarkdown/releases/tag/v1.1.0).
+Download the archive and its `.sha256` companion from the [v1.2.0 GitHub release](https://github.com/lebedenko/qmarkdown/releases/tag/v1.2.0).
 Verify before extracting, then run from the enclosing package directory:
 
 ```sh
-sha256sum -c qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256
-tar -xzf qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8.tar.gz
-cd qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8
+sha256sum -c qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256
+tar -xzf qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz
+cd qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8
 sudo ./install.sh
 ```
 
@@ -25,11 +25,11 @@ by the system linker (for an external SDK, configure its library directory in
 ld.so.conf and run ldconfig). Do not mix incompatible Qt libraries in one process.
 
 CMake discovers `/usr/lib/x86_64-linux-gnu/cmake/QMarkdown` through its normal
-system search. Use `find_package(QMarkdown 1.1 CONFIG REQUIRED)` and link
+system search. Use `find_package(QMarkdown 1.2 CONFIG REQUIRED)` and link
 `QMarkdown::QMarkdown`. For an external Qt SDK, configure `CMAKE_PREFIX_PATH`
-with its root. Import `QMarkdown 1.1` in QML for the styling additions. Existing
-QML 1.0 imports and CMake 1.0 requests remain supported with Legacy defaults;
-EXACT 1.0.0 requires the historical package. If your Qt installation does not
+with its root. Import `QMarkdown 1.2` in QML for code-block actions. Existing
+QML 1.0/1.1 imports and CMake 1.0/1.1 requests remain supported with Legacy defaults;
+EXACT 1.0.0/1.1.0 requires the historical package. If your Qt installation does not
 search Ubuntu's QML directory, set:
 
 ```sh
@@ -70,3 +70,5 @@ bytes and refuse replacement of differing assets. Tag creation and release
 publication are separate maintainer actions.
 
 The integrated release workflow builds and verifies a [pacman-owned Arch Linux package](arch-install.md). Uploads require both Ubuntu and Arch gates, and validate both archive/checksum pairs before publication. The existing v1.1.0 assets remain unchanged.
+
+The v1.2.0 publication and downloaded-asset gates are tracked in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication is pending at release preparation.

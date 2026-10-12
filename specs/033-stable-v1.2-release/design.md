@@ -1,0 +1,11 @@
+# Design
+
+Approved on 2026-10-12 through the explicit instruction to implement the supplied Iteration 033 plan. Approval covers protected ordinary merges, commits/pushes, workflow dispatches, annotated tagging, stable/latest publication, release uploads and independent downloaded-asset checks. AUR submission, host installation, production/dependency/workflow/protection changes and additional features are excluded.
+
+Base release/v1.2.0 in an isolated worktree on current main a65f537e5b2134e026bf328a1ec4a307c48588ef and merge docs/v1.2-integration-evidence without rewriting history. Keep historical evidence bytes intact. Prepare documentation for intended UTC publication date 2026-10-12 while clearly recording publication as pending; if UTC date changes, correct documentation before tagging and repeat all gates.
+
+Use an ordinary protected preparation PR merge after both configured packaging contexts pass and no unresolved review threads remain. Treat its main merge as a new candidate: require fresh packaging and the complete manual release workflow, inspect workflow headSha values, both Ubuntu runtime jobs, Arch lifecycle and skipped upload, then independently inspect downloaded packages and provenance. Any correction or advancing main invalidates candidate gates.
+
+Create annotated v1.2.0 at that candidate and publish stable/latest QMarkdown 1.2.0 with finalized notes. The existing publication workflow rebuilds and uploads the minimum-Qt Ubuntu archive and Arch package with checksum companions. Download those published bytes and compare against publication artifacts; separate rebuilds need not have identical checksums.
+
+Archive tooling/consumer fixtures from the fixed tag. Mount Ubuntu source/assets read-only and install only inside separate disposable containers for exact Qt 6.8.0 and 6.12.0. Verify downloaded Arch bytes in a fresh disposable rolling Arch container using the publication PKGBUILD and tagged tooling/fixtures, retaining updated package inventory and immutable base identity. Commit actual results separately on docs/v1.2.0-publication-evidence; main and tag remain fixed. Preserve differing published bytes on any failure; no tag movement or asset replacement.
