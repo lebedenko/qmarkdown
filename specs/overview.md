@@ -1,12 +1,16 @@
 # Project overview
 
-## Current 1.0 candidate direction
+## Current published status
 
-[Iteration 021](021-v1-release-candidate/requirements.md) is approved for Linux amd64 candidate 1.0.0 / QML 1.0, Qt >=6.8, C++17 and CMake >=3.21. Pinned Qt 6.8.0/6.11.3, host Qt and native Wayland execution are separate evidence; see [actual verification](021-v1-release-candidate/verification.md) for gate status. Features 017/019/020 establish complete official-corpus semantics, representative native presentation and responsive decoder lifecycle. This candidate corrects long fences without upgrading cmark or changing the official corpus.
+Package **1.1.0 / QML 1.1** is published as stable/latest through [iteration 027](027-stable-v1.1-release/verification.md), following completed protected integration in [iteration 026](026-v1.1-integration/verification.md). Styling includes opt-in Polished/Minimal light/dark presets, grouped heading/code properties and native decorations; Legacy remains the default. Existing QML 1.0 imports and flat style properties remain compatible. Hosts own visual identity, backgrounds, scrolling, navigation and resource authorization.
 
-Documented public QML properties, signals, behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes stay private; no installed C++ headers, public C++ ABI or portable binary guarantee. Consumers use compatible Qt/toolchains and migrate 0.7 imports/package requests to 1.0; unversioned imports work and legacy aliases are absent.
+Linux amd64 support requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification targets are minimum Qt 6.8.0 and development Qt 6.12.0, established by [iteration 024](024-development-host-qt/verification.md). Earlier Qt 6.11.2/6.11.3 and native Wayland runs remain historical evidence, not the current configured matrix.
 
-Accepted limits: separate PNG/JPEG image rows, literal HTML, full replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Optional syntax, streaming, selection/copy, renderer extensions, performance optimization and broader platforms are deferred. Local candidate readiness requires every iteration 021 gate; Feature 022 adds release packaging and hosted publication gates; see [release packaging](022-release-packaging/requirements.md). Historical iteration descriptions below retain their original versions and evidence.
+The evidence contracts remain separate: [iteration 017](017-complete-semantic-evidence/verification.md) establishes all 652 pinned CommonMark parser/model semantic passes; [iteration 019](019-native-presentation-evidence/coverage.md) maps representative native presentation assertions, extended by [iteration 025](025-styling-presets/verification.md); iteration 027 records exact-release packaging, publication and downloaded-asset lifecycle checks. The Ubuntu 24.04 x86_64 archive built with Qt 6.8.0 passed on exact Qt 6.8.0 and 6.12.0 runtimes; this is bounded binary evidence, not a portable binary guarantee.
+
+Documented public QML behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes remain private; no C++ headers are installed and no public C++ ABI is promised. Package 1.1.0 accepts same-major 1.0/1.1 requests and EXACT 1.1.0; EXACT 1.0.0 requires the historical package.
+
+Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Selection/copy, GFM, streaming, highlighting, renderer extensions, inline-code padding/borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
 ## Accepted project direction
@@ -17,22 +21,22 @@ Markdown source flows through a private parser into a document/AST model and the
 
 The model should allow block-oriented rendering and later evolution toward streaming without committing to an incremental algorithm or stable block identity in feature 001. Full replacement and full parsing are sufficient for the initial slice.
 
-Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a v1.0 release gate. See [standards and conformance](standards.md) for parsing, native presentation, resource-policy boundaries, and selected GFM extensions. Feature 001 delivers the separately approved bounded static-text slice. Official-corpus semantics are verified by Feature 017; broader release evidence is tracked by iteration 021.
+Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a v1.0 release gate. See [standards and conformance](standards.md) for parsing, native presentation, resource-policy boundaries, and selected GFM extensions. Feature 001 delivers the separately approved bounded static-text slice. Official-corpus semantics are verified by Feature 017; historical candidate evidence is tracked by iteration 021, with completed publication in iteration 027.
 
-## Planned capabilities
+## Remaining planned capabilities
 
-- Resource policies: explicit control of local/remote images, relative resolution, file/external links, data URLs, SVG, and raw HTML. Define defaults and host responsibilities before adding resource-bearing rendering. Feature 001 loads no resources and activates no links.
+- Resource policies: Feature 010 implements opt-in PNG/JPEG access and Feature 009 reports link destinations to hosts. SVG, additional formats and richer raw HTML behavior require later policy/design approval. Feature 001’s no-resource/no-link slice remains historical.
 - Streaming: shared semantics for static and appended input, with incremental parsing/rendering considered in its own feature.
 - Fenced-block extensions: Feature 004 preserves decoded info privately and renders native code; future rendering can select ordinary code or an extension such as diagrams or math. Extension APIs and engines require later design and approval.
 
 The brief's directory tree, C++ renderer interface, `MarkdownDocument.append`, `baseUrl`, `MarkdownPolicy`, style fields, and extension names are illustrative, not accepted public contracts. The approved public interface is described in [001 design](001-static-text/design.md) and its [003 inline-formatting extension](003-inline-formatting/design.md) and [004 fenced-code extension](004-fenced-code-blocks/design.md).
 
-## Open implementation decisions
+## Resolved foundations and historical decisions
 
 | Decision | Required resolution |
 | --- | --- |
 | Parser and dialect | Feature 001 implements a focused private parser without new dependencies, CommonMark-aligned paragraph/ATX structure, and explicit literal fallback. Feature 003 introduced privately bundled cmark 0.31.2 for bounded inlines; Feature 007 now uses it for the entire document and recursive native containers. Official-corpus semantic evidence is complete; iteration 021 supplies the long-fence correction and release checks. |
-| Minimum Qt version | Feature 002 selects Qt ≥6.8; historical scaffold verification used Qt 6.11.2. Subsequent local CI verifies pinned Qt 6.8.0 and 6.11.3; candidate results are tracked separately. |
+| Minimum Qt version | Feature 002 selects Qt ≥6.8; historical scaffold verification used Qt 6.11.2. Earlier local CI verified Qt 6.8.0/6.11.3; the current configured checks use Qt 6.8.0/6.12.0 (iteration 024). |
 | Packaging | Feature 002 provides `QMarkdown`, `QMarkdown::QMarkdown`, shared/static packages, and an import-only example. Feature 001 adds MarkdownView and MarkdownStyle with native rendering. |
 | Licensing | MIT, attributed to qt-markdown contributors; see the repository LICENSE. Bundled cmark retains its complete applicable notices, installed with the package; see [provenance](../third_party/cmark/PROVENANCE.md). Check future dependencies separately. |
 
