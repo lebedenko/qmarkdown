@@ -20,6 +20,7 @@ typedef struct {
   unsigned char delimiter;
   unsigned char bullet_char;
   bool tight;
+  unsigned char task_state; // QMarkdown: 0 ordinary, 1 unchecked, 2 checked.
 } cmark_list;
 
 typedef struct {

@@ -1,0 +1,14 @@
+[
+  {
+    "example": 279,
+    "markdown": "- [ ] foo\n- [x] bar\n",
+    "states": [1, 2],
+    "labels": ["foo", "bar"]
+  },
+  {
+    "example": 280,
+    "markdown": "- [x] foo\n  - [ ] bar\n  - [x] baz\n- [ ] bim\n",
+    "states": [2, 1, 2, 1],
+    "labels": ["foo", "bar", "baz", "bim"]
+  }
+]

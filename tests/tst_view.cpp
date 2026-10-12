@@ -1,4 +1,6 @@
 #include "private/formattedtext.h"
+#include "private/viewstate.h"
+#include <QAccessible>
 #include "markdownstyle.h"
 #include "markdownresourcepolicy.h"
 #include <QTemporaryDir>
@@ -89,6 +91,168 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void taskListsToggleAndLayout()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.3\nMarkdownView {\n    width: 240\n    markdown: \"9) [x] **Done** [link](task:link)\\n10) Plain item\\n11) [ ] Pending\\n    - [X] Nested\\n\\n    Second paragraph\\n\\n12) [ ] \"\n}", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *state = view->findChild<ViewState *>(); QVERIFY(state);
+        const auto source = state->markdown();
+        QSignalSpy markdownChanges(view, SIGNAL(markdownChanged()));
+        QSignalSpy optionChanges(view, SIGNAL(taskListsEnabledChanged()));
+        QSignalSpy resets(state->blocks(), &QAbstractItemModel::modelReset);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300, 600); window.show();
+        QTRY_VERIFY(content(view) > 0);
+        QVERIFY(!view->property("taskListsEnabled").toBool());
+        for (auto *indicator : named(view, "taskIndicator")) QVERIFY(!indicator->isVisible());
+        QVERIFY(view->setProperty("taskListsEnabled", true));
+        QTRY_COMPARE(optionChanges.size(), 1);
+        QCOMPARE(state->markdown(), source); QCOMPARE(markdownChanges.size(), 0);
+        QTRY_COMPARE(named(view, "listMarker").size(), 5);
+        QStringList markers;
+        for (auto *marker : named(view, "listMarker")) markers.append(marker->property("text").toString());
+        QCOMPARE(markers, QStringList({"9)", "10)", "11)", QString::fromUtf8("•"), "12)"}));
+        QList<QQuickItem *> indicators;
+        for (auto *indicator : named(view, "taskIndicator"))
+            if (indicator->isVisible()) indicators.append(indicator);
+        QCOMPARE(indicators.size(), 4);
+        QCOMPARE(indicators[0]->property("checked").toBool(), true);
+        QCOMPARE(indicators[1]->property("checked").toBool(), false);
+        QCOMPARE(indicators[2]->property("checked").toBool(), true);
+        QCOMPARE(indicators[3]->property("checked").toBool(), false);
+        QVERIFY(!painted(view).isEmpty());
+        QCOMPARE(painted(view)[0]->property("text").toString(), "Done link");
+        for (auto *item : texts(view)) QVERIFY(!item->property("text").toString().contains("[x]"));
+        auto *indicator = indicators[0];
+        auto *accessible = QAccessible::queryAccessibleInterface(indicator); QVERIFY(accessible);
+        QCOMPARE(accessible->role(), QAccessible::CheckBox);
+        QVERIFY(accessible->state().checked); QVERIFY(!accessible->state().focusable);
+        QCOMPARE(accessible->text(QAccessible::Description), "Read-only Markdown task");
+        auto *uncheckedAccessible = QAccessible::queryAccessibleInterface(indicators[1]); QVERIFY(uncheckedAccessible);
+        QVERIFY(!uncheckedAccessible->state().checked);
+        QSignalSpy links(view, SIGNAL(linkActivated(QString)));
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+            indicator->mapToScene(QPointF(indicator->width() / 2, indicator->height() / 2)).toPoint());
+        QTest::keyClick(&window, Qt::Key_Space);
+        QCOMPARE(indicator->property("checked").toBool(), true);
+        QVERIFY(!indicator->hasActiveFocus()); QCOMPARE(links.size(), 0); QCOMPARE(state->markdown(), source);
+        if (auto *actions = accessible->actionInterface())
+            actions->doAction(QAccessibleActionInterface::toggleAction());
+        QCOMPARE(indicator->property("checked").toBool(), true); QCOMPARE(state->markdown(), source);
+        auto *label = painted(view)[0];
+        QTRY_VERIFY(label->layout() && label->layout()->lineCount() > 0);
+        const auto line = label->layout()->lineAt(0);
+        const qreal linkX = (line.cursorToX(5) + line.cursorToX(6)) / 2;
+        const qreal linkY = line.y() + line.height() / 2;
+        QCOMPARE(label->linkAt(linkX, linkY), 0);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+            label->mapToScene(QPointF(linkX, linkY)).toPoint());
+        QCOMPARE(links.size(), 1); QCOMPARE(links[0][0].toString(), "task:link");
+        QVERIFY(indicators.last()->parentItem()->height() >= QFontMetricsF(state->style()->bodyFont()).height());
+        const auto size = indicator->height();
+        QFont font = state->style()->bodyFont(); font.setPixelSize(24); state->style()->setBodyFont(font);
+        state->style()->setBodyColor(Qt::red);
+        QTRY_VERIFY(indicator->height() > size);
+        const auto boxes = named(view, "taskBox"); QVERIFY(!boxes.isEmpty());
+        QCOMPARE(QQmlProperty::read(boxes[0], "border.color").value<QColor>(), QColor(Qt::red));
+        const int resetCount = resets.size();
+        view->setProperty("taskListsEnabled", true);
+        QCOMPARE(resets.size(), resetCount); QCOMPARE(optionChanges.size(), 1);
+        view->setWidth(1);
+        QTRY_VERIFY(content(view) > 0);
+        for (auto *loader : named(view, "listItemContent")) {
+            QCOMPARE(loader->x(), 0); QCOMPARE(loader->width(), 1);
+        }
+        for (auto *item : named(view, "taskIndicator")) QCOMPARE(item->width(), 0);
+        view->setWidth(0); QTRY_COMPARE(content(view), 0);
+        view->setWidth(-1); QTRY_COMPARE(content(view), 0);
+        view->setWidth(240); QTRY_VERIFY(content(view) > 0);
+        view->setProperty("taskListsEnabled", false);
+        QTRY_COMPARE(optionChanges.size(), 2);
+        for (auto *item : named(view, "taskIndicator")) QVERIFY(!item->isVisible());
+        QCOMPARE(state->markdown(), source); QCOMPARE(markdownChanges.size(), 0);
+        view->setProperty("taskListsEnabled", true);
+        view->setProperty("markdown", "- [ ] Replacement");
+        QTRY_COMPARE(named(view, "listMarker").size(), 1);
+        QTRY_VERIFY(!named(view, "taskIndicator").isEmpty());
+        QCOMPARE(named(view, "taskIndicator")[0]->property("checked").toBool(), false);
+        QCOMPARE(texts(view).last()->property("text").toString(), "Replacement");
+    }
+    void taskListsImageProjection()
+    {
+        QTemporaryDir temp; QVERIFY(temp.isValid());
+        QImage image(30, 20, QImage::Format_ARGB32); image.fill(Qt::green);
+        QVERIFY(image.save(temp.filePath("image.png")));
+        QQmlEngine engine; RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
+        QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.3
+MarkdownView {
+    width: 200
+    taskListsEnabled: true
+    markdown: "- [x] Before ![*alt*](image.png) after"
+})", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *state = view->findChild<ViewState *>(); QVERIFY(state);
+        view->setProperty("baseUrl", QUrl::fromLocalFile(temp.filePath("document.md")));
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300,300); window.show();
+        QTRY_VERIFY(!named(view, "taskIndicator").isEmpty());
+        QVERIFY(named(view, "markdownImage").isEmpty()); QCOMPARE(factory.requests, 0);
+        const auto source = state->markdown();
+        state->resourcePolicy()->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        QTRY_COMPARE(named(view, "markdownImage").size(), 1);
+        QCOMPARE(named(view, "taskIndicator")[0]->property("checked").toBool(), true);
+        QCOMPARE(named(view, "markdownImage")[0]->height(), 20);
+        QSignalSpy resets(state->blocks(), &QAbstractItemModel::modelReset);
+        view->setProperty("taskListsEnabled", true);
+        QCOMPARE(resets.size(), 0); QCOMPARE(named(view, "markdownImage").size(), 1);
+        view->setProperty("taskListsEnabled", false);
+        QTRY_COMPARE(named(view, "markdownImage").size(), 1);
+        QVERIFY(!named(view, "taskIndicator")[0]->isVisible());
+        view->setProperty("taskListsEnabled", true);
+        QTRY_COMPARE(named(view, "markdownImage").size(), 1);
+        QCOMPARE(named(view, "taskIndicator")[0]->property("checked").toBool(), true);
+        QCOMPARE(state->markdown(), source);
+    }
+    void playgroundTaskLists()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QQmlEngine engine;
+        QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *toggle = window->findChild<QQuickItem *>("taskToggle"); QVERIFY(toggle);
+        window->setProperty("sampleIndex", 10);
+        QTRY_VERIFY(content(preview) > 0);
+        QVERIFY(!preview->property("taskListsEnabled").toBool());
+        const auto source = preview->property("markdown");
+        toggle->setProperty("checked", true);
+        QTRY_VERIFY(preview->property("taskListsEnabled").toBool());
+        QList<QQuickItem *> tasks;
+        for (auto *item : named(preview, "taskIndicator")) if (item->isVisible()) tasks.append(item);
+        QCOMPARE(tasks.size(), 8);
+        QCOMPARE(tasks[0]->property("checked").toBool(), true);
+        QCOMPARE(preview->property("markdown"), source);
+        const auto screenshot = qEnvironmentVariable("QMARKDOWN_TASKS_SCREENSHOT");
+        if (!screenshot.isEmpty()) {
+            QImage image;
+            QTRY_VERIFY(!(image = window->grabWindow()).isNull());
+            QVERIFY(image.save(screenshot));
+        }
+        toggle->setProperty("checked", false);
+        QTRY_VERIFY(!preview->property("taskListsEnabled").toBool());
+        for (auto *item : named(preview, "taskIndicator")) QVERIFY(!item->isVisible());
+        QCOMPARE(preview->property("markdown"), source);
+#else
+        QSKIP("Playground is not built in this configuration");
+#endif
+    }
     void codeActionsText_data()
     {
         QTest::addColumn<QString>("source");

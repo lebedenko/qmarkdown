@@ -19,6 +19,8 @@ Module {
         Signal { name: "baseUrlChanged" }
         Signal { name: "resourcePolicyChanged" }
         Property { name: "markdown"; type: "QString"; notify: "markdownChanged" }
+        Property { name: "taskListsEnabled"; type: "bool"; notify: "taskListsEnabledChanged" }
+        Signal { name: "taskListsEnabledChanged" }
         Property { name: "style"; type: "MarkdownStyle"; isPointer: true; notify: "styleChanged" }
         Property { name: "blocks"; type: "QAbstractItemModel"; isPointer: true; isReadonly: true }
         Signal { name: "markdownChanged" }

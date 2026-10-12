@@ -1,4 +1,8 @@
 #include "private/document.h"
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <QtTest/QTest>
 using namespace QMarkdownPrivate;
 
@@ -6,6 +10,110 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void taskMarkers_data()
+    {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<TaskState>("state");
+        QTest::addColumn<QString>("text");
+        QTest::newRow("unchecked") << "- [ ] pending" << TaskState::Unchecked << "pending";
+        QTest::newRow("checked") << "- [x] finished" << TaskState::Checked << "finished";
+        QTest::newRow("uppercase") << "- [X] finished" << TaskState::Checked << "finished";
+        QTest::newRow("tab-marker") << "- [\t] pending" << TaskState::Unchecked << "pending";
+        QTest::newRow("vertical-tab-marker") << "- [\v] pending" << TaskState::Unchecked << "pending";
+        QTest::newRow("form-feed-marker") << "- [\f] pending" << TaskState::Unchecked << "pending";
+        QTest::newRow("newline-marker") << "- [\n  ] pending" << TaskState::Unchecked << "pending";
+        QTest::newRow("tab-separator") << "- [x]\tfinished" << TaskState::Checked << "finished";
+        QTest::newRow("newline-separator") << "- [x]\n  finished" << TaskState::Checked << "finished";
+        QTest::newRow("vertical-tab-separator") << "- [x]\vfinished" << TaskState::Checked << "finished";
+        QTest::newRow("form-feed-separator") << "- [x]\ffinished" << TaskState::Checked << "finished";
+        QTest::newRow("extra-spaces") << "-   [x]   finished" << TaskState::Checked << "finished";
+        QTest::newRow("ordered") << "9) [x] finished" << TaskState::Checked << "finished";
+        QTest::newRow("empty") << "- [x] " << TaskState::Checked << "";
+        QTest::newRow("empty-eof") << "- [ ]" << TaskState::Unchecked << "";
+        QTest::newRow("escaped") << "- \\[x] ordinary" << TaskState::Ordinary << "[x] ordinary";
+        QTest::newRow("escaped-close") << "- [x\\] ordinary" << TaskState::Ordinary << "[x] ordinary";
+        QTest::newRow("entity") << "- &#91;x] ordinary" << TaskState::Ordinary << "[x] ordinary";
+        QTest::newRow("entity-state") << "- [&#32;] ordinary" << TaskState::Ordinary << "[ ] ordinary";
+        QTest::newRow("entity-separator") << "- [x]&#32;ordinary" << TaskState::Ordinary << "[x] ordinary";
+        QTest::newRow("no-separator") << "- [x]ordinary" << TaskState::Ordinary << "[x]ordinary";
+        QTest::newRow("invalid-state") << "- [y] ordinary" << TaskState::Ordinary << "[y] ordinary";
+        QTest::newRow("long-marker") << "- [xx] ordinary" << TaskState::Ordinary << "[xx] ordinary";
+        QTest::newRow("unicode-space-marker") << QString::fromUtf8("- [\u00a0] ordinary") << TaskState::Ordinary << QString::fromUtf8("[\u00a0] ordinary");
+        QTest::newRow("unicode-space-separator") << QString::fromUtf8("- [x]\u00a0ordinary") << TaskState::Ordinary << QString::fromUtf8("[x]\u00a0ordinary");
+        QTest::newRow("inline-code") << "- `[x]` ordinary" << TaskState::Ordinary << "[x] ordinary";
+        QTest::newRow("inline-html") << "- <b>[x]</b> ordinary" << TaskState::Ordinary << "<b>[x]</b> ordinary";
+        QTest::newRow("not-prefix") << "- label [x] ordinary" << TaskState::Ordinary << "label [x] ordinary";
+    }
+    void taskMarkers()
+    {
+        QFETCH(QString, source); QFETCH(TaskState, state); QFETCH(QString, text);
+        for (const QString &ending : {QString("\n"), QString("\r\n"), QString("\r")}) {
+            const auto blocks = parse(QString(source).replace("\n", ending), true);
+            QCOMPARE(blocks.size(), 1);
+            QCOMPARE(blocks[0].kind, BlockKind::List);
+            QCOMPARE(blocks[0].children.size(), 1);
+            const auto &item = blocks[0].children[0];
+            QCOMPARE(item.taskState, state);
+            QCOMPARE(item.children.size(), 1);
+            QCOMPARE(item.children[0].text, text);
+            QCOMPARE(parse(source)[0].children[0].taskState, TaskState::Ordinary);
+        }
+    }
+    void taskContextAndInlineSemantics()
+    {
+        for (const QString &source : {QString("[x] ordinary"), QString("# [x] ordinary"),
+                QString("- # [x] ordinary"), QString("-     [x] ordinary"),
+                QString("- ```\n  [x] ordinary\n  ```"), QString("- <div>\n  [x] ordinary\n  </div>")}) {
+            const auto blocks = parse(source, true);
+            QVERIFY(!blocks.isEmpty());
+            QCOMPARE(blocks[0].taskState, TaskState::Ordinary);
+            if (blocks[0].kind == BlockKind::List)
+                QCOMPARE(blocks[0].children[0].taskState, TaskState::Ordinary);
+        }
+        const auto loose = parse("- first\n\n  [x] later\n\n- [ ] **bold** [label][ref] ![*alt*](pic)\n\n[ref]: custom:link \"title\"", true);
+        QVERIFY(!loose[0].tight);
+        QCOMPARE(loose[0].children[0].taskState, TaskState::Ordinary);
+        QCOMPARE(loose[0].children[0].children[1].text, "[x] later");
+        const auto &task = loose[0].children[1];
+        QCOMPARE(task.taskState, TaskState::Unchecked);
+        const auto &paragraph = task.children[0];
+        QCOMPARE(paragraph.text, "bold label alt");
+        QCOMPARE(paragraph.ranges[0].start, 0); QCOMPARE(paragraph.ranges[0].flags, int(Strong));
+        QCOMPARE(paragraph.links[0].start, 5); QCOMPARE(paragraph.links[0].destination, "custom:link");
+        QCOMPARE(paragraph.images[0].start, 11); QCOMPARE(paragraph.images[0].destination, "pic");
+        QCOMPARE(paragraph.inlines[2].title, "title");
+        const auto references = parse("- [x] task\n\n[x]: custom:reference", true);
+        QCOMPARE(references[0].children[0].taskState, TaskState::Checked);
+        QVERIFY(references[0].children[0].children[0].links.isEmpty());
+        QCOMPARE(parse("- [x]: custom:reference\n  [x] task", true)[0].children[0].taskState, TaskState::Checked);
+    }
+    void officialTaskListExamples()
+    {
+        QFile file(QStringLiteral(QMARKDOWN_GFM_FIXTURE)); QVERIFY(file.open(QIODevice::ReadOnly));
+        const auto document = QJsonDocument::fromJson(file.readAll()); QVERIFY(document.isArray());
+        for (const auto &value : document.array()) {
+            const auto example = value.toObject();
+            const auto blocks = parse(example["markdown"].toString(), true);
+            QVERIFY2(blocks.size() == 1 && blocks[0].kind == BlockKind::List,
+                qPrintable(QString::number(example["example"].toInt())));
+            QList<int> states; QStringList labels;
+            const auto collect = [&](const auto &self, const QVector<Block> &nodes) -> void {
+                for (const auto &block : nodes) {
+                    if (block.kind == BlockKind::ListItem) {
+                        states.append(static_cast<int>(block.taskState));
+                        QVERIFY(!block.children.isEmpty()); labels.append(block.children[0].text);
+                    }
+                    self(self, block.children);
+                }
+            };
+            collect(collect, blocks);
+            QList<int> expectedStates; QStringList expectedLabels;
+            for (const auto &state : example["states"].toArray()) expectedStates.append(state.toInt());
+            for (const auto &label : example["labels"].toArray()) expectedLabels.append(label.toString());
+            QCOMPARE(states, expectedStates); QCOMPARE(labels, expectedLabels);
+            QVERIFY(blocks[0].tight);
+        }
+    }
     void retainedBreaksAndLiteralIdentity() {
         const auto blocks = parse(QString::fromUtf8("😀&#10;é\nnext  \nhard <b>`code`</b><!-- literal -->"));
         const auto &nodes = blocks[0].inlines;

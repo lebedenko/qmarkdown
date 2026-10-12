@@ -6,6 +6,7 @@
 
 namespace QMarkdownPrivate {
 enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Image, Segments };
+enum class TaskState { Ordinary, Unchecked, Checked };
 struct Block {
     BlockKind kind;
     QString text;
@@ -23,6 +24,7 @@ struct Block {
     QChar delimiter = u'.';
     bool tight = true;
     QVector<InlineNode> inlines;
+    TaskState taskState = TaskState::Ordinary;
 };
-QVector<Block> parse(QString source);
+QVector<Block> parse(QString source, bool taskListsEnabled = false);
 }

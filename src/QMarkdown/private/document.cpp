@@ -37,7 +37,10 @@ QVector<Block> adaptBlocks(cmark_node *node)
             block.delimiter = cmark_node_get_list_delim(node) == CMARK_PAREN_DELIM ? u')' : u'.';
             block.tight = cmark_node_get_list_tight(node);
             break;
-        case CMARK_NODE_ITEM: block.kind = BlockKind::ListItem; break;
+        case CMARK_NODE_ITEM:
+            block.kind = BlockKind::ListItem;
+            block.taskState = static_cast<TaskState>(cmark_node_get_task_state(node));
+            break;
         case CMARK_NODE_BLOCK_QUOTE: block.kind = BlockKind::Quote; break;
         default: continue;
         }
@@ -56,13 +59,14 @@ QVector<Block> adaptBlocks(cmark_node *node)
     return blocks;
 }
 }
-QVector<Block> parse(QString source)
+QVector<Block> parse(QString source, bool taskListsEnabled)
 {
     source.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
     source.replace(u'\r', u'\n');
     source.replace(QChar(0), QChar(0xfffd));
     const auto input = source.toUtf8();
-    NodeOwner document{cmark_parse_document(input.constData(), input.size(), CMARK_OPT_DEFAULT)};
+    NodeOwner document{cmark_parse_document(input.constData(), input.size(),
+        taskListsEnabled ? CMARK_OPT_QMARKDOWN_TASK_LISTS : CMARK_OPT_DEFAULT)};
     return document.node ? adaptBlocks(cmark_node_first_child(document.node)) : QVector<Block>{};
 }
 }

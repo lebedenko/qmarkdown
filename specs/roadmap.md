@@ -1,5 +1,7 @@
 # Staged roadmap
 
+Local candidate: [035 opt-in GFM task lists](035-gfm-task-lists/requirements.md), approved on 2026-10-13, adds read-only indicators in package 1.3.0 / QML 1.3. Tables, strikethrough and extended autolinks remain deferred; this is not full GFM conformance. See [actual verification](035-gfm-task-lists/verification.md) for execution status.
+
 ## Current published status
 
 Package **1.2.0 / QML 1.2** is published as stable/latest on **2026-10-12 UTC** through [iteration 033](033-stable-v1.2-release/verification.md), following completed protected integration in [iteration 032](032-v1.2-integration/verification.md). Optional [code-block actions](../docs/code-block-actions.md) are released with host-owned clipboard handling. Styling includes opt-in Polished/Minimal light/dark presets, grouped heading/code properties and native decorations; Legacy remains the default. Existing QML 1.0/1.1 imports and flat style properties remain compatible. Hosts own visual identity, backgrounds, scrolling, navigation and resource authorization.
@@ -10,7 +12,7 @@ The evidence contracts remain separate: [iteration 017](017-complete-semantic-ev
 
 Documented public QML behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes remain private; no C++ headers are installed and no public C++ ABI is promised. Package 1.2.0 accepts compatible 1.0/1.1/1.2 requests and EXACT 1.2.0; exact earlier versions require historical packages.
 
-Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Document-wide selection/copy, GFM, streaming, highlighting, renderer extensions, inline-code padding/borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
+Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Document-wide selection/copy, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code padding/borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
 These stages preserve the brief's direction. The table separates completed foundations from deferred capabilities; it does not schedule future releases. Each feature needs its own requirements, design, tasks, and approval. The [standards reference](standards.md) defines the pinned target and future conformance evidence.
@@ -20,7 +22,7 @@ These stages preserve the brief's direction. The table separates completed found
 | Buildable scaffold | [002 project scaffold](002-project-scaffold/requirements.md): import-only Qt/QML module, shared/static packaging, and smoke checks; scaffold foundation completed. |
 | First vertical slice | [001 static text](001-static-text/requirements.md): paragraphs, H1–H6, native block layout, styling, replacement updates. Approved on 2026-10-07 and implemented; see its verification record. |
 | CommonMark core coverage (completed) | Complete CommonMark 0.31.2 semantics: ATX and Setext headings, paragraphs, emphasis/strong emphasis, inline code, fenced and indented code, inline and reference links, images, ordered/unordered and nested lists, block quotes, thematic breaks, escapes/entities, autolinks, hard/soft breaks, and raw HTML recognition. Include whitespace, line handling, delimiter rules, and precedence. Features 009/010 specify host navigation and resource policies; Feature 017 completes semantic evidence. |
-| Selected GFM syntax | Tables, task lists, strikethrough, and extended autolinks, with separate extension checks and newer-core compatibility decisions; no full GFM conformance claim. |
+| Selected GFM syntax | [035 task lists](035-gfm-task-lists/requirements.md) is the approved first slice; tables, strikethrough, and extended autolinks remain future slices, with separate extension checks and newer-core compatibility decisions; no full GFM conformance claim. |
 | Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; document-wide selection/copy remains deferred. |
 | Streaming | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
 | Renderer extensions | Syntax highlighting, extension renderer API, Mermaid, math, and custom fenced-block renderers, subject to dependency and policy decisions. Footnotes and other richer syntax require separate specifications. |
