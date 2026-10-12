@@ -3,7 +3,7 @@ qt_add_qml_module(qmarkdown-font-editor STATIC
     VERSION 1.0
     NO_PLUGIN
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml/QMarkdownViewer/Tools"
-    SOURCES fonteditor.h)
+    SOURCES fonteditor.h clipboard.h)
 
 target_link_libraries(qmarkdown-font-editor PRIVATE Qt6::Gui)
 

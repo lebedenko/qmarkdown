@@ -93,11 +93,15 @@ def main():
         raise RuntimeError('Package integrity failure')
     with tarfile.open(evidence / 'qmarkdown-source.tar.gz') as source:
         source.extractall('/work', filter='data')
-    for link, styling in (('ON', 'OFF'), ('OFF', 'OFF'), ('ON', 'ON'), ('OFF', 'ON')):
-        build = Path('/work') / f'consumer-{link}-{styling}'
+    for link, styling, actions in (('ON', 'OFF', 'OFF'), ('OFF', 'OFF', 'OFF'),
+                                   ('ON', 'ON', 'OFF'), ('OFF', 'ON', 'OFF'),
+                                   ('ON', 'OFF', 'ON'), ('OFF', 'OFF', 'ON')):
+        build = Path('/work') / f'consumer-{link}-{styling}-{actions}'
         run('cmake', '-S', '/work/qmarkdown/tests/installed-consumer', '-B', build,
             '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
-            f'-DQMARKDOWN_STYLING_CONSUMER={styling}')
+            f'-DQMARKDOWN_STYLING_CONSUMER={styling}', f'-DQMARKDOWN_ACTIONS_CONSUMER={actions}',
+            f'-DQMARKDOWN_REQUEST_VERSION={"1.2.0" if actions == "ON" else "1.0"}',
+            f'-DQMARKDOWN_REQUEST_EXACT={actions}')
         run('cmake', '--build', build, '--parallel', '2')
         executable = build / 'qmarkdown-consumer'
         if link == 'OFF' and 'libQMarkdown' in output('readelf', '-d', executable):

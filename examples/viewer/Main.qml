@@ -2,7 +2,8 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown
+import QMarkdown 1.2
+import QMarkdownViewer.Tools
 
 ApplicationWindow {
     id: window
@@ -27,6 +28,7 @@ ApplicationWindow {
     function resetStyle() { stylePanel.resetStyle() }
     onSampleIndexChanged: loadSample()
     Samples { id: samples }
+    Clipboard { id: clipboard }
     MarkdownStyle {
         id: hostStyle
         objectName: "hostStyle"
@@ -160,6 +162,23 @@ ApplicationWindow {
                             x: (previewScroll.width - width) / 2
                             markdown: editor.text
                             style: hostStyle
+                            codeBlockActions: Item {
+                                id: actions
+                                required property string codeText
+                                required property var requestCopy
+                                property bool copied: false
+                                implicitHeight: copyButton.implicitHeight + 8
+                                Button {
+                                    id: copyButton
+                                    objectName: "copyButton"
+                                    width: Math.min(implicitWidth, actions.width)
+                                    text: actions.copied ? "Copied" : "Copy"
+                                    Accessible.name: "Copy code block"
+                                    onClicked: { actions.requestCopy(); actions.copied = true; feedback.restart() }
+                                }
+                                Timer { id: feedback; interval: 1500; onTriggered: actions.copied = false }
+                            }
+                            onCodeBlockCopyRequested: function(text) { clipboard.copyText(text) }
                             onLinkActivated: function(destination) { window.lastDestination = "Last activated: " + destination }
                         }
                     }

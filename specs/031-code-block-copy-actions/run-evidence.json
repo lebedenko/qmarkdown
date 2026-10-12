@@ -1,0 +1,87 @@
+{
+  "scope": "Uncommitted local iteration 030 worktree; no integration or publication",
+  "packageVersion": "1.2.0",
+  "qmlVersion": "1.2",
+  "implementationInputs": {
+    "CMakeLists.txt": "a7cdc50d874538ea4096ff2efb76f70d79f52ab44928a463c43a3f8f85590576",
+    "examples/viewer/CMakeLists.txt": "fce0d08cc4cdfd825cd69d14ce4bd855143deaa3cb86ce72f2846d2ec230c424",
+    "examples/viewer/Main.qml": "9053f79b947423df52ab017389510ea944529e0181a49f34ec8ef5a455ee1d58",
+    "scripts/arch/verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c",
+    "scripts/ci-toolchain/Dockerfile": "45b4c1941b656fb9fedb913d3b17cb09626c0232e680812f38520155b37b536f",
+    "scripts/verify-packaging.py": "f166a4af88d7ba4bf5d2c665328575c58f812b4c46055b89e14d59e7546dc278",
+    "scripts/verify-release-package.py": "a098f0fc5e6a05cac29f8c9bf9cc3066d0992d0656d7a9aea08ef7fcdd0a9dbb",
+    "src/QMarkdown/CMakeLists.txt": "0e8ed9f22942349716cb0b18d4f66355663b39dbef4d2d70a4725059f7cfb565",
+    "src/QMarkdown/MarkdownView.qml": "1316283a82d901d68f92e899596328f86a800757fe7e8d2604e515a548d3e5b9",
+    "tests/installed-consumer/CMakeLists.txt": "4c17aaa3ed59b6e47b2db571d84eda5bd764fa18175c2a942ed96bfb6b04f40f",
+    "tests/tst_import.cpp": "b483849880cb7a59f042e56fe181fa1a894e34c7a59038f0efe4ec18d756f4a0",
+    "tests/tst_view.cpp": "d8cee477746141bf23cfd29b7ff3a5a407c0239575f481fe25ced6ac23c27c75",
+    "examples/viewer/clipboard.h": "692c5711c3b0460b996f7dbfa0269dea45b91422c234aa46ce31fc1a1c5fad79",
+    "tests/installed-consumer/actions.cpp": "914e48fa52acdf50fa3345e0640218abdb09eadbdac91e85f8a3e5c969886202"
+  },
+  "host": {
+    "qt": "6.12.0",
+    "sharedCTest": "12/12 passed",
+    "packaging": "build-packaging-030-verified",
+    "staticCTest": "12/12 passed",
+    "lint": "passed",
+    "relocatedConsumers": [
+      "1.0",
+      "1.1 styling",
+      "1.2 actions"
+    ],
+    "libraryOnly": "passed",
+    "commonmarkExamples": 652,
+    "log": "host-packaging.log"
+  },
+  "native": {
+    "platform": "wayland",
+    "inputContext": "compose",
+    "test": "viewerCopy",
+    "result": "passed",
+    "activations": [
+      "keyboard Space",
+      "mouse",
+      "touch"
+    ],
+    "clipboard": "exact plain text, no HTML; native Ctrl+V paste asserted",
+    "feedback": "Copied then Copy asserted",
+    "capture": "native-copy.png",
+    "captureSha256": "9736bfefc927ec1bd9665abb898bb601e60473f5d27367290233fe2fa6689039"
+  },
+  "ci": {
+    "minimum": {
+      "qt": "6.8.0",
+      "status": "passed",
+      "artifactDirectory": "build-ci/6.8.0/20261012T150816Z-rvol34fj",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:8353e388d4cc266b012162399672c81d8fac279dfda17d0bd06ae6a7377d31f7",
+        "recipeFingerprint": "ab6b431b1122e71fdd107261ee5d635758679c011cd85e8850232673d3c14870",
+        "preparationSeconds": 8.208,
+        "verificationSeconds": 238.268,
+        "elapsedSeconds": 246.497
+      },
+      "imageId": "sha256:8353e388d4cc266b012162399672c81d8fac279dfda17d0bd06ae6a7377d31f7",
+      "recipeFingerprint": "ab6b431b1122e71fdd107261ee5d635758679c011cd85e8850232673d3c14870",
+      "implementationSnapshotMatches": true
+    },
+    "development": {
+      "qt": "6.12.0",
+      "status": "passed",
+      "artifactDirectory": "build-ci/6.12.0/20261012T150823Z-ix_kw3j2",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+        "recipeFingerprint": "2add78586d9166989bb69d132d566b790126776ffcd62a4d82252de1805a1c06",
+        "preparationSeconds": 6.048,
+        "verificationSeconds": 256.463,
+        "elapsedSeconds": 262.534
+      },
+      "imageId": "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+      "recipeFingerprint": "2add78586d9166989bb69d132d566b790126776ffcd62a4d82252de1805a1c06",
+      "implementationSnapshotMatches": true
+    }
+  }
+}
