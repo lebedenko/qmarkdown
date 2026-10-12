@@ -1,0 +1,27 @@
+{
+  "exitCode": 0,
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--platform",
+    "linux/amd64",
+    "--mount",
+    "type=bind,src=/tmp/qmarkdown-033-hosted/published-arch-cached,dst=/evidence",
+    "--mount",
+    "type=bind,src=/tmp/qmarkdown-033-hosted/published-arch-cached/tooling,dst=/tools,readonly",
+    "--mount",
+    "type=bind,src=/tmp/qmarkdown-033-hosted/published-arch-cached/pacman-cache,dst=/var/cache/pacman/pkg",
+    "--env",
+    "PKG_VERSION=1.2.0",
+    "--env",
+    "PKG_RELEASE=1",
+    "--env",
+    "SOURCE_SHA256=959fb3e064ac9c2e94b0e2217b51da894ce1b71e830069e690efe43d3a34c02b",
+    "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+    "bash",
+    "/tools/container.sh",
+    "verify"
+  ],
+  "packageBytesUnchanged": true
+}
