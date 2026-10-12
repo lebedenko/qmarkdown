@@ -1,6 +1,6 @@
 # Specifications
 
-Current status: **unreleased 1.2.0 / QML 1.2 candidate; published stable 1.1.0 / QML 1.1**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 026](026-v1.1-integration/verification.md) records completed integration; [iteration 027](027-stable-v1.1-release/verification.md) records completed publication and downloaded-asset checks. Earlier entries retain historical scope, versions and environments.
+Current status: **integrated 1.2.0 / QML 1.2; stable v1.2.0 publication pending in iteration 033; currently published stable 1.1.0 / QML 1.1**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 026](026-v1.1-integration/verification.md) records completed integration; [iteration 027](027-stable-v1.1-release/verification.md) records completed publication and downloaded-asset checks. Earlier entries retain historical scope, versions and environments.
 
 ## Historical feature records
 
@@ -99,8 +99,10 @@ Feature 030: [Arch packaging integration](030-arch-packaging-integration/require
 
 Iteration 030 final exact-main gates passed for `45fd78e973b64b2f719d5bc07b4f6e0c22225b29`; final results and retained logs are published separately on `docs/arch-packaging-integration-evidence`. Existing v1.1.0 assets remain unchanged.
 
-Iteration 031: [host-controlled code-block copy actions](031-code-block-copy-actions/requirements.md), approved on 2026-10-12 under the original local iteration-030 plan; renumbered because main owns 030 for Arch integration. Implementation and historical local verification are retained in [design](031-code-block-copy-actions/design.md), [tasks](031-code-block-copy-actions/tasks.md) and [verification](031-code-block-copy-actions/verification.md). Package 1.2.0/QML 1.2 remains unreleased.
+Iteration 031: [host-controlled code-block copy actions](031-code-block-copy-actions/requirements.md), approved on 2026-10-12 under the original local iteration-030 plan; renumbered because main owns 030 for Arch integration. Implementation and historical local verification are retained in [design](031-code-block-copy-actions/design.md), [tasks](031-code-block-copy-actions/tasks.md) and [verification](031-code-block-copy-actions/verification.md). Package 1.2.0/QML 1.2 is integrated; publication is tracked in iteration 033.
 
-Iteration 032: [1.2 candidate integration](032-v1.2-integration/requirements.md), approved on 2026-10-12 through the supplied plan. See [design](032-v1.2-integration/design.md), [mapped tasks](032-v1.2-integration/tasks.md) and [planned/actual verification](032-v1.2-integration/verification.md). Publication remains a separate iteration; published stable is 1.1.0.
+Iteration 032: [1.2 candidate integration](032-v1.2-integration/requirements.md), approved on 2026-10-12 through the supplied plan. See [design](032-v1.2-integration/design.md), [mapped tasks](032-v1.2-integration/tasks.md) and [planned/actual verification](032-v1.2-integration/verification.md). Integration is complete; iteration 033 tracks pending stable v1.2.0 publication.
 
-Iteration 032 final candidate gates passed on `a65f537e5b2134e026bf328a1ec4a307c48588ef`. [Actual results](032-v1.2-integration/verification.md) and machine-readable evidence are retained on `docs/v1.2-integration-evidence`; main remains at the verified candidate. Published stable remains 1.1.0.
+Iteration 032 final candidate gates passed on `a65f537e5b2134e026bf328a1ec4a307c48588ef`. [Actual results](032-v1.2-integration/verification.md) and machine-readable evidence were retained on `docs/v1.2-integration-evidence` and are integrated by iteration 033. Moving main requires fresh release gates. Published stable remains 1.1.0 at release preparation.
+
+Iteration 033: [stable v1.2.0 publication](033-stable-v1.2-release/requirements.md), approved on 2026-10-12 through the supplied plan. See [design](033-stable-v1.2-release/design.md), [mapped tasks](033-stable-v1.2-release/tasks.md) and [planned/actual verification](033-stable-v1.2-release/verification.md). Includes protected release preparation, fresh exact-main gates, annotated tagging, Ubuntu/Arch stable/latest publication and independent downloaded-asset acceptance. Publication is pending.

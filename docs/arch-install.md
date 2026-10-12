@@ -1,22 +1,21 @@
 # Arch Linux release package
 
-Future stable releases provide `qmarkdown-<version>-1-x86_64.pkg.tar.zst` and a
+The v1.2.0 release provides `qmarkdown-1.2.0-1-x86_64.pkg.tar.zst` and a
 SHA-256 companion after Ubuntu and Arch verification succeeds. The existing
 v1.1.0 release assets are unchanged. Arch packages use the distribution's Qt 6
 runtime; pacman enforces Qt lower bounds matching the package's build version.
 Qt is not bundled. The viewer is not packaged.
 
-Download both files from the intended stable release, substitute its version
-below, and verify before installation:
+Download the [package](https://github.com/lebedenko/qmarkdown/releases/download/v1.2.0/qmarkdown-1.2.0-1-x86_64.pkg.tar.zst) and [checksum](https://github.com/lebedenko/qmarkdown/releases/download/v1.2.0/qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.sha256), and verify before installation:
 
 ```sh
-sha256sum -c qmarkdown-<version>-1-x86_64.pkg.tar.zst.sha256
-sudo pacman -U ./qmarkdown-<version>-1-x86_64.pkg.tar.zst
+sha256sum -c qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.sha256
+sudo pacman -U ./qmarkdown-1.2.0-1-x86_64.pkg.tar.zst
 pacman -Qi qmarkdown
 pacman -Qo /usr/lib/libQMarkdown.so
 ```
 
-The angle-bracket version is a placeholder, not literal shell syntax. Pacman owns
+Pacman owns
 the shared library, QML plugin/metadata, CMake configuration and licenses, and
 tracks runtime dependencies. The system locations are `/usr/lib`,
 `/usr/lib/qt6/qml/QMarkdown`, `/usr/lib/cmake/QMarkdown` and
@@ -61,3 +60,5 @@ Manual release-workflow runs perform these checks without publication.
 Current rolling repositories are intentional. Recorded environment evidence
 does not promise identical bytes from a later rebuild. No AUR publishing,
 package repository hosting or signing infrastructure is included.
+
+The v1.2.0 publication and downloaded-asset gates are tracked in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication is pending at release preparation.
