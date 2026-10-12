@@ -1,0 +1,2353 @@
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.283s
+
+OK
+.....usage: upload-assets.py [-h] --repository REPOSITORY --tag TAG --assets ASSETS
+upload-assets.py: error: Invalid checksum: qmarkdown-1.0.0-1-x86_64.pkg.tar.zst.sha256
+...usage: upload-assets.py [-h] --repository REPOSITORY --tag TAG --assets ASSETS
+upload-assets.py: error: Publication requires a stable published release
+.
+----------------------------------------------------------------------
+Ran 9 tests in 0.005s
+
+OK
+Identical published asset: package.tar.gz
+Identical published asset: package.tar.gz.sha256
+Identical published asset: qmarkdown-1.0.0-1-x86_64.pkg.tar.zst
+Identical published asset: qmarkdown-1.0.0-1-x86_64.pkg.tar.zst.sha256
+Verification artifacts: /artifacts/packaging
++ cmake -S /source -B /artifacts/packaging/build-shared -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_INSTALL_PREFIX=/artifacts/packaging/install-shared -DQMARKDOWN_QML_INSTALL_DIR=lib/qt6/qml -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DCMAKE_PREFIX_PATH=/opt/Qt/6.8.0/gcc_64
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Found Python3: /usr/bin/python3 (found suitable version "3.12.3", minimum required is "3.9") found components: Interpreter 
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/build-shared
++ cmake --build /artifacts/packaging/build-shared --parallel 2
+[  0%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  0%] Built target QMarkdown_tooling
+[  0%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[  0%] Running qmlimportscanner for qmarkdown-import-example
+[  0%] Built target qmarkdown-import-example_qmlimportscan
+[  1%] Built target qmarkdown-import-example_tooling
+[  2%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[  2%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[  3%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor_resources_1.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools_init.cpp.o
+[  3%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[  4%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[  4%] Built target qmarkdown-font-editor_resources_1
+[  4%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[  5%] Running qmlimportscanner for qmarkdown-viewer
+[  7%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[  7%] Built target qmarkdown-viewer_qmlimportscan
+[  9%] Built target qmarkdown-viewer_tooling
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[ 10%] Built target qmarkdown-formatintervals-test_autogen_timestamp_deps
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[ 11%] Running qmlimportscanner for qmarkdown-import-test
+[ 11%] Built target qmarkdown-import-test_qmlimportscan
+[ 11%] Built target qmarkdown-parser-test_autogen_timestamp_deps
+[ 13%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[ 13%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 15%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 17%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 17%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 19%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 20%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 20%] Built target qmarkdown-commonmark-probe_autogen_timestamp_deps
+[ 21%] Running qmlimportscanner for qmarkdown-view-test
+[ 21%] Built target qmarkdown_cmark
+[ 21%] Built target qmarkdown-view-test_qmlimportscan
+[ 21%] Running qmlimportscanner for qmarkdown-resource-test
+[ 22%] Running qmlimportscanner for qmarkdown-styling-test
+[ 22%] Built target qmarkdown-resource-test_qmlimportscan
+[ 22%] Built target qmarkdown-styling-test_qmlimportscan
+[ 22%] Built target QMarkdown_autogen_timestamp_deps
+[ 22%] Automatic MOC for target QMarkdownPlugin
+[ 23%] Automatic MOC for target qmarkdown-font-editor
+[ 23%] Built target QMarkdownPlugin_autogen
+[ 25%] Automatic MOC for target qmarkdown-formatintervals-test
+[ 25%] Built target qmarkdown-font-editor_autogen
+[ 25%] Automatic MOC for target qmarkdown-parser-test
+[ 25%] Built target qmarkdown-parser-test_autogen
+[ 26%] Automatic MOC for target qmarkdown-commonmark-probe
+[ 26%] Built target qmarkdown-commonmark-probe_autogen
+[ 27%] Automatic MOC for target QMarkdown
+[ 27%] Built target qmarkdown-formatintervals-test_autogen
+[ 27%] Running AUTOMOC file extraction for target qmarkdown-font-editor
+[ 28%] Running rcc for resource qmake_QMarkdownViewer_Tools
+[ 28%] Running moc --collect-json for target qmarkdown-font-editor
+[ 29%] Generating meta_types/qt6qmarkdown-font-editor_metatypes.json
+[ 30%] Automatic QML type registration for target qmarkdown-font-editor
+[ 30%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_autogen/mocs_compilation.cpp.o
+[ 30%] Built target QMarkdown_autogen
+[ 32%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/qmarkdown-formatintervals-test_autogen/mocs_compilation.cpp.o
+[ 32%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/tst_formatintervals.cpp.o
+[ 33%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_qmltyperegistrations.cpp.o
+[ 33%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools.cpp.o
+[ 34%] Linking CXX static library libqmarkdown-font-editor.a
+[ 34%] Built target qmarkdown-font-editor
+[ 34%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/qmarkdown-parser-test_autogen/mocs_compilation.cpp.o
+[ 35%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/tst_parser.cpp.o
+[ 36%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/__/src/QMarkdown/private/formatintervals.cpp.o
+[ 36%] Linking CXX executable qmarkdown-formatintervals-test
+[ 36%] Built target qmarkdown-formatintervals-test
+[ 38%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/qmarkdown-commonmark-probe_autogen/mocs_compilation.cpp.o
+[ 39%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/commonmark/probe.cpp.o
+[ 39%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/document.cpp.o
+[ 40%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 40%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/document.cpp.o
+[ 41%] Linking CXX executable qmarkdown-parser-test
+[ 42%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 42%] Built target qmarkdown-parser-test
+[ 44%] Running AUTOMOC file extraction for target QMarkdown
+[ 45%] Running rcc for resource QMarkdown_raw_qml_0
+[ 45%] Running rcc for resource qmake_QMarkdown
+[ 46%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 46%] Running moc --collect-json for target QMarkdown
+[ 46%] Generating meta_types/qt6qmarkdown_metatypes.json
+[ 47%] Automatic QML type registration for target QMarkdown
+[ 47%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 48%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 48%] Linking CXX executable qmarkdown-commonmark-probe
+[ 48%] Built target qmarkdown-commonmark-probe
+[ 48%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 50%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 50%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 51%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 52%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 52%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 53%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 53%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 54%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 54%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 55%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 57%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 57%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 58%] Linking CXX shared library libQMarkdown.so
+[ 58%] Built target QMarkdown
+[ 58%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[ 58%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 59%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[ 59%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 59%] Built target qmarkdown-import-test_autogen_timestamp_deps
+[ 59%] Built target qmarkdown-view-test_autogen_timestamp_deps
+[ 59%] Built target qmarkdown-resource-test_autogen_timestamp_deps
+[ 59%] Built target qmarkdown-styling-test_autogen_timestamp_deps
+[ 60%] Automatic MOC for target qmarkdown-import-example
+[ 60%] Built target qmarkdown-import-example_autogen
+[ 60%] Automatic MOC for target qmarkdown-viewer
+[ 60%] Built target qmarkdown-viewer_autogen
+[ 60%] Automatic MOC for target qmarkdown-import-test
+[ 60%] Built target qmarkdown-import-test_autogen
+[ 60%] Automatic MOC for target qmarkdown-view-test
+[ 61%] Linking CXX shared module ../../qml/QMarkdown/libQMarkdownPlugin.so
+[ 61%] Built target QMarkdownPlugin
+[ 63%] Automatic MOC for target qmarkdown-resource-test
+[ 63%] Built target qmarkdown-view-test_autogen
+[ 63%] Automatic MOC for target qmarkdown-styling-test
+[ 63%] Built target qmarkdown-resource-test_autogen
+[ 64%] Running AUTOMOC file extraction for target qmarkdown-import-example
+[ 65%] Running rcc for resource qmake_QMarkdownExample
+[ 65%] Running rcc for resource qmarkdown-import-example_raw_qml_0
+[ 65%] Generating .rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp
+[ 66%] Running moc --collect-json for target qmarkdown-import-example
+[ 67%] Generating meta_types/qt6qmarkdown-import-example_metatypes.json
+[ 67%] Automatic QML type registration for target qmarkdown-import-example
+[ 69%] Generating .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp, .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.aotstats
+[ 69%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_autogen/mocs_compilation.cpp.o
+[ 70%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/main.cpp.o
+[ 70%] Built target qmarkdown-styling-test_autogen
+[ 71%] Running AUTOMOC file extraction for target qmarkdown-viewer
+[ 72%] Running rcc for resource qmake_QMarkdownViewer
+[ 73%] Running rcc for resource qmarkdown-viewer_raw_qml_0
+[ 73%] Running rcc for resource sample_images
+[ 73%] Generating .rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp
+[ 75%] Running moc --collect-json for target qmarkdown-viewer
+[ 75%] Generating meta_types/qt6qmarkdown-viewer_metatypes.json
+[ 75%] Automatic QML type registration for target qmarkdown-viewer
+[ 76%] Generating .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.aotstats
+[ 76%] Generating .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.aotstats
+[ 77%] Generating .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.aotstats
+[ 78%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_autogen/mocs_compilation.cpp.o
+[ 79%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/main.cpp.o
+[ 79%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_qmltyperegistrations.cpp.o
+[ 79%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_qmltyperegistrations.cpp.o
+[ 80%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmake_QMarkdownExample.cpp.o
+[ 80%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp.o
+[ 82%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmake_QMarkdownViewer.cpp.o
+[ 82%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp.o
+[ 83%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.o
+[ 84%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.o
+[ 85%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmarkdown-import-example_raw_qml_0.cpp.o
+[ 85%] Linking CXX executable qmarkdown-import-example
+[ 85%] Built target qmarkdown-import-example
+[ 85%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/qmarkdown-import-test_autogen/mocs_compilation.cpp.o
+[ 86%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/tst_import.cpp.o
+[ 86%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.o
+[ 88%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.o
+[ 89%] Linking CXX executable qmarkdown-import-test
+[ 89%] Built target qmarkdown-import-test
+[ 90%] Running rcc for resource sample_images
+[ 91%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmarkdown-viewer_raw_qml_0.cpp.o
+[ 91%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/qmarkdown-view-test_autogen/mocs_compilation.cpp.o
+[ 92%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/tst_view.cpp.o
+[ 92%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_sample_images.cpp.o
+[ 94%] Linking CXX executable qmarkdown-viewer
+[ 94%] Built target qmarkdown-viewer
+[ 95%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/qmarkdown-resource-test_autogen/mocs_compilation.cpp.o
+[ 95%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/tst_resources.cpp.o
+[ 96%] Linking CXX executable qmarkdown-resource-test
+[ 96%] Built target qmarkdown-resource-test
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/qmarkdown-styling-test_autogen/mocs_compilation.cpp.o
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/tst_styling.cpp.o
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/.qt/rcc/qrc_sample_images.cpp.o
+[ 98%] Linking CXX executable qmarkdown-view-test
+[100%] Linking CXX executable qmarkdown-styling-test
+[100%] Built target qmarkdown-view-test
+[100%] Built target qmarkdown-styling-test
++ ctest --test-dir /artifacts/packaging/build-shared --output-on-failure
+Internal ctest changing into directory: /artifacts/packaging/build-shared
+Test project /artifacts/packaging/build-shared
+      Start  1: qmarkdown-formatintervals
+ 1/12 Test  #1: qmarkdown-formatintervals ........   Passed    0.02 sec
+      Start  2: qmarkdown-import
+ 2/12 Test  #2: qmarkdown-import .................   Passed    0.07 sec
+      Start  3: qmarkdown-parser
+ 3/12 Test  #3: qmarkdown-parser .................   Passed    0.01 sec
+      Start  4: qmarkdown-qt-versions
+ 4/12 Test  #4: qmarkdown-qt-versions ............   Passed    0.21 sec
+      Start  5: qmarkdown-arch-recipe
+ 5/12 Test  #5: qmarkdown-arch-recipe ............   Passed    0.06 sec
+      Start  6: qmarkdown-release-upload
+ 6/12 Test  #6: qmarkdown-release-upload .........   Passed    0.05 sec
+      Start  7: qmarkdown-commonmark-oracle
+ 7/12 Test  #7: qmarkdown-commonmark-oracle ......   Passed    1.15 sec
+      Start  8: qmarkdown-commonmark
+ 8/12 Test  #8: qmarkdown-commonmark .............   Passed    0.15 sec
+      Start  9: qmarkdown-view
+ 9/12 Test  #9: qmarkdown-view ...................   Passed    7.54 sec
+      Start 10: qmarkdown-resources
+10/12 Test #10: qmarkdown-resources ..............   Passed   17.50 sec
+      Start 11: qmarkdown-styling
+11/12 Test #11: qmarkdown-styling ................   Passed    0.27 sec
+      Start 12: qmarkdown-styling-fractional
+12/12 Test #12: qmarkdown-styling-fractional .....   Passed    0.34 sec
+
+100% tests passed, 0 tests failed out of 12
+
+Total Test time (real) =  27.38 sec
++ cmake --build /artifacts/packaging/build-shared --target all_qmllint
+[  2%] Built target qmarkdown-viewer_qmlimportscan
+[  2%] Built target QMarkdown_tooling
+[  2%] Built target QMarkdown_autogen_timestamp_deps
+[  4%] Built target QMarkdown_autogen
+[ 28%] Built target qmarkdown_cmark
+[ 56%] Built target QMarkdown
+[ 56%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[ 58%] Built target qmarkdown-font-editor_autogen
+[ 69%] Built target qmarkdown-font-editor
+[ 73%] Built target qmarkdown-viewer_tooling
+[ 73%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 80%] Built target qmarkdown-viewer_qmltyperegistration
+[ 86%] Built target QMarkdown_qmltyperegistration
+[ 86%] Built target qmarkdown-import-example_qmlimportscan
+[ 89%] Built target qmarkdown-import-example_tooling
+[ 89%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 95%] Built target qmarkdown-import-example_qmltyperegistration
+[100%] Built target qmarkdown-font-editor_qmltyperegistration
+[100%] Built target all_qmltyperegistrations
+Warning: /source/examples/viewer/Main.qml:35:9: No type found for property "linkColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        linkColor: window.palette.link
+        ^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:36:9: No type found for property "bodyColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        bodyColor: window.palette.text
+        ^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:37:9: No type found for property "h1Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h1Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:38:9: No type found for property "h2Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h2Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:39:9: No type found for property "h3Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h3Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:40:9: No type found for property "h4Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h4Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:41:9: No type found for property "h5Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h5Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:42:9: No type found for property "h6Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h6Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:43:9: No type found for property "codeBlockColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        codeBlockColor: window.palette.text
+        ^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:44:9: No type found for property "thematicBreakColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        thematicBreakColor: window.palette.text
+        ^^^^^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:45:9: No type found for property "quoteRuleColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        quoteRuleColor: window.palette.base.hslLightness < 0.5 ? "#a0a0a0" : "#707070"
+        ^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:177:58: Property "requestCopy" is a var property. It may or may not be a method. Use a regular function instead. [use-proper-function]
+                                    onClicked: { actions.requestCopy(); actions.copied = true; feedback.restart() }
+                                                         ^^^^^^^^^^^
+Warning: /source/examples/viewer/StylePanel.qml:232:62: Type "QColor" of property "thematicBreakColor" not found. This is likely due to a missing dependency entry or a type not being exposed declaratively. [unresolved-type]
+            text: { panel.revision; return panel.targetStyle.thematicBreakColor.toString() }
+                                                             ^^^^^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/StylePanel.qml:252:62: Type "QColor" of property "linkColor" not found. This is likely due to a missing dependency entry or a type not being exposed declaratively. [unresolved-type]
+            text: { panel.revision; return panel.targetStyle.linkColor.toString() }
+                                                             ^^^^^^^^^
+Warning: /source/examples/viewer/StylePanel.qml:281:62: Type "QColor" of property "quoteRuleColor" not found. This is likely due to a missing dependency entry or a type not being exposed declaratively. [unresolved-type]
+            text: { panel.revision; return panel.targetStyle.quoteRuleColor.toString() }
+                                                             ^^^^^^^^^^^^^^
+[100%] Built target qmarkdown-viewer_qmllint
+Warning: /source/src/QMarkdown/MarkdownView.qml: QQuickPaintedItem was not found. Did you add all imports and dependencies? [import]
+Info: Did you mean "PaintedItem"?
+Warning: /source/src/QMarkdown/MarkdownView.qml: QQuickPaintedItem was not found. Did you add all imports and dependencies? [import]
+Info: Did you mean "PaintedItem"?
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:388:29: Cannot assign to non-existent default property [missing-property]
+                            HoverHandler {
+                            ^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:162:29: Cannot assign to non-existent default property [missing-property]
+                            HoverHandler { cursorShape: imageRow.imageLinked ? Qt.PointingHandCursor : Qt.ArrowCursor }
+                            ^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: Type ImageItem is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: Type FormattedText is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:377:29: No type found for property "linkColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            linkColor: sequence.style.linkColor
+                            ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:410:29: No type found for property "codeFont". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeFont: sequence.style.inlineCodeFont
+                            ^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:411:29: No type found for property "codeForeground". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeForeground: sequence.style.inlineCode.foreground
+                            ^^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:412:29: No type found for property "codeBackground". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeBackground: sequence.style.inlineCode.backgroundColor
+                            ^^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:414:29: No type found for property "font". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            font: formattedBlock.headingLevel === 1 ? sequence.style.h1Font
+                            ^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:420:29: No type found for property "color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            color: formattedBlock.headingLevel === 1 ? sequence.style.h1Color
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:158:29: Property "objectName" does not exist. [missing-property]
+                            objectName: "markdownImage"
+                            ^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:159:29: No type found for property "image". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            image: imageRow.imageData
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:160:29: Property "width" does not exist. [missing-property]
+                            width: Math.min(imageRow.width, imagePaint.naturalWidth)
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:161:29: Property "height" does not exist. [missing-property]
+                            height: implicitHeight
+                            ^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:161:37: Unqualified access [unqualified]
+                            height: implicitHeight
+                                    ^^^^^^^^^^^^^^
+Info: implicitHeight is a member of a parent element.
+      You can qualify the access with its id to avoid this warning.
+
+                            height: root.implicitHeight
+                                    ^^^^^
+[100%] Built target QMarkdown_qmllint
+Info: /source/examples/import-only/Main.qml:3:1: Unused import [unused-imports]
+import QMarkdown
+^^^^^^
+[100%] Built target qmarkdown-import-example_qmllint
+Nothing to do for target qmarkdown-font-editor_qmllint.
+[100%] Built target qmarkdown-font-editor_qmllint
+[100%] Built target all_qmllint
++ python3 /source/scripts/verify-cmark-symbols.py /artifacts/packaging/build-shared
+PASS: 140 bundled external definitions prefixed; shared exports private when present
++ cmake --install /artifacts/packaging/build-shared
+-- Install configuration: ""
+-- Installing: /artifacts/packaging/install-shared/share/licenses/QMarkdown/cmark/COPYING
+-- Installing: /artifacts/packaging/install-shared/share/licenses/QMarkdown/cmark/PROVENANCE.md
+-- Installing: /artifacts/packaging/install-shared/lib/libQMarkdown.so.1.2.0
+-- Installing: /artifacts/packaging/install-shared/lib/libQMarkdown.so.1
+-- Set non-toolchain portion of runtime path of "/artifacts/packaging/install-shared/lib/libQMarkdown.so.1.2.0" to ""
+-- Installing: /artifacts/packaging/install-shared/lib/libQMarkdown.so
+-- Installing: /artifacts/packaging/install-shared/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so
+-- Set non-toolchain portion of runtime path of "/artifacts/packaging/install-shared/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so" to "$ORIGIN/../../../"
+-- Installing: /artifacts/packaging/install-shared/lib/qt6/qml/QMarkdown/qmldir
+-- Installing: /artifacts/packaging/install-shared/lib/qt6/qml/QMarkdown/QMarkdown.qmltypes
+-- Installing: /artifacts/packaging/install-shared/lib/qt6/qml/QMarkdown/MarkdownView.qml
+-- Installing: /artifacts/packaging/install-shared/lib/qt6/qml/QMarkdown/Private/qmldir
+-- Installing: /artifacts/packaging/install-shared/lib/qt6/qml/QMarkdown/Private/private.qmltypes
+-- Installing: /artifacts/packaging/install-shared/lib/cmake/QMarkdown/QMarkdownConfig.cmake
+-- Installing: /artifacts/packaging/install-shared/lib/cmake/QMarkdown/QMarkdownConfigVersion.cmake
+-- Installing: /artifacts/packaging/install-shared/lib/cmake/QMarkdown/QMarkdownTargets.cmake
+-- Installing: /artifacts/packaging/install-shared/lib/cmake/QMarkdown/QMarkdownTargets-noconfig.cmake
+-- Installing: /artifacts/packaging/install-shared/share/licenses/QMarkdown/LICENSE
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/consumer-shared -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-shared -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-shared;/opt/Qt/6.8.0/gcc_64
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/consumer-shared
+PASS: shared package request 1.0, exact=False, accepted=True
+PASS: shared package request 1.0.0, exact=True, accepted=False
+PASS: shared package request 1.1, exact=False, accepted=True
+PASS: shared package request 1.1.0, exact=True, accepted=False
+PASS: shared package request 0.7, exact=False, accepted=False
+PASS: shared package request 1.2, exact=False, accepted=True
+PASS: shared package request 1.2.0, exact=True, accepted=True
+PASS: shared package request 1.3, exact=False, accepted=False
+PASS: shared package request 2.0, exact=False, accepted=False
++ cmake --build /artifacts/packaging/consumer-shared --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/consumer-shared/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/styling-shared -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-shared -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-shared;/opt/Qt/6.8.0/gcc_64 -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.1
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/styling-shared
++ cmake --build /artifacts/packaging/styling-shared --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/styling-shared/qmarkdown-consumer
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/actions-shared-ON -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-shared -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-shared;/opt/Qt/6.8.0/gcc_64 -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON -DQMARKDOWN_CONSUMER_LINK_MODULE=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/actions-shared-ON
++ cmake --build /artifacts/packaging/actions-shared-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/actions-shared-ON/qmarkdown-consumer
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/actions-shared-OFF -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-shared -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-shared;/opt/Qt/6.8.0/gcc_64 -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/actions-shared-OFF
++ cmake --build /artifacts/packaging/actions-shared-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/actions-shared-OFF/qmarkdown-consumer
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/consumer-shared-plugin -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-shared -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-shared;/opt/Qt/6.8.0/gcc_64 -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/consumer-shared-plugin
++ cmake --build /artifacts/packaging/consumer-shared-plugin --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/consumer-shared-plugin/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/styling-shared-plugin -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-shared -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-shared;/opt/Qt/6.8.0/gcc_64 -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.1 -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/styling-shared-plugin
++ cmake --build /artifacts/packaging/styling-shared-plugin --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/styling-shared-plugin/qmarkdown-consumer
++ cmake -S /source -B /artifacts/packaging/build-static -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_INSTALL_PREFIX=/artifacts/packaging/install-static -DQMARKDOWN_QML_INSTALL_DIR=share/qml -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DCMAKE_PREFIX_PATH=/opt/Qt/6.8.0/gcc_64
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Found Python3: /usr/bin/python3 (found suitable version "3.12.3", minimum required is "3.9") found components: Interpreter 
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/build-static
++ cmake --build /artifacts/packaging/build-static --parallel 2
+[  0%] Built target QMarkdown_tooling
+[  1%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  1%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown_resources_1.dir/.qt/rcc/qrc_qmake_QMarkdown_init.cpp.o
+[  1%] Built target QMarkdown_resources_1
+[  1%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[  1%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[  2%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown_resources_2.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0_init.cpp.o
+[  3%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[  3%] Built target QMarkdown_resources_2
+[  3%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[  3%] Built target QMarkdownPlugin_init_autogen_timestamp_deps
+[  4%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[  4%] Running qmlimportscanner for qmarkdown-import-example
+[  4%] Built target qmarkdown-import-example_qmlimportscan
+[  5%] Built target qmarkdown-import-example_tooling
+[  5%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[  5%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[  7%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor_resources_1.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools_init.cpp.o
+[  8%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[  8%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[  8%] Built target qmarkdown-font-editor_resources_1
+[  9%] Running qmlimportscanner for qmarkdown-viewer
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[ 10%] Built target qmarkdown-viewer_qmlimportscan
+[ 11%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 11%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 13%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 13%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 15%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 15%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 17%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 20%] Built target qmarkdown-viewer_tooling
+[ 20%] Built target qmarkdown-formatintervals-test_autogen_timestamp_deps
+[ 20%] Built target qmarkdown_cmark
+[ 20%] Running qmlimportscanner for qmarkdown-import-test
+[ 20%] Built target qmarkdown-parser-test_autogen_timestamp_deps
+[ 20%] Built target qmarkdown-commonmark-probe_autogen_timestamp_deps
+[ 20%] Built target qmarkdown-import-test_qmlimportscan
+[ 20%] Running qmlimportscanner for qmarkdown-view-test
+[ 21%] Running qmlimportscanner for qmarkdown-resource-test
+[ 21%] Built target qmarkdown-view-test_qmlimportscan
+[ 21%] Built target qmarkdown-resource-test_qmlimportscan
+[ 21%] Running qmlimportscanner for qmarkdown-styling-test
+[ 21%] Built target QMarkdown_autogen_timestamp_deps
+[ 21%] Built target qmarkdown-styling-test_qmlimportscan
+[ 22%] Automatic MOC for target QMarkdownPlugin
+[ 22%] Automatic MOC for target QMarkdownPlugin_init
+[ 22%] Built target QMarkdownPlugin_init_autogen
+[ 22%] Automatic MOC for target qmarkdown-font-editor
+[ 22%] Built target QMarkdownPlugin_autogen
+[ 22%] Automatic MOC for target qmarkdown-formatintervals-test
+[ 22%] Built target qmarkdown-font-editor_autogen
+[ 23%] Automatic MOC for target qmarkdown-parser-test
+[ 23%] Built target qmarkdown-parser-test_autogen
+[ 25%] Automatic MOC for target qmarkdown-commonmark-probe
+[ 25%] Built target qmarkdown-commonmark-probe_autogen
+[ 26%] Automatic MOC for target QMarkdown
+[ 26%] Built target qmarkdown-formatintervals-test_autogen
+[ 27%] Running AUTOMOC file extraction for target QMarkdownPlugin_init
+[ 27%] Running moc --collect-json for target QMarkdownPlugin_init
+[ 27%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin_init.dir/QMarkdownPlugin_init_autogen/mocs_compilation.cpp.o
+[ 28%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin_init.dir/QMarkdownPlugin_init.cpp.o
+[ 28%] Built target QMarkdown_autogen
+[ 29%] Running AUTOMOC file extraction for target qmarkdown-font-editor
+[ 29%] Running rcc for resource qmake_QMarkdownViewer_Tools
+[ 29%] Running moc --collect-json for target qmarkdown-font-editor
+[ 29%] Generating meta_types/qt6qmarkdown-font-editor_metatypes.json
+[ 30%] Automatic QML type registration for target qmarkdown-font-editor
+[ 32%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_autogen/mocs_compilation.cpp.o
+[ 32%] Built target QMarkdownPlugin_init
+[ 32%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/qmarkdown-formatintervals-test_autogen/mocs_compilation.cpp.o
+[ 33%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/tst_formatintervals.cpp.o
+[ 34%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_qmltyperegistrations.cpp.o
+[ 34%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools.cpp.o
+[ 35%] Linking CXX static library libqmarkdown-font-editor.a
+[ 35%] Built target qmarkdown-font-editor
+[ 36%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/qmarkdown-parser-test_autogen/mocs_compilation.cpp.o
+[ 38%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/tst_parser.cpp.o
+[ 38%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/__/src/QMarkdown/private/formatintervals.cpp.o
+[ 39%] Linking CXX executable qmarkdown-formatintervals-test
+[ 39%] Built target qmarkdown-formatintervals-test
+[ 40%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/qmarkdown-commonmark-probe_autogen/mocs_compilation.cpp.o
+[ 40%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/commonmark/probe.cpp.o
+[ 40%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/document.cpp.o
+[ 41%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 42%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/document.cpp.o
+[ 42%] Linking CXX executable qmarkdown-parser-test
+[ 42%] Built target qmarkdown-parser-test
+[ 42%] Running AUTOMOC file extraction for target QMarkdown
+[ 44%] Running rcc for resource QMarkdown_raw_qml_0
+[ 44%] Running rcc for resource qmake_QMarkdown
+[ 45%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 45%] Running moc --collect-json for target QMarkdown
+[ 46%] Generating meta_types/qt6qmarkdown_metatypes.json
+[ 47%] Automatic QML type registration for target QMarkdown
+[ 48%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 48%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 50%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 50%] Linking CXX executable qmarkdown-commonmark-probe
+[ 50%] Built target qmarkdown-commonmark-probe
+[ 50%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 51%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 51%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 52%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 52%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 53%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 53%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 54%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 55%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 55%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 57%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 57%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 58%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 58%] Linking CXX static library libQMarkdown.a
+[ 58%] Built target QMarkdown
+[ 59%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[ 59%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 59%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[ 59%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 59%] Built target qmarkdown-resource-test_autogen_timestamp_deps
+[ 60%] Automatic MOC for target qmarkdown-import-example
+[ 60%] Built target qmarkdown-import-example_autogen
+[ 61%] Automatic MOC for target qmarkdown-viewer
+[ 61%] Built target qmarkdown-viewer_autogen
+[ 63%] Automatic MOC for target qmarkdown-resource-test
+[ 63%] Built target qmarkdown-resource-test_autogen
+[ 63%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/qmarkdown-resource-test_autogen/mocs_compilation.cpp.o
+[ 64%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/tst_resources.cpp.o
+[ 65%] Linking CXX static library ../../qml/QMarkdown/libQMarkdownPlugin.a
+[ 65%] Built target QMarkdownPlugin
+[ 65%] Running AUTOMOC file extraction for target qmarkdown-import-example
+[ 66%] Running rcc for resource qmake_QMarkdownExample
+[ 67%] Running rcc for resource qmarkdown-import-example_raw_qml_0
+[ 69%] Generating .rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp
+[ 70%] Running moc --collect-json for target qmarkdown-import-example
+[ 71%] Generating meta_types/qt6qmarkdown-import-example_metatypes.json
+[ 71%] Automatic QML type registration for target qmarkdown-import-example
+[ 71%] Generating .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp, .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.aotstats
+[ 71%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_autogen/mocs_compilation.cpp.o
+[ 72%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/main.cpp.o
+[ 72%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_qmltyperegistrations.cpp.o
+[ 73%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmake_QMarkdownExample.cpp.o
+[ 75%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp.o
+[ 75%] Linking CXX executable qmarkdown-resource-test
+[ 75%] Built target qmarkdown-resource-test
+[ 76%] Running AUTOMOC file extraction for target qmarkdown-viewer
+[ 77%] Running rcc for resource qmake_QMarkdownViewer
+[ 78%] Running rcc for resource qmarkdown-viewer_raw_qml_0
+[ 78%] Running rcc for resource sample_images
+[ 78%] Generating .rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp
+[ 79%] Running moc --collect-json for target qmarkdown-viewer
+[ 79%] Generating meta_types/qt6qmarkdown-viewer_metatypes.json
+[ 79%] Automatic QML type registration for target qmarkdown-viewer
+[ 80%] Generating .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.aotstats
+[ 82%] Generating .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.aotstats
+[ 82%] Generating .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.aotstats
+[ 82%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.o
+[ 83%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_autogen/mocs_compilation.cpp.o
+[ 83%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/main.cpp.o
+[ 84%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmarkdown-import-example_raw_qml_0.cpp.o
+[ 84%] Linking CXX executable qmarkdown-import-example
+[ 85%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_qmltyperegistrations.cpp.o
+[ 85%] Built target qmarkdown-import-example
+[ 85%] Built target qmarkdown-import-test_autogen_timestamp_deps
+[ 85%] Built target qmarkdown-view-test_autogen_timestamp_deps
+[ 85%] Built target qmarkdown-styling-test_autogen_timestamp_deps
+[ 86%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmake_QMarkdownViewer.cpp.o
+[ 86%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp.o
+[ 88%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.o
+[ 88%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.o
+[ 89%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.o
+[ 89%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmarkdown-viewer_raw_qml_0.cpp.o
+[ 90%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_sample_images.cpp.o
+[ 91%] Automatic MOC for target qmarkdown-import-test
+[ 91%] Built target qmarkdown-import-test_autogen
+[ 92%] Automatic MOC for target qmarkdown-view-test
+[ 92%] Linking CXX executable qmarkdown-viewer
+[ 92%] Built target qmarkdown-viewer
+[ 94%] Automatic MOC for target qmarkdown-styling-test
+[ 94%] Built target qmarkdown-view-test_autogen
+[ 94%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/qmarkdown-import-test_autogen/mocs_compilation.cpp.o
+[ 95%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/tst_import.cpp.o
+[ 95%] Built target qmarkdown-styling-test_autogen
+[ 96%] Running rcc for resource sample_images
+[ 96%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/qmarkdown-view-test_autogen/mocs_compilation.cpp.o
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/tst_view.cpp.o
+[ 97%] Linking CXX executable qmarkdown-import-test
+[ 97%] Built target qmarkdown-import-test
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/qmarkdown-styling-test_autogen/mocs_compilation.cpp.o
+[ 98%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/tst_styling.cpp.o
+[ 98%] Linking CXX executable qmarkdown-styling-test
+[ 98%] Built target qmarkdown-styling-test
+[100%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/.qt/rcc/qrc_sample_images.cpp.o
+[100%] Linking CXX executable qmarkdown-view-test
+[100%] Built target qmarkdown-view-test
++ ctest --test-dir /artifacts/packaging/build-static --output-on-failure
+Internal ctest changing into directory: /artifacts/packaging/build-static
+Test project /artifacts/packaging/build-static
+      Start  1: qmarkdown-formatintervals
+ 1/12 Test  #1: qmarkdown-formatintervals ........   Passed    0.02 sec
+      Start  2: qmarkdown-import
+ 2/12 Test  #2: qmarkdown-import .................   Passed    0.10 sec
+      Start  3: qmarkdown-parser
+ 3/12 Test  #3: qmarkdown-parser .................   Passed    0.02 sec
+      Start  4: qmarkdown-qt-versions
+ 4/12 Test  #4: qmarkdown-qt-versions ............   Passed    0.24 sec
+      Start  5: qmarkdown-arch-recipe
+ 5/12 Test  #5: qmarkdown-arch-recipe ............   Passed    0.06 sec
+      Start  6: qmarkdown-release-upload
+ 6/12 Test  #6: qmarkdown-release-upload .........   Passed    0.05 sec
+      Start  7: qmarkdown-commonmark-oracle
+ 7/12 Test  #7: qmarkdown-commonmark-oracle ......   Passed    1.12 sec
+      Start  8: qmarkdown-commonmark
+ 8/12 Test  #8: qmarkdown-commonmark .............   Passed    0.15 sec
+      Start  9: qmarkdown-view
+ 9/12 Test  #9: qmarkdown-view ...................   Passed    7.42 sec
+      Start 10: qmarkdown-resources
+10/12 Test #10: qmarkdown-resources ..............   Passed   17.50 sec
+      Start 11: qmarkdown-styling
+11/12 Test #11: qmarkdown-styling ................   Passed    0.35 sec
+      Start 12: qmarkdown-styling-fractional
+12/12 Test #12: qmarkdown-styling-fractional .....   Passed    0.28 sec
+
+100% tests passed, 0 tests failed out of 12
+
+Total Test time (real) =  27.32 sec
++ cmake --build /artifacts/packaging/build-static --target all_qmllint
+[  2%] Built target qmarkdown-viewer_qmlimportscan
+[  2%] Built target QMarkdown_tooling
+[  2%] Built target QMarkdown_autogen_timestamp_deps
+[  4%] Built target QMarkdown_autogen
+[ 29%] Built target qmarkdown_cmark
+[ 56%] Built target QMarkdown
+[ 56%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[ 56%] Built target qmarkdown-font-editor_autogen
+[ 68%] Built target qmarkdown-font-editor
+[ 72%] Built target qmarkdown-viewer_tooling
+[ 72%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 77%] Built target qmarkdown-viewer_qmltyperegistration
+[ 84%] Built target QMarkdown_qmltyperegistration
+[ 84%] Built target qmarkdown-import-example_qmlimportscan
+[ 86%] Built target qmarkdown-import-example_tooling
+[ 86%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 93%] Built target qmarkdown-import-example_qmltyperegistration
+[100%] Built target qmarkdown-font-editor_qmltyperegistration
+[100%] Built target all_qmltyperegistrations
+Warning: /source/examples/viewer/Main.qml:35:9: No type found for property "linkColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        linkColor: window.palette.link
+        ^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:36:9: No type found for property "bodyColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        bodyColor: window.palette.text
+        ^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:37:9: No type found for property "h1Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h1Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:38:9: No type found for property "h2Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h2Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:39:9: No type found for property "h3Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h3Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:40:9: No type found for property "h4Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h4Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:41:9: No type found for property "h5Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h5Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:42:9: No type found for property "h6Color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        h6Color: window.palette.text
+        ^^^^^^^
+Warning: /source/examples/viewer/Main.qml:43:9: No type found for property "codeBlockColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        codeBlockColor: window.palette.text
+        ^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:44:9: No type found for property "thematicBreakColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        thematicBreakColor: window.palette.text
+        ^^^^^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:45:9: No type found for property "quoteRuleColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+        quoteRuleColor: window.palette.base.hslLightness < 0.5 ? "#a0a0a0" : "#707070"
+        ^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/Main.qml:177:58: Property "requestCopy" is a var property. It may or may not be a method. Use a regular function instead. [use-proper-function]
+                                    onClicked: { actions.requestCopy(); actions.copied = true; feedback.restart() }
+                                                         ^^^^^^^^^^^
+Warning: /source/examples/viewer/StylePanel.qml:232:62: Type "QColor" of property "thematicBreakColor" not found. This is likely due to a missing dependency entry or a type not being exposed declaratively. [unresolved-type]
+            text: { panel.revision; return panel.targetStyle.thematicBreakColor.toString() }
+                                                             ^^^^^^^^^^^^^^^^^^
+Warning: /source/examples/viewer/StylePanel.qml:252:62: Type "QColor" of property "linkColor" not found. This is likely due to a missing dependency entry or a type not being exposed declaratively. [unresolved-type]
+            text: { panel.revision; return panel.targetStyle.linkColor.toString() }
+                                                             ^^^^^^^^^
+Warning: /source/examples/viewer/StylePanel.qml:281:62: Type "QColor" of property "quoteRuleColor" not found. This is likely due to a missing dependency entry or a type not being exposed declaratively. [unresolved-type]
+            text: { panel.revision; return panel.targetStyle.quoteRuleColor.toString() }
+                                                             ^^^^^^^^^^^^^^
+[100%] Built target qmarkdown-viewer_qmllint
+Warning: /source/src/QMarkdown/MarkdownView.qml: QQuickPaintedItem was not found. Did you add all imports and dependencies? [import]
+Info: Did you mean "PaintedItem"?
+Warning: /source/src/QMarkdown/MarkdownView.qml: QQuickPaintedItem was not found. Did you add all imports and dependencies? [import]
+Info: Did you mean "PaintedItem"?
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:388:29: Cannot assign to non-existent default property [missing-property]
+                            HoverHandler {
+                            ^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:162:29: Cannot assign to non-existent default property [missing-property]
+                            HoverHandler { cursorShape: imageRow.imageLinked ? Qt.PointingHandCursor : Qt.ArrowCursor }
+                            ^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: Type FormattedText is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: Type ImageItem is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:377:29: No type found for property "linkColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            linkColor: sequence.style.linkColor
+                            ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:410:29: No type found for property "codeFont". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeFont: sequence.style.inlineCodeFont
+                            ^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:411:29: No type found for property "codeForeground". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeForeground: sequence.style.inlineCode.foreground
+                            ^^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:412:29: No type found for property "codeBackground". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeBackground: sequence.style.inlineCode.backgroundColor
+                            ^^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:414:29: No type found for property "font". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            font: formattedBlock.headingLevel === 1 ? sequence.style.h1Font
+                            ^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:420:29: No type found for property "color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            color: formattedBlock.headingLevel === 1 ? sequence.style.h1Color
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:158:29: Property "objectName" does not exist. [missing-property]
+                            objectName: "markdownImage"
+                            ^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:159:29: No type found for property "image". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            image: imageRow.imageData
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:160:29: Property "width" does not exist. [missing-property]
+                            width: Math.min(imageRow.width, imagePaint.naturalWidth)
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:161:29: Property "height" does not exist. [missing-property]
+                            height: implicitHeight
+                            ^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:161:37: Unqualified access [unqualified]
+                            height: implicitHeight
+                                    ^^^^^^^^^^^^^^
+Info: implicitHeight is a member of a parent element.
+      You can qualify the access with its id to avoid this warning.
+
+                            height: root.implicitHeight
+                                    ^^^^^
+[100%] Built target QMarkdown_qmllint
+Info: /source/examples/import-only/Main.qml:3:1: Unused import [unused-imports]
+import QMarkdown
+^^^^^^
+[100%] Built target qmarkdown-import-example_qmllint
+Nothing to do for target qmarkdown-font-editor_qmllint.
+[100%] Built target qmarkdown-font-editor_qmllint
+[100%] Built target all_qmllint
++ python3 /source/scripts/verify-cmark-symbols.py /artifacts/packaging/build-static
+PASS: 140 bundled external definitions prefixed; shared exports private when present
++ cmake --install /artifacts/packaging/build-static
+-- Install configuration: ""
+-- Installing: /artifacts/packaging/install-static/share/licenses/QMarkdown/cmark/COPYING
+-- Installing: /artifacts/packaging/install-static/share/licenses/QMarkdown/cmark/PROVENANCE.md
+-- Installing: /artifacts/packaging/install-static/lib/libQMarkdown.a
+-- Installing: /artifacts/packaging/install-static/lib/QMarkdown/objects/QMarkdown_resources_1/.qt/rcc/qrc_qmake_QMarkdown_init.cpp.o
+-- Installing: /artifacts/packaging/install-static/lib/QMarkdown/objects/QMarkdown_resources_2/.qt/rcc/qrc_QMarkdown_raw_qml_0_init.cpp.o
+-- Installing: /artifacts/packaging/install-static/lib/QMarkdown/objects/QMarkdownPlugin_init/QMarkdownPlugin_init_autogen/mocs_compilation.cpp.o
+-- Installing: /artifacts/packaging/install-static/lib/QMarkdown/objects/QMarkdownPlugin_init/QMarkdownPlugin_init.cpp.o
+-- Installing: /artifacts/packaging/install-static/share/qml/QMarkdown/libQMarkdownPlugin.a
+-- Installing: /artifacts/packaging/install-static/share/qml/QMarkdown/qmldir
+-- Installing: /artifacts/packaging/install-static/share/qml/QMarkdown/QMarkdown.qmltypes
+-- Installing: /artifacts/packaging/install-static/share/qml/QMarkdown/MarkdownView.qml
+-- Installing: /artifacts/packaging/install-static/share/qml/QMarkdown/Private/qmldir
+-- Installing: /artifacts/packaging/install-static/share/qml/QMarkdown/Private/private.qmltypes
+-- Installing: /artifacts/packaging/install-static/lib/cmake/QMarkdown/QMarkdownConfig.cmake
+-- Installing: /artifacts/packaging/install-static/lib/cmake/QMarkdown/QMarkdownConfigVersion.cmake
+-- Installing: /artifacts/packaging/install-static/lib/cmake/QMarkdown/QMarkdownTargets.cmake
+-- Installing: /artifacts/packaging/install-static/lib/cmake/QMarkdown/QMarkdownTargets-noconfig.cmake
+-- Installing: /artifacts/packaging/install-static/share/licenses/QMarkdown/LICENSE
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/consumer-static -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-static -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-static;/opt/Qt/6.8.0/gcc_64
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/consumer-static
+PASS: static package request 1.0, exact=False, accepted=True
+PASS: static package request 1.0.0, exact=True, accepted=False
+PASS: static package request 1.1, exact=False, accepted=True
+PASS: static package request 1.1.0, exact=True, accepted=False
+PASS: static package request 0.7, exact=False, accepted=False
+PASS: static package request 1.2, exact=False, accepted=True
+PASS: static package request 1.2.0, exact=True, accepted=True
+PASS: static package request 1.3, exact=False, accepted=False
+PASS: static package request 2.0, exact=False, accepted=False
++ cmake --build /artifacts/packaging/consumer-static --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/consumer-static/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/styling-static -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-static -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-static;/opt/Qt/6.8.0/gcc_64 -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.1
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/styling-static
++ cmake --build /artifacts/packaging/styling-static --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/styling-static/qmarkdown-consumer
++ cmake -S /artifacts/packaging/consumer-source -B /artifacts/packaging/actions-static-ON -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMARKDOWN_PACKAGE_PREFIX=/artifacts/packaging/relocated-static -DCMAKE_PREFIX_PATH=/artifacts/packaging/relocated-static;/opt/Qt/6.8.0/gcc_64 -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON -DQMARKDOWN_CONSUMER_LINK_MODULE=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/actions-static-ON
++ cmake --build /artifacts/packaging/actions-static-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/packaging/actions-static-ON/qmarkdown-consumer
++ cmake -S /source -B /artifacts/packaging/library-only -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DCMAKE_PREFIX_PATH=/opt/Qt/6.8.0/gcc_64 -DBUILD_TESTING=OFF -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=OFF
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/packaging/library-only
++ cmake --build /artifacts/packaging/library-only --parallel 2
+[  2%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  4%] Built target QMarkdown_tooling
+[  4%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[  6%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[  8%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[ 12%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[ 18%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[ 20%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[ 22%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 25%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 27%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 29%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 31%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 33%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 35%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 37%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 39%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 41%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 41%] Built target QMarkdown_autogen_timestamp_deps
+[ 41%] Built target qmarkdown_cmark
+[ 43%] Automatic MOC for target QMarkdownPlugin
+[ 45%] Automatic MOC for target QMarkdown
+[ 45%] Built target QMarkdownPlugin_autogen
+[ 45%] Built target QMarkdown_autogen
+[ 47%] Running AUTOMOC file extraction for target QMarkdown
+[ 50%] Running rcc for resource QMarkdown_raw_qml_0
+[ 52%] Running rcc for resource qmake_QMarkdown
+[ 54%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 56%] Running moc --collect-json for target QMarkdown
+[ 58%] Generating meta_types/qt6qmarkdown_metatypes.json
+[ 60%] Automatic QML type registration for target QMarkdown
+[ 62%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 64%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 66%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 68%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 70%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 72%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 75%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 77%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 79%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 81%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 83%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 85%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 87%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 89%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 91%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 93%] Linking CXX shared library libQMarkdown.so
+[ 93%] Built target QMarkdown
+[ 95%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[ 97%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[100%] Linking CXX shared module ../../qml/QMarkdown/libQMarkdownPlugin.so
+[100%] Built target QMarkdownPlugin
+PASS: shared and static relocated package consumers
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Found Python3: /usr/bin/python3 (found suitable version "3.12.3", minimum required is "3.9") found components: Interpreter 
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/benchmarks
+[  4%] Running qmlimportscanner for qmarkdown-benchmark
+[  4%] Built target QMarkdown_tooling
+[  4%] Built target qmarkdown-benchmark_qmlimportscan
+[  6%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  6%] Built target QMarkdown_autogen_timestamp_deps
+[  8%] Automatic MOC for target QMarkdown
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[ 12%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[ 14%] Built target QMarkdown_autogen
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[ 18%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[ 20%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[ 22%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[ 25%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[ 27%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 29%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 31%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 33%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 35%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 37%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 39%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 41%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 43%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 45%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 45%] Built target qmarkdown_cmark
+[ 50%] Running rcc for resource QMarkdown_raw_qml_0
+[ 50%] Running AUTOMOC file extraction for target QMarkdown
+[ 52%] Running rcc for resource qmake_QMarkdown
+[ 54%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 54%] Running moc --collect-json for target QMarkdown
+[ 56%] Generating meta_types/qt6qmarkdown_release_metatypes.json
+[ 58%] Automatic QML type registration for target QMarkdown
+[ 60%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 62%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 64%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 66%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 68%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 70%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 72%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 75%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 77%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 79%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 81%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 83%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 85%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 87%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 89%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 91%] Linking CXX shared library libQMarkdown.so
+[ 91%] Built target QMarkdown
+[ 91%] Built target qmarkdown-benchmark_autogen_timestamp_deps
+[ 93%] Automatic MOC for target qmarkdown-benchmark
+[ 93%] Built target qmarkdown-benchmark_autogen
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-benchmark.dir/benchmark.cpp.o
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-benchmark.dir/qmarkdown-benchmark_autogen/mocs_compilation.cpp.o
+[100%] Linking CXX executable qmarkdown-benchmark
+[100%] Built target qmarkdown-benchmark
+PASS: advisory benchmark JSON
+PASS: Ubuntu container packaging and benchmark smoke
++ cmake -S /source -B /artifacts/release-package/build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=ON -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=OFF -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib/x86_64-linux-gnu -DQMARKDOWN_QML_INSTALL_DIR=lib/x86_64-linux-gnu/qt6/qml -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DCMAKE_PREFIX_PATH=/opt/Qt/6.8.0/gcc_64
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Found Python3: /usr/bin/python3 (found suitable version "3.12.3", minimum required is "3.9") found components: Interpreter 
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-package/build
++ cmake --build /artifacts/release-package/build --parallel 2
+[  1%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  2%] Built target QMarkdown_tooling
+[  2%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[  2%] Built target qmarkdown-formatintervals-test_autogen_timestamp_deps
+[  3%] Running qmlimportscanner for qmarkdown-import-test
+[  3%] Built target qmarkdown-import-test_qmlimportscan
+[  3%] Built target qmarkdown-parser-test_autogen_timestamp_deps
+[  3%] Built target qmarkdown-commonmark-probe_autogen_timestamp_deps
+[  4%] Running qmlimportscanner for qmarkdown-view-test
+[  4%] Built target qmarkdown-view-test_qmlimportscan
+[  5%] Running qmlimportscanner for qmarkdown-resource-test
+[  5%] Built target qmarkdown-resource-test_qmlimportscan
+[  7%] Running qmlimportscanner for qmarkdown-styling-test
+[  7%] Built target qmarkdown-styling-test_qmlimportscan
+[  7%] Built target QMarkdown_autogen_timestamp_deps
+[  8%] Automatic MOC for target QMarkdownPlugin
+[  9%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[ 11%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[ 11%] Built target QMarkdownPlugin_autogen
+[ 12%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[ 14%] Automatic MOC for target qmarkdown-formatintervals-test
+[ 15%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[ 17%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[ 18%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[ 20%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 20%] Built target qmarkdown-formatintervals-test_autogen
+[ 21%] Automatic MOC for target qmarkdown-parser-test
+[ 22%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 23%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 24%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 24%] Built target qmarkdown-parser-test_autogen
+[ 25%] Automatic MOC for target qmarkdown-commonmark-probe
+[ 27%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 27%] Built target qmarkdown-commonmark-probe_autogen
+[ 28%] Automatic MOC for target QMarkdown
+[ 29%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 30%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 31%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 31%] Built target QMarkdown_autogen
+[ 32%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/qmarkdown-formatintervals-test_autogen/mocs_compilation.cpp.o
+[ 34%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/tst_formatintervals.cpp.o
+[ 35%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 36%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 36%] Built target qmarkdown_cmark
+[ 37%] Running AUTOMOC file extraction for target QMarkdown
+[ 38%] Running rcc for resource QMarkdown_raw_qml_0
+[ 40%] Running rcc for resource qmake_QMarkdown
+[ 41%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 42%] Running moc --collect-json for target QMarkdown
+[ 43%] Generating meta_types/qt6qmarkdown_release_metatypes.json
+[ 44%] Automatic QML type registration for target QMarkdown
+[ 45%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 47%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 48%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/__/src/QMarkdown/private/formatintervals.cpp.o
+[ 49%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 50%] Linking CXX executable qmarkdown-formatintervals-test
+[ 50%] Built target qmarkdown-formatintervals-test
+[ 51%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/qmarkdown-parser-test_autogen/mocs_compilation.cpp.o
+[ 52%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/tst_parser.cpp.o
+[ 54%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 55%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 56%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/document.cpp.o
+[ 57%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 58%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 60%] Linking CXX executable qmarkdown-parser-test
+[ 60%] Built target qmarkdown-parser-test
+[ 61%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/qmarkdown-commonmark-probe_autogen/mocs_compilation.cpp.o
+[ 62%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/commonmark/probe.cpp.o
+[ 63%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 64%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/document.cpp.o
+[ 65%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 67%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 68%] Linking CXX executable qmarkdown-commonmark-probe
+[ 68%] Built target qmarkdown-commonmark-probe
+[ 69%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 70%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 71%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 72%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 74%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 75%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 76%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 77%] Linking CXX shared library libQMarkdown.so
+[ 77%] Built target QMarkdown
+[ 78%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[ 78%] Built target qmarkdown-import-test_autogen_timestamp_deps
+[ 80%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[ 80%] Built target qmarkdown-view-test_autogen_timestamp_deps
+[ 80%] Built target qmarkdown-resource-test_autogen_timestamp_deps
+[ 80%] Built target qmarkdown-styling-test_autogen_timestamp_deps
+[ 81%] Automatic MOC for target qmarkdown-import-test
+[ 81%] Built target qmarkdown-import-test_autogen
+[ 82%] Automatic MOC for target qmarkdown-view-test
+[ 83%] Linking CXX shared module ../../qml/QMarkdown/libQMarkdownPlugin.so
+[ 83%] Built target QMarkdownPlugin
+[ 84%] Automatic MOC for target qmarkdown-resource-test
+[ 84%] Built target qmarkdown-view-test_autogen
+[ 85%] Automatic MOC for target qmarkdown-styling-test
+[ 85%] Built target qmarkdown-resource-test_autogen
+[ 87%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/qmarkdown-import-test_autogen/mocs_compilation.cpp.o
+[ 88%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/tst_import.cpp.o
+[ 88%] Built target qmarkdown-styling-test_autogen
+[ 89%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/qmarkdown-view-test_autogen/mocs_compilation.cpp.o
+[ 90%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/tst_view.cpp.o
+[ 91%] Linking CXX executable qmarkdown-import-test
+[ 91%] Built target qmarkdown-import-test
+[ 92%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/qmarkdown-resource-test_autogen/mocs_compilation.cpp.o
+[ 94%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/tst_resources.cpp.o
+/source/tests/tst_resources.cpp: In lambda function:
+/source/tests/tst_resources.cpp:509:38: warning: ignoring return value of ‘char* fgets(char*, int, FILE*)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  509 |             char line[32]; std::fgets(line, sizeof(line), stdin);
+      |                            ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ 95%] Linking CXX executable qmarkdown-resource-test
+[ 95%] Built target qmarkdown-resource-test
+[ 96%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/qmarkdown-styling-test_autogen/mocs_compilation.cpp.o
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/tst_styling.cpp.o
+[ 98%] Linking CXX executable qmarkdown-styling-test
+[ 98%] Built target qmarkdown-styling-test
+[100%] Linking CXX executable qmarkdown-view-test
+[100%] Built target qmarkdown-view-test
++ ctest --test-dir /artifacts/release-package/build --output-on-failure
+Internal ctest changing into directory: /artifacts/release-package/build
+Test project /artifacts/release-package/build
+      Start  1: qmarkdown-formatintervals
+ 1/12 Test  #1: qmarkdown-formatintervals ........   Passed    0.01 sec
+      Start  2: qmarkdown-import
+ 2/12 Test  #2: qmarkdown-import .................   Passed    0.05 sec
+      Start  3: qmarkdown-parser
+ 3/12 Test  #3: qmarkdown-parser .................   Passed    0.01 sec
+      Start  4: qmarkdown-qt-versions
+ 4/12 Test  #4: qmarkdown-qt-versions ............   Passed    0.23 sec
+      Start  5: qmarkdown-arch-recipe
+ 5/12 Test  #5: qmarkdown-arch-recipe ............   Passed    0.07 sec
+      Start  6: qmarkdown-release-upload
+ 6/12 Test  #6: qmarkdown-release-upload .........   Passed    0.06 sec
+      Start  7: qmarkdown-commonmark-oracle
+ 7/12 Test  #7: qmarkdown-commonmark-oracle ......   Passed    1.09 sec
+      Start  8: qmarkdown-commonmark
+ 8/12 Test  #8: qmarkdown-commonmark .............   Passed    0.15 sec
+      Start  9: qmarkdown-view
+ 9/12 Test  #9: qmarkdown-view ...................   Passed    5.43 sec
+      Start 10: qmarkdown-resources
+10/12 Test #10: qmarkdown-resources ..............   Passed   17.56 sec
+      Start 11: qmarkdown-styling
+11/12 Test #11: qmarkdown-styling ................   Passed    0.31 sec
+      Start 12: qmarkdown-styling-fractional
+12/12 Test #12: qmarkdown-styling-fractional .....   Passed    0.27 sec
+
+100% tests passed, 0 tests failed out of 12
+
+Total Test time (real) =  25.25 sec
++ cmake --build /artifacts/release-package/build --target all_qmllint
+[ 16%] Built target QMarkdown_tooling
+[ 16%] Built target QMarkdown_autogen_timestamp_deps
+[100%] Built target QMarkdown_qmltyperegistration
+[100%] Built target all_qmltyperegistrations
+Warning: /source/src/QMarkdown/MarkdownView.qml: QQuickPaintedItem was not found. Did you add all imports and dependencies? [import]
+Info: Did you mean "PaintedItem"?
+Warning: /source/src/QMarkdown/MarkdownView.qml: QQuickPaintedItem was not found. Did you add all imports and dependencies? [import]
+Info: Did you mean "PaintedItem"?
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: 'ImageItem' is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: 'FormattedText' is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:372:25: Type FormattedText is used but it is not resolved [unresolved-type]
+                        FormattedText {
+                        ^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:156:25: Type ImageItem is used but it is not resolved [unresolved-type]
+                        ImageItem {
+                        ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:162:29: Cannot assign to non-existent default property [missing-property]
+                            HoverHandler { cursorShape: imageRow.imageLinked ? Qt.PointingHandCursor : Qt.ArrowCursor }
+                            ^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:388:29: Cannot assign to non-existent default property [missing-property]
+                            HoverHandler {
+                            ^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:158:29: Property "objectName" does not exist. [missing-property]
+                            objectName: "markdownImage"
+                            ^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:159:29: No type found for property "image". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            image: imageRow.imageData
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:160:29: Property "width" does not exist. [missing-property]
+                            width: Math.min(imageRow.width, imagePaint.naturalWidth)
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:161:29: Property "height" does not exist. [missing-property]
+                            height: implicitHeight
+                            ^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:377:29: No type found for property "linkColor". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            linkColor: sequence.style.linkColor
+                            ^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:410:29: No type found for property "codeFont". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeFont: sequence.style.inlineCodeFont
+                            ^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:411:29: No type found for property "codeForeground". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeForeground: sequence.style.inlineCode.foreground
+                            ^^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:412:29: No type found for property "codeBackground". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            codeBackground: sequence.style.inlineCode.backgroundColor
+                            ^^^^^^^^^^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:414:29: No type found for property "font". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            font: formattedBlock.headingLevel === 1 ? sequence.style.h1Font
+                            ^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:420:29: No type found for property "color". This may be due to a missing import statement or incomplete qmltypes files. [missing-type]
+                            color: formattedBlock.headingLevel === 1 ? sequence.style.h1Color
+                            ^^^^^
+Warning: /source/src/QMarkdown/MarkdownView.qml:161:37: Unqualified access [unqualified]
+                            height: implicitHeight
+                                    ^^^^^^^^^^^^^^
+Info: implicitHeight is a member of a parent element.
+      You can qualify the access with its id to avoid this warning.
+
+                            height: root.implicitHeight
+                                    ^^^^^
+[100%] Built target QMarkdown_qmllint
+[100%] Built target all_qmllint
++ python3 /source/scripts/verify-cmark-symbols.py /artifacts/release-package/build
+PASS: 140 bundled external definitions prefixed; shared exports private when present
++ cmake --install /artifacts/release-package/build
+-- Install configuration: "Release"
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/share/licenses/QMarkdown/cmark/COPYING
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/share/licenses/QMarkdown/cmark/PROVENANCE.md
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.2.0
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/libQMarkdown.so.1
+-- Set non-toolchain portion of runtime path of "/artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.2.0" to ""
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/libQMarkdown.so
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so
+-- Set non-toolchain portion of runtime path of "/artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so" to "$ORIGIN/../../../"
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/qmldir
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/QMarkdown.qmltypes
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/MarkdownView.qml
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/qmldir
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/private.qmltypes
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfigVersion.cmake
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets.cmake
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets-release.cmake
+-- Installing: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/share/licenses/QMarkdown/LICENSE
++ ldd /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.2.0
+	linux-vdso.so.1 (0x00007f26d1741000)
+	libQt6Quick.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Quick.so.6 (0x00007f26d0eb2000)
+	libQt6Qml.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Qml.so.6 (0x00007f26d086e000)
+	libQt6Network.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Network.so.6 (0x00007f26d065d000)
+	libQt6Gui.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Gui.so.6 (0x00007f26cfbcd000)
+	libGLX.so.0 => /lib/x86_64-linux-gnu/libGLX.so.0 (0x00007f26cfb96000)
+	libOpenGL.so.0 => /lib/x86_64-linux-gnu/libOpenGL.so.0 (0x00007f26cfb69000)
+	libQt6Core.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Core.so.6 (0x00007f26cf492000)
+	libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007f26cf214000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f26cf1e6000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f26cefd3000)
+	libQt6QmlMeta.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6QmlMeta.so.6 (0x00007f26cefa7000)
+	libQt6QmlModels.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6QmlModels.so.6 (0x00007f26ceec4000)
+	libQt6QmlWorkerScript.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6QmlWorkerScript.so.6 (0x00007f26ceead000)
+	libxkbcommon.so.0 => /lib/x86_64-linux-gnu/libxkbcommon.so.0 (0x00007f26cee64000)
+	libQt6OpenGL.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6OpenGL.so.6 (0x00007f26cedb7000)
+	libGL.so.1 => /lib/x86_64-linux-gnu/libGL.so.1 (0x00007f26ced30000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f26cec47000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f26cec40000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f26cec3b000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f26d1743000)
+	libzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007f26ceb81000)
+	libgssapi_krb5.so.2 => /lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007f26ceb2d000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f26ceb11000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007f26ceafd000)
+	libEGL.so.1 => /lib/x86_64-linux-gnu/libEGL.so.1 (0x00007f26ceaeb000)
+	libfontconfig.so.1 => /lib/x86_64-linux-gnu/libfontconfig.so.1 (0x00007f26cea9a000)
+	libX11.so.6 => /lib/x86_64-linux-gnu/libX11.so.6 (0x00007f26ce95c000)
+	libglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x00007f26ce813000)
+	libQt6DBus.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6DBus.so.6 (0x00007f26ce73f000)
+	libfreetype.so.6 => /lib/x86_64-linux-gnu/libfreetype.so.6 (0x00007f26ce673000)
+	libgthread-2.0.so.0 => /lib/x86_64-linux-gnu/libgthread-2.0.so.0 (0x00007f26ce66e000)
+	libGLdispatch.so.0 => /lib/x86_64-linux-gnu/libGLdispatch.so.0 (0x00007f26ce5b6000)
+	libicui18n.so.73 => /opt/Qt/6.8.0/gcc_64/lib/libicui18n.so.73 (0x00007f26ce267000)
+	libicuuc.so.73 => /opt/Qt/6.8.0/gcc_64/lib/libicuuc.so.73 (0x00007f26ce04d000)
+	libicudata.so.73 => /opt/Qt/6.8.0/gcc_64/lib/libicudata.so.73 (0x00007f26cc1bf000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f26cc1ba000)
+	libkrb5.so.3 => /lib/x86_64-linux-gnu/libkrb5.so.3 (0x00007f26cc0f1000)
+	libk5crypto.so.3 => /lib/x86_64-linux-gnu/libk5crypto.so.3 (0x00007f26cc0c3000)
+	libcom_err.so.2 => /lib/x86_64-linux-gnu/libcom_err.so.2 (0x00007f26cc0bd000)
+	libkrb5support.so.0 => /lib/x86_64-linux-gnu/libkrb5support.so.0 (0x00007f26cc0b0000)
+	libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007f26cc082000)
+	libxcb.so.1 => /lib/x86_64-linux-gnu/libxcb.so.1 (0x00007f26cc059000)
+	libpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x00007f26cbfbd000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007f26cbf6e000)
+	libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x00007f26cbf5a000)
+	libpng16.so.16 => /lib/x86_64-linux-gnu/libpng16.so.16 (0x00007f26cbf22000)
+	libbrotlidec.so.1 => /lib/x86_64-linux-gnu/libbrotlidec.so.1 (0x00007f26cbf14000)
+	libkeyutils.so.1 => /lib/x86_64-linux-gnu/libkeyutils.so.1 (0x00007f26cbf0b000)
+	libXau.so.6 => /lib/x86_64-linux-gnu/libXau.so.6 (0x00007f26cbf05000)
+	libXdmcp.so.6 => /lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007f26cbefd000)
+	libsystemd.so.0 => /lib/x86_64-linux-gnu/libsystemd.so.0 (0x00007f26cbe1d000)
+	libbrotlicommon.so.1 => /lib/x86_64-linux-gnu/libbrotlicommon.so.1 (0x00007f26cbdfa000)
+	libbsd.so.0 => /lib/x86_64-linux-gnu/libbsd.so.0 (0x00007f26cbde2000)
+	libcap.so.2 => /lib/x86_64-linux-gnu/libcap.so.2 (0x00007f26cbdd5000)
+	libgcrypt.so.20 => /lib/x86_64-linux-gnu/libgcrypt.so.20 (0x00007f26cbc8c000)
+	liblz4.so.1 => /lib/x86_64-linux-gnu/liblz4.so.1 (0x00007f26cbc6a000)
+	liblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007f26cbc38000)
+	libmd.so.0 => /lib/x86_64-linux-gnu/libmd.so.0 (0x00007f26cbc27000)
+	libgpg-error.so.0 => /lib/x86_64-linux-gnu/libgpg-error.so.0 (0x00007f26cbc02000)
++ ldd /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so
+	linux-vdso.so.1 (0x00007fe7253f3000)
+	libQMarkdown.so.1 => /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/payload/usr/lib/x86_64-linux-gnu/libQMarkdown.so.1 (0x00007fe7252f7000)
+	libQt6Qml.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Qml.so.6 (0x00007fe724cb3000)
+	libQt6Core.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Core.so.6 (0x00007fe7245dc000)
+	libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fe72435a000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fe72432a000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe724117000)
+	libQt6Quick.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Quick.so.6 (0x00007fe72397e000)
+	libQt6Network.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Network.so.6 (0x00007fe72376d000)
+	libQt6Gui.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6Gui.so.6 (0x00007fe722cdd000)
+	libGLX.so.0 => /lib/x86_64-linux-gnu/libGLX.so.0 (0x00007fe722caa000)
+	libOpenGL.so.0 => /lib/x86_64-linux-gnu/libOpenGL.so.0 (0x00007fe722c7f000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fe722c78000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fe722b8f000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fe722b8a000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fe7253f5000)
+	libicui18n.so.73 => /opt/Qt/6.8.0/gcc_64/lib/libicui18n.so.73 (0x00007fe72283b000)
+	libicuuc.so.73 => /opt/Qt/6.8.0/gcc_64/lib/libicuuc.so.73 (0x00007fe722623000)
+	libicudata.so.73 => /opt/Qt/6.8.0/gcc_64/lib/libicudata.so.73 (0x00007fe720793000)
+	libzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007fe7206d9000)
+	libglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x00007fe720590000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007fe720574000)
+	libgthread-2.0.so.0 => /lib/x86_64-linux-gnu/libgthread-2.0.so.0 (0x00007fe72056f000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fe72056a000)
+	libQt6QmlMeta.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6QmlMeta.so.6 (0x00007fe72053c000)
+	libQt6QmlModels.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6QmlModels.so.6 (0x00007fe72045b000)
+	libQt6QmlWorkerScript.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6QmlWorkerScript.so.6 (0x00007fe720444000)
+	libxkbcommon.so.0 => /lib/x86_64-linux-gnu/libxkbcommon.so.0 (0x00007fe7203fb000)
+	libQt6OpenGL.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6OpenGL.so.6 (0x00007fe72034e000)
+	libGL.so.1 => /lib/x86_64-linux-gnu/libGL.so.1 (0x00007fe7202c5000)
+	libgssapi_krb5.so.2 => /lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007fe720271000)
+	libresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007fe72025f000)
+	libEGL.so.1 => /lib/x86_64-linux-gnu/libEGL.so.1 (0x00007fe72024d000)
+	libfontconfig.so.1 => /lib/x86_64-linux-gnu/libfontconfig.so.1 (0x00007fe7201fc000)
+	libX11.so.6 => /lib/x86_64-linux-gnu/libX11.so.6 (0x00007fe7200bc000)
+	libQt6DBus.so.6 => /opt/Qt/6.8.0/gcc_64/lib/libQt6DBus.so.6 (0x00007fe71ffea000)
+	libfreetype.so.6 => /lib/x86_64-linux-gnu/libfreetype.so.6 (0x00007fe71ff1e000)
+	libGLdispatch.so.0 => /lib/x86_64-linux-gnu/libGLdispatch.so.0 (0x00007fe71fe66000)
+	libpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x00007fe71fdcc000)
+	libkrb5.so.3 => /lib/x86_64-linux-gnu/libkrb5.so.3 (0x00007fe71fd01000)
+	libk5crypto.so.3 => /lib/x86_64-linux-gnu/libk5crypto.so.3 (0x00007fe71fcd5000)
+	libcom_err.so.2 => /lib/x86_64-linux-gnu/libcom_err.so.2 (0x00007fe71fccf000)
+	libkrb5support.so.0 => /lib/x86_64-linux-gnu/libkrb5support.so.0 (0x00007fe71fcc2000)
+	libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007fe71fc94000)
+	libxcb.so.1 => /lib/x86_64-linux-gnu/libxcb.so.1 (0x00007fe71fc69000)
+	libdbus-1.so.3 => /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007fe71fc1a000)
+	libbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x00007fe71fc06000)
+	libpng16.so.16 => /lib/x86_64-linux-gnu/libpng16.so.16 (0x00007fe71fbce000)
+	libbrotlidec.so.1 => /lib/x86_64-linux-gnu/libbrotlidec.so.1 (0x00007fe71fbc0000)
+	libkeyutils.so.1 => /lib/x86_64-linux-gnu/libkeyutils.so.1 (0x00007fe71fbb7000)
+	libXau.so.6 => /lib/x86_64-linux-gnu/libXau.so.6 (0x00007fe71fbb1000)
+	libXdmcp.so.6 => /lib/x86_64-linux-gnu/libXdmcp.so.6 (0x00007fe71fba9000)
+	libsystemd.so.0 => /lib/x86_64-linux-gnu/libsystemd.so.0 (0x00007fe71fac9000)
+	libbrotlicommon.so.1 => /lib/x86_64-linux-gnu/libbrotlicommon.so.1 (0x00007fe71faa6000)
+	libbsd.so.0 => /lib/x86_64-linux-gnu/libbsd.so.0 (0x00007fe71fa8e000)
+	libcap.so.2 => /lib/x86_64-linux-gnu/libcap.so.2 (0x00007fe71fa81000)
+	libgcrypt.so.20 => /lib/x86_64-linux-gnu/libgcrypt.so.20 (0x00007fe71f938000)
+	liblz4.so.1 => /lib/x86_64-linux-gnu/liblz4.so.1 (0x00007fe71f916000)
+	liblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007fe71f8e4000)
+	libmd.so.0 => /lib/x86_64-linux-gnu/libmd.so.0 (0x00007fe71f8d3000)
+	libgpg-error.so.0 => /lib/x86_64-linux-gnu/libgpg-error.so.0 (0x00007fe71f8ae000)
+PASS: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+Owned file missing or modified: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /artifacts/release-verification/root
+Preserving modified file: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
+PASS: uninstall in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /artifacts/release-verification/root
+PASS: uninstall in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+Unsafe destination ancestor: /artifacts/release-verification/root/usr/lib
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-verification/consumers/ON-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-verification/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-verification/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-verification/consumers/ON-styling-OFF-actions-OFF
++ cmake --build /artifacts/release-verification/consumers/ON-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-verification/consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-verification/consumers/OFF-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-verification/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-verification/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-verification/consumers/OFF-styling-OFF-actions-OFF
++ cmake --build /artifacts/release-verification/consumers/OFF-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-verification/consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-verification/consumers/ON-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-verification/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-verification/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-verification/consumers/ON-styling-ON-actions-OFF
++ cmake --build /artifacts/release-verification/consumers/ON-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-verification/consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-verification/consumers/OFF-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-verification/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-verification/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-verification/consumers/OFF-styling-ON-actions-OFF
++ cmake --build /artifacts/release-verification/consumers/OFF-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-verification/consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-verification/consumers/ON-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/artifacts/release-verification/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-verification/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-verification/consumers/ON-styling-OFF-actions-ON
++ cmake --build /artifacts/release-verification/consumers/ON-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-verification/consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-verification/consumers/OFF-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/artifacts/release-verification/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-verification/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-verification/consumers/OFF-styling-OFF-actions-ON
++ cmake --build /artifacts/release-verification/consumers/OFF-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-verification/consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /artifacts/release-verification/root
+PASS: uninstall in /artifacts/release-verification/root
+PASS: archive, installer lifecycle and installed consumers
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+Owned file missing or modified: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /artifacts/release-real/root
+Preserving modified file: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
+PASS: uninstall in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /artifacts/release-real/root
+PASS: uninstall in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+Unsafe destination ancestor: /artifacts/release-real/root/usr/lib
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/consumers/ON-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-real/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-real/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/consumers/ON-styling-OFF-actions-OFF
++ cmake --build /artifacts/release-real/consumers/ON-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/consumers/OFF-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-real/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-real/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/consumers/OFF-styling-OFF-actions-OFF
++ cmake --build /artifacts/release-real/consumers/OFF-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/consumers/ON-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-real/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-real/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/consumers/ON-styling-ON-actions-OFF
++ cmake --build /artifacts/release-real/consumers/ON-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/consumers/OFF-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/artifacts/release-real/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-real/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/consumers/OFF-styling-ON-actions-OFF
++ cmake --build /artifacts/release-real/consumers/OFF-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/consumers/ON-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/artifacts/release-real/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-real/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/consumers/ON-styling-OFF-actions-ON
++ cmake --build /artifacts/release-real/consumers/ON-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/consumers/OFF-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/artifacts/release-real/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/artifacts/release-real/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/consumers/OFF-styling-OFF-actions-ON
++ cmake --build /artifacts/release-real/consumers/OFF-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /artifacts/release-real/root
+PASS: uninstall in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh
+PASS: install in /
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh
+PASS: install in /
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/real-consumers/ON-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/real-consumers/ON-styling-OFF-actions-OFF
++ cmake --build /artifacts/release-real/real-consumers/ON-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/real-consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-OFF
++ cmake --build /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/real-consumers/ON-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/real-consumers/ON-styling-ON-actions-OFF
++ cmake --build /artifacts/release-real/real-consumers/ON-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/real-consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/real-consumers/OFF-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/real-consumers/OFF-styling-ON-actions-OFF
++ cmake --build /artifacts/release-real/real-consumers/OFF-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/real-consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/real-consumers/ON-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/real-consumers/ON-styling-OFF-actions-ON
++ cmake --build /artifacts/release-real/real-consumers/ON-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/real-consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-ON
++ cmake --build /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh
+PASS: uninstall in /
+PASS: archive, installer lifecycle and installed consumers

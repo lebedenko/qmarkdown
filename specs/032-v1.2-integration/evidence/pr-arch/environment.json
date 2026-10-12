@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "a3752b1409726ab7cd12b7c5039e6e3790025c5b",
+  "version": "1.2.0",
+  "pkgrel": "1",
+  "sourceSha256": "f8b475f1b733aa74da35c093d36be3d823261a8e2963228aa3d0673a409db643",
+  "imageId": "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+  "repoDigests": [
+    "archlinux@sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd"
+  ],
+  "architecture": "amd64",
+  "toolingSha256": {
+    "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356",
+    "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+    "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+    "verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c"
+  }
+}
