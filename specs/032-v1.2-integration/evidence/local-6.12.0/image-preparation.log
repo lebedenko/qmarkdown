@@ -1,0 +1,59 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 310B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/ubuntu:24.04@sha256:f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 59B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/ubuntu:24.04@sha256:f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 3.15kB done
+#5 DONE 0.0s
+
+#6 [2/5] COPY common.sh /opt/provision/common.sh
+#6 CACHED
+
+#7 [3/5] RUN bash /opt/provision/common.sh
+#7 CACHED
+
+#8 [4/5] COPY qt.sh qt_versions.py qt-versions.json /opt/provision/
+#8 CACHED
+
+#9 [5/5] RUN bash /opt/provision/qt.sh
+#9 0.236 INFO    : aqtinstall(aqt) v3.3.0 on Python 3.12.3 [CPython GCC 13.3.0]
+#9 2.492 INFO    : Found extension qtwebengine
+#9 3.294 INFO    : Found extension qtpdf
+#9 3.805 INFO    : Downloading qtdeclarative...
+#9 3.805 INFO    : Downloading qtbase...
+#9 3.809 INFO    : Downloading qtsvg...
+#9 4.213 INFO    : Redirected: www.nic.funet.fi
+#9 4.213 INFO    : Redirected: www.nic.funet.fi
+#9 4.335 INFO    : Downloading qtdoc...
+#9 4.575 INFO    : Redirected: www.nic.funet.fi
+#9 4.849 INFO    : Redirected: www.nic.funet.fi
+#9 7.656 INFO    : Finished installation of qtsvg-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z in 4.24355477
+#9 8.079 INFO    : Downloading qttools...
+#9 8.480 INFO    : Redirected: www.nic.funet.fi
+#9 28.15 INFO    : Finished installation of qtdoc-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z in 24.73035206
+#9 28.60 INFO    : Downloading qttranslations...
+#9 29.03 INFO    : Redirected: www.nic.funet.fi
+#9 53.40 INFO    : Finished installation of qttranslations-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z in 25.24385286
+#9 54.17 INFO    : Downloading qtwayland...
+#9 54.58 INFO    : Redirected: www.nic.funet.fi
+#9 55.70 INFO    : Finished installation of qtwayland-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z in 2.29419974
+#9 56.21 INFO    : Downloading icu...
+#9 56.63 INFO    : Redirected: www.nic.funet.fi
+#9 177.2 INFO    : Finished installation of icu-linux-Rhel8.6-x86_64.7z in 121.54178687
+#9 312.4 INFO    : Finished installation of qtbase-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z in 309.01801729
+#9 382.4 INFO    : Finished installation of qttools-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z in 374.70965440
+#9 CANCELED
+ERROR: failed to build: failed to solve: Canceled: context canceled
+CI runner error: Image preparation exited 130

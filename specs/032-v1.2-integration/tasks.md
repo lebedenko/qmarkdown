@@ -11,4 +11,4 @@ Approved on 2026-10-12 through the explicit instruction to implement the supplie
 | Final feature gates and protected merge | R4 | Both configured Qt suites, hosted packaging and complete manual release |
 | Exact-main gates and independent artifacts/evidence retention | R5, R6 | Source/checksum/version/lifecycle/upload assertions, candidate unchanged |
 
-Completion is pending until actual final candidate evidence is recorded.
+All tasks completed on 2026-10-12. Final feature and exact-main hosted gates passed; independently validated artifacts and actual records are retained on docs/v1.2-integration-evidence. Published stable remains 1.1.0; publication is separate. See [actual verification](verification.md).

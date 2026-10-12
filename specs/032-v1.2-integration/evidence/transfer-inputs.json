@@ -1,0 +1,19 @@
+{
+  "CHANGELOG.md": "64b4934c3f5dc64df9b2bdbde7fe9bffc9fc0ba54036f63f6ae5b20eb718c048",
+  "CMakeLists.txt": "a7cdc50d874538ea4096ff2efb76f70d79f52ab44928a463c43a3f8f85590576",
+  "README.md": "848b59c0e5228e200f8b1bd7f235f643c7348932717584c6d864f69fda90c83f",
+  "docs/styling.md": "29c6a2853071c6529eb95f216b2f050de2f1a5187e8a9dd956fe2be8f07bce11",
+  "examples/viewer/CMakeLists.txt": "fce0d08cc4cdfd825cd69d14ce4bd855143deaa3cb86ce72f2846d2ec230c424",
+  "examples/viewer/Main.qml": "9053f79b947423df52ab017389510ea944529e0181a49f34ec8ef5a455ee1d58",
+  "scripts/arch/verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c",
+  "scripts/verify-packaging.py": "f166a4af88d7ba4bf5d2c665328575c58f812b4c46055b89e14d59e7546dc278",
+  "scripts/verify-release-package.py": "a098f0fc5e6a05cac29f8c9bf9cc3066d0992d0656d7a9aea08ef7fcdd0a9dbb",
+  "src/QMarkdown/CMakeLists.txt": "0e8ed9f22942349716cb0b18d4f66355663b39dbef4d2d70a4725059f7cfb565",
+  "src/QMarkdown/MarkdownView.qml": "1316283a82d901d68f92e899596328f86a800757fe7e8d2604e515a548d3e5b9",
+  "tests/installed-consumer/CMakeLists.txt": "4c17aaa3ed59b6e47b2db571d84eda5bd764fa18175c2a942ed96bfb6b04f40f",
+  "tests/tst_import.cpp": "b483849880cb7a59f042e56fe181fa1a894e34c7a59038f0efe4ec18d756f4a0",
+  "tests/tst_view.cpp": "d8cee477746141bf23cfd29b7ff3a5a407c0239575f481fe25ced6ac23c27c75",
+  "docs/code-block-actions.md": "5e6503db9b621ea25c44f88bd48f4b8c9f9b18f5ef23945444dcfb3c75b3cbec",
+  "examples/viewer/clipboard.h": "692c5711c3b0460b996f7dbfa0269dea45b91422c234aa46ce31fc1a1c5fad79",
+  "tests/installed-consumer/actions.cpp": "914e48fa52acdf50fa3345e0640218abdb09eadbdac91e85f8a3e5c969886202"
+}

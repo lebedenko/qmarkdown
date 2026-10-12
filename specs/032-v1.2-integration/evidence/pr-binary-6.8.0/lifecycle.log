@@ -1,0 +1,346 @@
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Owned file missing or modified: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /checks/results/root
+Preserving modified file: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
+PASS: uninstall in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /checks/results/root
+PASS: uninstall in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Unsafe destination ancestor: /checks/results/root/usr/lib
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/ON-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/ON-styling-OFF-actions-OFF
++ cmake --build /checks/results/consumers/ON-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/OFF-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/OFF-styling-OFF-actions-OFF
++ cmake --build /checks/results/consumers/OFF-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/ON-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/ON-styling-ON-actions-OFF
++ cmake --build /checks/results/consumers/ON-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/OFF-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/OFF-styling-ON-actions-OFF
++ cmake --build /checks/results/consumers/OFF-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/ON-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/ON-styling-OFF-actions-ON
++ cmake --build /checks/results/consumers/ON-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/OFF-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/OFF-styling-OFF-actions-ON
++ cmake --build /checks/results/consumers/OFF-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /checks/results/root
+PASS: uninstall in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh
+PASS: install in /
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/install.sh
+PASS: install in /
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/ON-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/ON-styling-OFF-actions-OFF
++ cmake --build /checks/results/real-consumers/ON-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/OFF-styling-OFF-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/OFF-styling-OFF-actions-OFF
++ cmake --build /checks/results/real-consumers/OFF-styling-OFF-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/ON-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/ON-styling-ON-actions-OFF
++ cmake --build /checks/results/real-consumers/ON-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/OFF-styling-ON-actions-OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_ACTIONS_CONSUMER=OFF -DQMARKDOWN_REQUEST_VERSION=1.0 -DQMARKDOWN_REQUEST_EXACT=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/OFF-styling-ON-actions-OFF
++ cmake --build /checks/results/real-consumers/OFF-styling-ON-actions-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/ON-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/ON-styling-OFF-actions-ON
++ cmake --build /checks/results/real-consumers/ON-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/OFF-styling-OFF-actions-ON -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.8.0/gcc_64 -DQt6_DIR=/opt/Qt/6.8.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Found XKB: /usr/lib/x86_64-linux-gnu/libxkbcommon.so (Required is at least version "0.5.0") 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/OFF-styling-OFF-actions-ON
++ cmake --build /checks/results/real-consumers/OFF-styling-OFF-actions-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /checks/results/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh
+PASS: uninstall in /
+PASS: archive, installer lifecycle and installed consumers
