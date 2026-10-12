@@ -1,0 +1,5 @@
+{
+  "sourceCache": "/tmp/qmarkdown-arch-029-snapshot/pacman-cache",
+  "copiedFiles": 230,
+  "policy": "Completed package/checksum-signature files only; pacman independently validates repository version/signatures. Fresh disposable container and full repository update."
+}

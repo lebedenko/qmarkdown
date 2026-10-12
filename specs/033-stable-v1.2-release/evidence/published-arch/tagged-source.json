@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "bdd0cf666b98433fccb2428b86aab8b0dce5cb29",
+  "tagObject": "b2ef4a95362de259f4ec1c6ecfa0f2488ea03737",
+  "sourceSnapshotSha256": "3f1cfd9f8a747b75e7977d8f5bb3b653a8c6eb1cc66a0d4f22fe276997b0f2ad",
+  "toolingSha256": {
+    "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+    "verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c",
+    "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+    "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356"
+  }
+}

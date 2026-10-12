@@ -12,4 +12,4 @@ Approved on 2026-10-12 through the explicit instruction to implement the supplie
 | Independent downloaded-asset acceptance | R4 | Four assets/checksums/artifact equality, disposable Ubuntu/Arch lifecycle |
 | Retain actual publication evidence separately | R5 | URLs/IDs/images/inventories/hashes, fixed tag/release bytes/protections |
 
-Completion is pending until publication and independent downloaded-asset acceptance succeed.
+All seven tasks completed on 2026-10-12 UTC. Stable/latest v1.2.0 is published with Ubuntu and Arch assets; independent downloaded-asset checks pass on both exact Ubuntu runtimes and fresh Arch. See [actual verification](verification.md) and [machine-readable evidence](run-evidence.json). Main, tag and published bytes remain fixed; evidence is retained separately.
