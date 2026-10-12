@@ -1,0 +1,40 @@
+Qt: 6.8.0
+UID: 1000
+GID: 1000
+Linux b8ce8d53aff7 7.2.9-arch1-1 #1 SMP PREEMPT_DYNAMIC Sat, 03 Oct 2026 11:43:28 +0000 x86_64 x86_64 x86_64 GNU/Linux
+cmake version 3.28.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Python 3.12.3
+QT_SYSROOT:
+QT_INSTALL_PREFIX:/opt/Qt/6.8.0/gcc_64
+QT_INSTALL_ARCHDATA:/opt/Qt/6.8.0/gcc_64
+QT_INSTALL_DATA:/opt/Qt/6.8.0/gcc_64
+QT_INSTALL_DOCS:/opt/Qt/6.8.0/gcc_64/doc
+QT_INSTALL_HEADERS:/opt/Qt/6.8.0/gcc_64/include
+QT_INSTALL_LIBS:/opt/Qt/6.8.0/gcc_64/lib
+QT_INSTALL_LIBEXECS:/opt/Qt/6.8.0/gcc_64/libexec
+QT_INSTALL_BINS:/opt/Qt/6.8.0/gcc_64/bin
+QT_INSTALL_TESTS:/opt/Qt/6.8.0/gcc_64/tests
+QT_INSTALL_PLUGINS:/opt/Qt/6.8.0/gcc_64/plugins
+QT_INSTALL_QML:/opt/Qt/6.8.0/gcc_64/qml
+QT_INSTALL_TRANSLATIONS:/opt/Qt/6.8.0/gcc_64/translations
+QT_INSTALL_CONFIGURATION:
+QT_INSTALL_EXAMPLES:/opt/Qt/6.8.0/gcc_64/examples
+QT_INSTALL_DEMOS:/opt/Qt/6.8.0/gcc_64/examples
+QT_HOST_PREFIX:/opt/Qt/6.8.0/gcc_64
+QT_HOST_DATA:/opt/Qt/6.8.0/gcc_64
+QT_HOST_BINS:/opt/Qt/6.8.0/gcc_64/bin
+QT_HOST_LIBEXECS:/opt/Qt/6.8.0/gcc_64/libexec
+QT_HOST_LIBS:/opt/Qt/6.8.0/gcc_64/lib
+QMAKE_SPEC:linux-g++
+QMAKE_XSPEC:linux-g++
+QMAKE_VERSION:3.1
+QT_VERSION:6.8.0
+ro,nosuid,nodev,nr_inodes=1048576,inode64,huge=advise,usrquota
+ro,nosuid,nodev,nr_inodes=1048576,inode64,huge=advise,usrquota
