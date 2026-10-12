@@ -11,6 +11,7 @@ Item {
     property alias baseUrl: viewState.baseUrl
     property alias resourcePolicy: viewState.resourcePolicy
     property alias markdown: viewState.markdown
+    property alias taskListsEnabled: viewState.taskListsEnabled
     property alias style: viewState.style
     readonly property real contentHeight: width > 0 ? blocks.height : 0
     implicitWidth: 0
@@ -199,7 +200,11 @@ Item {
                                 id: row
                                 required property int index
                                 required property var childBlocks
+                                required property int taskState
                                 width: list.width
+                                readonly property real taskSize: markerMetrics.height * 0.7
+                                readonly property real contentInset: Math.min(Math.max(0, width - 1),
+                                    list.gutter + (taskState > 0 ? taskSize + 8 : 0))
                                 height: Math.max(markerMetrics.height, itemLoader.item ? (itemLoader.item as Item).height : 0)
                                 Text {
                                     objectName: "listMarker"
@@ -210,9 +215,58 @@ Item {
                                     color: sequence.style.bodyColor
                                     textFormat: Text.PlainText
                                 }
+                                Item {
+                                    id: taskIndicator
+                                    objectName: "taskIndicator"
+                                    visible: row.taskState > 0
+                                    readonly property bool checked: row.taskState === 2
+                                    x: list.gutter
+                                    y: (markerMetrics.height - height) / 2
+                                    width: Math.min(row.taskSize, Math.max(0, row.contentInset - x))
+                                    height: row.taskSize
+                                    clip: true
+                                    Accessible.role: Accessible.CheckBox
+                                    Accessible.name: checked ? qsTr("Completed task") : qsTr("Incomplete task")
+                                    Accessible.description: qsTr("Read-only Markdown task")
+                                    Accessible.checkable: true
+                                    Accessible.checked: checked
+                                    Accessible.focusable: false
+                                    Accessible.readOnly: true
+                                    Accessible.ignored: !visible
+                                    Rectangle {
+                                        objectName: "taskBox"
+                                        width: row.taskSize
+                                        height: row.taskSize
+                                        color: "transparent"
+                                        border.width: 1
+                                        border.color: sequence.style.bodyColor
+                                        radius: 2
+                                        Rectangle {
+                                            visible: taskIndicator.checked
+                                            x: parent.width * 0.22
+                                            y: parent.height * 0.5
+                                            width: parent.width * 0.3
+                                            height: Math.max(1, parent.height * 0.1)
+                                            color: sequence.style.bodyColor
+                                            rotation: 45
+                                            transformOrigin: Item.Left
+                                        }
+                                        Rectangle {
+                                            visible: taskIndicator.checked
+                                            x: parent.width * 0.43
+                                            y: parent.height * 0.71
+                                            width: parent.width * 0.5
+                                            height: Math.max(1, parent.height * 0.1)
+                                            color: sequence.style.bodyColor
+                                            rotation: -50
+                                            transformOrigin: Item.Left
+                                        }
+                                    }
+                                }
                                 Loader {
                                     id: itemLoader
-                                    x: list.gutter
+                                    objectName: "listItemContent"
+                                    x: row.contentInset
                                     width: Math.max(0, row.width - x)
                                     sourceComponent: sequenceComponent
                                     onLoaded: {

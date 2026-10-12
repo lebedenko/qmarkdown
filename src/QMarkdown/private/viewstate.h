@@ -24,6 +24,7 @@ class ViewState : public QObject
     Q_OBJECT
     QML_ANONYMOUS
     Q_PROPERTY(QString markdown READ markdown WRITE setMarkdown NOTIFY markdownChanged FINAL)
+    Q_PROPERTY(bool taskListsEnabled READ taskListsEnabled WRITE setTaskListsEnabled NOTIFY taskListsEnabledChanged FINAL)
     Q_PROPERTY(MarkdownStyle *style READ style WRITE setStyle RESET resetStyle NOTIFY styleChanged FINAL)
     Q_PROPERTY(QUrl baseUrl READ baseUrl WRITE setBaseUrl NOTIFY baseUrlChanged FINAL)
     Q_PROPERTY(MarkdownResourcePolicy *resourcePolicy READ resourcePolicy WRITE setResourcePolicy RESET resetResourcePolicy NOTIFY resourcePolicyChanged FINAL)
@@ -37,6 +38,8 @@ public:
     void resetResourcePolicy();
     QString markdown() const { return m_markdown; }
     void setMarkdown(const QString &value);
+    bool taskListsEnabled() const { return m_taskListsEnabled; }
+    void setTaskListsEnabled(bool value);
     MarkdownStyle *style() const { return m_style; }
     void setStyle(MarkdownStyle *value);
     void resetStyle();
@@ -45,6 +48,7 @@ signals:
     void baseUrlChanged();
     void resourcePolicyChanged();
     void markdownChanged();
+    void taskListsEnabledChanged();
     void styleChanged();
 private:
     void reloadResources();
@@ -55,6 +59,7 @@ private:
     QMetaObject::Connection m_policyDestroyed, m_policyChanged;
     ResourceController m_resources;
     QString m_markdown;
+    bool m_taskListsEnabled = false;
     BlockModel m_blocks;
     MarkdownStyle m_default;
     QPointer<MarkdownStyle> m_style;

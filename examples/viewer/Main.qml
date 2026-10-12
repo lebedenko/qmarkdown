@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown 1.2
+import QMarkdown 1.3
 import QMarkdownViewer.Tools
 
 ApplicationWindow {
@@ -66,7 +66,10 @@ ApplicationWindow {
                 onActivated: window.previewWidth = currentIndex === 0 ? 0 : Number(currentText)
             }
         }
-        CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
+        RowLayout {
+            CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
+            CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
+        }
         ScrollView {
             id: styleScroll
             visible: styleToggle.checked
@@ -161,6 +164,7 @@ ApplicationWindow {
                             width: window.previewWidth > 0 ? Math.min(previewScroll.width, window.previewWidth) : previewScroll.width
                             x: (previewScroll.width - width) / 2
                             markdown: editor.text
+                            taskListsEnabled: taskToggle.checked
                             style: hostStyle
                             codeBlockActions: Item {
                                 id: actions

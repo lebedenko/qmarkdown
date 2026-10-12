@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0 — unreleased
+
+- Add default-off `MarkdownView.taskListsEnabled` with native read-only checked/unchecked indicators in ordered, unordered, nested and quoted lists. Preserve source text, list numbering, styling and host resource policies.
+- Retain CommonMark 0.31.2 as the default parser contract; recognize raw task prefixes through a bounded private cmark patch and test the extension separately. Other GFM extensions remain deferred.
+- Add playground controls and a QML 1.3 installed consumer while retaining earlier 1.x imports. CMake accepts compatible earlier 1.x requests and EXACT 1.3.0; exact historical requests require historical packages.
+- See [the task-list contract](docs/task-lists.md) and [iteration 035 verification](specs/035-gfm-task-lists/verification.md). This candidate has not been published.
+
 ## 1.2.0 — 2026-10-12
 
 - Add optional host-controlled action headers to fenced/indented code blocks, including nested and empty blocks. `codeBlockActions` delegates receive exact `codeText` and an invalidated-on-removal `requestCopy` callback; requests emit `codeBlockCopyRequested`.

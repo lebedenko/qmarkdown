@@ -12,6 +12,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || index.row() < 0 || index.row() >= m_blocks.size()) return {};
     const auto &block = m_blocks[index.row()];
+    if (role == Qt::UserRole + 12) return static_cast<int>(block.taskState);
     if (role == Qt::UserRole + 9) return block.image;
     if (role == Qt::UserRole + 10) return block.imageLink;
     if (role == Qt::UserRole + 11) return block.imageLinked;
@@ -53,7 +54,8 @@ QHash<int, QByteArray> BlockModel::roleNames() const
     return {{Qt::UserRole, "blockText"}, {Qt::UserRole + 1, "headingLevel"},
             {Qt::UserRole + 2, "formatted"}, {Qt::UserRole + 3, "formatRanges"}, {Qt::UserRole + 4, "renderKind"}, {Qt::UserRole + 5, "childBlocks"},
             {Qt::UserRole + 6, "tightList"}, {Qt::UserRole + 7, "markers"}, {Qt::UserRole + 8, "linkSpans"}, {Qt::UserRole + 9, "imageData"},
-            {Qt::UserRole + 10, "imageLink"}, {Qt::UserRole + 11, "imageLinked"}};
+            {Qt::UserRole + 10, "imageLink"}, {Qt::UserRole + 11, "imageLinked"},
+            {Qt::UserRole + 12, "taskState"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::Block> blocks)
 {
@@ -107,9 +109,17 @@ void ViewState::setMarkdown(const QString &value)
 {
     if (m_markdown == value) return;
     m_markdown = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(value);
+    m_sourceBlocks = QMarkdownPrivate::parse(value, m_taskListsEnabled);
     reloadResources();
     emit markdownChanged();
+}
+void ViewState::setTaskListsEnabled(bool value)
+{
+    if (m_taskListsEnabled == value) return;
+    m_taskListsEnabled = value;
+    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, value);
+    reloadResources();
+    emit taskListsEnabledChanged();
 }
 void ViewState::setStyle(MarkdownStyle *value)
 {

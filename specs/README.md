@@ -1,8 +1,12 @@
 # Specifications
 
+Current feature iteration: [035: opt-in GFM task lists](035-gfm-task-lists/requirements.md), **approved on 2026-10-13 for local implementation and verification**. See [design](035-gfm-task-lists/design.md), [mapped tasks](035-gfm-task-lists/tasks.md) and [verification plan](035-gfm-task-lists/verification.md). Implemented with read-only native task indicators; host shared/static and both configured Qt container gates pass. Later extensions remain deferred; candidate 1.3.0 is unpublished.
+
 Current status: **published stable/latest 1.2.0 / QML 1.2 on 2026-10-12 UTC**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 032](032-v1.2-integration/verification.md) records completed integration; [iteration 033](033-stable-v1.2-release/verification.md) records completed publication and independent downloaded Ubuntu/Arch lifecycle checks. Code-block actions are released with host-owned clipboard handling and Legacy styling defaults. Earlier entries retain historical scope, versions and environments.
 
 ## Historical feature records
+
+The [development workflow](../docs/development-workflow.md) is authoritative for current delivery procedures and supersedes historical procedures below. Historical approvals and verification records remain intact. Integration, evidence recording, and publication are delivery tasks; they do not automatically require separate numbered initiatives.
 
 Feature 021: [1.0 release candidate requirements](021-v1-release-candidate/requirements.md), **approved on 2026-10-09; implemented and locally verified**. See [design](021-v1-release-candidate/design.md), [mapped tasks](021-v1-release-candidate/tasks.md) and [planned/actual verification](021-v1-release-candidate/verification.md). Prepares Linux amd64 package 1.0.0 / QML 1.0, a private long-fence correction, compatibility policy and verified local candidate artifacts; actual candidate gates are recorded separately; no release publication is authorized.
 
