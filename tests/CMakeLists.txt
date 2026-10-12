@@ -25,6 +25,10 @@ add_test(NAME qmarkdown-parser COMMAND qmarkdown-parser-test)
 find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
 add_test(NAME qmarkdown-qt-versions
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_qt_versions.py")
+add_test(NAME qmarkdown-arch-recipe
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_arch_package.py")
+add_test(NAME qmarkdown-release-upload
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_release_upload.py")
 qt_add_executable(qmarkdown-commonmark-probe commonmark/probe.cpp
     ../src/QMarkdown/private/document.cpp ../src/QMarkdown/private/inline.cpp
     $<TARGET_OBJECTS:qmarkdown_cmark>)
