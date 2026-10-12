@@ -1,0 +1,80 @@
+{
+  "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "bf4586da62a33b80c0d69542882d2d347892b922e0b91ea1011dc285aa204727"
+  },
+  "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfigVersion.cmake": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "59dda01bdd6a1b8a62941c79508f6cd186bbfa23cd82c2b31fa2b8a39d45970d"
+  },
+  "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets-release.cmake": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "0c55c3844ca2273d1eb8d269d9f09a3c84a53763c2ec3445fcd60e4fb6de9bde"
+  },
+  "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets.cmake": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "2cdac8138f5d564998960056722483bb993a849a43490e83635a1bf1fa444241"
+  },
+  "usr/lib/x86_64-linux-gnu/libQMarkdown.so": {
+    "kind": "link",
+    "target": "libQMarkdown.so.1"
+  },
+  "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1": {
+    "kind": "link",
+    "target": "libQMarkdown.so.1.2.0"
+  },
+  "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.2.0": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "c9595d734462b87c8b601cdf7ed8634213c8b89a3762ab831deb61b1548447ed"
+  },
+  "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/MarkdownView.qml": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "1316283a82d901d68f92e899596328f86a800757fe7e8d2604e515a548d3e5b9"
+  },
+  "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/private.qmltypes": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "d506412a4a1a2e240caccb8191af14927b6a703688dce36d5302b3e02f1b434a"
+  },
+  "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/qmldir": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "8088e762877a4586ddd0cde1b3eb8158b1a9a8a421acc7411281204504d452e1"
+  },
+  "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/QMarkdown.qmltypes": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "3e6860b3201ddb6ef0d3f31b52bd8f0216dcac83b9f826188bfa8b858a8f98ae"
+  },
+  "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "d888dfca116fba6e9939afde4eb798fa60d1ece538ce5e4155431022bea1e8ce"
+  },
+  "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/qmldir": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "0960a4f8a4c254ff4611a7832a17ba5387ca2c9d73618498b44610fb9f034f2e"
+  },
+  "usr/share/licenses/QMarkdown/LICENSE": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "d4320f43a35dd36792fa5375bfcb603b9c1c089f5913048eec2d06c5293f96e3"
+  },
+  "usr/share/licenses/QMarkdown/cmark/COPYING": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "c22e885f33b821bddb24cf007145e5540655b6c0f403e49e6c76a93c28e6d9a9"
+  },
+  "usr/share/licenses/QMarkdown/cmark/PROVENANCE.md": {
+    "kind": "file",
+    "mode": 420,
+    "sha256": "c373778cca24c64a1490b68df36b07ab04f3b99c05f0ff4271f4e28474d52767"
+  }
+}

@@ -1,0 +1,2274 @@
+{
+  "status": "complete",
+  "candidateSha": "a65f537e5b2134e026bf328a1ec4a307c48588ef",
+  "featureHead": "a3752b1409726ab7cd12b7c5039e6e3790025c5b",
+  "evidenceBranch": "docs/v1.2-integration-evidence",
+  "prs": {
+    "archEvidence": "https://github.com/lebedenko/qmarkdown/pull/10",
+    "feature": "https://github.com/lebedenko/qmarkdown/pull/11"
+  },
+  "validation": {
+    "pr": {
+      "sha": "a3752b1409726ab7cd12b7c5039e6e3790025c5b",
+      "runs": {
+        "ci": {
+          "conclusion": "success",
+          "headSha": "a3752b1409726ab7cd12b7c5039e6e3790025c5b",
+          "jobs": [
+            {
+              "completedAt": "2026-10-12T16:52:46Z",
+              "conclusion": "success",
+              "databaseId": 114916131929,
+              "name": "targets",
+              "startedAt": "2026-10-12T16:52:42Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T16:52:43Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T16:52:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:44Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T16:52:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:44Z",
+                  "conclusion": "success",
+                  "name": "Run echo \"matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)\" >> \"$GITHUB_OUTPUT\"",
+                  "number": 3,
+                  "startedAt": "2026-10-12T16:52:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:44Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 6,
+                  "startedAt": "2026-10-12T16:52:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:45Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 7,
+                  "startedAt": "2026-10-12T16:52:44Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434679/job/114916131929"
+            },
+            {
+              "completedAt": "2026-10-12T17:00:02Z",
+              "conclusion": "success",
+              "databaseId": 114916164807,
+              "name": "packaging (minimum)",
+              "startedAt": "2026-10-12T16:52:48Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T16:52:51Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T16:52:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:52Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T16:52:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:52Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 3,
+                  "startedAt": "2026-10-12T16:52:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:04Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 4,
+                  "startedAt": "2026-10-12T16:52:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:41Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 5,
+                  "startedAt": "2026-10-12T16:53:04Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:41Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 6,
+                  "startedAt": "2026-10-12T16:53:41Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:56Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 7,
+                  "startedAt": "2026-10-12T16:53:41Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:56Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 8,
+                  "startedAt": "2026-10-12T16:59:56Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:58Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 14,
+                  "startedAt": "2026-10-12T16:59:56Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:59Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 15,
+                  "startedAt": "2026-10-12T16:59:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:59Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 16,
+                  "startedAt": "2026-10-12T16:59:59Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:59Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 17,
+                  "startedAt": "2026-10-12T16:59:59Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434679/job/114916164807"
+            },
+            {
+              "completedAt": "2026-10-12T17:00:40Z",
+              "conclusion": "success",
+              "databaseId": 114916165071,
+              "name": "packaging (development)",
+              "startedAt": "2026-10-12T16:52:48Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T16:52:50Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T16:52:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:51Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T16:52:50Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:51Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 3,
+                  "startedAt": "2026-10-12T16:52:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:57Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 4,
+                  "startedAt": "2026-10-12T16:52:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:38Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 5,
+                  "startedAt": "2026-10-12T16:52:57Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:38Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 6,
+                  "startedAt": "2026-10-12T16:53:38Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:35Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 7,
+                  "startedAt": "2026-10-12T16:53:38Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:35Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:00:35Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:37Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 14,
+                  "startedAt": "2026-10-12T17:00:35Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:37Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 15,
+                  "startedAt": "2026-10-12T17:00:37Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:37Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 16,
+                  "startedAt": "2026-10-12T17:00:37Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:37Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 17,
+                  "startedAt": "2026-10-12T17:00:37Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434679/job/114916165071"
+            }
+          ],
+          "status": "completed",
+          "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434679"
+        },
+        "release": {
+          "conclusion": "success",
+          "headSha": "a3752b1409726ab7cd12b7c5039e6e3790025c5b",
+          "jobs": [
+            {
+              "completedAt": "2026-10-12T16:55:18Z",
+              "conclusion": "success",
+              "databaseId": 114916139347,
+              "name": "arch",
+              "startedAt": "2026-10-12T16:52:44Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T16:52:45Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T16:52:45Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:47Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T16:52:45Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:55:13Z",
+                  "conclusion": "success",
+                  "name": "Build and verify Arch package in disposable containers",
+                  "number": 3,
+                  "startedAt": "2026-10-12T16:52:47Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:55:14Z",
+                  "conclusion": "success",
+                  "name": "Retain Arch verification evidence",
+                  "number": 4,
+                  "startedAt": "2026-10-12T16:55:13Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:55:16Z",
+                  "conclusion": "success",
+                  "name": "Retain verified Arch package",
+                  "number": 5,
+                  "startedAt": "2026-10-12T16:55:14Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:55:16Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 10,
+                  "startedAt": "2026-10-12T16:55:16Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:55:16Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 11,
+                  "startedAt": "2026-10-12T16:55:16Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770/job/114916139347"
+            },
+            {
+              "completedAt": "2026-10-12T16:52:47Z",
+              "conclusion": "success",
+              "databaseId": 114916139535,
+              "name": "targets",
+              "startedAt": "2026-10-12T16:52:44Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T16:52:45Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T16:52:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:46Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T16:52:45Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:46Z",
+                  "conclusion": "success",
+                  "name": "Run echo \"matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)\" >> \"$GITHUB_OUTPUT\"",
+                  "number": 3,
+                  "startedAt": "2026-10-12T16:52:46Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:46Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 6,
+                  "startedAt": "2026-10-12T16:52:46Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:46Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 7,
+                  "startedAt": "2026-10-12T16:52:46Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770/job/114916139535"
+            },
+            {
+              "completedAt": "2026-10-12T17:00:02Z",
+              "conclusion": "success",
+              "databaseId": 114916175265,
+              "name": "build (minimum, 6.8.0)",
+              "startedAt": "2026-10-12T16:52:50Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T16:52:52Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T16:52:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:53Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T16:52:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:53Z",
+                  "conclusion": "success",
+                  "name": "Validate release source",
+                  "number": 3,
+                  "startedAt": "2026-10-12T16:52:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:54Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T16:52:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:00Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T16:52:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:42Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T16:53:00Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:42Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T16:53:42Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:55Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 8,
+                  "startedAt": "2026-10-12T16:53:42Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:55Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T16:59:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:56Z",
+                  "conclusion": "success",
+                  "name": "Retain verified package",
+                  "number": 10,
+                  "startedAt": "2026-10-12T16:59:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:58Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 18,
+                  "startedAt": "2026-10-12T16:59:56Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:59Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 19,
+                  "startedAt": "2026-10-12T16:59:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:59Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 20,
+                  "startedAt": "2026-10-12T16:59:59Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:59:59Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 21,
+                  "startedAt": "2026-10-12T16:59:59Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770/job/114916175265"
+            },
+            {
+              "completedAt": "2026-10-12T17:00:59Z",
+              "conclusion": "success",
+              "databaseId": 114916175322,
+              "name": "build (development, 6.12.0)",
+              "startedAt": "2026-10-12T16:52:50Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T16:52:53Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T16:52:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:54Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T16:52:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:54Z",
+                  "conclusion": "success",
+                  "name": "Validate release source",
+                  "number": 3,
+                  "startedAt": "2026-10-12T16:52:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:52:54Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T16:52:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:53:02Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T16:52:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:54:07Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T16:53:02Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T16:54:07Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T16:54:07Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:51Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 8,
+                  "startedAt": "2026-10-12T16:54:07Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:51Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T17:00:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:53Z",
+                  "conclusion": "success",
+                  "name": "Retain verified package",
+                  "number": 10,
+                  "startedAt": "2026-10-12T17:00:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:55Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 18,
+                  "startedAt": "2026-10-12T17:00:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:55Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 19,
+                  "startedAt": "2026-10-12T17:00:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:55Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 20,
+                  "startedAt": "2026-10-12T17:00:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:00:55Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 21,
+                  "startedAt": "2026-10-12T17:00:55Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770/job/114916175322"
+            },
+            {
+              "completedAt": "2026-10-12T17:03:28Z",
+              "conclusion": "success",
+              "databaseId": 114919229695,
+              "name": "binary-compatibility (development, 6.12.0)",
+              "startedAt": "2026-10-12T17:01:01Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:01:06Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:01:02Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:08Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:01:06Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:09Z",
+                  "conclusion": "success",
+                  "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:01:08Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:09Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:01:09Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:40Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:01:09Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:37Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:01:40Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:37Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:02:37Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:03:21Z",
+                  "conclusion": "success",
+                  "name": "Consume the Qt 6.8 binary in a disposable container",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:02:37Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:03:23Z",
+                  "conclusion": "success",
+                  "name": "Retain binary verification evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T17:03:21Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:03:24Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 16,
+                  "startedAt": "2026-10-12T17:03:23Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:03:25Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 17,
+                  "startedAt": "2026-10-12T17:03:24Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:03:25Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 18,
+                  "startedAt": "2026-10-12T17:03:25Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:03:25Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 19,
+                  "startedAt": "2026-10-12T17:03:25Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770/job/114919229695"
+            },
+            {
+              "completedAt": "2026-10-12T17:02:53Z",
+              "conclusion": "success",
+              "databaseId": 114919229804,
+              "name": "binary-compatibility (minimum, 6.8.0)",
+              "startedAt": "2026-10-12T17:01:01Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:01:04Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:01:02Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:05Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:01:04Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:06Z",
+                  "conclusion": "success",
+                  "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:01:05Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:06Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:01:06Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:01:18Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:01:06Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:22Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:01:18Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:22Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:02:22Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:48Z",
+                  "conclusion": "success",
+                  "name": "Consume the Qt 6.8 binary in a disposable container",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:02:22Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:50Z",
+                  "conclusion": "success",
+                  "name": "Retain binary verification evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T17:02:48Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:51Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 16,
+                  "startedAt": "2026-10-12T17:02:50Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:52Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 17,
+                  "startedAt": "2026-10-12T17:02:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:52Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 18,
+                  "startedAt": "2026-10-12T17:02:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:02:52Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 19,
+                  "startedAt": "2026-10-12T17:02:52Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770/job/114919229804"
+            },
+            {
+              "completedAt": "2026-10-12T17:03:28Z",
+              "conclusion": "skipped",
+              "databaseId": 114920163246,
+              "name": "upload",
+              "startedAt": "2026-10-12T17:03:29Z",
+              "status": "completed",
+              "steps": [],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770/job/114920163246"
+            }
+          ],
+          "status": "completed",
+          "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38280434770"
+        }
+      },
+      "packages": {
+        "ubuntu": {
+          "name": "qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+          "sha256": "02cff5c4551262558deb6c3bd9882bbcbfb55fa8bf4cae4a5f8692d61c9fd923",
+          "bytes": 393027,
+          "metadata": {
+            "version": "1.2.0",
+            "sourceCommit": "a3752b1409726ab7cd12b7c5039e6e3790025c5b",
+            "architecture": "x86_64",
+            "qtVersion": "6.8.0",
+            "buildType": "Release",
+            "os": "Ubuntu 24.04",
+            "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+            "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+          },
+          "manifest": {
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "bf4586da62a33b80c0d69542882d2d347892b922e0b91ea1011dc285aa204727"
+            },
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfigVersion.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "59dda01bdd6a1b8a62941c79508f6cd186bbfa23cd82c2b31fa2b8a39d45970d"
+            },
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets-release.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "0c55c3844ca2273d1eb8d269d9f09a3c84a53763c2ec3445fcd60e4fb6de9bde"
+            },
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "2cdac8138f5d564998960056722483bb993a849a43490e83635a1bf1fa444241"
+            },
+            "usr/lib/x86_64-linux-gnu/libQMarkdown.so": {
+              "kind": "link",
+              "target": "libQMarkdown.so.1"
+            },
+            "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1": {
+              "kind": "link",
+              "target": "libQMarkdown.so.1.2.0"
+            },
+            "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.2.0": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "c9595d734462b87c8b601cdf7ed8634213c8b89a3762ab831deb61b1548447ed"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/MarkdownView.qml": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "1316283a82d901d68f92e899596328f86a800757fe7e8d2604e515a548d3e5b9"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/private.qmltypes": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "d506412a4a1a2e240caccb8191af14927b6a703688dce36d5302b3e02f1b434a"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/qmldir": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "8088e762877a4586ddd0cde1b3eb8158b1a9a8a421acc7411281204504d452e1"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/QMarkdown.qmltypes": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "3e6860b3201ddb6ef0d3f31b52bd8f0216dcac83b9f826188bfa8b858a8f98ae"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "d888dfca116fba6e9939afde4eb798fa60d1ece538ce5e4155431022bea1e8ce"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/qmldir": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "0960a4f8a4c254ff4611a7832a17ba5387ca2c9d73618498b44610fb9f034f2e"
+            },
+            "usr/share/licenses/QMarkdown/LICENSE": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "d4320f43a35dd36792fa5375bfcb603b9c1c089f5913048eec2d06c5293f96e3"
+            },
+            "usr/share/licenses/QMarkdown/cmark/COPYING": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "c22e885f33b821bddb24cf007145e5540655b6c0f403e49e6c76a93c28e6d9a9"
+            },
+            "usr/share/licenses/QMarkdown/cmark/PROVENANCE.md": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "c373778cca24c64a1490b68df36b07ab04f3b99c05f0ff4271f4e28474d52767"
+            }
+          }
+        },
+        "arch": {
+          "name": "qmarkdown-1.2.0-1-x86_64.pkg.tar.zst",
+          "sha256": "187e8d472002f567d5a97ce044568b3e7dd12fbbf7d2cba7e11bef35f42cf8a9",
+          "bytes": 379214,
+          "packageInfo": "# Generated by makepkg 7.1.0\n# using fakeroot version 1.37.2\npkgname = qmarkdown\npkgbase = qmarkdown\nxdata = pkgtype=pkg\npkgver = 1.2.0-1\npkgdesc = Native Qt Quick Markdown rendering library\nurl = https://github.com/lebedenko/qmarkdown\nbuilddate = 1791823996\npackager = Unknown Packager\nsize = 1140781\narch = x86_64\nlicense = MIT\ndepend = glibc\ndepend = gcc-libs\ndepend = qt6-base>=6.12.0\ndepend = qt6-declarative>=6.12.0\nmakedepend = cmake\nmakedepend = ninja\ncheckdepend = python\ncheckdepend = git\ncheckdepend = noto-fonts\n",
+          "manifest": [
+            ".BUILDINFO",
+            ".MTREE",
+            ".PKGINFO",
+            "usr/",
+            "usr/lib/",
+            "usr/lib/cmake/",
+            "usr/lib/cmake/QMarkdown/",
+            "usr/lib/cmake/QMarkdown/QMarkdownConfig.cmake",
+            "usr/lib/cmake/QMarkdown/QMarkdownConfigVersion.cmake",
+            "usr/lib/cmake/QMarkdown/QMarkdownTargets-release.cmake",
+            "usr/lib/cmake/QMarkdown/QMarkdownTargets.cmake",
+            "usr/lib/libQMarkdown.so",
+            "usr/lib/libQMarkdown.so.1",
+            "usr/lib/libQMarkdown.so.1.2.0",
+            "usr/lib/qt6/",
+            "usr/lib/qt6/qml/",
+            "usr/lib/qt6/qml/QMarkdown/",
+            "usr/lib/qt6/qml/QMarkdown/MarkdownView.qml",
+            "usr/lib/qt6/qml/QMarkdown/Private/",
+            "usr/lib/qt6/qml/QMarkdown/Private/private.qmltypes",
+            "usr/lib/qt6/qml/QMarkdown/Private/qmldir",
+            "usr/lib/qt6/qml/QMarkdown/QMarkdown.qmltypes",
+            "usr/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so",
+            "usr/lib/qt6/qml/QMarkdown/qmldir",
+            "usr/share/",
+            "usr/share/licenses/",
+            "usr/share/licenses/qmarkdown/",
+            "usr/share/licenses/qmarkdown/LICENSE",
+            "usr/share/licenses/qmarkdown/cmark/",
+            "usr/share/licenses/qmarkdown/cmark/COPYING",
+            "usr/share/licenses/qmarkdown/cmark/PROVENANCE.md"
+          ],
+          "buildInfo": "format = 2\npkgname = qmarkdown\npkgbase = qmarkdown\npkgver = 1.2.0-1\npkgarch = x86_64\npkgbuild_sha256sum = 578c9a2c1472994ecf8712f50d84d53f3eeabda17e8acdbc48d79c751da714b2\npackager = Unknown Packager\nbuilddate = 1791823996\nbuilddir = /work\nstartdir = /work\nbuildtool = makepkg\nbuildtoolver = 7.1.0\nbuildenv = !distcc\nbuildenv = color\nbuildenv = !ccache\nbuildenv = check\nbuildenv = !sign\noptions = strip\noptions = docs\noptions = !libtool\noptions = !staticlibs\noptions = emptydirs\noptions = zipman\noptions = purge\noptions = debug\noptions = lto\ninstalled = acl-2.4.0-1-x86_64\ninstalled = archlinux-keyring-20260909-1-any\ninstalled = attr-2.6.0-1-x86_64\ninstalled = audit-4.2.1-1-x86_64\ninstalled = autoconf-2.73-1-any\ninstalled = automake-1.19-1-any\ninstalled = avahi-1:0.9rc5-1-x86_64\ninstalled = base-3-3-any\ninstalled = base-devel-1-2-any\ninstalled = bash-5.3.20-1-x86_64\ninstalled = binutils-2.47-4-x86_64\ninstalled = bison-3.8.2-8-x86_64\ninstalled = boost-libs-1.92.0-1-x86_64\ninstalled = brotli-1.2.0-1-x86_64\ninstalled = bzip2-1.0.8-6-x86_64\ninstalled = ca-certificates-20240618-1-any\ninstalled = ca-certificates-mozilla-3.131-1-x86_64\ninstalled = ca-certificates-utils-20240618-1-any\ninstalled = cmake-4.4.4-1-x86_64\ninstalled = coreutils-9.12-2-x86_64\ninstalled = cpio-2.15-3-x86_64\ninstalled = cppdap-1.58.0-3-x86_64\ninstalled = cryptsetup-2.8.8-1-x86_64\ninstalled = curl-8.22.0-1-x86_64\ninstalled = db5.3-5.3.28-7-x86_64\ninstalled = dbus-1.16.2-1-x86_64\ninstalled = dbus-broker-37-3-x86_64\ninstalled = dbus-broker-units-37-3-x86_64\ninstalled = dbus-units-37-3-x86_64\ninstalled = debugedit-5.3-2-x86_64\ninstalled = default-cursors-3-1-any\ninstalled = device-mapper-2.03.43-2-x86_64\ninstalled = diffutils-3.12-2-x86_64\ninstalled = double-conversion-3.4.0-1-x86_64\ninstalled = duktape-2.7.0-7-x86_64\ninstalled = e2fsprogs-1.47.4-1-x86_64\ninstalled = elfutils-0.196-1-x86_64\ninstalled = expat-2.9.0-1-x86_64\ninstalled = fakeroot-1:1.37.2-3-x86_64\ninstalled = file-5.48-1-x86_64\ninstalled = filesystem-2025.10.12-1-any\ninstalled = findutils-4.11.0-1-x86_64\ninstalled = flex-2.6.4-6-x86_64\ninstalled = fontconfig-2:2.18.3-2-x86_64\ninstalled = freetype2-2.14.3-1-x86_64\ninstalled = gawk-5.4.1-1-x86_64\ninstalled = gc-8.2.12-1-x86_64\ninstalled = gcc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = gcc-libs-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = gdb-18.1-1-x86_64\ninstalled = gdb-common-18.1-1-x86_64\ninstalled = gdbm-1.26-2-x86_64\ninstalled = gettext-1.0-2-x86_64\ninstalled = git-2.56.0-1-x86_64\ninstalled = glib2-2.90.1-1-x86_64\ninstalled = glibc-2.44+r50+g1848099f063e-1-x86_64\ninstalled = gmp-6.3.0-3-x86_64\ninstalled = gnulib-l10n-20241231-1-any\ninstalled = gnupg-2.4.9-3-x86_64\ninstalled = gnutls-3.8.13-3-x86_64\ninstalled = gpgme-2.2.0-1-x86_64\ninstalled = graphite-1:1.3.15-1-x86_64\ninstalled = grep-3.12-2-x86_64\ninstalled = groff-1.24.2-1-x86_64\ninstalled = guile-3.0.11-1-x86_64\ninstalled = gzip-1.15-1-x86_64\ninstalled = harfbuzz-14.6.0-1-x86_64\ninstalled = hicolor-icon-theme-0.18-1-any\ninstalled = hwdata-0.412-1-any\ninstalled = iana-etc-20260617-1-any\ninstalled = icu-78.3-1-x86_64\ninstalled = iproute2-7.2.0-1-x86_64\ninstalled = iptables-1:1.8.13-1-x86_64\ninstalled = iputils-20250605-1-x86_64\ninstalled = jansson-2.15.1-1-x86_64\ninstalled = json-c-0.19-1-x86_64\ninstalled = jsoncpp-1.9.8-1-x86_64\ninstalled = kbd-2.10.0-1-x86_64\ninstalled = keyutils-1.6.3-4-x86_64\ninstalled = kmod-34.2-1-x86_64\ninstalled = krb5-1.22.2-1-x86_64\ninstalled = leancrypto-1.9.1-1-x86_64\ninstalled = libarchive-3.8.9-1-x86_64\ninstalled = libasan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libassuan-3.0.0-1-x86_64\ninstalled = libatomic-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libb2-0.98.1-3-x86_64\ninstalled = libbpf-1.7.0-1-x86_64\ninstalled = libcap-2.78-1-x86_64\ninstalled = libcap-ng-0.9.6-1-x86_64\ninstalled = libcups-2:2.4.20-1-x86_64\ninstalled = libdaemon-0.14-6-x86_64\ninstalled = libdrm-2.4.134-1-x86_64\ninstalled = libedit-20260512_3.1-1-x86_64\ninstalled = libelf-0.196-1-x86_64\ninstalled = libevdev-1.14.0-1-x86_64\ninstalled = libevent-2.1.13-2-x86_64\ninstalled = libffi-3.8.0-1-x86_64\ninstalled = libgcc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libgcrypt-1.12.4-1-x86_64\ninstalled = libgfortran-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libglvnd-1.7.0-3-x86_64\ninstalled = libgomp-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libgpg-error-1.61-1-x86_64\ninstalled = libgudev-238-3-x86_64\ninstalled = libhwasan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libice-1.1.2-1-x86_64\ninstalled = libidn2-2.3.8-1-x86_64\ninstalled = libinput-1.32.0-1-x86_64\ninstalled = libisl-0.28-1-x86_64\ninstalled = libjpeg-turbo-3.2.0-2-x86_64\ninstalled = libksba-1.8.1-1-x86_64\ninstalled = libldap-2.7.1-1-x86_64\ninstalled = liblsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libmakepkg-dropins-20-2-any\ninstalled = libmnl-1.0.5-2-x86_64\ninstalled = libmpc-1.4.1-1-x86_64\ninstalled = libnetfilter_conntrack-1.1.1-1-x86_64\ninstalled = libnfnetlink-1.0.2-2-x86_64\ninstalled = libnftnl-1.3.2-1-x86_64\ninstalled = libnghttp2-1.70.0-1-x86_64\ninstalled = libnghttp3-1.18.0-1-x86_64\ninstalled = libngtcp2-1.25.0-1-x86_64\ninstalled = libnl-3.12.0-1-x86_64\ninstalled = libnsl-2.0.1-2-x86_64\ninstalled = libobjc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libp11-kit-0.26.5-1-x86_64\ninstalled = libpcap-1.11.0-1-x86_64\ninstalled = libpciaccess-0.19-1-x86_64\ninstalled = libpng-1.6.59-1-x86_64\ninstalled = libproxy-0.5.12-1-x86_64\ninstalled = libpsl-0.21.5-2-x86_64\ninstalled = libquadmath-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libsasl-2.1.28-5-x86_64\ninstalled = libseccomp-2.6.0-1-x86_64\ninstalled = libsecret-0.21.8.2-1-x86_64\ninstalled = libsm-1.2.6-1-x86_64\ninstalled = libssh2-1.11.1-7-x86_64\ninstalled = libstdc++-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libsysprof-capture-51.0-1-x86_64\ninstalled = libtasn1-4.21.0-1-x86_64\ninstalled = libtirpc-1.3.8-1-x86_64\ninstalled = libtool-2.6.2-5-x86_64\ninstalled = libtsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libubsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libunistring-1.4.2-1-x86_64\ninstalled = liburing-2.15-1-x86_64\ninstalled = libusb-1.0.30-1-x86_64\ninstalled = libuv-1.52.1-2-x86_64\ninstalled = libverto-0.3.2-6-x86_64\ninstalled = libwacom-2.20.0-1-x86_64\ninstalled = libx11-1.8.13-2-x86_64\ninstalled = libxau-1.0.12-1-x86_64\ninstalled = libxcb-1.17.0-1-x86_64\ninstalled = libxcrypt-4.5.2-1-x86_64\ninstalled = libxdmcp-1.1.5-2-x86_64\ninstalled = libxext-1.3.7-1-x86_64\ninstalled = libxkbcommon-1.13.2-1-x86_64\ninstalled = libxkbcommon-x11-1.13.2-1-x86_64\ninstalled = libxml2-2.15.4-1-x86_64\ninstalled = libxshmfence-1.3.3-1-x86_64\ninstalled = libxxf86vm-1.1.7-1-x86_64\ninstalled = licenses-20240728-1-any\ninstalled = linux-api-headers-7.2-1-x86_64\ninstalled = llvm-libs-23.1.1-1-x86_64\ninstalled = lm_sensors-1:3.6.2-1-x86_64\ninstalled = lmdb-0.9.35-1-x86_64\ninstalled = lua54-5.4.9-1-x86_64\ninstalled = lz4-1:1.10.0-2-x86_64\ninstalled = m4-1.4.21-2-x86_64\ninstalled = make-4.4.1-3-x86_64\ninstalled = md4c-0.6.0-2-x86_64\ninstalled = mesa-1:26.2.4-1-x86_64\ninstalled = mpdecimal-4.0.1-3-x86_64\ninstalled = mpfr-4.2.2-1-x86_64\ninstalled = mtdev-1.1.7-1-x86_64\ninstalled = ncurses-6.6-2-x86_64\ninstalled = nettle-4.0-1-x86_64\ninstalled = nftables-1:1.1.7-3-x86_64\ninstalled = ninja-1.13.2-3-x86_64\ninstalled = noto-fonts-1:2026.10.01-1-any\ninstalled = npth-1.8-1-x86_64\ninstalled = openssl-3.6.5-1-x86_64\ninstalled = p11-kit-0.26.5-1-x86_64\ninstalled = pacman-7.1.0.r9.g54d9411-2-x86_64\ninstalled = pacman-mirrorlist-20260610-1-any\ninstalled = pam-1.7.3-1-x86_64\ninstalled = pambase-20260616-1-any\ninstalled = patch-2.8-1-x86_64\ninstalled = pciutils-3.15.0-1-x86_64\ninstalled = pcre2-10.49-1-x86_64\ninstalled = perl-5.42.3-1-x86_64\ninstalled = perl-error-0.17030-3-any\ninstalled = perl-mailtools-2.22-3-any\ninstalled = perl-timedate-2.35-1-any\ninstalled = pinentry-1.3.3-1-x86_64\ninstalled = pkgconf-3.0.7-1-x86_64\ninstalled = popt-1.19-2-x86_64\ninstalled = procps-ng-4.0.7-1-x86_64\ninstalled = psmisc-23.7-2-x86_64\ninstalled = python-3.14.8-1-x86_64\ninstalled = qt6-base-6.12.0-2-x86_64\ninstalled = qt6-declarative-6.12.0-1-x86_64\ninstalled = qt6-translations-6.12.0-1-any\ninstalled = readline-8.3.6-1-x86_64\ninstalled = rhash-1.4.6-1-x86_64\ninstalled = sed-4.10-2-x86_64\ninstalled = shadow-4.20.0.arch1-1-x86_64\ninstalled = shared-mime-info-2.5.1-2-x86_64\ninstalled = source-highlight-3.1.9-19-x86_64\ninstalled = spirv-tools-1:1.4.363.0-1-x86_64\ninstalled = sqlite-3.54.0-1-x86_64\ninstalled = sudo-1.9.17.p2-6-x86_64\ninstalled = systemd-262-1-x86_64\ninstalled = systemd-libs-262-1-x86_64\ninstalled = systemd-sysvcompat-262-1-x86_64\ninstalled = tar-1.35-5-x86_64\ninstalled = texinfo-7.3-1-x86_64\ninstalled = tpm2-tss-4.2.0-2-x86_64\ninstalled = tslib-1.24-1-x86_64\ninstalled = tzdata-2026e-1-x86_64\ninstalled = util-linux-2.42.4-1-x86_64\ninstalled = util-linux-libs-2.42.4-1-x86_64\ninstalled = wayland-1.26.0-1-x86_64\ninstalled = which-2.25-1-x86_64\ninstalled = xcb-proto-1.17.0-4-any\ninstalled = xcb-util-0.4.1-2-x86_64\ninstalled = xcb-util-cursor-0.1.6-1-x86_64\ninstalled = xcb-util-image-0.4.1-3-x86_64\ninstalled = xcb-util-keysyms-0.4.1-5-x86_64\ninstalled = xcb-util-renderutil-0.3.10-2-x86_64\ninstalled = xcb-util-wm-0.4.2-2-x86_64\ninstalled = xdg-utils-1.2.1-2-any\ninstalled = xkeyboard-config-2.48-1-any\ninstalled = xorgproto-2026.1-1-any\ninstalled = xxhash-0.8.4-1-x86_64\ninstalled = xz-5.8.4-1-x86_64\ninstalled = zlib-1:1.3.2-3-x86_64\ninstalled = zlib-ng-2.3.3-1-x86_64\ninstalled = zstd-1.5.7-3-x86_64\n"
+        }
+      },
+      "archEnvironment": {
+        "sourceCommit": "a3752b1409726ab7cd12b7c5039e6e3790025c5b",
+        "version": "1.2.0",
+        "pkgrel": "1",
+        "sourceSha256": "f8b475f1b733aa74da35c093d36be3d823261a8e2963228aa3d0673a409db643",
+        "imageId": "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+        "repoDigests": [
+          "archlinux@sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd"
+        ],
+        "architecture": "amd64",
+        "toolingSha256": {
+          "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356",
+          "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+          "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+          "verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c"
+        }
+      },
+      "runtimeImages": {
+        "6.8.0": {
+          "IMAGE_METADATA": "{\n  \"buildx.build.provenance\": {\n    \"builder\": {\n      \"id\": \"\"\n    },\n    \"buildType\": \"https://mobyproject.org/buildkit@v1\",\n    \"materials\": [\n      {\n        \"uri\": \"pkg:docker/ubuntu@24.04?digest=sha256:f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b&platform=linux%2Famd64\",\n        \"digest\": {\n          \"sha256\": \"f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b\"\n        }\n      }\n    ],\n    \"invocation\": {\n      \"configSource\": {\n        \"entryPoint\": \"Dockerfile\"\n      },\n      \"parameters\": {\n        \"frontend\": \"dockerfile.v0\",\n        \"args\": {\n          \"build-arg:CI_QT_VERSION\": \"6.8.0\"\n        },\n        \"locals\": [\n          {\n            \"name\": \"context\"\n          },\n          {\n            \"name\": \"dockerfile\"\n          }\n        ],\n        \"root\": {\n          \"configSource\": {\n            \"path\": \"Dockerfile\"\n          },\n          \"request\": {\n            \"args\": {\n              \"build-arg:CI_QT_VERSION\": \"6.8.0\",\n              \"vcs:localdir:context\": \"scripts/ci-toolchain\",\n              \"vcs:localdir:dockerfile\": \"scripts/ci-toolchain\",\n              \"vcs:revision\": \"a3752b1409726ab7cd12b7c5039e6e3790025c5b\",\n              \"vcs:source\": \"https://github.com/lebedenko/qmarkdown\"\n            }\n          }\n        },\n        \"compatibilityVersion\": 30\n      },\n      \"environment\": {\n        \"dockerfileVersion\": \"1.27.0\",\n        \"github_actor\": \"lebedenko\",\n        \"github_actor_id\": \"437715\",\n        \"github_event_name\": \"workflow_dispatch\",\n        \"github_event_payload\": {\n          \"inputs\": null,\n          \"ref\": \"refs/heads/feat/code-block-copy-actions\",\n          \"repository\": {\n            \"allow_forking\": true,\n            \"archive_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/{archive_format}{/ref}\",\n            \"archived\": false,\n            \"assignees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/assignees{/user}\",\n            \"blobs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/blobs{/sha}\",\n            \"branches_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/branches{/branch}\",\n            \"clone_url\": \"https://github.com/lebedenko/qmarkdown.git\",\n            \"collaborators_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/collaborators{/collaborator}\",\n            \"comments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/comments{/number}\",\n            \"commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/commits{/sha}\",\n            \"compare_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/compare/{base}...{head}\",\n            \"contents_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contents/{+path}\",\n            \"contributors_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contributors\",\n            \"created_at\": \"2026-10-07T19:15:58Z\",\n            \"default_branch\": \"main\",\n            \"deployments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/deployments\",\n            \"description\": null,\n            \"disabled\": false,\n            \"downloads_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/downloads\",\n            \"events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/events\",\n            \"fork\": false,\n            \"forks\": 0,\n            \"forks_count\": 0,\n            \"forks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/forks\",\n            \"full_name\": \"lebedenko/qmarkdown\",\n            \"git_commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/commits{/sha}\",\n            \"git_refs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/refs{/sha}\",\n            \"git_tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/tags{/sha}\",\n            \"git_url\": \"git://github.com/lebedenko/qmarkdown.git\",\n            \"has_discussions\": false,\n            \"has_downloads\": false,\n            \"has_issues\": true,\n            \"has_pages\": false,\n            \"has_projects\": true,\n            \"has_pull_requests\": true,\n            \"has_wiki\": true,\n            \"homepage\": null,\n            \"hooks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/hooks\",\n            \"html_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"id\": 1409264526,\n            \"is_template\": false,\n            \"issue_comment_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/comments{/number}\",\n            \"issue_events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/events{/number}\",\n            \"issues_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues{/number}\",\n            \"keys_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/keys{/key_id}\",\n            \"labels_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/labels{/name}\",\n            \"language\": \"C++\",\n            \"languages_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/languages\",\n            \"license\": {\n              \"key\": \"mit\",\n              \"name\": \"MIT License\",\n              \"node_id\": \"MDc6TGljZW5zZTEz\",\n              \"spdx_id\": \"MIT\",\n              \"url\": \"https://api.github.com/licenses/mit\"\n            },\n            \"merges_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/merges\",\n            \"milestones_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/milestones{/number}\",\n            \"mirror_url\": null,\n            \"name\": \"qmarkdown\",\n            \"node_id\": \"R_kgDOU_-rjg\",\n            \"notifications_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/notifications{?since,all,participating}\",\n            \"open_issues\": 1,\n            \"open_issues_count\": 1,\n            \"owner\": {\n              \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n              \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n              \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n              \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n              \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n              \"gravatar_id\": \"\",\n              \"html_url\": \"https://github.com/lebedenko\",\n              \"id\": 437715,\n              \"login\": \"lebedenko\",\n              \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n              \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n              \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n              \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n              \"site_admin\": false,\n              \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n              \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n              \"type\": \"User\",\n              \"url\": \"https://api.github.com/users/lebedenko\",\n              \"user_view_type\": \"public\"\n            },\n            \"private\": false,\n            \"pull_request_creation_policy\": \"all\",\n            \"pulls_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/pulls{/number}\",\n            \"pushed_at\": \"2026-10-12T16:52:33Z\",\n            \"releases_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/releases{/id}\",\n            \"size\": 1858,\n            \"ssh_url\": \"git@github.com:lebedenko/qmarkdown.git\",\n            \"stargazers_count\": 0,\n            \"stargazers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/stargazers\",\n            \"statuses_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/statuses/{sha}\",\n            \"subscribers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscribers\",\n            \"subscription_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscription\",\n            \"svn_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/tags\",\n            \"teams_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/teams\",\n            \"topics\": [],\n            \"trees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/trees{/sha}\",\n            \"updated_at\": \"2026-10-12T16:45:25Z\",\n            \"url\": \"https://api.github.com/repos/lebedenko/qmarkdown\",\n            \"visibility\": \"public\",\n            \"watchers\": 0,\n            \"watchers_count\": 0,\n            \"web_commit_signoff_required\": false\n          },\n          \"sender\": {\n            \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n            \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n            \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n            \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n            \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n            \"gravatar_id\": \"\",\n            \"html_url\": \"https://github.com/lebedenko\",\n            \"id\": 437715,\n            \"login\": \"lebedenko\",\n            \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n            \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n            \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n            \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n            \"site_admin\": false,\n            \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n            \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n            \"type\": \"User\",\n            \"url\": \"https://api.github.com/users/lebedenko\",\n            \"user_view_type\": \"public\"\n          },\n          \"workflow\": \".github/workflows/release.yml\"\n        },\n        \"github_job\": \"binary-compatibility\",\n        \"github_ref\": \"refs/heads/feat/code-block-copy-actions\",\n        \"github_ref_name\": \"feat/code-block-copy-actions\",\n        \"github_ref_protected\": \"false\",\n        \"github_ref_type\": \"branch\",\n        \"github_repository\": \"lebedenko/qmarkdown\",\n        \"github_repository_id\": \"1409264526\",\n        \"github_repository_owner\": \"lebedenko\",\n        \"github_repository_owner_id\": \"437715\",\n        \"github_run_attempt\": \"1\",\n        \"github_run_id\": \"38280434770\",\n        \"github_run_number\": \"11\",\n        \"github_runner_arch\": \"X64\",\n        \"github_runner_environment\": \"github-hosted\",\n        \"github_runner_image_os\": \"ubuntu24\",\n        \"github_runner_image_version\": \"20261004.327.1\",\n        \"github_runner_name\": \"GitHub Actions 1000002513\",\n        \"github_runner_os\": \"Linux\",\n        \"github_runner_tracking_id\": \"github_bc46d954-d2ac-4b0c-b903-5445c7e9b569\",\n        \"github_server_url\": \"https://github.com\",\n        \"github_triggering_actor\": \"lebedenko\",\n        \"github_workflow\": \"Stable release package\",\n        \"github_workflow_ref\": \"lebedenko/qmarkdown/.github/workflows/release.yml@refs/heads/feat/code-block-copy-actions\",\n        \"github_workflow_sha\": \"a3752b1409726ab7cd12b7c5039e6e3790025c5b\",\n        \"platform\": \"linux/amd64\"\n      }\n    }\n  },\n  \"buildx.build.ref\": \"builder-f7d15e2d-8330-4cde-aec9-14226368673f/builder-f7d15e2d-8330-4cde-aec9-14226368673f0/6zo07zwvi4oto7sfaqwj4nr73\",\n  \"containerimage.config.digest\": \"sha256:cdea43fd3e656d7fb4d15a5e7d70645f71cada8aa956a9de10358e56ac11ff37\",\n  \"containerimage.descriptor\": {\n    \"mediaType\": \"application/vnd.oci.image.manifest.v1+json\",\n    \"digest\": \"sha256:44b92e4665cd8d44eab5f832e4457716bb9efd3aec2814c9cd814e2bab28d048\",\n    \"size\": 1247,\n    \"annotations\": {\n      \"org.opencontainers.image.created\": \"2026-10-12T17:01:19Z\"\n    },\n    \"platform\": {\n      \"architecture\": \"amd64\",\n      \"os\": \"linux\"\n    }\n  },\n  \"containerimage.digest\": \"sha256:44b92e4665cd8d44eab5f832e4457716bb9efd3aec2814c9cd814e2bab28d048\",\n  \"image.name\": \"docker.io/library/qmarkdown-ci:6.8.0-amd64-f3fde433f7ade39fa1df99a5fc0ac1e65db28ae0e3170ae12266e0334d807c8e\"\n}",
+          "IMAGE_ID": "sha256:cdea43fd3e656d7fb4d15a5e7d70645f71cada8aa956a9de10358e56ac11ff37",
+          "IMAGE_OUTCOME": "success",
+          "preparationSeconds": 76.06
+        },
+        "6.12.0": {
+          "IMAGE_METADATA": "{\n  \"buildx.build.provenance\": {\n    \"builder\": {\n      \"id\": \"\"\n    },\n    \"buildType\": \"https://mobyproject.org/buildkit@v1\",\n    \"materials\": [\n      {\n        \"uri\": \"pkg:docker/ubuntu@24.04?digest=sha256:f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b&platform=linux%2Famd64\",\n        \"digest\": {\n          \"sha256\": \"f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b\"\n        }\n      }\n    ],\n    \"invocation\": {\n      \"configSource\": {\n        \"entryPoint\": \"Dockerfile\"\n      },\n      \"parameters\": {\n        \"frontend\": \"dockerfile.v0\",\n        \"args\": {\n          \"build-arg:CI_QT_VERSION\": \"6.12.0\"\n        },\n        \"locals\": [\n          {\n            \"name\": \"context\"\n          },\n          {\n            \"name\": \"dockerfile\"\n          }\n        ],\n        \"root\": {\n          \"configSource\": {\n            \"path\": \"Dockerfile\"\n          },\n          \"request\": {\n            \"args\": {\n              \"build-arg:CI_QT_VERSION\": \"6.12.0\",\n              \"vcs:localdir:context\": \"scripts/ci-toolchain\",\n              \"vcs:localdir:dockerfile\": \"scripts/ci-toolchain\",\n              \"vcs:revision\": \"a3752b1409726ab7cd12b7c5039e6e3790025c5b\",\n              \"vcs:source\": \"https://github.com/lebedenko/qmarkdown\"\n            }\n          }\n        },\n        \"compatibilityVersion\": 30\n      },\n      \"environment\": {\n        \"dockerfileVersion\": \"1.27.0\",\n        \"github_actor\": \"lebedenko\",\n        \"github_actor_id\": \"437715\",\n        \"github_event_name\": \"workflow_dispatch\",\n        \"github_event_payload\": {\n          \"inputs\": null,\n          \"ref\": \"refs/heads/feat/code-block-copy-actions\",\n          \"repository\": {\n            \"allow_forking\": true,\n            \"archive_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/{archive_format}{/ref}\",\n            \"archived\": false,\n            \"assignees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/assignees{/user}\",\n            \"blobs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/blobs{/sha}\",\n            \"branches_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/branches{/branch}\",\n            \"clone_url\": \"https://github.com/lebedenko/qmarkdown.git\",\n            \"collaborators_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/collaborators{/collaborator}\",\n            \"comments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/comments{/number}\",\n            \"commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/commits{/sha}\",\n            \"compare_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/compare/{base}...{head}\",\n            \"contents_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contents/{+path}\",\n            \"contributors_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contributors\",\n            \"created_at\": \"2026-10-07T19:15:58Z\",\n            \"default_branch\": \"main\",\n            \"deployments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/deployments\",\n            \"description\": null,\n            \"disabled\": false,\n            \"downloads_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/downloads\",\n            \"events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/events\",\n            \"fork\": false,\n            \"forks\": 0,\n            \"forks_count\": 0,\n            \"forks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/forks\",\n            \"full_name\": \"lebedenko/qmarkdown\",\n            \"git_commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/commits{/sha}\",\n            \"git_refs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/refs{/sha}\",\n            \"git_tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/tags{/sha}\",\n            \"git_url\": \"git://github.com/lebedenko/qmarkdown.git\",\n            \"has_discussions\": false,\n            \"has_downloads\": false,\n            \"has_issues\": true,\n            \"has_pages\": false,\n            \"has_projects\": true,\n            \"has_pull_requests\": true,\n            \"has_wiki\": true,\n            \"homepage\": null,\n            \"hooks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/hooks\",\n            \"html_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"id\": 1409264526,\n            \"is_template\": false,\n            \"issue_comment_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/comments{/number}\",\n            \"issue_events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/events{/number}\",\n            \"issues_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues{/number}\",\n            \"keys_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/keys{/key_id}\",\n            \"labels_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/labels{/name}\",\n            \"language\": \"C++\",\n            \"languages_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/languages\",\n            \"license\": {\n              \"key\": \"mit\",\n              \"name\": \"MIT License\",\n              \"node_id\": \"MDc6TGljZW5zZTEz\",\n              \"spdx_id\": \"MIT\",\n              \"url\": \"https://api.github.com/licenses/mit\"\n            },\n            \"merges_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/merges\",\n            \"milestones_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/milestones{/number}\",\n            \"mirror_url\": null,\n            \"name\": \"qmarkdown\",\n            \"node_id\": \"R_kgDOU_-rjg\",\n            \"notifications_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/notifications{?since,all,participating}\",\n            \"open_issues\": 1,\n            \"open_issues_count\": 1,\n            \"owner\": {\n              \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n              \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n              \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n              \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n              \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n              \"gravatar_id\": \"\",\n              \"html_url\": \"https://github.com/lebedenko\",\n              \"id\": 437715,\n              \"login\": \"lebedenko\",\n              \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n              \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n              \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n              \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n              \"site_admin\": false,\n              \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n              \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n              \"type\": \"User\",\n              \"url\": \"https://api.github.com/users/lebedenko\",\n              \"user_view_type\": \"public\"\n            },\n            \"private\": false,\n            \"pull_request_creation_policy\": \"all\",\n            \"pulls_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/pulls{/number}\",\n            \"pushed_at\": \"2026-10-12T16:52:33Z\",\n            \"releases_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/releases{/id}\",\n            \"size\": 1858,\n            \"ssh_url\": \"git@github.com:lebedenko/qmarkdown.git\",\n            \"stargazers_count\": 0,\n            \"stargazers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/stargazers\",\n            \"statuses_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/statuses/{sha}\",\n            \"subscribers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscribers\",\n            \"subscription_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscription\",\n            \"svn_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/tags\",\n            \"teams_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/teams\",\n            \"topics\": [],\n            \"trees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/trees{/sha}\",\n            \"updated_at\": \"2026-10-12T16:45:25Z\",\n            \"url\": \"https://api.github.com/repos/lebedenko/qmarkdown\",\n            \"visibility\": \"public\",\n            \"watchers\": 0,\n            \"watchers_count\": 0,\n            \"web_commit_signoff_required\": false\n          },\n          \"sender\": {\n            \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n            \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n            \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n            \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n            \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n            \"gravatar_id\": \"\",\n            \"html_url\": \"https://github.com/lebedenko\",\n            \"id\": 437715,\n            \"login\": \"lebedenko\",\n            \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n            \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n            \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n            \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n            \"site_admin\": false,\n            \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n            \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n            \"type\": \"User\",\n            \"url\": \"https://api.github.com/users/lebedenko\",\n            \"user_view_type\": \"public\"\n          },\n          \"workflow\": \".github/workflows/release.yml\"\n        },\n        \"github_job\": \"binary-compatibility\",\n        \"github_ref\": \"refs/heads/feat/code-block-copy-actions\",\n        \"github_ref_name\": \"feat/code-block-copy-actions\",\n        \"github_ref_protected\": \"false\",\n        \"github_ref_type\": \"branch\",\n        \"github_repository\": \"lebedenko/qmarkdown\",\n        \"github_repository_id\": \"1409264526\",\n        \"github_repository_owner\": \"lebedenko\",\n        \"github_repository_owner_id\": \"437715\",\n        \"github_run_attempt\": \"1\",\n        \"github_run_id\": \"38280434770\",\n        \"github_run_number\": \"11\",\n        \"github_runner_arch\": \"X64\",\n        \"github_runner_environment\": \"github-hosted\",\n        \"github_runner_image_os\": \"ubuntu24\",\n        \"github_runner_image_version\": \"20261004.327.1\",\n        \"github_runner_name\": \"GitHub Actions 1000002512\",\n        \"github_runner_os\": \"Linux\",\n        \"github_runner_tracking_id\": \"github_beb509f4-f408-4a28-9deb-a9d2a6fe66a0\",\n        \"github_server_url\": \"https://github.com\",\n        \"github_triggering_actor\": \"lebedenko\",\n        \"github_workflow\": \"Stable release package\",\n        \"github_workflow_ref\": \"lebedenko/qmarkdown/.github/workflows/release.yml@refs/heads/feat/code-block-copy-actions\",\n        \"github_workflow_sha\": \"a3752b1409726ab7cd12b7c5039e6e3790025c5b\",\n        \"platform\": \"linux/amd64\"\n      }\n    }\n  },\n  \"buildx.build.ref\": \"builder-1f391d53-9a09-48a3-a5a6-a72789c046eb/builder-1f391d53-9a09-48a3-a5a6-a72789c046eb0/2itxloh9ywyr3r43sgg3mh633\",\n  \"containerimage.config.digest\": \"sha256:dc98bcd7cc6628dc6f897ab2e51cc5547783c69e667dc755f31d618bc3c6fd70\",\n  \"containerimage.descriptor\": {\n    \"mediaType\": \"application/vnd.oci.image.manifest.v1+json\",\n    \"digest\": \"sha256:24cefef1436cc06d6a4e3e6e4efce0644076a6fcda6b7f4dfa30fd6a35c9f910\",\n    \"size\": 1247,\n    \"annotations\": {\n      \"org.opencontainers.image.created\": \"2026-10-12T17:01:44Z\"\n    },\n    \"platform\": {\n      \"architecture\": \"amd64\",\n      \"os\": \"linux\"\n    }\n  },\n  \"containerimage.digest\": \"sha256:24cefef1436cc06d6a4e3e6e4efce0644076a6fcda6b7f4dfa30fd6a35c9f910\",\n  \"image.name\": \"docker.io/library/qmarkdown-ci:6.12.0-amd64-08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1\"\n}",
+          "IMAGE_ID": "sha256:dc98bcd7cc6628dc6f897ab2e51cc5547783c69e667dc755f31d618bc3c6fd70",
+          "IMAGE_OUTCOME": "success",
+          "preparationSeconds": 88.296
+        }
+      },
+      "assertions": [
+        "workflow SHA matches",
+        "all jobs pass; upload skipped",
+        "distribution hashes match checksum companions",
+        "Ubuntu manifest hashes match",
+        "identical minimum-built Ubuntu archive files on both runtimes",
+        "package versions/source identities match",
+        "Arch source recipe/helper hashes match commit",
+        "six Arch consumers and ownership/upgrade/removal lifecycle passed",
+        "Ubuntu staged/real consumers/install/removal passed on both runtimes"
+      ]
+    },
+    "main": {
+      "sha": "a65f537e5b2134e026bf328a1ec4a307c48588ef",
+      "runs": {
+        "ci": {
+          "conclusion": "success",
+          "headSha": "a65f537e5b2134e026bf328a1ec4a307c48588ef",
+          "jobs": [
+            {
+              "completedAt": "2026-10-12T17:10:42Z",
+              "conclusion": "success",
+              "databaseId": 114922790902,
+              "name": "targets",
+              "startedAt": "2026-10-12T17:10:38Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:10:39Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:10:38Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:40Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:10:39Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:40Z",
+                  "conclusion": "success",
+                  "name": "Run echo \"matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)\" >> \"$GITHUB_OUTPUT\"",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:10:40Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:40Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:10:40Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:40Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:10:40Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282469583/job/114922790902"
+            },
+            {
+              "completedAt": "2026-10-12T17:16:38Z",
+              "conclusion": "success",
+              "databaseId": 114922827938,
+              "name": "packaging (development)",
+              "startedAt": "2026-10-12T17:10:44Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:10:46Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:10:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:47Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:10:46Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:47Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:10:47Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:00Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:10:47Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:46Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:11:00Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:46Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:11:46Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:16:34Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:11:46Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:16:34Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:16:34Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:16:35Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 14,
+                  "startedAt": "2026-10-12T17:16:34Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:16:36Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 15,
+                  "startedAt": "2026-10-12T17:16:35Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:16:36Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 16,
+                  "startedAt": "2026-10-12T17:16:36Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:16:36Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 17,
+                  "startedAt": "2026-10-12T17:16:36Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282469583/job/114922827938"
+            },
+            {
+              "completedAt": "2026-10-12T17:17:19Z",
+              "conclusion": "success",
+              "databaseId": 114922828051,
+              "name": "packaging (minimum)",
+              "startedAt": "2026-10-12T17:10:45Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:10:48Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:10:45Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:51Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:10:48Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:51Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:10:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:07Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:10:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:52Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:11:07Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:52Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:11:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:13Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:11:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:13Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:17:13Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:15Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 14,
+                  "startedAt": "2026-10-12T17:17:13Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:16Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 15,
+                  "startedAt": "2026-10-12T17:17:15Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:16Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 16,
+                  "startedAt": "2026-10-12T17:17:16Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:16Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 17,
+                  "startedAt": "2026-10-12T17:17:16Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282469583/job/114922828051"
+            }
+          ],
+          "status": "completed",
+          "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282469583"
+        },
+        "release": {
+          "conclusion": "success",
+          "headSha": "a65f537e5b2134e026bf328a1ec4a307c48588ef",
+          "jobs": [
+            {
+              "completedAt": "2026-10-12T17:13:44Z",
+              "conclusion": "success",
+              "databaseId": 114922813033,
+              "name": "arch",
+              "startedAt": "2026-10-12T17:10:42Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:10:43Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:10:42Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:44Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:10:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:13:39Z",
+                  "conclusion": "success",
+                  "name": "Build and verify Arch package in disposable containers",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:10:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:13:41Z",
+                  "conclusion": "success",
+                  "name": "Retain Arch verification evidence",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:13:39Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:13:42Z",
+                  "conclusion": "success",
+                  "name": "Retain verified Arch package",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:13:41Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:13:42Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 10,
+                  "startedAt": "2026-10-12T17:13:42Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:13:42Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 11,
+                  "startedAt": "2026-10-12T17:13:42Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700/job/114922813033"
+            },
+            {
+              "completedAt": "2026-10-12T17:10:46Z",
+              "conclusion": "success",
+              "databaseId": 114922813234,
+              "name": "targets",
+              "startedAt": "2026-10-12T17:10:42Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:10:43Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:10:42Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:44Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:10:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:44Z",
+                  "conclusion": "success",
+                  "name": "Run echo \"matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)\" >> \"$GITHUB_OUTPUT\"",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:10:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:44Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:10:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:44Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:10:44Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700/job/114922813234"
+            },
+            {
+              "completedAt": "2026-10-12T17:17:25Z",
+              "conclusion": "success",
+              "databaseId": 114922850413,
+              "name": "build (minimum, 6.8.0)",
+              "startedAt": "2026-10-12T17:10:48Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:10:52Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:10:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:54Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:10:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:54Z",
+                  "conclusion": "success",
+                  "name": "Validate release source",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:10:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:54Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:10:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:06Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:10:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:59Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:11:06Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:59Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:11:59Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:18Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:11:59Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:18Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T17:17:18Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:19Z",
+                  "conclusion": "success",
+                  "name": "Retain verified package",
+                  "number": 10,
+                  "startedAt": "2026-10-12T17:17:18Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:20Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 18,
+                  "startedAt": "2026-10-12T17:17:19Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:21Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 19,
+                  "startedAt": "2026-10-12T17:17:20Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:22Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 20,
+                  "startedAt": "2026-10-12T17:17:21Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:17:22Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 21,
+                  "startedAt": "2026-10-12T17:17:22Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700/job/114922850413"
+            },
+            {
+              "completedAt": "2026-10-12T17:18:46Z",
+              "conclusion": "success",
+              "databaseId": 114922850478,
+              "name": "build (development, 6.12.0)",
+              "startedAt": "2026-10-12T17:10:48Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:10:50Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:10:48Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:51Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:10:50Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:51Z",
+                  "conclusion": "success",
+                  "name": "Validate release source",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:10:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:51Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:10:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:10:58Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:10:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:41Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:10:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:11:41Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:11:41Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:42Z",
+                  "conclusion": "success",
+                  "name": "Ubuntu container packaging and benchmark smoke",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:11:41Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:42Z",
+                  "conclusion": "skipped",
+                  "name": "Retain failure evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T17:18:42Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:43Z",
+                  "conclusion": "success",
+                  "name": "Retain verified package",
+                  "number": 10,
+                  "startedAt": "2026-10-12T17:18:42Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:44Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 18,
+                  "startedAt": "2026-10-12T17:18:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:44Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 19,
+                  "startedAt": "2026-10-12T17:18:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:45Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 20,
+                  "startedAt": "2026-10-12T17:18:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:45Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 21,
+                  "startedAt": "2026-10-12T17:18:45Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700/job/114922850478"
+            },
+            {
+              "completedAt": "2026-10-12T17:20:55Z",
+              "conclusion": "success",
+              "databaseId": 114925727782,
+              "name": "binary-compatibility (development, 6.12.0)",
+              "startedAt": "2026-10-12T17:18:48Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:18:51Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:18:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:52Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:18:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:53Z",
+                  "conclusion": "success",
+                  "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:18:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:53Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:18:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:19:00Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:18:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:19:57Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:19:00Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:19:57Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:19:57Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:47Z",
+                  "conclusion": "success",
+                  "name": "Consume the Qt 6.8 binary in a disposable container",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:19:57Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:49Z",
+                  "conclusion": "success",
+                  "name": "Retain binary verification evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T17:20:47Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:51Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 16,
+                  "startedAt": "2026-10-12T17:20:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:52Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 17,
+                  "startedAt": "2026-10-12T17:20:51Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:52Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 18,
+                  "startedAt": "2026-10-12T17:20:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:52Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 19,
+                  "startedAt": "2026-10-12T17:20:52Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700/job/114925727782"
+            },
+            {
+              "completedAt": "2026-10-12T17:20:29Z",
+              "conclusion": "success",
+              "databaseId": 114925727975,
+              "name": "binary-compatibility (minimum, 6.8.0)",
+              "startedAt": "2026-10-12T17:18:48Z",
+              "status": "completed",
+              "steps": [
+                {
+                  "completedAt": "2026-10-12T17:18:53Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-12T17:18:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:54Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 2,
+                  "startedAt": "2026-10-12T17:18:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:55Z",
+                  "conclusion": "success",
+                  "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+                  "number": 3,
+                  "startedAt": "2026-10-12T17:18:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:18:55Z",
+                  "conclusion": "success",
+                  "name": "Resolve toolchain identity",
+                  "number": 4,
+                  "startedAt": "2026-10-12T17:18:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:19:01Z",
+                  "conclusion": "success",
+                  "name": "Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 5,
+                  "startedAt": "2026-10-12T17:18:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:19:39Z",
+                  "conclusion": "success",
+                  "name": "Prepare toolchain image",
+                  "number": 6,
+                  "startedAt": "2026-10-12T17:19:01Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:19:40Z",
+                  "conclusion": "success",
+                  "name": "Record hosted image preparation",
+                  "number": 7,
+                  "startedAt": "2026-10-12T17:19:39Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:22Z",
+                  "conclusion": "success",
+                  "name": "Consume the Qt 6.8 binary in a disposable container",
+                  "number": 8,
+                  "startedAt": "2026-10-12T17:19:40Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:24Z",
+                  "conclusion": "success",
+                  "name": "Retain binary verification evidence",
+                  "number": 9,
+                  "startedAt": "2026-10-12T17:20:22Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:26Z",
+                  "conclusion": "success",
+                  "name": "Post Prepare toolchain image",
+                  "number": 16,
+                  "startedAt": "2026-10-12T17:20:24Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:26Z",
+                  "conclusion": "success",
+                  "name": "Post Run docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435",
+                  "number": 17,
+                  "startedAt": "2026-10-12T17:20:26Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:27Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+                  "number": 18,
+                  "startedAt": "2026-10-12T17:20:26Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-12T17:20:27Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 19,
+                  "startedAt": "2026-10-12T17:20:27Z",
+                  "status": "completed"
+                }
+              ],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700/job/114925727975"
+            },
+            {
+              "completedAt": "2026-10-12T17:20:56Z",
+              "conclusion": "skipped",
+              "databaseId": 114926530518,
+              "name": "upload",
+              "startedAt": "2026-10-12T17:20:56Z",
+              "status": "completed",
+              "steps": [],
+              "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700/job/114926530518"
+            }
+          ],
+          "status": "completed",
+          "url": "https://github.com/lebedenko/qmarkdown/actions/runs/38282474700"
+        }
+      },
+      "packages": {
+        "ubuntu": {
+          "name": "qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz",
+          "sha256": "07224c9016d69945df2045614879982646b610c2eeaa641c5993ffff16e2338c",
+          "bytes": 393027,
+          "metadata": {
+            "version": "1.2.0",
+            "sourceCommit": "a65f537e5b2134e026bf328a1ec4a307c48588ef",
+            "architecture": "x86_64",
+            "qtVersion": "6.8.0",
+            "buildType": "Release",
+            "os": "Ubuntu 24.04",
+            "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+            "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n"
+          },
+          "manifest": {
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "bf4586da62a33b80c0d69542882d2d347892b922e0b91ea1011dc285aa204727"
+            },
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfigVersion.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "59dda01bdd6a1b8a62941c79508f6cd186bbfa23cd82c2b31fa2b8a39d45970d"
+            },
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets-release.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "0c55c3844ca2273d1eb8d269d9f09a3c84a53763c2ec3445fcd60e4fb6de9bde"
+            },
+            "usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownTargets.cmake": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "2cdac8138f5d564998960056722483bb993a849a43490e83635a1bf1fa444241"
+            },
+            "usr/lib/x86_64-linux-gnu/libQMarkdown.so": {
+              "kind": "link",
+              "target": "libQMarkdown.so.1"
+            },
+            "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1": {
+              "kind": "link",
+              "target": "libQMarkdown.so.1.2.0"
+            },
+            "usr/lib/x86_64-linux-gnu/libQMarkdown.so.1.2.0": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "57dc857f6edd4f23abea40ddebafd22ae9f9e51cdaa3e7bbb13066751eb9ce22"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/MarkdownView.qml": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "1316283a82d901d68f92e899596328f86a800757fe7e8d2604e515a548d3e5b9"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/private.qmltypes": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "d506412a4a1a2e240caccb8191af14927b6a703688dce36d5302b3e02f1b434a"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/Private/qmldir": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "8088e762877a4586ddd0cde1b3eb8158b1a9a8a421acc7411281204504d452e1"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/QMarkdown.qmltypes": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "3e6860b3201ddb6ef0d3f31b52bd8f0216dcac83b9f826188bfa8b858a8f98ae"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/libQMarkdownPlugin.so": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "d888dfca116fba6e9939afde4eb798fa60d1ece538ce5e4155431022bea1e8ce"
+            },
+            "usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown/qmldir": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "0960a4f8a4c254ff4611a7832a17ba5387ca2c9d73618498b44610fb9f034f2e"
+            },
+            "usr/share/licenses/QMarkdown/LICENSE": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "d4320f43a35dd36792fa5375bfcb603b9c1c089f5913048eec2d06c5293f96e3"
+            },
+            "usr/share/licenses/QMarkdown/cmark/COPYING": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "c22e885f33b821bddb24cf007145e5540655b6c0f403e49e6c76a93c28e6d9a9"
+            },
+            "usr/share/licenses/QMarkdown/cmark/PROVENANCE.md": {
+              "kind": "file",
+              "mode": 420,
+              "sha256": "c373778cca24c64a1490b68df36b07ab04f3b99c05f0ff4271f4e28474d52767"
+            }
+          }
+        },
+        "arch": {
+          "name": "qmarkdown-1.2.0-1-x86_64.pkg.tar.zst",
+          "sha256": "1f9e3e0ec9fd592be6ec7490f763a59100a7b5192de62dcbb681bf7d0e3adf17",
+          "bytes": 379210,
+          "packageInfo": "# Generated by makepkg 7.1.0\n# using fakeroot version 1.37.2\npkgname = qmarkdown\npkgbase = qmarkdown\nxdata = pkgtype=pkg\npkgver = 1.2.0-1\npkgdesc = Native Qt Quick Markdown rendering library\nurl = https://github.com/lebedenko/qmarkdown\nbuilddate = 1791825073\npackager = Unknown Packager\nsize = 1140781\narch = x86_64\nlicense = MIT\ndepend = glibc\ndepend = gcc-libs\ndepend = qt6-base>=6.12.0\ndepend = qt6-declarative>=6.12.0\nmakedepend = cmake\nmakedepend = ninja\ncheckdepend = python\ncheckdepend = git\ncheckdepend = noto-fonts\n",
+          "manifest": [
+            ".BUILDINFO",
+            ".MTREE",
+            ".PKGINFO",
+            "usr/",
+            "usr/lib/",
+            "usr/lib/cmake/",
+            "usr/lib/cmake/QMarkdown/",
+            "usr/lib/cmake/QMarkdown/QMarkdownConfig.cmake",
+            "usr/lib/cmake/QMarkdown/QMarkdownConfigVersion.cmake",
+            "usr/lib/cmake/QMarkdown/QMarkdownTargets-release.cmake",
+            "usr/lib/cmake/QMarkdown/QMarkdownTargets.cmake",
+            "usr/lib/libQMarkdown.so",
+            "usr/lib/libQMarkdown.so.1",
+            "usr/lib/libQMarkdown.so.1.2.0",
+            "usr/lib/qt6/",
+            "usr/lib/qt6/qml/",
+            "usr/lib/qt6/qml/QMarkdown/",
+            "usr/lib/qt6/qml/QMarkdown/MarkdownView.qml",
+            "usr/lib/qt6/qml/QMarkdown/Private/",
+            "usr/lib/qt6/qml/QMarkdown/Private/private.qmltypes",
+            "usr/lib/qt6/qml/QMarkdown/Private/qmldir",
+            "usr/lib/qt6/qml/QMarkdown/QMarkdown.qmltypes",
+            "usr/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so",
+            "usr/lib/qt6/qml/QMarkdown/qmldir",
+            "usr/share/",
+            "usr/share/licenses/",
+            "usr/share/licenses/qmarkdown/",
+            "usr/share/licenses/qmarkdown/LICENSE",
+            "usr/share/licenses/qmarkdown/cmark/",
+            "usr/share/licenses/qmarkdown/cmark/COPYING",
+            "usr/share/licenses/qmarkdown/cmark/PROVENANCE.md"
+          ],
+          "buildInfo": "format = 2\npkgname = qmarkdown\npkgbase = qmarkdown\npkgver = 1.2.0-1\npkgarch = x86_64\npkgbuild_sha256sum = 9bf56c3c627edab8e149a04d8df8e9f95bb7e40eb714983079fa1aae35e12df4\npackager = Unknown Packager\nbuilddate = 1791825073\nbuilddir = /work\nstartdir = /work\nbuildtool = makepkg\nbuildtoolver = 7.1.0\nbuildenv = !distcc\nbuildenv = color\nbuildenv = !ccache\nbuildenv = check\nbuildenv = !sign\noptions = strip\noptions = docs\noptions = !libtool\noptions = !staticlibs\noptions = emptydirs\noptions = zipman\noptions = purge\noptions = debug\noptions = lto\ninstalled = acl-2.4.0-1-x86_64\ninstalled = archlinux-keyring-20260909-1-any\ninstalled = attr-2.6.0-1-x86_64\ninstalled = audit-4.2.1-1-x86_64\ninstalled = autoconf-2.73-1-any\ninstalled = automake-1.19-1-any\ninstalled = avahi-1:0.9rc5-1-x86_64\ninstalled = base-3-3-any\ninstalled = base-devel-1-2-any\ninstalled = bash-5.3.20-1-x86_64\ninstalled = binutils-2.47-4-x86_64\ninstalled = bison-3.8.2-8-x86_64\ninstalled = boost-libs-1.92.0-1-x86_64\ninstalled = brotli-1.2.0-1-x86_64\ninstalled = bzip2-1.0.8-6-x86_64\ninstalled = ca-certificates-20240618-1-any\ninstalled = ca-certificates-mozilla-3.131-1-x86_64\ninstalled = ca-certificates-utils-20240618-1-any\ninstalled = cmake-4.4.4-1-x86_64\ninstalled = coreutils-9.12-2-x86_64\ninstalled = cpio-2.15-3-x86_64\ninstalled = cppdap-1.58.0-3-x86_64\ninstalled = cryptsetup-2.8.8-1-x86_64\ninstalled = curl-8.22.0-1-x86_64\ninstalled = db5.3-5.3.28-7-x86_64\ninstalled = dbus-1.16.2-1-x86_64\ninstalled = dbus-broker-37-3-x86_64\ninstalled = dbus-broker-units-37-3-x86_64\ninstalled = dbus-units-37-3-x86_64\ninstalled = debugedit-5.3-2-x86_64\ninstalled = default-cursors-3-1-any\ninstalled = device-mapper-2.03.43-2-x86_64\ninstalled = diffutils-3.12-2-x86_64\ninstalled = double-conversion-3.4.0-1-x86_64\ninstalled = duktape-2.7.0-7-x86_64\ninstalled = e2fsprogs-1.47.4-1-x86_64\ninstalled = elfutils-0.196-1-x86_64\ninstalled = expat-2.9.0-1-x86_64\ninstalled = fakeroot-1:1.37.2-3-x86_64\ninstalled = file-5.48-1-x86_64\ninstalled = filesystem-2025.10.12-1-any\ninstalled = findutils-4.11.0-1-x86_64\ninstalled = flex-2.6.4-6-x86_64\ninstalled = fontconfig-2:2.18.3-2-x86_64\ninstalled = freetype2-2.14.3-1-x86_64\ninstalled = gawk-5.4.1-1-x86_64\ninstalled = gc-8.2.12-1-x86_64\ninstalled = gcc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = gcc-libs-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = gdb-18.1-1-x86_64\ninstalled = gdb-common-18.1-1-x86_64\ninstalled = gdbm-1.26-2-x86_64\ninstalled = gettext-1.0-2-x86_64\ninstalled = git-2.56.0-1-x86_64\ninstalled = glib2-2.90.1-1-x86_64\ninstalled = glibc-2.44+r50+g1848099f063e-1-x86_64\ninstalled = gmp-6.3.0-3-x86_64\ninstalled = gnulib-l10n-20241231-1-any\ninstalled = gnupg-2.4.9-3-x86_64\ninstalled = gnutls-3.8.13-3-x86_64\ninstalled = gpgme-2.2.0-1-x86_64\ninstalled = graphite-1:1.3.15-1-x86_64\ninstalled = grep-3.12-2-x86_64\ninstalled = groff-1.24.2-1-x86_64\ninstalled = guile-3.0.11-1-x86_64\ninstalled = gzip-1.15-1-x86_64\ninstalled = harfbuzz-14.6.0-1-x86_64\ninstalled = hicolor-icon-theme-0.18-1-any\ninstalled = hwdata-0.412-1-any\ninstalled = iana-etc-20260617-1-any\ninstalled = icu-78.3-1-x86_64\ninstalled = iproute2-7.2.0-1-x86_64\ninstalled = iptables-1:1.8.13-1-x86_64\ninstalled = iputils-20250605-1-x86_64\ninstalled = jansson-2.15.1-1-x86_64\ninstalled = json-c-0.19-1-x86_64\ninstalled = jsoncpp-1.9.8-1-x86_64\ninstalled = kbd-2.10.0-1-x86_64\ninstalled = keyutils-1.6.3-4-x86_64\ninstalled = kmod-34.2-1-x86_64\ninstalled = krb5-1.22.2-1-x86_64\ninstalled = leancrypto-1.9.1-1-x86_64\ninstalled = libarchive-3.8.9-1-x86_64\ninstalled = libasan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libassuan-3.0.0-1-x86_64\ninstalled = libatomic-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libb2-0.98.1-3-x86_64\ninstalled = libbpf-1.7.0-1-x86_64\ninstalled = libcap-2.78-1-x86_64\ninstalled = libcap-ng-0.9.6-1-x86_64\ninstalled = libcups-2:2.4.20-1-x86_64\ninstalled = libdaemon-0.14-6-x86_64\ninstalled = libdrm-2.4.134-1-x86_64\ninstalled = libedit-20260512_3.1-1-x86_64\ninstalled = libelf-0.196-1-x86_64\ninstalled = libevdev-1.14.0-1-x86_64\ninstalled = libevent-2.1.13-2-x86_64\ninstalled = libffi-3.8.0-1-x86_64\ninstalled = libgcc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libgcrypt-1.12.4-1-x86_64\ninstalled = libgfortran-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libglvnd-1.7.0-3-x86_64\ninstalled = libgomp-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libgpg-error-1.61-1-x86_64\ninstalled = libgudev-238-3-x86_64\ninstalled = libhwasan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libice-1.1.2-1-x86_64\ninstalled = libidn2-2.3.8-1-x86_64\ninstalled = libinput-1.32.0-1-x86_64\ninstalled = libisl-0.28-1-x86_64\ninstalled = libjpeg-turbo-3.2.0-2-x86_64\ninstalled = libksba-1.8.1-1-x86_64\ninstalled = libldap-2.7.1-1-x86_64\ninstalled = liblsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libmakepkg-dropins-20-2-any\ninstalled = libmnl-1.0.5-2-x86_64\ninstalled = libmpc-1.4.1-1-x86_64\ninstalled = libnetfilter_conntrack-1.1.1-1-x86_64\ninstalled = libnfnetlink-1.0.2-2-x86_64\ninstalled = libnftnl-1.3.2-1-x86_64\ninstalled = libnghttp2-1.70.0-1-x86_64\ninstalled = libnghttp3-1.18.0-1-x86_64\ninstalled = libngtcp2-1.25.0-1-x86_64\ninstalled = libnl-3.12.0-1-x86_64\ninstalled = libnsl-2.0.1-2-x86_64\ninstalled = libobjc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libp11-kit-0.26.5-1-x86_64\ninstalled = libpcap-1.11.0-1-x86_64\ninstalled = libpciaccess-0.19-1-x86_64\ninstalled = libpng-1.6.59-1-x86_64\ninstalled = libproxy-0.5.12-1-x86_64\ninstalled = libpsl-0.21.5-2-x86_64\ninstalled = libquadmath-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libsasl-2.1.28-5-x86_64\ninstalled = libseccomp-2.6.0-1-x86_64\ninstalled = libsecret-0.21.8.2-1-x86_64\ninstalled = libsm-1.2.6-1-x86_64\ninstalled = libssh2-1.11.1-7-x86_64\ninstalled = libstdc++-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libsysprof-capture-51.0-1-x86_64\ninstalled = libtasn1-4.21.0-1-x86_64\ninstalled = libtirpc-1.3.8-1-x86_64\ninstalled = libtool-2.6.2-5-x86_64\ninstalled = libtsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libubsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libunistring-1.4.2-1-x86_64\ninstalled = liburing-2.15-1-x86_64\ninstalled = libusb-1.0.30-1-x86_64\ninstalled = libuv-1.52.1-2-x86_64\ninstalled = libverto-0.3.2-6-x86_64\ninstalled = libwacom-2.20.0-1-x86_64\ninstalled = libx11-1.8.13-2-x86_64\ninstalled = libxau-1.0.12-1-x86_64\ninstalled = libxcb-1.17.0-1-x86_64\ninstalled = libxcrypt-4.5.2-1-x86_64\ninstalled = libxdmcp-1.1.5-2-x86_64\ninstalled = libxext-1.3.7-1-x86_64\ninstalled = libxkbcommon-1.13.2-1-x86_64\ninstalled = libxkbcommon-x11-1.13.2-1-x86_64\ninstalled = libxml2-2.15.4-1-x86_64\ninstalled = libxshmfence-1.3.3-1-x86_64\ninstalled = libxxf86vm-1.1.7-1-x86_64\ninstalled = licenses-20240728-1-any\ninstalled = linux-api-headers-7.2-1-x86_64\ninstalled = llvm-libs-23.1.1-1-x86_64\ninstalled = lm_sensors-1:3.6.2-1-x86_64\ninstalled = lmdb-0.9.35-1-x86_64\ninstalled = lua54-5.4.9-1-x86_64\ninstalled = lz4-1:1.10.0-2-x86_64\ninstalled = m4-1.4.21-2-x86_64\ninstalled = make-4.4.1-3-x86_64\ninstalled = md4c-0.6.0-2-x86_64\ninstalled = mesa-1:26.2.4-1-x86_64\ninstalled = mpdecimal-4.0.1-3-x86_64\ninstalled = mpfr-4.2.2-1-x86_64\ninstalled = mtdev-1.1.7-1-x86_64\ninstalled = ncurses-6.6-2-x86_64\ninstalled = nettle-4.0-1-x86_64\ninstalled = nftables-1:1.1.7-3-x86_64\ninstalled = ninja-1.13.2-3-x86_64\ninstalled = noto-fonts-1:2026.10.01-1-any\ninstalled = npth-1.8-1-x86_64\ninstalled = openssl-3.6.5-1-x86_64\ninstalled = p11-kit-0.26.5-1-x86_64\ninstalled = pacman-7.1.0.r9.g54d9411-2-x86_64\ninstalled = pacman-mirrorlist-20260610-1-any\ninstalled = pam-1.7.3-1-x86_64\ninstalled = pambase-20260616-1-any\ninstalled = patch-2.8-1-x86_64\ninstalled = pciutils-3.15.0-1-x86_64\ninstalled = pcre2-10.49-1-x86_64\ninstalled = perl-5.42.3-1-x86_64\ninstalled = perl-error-0.17030-3-any\ninstalled = perl-mailtools-2.22-3-any\ninstalled = perl-timedate-2.35-1-any\ninstalled = pinentry-1.3.3-1-x86_64\ninstalled = pkgconf-3.0.7-1-x86_64\ninstalled = popt-1.19-2-x86_64\ninstalled = procps-ng-4.0.7-1-x86_64\ninstalled = psmisc-23.7-2-x86_64\ninstalled = python-3.14.8-1-x86_64\ninstalled = qt6-base-6.12.0-2-x86_64\ninstalled = qt6-declarative-6.12.0-1-x86_64\ninstalled = qt6-translations-6.12.0-1-any\ninstalled = readline-8.3.6-1-x86_64\ninstalled = rhash-1.4.6-1-x86_64\ninstalled = sed-4.10-2-x86_64\ninstalled = shadow-4.20.0.arch1-1-x86_64\ninstalled = shared-mime-info-2.5.1-2-x86_64\ninstalled = source-highlight-3.1.9-19-x86_64\ninstalled = spirv-tools-1:1.4.363.0-1-x86_64\ninstalled = sqlite-3.54.0-1-x86_64\ninstalled = sudo-1.9.17.p2-6-x86_64\ninstalled = systemd-262-1-x86_64\ninstalled = systemd-libs-262-1-x86_64\ninstalled = systemd-sysvcompat-262-1-x86_64\ninstalled = tar-1.35-5-x86_64\ninstalled = texinfo-7.3-1-x86_64\ninstalled = tpm2-tss-4.2.0-2-x86_64\ninstalled = tslib-1.24-1-x86_64\ninstalled = tzdata-2026e-1-x86_64\ninstalled = util-linux-2.42.4-1-x86_64\ninstalled = util-linux-libs-2.42.4-1-x86_64\ninstalled = wayland-1.26.0-1-x86_64\ninstalled = which-2.25-1-x86_64\ninstalled = xcb-proto-1.17.0-4-any\ninstalled = xcb-util-0.4.1-2-x86_64\ninstalled = xcb-util-cursor-0.1.6-1-x86_64\ninstalled = xcb-util-image-0.4.1-3-x86_64\ninstalled = xcb-util-keysyms-0.4.1-5-x86_64\ninstalled = xcb-util-renderutil-0.3.10-2-x86_64\ninstalled = xcb-util-wm-0.4.2-2-x86_64\ninstalled = xdg-utils-1.2.1-2-any\ninstalled = xkeyboard-config-2.48-1-any\ninstalled = xorgproto-2026.1-1-any\ninstalled = xxhash-0.8.4-1-x86_64\ninstalled = xz-5.8.4-1-x86_64\ninstalled = zlib-1:1.3.2-3-x86_64\ninstalled = zlib-ng-2.3.3-1-x86_64\ninstalled = zstd-1.5.7-3-x86_64\n"
+        }
+      },
+      "archEnvironment": {
+        "sourceCommit": "a65f537e5b2134e026bf328a1ec4a307c48588ef",
+        "version": "1.2.0",
+        "pkgrel": "1",
+        "sourceSha256": "68aff3916fec86e2c99dca1ac7b427e5cc8e515705d785592c5472cf812c45b5",
+        "imageId": "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+        "repoDigests": [
+          "archlinux@sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd"
+        ],
+        "architecture": "amd64",
+        "toolingSha256": {
+          "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356",
+          "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+          "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+          "verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c"
+        }
+      },
+      "runtimeImages": {
+        "6.8.0": {
+          "IMAGE_METADATA": "{\n  \"buildx.build.provenance\": {\n    \"builder\": {\n      \"id\": \"\"\n    },\n    \"buildType\": \"https://mobyproject.org/buildkit@v1\",\n    \"materials\": [\n      {\n        \"uri\": \"pkg:docker/ubuntu@24.04?digest=sha256:f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b&platform=linux%2Famd64\",\n        \"digest\": {\n          \"sha256\": \"f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b\"\n        }\n      }\n    ],\n    \"invocation\": {\n      \"configSource\": {\n        \"entryPoint\": \"Dockerfile\"\n      },\n      \"parameters\": {\n        \"frontend\": \"dockerfile.v0\",\n        \"args\": {\n          \"build-arg:CI_QT_VERSION\": \"6.8.0\"\n        },\n        \"locals\": [\n          {\n            \"name\": \"context\"\n          },\n          {\n            \"name\": \"dockerfile\"\n          }\n        ],\n        \"root\": {\n          \"configSource\": {\n            \"path\": \"Dockerfile\"\n          },\n          \"request\": {\n            \"args\": {\n              \"build-arg:CI_QT_VERSION\": \"6.8.0\",\n              \"vcs:localdir:context\": \"scripts/ci-toolchain\",\n              \"vcs:localdir:dockerfile\": \"scripts/ci-toolchain\",\n              \"vcs:revision\": \"a65f537e5b2134e026bf328a1ec4a307c48588ef\",\n              \"vcs:source\": \"https://github.com/lebedenko/qmarkdown\"\n            }\n          }\n        },\n        \"compatibilityVersion\": 30\n      },\n      \"environment\": {\n        \"dockerfileVersion\": \"1.27.0\",\n        \"github_actor\": \"lebedenko\",\n        \"github_actor_id\": \"437715\",\n        \"github_event_name\": \"workflow_dispatch\",\n        \"github_event_payload\": {\n          \"inputs\": null,\n          \"ref\": \"refs/heads/main\",\n          \"repository\": {\n            \"allow_forking\": true,\n            \"archive_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/{archive_format}{/ref}\",\n            \"archived\": false,\n            \"assignees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/assignees{/user}\",\n            \"blobs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/blobs{/sha}\",\n            \"branches_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/branches{/branch}\",\n            \"clone_url\": \"https://github.com/lebedenko/qmarkdown.git\",\n            \"collaborators_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/collaborators{/collaborator}\",\n            \"comments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/comments{/number}\",\n            \"commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/commits{/sha}\",\n            \"compare_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/compare/{base}...{head}\",\n            \"contents_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contents/{+path}\",\n            \"contributors_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contributors\",\n            \"created_at\": \"2026-10-07T19:15:58Z\",\n            \"default_branch\": \"main\",\n            \"deployments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/deployments\",\n            \"description\": null,\n            \"disabled\": false,\n            \"downloads_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/downloads\",\n            \"events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/events\",\n            \"fork\": false,\n            \"forks\": 0,\n            \"forks_count\": 0,\n            \"forks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/forks\",\n            \"full_name\": \"lebedenko/qmarkdown\",\n            \"git_commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/commits{/sha}\",\n            \"git_refs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/refs{/sha}\",\n            \"git_tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/tags{/sha}\",\n            \"git_url\": \"git://github.com/lebedenko/qmarkdown.git\",\n            \"has_discussions\": false,\n            \"has_downloads\": false,\n            \"has_issues\": true,\n            \"has_pages\": false,\n            \"has_projects\": true,\n            \"has_pull_requests\": true,\n            \"has_wiki\": true,\n            \"homepage\": null,\n            \"hooks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/hooks\",\n            \"html_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"id\": 1409264526,\n            \"is_template\": false,\n            \"issue_comment_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/comments{/number}\",\n            \"issue_events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/events{/number}\",\n            \"issues_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues{/number}\",\n            \"keys_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/keys{/key_id}\",\n            \"labels_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/labels{/name}\",\n            \"language\": \"C++\",\n            \"languages_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/languages\",\n            \"license\": {\n              \"key\": \"mit\",\n              \"name\": \"MIT License\",\n              \"node_id\": \"MDc6TGljZW5zZTEz\",\n              \"spdx_id\": \"MIT\",\n              \"url\": \"https://api.github.com/licenses/mit\"\n            },\n            \"merges_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/merges\",\n            \"milestones_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/milestones{/number}\",\n            \"mirror_url\": null,\n            \"name\": \"qmarkdown\",\n            \"node_id\": \"R_kgDOU_-rjg\",\n            \"notifications_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/notifications{?since,all,participating}\",\n            \"open_issues\": 0,\n            \"open_issues_count\": 0,\n            \"owner\": {\n              \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n              \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n              \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n              \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n              \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n              \"gravatar_id\": \"\",\n              \"html_url\": \"https://github.com/lebedenko\",\n              \"id\": 437715,\n              \"login\": \"lebedenko\",\n              \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n              \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n              \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n              \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n              \"site_admin\": false,\n              \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n              \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n              \"type\": \"User\",\n              \"url\": \"https://api.github.com/users/lebedenko\",\n              \"user_view_type\": \"public\"\n            },\n            \"private\": false,\n            \"pull_request_creation_policy\": \"all\",\n            \"pulls_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/pulls{/number}\",\n            \"pushed_at\": \"2026-10-12T17:10:33Z\",\n            \"releases_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/releases{/id}\",\n            \"size\": 1858,\n            \"ssh_url\": \"git@github.com:lebedenko/qmarkdown.git\",\n            \"stargazers_count\": 0,\n            \"stargazers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/stargazers\",\n            \"statuses_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/statuses/{sha}\",\n            \"subscribers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscribers\",\n            \"subscription_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscription\",\n            \"svn_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/tags\",\n            \"teams_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/teams\",\n            \"topics\": [],\n            \"trees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/trees{/sha}\",\n            \"updated_at\": \"2026-10-12T16:45:25Z\",\n            \"url\": \"https://api.github.com/repos/lebedenko/qmarkdown\",\n            \"visibility\": \"public\",\n            \"watchers\": 0,\n            \"watchers_count\": 0,\n            \"web_commit_signoff_required\": false\n          },\n          \"sender\": {\n            \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n            \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n            \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n            \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n            \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n            \"gravatar_id\": \"\",\n            \"html_url\": \"https://github.com/lebedenko\",\n            \"id\": 437715,\n            \"login\": \"lebedenko\",\n            \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n            \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n            \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n            \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n            \"site_admin\": false,\n            \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n            \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n            \"type\": \"User\",\n            \"url\": \"https://api.github.com/users/lebedenko\",\n            \"user_view_type\": \"public\"\n          },\n          \"workflow\": \".github/workflows/release.yml\"\n        },\n        \"github_job\": \"binary-compatibility\",\n        \"github_ref\": \"refs/heads/main\",\n        \"github_ref_name\": \"main\",\n        \"github_ref_protected\": \"true\",\n        \"github_ref_type\": \"branch\",\n        \"github_repository\": \"lebedenko/qmarkdown\",\n        \"github_repository_id\": \"1409264526\",\n        \"github_repository_owner\": \"lebedenko\",\n        \"github_repository_owner_id\": \"437715\",\n        \"github_run_attempt\": \"1\",\n        \"github_run_id\": \"38282474700\",\n        \"github_run_number\": \"12\",\n        \"github_runner_arch\": \"X64\",\n        \"github_runner_environment\": \"github-hosted\",\n        \"github_runner_image_os\": \"ubuntu24\",\n        \"github_runner_image_version\": \"20261004.327.1\",\n        \"github_runner_name\": \"GitHub Actions 1000002522\",\n        \"github_runner_os\": \"Linux\",\n        \"github_runner_tracking_id\": \"github_38c8eb55-3a26-4cb8-8f8a-4396c48d31c4\",\n        \"github_server_url\": \"https://github.com\",\n        \"github_triggering_actor\": \"lebedenko\",\n        \"github_workflow\": \"Stable release package\",\n        \"github_workflow_ref\": \"lebedenko/qmarkdown/.github/workflows/release.yml@refs/heads/main\",\n        \"github_workflow_sha\": \"a65f537e5b2134e026bf328a1ec4a307c48588ef\",\n        \"platform\": \"linux/amd64\"\n      }\n    }\n  },\n  \"buildx.build.ref\": \"builder-319b1757-a24a-4290-ad3c-abcfac1fdb68/builder-319b1757-a24a-4290-ad3c-abcfac1fdb680/a2e78y360gqgrlf8ag1xrxi51\",\n  \"containerimage.config.digest\": \"sha256:cdea43fd3e656d7fb4d15a5e7d70645f71cada8aa956a9de10358e56ac11ff37\",\n  \"containerimage.descriptor\": {\n    \"mediaType\": \"application/vnd.oci.image.manifest.v1+json\",\n    \"digest\": \"sha256:44b92e4665cd8d44eab5f832e4457716bb9efd3aec2814c9cd814e2bab28d048\",\n    \"size\": 1247,\n    \"annotations\": {\n      \"org.opencontainers.image.created\": \"2026-10-12T17:19:04Z\"\n    },\n    \"platform\": {\n      \"architecture\": \"amd64\",\n      \"os\": \"linux\"\n    }\n  },\n  \"containerimage.digest\": \"sha256:44b92e4665cd8d44eab5f832e4457716bb9efd3aec2814c9cd814e2bab28d048\",\n  \"image.name\": \"docker.io/library/qmarkdown-ci:6.8.0-amd64-f3fde433f7ade39fa1df99a5fc0ac1e65db28ae0e3170ae12266e0334d807c8e\"\n}",
+          "IMAGE_ID": "sha256:cdea43fd3e656d7fb4d15a5e7d70645f71cada8aa956a9de10358e56ac11ff37",
+          "IMAGE_OUTCOME": "success",
+          "preparationSeconds": 45.005
+        },
+        "6.12.0": {
+          "IMAGE_METADATA": "{\n  \"buildx.build.provenance\": {\n    \"builder\": {\n      \"id\": \"\"\n    },\n    \"buildType\": \"https://mobyproject.org/buildkit@v1\",\n    \"materials\": [\n      {\n        \"uri\": \"pkg:docker/ubuntu@24.04?digest=sha256:f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b&platform=linux%2Famd64\",\n        \"digest\": {\n          \"sha256\": \"f610ab94648195aa356059f5b41d6085c9d4d903c072430cdd1af7bdb646106b\"\n        }\n      }\n    ],\n    \"invocation\": {\n      \"configSource\": {\n        \"entryPoint\": \"Dockerfile\"\n      },\n      \"parameters\": {\n        \"frontend\": \"dockerfile.v0\",\n        \"args\": {\n          \"build-arg:CI_QT_VERSION\": \"6.12.0\"\n        },\n        \"locals\": [\n          {\n            \"name\": \"context\"\n          },\n          {\n            \"name\": \"dockerfile\"\n          }\n        ],\n        \"root\": {\n          \"configSource\": {\n            \"path\": \"Dockerfile\"\n          },\n          \"request\": {\n            \"args\": {\n              \"build-arg:CI_QT_VERSION\": \"6.12.0\",\n              \"vcs:localdir:context\": \"scripts/ci-toolchain\",\n              \"vcs:localdir:dockerfile\": \"scripts/ci-toolchain\",\n              \"vcs:revision\": \"a65f537e5b2134e026bf328a1ec4a307c48588ef\",\n              \"vcs:source\": \"https://github.com/lebedenko/qmarkdown\"\n            }\n          }\n        },\n        \"compatibilityVersion\": 30\n      },\n      \"environment\": {\n        \"dockerfileVersion\": \"1.27.0\",\n        \"github_actor\": \"lebedenko\",\n        \"github_actor_id\": \"437715\",\n        \"github_event_name\": \"workflow_dispatch\",\n        \"github_event_payload\": {\n          \"inputs\": null,\n          \"ref\": \"refs/heads/main\",\n          \"repository\": {\n            \"allow_forking\": true,\n            \"archive_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/{archive_format}{/ref}\",\n            \"archived\": false,\n            \"assignees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/assignees{/user}\",\n            \"blobs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/blobs{/sha}\",\n            \"branches_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/branches{/branch}\",\n            \"clone_url\": \"https://github.com/lebedenko/qmarkdown.git\",\n            \"collaborators_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/collaborators{/collaborator}\",\n            \"comments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/comments{/number}\",\n            \"commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/commits{/sha}\",\n            \"compare_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/compare/{base}...{head}\",\n            \"contents_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contents/{+path}\",\n            \"contributors_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/contributors\",\n            \"created_at\": \"2026-10-07T19:15:58Z\",\n            \"default_branch\": \"main\",\n            \"deployments_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/deployments\",\n            \"description\": null,\n            \"disabled\": false,\n            \"downloads_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/downloads\",\n            \"events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/events\",\n            \"fork\": false,\n            \"forks\": 0,\n            \"forks_count\": 0,\n            \"forks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/forks\",\n            \"full_name\": \"lebedenko/qmarkdown\",\n            \"git_commits_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/commits{/sha}\",\n            \"git_refs_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/refs{/sha}\",\n            \"git_tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/tags{/sha}\",\n            \"git_url\": \"git://github.com/lebedenko/qmarkdown.git\",\n            \"has_discussions\": false,\n            \"has_downloads\": false,\n            \"has_issues\": true,\n            \"has_pages\": false,\n            \"has_projects\": true,\n            \"has_pull_requests\": true,\n            \"has_wiki\": true,\n            \"homepage\": null,\n            \"hooks_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/hooks\",\n            \"html_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"id\": 1409264526,\n            \"is_template\": false,\n            \"issue_comment_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/comments{/number}\",\n            \"issue_events_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues/events{/number}\",\n            \"issues_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/issues{/number}\",\n            \"keys_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/keys{/key_id}\",\n            \"labels_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/labels{/name}\",\n            \"language\": \"C++\",\n            \"languages_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/languages\",\n            \"license\": {\n              \"key\": \"mit\",\n              \"name\": \"MIT License\",\n              \"node_id\": \"MDc6TGljZW5zZTEz\",\n              \"spdx_id\": \"MIT\",\n              \"url\": \"https://api.github.com/licenses/mit\"\n            },\n            \"merges_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/merges\",\n            \"milestones_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/milestones{/number}\",\n            \"mirror_url\": null,\n            \"name\": \"qmarkdown\",\n            \"node_id\": \"R_kgDOU_-rjg\",\n            \"notifications_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/notifications{?since,all,participating}\",\n            \"open_issues\": 0,\n            \"open_issues_count\": 0,\n            \"owner\": {\n              \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n              \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n              \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n              \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n              \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n              \"gravatar_id\": \"\",\n              \"html_url\": \"https://github.com/lebedenko\",\n              \"id\": 437715,\n              \"login\": \"lebedenko\",\n              \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n              \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n              \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n              \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n              \"site_admin\": false,\n              \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n              \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n              \"type\": \"User\",\n              \"url\": \"https://api.github.com/users/lebedenko\",\n              \"user_view_type\": \"public\"\n            },\n            \"private\": false,\n            \"pull_request_creation_policy\": \"all\",\n            \"pulls_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/pulls{/number}\",\n            \"pushed_at\": \"2026-10-12T17:10:33Z\",\n            \"releases_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/releases{/id}\",\n            \"size\": 1858,\n            \"ssh_url\": \"git@github.com:lebedenko/qmarkdown.git\",\n            \"stargazers_count\": 0,\n            \"stargazers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/stargazers\",\n            \"statuses_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/statuses/{sha}\",\n            \"subscribers_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscribers\",\n            \"subscription_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/subscription\",\n            \"svn_url\": \"https://github.com/lebedenko/qmarkdown\",\n            \"tags_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/tags\",\n            \"teams_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/teams\",\n            \"topics\": [],\n            \"trees_url\": \"https://api.github.com/repos/lebedenko/qmarkdown/git/trees{/sha}\",\n            \"updated_at\": \"2026-10-12T16:45:25Z\",\n            \"url\": \"https://api.github.com/repos/lebedenko/qmarkdown\",\n            \"visibility\": \"public\",\n            \"watchers\": 0,\n            \"watchers_count\": 0,\n            \"web_commit_signoff_required\": false\n          },\n          \"sender\": {\n            \"avatar_url\": \"https://avatars.githubusercontent.com/u/437715?v=4\",\n            \"events_url\": \"https://api.github.com/users/lebedenko/events{/privacy}\",\n            \"followers_url\": \"https://api.github.com/users/lebedenko/followers\",\n            \"following_url\": \"https://api.github.com/users/lebedenko/following{/other_user}\",\n            \"gists_url\": \"https://api.github.com/users/lebedenko/gists{/gist_id}\",\n            \"gravatar_id\": \"\",\n            \"html_url\": \"https://github.com/lebedenko\",\n            \"id\": 437715,\n            \"login\": \"lebedenko\",\n            \"node_id\": \"MDQ6VXNlcjQzNzcxNQ==\",\n            \"organizations_url\": \"https://api.github.com/users/lebedenko/orgs\",\n            \"received_events_url\": \"https://api.github.com/users/lebedenko/received_events\",\n            \"repos_url\": \"https://api.github.com/users/lebedenko/repos\",\n            \"site_admin\": false,\n            \"starred_url\": \"https://api.github.com/users/lebedenko/starred{/owner}{/repo}\",\n            \"subscriptions_url\": \"https://api.github.com/users/lebedenko/subscriptions\",\n            \"type\": \"User\",\n            \"url\": \"https://api.github.com/users/lebedenko\",\n            \"user_view_type\": \"public\"\n          },\n          \"workflow\": \".github/workflows/release.yml\"\n        },\n        \"github_job\": \"binary-compatibility\",\n        \"github_ref\": \"refs/heads/main\",\n        \"github_ref_name\": \"main\",\n        \"github_ref_protected\": \"true\",\n        \"github_ref_type\": \"branch\",\n        \"github_repository\": \"lebedenko/qmarkdown\",\n        \"github_repository_id\": \"1409264526\",\n        \"github_repository_owner\": \"lebedenko\",\n        \"github_repository_owner_id\": \"437715\",\n        \"github_run_attempt\": \"1\",\n        \"github_run_id\": \"38282474700\",\n        \"github_run_number\": \"12\",\n        \"github_runner_arch\": \"X64\",\n        \"github_runner_environment\": \"github-hosted\",\n        \"github_runner_image_os\": \"ubuntu24\",\n        \"github_runner_image_version\": \"20261004.327.1\",\n        \"github_runner_name\": \"GitHub Actions 1000002521\",\n        \"github_runner_os\": \"Linux\",\n        \"github_runner_tracking_id\": \"github_91d014a6-9a43-4411-a877-82203619bdd9\",\n        \"github_server_url\": \"https://github.com\",\n        \"github_triggering_actor\": \"lebedenko\",\n        \"github_workflow\": \"Stable release package\",\n        \"github_workflow_ref\": \"lebedenko/qmarkdown/.github/workflows/release.yml@refs/heads/main\",\n        \"github_workflow_sha\": \"a65f537e5b2134e026bf328a1ec4a307c48588ef\",\n        \"platform\": \"linux/amd64\"\n      }\n    }\n  },\n  \"buildx.build.ref\": \"builder-c9006307-d270-41d8-81cd-67fe28e0e96f/builder-c9006307-d270-41d8-81cd-67fe28e0e96f0/exlcg33h0bbyaf5xcxm34medt\",\n  \"containerimage.config.digest\": \"sha256:dc98bcd7cc6628dc6f897ab2e51cc5547783c69e667dc755f31d618bc3c6fd70\",\n  \"containerimage.descriptor\": {\n    \"mediaType\": \"application/vnd.oci.image.manifest.v1+json\",\n    \"digest\": \"sha256:24cefef1436cc06d6a4e3e6e4efce0644076a6fcda6b7f4dfa30fd6a35c9f910\",\n    \"size\": 1247,\n    \"annotations\": {\n      \"org.opencontainers.image.created\": \"2026-10-12T17:19:03Z\"\n    },\n    \"platform\": {\n      \"architecture\": \"amd64\",\n      \"os\": \"linux\"\n    }\n  },\n  \"containerimage.digest\": \"sha256:24cefef1436cc06d6a4e3e6e4efce0644076a6fcda6b7f4dfa30fd6a35c9f910\",\n  \"image.name\": \"docker.io/library/qmarkdown-ci:6.12.0-amd64-08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1\"\n}",
+          "IMAGE_ID": "sha256:dc98bcd7cc6628dc6f897ab2e51cc5547783c69e667dc755f31d618bc3c6fd70",
+          "IMAGE_OUTCOME": "success",
+          "preparationSeconds": 64.93
+        }
+      },
+      "assertions": [
+        "workflow SHA matches",
+        "all jobs pass; upload skipped",
+        "distribution hashes match checksum companions",
+        "Ubuntu manifest hashes match",
+        "identical minimum-built Ubuntu archive files on both runtimes",
+        "package versions/source identities match",
+        "Arch source recipe/helper hashes match commit",
+        "six Arch consumers and ownership/upgrade/removal lifecycle passed",
+        "Ubuntu staged/real consumers/install/removal passed on both runtimes"
+      ]
+    }
+  },
+  "local": {
+    "6.8.0": {
+      "status": "passed",
+      "exitCode": 0,
+      "imageId": "sha256:86b377c037a80ab8c512796c76d2c9ef99981690e8e5f3907fd2c8cd7b7a8a41",
+      "recipeFingerprint": "f3fde433f7ade39fa1df99a5fc0ac1e65db28ae0e3170ae12266e0334d807c8e",
+      "preparationSeconds": 0.014,
+      "verificationSeconds": 233.521,
+      "elapsedSeconds": 233.566
+    },
+    "6.12.0": {
+      "status": "preparation failed",
+      "exitCode": 130,
+      "imageId": null,
+      "recipeFingerprint": "08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1",
+      "preparationSeconds": 1805.314,
+      "verificationSeconds": 0,
+      "elapsedSeconds": 1805.314
+    }
+  },
+  "baselineAssertions": [
+    "v1.1.0 release body/assets unchanged",
+    "v1.1.0 tag unchanged",
+    "main protection unchanged"
+  ],
+  "correctiveSourceChanges": false,
+  "publicationPerformed": false,
+  "evidenceSha256": {
+    "evidence/arch-evidence-ci.json": "a8f6f78b5e09f81f30a2d28723313c5d0c49cb4e0b6ebd7a13a7903d8ec2a707",
+    "evidence/arch-evidence-pr.json": "eb414bfb7252f191c943ee0f7c45613db8e7c918e49d3b566caf427f2b020960",
+    "evidence/feature-pr.json": "a1ac8ef7f22bf46ff93e5e9cf8f9dea2ba3d67885049f3aa755421e4e3faf08e",
+    "evidence/host-focused.log": "0082b751985c7fcdde8e9d8a4ebac5f33f6f8ce26142a898bf2be9d92f44ab1b",
+    "evidence/independent-validation.py": "c196a6e15946f7e9c1b9cebd98f98a70661280c84a4762ba1f45bf2790909b6d",
+    "evidence/local-6.12.0/environment.json": "d79b6404ab49754a699d4fe4dcb5111ccc93a1e915192e0cb2f55b21c477ede3",
+    "evidence/local-6.12.0/image-preparation.log": "4f2610f07ce9695d0890dff23afb869b802d43cc331ad13608a0ae69997de1a6",
+    "evidence/local-6.12.0/result.json": "dae20b4432297928dbd5eb9a888c14bfe12b7141d68f5b051f14985c84076d09",
+    "evidence/local-6.8.0/benchmark.json": "12fa86bea6e475b072718a06241a9fff2868f25907b4f74d8de6ffcea3a2cec6",
+    "evidence/local-6.8.0/ci.log": "1082eedc09863604c009be84d254b758ea53078ad70ad12a329e09f836842311",
+    "evidence/local-6.8.0/commonmark-shared.json": "7a3fe50e1165fa27f483390708773f1de2d7348aa61349d69de70ddd68937592",
+    "evidence/local-6.8.0/commonmark-static.json": "7a3fe50e1165fa27f483390708773f1de2d7348aa61349d69de70ddd68937592",
+    "evidence/local-6.8.0/environment.json": "9d5d68a6b3e642d8a17c5da4b58219fc85a74f7d471d588bb3cc307ab1fe9472",
+    "evidence/local-6.8.0/image-preparation.log": "2c1dcefd7e89132734206b0ae8f3189bad86ef12fc2750fb4c4f781966917852",
+    "evidence/local-6.8.0/os-release": "87458b3b1f1ca0e5c693ade771de7007c3783bdc692fa6b39eb6414bf2af2763",
+    "evidence/local-6.8.0/result.json": "5b20470028301f5591e4b955b0f40b14d6a6ccd658dbcf999477aeadd6edb0bc",
+    "evidence/local-6.8.0/tool-versions.txt": "1c56e0bf1f9650b014885268692f181dc4163a43ea9172c4df6ea695e37c0e7c",
+    "evidence/main-arch/PKGBUILD": "9bf56c3c627edab8e149a04d8df8e9f95bb7e40eb714983079fa1aae35e12df4",
+    "evidence/main-arch/PKGBUILD.namcap.log": "3ed2827fc74d3193eafbaf9107961048fc0f92a9d8a8ae367d8dd51a7a8dcfd5",
+    "evidence/main-arch/build-os-release": "0397a1f4bcbdaf31a997bf88b4a475fff8f8c10d64f77b9a3c0d0dc41cd001d9",
+    "evidence/main-arch/build-packages.txt": "b40817433434f05b671e594695c221c798aa8a7a19d6795e2a78376ed13cd773",
+    "evidence/main-arch/build.log": "97721534823c1278d0a796c39a8fb7a3cb934543f12ee3bd6ef08c5f5abea916",
+    "evidence/main-arch/environment.json": "de2ceea47bdeff32ab35e7978e18a33999afcce1699607e801de076c903e9822",
+    "evidence/main-arch/image-pull.log": "ef00579fcf8adaa1abcfa8c5f94514826da075df28ed620439487699b4e5a4f1",
+    "evidence/main-arch/installed-info.txt": "1e3b1bbe13a477247cc6381bbda6d281eb29604585a5445303f331d8d5a7d531",
+    "evidence/main-arch/package-info.txt": "bd0fcf28904c84dc7622b764fbb89bb8e2dc97c5629ab6a2f5e6e8c789bbf95f",
+    "evidence/main-arch/payload.txt": "5dfc403c318334f4a902e94230f5adef0539b0508b930d0cb4c5fc1571ff9660",
+    "evidence/main-arch/qmarkdown-1.2.0-1-x86_64-build.log": "622e07153a370359a3865f43fece48871e50f33df2aeec647f76c5979127768b",
+    "evidence/main-arch/qmarkdown-1.2.0-1-x86_64-check.log": "5c47ed1e51566aa83056d0b9ee70709a92200b4c7a00168735cb6e252b6488ba",
+    "evidence/main-arch/qmarkdown-1.2.0-1-x86_64-package.log": "aa85370f3d858b376f3a21696c781c9564e1657f20b3342ab62c19670643b9ae",
+    "evidence/main-arch/qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.namcap.log": "cf4772c00f2e6ddf30515d2e36f5f2b3dceff980ac4d4fcbb3fb87afb5262382",
+    "evidence/main-arch/verify-os-release": "0397a1f4bcbdaf31a997bf88b4a475fff8f8c10d64f77b9a3c0d0dc41cd001d9",
+    "evidence/main-arch/verify-packages.txt": "9fbc6c4e2e0d2f5cbe53c4ad5c988661cf62d492ff080c388561a8356213e59d",
+    "evidence/main-arch/verify.log": "65e17179603ae8391c0c6243464c36349074540c72bc8ae0dec9b4f49204aa01",
+    "evidence/main-binary-6.12.0/build.json": "bd3b8db83d4f87dbf30d9ce5cfeddc7bb559f505e5a681425084f30239fd01d8",
+    "evidence/main-binary-6.12.0/lifecycle.log": "98cb5c640de5813d9072b6fd6d7a58aaa6c93de67de305f1ee3ef57c53abe6de",
+    "evidence/main-binary-6.12.0/metadata.json": "3c9402e1916228df1c9b95c04f769f54de091c985460381b43a45ad59cfd0d9f",
+    "evidence/main-binary-6.12.0/started.txt": "b700f6cf55d3a5bb24defe0429dcb57528023fecb5716cff59a96bcc18bae7c3",
+    "evidence/main-binary-6.8.0/build.json": "ceff755110fcb7ce53d66f61a8e81c5f773d1170086de9f519502b61f46e2196",
+    "evidence/main-binary-6.8.0/lifecycle.log": "f3dada1499ee424ea41ea11159aba9efc93a39371da3942e11912f1bd5b7ce80",
+    "evidence/main-binary-6.8.0/metadata.json": "ec4685be5eabed611cf0efe8208ce281d51d2292f94f67f3cf1ecb1b1e2900ab",
+    "evidence/main-binary-6.8.0/started.txt": "ab2584d36bb73623a66c621032a5b2446b6ad66991b1fff3af34b2c10feec2c5",
+    "evidence/main-ci.json": "67b414c5468ab63d448bad79343e0232140d18524b43856ee093a90990af91c5",
+    "evidence/main-ci.log": "ecb70045e3883b68b274a3bd0b6a203eb7fc3ec525f22c0005e2e84812c96da6",
+    "evidence/main-qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.sha256": "70802b870590ac7fdf07c75402535ce088e4c32c5e0f3240fe9447ff3f743236",
+    "evidence/main-qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12.tar.gz.sha256": "a9494f2a21284653c367f4eaef167db25d488176a088a91450433f2c1e03769d",
+    "evidence/main-qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256": "b89584410302b4a9cbed305b6de02246653c8ed8c985934c78ea5335d9a0c3d6",
+    "evidence/main-release.json": "99b697bb79ada25772bcf4fd45eb3f351d3c55ad47ba45b6d255403d9f5aac58",
+    "evidence/main-release.log": "a355e4fff56a83e63430fc7661a770e9c7137d555f5ec3b567701a38dafcdfb9",
+    "evidence/main-ubuntu-manifest.json": "72b3300bf626baf6875d7a2f776c6dbc34e260f68307b206e006325cd2e46681",
+    "evidence/main-ubuntu-metadata.json": "d1b994277542f4bfdc9fbd812bdac2114e17954c2b263160f6534275ea359375",
+    "evidence/main-validation.json": "f5462107b9e3e03c0e3fd07e1e7c43192d8ad17b221b9f18f96c83b1f633ceeb",
+    "evidence/pr-arch/PKGBUILD": "578c9a2c1472994ecf8712f50d84d53f3eeabda17e8acdbc48d79c751da714b2",
+    "evidence/pr-arch/PKGBUILD.namcap.log": "3ed2827fc74d3193eafbaf9107961048fc0f92a9d8a8ae367d8dd51a7a8dcfd5",
+    "evidence/pr-arch/build-os-release": "0397a1f4bcbdaf31a997bf88b4a475fff8f8c10d64f77b9a3c0d0dc41cd001d9",
+    "evidence/pr-arch/build-packages.txt": "b40817433434f05b671e594695c221c798aa8a7a19d6795e2a78376ed13cd773",
+    "evidence/pr-arch/build.log": "0ee2fa7e5885d80a68db2926e2427e1b86cb731734794c919200ae37d966366d",
+    "evidence/pr-arch/environment.json": "243ea0e45f3c6bec2c516f34eb6c755f55fc961c6c633b14ab865fa3c7163a82",
+    "evidence/pr-arch/image-pull.log": "2ae6c85c76806a7f5a97ea3de16c35d7b3fa37341aeeee1f8541951cd24d38b7",
+    "evidence/pr-arch/installed-info.txt": "dd212afa47a7e5eb77fa486ff57e2a186900772f713505107ece66166729216a",
+    "evidence/pr-arch/package-info.txt": "6ee2ee632f859774e60bc73e96b6573d75067b5bffe9a0e6298978b65325a0a7",
+    "evidence/pr-arch/payload.txt": "f60ae8fd49979486f1de31150b648c95cb15e023de88c6773e5d72ac622d4d24",
+    "evidence/pr-arch/qmarkdown-1.2.0-1-x86_64-build.log": "88727a31e47600eb23db52995605699652b0d7c75c4ad7d2fe6082d536483dae",
+    "evidence/pr-arch/qmarkdown-1.2.0-1-x86_64-check.log": "ab6946c854d0cdc99e7bd52005efaa86790445843add92efef9510d5966d1355",
+    "evidence/pr-arch/qmarkdown-1.2.0-1-x86_64-package.log": "aa85370f3d858b376f3a21696c781c9564e1657f20b3342ab62c19670643b9ae",
+    "evidence/pr-arch/qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.namcap.log": "5611eebb24fa60265b762137bed00ff84dd942446ebbd47728ccb056a0bb3562",
+    "evidence/pr-arch/verify-os-release": "0397a1f4bcbdaf31a997bf88b4a475fff8f8c10d64f77b9a3c0d0dc41cd001d9",
+    "evidence/pr-arch/verify-packages.txt": "9fbc6c4e2e0d2f5cbe53c4ad5c988661cf62d492ff080c388561a8356213e59d",
+    "evidence/pr-arch/verify.log": "c9f4b9bebf7180ff4c301b70b4aa345963aae18b343db1009430c20469d4e051",
+    "evidence/pr-binary-6.12.0/build.json": "8adc9e06d5967a09e11e28c9d2a9c7f2091b91426e298469f5dd1d9f9ad92cd0",
+    "evidence/pr-binary-6.12.0/lifecycle.log": "668c85fe4f8f7ec06b614407d8ee770db06449a6902efa5b903cbd5de256e898",
+    "evidence/pr-binary-6.12.0/metadata.json": "3c9402e1916228df1c9b95c04f769f54de091c985460381b43a45ad59cfd0d9f",
+    "evidence/pr-binary-6.12.0/started.txt": "cf46579ffbc6d9edb7357f58ba8eee511718a4e267679717ae2944460a1ed3d2",
+    "evidence/pr-binary-6.8.0/build.json": "a0df314c4639c7e876703cb268b030db1bf64ef5593f4bae007f48fefc2ba0d8",
+    "evidence/pr-binary-6.8.0/lifecycle.log": "e97e17a4d89fbbfff972d66aef5ccec88b70639fd35aededce094e1726e4e850",
+    "evidence/pr-binary-6.8.0/metadata.json": "ec4685be5eabed611cf0efe8208ce281d51d2292f94f67f3cf1ecb1b1e2900ab",
+    "evidence/pr-binary-6.8.0/started.txt": "02e16f6bc1925fee05f7ef4284708ef512e42154f2648e9fcb351bfcc1d23a8d",
+    "evidence/pr-ci.json": "d442bf3d526e13473dd25efa11c992c77c926f1185d70b5e33f48be24ad73b3f",
+    "evidence/pr-ci.log": "a62ddae13c7168ff69448303523527faca9b842a859ae071694d6f1923a3e724",
+    "evidence/pr-qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.sha256": "849ab36d3446621f202413db85b5de00bc7465b360ee980723b098e3f5c9f37d",
+    "evidence/pr-qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12.tar.gz.sha256": "620ac02dce0644af13450eb635f379805166a8dff850022f4f8d93ef53e69833",
+    "evidence/pr-qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256": "37c1d0bb06d0aa585045a582bf2ab8d6f0be0969faaad7dff769e37de7e91a8c",
+    "evidence/pr-release.json": "7f0301204ba190a15b1df9db81b1d762eeaa25b781d65225065b6b58233148ea",
+    "evidence/pr-release.log": "f9d0b7366c6beee08d1a1eeb4b07d78018c3d8d6ceafc137cbcc9ae5da3e6d54",
+    "evidence/pr-ubuntu-manifest.json": "bc56fa5bfebcb9d002079425788a916f7632aefbef6fd47419a9d30cba6d1a70",
+    "evidence/pr-ubuntu-metadata.json": "45bb1423e3fc3ff2d7040085d61313f94d8ae516b447dab0111f1b0532794953",
+    "evidence/pr-validation.json": "cf33218fb661f926adf6da174d67387619cc671d0d2a4649b5d616b3d2627881",
+    "evidence/release-after.json": "226db8ce999533aac7f5a8f3136a32da3d839a0f167baad7e98e552ddbfa2302",
+    "evidence/release-before.json": "226db8ce999533aac7f5a8f3136a32da3d839a0f167baad7e98e552ddbfa2302",
+    "evidence/rules-after.json": "1f4f0d6a4abd3f25bd625949d9edee7cd3fa399c137af31f5bfbe3300aaf9153",
+    "evidence/rules-before.json": "1f4f0d6a4abd3f25bd625949d9edee7cd3fa399c137af31f5bfbe3300aaf9153",
+    "evidence/tag-after.txt": "16562d727dc5f8d50104cc4f21956deb580077aa90807b91fc99746e004748a6",
+    "evidence/tag-before.txt": "16562d727dc5f8d50104cc4f21956deb580077aa90807b91fc99746e004748a6",
+    "evidence/tool-limitations.txt": "eb5e9c2312d5975acddd6666ebb82162aeb479e31f63bac06254d0e8c36513d9",
+    "evidence/transfer-inputs.json": "056eaf91c6996180e64e6a7d192cf581939c8b3f28dd4499468ae114c7a0e49e"
+  }
+}
