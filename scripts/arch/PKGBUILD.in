@@ -1,0 +1,34 @@
+pkgname=qmarkdown
+pkgver=@VERSION@
+pkgrel=@PKGREL@
+pkgdesc='Native Qt Quick Markdown rendering library'
+arch=('x86_64')
+url='https://github.com/lebedenko/qmarkdown'
+license=('MIT')
+depends=('glibc' 'gcc-libs' 'qt6-base>=@QT_VERSION@' 'qt6-declarative>=@QT_VERSION@')
+makedepends=('cmake' 'ninja')
+checkdepends=('python' 'git' 'noto-fonts')
+options=('!debug')
+source=('qmarkdown-source.tar.gz')
+sha256sums=('@SHA256@')
+
+build() {
+    cmake -S "$srcdir/qmarkdown" -B "$srcdir/build" -G Ninja \
+        -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=ON \
+        -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=OFF \
+        -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib \
+        -DQMARKDOWN_QML_INSTALL_DIR=lib/qt6/qml -DCMAKE_SKIP_INSTALL_RPATH=ON
+    cmake --build "$srcdir/build" --parallel 2
+}
+
+check() {
+    export QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software
+    ctest --test-dir "$srcdir/build" --output-on-failure
+    cmake --build "$srcdir/build" --target all_qmllint
+    python "$srcdir/qmarkdown/scripts/verify-cmark-symbols.py" "$srcdir/build"
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install "$srcdir/build"
+    mv "$pkgdir/usr/share/licenses/QMarkdown" "$pkgdir/usr/share/licenses/qmarkdown"
+}

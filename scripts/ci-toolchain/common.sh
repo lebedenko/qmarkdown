@@ -4,7 +4,7 @@ mkdir -p /opt/qmarkdown-provenance
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y --no-install-recommends \
-ca-certificates python3 python3-venv util-linux \
+ca-certificates git python3 python3-venv util-linux \
 build-essential cmake ninja-build fonts-noto-core fonts-noto-mono \
 libfontconfig1 libfreetype6 libdbus-1-3 libglib2.0-0t64 \
 libgl1-mesa-dev libxkbcommon-dev libegl1 libopengl0 \
