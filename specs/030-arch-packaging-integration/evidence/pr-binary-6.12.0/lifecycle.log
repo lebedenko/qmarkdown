@@ -1,0 +1,490 @@
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Owned file missing or modified: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /checks/results/root
+Preserving modified file: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
+PASS: uninstall in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /checks/results/root
+PASS: uninstall in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Unrelated conflict: usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+Unsafe destination ancestor: /checks/results/root/usr/lib
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh --destdir /checks/results/root
+PASS: install in /checks/results/root
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/ON -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/ON
++ cmake --build /checks/results/consumers/ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/ON/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/OFF -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/OFF
++ cmake --build /checks/results/consumers/OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/ON-styling -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/ON-styling
++ cmake --build /checks/results/consumers/ON-styling --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/ON-styling/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/consumers/OFF-styling -DCMAKE_PREFIX_PATH=/checks/results/root/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /checks/results/root/usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/consumers/OFF-styling
++ cmake --build /checks/results/consumers/OFF-styling --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/consumers/OFF-styling/qmarkdown-consumer
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh --destdir /checks/results/root
+PASS: uninstall in /checks/results/root
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh
+PASS: install in /
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/install.sh
+PASS: install in /
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/ON -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/ON
++ cmake --build /checks/results/real-consumers/ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/ON/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/OFF -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=OFF
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/OFF
++ cmake --build /checks/results/real-consumers/OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/OFF/qmarkdown-consumer
+Both point size and pixel size set. Using pixel size.
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/ON-styling -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=ON -DQMARKDOWN_STYLING_CONSUMER=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/ON-styling
++ cmake --build /checks/results/real-consumers/ON-styling --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/ON-styling/qmarkdown-consumer
++ cmake -S /source/tests/installed-consumer -B /checks/results/real-consumers/OFF-styling -DCMAKE_PREFIX_PATH=/usr;/opt/Qt/6.12.0/gcc_64 -DQt6_DIR=/opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6 -DQMarkdown_DIR=/usr/lib/x86_64-linux-gnu/cmake/QMarkdown -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF -DQMARKDOWN_STYLING_CONSUMER=ON
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE  
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found WrapOpenGL: TRUE  
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/Qt/6.12.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)
+  /usr/lib/x86_64-linux-gnu/cmake/QMarkdown/QMarkdownConfig.cmake:39 (find_dependency)
+  CMakeLists.txt:8 (find_package)
+
+
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /checks/results/real-consumers/OFF-styling
++ cmake --build /checks/results/real-consumers/OFF-styling --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /checks/results/real-consumers/OFF-styling/qmarkdown-consumer
++ /checks/results/extracted/qmarkdown-1.1.0-ubuntu24.04-x86_64-qt6.8/uninstall.sh
+PASS: uninstall in /
+PASS: archive, installer lifecycle and installed consumers
