@@ -1,0 +1,24 @@
+{
+  "exitCode": 0,
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--platform",
+    "linux/amd64",
+    "--mount",
+    "type=bind,src=/tmp/qmarkdown-033-hosted/source,dst=/source,readonly",
+    "--mount",
+    "type=bind,src=/tmp/qmarkdown-033-hosted/published-assets,dst=/binary,readonly",
+    "--mount",
+    "type=bind,src=/tmp/qmarkdown-033-hosted/published-ubuntu-6.8.0,dst=/checks",
+    "--env",
+    "CI_QT_VERSION=6.8.0",
+    "sha256:8353e388d4cc266b012162399672c81d8fac279dfda17d0bd06ae6a7377d31f7",
+    "bash",
+    "-euc",
+    "export PATH=\"/opt/Qt/$CI_QT_VERSION/gcc_64/bin:$PATH\"; qmake -query QT_VERSION > /checks/qt-version.txt; cat /etc/os-release > /checks/os-release; dpkg-query -W > /checks/packages.txt; python3 /source/scripts/verify-release-package.py --archive /binary/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz --qt-root \"/opt/Qt/$CI_QT_VERSION/gcc_64\" --work-dir /checks/results --real-install"
+  ]
+}

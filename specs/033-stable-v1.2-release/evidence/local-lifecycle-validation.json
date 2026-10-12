@@ -1,0 +1,250 @@
+{
+  "6.8.0": {
+    "result": {
+      "exitCode": 0,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "--platform",
+        "linux/amd64",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/source,dst=/source,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/published-assets,dst=/binary,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/published-ubuntu-6.8.0,dst=/checks",
+        "--env",
+        "CI_QT_VERSION=6.8.0",
+        "sha256:8353e388d4cc266b012162399672c81d8fac279dfda17d0bd06ae6a7377d31f7",
+        "bash",
+        "-euc",
+        "export PATH=\"/opt/Qt/$CI_QT_VERSION/gcc_64/bin:$PATH\"; qmake -query QT_VERSION > /checks/qt-version.txt; cat /etc/os-release > /checks/os-release; dpkg-query -W > /checks/packages.txt; python3 /source/scripts/verify-release-package.py --archive /binary/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz --qt-root \"/opt/Qt/$CI_QT_VERSION/gcc_64\" --work-dir /checks/results --real-install"
+      ]
+    },
+    "environment": {
+      "qt": "6.8.0",
+      "imageId": "sha256:8353e388d4cc266b012162399672c81d8fac279dfda17d0bd06ae6a7377d31f7",
+      "architecture": "amd64",
+      "network": "none",
+      "sourceCommit": "bdd0cf666b98433fccb2428b86aab8b0dce5cb29",
+      "imageConfig": {
+        "Id": "sha256:8353e388d4cc266b012162399672c81d8fac279dfda17d0bd06ae6a7377d31f7",
+        "RepoTags": [
+          "qmarkdown-ci:6.8.0-amd64-ab6b431b1122e71fdd107261ee5d635758679c011cd85e8850232673d3c14870"
+        ],
+        "RepoDigests": [],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-12T18:08:24.45847578+03:00",
+        "Config": {
+          "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+          ],
+          "Cmd": [
+            "/bin/bash"
+          ],
+          "Labels": {
+            "org.opencontainers.image.version": "24.04"
+          }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 2465515570,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/kat8ascfum5hg9djwqlq1xzva/diff:/var/lib/docker/overlay2/xletucycnyl1xd0tlxg83ub7i/diff:/var/lib/docker/overlay2/4iu8og0qvyzt3uoc0fgpot4ox/diff:/var/lib/docker/overlay2/pywd97cbf50qr3vmh1jg7iun4/diff:/var/lib/docker/overlay2/b07127d2a4a5e25779043c554b5449b589e1936abdd340790a74951d5733ef3a/diff",
+            "MergedDir": "/var/lib/docker/overlay2/silzbwqkq6zareki2eo4ah2vn/merged",
+            "UpperDir": "/var/lib/docker/overlay2/silzbwqkq6zareki2eo4ah2vn/diff",
+            "WorkDir": "/var/lib/docker/overlay2/silzbwqkq6zareki2eo4ah2vn/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:d81fb2a7c6ee3be05fdefaa7fd223be219c1ab172083ec1b994c3ecda33ac0a8",
+            "sha256:aa5852f10a22eae2e77f1a64fa0e40cb995b7aef14222eccc9d90e98360ec8ae",
+            "sha256:5601308aeb2d6d562d116d4a9b452f410a3a1bcb7347d4802e8f1ff8a534d51c",
+            "sha256:5a8d934787ec2073b7ac665765d17baced63a5ca0d6675b15a3e6ce8e37cd3bb",
+            "sha256:dd6c61a6008a190c3702448445ff69290c8264512e80b9751d688cec64ec7de9",
+            "sha256:adc620dc6bbd8fb2fdec73561d97ba990e549de88083742a2fa54f9c04c88747"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "2026-10-12T18:08:25.040071421+03:00"
+        }
+      }
+    },
+    "allRegularArchiveFilesMatch": true,
+    "stagedAndRealLifecycle": true,
+    "sixLinkedPluginOnlyConsumersPerInstall": true,
+    "logSha256": "7725fe92a3b599c1e96babd0ed4e8b41e1be74ca1365fe9b6a9dfc1e6cd89bc0"
+  },
+  "6.12.0": {
+    "result": {
+      "exitCode": 0,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--network",
+        "none",
+        "--platform",
+        "linux/amd64",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/source,dst=/source,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/published-assets,dst=/binary,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/published-ubuntu-6.12.0,dst=/checks",
+        "--env",
+        "CI_QT_VERSION=6.12.0",
+        "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+        "bash",
+        "-euc",
+        "export PATH=\"/opt/Qt/$CI_QT_VERSION/gcc_64/bin:$PATH\"; qmake -query QT_VERSION > /checks/qt-version.txt; cat /etc/os-release > /checks/os-release; dpkg-query -W > /checks/packages.txt; python3 /source/scripts/verify-release-package.py --archive /binary/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz --qt-root \"/opt/Qt/$CI_QT_VERSION/gcc_64\" --work-dir /checks/results --real-install"
+      ]
+    },
+    "environment": {
+      "qt": "6.12.0",
+      "imageId": "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+      "architecture": "amd64",
+      "network": "none",
+      "sourceCommit": "bdd0cf666b98433fccb2428b86aab8b0dce5cb29",
+      "imageConfig": {
+        "Id": "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+        "RepoTags": [
+          "qmarkdown-ci:6.12.0-amd64-2add78586d9166989bb69d132d566b790126776ffcd62a4d82252de1805a1c06"
+        ],
+        "RepoDigests": [],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-10-12T18:08:28.082858131+03:00",
+        "Config": {
+          "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+          ],
+          "Cmd": [
+            "/bin/bash"
+          ],
+          "Labels": {
+            "org.opencontainers.image.version": "24.04"
+          }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 2669720294,
+        "GraphDriver": {
+          "Data": {
+            "LowerDir": "/var/lib/docker/overlay2/ka4lr0dyrqj99v6v00az7tmba/diff:/var/lib/docker/overlay2/xletucycnyl1xd0tlxg83ub7i/diff:/var/lib/docker/overlay2/4iu8og0qvyzt3uoc0fgpot4ox/diff:/var/lib/docker/overlay2/pywd97cbf50qr3vmh1jg7iun4/diff:/var/lib/docker/overlay2/b07127d2a4a5e25779043c554b5449b589e1936abdd340790a74951d5733ef3a/diff",
+            "MergedDir": "/var/lib/docker/overlay2/13rez0upy49a0kr33pbhanheu/merged",
+            "UpperDir": "/var/lib/docker/overlay2/13rez0upy49a0kr33pbhanheu/diff",
+            "WorkDir": "/var/lib/docker/overlay2/13rez0upy49a0kr33pbhanheu/work"
+          },
+          "Name": "overlay2"
+        },
+        "RootFS": {
+          "Type": "layers",
+          "Layers": [
+            "sha256:d81fb2a7c6ee3be05fdefaa7fd223be219c1ab172083ec1b994c3ecda33ac0a8",
+            "sha256:aa5852f10a22eae2e77f1a64fa0e40cb995b7aef14222eccc9d90e98360ec8ae",
+            "sha256:5601308aeb2d6d562d116d4a9b452f410a3a1bcb7347d4802e8f1ff8a534d51c",
+            "sha256:5a8d934787ec2073b7ac665765d17baced63a5ca0d6675b15a3e6ce8e37cd3bb",
+            "sha256:1ffdf97718c5d24bcab1e16293d757da598cfc39ae702ccb2bce4cdf8c4ca177",
+            "sha256:28c08d6e64a699cf0465c19df2889aa178cc62a723f92cef49e13e9c157ea63d"
+          ]
+        },
+        "Metadata": {
+          "LastTagTime": "2026-10-12T18:08:29.042463671+03:00"
+        }
+      }
+    },
+    "allRegularArchiveFilesMatch": true,
+    "stagedAndRealLifecycle": true,
+    "sixLinkedPluginOnlyConsumersPerInstall": true,
+    "logSha256": "bb7067007f7eeac921107f45c1f6f67435430fd01929eda81f147ae31f12d49b"
+  },
+  "arch": {
+    "result": {
+      "exitCode": 0,
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/published-arch-cached,dst=/evidence",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/published-arch-cached/tooling,dst=/tools,readonly",
+        "--mount",
+        "type=bind,src=/tmp/qmarkdown-033-hosted/published-arch-cached/pacman-cache,dst=/var/cache/pacman/pkg",
+        "--env",
+        "PKG_VERSION=1.2.0",
+        "--env",
+        "PKG_RELEASE=1",
+        "--env",
+        "SOURCE_SHA256=959fb3e064ac9c2e94b0e2217b51da894ce1b71e830069e690efe43d3a34c02b",
+        "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+        "bash",
+        "/tools/container.sh",
+        "verify"
+      ],
+      "packageBytesUnchanged": true
+    },
+    "environment": {
+      "sourceCommit": "bdd0cf666b98433fccb2428b86aab8b0dce5cb29",
+      "tagObject": "b2ef4a95362de259f4ec1c6ecfa0f2488ea03737",
+      "version": "1.2.0",
+      "pkgrel": "1",
+      "publishedPackageSha256": "70b5b96e5900443e8e925c91f7a4de3514d427a58c1b1f742f03b2da6823559b",
+      "imageId": "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+      "repoDigests": [
+        "archlinux@sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd"
+      ],
+      "architecture": "amd64",
+      "publicationBuildEnvironment": {
+        "sourceCommit": "bdd0cf666b98433fccb2428b86aab8b0dce5cb29",
+        "version": "1.2.0",
+        "pkgrel": "1",
+        "sourceSha256": "959fb3e064ac9c2e94b0e2217b51da894ce1b71e830069e690efe43d3a34c02b",
+        "imageId": "sha256:757718cecb34fbe2c56e22b5f6299a45f149c7ce1c9b85def543a340bacdf7af",
+        "repoDigests": [
+          "archlinux@sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd"
+        ],
+        "architecture": "amd64",
+        "toolingSha256": {
+          "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356",
+          "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+          "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+          "verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c"
+        }
+      },
+      "fixtureSourceArchiveSha256": "3f1cfd9f8a747b75e7977d8f5bb3b653a8c6eb1cc66a0d4f22fe276997b0f2ad",
+      "toolingSha256": {
+        "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+        "verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c",
+        "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+        "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356"
+      },
+      "publicationRecipeSha256": "194ac2e615c89c1d1ba0c98a310461b7a23e4b7f4f88bbf7d19c0581cbbf77d6"
+    },
+    "taggedSource": {
+      "sourceCommit": "bdd0cf666b98433fccb2428b86aab8b0dce5cb29",
+      "tagObject": "b2ef4a95362de259f4ec1c6ecfa0f2488ea03737",
+      "sourceSnapshotSha256": "3f1cfd9f8a747b75e7977d8f5bb3b653a8c6eb1cc66a0d4f22fe276997b0f2ad",
+      "toolingSha256": {
+        "build-arch-package.py": "a269dc7d051d3d5610853bc43aaf54260b7bda8fe96ef6f2ffff2bd432ff70a7",
+        "verify.py": "0acf229a8ca97b8519c0b9c3cc0ea70db67e6ac962c23dd6ae6dec2a6a5db85c",
+        "container.sh": "1447b85947fbc2b21cac19c14f4c6574e290aa54210abb66b5005d4ea3994bd9",
+        "PKGBUILD.in": "fcf27b1f3e1d041fb4295c64493ea7304ed91ccfec58cf95092d0f5f25f8b356"
+      }
+    },
+    "packageInfo": "# Generated by makepkg 7.1.0\n# using fakeroot version 1.37.2\npkgname = qmarkdown\npkgbase = qmarkdown\nxdata = pkgtype=pkg\npkgver = 1.2.0-1\npkgdesc = Native Qt Quick Markdown rendering library\nurl = https://github.com/lebedenko/qmarkdown\nbuilddate = 1791829054\npackager = Unknown Packager\nsize = 1140781\narch = x86_64\nlicense = MIT\ndepend = glibc\ndepend = gcc-libs\ndepend = qt6-base>=6.12.0\ndepend = qt6-declarative>=6.12.0\nmakedepend = cmake\nmakedepend = ninja\ncheckdepend = python\ncheckdepend = git\ncheckdepend = noto-fonts\n",
+    "buildInfo": "format = 2\npkgname = qmarkdown\npkgbase = qmarkdown\npkgver = 1.2.0-1\npkgarch = x86_64\npkgbuild_sha256sum = 194ac2e615c89c1d1ba0c98a310461b7a23e4b7f4f88bbf7d19c0581cbbf77d6\npackager = Unknown Packager\nbuilddate = 1791829054\nbuilddir = /work\nstartdir = /work\nbuildtool = makepkg\nbuildtoolver = 7.1.0\nbuildenv = !distcc\nbuildenv = color\nbuildenv = !ccache\nbuildenv = check\nbuildenv = !sign\noptions = strip\noptions = docs\noptions = !libtool\noptions = !staticlibs\noptions = emptydirs\noptions = zipman\noptions = purge\noptions = debug\noptions = lto\ninstalled = acl-2.4.0-1-x86_64\ninstalled = archlinux-keyring-20260909-1-any\ninstalled = attr-2.6.0-1-x86_64\ninstalled = audit-4.2.1-1-x86_64\ninstalled = autoconf-2.73-1-any\ninstalled = automake-1.19-1-any\ninstalled = avahi-1:0.9rc5-1-x86_64\ninstalled = base-3-3-any\ninstalled = base-devel-1-2-any\ninstalled = bash-5.3.20-1-x86_64\ninstalled = binutils-2.47-4-x86_64\ninstalled = bison-3.8.2-8-x86_64\ninstalled = boost-libs-1.92.0-1-x86_64\ninstalled = brotli-1.2.0-1-x86_64\ninstalled = bzip2-1.0.8-6-x86_64\ninstalled = ca-certificates-20240618-1-any\ninstalled = ca-certificates-mozilla-3.131-1-x86_64\ninstalled = ca-certificates-utils-20240618-1-any\ninstalled = cmake-4.4.4-1-x86_64\ninstalled = coreutils-9.12-2-x86_64\ninstalled = cpio-2.15-3-x86_64\ninstalled = cppdap-1.58.0-3-x86_64\ninstalled = cryptsetup-2.8.8-1-x86_64\ninstalled = curl-8.22.0-1-x86_64\ninstalled = db5.3-5.3.28-7-x86_64\ninstalled = dbus-1.16.2-1-x86_64\ninstalled = dbus-broker-37-3-x86_64\ninstalled = dbus-broker-units-37-3-x86_64\ninstalled = dbus-units-37-3-x86_64\ninstalled = debugedit-5.3-2-x86_64\ninstalled = default-cursors-3-1-any\ninstalled = device-mapper-2.03.43-2-x86_64\ninstalled = diffutils-3.12-2-x86_64\ninstalled = double-conversion-3.4.0-1-x86_64\ninstalled = duktape-2.7.0-7-x86_64\ninstalled = e2fsprogs-1.47.4-1-x86_64\ninstalled = elfutils-0.196-1-x86_64\ninstalled = expat-2.9.0-1-x86_64\ninstalled = fakeroot-1:1.37.2-3-x86_64\ninstalled = file-5.48-1-x86_64\ninstalled = filesystem-2025.10.12-1-any\ninstalled = findutils-4.11.0-1-x86_64\ninstalled = flex-2.6.4-6-x86_64\ninstalled = fontconfig-2:2.18.3-2-x86_64\ninstalled = freetype2-2.14.3-1-x86_64\ninstalled = gawk-5.4.1-1-x86_64\ninstalled = gc-8.2.12-1-x86_64\ninstalled = gcc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = gcc-libs-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = gdb-18.1-1-x86_64\ninstalled = gdb-common-18.1-1-x86_64\ninstalled = gdbm-1.26-2-x86_64\ninstalled = gettext-1.0-2-x86_64\ninstalled = git-2.56.0-1-x86_64\ninstalled = glib2-2.90.1-1-x86_64\ninstalled = glibc-2.44+r50+g1848099f063e-1-x86_64\ninstalled = gmp-6.3.0-3-x86_64\ninstalled = gnulib-l10n-20241231-1-any\ninstalled = gnupg-2.4.9-3-x86_64\ninstalled = gnutls-3.8.13-3-x86_64\ninstalled = gpgme-2.2.0-1-x86_64\ninstalled = graphite-1:1.3.15-1-x86_64\ninstalled = grep-3.12-2-x86_64\ninstalled = groff-1.24.2-1-x86_64\ninstalled = guile-3.0.11-1-x86_64\ninstalled = gzip-1.15-1-x86_64\ninstalled = harfbuzz-14.6.0-1-x86_64\ninstalled = hicolor-icon-theme-0.18-1-any\ninstalled = hwdata-0.412-1-any\ninstalled = iana-etc-20260617-1-any\ninstalled = icu-78.3-1-x86_64\ninstalled = iproute2-7.2.0-1-x86_64\ninstalled = iptables-1:1.8.13-1-x86_64\ninstalled = iputils-20250605-1-x86_64\ninstalled = jansson-2.15.1-1-x86_64\ninstalled = json-c-0.19-1-x86_64\ninstalled = jsoncpp-1.9.8-1-x86_64\ninstalled = kbd-2.10.0-1-x86_64\ninstalled = keyutils-1.6.3-4-x86_64\ninstalled = kmod-34.2-1-x86_64\ninstalled = krb5-1.22.2-1-x86_64\ninstalled = leancrypto-1.9.1-1-x86_64\ninstalled = libarchive-3.8.9-1-x86_64\ninstalled = libasan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libassuan-3.0.0-1-x86_64\ninstalled = libatomic-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libb2-0.98.1-3-x86_64\ninstalled = libbpf-1.7.0-1-x86_64\ninstalled = libcap-2.78-1-x86_64\ninstalled = libcap-ng-0.9.6-1-x86_64\ninstalled = libcups-2:2.4.20-1-x86_64\ninstalled = libdaemon-0.14-6-x86_64\ninstalled = libdrm-2.4.134-1-x86_64\ninstalled = libedit-20260512_3.1-1-x86_64\ninstalled = libelf-0.196-1-x86_64\ninstalled = libevdev-1.14.0-1-x86_64\ninstalled = libevent-2.1.13-2-x86_64\ninstalled = libffi-3.8.0-1-x86_64\ninstalled = libgcc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libgcrypt-1.12.4-1-x86_64\ninstalled = libgfortran-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libglvnd-1.7.0-3-x86_64\ninstalled = libgomp-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libgpg-error-1.61-1-x86_64\ninstalled = libgudev-238-3-x86_64\ninstalled = libhwasan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libice-1.1.2-1-x86_64\ninstalled = libidn2-2.3.8-1-x86_64\ninstalled = libinput-1.32.0-1-x86_64\ninstalled = libisl-0.28-1-x86_64\ninstalled = libjpeg-turbo-3.2.0-2-x86_64\ninstalled = libksba-1.8.1-1-x86_64\ninstalled = libldap-2.7.1-1-x86_64\ninstalled = liblsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libmakepkg-dropins-20-2-any\ninstalled = libmnl-1.0.5-2-x86_64\ninstalled = libmpc-1.4.1-1-x86_64\ninstalled = libnetfilter_conntrack-1.1.1-1-x86_64\ninstalled = libnfnetlink-1.0.2-2-x86_64\ninstalled = libnftnl-1.3.2-1-x86_64\ninstalled = libnghttp2-1.70.0-1-x86_64\ninstalled = libnghttp3-1.18.0-1-x86_64\ninstalled = libngtcp2-1.25.0-1-x86_64\ninstalled = libnl-3.12.0-1-x86_64\ninstalled = libnsl-2.0.1-2-x86_64\ninstalled = libobjc-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libp11-kit-0.26.5-1-x86_64\ninstalled = libpcap-1.11.0-1-x86_64\ninstalled = libpciaccess-0.19-1-x86_64\ninstalled = libpng-1.6.59-1-x86_64\ninstalled = libproxy-0.5.12-1-x86_64\ninstalled = libpsl-0.21.5-2-x86_64\ninstalled = libquadmath-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libsasl-2.1.28-5-x86_64\ninstalled = libseccomp-2.6.0-1-x86_64\ninstalled = libsecret-0.21.8.2-1-x86_64\ninstalled = libsm-1.2.6-1-x86_64\ninstalled = libssh2-1.11.1-7-x86_64\ninstalled = libstdc++-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libsysprof-capture-51.0-1-x86_64\ninstalled = libtasn1-4.21.0-1-x86_64\ninstalled = libtirpc-1.3.8-1-x86_64\ninstalled = libtool-2.6.2-5-x86_64\ninstalled = libtsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libubsan-16.2.1+r23+gd564253eb6c8-1-x86_64\ninstalled = libunistring-1.4.2-1-x86_64\ninstalled = liburing-2.15-1-x86_64\ninstalled = libusb-1.0.30-1-x86_64\ninstalled = libuv-1.52.1-2-x86_64\ninstalled = libverto-0.3.2-6-x86_64\ninstalled = libwacom-2.20.0-1-x86_64\ninstalled = libx11-1.8.13-2-x86_64\ninstalled = libxau-1.0.12-1-x86_64\ninstalled = libxcb-1.17.0-1-x86_64\ninstalled = libxcrypt-4.5.2-1-x86_64\ninstalled = libxdmcp-1.1.5-2-x86_64\ninstalled = libxext-1.3.7-1-x86_64\ninstalled = libxkbcommon-1.13.2-1-x86_64\ninstalled = libxkbcommon-x11-1.13.2-1-x86_64\ninstalled = libxml2-2.15.4-1-x86_64\ninstalled = libxshmfence-1.3.3-1-x86_64\ninstalled = libxxf86vm-1.1.7-1-x86_64\ninstalled = licenses-20240728-1-any\ninstalled = linux-api-headers-7.2-1-x86_64\ninstalled = llvm-libs-23.1.1-1-x86_64\ninstalled = lm_sensors-1:3.6.2-1-x86_64\ninstalled = lmdb-0.9.35-1-x86_64\ninstalled = lua54-5.4.9-1-x86_64\ninstalled = lz4-1:1.10.0-2-x86_64\ninstalled = m4-1.4.21-2-x86_64\ninstalled = make-4.4.1-3-x86_64\ninstalled = md4c-0.6.0-2-x86_64\ninstalled = mesa-1:26.2.4-1-x86_64\ninstalled = mpdecimal-4.0.1-3-x86_64\ninstalled = mpfr-4.2.2-1-x86_64\ninstalled = mtdev-1.1.7-1-x86_64\ninstalled = ncurses-6.6-2-x86_64\ninstalled = nettle-4.0-1-x86_64\ninstalled = nftables-1:1.1.7-3-x86_64\ninstalled = ninja-1.13.2-3-x86_64\ninstalled = noto-fonts-1:2026.10.01-1-any\ninstalled = npth-1.8-1-x86_64\ninstalled = openssl-3.6.5-1-x86_64\ninstalled = p11-kit-0.26.5-1-x86_64\ninstalled = pacman-7.1.0.r9.g54d9411-2-x86_64\ninstalled = pacman-mirrorlist-20260610-1-any\ninstalled = pam-1.7.3-1-x86_64\ninstalled = pambase-20260616-1-any\ninstalled = patch-2.8-1-x86_64\ninstalled = pciutils-3.15.0-1-x86_64\ninstalled = pcre2-10.49-1-x86_64\ninstalled = perl-5.42.3-1-x86_64\ninstalled = perl-error-0.17030-3-any\ninstalled = perl-mailtools-2.22-3-any\ninstalled = perl-timedate-2.35-1-any\ninstalled = pinentry-1.3.3-1-x86_64\ninstalled = pkgconf-3.0.7-1-x86_64\ninstalled = popt-1.19-2-x86_64\ninstalled = procps-ng-4.0.7-1-x86_64\ninstalled = psmisc-23.7-2-x86_64\ninstalled = python-3.14.8-1-x86_64\ninstalled = qt6-base-6.12.0-2-x86_64\ninstalled = qt6-declarative-6.12.0-1-x86_64\ninstalled = qt6-translations-6.12.0-1-any\ninstalled = readline-8.3.6-1-x86_64\ninstalled = rhash-1.4.6-1-x86_64\ninstalled = sed-4.10-2-x86_64\ninstalled = shadow-4.20.0.arch1-1-x86_64\ninstalled = shared-mime-info-2.5.1-2-x86_64\ninstalled = source-highlight-3.1.9-19-x86_64\ninstalled = spirv-tools-1:1.4.363.0-1-x86_64\ninstalled = sqlite-3.54.0-1-x86_64\ninstalled = sudo-1.9.17.p2-6-x86_64\ninstalled = systemd-262-1-x86_64\ninstalled = systemd-libs-262-1-x86_64\ninstalled = systemd-sysvcompat-262-1-x86_64\ninstalled = tar-1.35-5-x86_64\ninstalled = texinfo-7.3-1-x86_64\ninstalled = tpm2-tss-4.2.0-2-x86_64\ninstalled = tslib-1.24-1-x86_64\ninstalled = tzdata-2026e-1-x86_64\ninstalled = util-linux-2.42.4-1-x86_64\ninstalled = util-linux-libs-2.42.4-1-x86_64\ninstalled = wayland-1.26.0-1-x86_64\ninstalled = which-2.25-1-x86_64\ninstalled = xcb-proto-1.17.0-4-any\ninstalled = xcb-util-0.4.1-2-x86_64\ninstalled = xcb-util-cursor-0.1.6-1-x86_64\ninstalled = xcb-util-image-0.4.1-3-x86_64\ninstalled = xcb-util-keysyms-0.4.1-5-x86_64\ninstalled = xcb-util-renderutil-0.3.10-2-x86_64\ninstalled = xcb-util-wm-0.4.2-2-x86_64\ninstalled = xdg-utils-1.2.1-2-any\ninstalled = xkeyboard-config-2.48-1-any\ninstalled = xorgproto-2026.1-1-any\ninstalled = xxhash-0.8.4-1-x86_64\ninstalled = xz-5.8.4-1-x86_64\ninstalled = zlib-1:1.3.2-3-x86_64\ninstalled = zlib-ng-2.3.3-1-x86_64\ninstalled = zstd-1.5.7-3-x86_64\n",
+    "sixLinkedPluginOnlyConsumers": true,
+    "metadataPayloadOwnershipIntegrityUpgradeRemoval": true,
+    "logSha256": "6417b631d465a70b7f5d3b37104d3643da543459e9b8e8c23e9fe701a4055670"
+  }
+}

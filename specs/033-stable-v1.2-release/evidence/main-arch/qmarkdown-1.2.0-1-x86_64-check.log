@@ -1,0 +1,31 @@
+Test project /work/src/build
+      Start  1: qmarkdown-formatintervals
+ 1/12 Test  #1: qmarkdown-formatintervals ........   Passed    0.01 sec
+      Start  2: qmarkdown-import
+ 2/12 Test  #2: qmarkdown-import .................   Passed    0.07 sec
+      Start  3: qmarkdown-parser
+ 3/12 Test  #3: qmarkdown-parser .................   Passed    0.02 sec
+      Start  4: qmarkdown-qt-versions
+ 4/12 Test  #4: qmarkdown-qt-versions ............   Passed    0.43 sec
+      Start  5: qmarkdown-arch-recipe
+ 5/12 Test  #5: qmarkdown-arch-recipe ............   Passed    0.11 sec
+      Start  6: qmarkdown-release-upload
+ 6/12 Test  #6: qmarkdown-release-upload .........   Passed    0.09 sec
+      Start  7: qmarkdown-commonmark-oracle
+ 7/12 Test  #7: qmarkdown-commonmark-oracle ......   Passed    1.70 sec
+      Start  8: qmarkdown-commonmark
+ 8/12 Test  #8: qmarkdown-commonmark .............   Passed    0.19 sec
+      Start  9: qmarkdown-view
+ 9/12 Test  #9: qmarkdown-view ...................   Passed    5.32 sec
+      Start 10: qmarkdown-resources
+10/12 Test #10: qmarkdown-resources ..............   Passed   18.19 sec
+      Start 11: qmarkdown-styling
+11/12 Test #11: qmarkdown-styling ................   Passed    0.34 sec
+      Start 12: qmarkdown-styling-fractional
+12/12 Test #12: qmarkdown-styling-fractional .....   Passed    0.36 sec
+
+100% tests passed out of 12
+
+Total Test time (real) =  26.84 sec
+[1/1] cd /work/src/qmarkdown/src/QMarkdown && /usr/lib/qt6/bin/qmllint @/work/src/build/src/QMarkdown/.rcc/qmllint/QMarkdown.rsp
+PASS: 140 bundled external definitions prefixed; shared exports private when present

@@ -1,0 +1,153 @@
+-- The C compiler identification is GNU 16.2.1
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/sbin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/sbin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Found Python3: /usr/sbin/python3.14 (found suitable version "3.14.8", minimum required is "3.9") found components: Interpreter
+-- Configuring done (5.5s)
+-- Generating done (0.1s)
+-- Build files have been written to: /work/src/build
+[1/87] Copying QMarkdown qml sources into build dir
+[2/87] Copying QMarkdown qml resources into build dir
+[3/87] Populating .qmlls.build.ini file at /work/src/build/.qt/.qmlls.build.ini
+[4/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[5/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[6/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[7/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[8/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[9/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[10/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[11/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[12/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[13/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[14/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[15/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[16/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[17/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[18/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[19/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[20/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[21/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[22/87] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[23/87] Running qmlimportscanner for qmarkdown-import-test
+[24/87] Running qmlimportscanner for qmarkdown-view-test
+[25/87] Running qmlimportscanner for qmarkdown-resource-test
+[26/87] Running qmlimportscanner for qmarkdown-styling-test
+[27/87] Automatic MOC for target qmarkdown-formatintervals-test
+[28/87] Automatic MOC for target QMarkdown
+[29/87] Running AUTOMOC file extraction for target QMarkdown
+[30/87] Running moc --collect-json for target QMarkdown
+[31/87] Automatic MOC for target qmarkdown-parser-test
+[32/87] Running rcc for resource qmake_QMarkdown
+[33/87] Automatic QML type registration for target QMarkdown
+[34/87] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[35/87] Running rcc for resource QMarkdown_raw_qml_0
+[36/87] Automatic MOC for target qmarkdown-commonmark-probe
+[37/87] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/qmarkdown-formatintervals-test_autogen/mocs_compilation.cpp.o
+[38/87] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[39/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[40/87] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/tst_formatintervals.cpp.o
+[41/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[42/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[43/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[44/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[45/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[46/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[47/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[48/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[49/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[50/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[51/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[52/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[53/87] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/__/src/QMarkdown/private/formatintervals.cpp.o
+[54/87] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/qmarkdown-parser-test_autogen/mocs_compilation.cpp.o
+[55/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[56/87] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/tst_parser.cpp.o
+[57/87] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/document.cpp.o
+[58/87] Linking CXX shared library src/QMarkdown/libQMarkdown.so.1.2.0
+In function ‘qmarkdown_cmark_cmark_strbuf_set’,
+    inlined from ‘qmarkdown_cmark_cmark_strbuf_set’ at /work/src/qmarkdown/third_party/cmark/src/buffer.c:78:6,
+    inlined from ‘handle_backticks’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:409:5,
+    inlined from ‘parse_inline’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:1347:15,
+    inlined from ‘qmarkdown_cmark_cmark_parse_inlines’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:1418:28:
+/work/src/qmarkdown/third_party/cmark/src/buffer.c:89:25: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+   89 |     buf->ptr[buf->size] = '\0';
+      |                         ^
+/work/src/qmarkdown/third_party/cmark/src/buffer.c: In function ‘qmarkdown_cmark_cmark_parse_inlines’:
+/work/src/qmarkdown/third_party/cmark/src/buffer.c:16:15: note: at offset 1 into destination object ‘qmarkdown_cmark_cmark_strbuf__initbuf’ of size 1
+   16 | unsigned char cmark_strbuf__initbuf[1];
+      |               ^
+[59/87] Creating library symlink src/QMarkdown/libQMarkdown.so.1 src/QMarkdown/libQMarkdown.so
+[60/87] Automatic MOC for target QMarkdownPlugin
+[61/87] Automatic MOC for target qmarkdown-import-test
+[62/87] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/inline.cpp.o
+[63/87] Automatic MOC for target qmarkdown-view-test
+[64/87] Automatic MOC for target qmarkdown-resource-test
+[65/87] Automatic MOC for target qmarkdown-styling-test
+[66/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[67/87] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/qmarkdown-import-test_autogen/mocs_compilation.cpp.o
+[68/87] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[69/87] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/qmarkdown-commonmark-probe_autogen/mocs_compilation.cpp.o
+[70/87] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/tst_import.cpp.o
+[71/87] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/commonmark/probe.cpp.o
+[72/87] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/document.cpp.o
+[73/87] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/qmarkdown-view-test_autogen/mocs_compilation.cpp.o
+[74/87] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/inline.cpp.o
+[75/87] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/qmarkdown-resource-test_autogen/mocs_compilation.cpp.o
+[76/87] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/tst_resources.cpp.o
+/work/src/qmarkdown/tests/tst_resources.cpp: In lambda function:
+/work/src/qmarkdown/tests/tst_resources.cpp:509:38: warning: ignoring return value of ‘char* fgets(char*, int, FILE*)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  509 |             char line[32]; std::fgets(line, sizeof(line), stdin);
+      |                            ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+[77/87] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/qmarkdown-styling-test_autogen/mocs_compilation.cpp.o
+[78/87] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/tst_view.cpp.o
+[79/87] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/tst_styling.cpp.o
+[80/87] Linking CXX shared module qml/QMarkdown/libQMarkdownPlugin.so
+[81/87] Linking CXX executable tests/qmarkdown-formatintervals-test
+[82/87] Linking CXX executable tests/qmarkdown-import-test
+[83/87] Linking CXX executable tests/qmarkdown-parser-test
+In function ‘qmarkdown_cmark_cmark_strbuf_set’,
+    inlined from ‘qmarkdown_cmark_cmark_strbuf_set’ at /work/src/qmarkdown/third_party/cmark/src/buffer.c:78:6,
+    inlined from ‘handle_backticks’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:409:5,
+    inlined from ‘parse_inline’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:1347:15,
+    inlined from ‘qmarkdown_cmark_cmark_parse_inlines’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:1418:28:
+/work/src/qmarkdown/third_party/cmark/src/buffer.c:89:25: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+   89 |     buf->ptr[buf->size] = '\0';
+      |                         ^
+/work/src/qmarkdown/third_party/cmark/src/buffer.c: In function ‘qmarkdown_cmark_cmark_parse_inlines’:
+/work/src/qmarkdown/third_party/cmark/src/buffer.c:16:15: note: at offset 1 into destination object ‘qmarkdown_cmark_cmark_strbuf__initbuf’ of size 1
+   16 | unsigned char cmark_strbuf__initbuf[1];
+      |               ^
+[84/87] Linking CXX executable tests/qmarkdown-commonmark-probe
+In function ‘qmarkdown_cmark_cmark_strbuf_set’,
+    inlined from ‘qmarkdown_cmark_cmark_strbuf_set’ at /work/src/qmarkdown/third_party/cmark/src/buffer.c:78:6,
+    inlined from ‘handle_backticks’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:409:5,
+    inlined from ‘parse_inline’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:1347:15,
+    inlined from ‘qmarkdown_cmark_cmark_parse_inlines’ at /work/src/qmarkdown/third_party/cmark/src/inlines.c:1418:28:
+/work/src/qmarkdown/third_party/cmark/src/buffer.c:89:25: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+   89 |     buf->ptr[buf->size] = '\0';
+      |                         ^
+/work/src/qmarkdown/third_party/cmark/src/buffer.c: In function ‘qmarkdown_cmark_cmark_parse_inlines’:
+/work/src/qmarkdown/third_party/cmark/src/buffer.c:16:15: note: at offset 1 into destination object ‘qmarkdown_cmark_cmark_strbuf__initbuf’ of size 1
+   16 | unsigned char cmark_strbuf__initbuf[1];
+      |               ^
+[85/87] Linking CXX executable tests/qmarkdown-resource-test
+[86/87] Linking CXX executable tests/qmarkdown-styling-test
+[87/87] Linking CXX executable tests/qmarkdown-view-test
