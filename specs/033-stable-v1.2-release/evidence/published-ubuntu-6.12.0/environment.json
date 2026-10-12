@@ -1,0 +1,53 @@
+{
+  "qt": "6.12.0",
+  "imageId": "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+  "architecture": "amd64",
+  "network": "none",
+  "sourceCommit": "bdd0cf666b98433fccb2428b86aab8b0dce5cb29",
+  "imageConfig": {
+    "Id": "sha256:0e9094d808f66e6df9b70028d815649e989eaa44ba2bdb27df56dd2cc8bebd13",
+    "RepoTags": [
+      "qmarkdown-ci:6.12.0-amd64-2add78586d9166989bb69d132d566b790126776ffcd62a4d82252de1805a1c06"
+    ],
+    "RepoDigests": [],
+    "Comment": "buildkit.dockerfile.v0",
+    "Created": "2026-10-12T18:08:28.082858131+03:00",
+    "Config": {
+      "Env": [
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      ],
+      "Cmd": [
+        "/bin/bash"
+      ],
+      "Labels": {
+        "org.opencontainers.image.version": "24.04"
+      }
+    },
+    "Architecture": "amd64",
+    "Os": "linux",
+    "Size": 2669720294,
+    "GraphDriver": {
+      "Data": {
+        "LowerDir": "/var/lib/docker/overlay2/ka4lr0dyrqj99v6v00az7tmba/diff:/var/lib/docker/overlay2/xletucycnyl1xd0tlxg83ub7i/diff:/var/lib/docker/overlay2/4iu8og0qvyzt3uoc0fgpot4ox/diff:/var/lib/docker/overlay2/pywd97cbf50qr3vmh1jg7iun4/diff:/var/lib/docker/overlay2/b07127d2a4a5e25779043c554b5449b589e1936abdd340790a74951d5733ef3a/diff",
+        "MergedDir": "/var/lib/docker/overlay2/13rez0upy49a0kr33pbhanheu/merged",
+        "UpperDir": "/var/lib/docker/overlay2/13rez0upy49a0kr33pbhanheu/diff",
+        "WorkDir": "/var/lib/docker/overlay2/13rez0upy49a0kr33pbhanheu/work"
+      },
+      "Name": "overlay2"
+    },
+    "RootFS": {
+      "Type": "layers",
+      "Layers": [
+        "sha256:d81fb2a7c6ee3be05fdefaa7fd223be219c1ab172083ec1b994c3ecda33ac0a8",
+        "sha256:aa5852f10a22eae2e77f1a64fa0e40cb995b7aef14222eccc9d90e98360ec8ae",
+        "sha256:5601308aeb2d6d562d116d4a9b452f410a3a1bcb7347d4802e8f1ff8a534d51c",
+        "sha256:5a8d934787ec2073b7ac665765d17baced63a5ca0d6675b15a3e6ce8e37cd3bb",
+        "sha256:1ffdf97718c5d24bcab1e16293d757da598cfc39ae702ccb2bce4cdf8c4ca177",
+        "sha256:28c08d6e64a699cf0465c19df2889aa178cc62a723f92cef49e13e9c157ea63d"
+      ]
+    },
+    "Metadata": {
+      "LastTagTime": "2026-10-12T18:08:29.042463671+03:00"
+    }
+  }
+}

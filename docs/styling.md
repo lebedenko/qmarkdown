@@ -1,6 +1,6 @@
 # Styling in QMarkdown 1.1
 
-Use `import QtQuick` and `import QMarkdown 1.1` for the new API. The unreleased 1.2.0 candidate accepts compatible 1.0/1.1/1.2 CMake requests and EXACT 1.2.0; exact earlier versions require historical packages. Existing QML 1.0 consumers continue to work with Legacy defaults.
+Use `import QtQuick` and `import QMarkdown 1.1` for the new API. The published 1.2.0 package accepts compatible 1.0/1.1/1.2 CMake requests and EXACT 1.2.0; exact earlier versions require historical packages. Existing QML 1.0 consumers continue to work with Legacy defaults.
 
 `MarkdownStyle.preset` defaults to `MarkdownStyle.Legacy`. Additional presets are `PolishedLight`, `PolishedDark`, `MinimalLight`, and `MinimalDark`. These are fixed palettes, with no application-theme subscription or document background. The host owns backgrounds, scrolling, navigation, and resource authorization.
 

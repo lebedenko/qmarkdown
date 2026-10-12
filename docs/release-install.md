@@ -71,4 +71,4 @@ publication are separate maintainer actions.
 
 The integrated release workflow builds and verifies a [pacman-owned Arch Linux package](arch-install.md). Uploads require both Ubuntu and Arch gates, and validate both archive/checksum pairs before publication. The existing v1.1.0 assets remain unchanged.
 
-The v1.2.0 publication and downloaded-asset gates are tracked in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication is pending at release preparation.
+The v1.2.0 publication and downloaded-asset results are recorded in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication and independent downloaded-asset acceptance passed.

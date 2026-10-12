@@ -1,0 +1,18 @@
+-- Install configuration: "Release"
+-- Installing: /work/pkg/qmarkdown/usr/share/licenses/QMarkdown/cmark/COPYING
+-- Installing: /work/pkg/qmarkdown/usr/share/licenses/QMarkdown/cmark/PROVENANCE.md
+-- Installing: /work/pkg/qmarkdown/usr/lib/libQMarkdown.so.1.2.0
+-- Installing: /work/pkg/qmarkdown/usr/lib/libQMarkdown.so.1
+-- Installing: /work/pkg/qmarkdown/usr/lib/libQMarkdown.so
+-- Installing: /work/pkg/qmarkdown/usr/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so
+-- Set non-toolchain portion of runtime path of "/work/pkg/qmarkdown/usr/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so" to ""
+-- Installing: /work/pkg/qmarkdown/usr/lib/qt6/qml/QMarkdown/qmldir
+-- Installing: /work/pkg/qmarkdown/usr/lib/qt6/qml/QMarkdown/QMarkdown.qmltypes
+-- Installing: /work/pkg/qmarkdown/usr/lib/qt6/qml/QMarkdown/MarkdownView.qml
+-- Installing: /work/pkg/qmarkdown/usr/lib/qt6/qml/QMarkdown/Private/qmldir
+-- Installing: /work/pkg/qmarkdown/usr/lib/qt6/qml/QMarkdown/Private/private.qmltypes
+-- Installing: /work/pkg/qmarkdown/usr/lib/cmake/QMarkdown/QMarkdownConfig.cmake
+-- Installing: /work/pkg/qmarkdown/usr/lib/cmake/QMarkdown/QMarkdownConfigVersion.cmake
+-- Installing: /work/pkg/qmarkdown/usr/lib/cmake/QMarkdown/QMarkdownTargets.cmake
+-- Installing: /work/pkg/qmarkdown/usr/lib/cmake/QMarkdown/QMarkdownTargets-release.cmake
+-- Installing: /work/pkg/qmarkdown/usr/share/licenses/QMarkdown/LICENSE
