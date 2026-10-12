@@ -1,0 +1,978 @@
+Verification artifacts: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified
++ cmake -S /home/andrii/Projects/pet/qt-markdown -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_INSTALL_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared -DQMARKDOWN_QML_INSTALL_DIR=lib/qt6/qml
+-- The C compiler identification is GNU 16.2.1
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Found Python3: /home/andrii/.local/bin/python3.12 (found suitable version "3.12.13", minimum required is "3.9") found components: Interpreter
+-- Configuring done (1.0s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared --parallel 2
+[  0%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  0%] Copying QMarkdown qml resources into build dir
+[  0%] Built target QMarkdown_copy_res
+[  0%] Populating .qmlls.build.ini file at /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared/.qt/.qmlls.build.ini
+[  1%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[  1%] Built target generate_qmlls_build_ini_file
+[  1%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[  2%] Copying QMarkdown qml sources into build dir
+[  3%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[  3%] Built target QMarkdown_copy_qml
+[  4%] Running qmlimportscanner for qmarkdown-import-example
+[  5%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[  5%] Built target qmarkdown-import-example_qmlimportscan
+[  7%] Running qmlimportscanner for qmarkdown-viewer
+[  7%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[  8%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[  8%] Built target qmarkdown-viewer_qmlimportscan
+[  8%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[  8%] Copying qmarkdown-import-example qml sources into build dir
+[  8%] Built target qmarkdown-import-example_copy_qml
+[  9%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[ 10%] Copying qmarkdown-import-example qml resources into build dir
+[ 10%] Built target qmarkdown-import-example_copy_res
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 10%] Copying qmarkdown-font-editor qml resources into build dir
+[ 10%] Built target qmarkdown-font-editor_copy_res
+[ 11%] Copying qmarkdown-font-editor qml sources into build dir
+[ 11%] Built target qmarkdown-font-editor_copy_qml
+[ 11%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor_resources_1.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools_init.cpp.o
+[ 12%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 12%] Built target qmarkdown-font-editor_resources_1
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 15%] Copying qmarkdown-viewer qml sources into build dir
+[ 15%] Built target qmarkdown-viewer_copy_qml
+[ 15%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 17%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 17%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 18%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 20%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 20%] Copying qmarkdown-viewer qml resources into build dir
+[ 20%] Built target qmarkdown-viewer_copy_res
+[ 20%] Built target qmarkdown_cmark
+[ 20%] Built target qmarkdown-formatintervals-test_autogen_timestamp_deps
+[ 20%] Running qmlimportscanner for qmarkdown-import-test
+[ 20%] Built target qmarkdown-import-test_qmlimportscan
+[ 20%] Built target qmarkdown-parser-test_autogen_timestamp_deps
+[ 20%] Running qmlimportscanner for qmarkdown-view-test
+[ 20%] Built target qmarkdown-commonmark-probe_autogen_timestamp_deps
+[ 20%] Built target qmarkdown-view-test_qmlimportscan
+[ 20%] Running qmlimportscanner for qmarkdown-resource-test
+[ 20%] Built target qmarkdown-resource-test_qmlimportscan
+[ 20%] Running qmlimportscanner for qmarkdown-styling-test
+[ 20%] Built target qmarkdown-styling-test_qmlimportscan
+[ 20%] Built target QMarkdown_autogen_timestamp_deps
+[ 20%] Generating qt.conf part for qmarkdown-import-example
+[ 20%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[ 21%] Generating qt.conf part for qmarkdown-viewer
+[ 21%] Automatic MOC for target qmarkdown-formatintervals-test
+[ 22%] Generating qt.conf file
+[ 22%] Built target generate_finalqtconf_qmarkdown-viewer
+[ 23%] Automatic MOC for target qmarkdown-parser-test
+[ 23%] Built target qmarkdown-parser-test_autogen
+[ 23%] Automatic MOC for target qmarkdown-commonmark-probe
+[ 23%] Built target qmarkdown-formatintervals-test_autogen
+[ 23%] Automatic MOC for target QMarkdown
+[ 23%] Built target qmarkdown-commonmark-probe_autogen
+[ 24%] Automatic MOC for target qmarkdown-font-editor
+[ 24%] Built target qmarkdown-font-editor_autogen
+[ 24%] Built target QMarkdown_autogen
+[ 25%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/qmarkdown-formatintervals-test_autogen/mocs_compilation.cpp.o
+[ 27%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/qmarkdown-parser-test_autogen/mocs_compilation.cpp.o
+[ 28%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/tst_formatintervals.cpp.o
+[ 28%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/tst_parser.cpp.o
+[ 29%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/document.cpp.o
+[ 29%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/__/src/QMarkdown/private/formatintervals.cpp.o
+[ 30%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 31%] Linking CXX executable qmarkdown-formatintervals-test
+[ 31%] Built target qmarkdown-formatintervals-test
+[ 31%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/qmarkdown-commonmark-probe_autogen/mocs_compilation.cpp.o
+[ 32%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/commonmark/probe.cpp.o
+[ 32%] Linking CXX executable qmarkdown-parser-test
+[ 32%] Built target qmarkdown-parser-test
+[ 32%] Running AUTOMOC file extraction for target QMarkdown
+[ 34%] Running rcc for resource QMarkdown_raw_qml_0
+[ 34%] Running rcc for resource qmake_QMarkdown
+[ 35%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 35%] Running moc --collect-json for target QMarkdown
+[ 36%] Generating meta_types/qt6qmarkdown_metatypes.json
+[ 37%] Automatic QML type registration for target QMarkdown
+[ 37%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 38%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 40%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/document.cpp.o
+[ 40%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 40%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 41%] Linking CXX executable qmarkdown-commonmark-probe
+[ 41%] Built target qmarkdown-commonmark-probe
+[ 42%] Running AUTOMOC file extraction for target qmarkdown-font-editor
+[ 43%] Running rcc for resource qmake_QMarkdownViewer_Tools
+[ 44%] Running moc --collect-json for target qmarkdown-font-editor
+[ 44%] Generating meta_types/qt6qmarkdown-font-editor_metatypes.json
+[ 44%] Automatic QML type registration for target qmarkdown-font-editor
+[ 45%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_autogen/mocs_compilation.cpp.o
+[ 45%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_qmltyperegistrations.cpp.o
+[ 47%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 47%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 48%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools.cpp.o
+[ 48%] Linking CXX static library libqmarkdown-font-editor.a
+[ 48%] Built target qmarkdown-font-editor
+[ 49%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 49%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 50%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 51%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 51%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 52%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 52%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 54%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 54%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 55%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 55%] Linking CXX shared library libQMarkdown.so
+[ 55%] Built target QMarkdown
+[ 55%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[ 55%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 55%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 55%] Built target qmarkdown-import-test_autogen_timestamp_deps
+[ 55%] Built target qmarkdown-view-test_autogen_timestamp_deps
+[ 55%] Built target qmarkdown-resource-test_autogen_timestamp_deps
+[ 56%] Automatic MOC for target QMarkdownPlugin
+[ 56%] Built target qmarkdown-styling-test_autogen_timestamp_deps
+[ 57%] Automatic MOC for target qmarkdown-import-example
+[ 57%] Built target qmarkdown-import-example_autogen
+[ 57%] Automatic MOC for target qmarkdown-viewer
+[ 57%] Built target qmarkdown-viewer_autogen
+[ 58%] Automatic MOC for target qmarkdown-import-test
+[ 58%] Built target QMarkdownPlugin_autogen
+[ 60%] Automatic MOC for target qmarkdown-view-test
+[ 60%] Built target qmarkdown-import-test_autogen
+[ 61%] Automatic MOC for target qmarkdown-resource-test
+[ 61%] Built target qmarkdown-view-test_autogen
+[ 62%] Automatic MOC for target qmarkdown-styling-test
+[ 62%] Built target qmarkdown-resource-test_autogen
+[ 63%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[ 64%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[ 64%] Built target qmarkdown-styling-test_autogen
+[ 64%] Running AUTOMOC file extraction for target qmarkdown-import-example
+[ 65%] Running rcc for resource qmake_QMarkdownExample
+[ 67%] Running rcc for resource qmarkdown-import-example_raw_qml_0
+[ 68%] Generating .rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp
+[ 69%] Running moc --collect-json for target qmarkdown-import-example
+[ 70%] Generating meta_types/qt6qmarkdown-import-example_metatypes.json
+[ 70%] Automatic QML type registration for target qmarkdown-import-example
+[ 70%] Generating .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp, .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.aotstats
+[ 70%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_autogen/mocs_compilation.cpp.o
+[ 71%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/main.cpp.o
+[ 71%] Linking CXX shared module ../../qml/QMarkdown/libQMarkdownPlugin.so
+[ 71%] Built target QMarkdownPlugin
+[ 72%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_qmltyperegistrations.cpp.o
+[ 72%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmake_QMarkdownExample.cpp.o
+[ 74%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp.o
+[ 74%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.o
+[ 75%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmarkdown-import-example_raw_qml_0.cpp.o
+[ 76%] Running AUTOMOC file extraction for target qmarkdown-viewer
+[ 77%] Running rcc for resource qmake_QMarkdownViewer
+[ 78%] Running rcc for resource qmarkdown-viewer_raw_qml_0
+[ 78%] Running rcc for resource sample_images
+[ 80%] Generating .rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp
+[ 81%] Running moc --collect-json for target qmarkdown-viewer
+[ 81%] Generating meta_types/qt6qmarkdown-viewer_metatypes.json
+[ 81%] Automatic QML type registration for target qmarkdown-viewer
+[ 81%] Generating .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.aotstats
+[ 82%] Generating .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.aotstats
+[ 82%] Generating .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.aotstats
+[ 83%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_autogen/mocs_compilation.cpp.o
+[ 84%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/main.cpp.o
+[ 84%] Linking CXX executable qmarkdown-import-example
+[ 84%] Built target qmarkdown-import-example
+[ 85%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/qmarkdown-import-test_autogen/mocs_compilation.cpp.o
+[ 87%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/tst_import.cpp.o
+[ 87%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_qmltyperegistrations.cpp.o
+[ 88%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmake_QMarkdownViewer.cpp.o
+[ 88%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp.o
+[ 88%] Linking CXX executable qmarkdown-import-test
+[ 88%] Built target qmarkdown-import-test
+[ 89%] Running rcc for resource sample_images
+[ 89%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/qmarkdown-view-test_autogen/mocs_compilation.cpp.o
+[ 90%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/tst_view.cpp.o
+[ 91%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.o
+[ 91%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.o
+[ 92%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.o
+[ 94%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmarkdown-viewer_raw_qml_0.cpp.o
+[ 94%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_sample_images.cpp.o
+[ 95%] Linking CXX executable qmarkdown-viewer
+[ 95%] Built target qmarkdown-viewer
+[ 95%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/qmarkdown-resource-test_autogen/mocs_compilation.cpp.o
+[ 96%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/tst_resources.cpp.o
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/.qt/rcc/qrc_sample_images.cpp.o
+[ 97%] Linking CXX executable qmarkdown-view-test
+[ 97%] Built target qmarkdown-view-test
+[ 98%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/qmarkdown-styling-test_autogen/mocs_compilation.cpp.o
+[100%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/tst_styling.cpp.o
+[100%] Linking CXX executable qmarkdown-resource-test
+[100%] Built target qmarkdown-resource-test
+[100%] Linking CXX executable qmarkdown-styling-test
+[100%] Built target qmarkdown-styling-test
++ ctest --test-dir /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared --output-on-failure
+Test project /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared
+      Start  1: qmarkdown-formatintervals
+ 1/12 Test  #1: qmarkdown-formatintervals ........   Passed    0.02 sec
+      Start  2: qmarkdown-import
+ 2/12 Test  #2: qmarkdown-import .................   Passed    0.07 sec
+      Start  3: qmarkdown-parser
+ 3/12 Test  #3: qmarkdown-parser .................   Passed    0.02 sec
+      Start  4: qmarkdown-qt-versions
+ 4/12 Test  #4: qmarkdown-qt-versions ............   Passed    0.23 sec
+      Start  5: qmarkdown-arch-recipe
+ 5/12 Test  #5: qmarkdown-arch-recipe ............   Passed    0.10 sec
+      Start  6: qmarkdown-release-upload
+ 6/12 Test  #6: qmarkdown-release-upload .........   Passed    0.05 sec
+      Start  7: qmarkdown-commonmark-oracle
+ 7/12 Test  #7: qmarkdown-commonmark-oracle ......   Passed    1.20 sec
+      Start  8: qmarkdown-commonmark
+ 8/12 Test  #8: qmarkdown-commonmark .............   Passed    0.14 sec
+      Start  9: qmarkdown-view
+ 9/12 Test  #9: qmarkdown-view ...................   Passed    8.79 sec
+      Start 10: qmarkdown-resources
+10/12 Test #10: qmarkdown-resources ..............   Passed   17.48 sec
+      Start 11: qmarkdown-styling
+11/12 Test #11: qmarkdown-styling ................   Passed    0.32 sec
+      Start 12: qmarkdown-styling-fractional
+12/12 Test #12: qmarkdown-styling-fractional .....   Passed    0.35 sec
+
+100% tests passed out of 12
+
+Total Test time (real) =  28.78 sec
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared --target all_qmllint
+[  2%] Built target qmarkdown-viewer_qmlimportscan
+[  2%] Built target generate_qmlls_build_ini_file
+[  4%] Built target qmarkdown-import-example_qmlimportscan
+[  8%] Built target generate_finalqtconf_qmarkdown-viewer
+[  8%] Built target QMarkdown_copy_res
+[ 10%] Built target QMarkdown_copy_qml
+[ 10%] Built target QMarkdown_autogen_timestamp_deps
+[ 10%] Built target QMarkdown_autogen
+[ 33%] Built target qmarkdown_cmark
+[ 58%] Built target QMarkdown
+[ 58%] Built target qmarkdown-font-editor_copy_res
+[ 60%] Built target qmarkdown-font-editor_copy_qml
+[ 60%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[ 62%] Built target qmarkdown-font-editor_autogen
+[ 72%] Built target qmarkdown-font-editor
+[ 75%] Built target qmarkdown-viewer_copy_qml
+[ 75%] Built target qmarkdown-viewer_copy_res
+[ 75%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 81%] Built target qmarkdown-viewer_qmltyperegistration
+[ 87%] Built target QMarkdown_qmltyperegistration
+[ 87%] Built target qmarkdown-import-example_copy_qml
+[ 89%] Built target qmarkdown-import-example_copy_res
+[ 89%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 93%] Built target qmarkdown-import-example_qmltyperegistration
+[100%] Built target qmarkdown-font-editor_qmltyperegistration
+[100%] Built target all_qmltyperegistrations
+[100%] Built target qmarkdown-viewer_qmllint
+[100%] Built target QMarkdown_qmllint
+Info: /home/andrii/Projects/pet/qt-markdown/examples/import-only/Main.qml:3:1: Unused import [unused-imports]
+import QMarkdown
+^^^^^^
+[100%] Built target qmarkdown-import-example_qmllint
+Nothing to do for target qmarkdown-font-editor_qmllint.
+[100%] Built target qmarkdown-font-editor_qmllint
+[100%] Built target all_qmllint
++ python3 /home/andrii/Projects/pet/qt-markdown/scripts/verify-cmark-symbols.py /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared
+PASS: 140 bundled external definitions prefixed; shared exports private when present
++ cmake --install /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-shared
+-- Install configuration: ""
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/share/licenses/QMarkdown/cmark/COPYING
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/share/licenses/QMarkdown/cmark/PROVENANCE.md
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/libQMarkdown.so.1.2.0
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/libQMarkdown.so.1
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/libQMarkdown.so
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so
+-- Set non-toolchain portion of runtime path of "/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so" to "$ORIGIN/../../../"
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/qt6/qml/QMarkdown/qmldir
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/qt6/qml/QMarkdown/QMarkdown.qmltypes
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/qt6/qml/QMarkdown/MarkdownView.qml
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/qt6/qml/QMarkdown/Private/qmldir
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/qt6/qml/QMarkdown/Private/private.qmltypes
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/cmake/QMarkdown/QMarkdownConfig.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/cmake/QMarkdown/QMarkdownConfigVersion.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/cmake/QMarkdown/QMarkdownTargets.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/lib/cmake/QMarkdown/QMarkdownTargets-noconfig.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-shared/share/licenses/QMarkdown/LICENSE
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared
+PASS: shared package request 1.0, exact=False, accepted=True
+PASS: shared package request 1.0.0, exact=True, accepted=False
+PASS: shared package request 1.1, exact=False, accepted=True
+PASS: shared package request 1.1.0, exact=True, accepted=False
+PASS: shared package request 0.7, exact=False, accepted=False
+PASS: shared package request 1.2, exact=False, accepted=True
+PASS: shared package request 1.2.0, exact=True, accepted=True
+PASS: shared package request 1.3, exact=False, accepted=False
+PASS: shared package request 2.0, exact=False, accepted=False
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.1
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-ON -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON -DQMARKDOWN_CONSUMER_LINK_MODULE=ON
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-ON
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-ON/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-OFF -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-OFF
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-OFF --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-shared-OFF/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared-plugin -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared-plugin
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared-plugin --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-shared-plugin/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared-plugin -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-shared -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.1 -DQMARKDOWN_CONSUMER_LINK_MODULE=OFF
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared-plugin
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared-plugin --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-shared-plugin/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_INSTALL_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static -DQMARKDOWN_QML_INSTALL_DIR=share/qml
+-- The C compiler identification is GNU 16.2.1
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Found Python3: /home/andrii/.local/bin/python3.12 (found suitable version "3.12.13", minimum required is "3.9") found components: Interpreter
+-- Configuring done (1.0s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static --parallel 2
+[  1%] Copying QMarkdown qml resources into build dir
+[  2%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  2%] Built target QMarkdown_copy_res
+[  2%] Populating .qmlls.build.ini file at /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static/.qt/.qmlls.build.ini
+[  2%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[  2%] Built target generate_qmlls_build_ini_file
+[  3%] Copying QMarkdown qml sources into build dir
+[  4%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[  4%] Built target QMarkdown_copy_qml
+[  4%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[  5%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[  6%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown_resources_1.dir/.qt/rcc/qrc_qmake_QMarkdown_init.cpp.o
+[  6%] Built target QMarkdown_resources_1
+[  6%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[  6%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown_resources_2.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0_init.cpp.o
+[  8%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[  8%] Built target QMarkdown_resources_2
+[  9%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[  9%] Built target QMarkdownPlugin_init_autogen_timestamp_deps
+[  9%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[  9%] Running qmlimportscanner for qmarkdown-import-example
+[  9%] Built target qmarkdown-import-example_qmlimportscan
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 10%] Running qmlimportscanner for qmarkdown-viewer
+[ 10%] Built target qmarkdown-viewer_qmlimportscan
+[ 10%] Copying qmarkdown-import-example qml sources into build dir
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 10%] Built target qmarkdown-import-example_copy_qml
+[ 11%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 12%] Copying qmarkdown-import-example qml resources into build dir
+[ 12%] Built target qmarkdown-import-example_copy_res
+[ 12%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 13%] Copying qmarkdown-font-editor qml resources into build dir
+[ 15%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 15%] Built target qmarkdown-font-editor_copy_res
+[ 16%] Copying qmarkdown-font-editor qml sources into build dir
+[ 16%] Built target qmarkdown-font-editor_copy_qml
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 17%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor_resources_1.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools_init.cpp.o
+[ 18%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 18%] Built target qmarkdown-font-editor_resources_1
+[ 18%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 18%] Copying qmarkdown-viewer qml sources into build dir
+[ 18%] Built target qmarkdown-viewer_copy_qml
+[ 19%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 20%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 20%] Built target qmarkdown_cmark
+[ 22%] Copying qmarkdown-viewer qml resources into build dir
+[ 22%] Built target qmarkdown-formatintervals-test_autogen_timestamp_deps
+[ 22%] Built target qmarkdown-viewer_copy_res
+[ 23%] Running qmlimportscanner for qmarkdown-import-test
+[ 23%] Built target qmarkdown-parser-test_autogen_timestamp_deps
+[ 23%] Built target qmarkdown-import-test_qmlimportscan
+[ 23%] Built target qmarkdown-commonmark-probe_autogen_timestamp_deps
+[ 23%] Running qmlimportscanner for qmarkdown-view-test
+[ 24%] Running qmlimportscanner for qmarkdown-resource-test
+[ 24%] Built target qmarkdown-view-test_qmlimportscan
+[ 24%] Built target qmarkdown-resource-test_qmlimportscan
+[ 25%] Running qmlimportscanner for qmarkdown-styling-test
+[ 25%] Built target QMarkdown_autogen_timestamp_deps
+[ 25%] Built target qmarkdown-styling-test_qmlimportscan
+[ 26%] Automatic MOC for target QMarkdownPlugin_init
+[ 26%] Generating qt.conf part for qmarkdown-import-example
+[ 27%] Generating qt.conf part for qmarkdown-viewer
+[ 29%] Generating qt.conf file
+[ 29%] Built target QMarkdownPlugin_init_autogen
+[ 29%] Built target generate_finalqtconf_qmarkdown-viewer
+[ 29%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[ 30%] Automatic MOC for target qmarkdown-formatintervals-test
+[ 30%] Automatic MOC for target qmarkdown-parser-test
+[ 30%] Built target qmarkdown-parser-test_autogen
+[ 31%] Automatic MOC for target qmarkdown-commonmark-probe
+[ 31%] Built target qmarkdown-commonmark-probe_autogen
+[ 31%] Built target qmarkdown-formatintervals-test_autogen
+[ 31%] Running AUTOMOC file extraction for target QMarkdownPlugin_init
+[ 31%] Automatic MOC for target QMarkdown
+[ 32%] Running moc --collect-json for target QMarkdownPlugin_init
+[ 33%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin_init.dir/QMarkdownPlugin_init_autogen/mocs_compilation.cpp.o
+[ 33%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin_init.dir/QMarkdownPlugin_init.cpp.o
+[ 33%] Built target QMarkdown_autogen
+[ 33%] Automatic MOC for target qmarkdown-font-editor
+[ 33%] Built target qmarkdown-font-editor_autogen
+[ 33%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/qmarkdown-formatintervals-test_autogen/mocs_compilation.cpp.o
+[ 34%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/tst_formatintervals.cpp.o
+[ 34%] Built target QMarkdownPlugin_init
+[ 34%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/qmarkdown-parser-test_autogen/mocs_compilation.cpp.o
+[ 36%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/tst_parser.cpp.o
+[ 36%] Building CXX object tests/CMakeFiles/qmarkdown-formatintervals-test.dir/__/src/QMarkdown/private/formatintervals.cpp.o
+[ 36%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/document.cpp.o
+[ 37%] Building CXX object tests/CMakeFiles/qmarkdown-parser-test.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 38%] Linking CXX executable qmarkdown-formatintervals-test
+[ 38%] Built target qmarkdown-formatintervals-test
+[ 38%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/qmarkdown-commonmark-probe_autogen/mocs_compilation.cpp.o
+[ 39%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/commonmark/probe.cpp.o
+[ 40%] Linking CXX executable qmarkdown-parser-test
+[ 40%] Built target qmarkdown-parser-test
+[ 40%] Running AUTOMOC file extraction for target QMarkdown
+[ 41%] Running rcc for resource QMarkdown_raw_qml_0
+[ 41%] Running rcc for resource qmake_QMarkdown
+[ 43%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 43%] Running moc --collect-json for target QMarkdown
+[ 44%] Generating meta_types/qt6qmarkdown_metatypes.json
+[ 45%] Automatic QML type registration for target QMarkdown
+[ 45%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 45%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 45%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/document.cpp.o
+[ 46%] Building CXX object tests/CMakeFiles/qmarkdown-commonmark-probe.dir/__/src/QMarkdown/private/inline.cpp.o
+[ 46%] Linking CXX executable qmarkdown-commonmark-probe
+[ 46%] Built target qmarkdown-commonmark-probe
+[ 46%] Running AUTOMOC file extraction for target qmarkdown-font-editor
+[ 47%] Running rcc for resource qmake_QMarkdownViewer_Tools
+[ 48%] Running moc --collect-json for target qmarkdown-font-editor
+[ 50%] Generating meta_types/qt6qmarkdown-font-editor_metatypes.json
+[ 50%] Automatic QML type registration for target qmarkdown-font-editor
+[ 51%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 51%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_autogen/mocs_compilation.cpp.o
+[ 52%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/qmarkdown-font-editor_qmltyperegistrations.cpp.o
+[ 52%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 53%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 53%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-font-editor.dir/.qt/rcc/qrc_qmake_QMarkdownViewer_Tools.cpp.o
+[ 54%] Linking CXX static library libqmarkdown-font-editor.a
+[ 54%] Built target qmarkdown-font-editor
+[ 55%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 55%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 56%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 56%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 58%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 58%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 59%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 59%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 60%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 60%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 61%] Linking CXX static library libQMarkdown.a
+[ 61%] Built target QMarkdown
+[ 61%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[ 61%] Built target qmarkdown-resource-test_autogen_timestamp_deps
+[ 61%] Automatic MOC for target QMarkdownPlugin
+[ 61%] Automatic MOC for target qmarkdown-resource-test
+[ 61%] Built target QMarkdownPlugin_autogen
+[ 62%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[ 62%] Built target qmarkdown-resource-test_autogen
+[ 62%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[ 63%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/qmarkdown-resource-test_autogen/mocs_compilation.cpp.o
+[ 63%] Building CXX object tests/CMakeFiles/qmarkdown-resource-test.dir/tst_resources.cpp.o
+[ 65%] Linking CXX static library ../../qml/QMarkdown/libQMarkdownPlugin.a
+[ 65%] Built target QMarkdownPlugin
+[ 65%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 65%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 65%] Built target qmarkdown-import-test_autogen_timestamp_deps
+[ 65%] Built target qmarkdown-view-test_autogen_timestamp_deps
+[ 65%] Built target qmarkdown-styling-test_autogen_timestamp_deps
+[ 66%] Automatic MOC for target qmarkdown-import-example
+[ 66%] Built target qmarkdown-import-example_autogen
+[ 67%] Automatic MOC for target qmarkdown-viewer
+[ 67%] Built target qmarkdown-viewer_autogen
+[ 67%] Automatic MOC for target qmarkdown-import-test
+[ 67%] Built target qmarkdown-import-test_autogen
+[ 68%] Automatic MOC for target qmarkdown-view-test
+[ 68%] Built target qmarkdown-view-test_autogen
+[ 69%] Automatic MOC for target qmarkdown-styling-test
+[ 69%] Built target qmarkdown-styling-test_autogen
+[ 69%] Running AUTOMOC file extraction for target qmarkdown-import-example
+[ 69%] Running rcc for resource qmake_QMarkdownExample
+[ 70%] Running rcc for resource qmarkdown-import-example_raw_qml_0
+[ 72%] Generating .rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp
+[ 72%] Running moc --collect-json for target qmarkdown-import-example
+[ 73%] Generating meta_types/qt6qmarkdown-import-example_metatypes.json
+[ 74%] Automatic QML type registration for target qmarkdown-import-example
+[ 74%] Generating .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp, .rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.aotstats
+[ 74%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_autogen/mocs_compilation.cpp.o
+[ 75%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/main.cpp.o
+[ 76%] Linking CXX executable qmarkdown-resource-test
+[ 76%] Built target qmarkdown-resource-test
+[ 77%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/qmarkdown-import-example_qmltyperegistrations.cpp.o
+[ 79%] Running AUTOMOC file extraction for target qmarkdown-viewer
+[ 80%] Running rcc for resource qmake_QMarkdownViewer
+[ 81%] Running rcc for resource qmarkdown-viewer_raw_qml_0
+[ 81%] Running rcc for resource sample_images
+[ 82%] Generating .rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp
+[ 83%] Running moc --collect-json for target qmarkdown-viewer
+[ 83%] Generating meta_types/qt6qmarkdown-viewer_metatypes.json
+[ 83%] Automatic QML type registration for target qmarkdown-viewer
+[ 83%] Generating .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.aotstats
+[ 84%] Generating .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.aotstats
+[ 84%] Generating .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp, .rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.aotstats
+[ 86%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_autogen/mocs_compilation.cpp.o
+[ 86%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/main.cpp.o
+[ 86%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmake_QMarkdownExample.cpp.o
+[ 87%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_qmlcache_loader.cpp.o
+[ 88%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/qmarkdown-viewer_qmltyperegistrations.cpp.o
+[ 88%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.rcc/qmlcache/qmarkdown-import-example_Main_qml.cpp.o
+[ 88%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmake_QMarkdownViewer.cpp.o
+[ 89%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_qmlcache_loader.cpp.o
+[ 90%] Building CXX object examples/import-only/CMakeFiles/qmarkdown-import-example.dir/.qt/rcc/qrc_qmarkdown-import-example_raw_qml_0.cpp.o
+[ 90%] Linking CXX executable qmarkdown-import-example
+[ 90%] Built target qmarkdown-import-example
+[ 91%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/qmarkdown-import-test_autogen/mocs_compilation.cpp.o
+[ 91%] Building CXX object tests/CMakeFiles/qmarkdown-import-test.dir/tst_import.cpp.o
+[ 93%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Main_qml.cpp.o
+[ 93%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_Samples_qml.cpp.o
+[ 94%] Linking CXX executable qmarkdown-import-test
+[ 94%] Built target qmarkdown-import-test
+[ 94%] Running rcc for resource sample_images
+[ 95%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/qmarkdown-view-test_autogen/mocs_compilation.cpp.o
+[ 95%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/tst_view.cpp.o
+[ 96%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.rcc/qmlcache/qmarkdown-viewer_StylePanel_qml.cpp.o
+[ 96%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_qmarkdown-viewer_raw_qml_0.cpp.o
+[ 97%] Building CXX object examples/viewer/CMakeFiles/qmarkdown-viewer.dir/.qt/rcc/qrc_sample_images.cpp.o
+[ 97%] Linking CXX executable qmarkdown-viewer
+[ 97%] Built target qmarkdown-viewer
+[ 97%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/qmarkdown-styling-test_autogen/mocs_compilation.cpp.o
+[ 98%] Building CXX object tests/CMakeFiles/qmarkdown-styling-test.dir/tst_styling.cpp.o
+[ 98%] Linking CXX executable qmarkdown-styling-test
+[ 98%] Built target qmarkdown-styling-test
+[100%] Building CXX object tests/CMakeFiles/qmarkdown-view-test.dir/.qt/rcc/qrc_sample_images.cpp.o
+[100%] Linking CXX executable qmarkdown-view-test
+[100%] Built target qmarkdown-view-test
++ ctest --test-dir /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static --output-on-failure
+Test project /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static
+      Start  1: qmarkdown-formatintervals
+ 1/12 Test  #1: qmarkdown-formatintervals ........   Passed    0.01 sec
+      Start  2: qmarkdown-import
+ 2/12 Test  #2: qmarkdown-import .................   Passed    0.09 sec
+      Start  3: qmarkdown-parser
+ 3/12 Test  #3: qmarkdown-parser .................   Passed    0.02 sec
+      Start  4: qmarkdown-qt-versions
+ 4/12 Test  #4: qmarkdown-qt-versions ............   Passed    0.21 sec
+      Start  5: qmarkdown-arch-recipe
+ 5/12 Test  #5: qmarkdown-arch-recipe ............   Passed    0.06 sec
+      Start  6: qmarkdown-release-upload
+ 6/12 Test  #6: qmarkdown-release-upload .........   Passed    0.05 sec
+      Start  7: qmarkdown-commonmark-oracle
+ 7/12 Test  #7: qmarkdown-commonmark-oracle ......   Passed    1.16 sec
+      Start  8: qmarkdown-commonmark
+ 8/12 Test  #8: qmarkdown-commonmark .............   Passed    0.14 sec
+      Start  9: qmarkdown-view
+ 9/12 Test  #9: qmarkdown-view ...................   Passed    7.83 sec
+      Start 10: qmarkdown-resources
+10/12 Test #10: qmarkdown-resources ..............   Passed   17.44 sec
+      Start 11: qmarkdown-styling
+11/12 Test #11: qmarkdown-styling ................   Passed    0.30 sec
+      Start 12: qmarkdown-styling-fractional
+12/12 Test #12: qmarkdown-styling-fractional .....   Passed    0.31 sec
+
+100% tests passed out of 12
+
+Total Test time (real) =  27.62 sec
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static --target all_qmllint
+[  0%] Built target qmarkdown-viewer_qmlimportscan
+[  0%] Built target generate_qmlls_build_ini_file
+[  0%] Built target qmarkdown-import-example_qmlimportscan
+[  4%] Built target generate_finalqtconf_qmarkdown-viewer
+[  6%] Built target QMarkdown_copy_res
+[  8%] Built target QMarkdown_copy_qml
+[  8%] Built target QMarkdown_autogen_timestamp_deps
+[  8%] Built target QMarkdown_autogen
+[ 30%] Built target qmarkdown_cmark
+[ 55%] Built target QMarkdown
+[ 55%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[ 55%] Built target QMarkdownPlugin_autogen
+[ 57%] Built target QMarkdown_resources_1
+[ 57%] Built target QMarkdown_resources_2
+[ 61%] Built target QMarkdownPlugin
+[ 63%] Built target qmarkdown-font-editor_copy_res
+[ 65%] Built target qmarkdown-font-editor_copy_qml
+[ 65%] Built target qmarkdown-font-editor_autogen_timestamp_deps
+[ 65%] Built target qmarkdown-font-editor_autogen
+[ 75%] Built target qmarkdown-font-editor
+[ 75%] Built target qmarkdown-viewer_copy_qml
+[ 77%] Built target qmarkdown-viewer_copy_res
+[ 77%] Built target qmarkdown-viewer_autogen_timestamp_deps
+[ 83%] Built target qmarkdown-viewer_qmltyperegistration
+[ 87%] Built target QMarkdown_qmltyperegistration
+[ 87%] Built target qmarkdown-import-example_copy_qml
+[ 89%] Built target qmarkdown-import-example_copy_res
+[ 89%] Built target qmarkdown-import-example_autogen_timestamp_deps
+[ 95%] Built target qmarkdown-import-example_qmltyperegistration
+[100%] Built target qmarkdown-font-editor_qmltyperegistration
+[100%] Built target all_qmltyperegistrations
+[100%] Built target qmarkdown-viewer_qmllint
+[100%] Built target QMarkdown_qmllint
+Info: /home/andrii/Projects/pet/qt-markdown/examples/import-only/Main.qml:3:1: Unused import [unused-imports]
+import QMarkdown
+^^^^^^
+[100%] Built target qmarkdown-import-example_qmllint
+Nothing to do for target qmarkdown-font-editor_qmllint.
+[100%] Built target qmarkdown-font-editor_qmllint
+[100%] Built target all_qmllint
++ python3 /home/andrii/Projects/pet/qt-markdown/scripts/verify-cmark-symbols.py /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static
+PASS: 140 bundled external definitions prefixed; shared exports private when present
++ cmake --install /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/build-static
+-- Install configuration: ""
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/licenses/QMarkdown/cmark/COPYING
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/licenses/QMarkdown/cmark/PROVENANCE.md
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/libQMarkdown.a
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/QMarkdown/objects/QMarkdown_resources_1/.qt/rcc/qrc_qmake_QMarkdown_init.cpp.o
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/QMarkdown/objects/QMarkdown_resources_2/.qt/rcc/qrc_QMarkdown_raw_qml_0_init.cpp.o
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/QMarkdown/objects/QMarkdownPlugin_init/QMarkdownPlugin_init_autogen/mocs_compilation.cpp.o
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/QMarkdown/objects/QMarkdownPlugin_init/QMarkdownPlugin_init.cpp.o
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/qml/QMarkdown/libQMarkdownPlugin.a
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/qml/QMarkdown/qmldir
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/qml/QMarkdown/QMarkdown.qmltypes
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/qml/QMarkdown/MarkdownView.qml
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/qml/QMarkdown/Private/qmldir
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/qml/QMarkdown/Private/private.qmltypes
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/cmake/QMarkdown/QMarkdownConfig.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/cmake/QMarkdown/QMarkdownConfigVersion.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/cmake/QMarkdown/QMarkdownTargets.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/lib/cmake/QMarkdown/QMarkdownTargets-noconfig.cmake
+-- Installing: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/install-static/share/licenses/QMarkdown/LICENSE
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-static -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-static -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-static
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-static
+PASS: static package request 1.0, exact=False, accepted=True
+PASS: static package request 1.0.0, exact=True, accepted=False
+PASS: static package request 1.1, exact=False, accepted=True
+PASS: static package request 1.1.0, exact=True, accepted=False
+PASS: static package request 0.7, exact=False, accepted=False
+PASS: static package request 1.2, exact=False, accepted=True
+PASS: static package request 1.2.0, exact=True, accepted=True
+PASS: static package request 1.3, exact=False, accepted=False
+PASS: static package request 2.0, exact=False, accepted=False
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-static --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/main.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-static/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-static -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-static -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-static -DQMARKDOWN_STYLING_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.1
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-static
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-static --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/styling.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/styling-static/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/consumer-source -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-static-ON -DQMARKDOWN_PACKAGE_PREFIX=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-static -DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/relocated-static -DQMARKDOWN_ACTIONS_CONSUMER=ON -DQMARKDOWN_REQUEST_VERSION=1.2.0 -DQMARKDOWN_REQUEST_EXACT=ON -DQMARKDOWN_CONSUMER_LINK_MODULE=ON
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-static-ON
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-static-ON --parallel 2
+[ 50%] Building CXX object CMakeFiles/qmarkdown-consumer.dir/actions.cpp.o
+[100%] Linking CXX executable qmarkdown-consumer
+[100%] Built target qmarkdown-consumer
++ /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/actions-static-ON/qmarkdown-consumer
++ cmake -S /home/andrii/Projects/pet/qt-markdown -B /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/library-only -DBUILD_TESTING=OFF -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=OFF
+-- The C compiler identification is GNU 16.2.1
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /usr/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /usr/include
+-- Configuring done (0.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/library-only
++ cmake --build /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/library-only --parallel 2
+[  2%] Copying QMarkdown qml resources into build dir
+[  4%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[  4%] Built target QMarkdown_copy_res
+[  6%] Populating .qmlls.build.ini file at /home/andrii/Projects/pet/qt-markdown/build-packaging-030-verified/library-only/.qt/.qmlls.build.ini
+[  8%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[  8%] Built target generate_qmlls_build_ini_file
+[ 10%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[ 12%] Copying QMarkdown qml sources into build dir
+[ 14%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[ 14%] Built target QMarkdown_copy_qml
+[ 16%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[ 18%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[ 20%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[ 20%] Built target QMarkdown_autogen_timestamp_deps
+[ 22%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[ 24%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[ 28%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[ 28%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[ 30%] Automatic MOC for target QMarkdown
+[ 32%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[ 34%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[ 36%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[ 38%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[ 40%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[ 40%] Built target QMarkdown_autogen
+[ 42%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[ 44%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[ 46%] Building C object third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[ 46%] Built target qmarkdown_cmark
+[ 48%] Running AUTOMOC file extraction for target QMarkdown
+[ 50%] Running rcc for resource QMarkdown_raw_qml_0
+[ 52%] Running rcc for resource qmake_QMarkdown
+[ 54%] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[ 56%] Running moc --collect-json for target QMarkdown
+[ 58%] Generating meta_types/qt6qmarkdown_metatypes.json
+[ 60%] Automatic QML type registration for target QMarkdown
+[ 62%] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[ 66%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[ 66%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[ 68%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[ 70%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[ 72%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[ 74%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[ 76%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[ 78%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[ 80%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[ 82%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[ 84%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[ 86%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[ 88%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[ 90%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[ 92%] Linking CXX shared library libQMarkdown.so
+[ 92%] Built target QMarkdown
+[ 92%] Built target QMarkdownPlugin_autogen_timestamp_deps
+[ 94%] Automatic MOC for target QMarkdownPlugin
+[ 94%] Built target QMarkdownPlugin_autogen
+[ 96%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_QMarkdownPlugin.cpp.o
+[ 98%] Building CXX object src/QMarkdown/CMakeFiles/QMarkdownPlugin.dir/QMarkdownPlugin_autogen/mocs_compilation.cpp.o
+[100%] Linking CXX shared module ../../qml/QMarkdown/libQMarkdownPlugin.so
+[100%] Built target QMarkdownPlugin
+PASS: shared and static relocated package consumers

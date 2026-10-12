@@ -6,6 +6,8 @@ import QMarkdown.Private
 Item {
     id: root
     signal linkActivated(string destination)
+    signal codeBlockCopyRequested(string text)
+    property Component codeBlockActions: null
     property alias baseUrl: viewState.baseUrl
     property alias resourcePolicy: viewState.resourcePolicy
     property alias markdown: viewState.markdown
@@ -29,6 +31,62 @@ Item {
         height: enabledDecoration ? root.metric(headingStyle.separatorThickness) : 0
         color: headingStyle !== null ? headingStyle.separatorColor : "transparent"
         objectName: "headingSeparator"
+    }
+
+    component CodeActionHost: Item {
+        id: actionHost
+        required property string codeText
+        property Component actions: root.codeBlockActions
+        property Item actionItem: null
+        property var token: null
+        property bool ready: false
+        height: actionItem ? root.metric(actionItem.implicitHeight) : 0
+
+        function clearAction() {
+            if (token) token.active = false
+            token = null
+            if (actionItem) {
+                actionItem.visible = false
+                actionItem.destroy()
+                actionItem = null
+            }
+        }
+        function rebuild() {
+            clearAction()
+            if (!ready || !actions) return
+            const validity = { active: true }
+            token = validity
+            const text = codeText
+            const source = root.markdown
+            const component = actions
+            const created = actions.createObject(actionHost, {
+                codeText: text,
+                requestCopy: function() {
+                    if (validity.active && root.width > 0 && root.markdown === source
+                        && root.codeBlockActions === component)
+                        root.codeBlockCopyRequested(text)
+                }
+            })
+            const item = created as Item
+            if (!item) {
+                validity.active = false
+                if (created) created.destroy()
+                console.warn("QMarkdown: codeBlockActions must create an Item with codeText and requestCopy properties")
+                return
+            }
+            // A host may replace the component synchronously during creation.
+            if (!validity.active) {
+                item.destroy()
+                return
+            }
+            actionItem = item
+            item.width = Qt.binding(function() { return actionHost.width })
+            item.height = Qt.binding(function() { return actionHost.height })
+        }
+        onActionsChanged: rebuild()
+        onCodeTextChanged: rebuild()
+        Component.onCompleted: { ready = true; rebuild() }
+        Component.onDestruction: clearAction()
     }
 
     ViewState { id: viewState }
@@ -228,16 +286,23 @@ Item {
                         readonly property real padX: Math.min(root.metric(sequence.style.codeBlock.horizontalPadding),
                             Math.max(0, (width - 1) / 2))
                         readonly property real padY: root.metric(sequence.style.codeBlock.verticalPadding)
-                        height: codeBlock.height + 2 * padY
+                        height: codeActions.height + codeBlock.height + 2 * padY
                         color: sequence.style.codeBlock.backgroundColor
                         border.color: sequence.style.codeBlock.borderColor
                         border.width: root.metric(sequence.style.codeBlock.borderWidth)
                         radius: root.metric(sequence.style.codeBlock.cornerRadius)
                         objectName: "codeSurface"
+                        CodeActionHost {
+                            id: codeActions
+                            x: codeSurface.padX
+                            y: codeSurface.padY
+                            width: Math.max(1, codeSurface.width - 2 * codeSurface.padX)
+                            codeText: codeSurface.blockText
+                        }
                         Text {
                             id: codeBlock
                             x: codeSurface.padX
-                            y: codeSurface.padY
+                            y: codeSurface.padY + codeActions.height
                             width: Math.max(1, codeSurface.width - 2 * codeSurface.padX)
                             text: codeSurface.blockText.endsWith("\n") ? codeSurface.blockText.slice(0, -1) : codeSurface.blockText
                             textFormat: Text.PlainText

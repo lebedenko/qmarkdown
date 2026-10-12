@@ -1,0 +1,102 @@
+100% tests passed, 0 tests failed out of 12
+Total Test time (real) =  27.33 sec
+PASS: 140 bundled external definitions prefixed; shared exports private when present
+PASS: shared package request 1.0, exact=False, accepted=True
+PASS: shared package request 1.0.0, exact=True, accepted=False
+PASS: shared package request 1.1, exact=False, accepted=True
+PASS: shared package request 1.1.0, exact=True, accepted=False
+PASS: shared package request 0.7, exact=False, accepted=False
+PASS: shared package request 1.2, exact=False, accepted=True
+PASS: shared package request 1.2.0, exact=True, accepted=True
+PASS: shared package request 1.3, exact=False, accepted=False
+PASS: shared package request 2.0, exact=False, accepted=False
++ /artifacts/packaging/consumer-shared/qmarkdown-consumer
++ /artifacts/packaging/styling-shared/qmarkdown-consumer
++ /artifacts/packaging/actions-shared-ON/qmarkdown-consumer
++ /artifacts/packaging/actions-shared-OFF/qmarkdown-consumer
++ /artifacts/packaging/consumer-shared-plugin/qmarkdown-consumer
++ /artifacts/packaging/styling-shared-plugin/qmarkdown-consumer
+100% tests passed, 0 tests failed out of 12
+Total Test time (real) =  27.37 sec
+PASS: 140 bundled external definitions prefixed; shared exports private when present
+PASS: static package request 1.0, exact=False, accepted=True
+PASS: static package request 1.0.0, exact=True, accepted=False
+PASS: static package request 1.1, exact=False, accepted=True
+PASS: static package request 1.1.0, exact=True, accepted=False
+PASS: static package request 0.7, exact=False, accepted=False
+PASS: static package request 1.2, exact=False, accepted=True
+PASS: static package request 1.2.0, exact=True, accepted=True
+PASS: static package request 1.3, exact=False, accepted=False
+PASS: static package request 2.0, exact=False, accepted=False
++ /artifacts/packaging/consumer-static/qmarkdown-consumer
++ /artifacts/packaging/styling-static/qmarkdown-consumer
++ /artifacts/packaging/actions-static-ON/qmarkdown-consumer
+PASS: shared and static relocated package consumers
+PASS: advisory benchmark JSON
+PASS: Ubuntu container packaging and benchmark smoke
+100% tests passed, 0 tests failed out of 12
+Total Test time (real) =  25.23 sec
+PASS: 140 bundled external definitions prefixed; shared exports private when present
+PASS: /artifacts/release-package/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12.tar.gz
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/uninstall.sh --destdir /artifacts/release-verification/root
+PASS: uninstall in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/uninstall.sh --destdir /artifacts/release-verification/root
+PASS: uninstall in /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-verification/root
+PASS: install in /artifacts/release-verification/root
++ /artifacts/release-verification/consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
++ /artifacts/release-verification/consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
++ /artifacts/release-verification/consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ /artifacts/release-verification/consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ /artifacts/release-verification/consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-verification/consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-verification/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/uninstall.sh --destdir /artifacts/release-verification/root
+PASS: uninstall in /artifacts/release-verification/root
+PASS: archive, installer lifecycle and installed consumers
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/uninstall.sh --destdir /artifacts/release-real/root
+PASS: uninstall in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/uninstall.sh --destdir /artifacts/release-real/root
+PASS: uninstall in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh --destdir /artifacts/release-real/root
+PASS: install in /artifacts/release-real/root
++ /artifacts/release-real/consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-real/consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/uninstall.sh --destdir /artifacts/release-real/root
+PASS: uninstall in /artifacts/release-real/root
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh
+PASS: install in /
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/install.sh
+PASS: install in /
++ /artifacts/release-real/real-consumers/ON-styling-OFF-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/real-consumers/ON-styling-ON-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/real-consumers/OFF-styling-ON-actions-OFF/qmarkdown-consumer
++ /artifacts/release-real/real-consumers/ON-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-real/real-consumers/OFF-styling-OFF-actions-ON/qmarkdown-consumer
++ /artifacts/release-real/extracted/qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.12/uninstall.sh
+PASS: uninstall in /
+PASS: archive, installer lifecycle and installed consumers
