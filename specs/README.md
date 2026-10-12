@@ -1,5 +1,9 @@
 # Specifications
 
+Current status: **published 1.1.0 / QML 1.1**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 026](026-v1.1-integration/verification.md) records completed integration; [iteration 027](027-stable-v1.1-release/verification.md) records completed publication and downloaded-asset checks. Earlier entries retain historical scope, versions and environments.
+
+## Historical feature records
+
 Feature 021: [1.0 release candidate requirements](021-v1-release-candidate/requirements.md), **approved on 2026-10-09; implemented and locally verified**. See [design](021-v1-release-candidate/design.md), [mapped tasks](021-v1-release-candidate/tasks.md) and [planned/actual verification](021-v1-release-candidate/verification.md). Prepares Linux amd64 package 1.0.0 / QML 1.0, a private long-fence correction, compatibility policy and verified local candidate artifacts; actual candidate gates are recorded separately; no release publication is authorized.
 
 Repository-owned specifications are the source of agreed scope. The initial design input was `/tmp/qt-markdown.md`; that temporary brief is not required to read or maintain these documents.
@@ -81,8 +85,10 @@ Feature 023: [stable 1.0.0 release](023-stable-release/requirements.md), approve
 
 Feature 024: [development-host Qt verification](024-development-host-qt/requirements.md), approved on 2026-10-11 through the supplied implementation plan. See design, tasks and actual verification in that directory. Implemented and verified on Qt 6.8.0 and 6.12.0; both hosted role checks and release cross-runtime checks pass, and the required-context migration is applied.
 
-Feature 025: [styling and presets](025-styling-presets/requirements.md), approved on 2026-10-11 through the supplied implementation plan. See design, tasks and actual verification in that directory. Styling is implemented and verified on host shared/static, both configured Qt container targets, hosted packaging and same-archive runtime checks. Integration into main is tracked in iteration 026; publication is separate.
+Feature 025: [styling and presets](025-styling-presets/requirements.md), approved on 2026-10-11 through the supplied implementation plan. See design, tasks and actual verification in that directory. Styling is implemented and verified on host shared/static, both configured Qt container targets, hosted packaging and same-archive runtime checks. Integration into main completed in iteration 026; publication completed in iteration 027.
 
-Feature 026: [v1.1 integration](026-v1.1-integration/requirements.md), approved on 2026-10-11 through the supplied implementation plan. See [design](026-v1.1-integration/design.md), [mapped tasks](026-v1.1-integration/tasks.md) and [planned/actual verification](026-v1.1-integration/verification.md). Integrates CI and styling through protected merge commits, prepares release notes and verifies the exact final main candidate on Qt 6.8.0/6.12.0. Tagging and publication are separate.
+Feature 026: [v1.1 integration](026-v1.1-integration/requirements.md), approved on 2026-10-11 through the supplied implementation plan. See [design](026-v1.1-integration/design.md), [mapped tasks](026-v1.1-integration/tasks.md) and [planned/actual verification](026-v1.1-integration/verification.md). Integrates CI and styling through protected merge commits, prepares release notes and verifies the exact final main candidate on Qt 6.8.0/6.12.0. Tagging and publication subsequently completed in iteration 027.
 
 Feature 027: [stable v1.1.0 publication](027-stable-v1.1-release/requirements.md), approved on 2026-10-11 through the supplied implementation plan. See [design](027-stable-v1.1-release/design.md), [mapped tasks](027-stable-v1.1-release/tasks.md) and [planned/actual verification](027-stable-v1.1-release/verification.md). Includes candidate-evidence integration, release documentation, fresh exact-commit checks, annotated tagging, stable/latest publication and downloaded-asset verification on Qt 6.8.0/6.12.0.
+
+Feature 028: [post-release upkeep requirements](028-post-release-upkeep/requirements.md), approved on 2026-10-12 through the supplied implementation plan. See [design](028-post-release-upkeep/design.md), [mapped tasks](028-post-release-upkeep/tasks.md) and [planned/actual verification](028-post-release-upkeep/verification.md). Documentation-only evidence integration and current-status reconciliation, including protected merge; no new release or feature selection.
