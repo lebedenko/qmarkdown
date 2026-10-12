@@ -1,0 +1,9 @@
+Test project /tmp/qmarkdown-032/build-focused
+    Start 2: qmarkdown-import
+1/2 Test #2: qmarkdown-import .................   Passed    0.08 sec
+    Start 9: qmarkdown-view
+2/2 Test #9: qmarkdown-view ...................   Passed    8.88 sec
+
+100% tests passed out of 2
+
+Total Test time (real) =   8.96 sec

@@ -1,0 +1,10 @@
+base: Pulling from library/archlinux
+9df4a71740ba: Pulling fs layer
+97290d282238: Pulling fs layer
+97290d282238: Download complete
+9df4a71740ba: Verifying Checksum
+9df4a71740ba: Pull complete
+97290d282238: Pull complete
+Digest: sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd
+Status: Downloaded newer image for archlinux:base
+docker.io/library/archlinux:base
