@@ -1,74 +1,32 @@
-# Ubuntu binary package
+# Install QMarkdown
 
-The archive targets Ubuntu 24.04 x86_64 and a compatible Qt 6.8 runtime. Qt is
-not included. Provide Qt Core, Gui, Qml, Quick and Network and their Ubuntu
-system dependencies. Python 3.9+ and the standard Ubuntu `readlink`, `sudo`
-and `ldconfig` tools are required for installation. Development consumers also
-need CMake >=3.21, a C++17 compiler and the matching Qt development SDK.
-The same Qt 6.8.0-built archive is tested with exact Qt 6.8.0 and 6.12.0; this is specific
-verification evidence, not a guarantee for every newer Qt or distribution.
+QMarkdown 1.6.0 / QML 1.6 is released. Build from its source tag or use its
+[Arch package](arch-install.md). Existing Ubuntu binaries retain their
+[historical installation instructions](ubuntu-install-historical.md).
 
-Publication is pending. After release gates pass, download the archive and its `.sha256` companion from the [v1.5.0 GitHub release](https://github.com/lebedenko/qmarkdown/releases/tag/v1.5.0).
-Verify before extracting, then run from the enclosing package directory:
+## Source build
+
+For the existing release, obtain the source checkout at tag `v1.6.0`:
 
 ```sh
-sha256sum -c qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256
-tar -xzf qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.8.tar.gz
-cd qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.8
-sudo ./install.sh
+git clone --branch v1.6.0 --depth 1 https://github.com/lebedenko/qmarkdown.git
+cd qmarkdown
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DQMARKDOWN_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX="$HOME/.local"
+cmake --build build --parallel 2
+cmake --install build
 ```
 
-Installation uses `/usr/lib/x86_64-linux-gnu` and
-`/usr/lib/x86_64-linux-gnu/qt6/qml/QMarkdown`, with licenses under
-`/usr/share/licenses/QMarkdown`. Ensure your Qt runtime libraries are discoverable
-by the system linker (for an external SDK, configure its library directory in
-ld.so.conf and run ldconfig). Do not mix incompatible Qt libraries in one process.
-
-CMake discovers `/usr/lib/x86_64-linux-gnu/cmake/QMarkdown` through its normal
-system search. Use `find_package(QMarkdown 1.5 CONFIG REQUIRED)` and link
-`QMarkdown::QMarkdown`. For an external Qt SDK, configure `CMAKE_PREFIX_PATH`
-with its root. Import `QMarkdown 1.5` in QML for all three optional extensions. Existing
-QML 1.0–1.4 imports and CMake 1.0–1.4 requests remain supported with Legacy defaults;
-Exact requests for earlier 1.x versions require the historical package. If your Qt installation does not
-search Ubuntu's QML directory, set:
+Future release assets are `qmarkdown-X.Y.Z.tar.gz` and
+`qmarkdown-X.Y.Z-1-x86_64.pkg.tar.zst`, each with a `.sha256` companion.
+They contain the library; the viewer remains in the development repository.
+Verify downloaded assets before use:
 
 ```sh
-export QML_IMPORT_PATH=/usr/lib/x86_64-linux-gnu/qt6/qml
+sha256sum -c qmarkdown-X.Y.Z.tar.gz.sha256
+tar -xzf qmarkdown-X.Y.Z.tar.gz
 ```
 
-This is a manually owned package, not a dpkg package. Do not install a competing
-package over these files. The installer validates all payload hashes, permissions,
-links and destinations before copying; its ownership record is
-`/usr/share/qmarkdown/installed.json`. Keep the extracted package for removal:
-
-```sh
-sudo ./uninstall.sh
-```
-
-Repeat installation and upgrades require every previously owned file to match its
-record. Unrelated conflicts, missing owned files and local modifications cause
-installation to stop before changing anything. Upgrades remove obsolete unchanged
-owned files. Uninstall preserves modified files with a diagnostic and retains their
-record; it removes only unchanged files and never recursively removes directories.
-Real operations refresh the linker cache. Back up local edits before resolving a
-conflict. Do not manually remove the record while owned files remain installed.
-
-For unprivileged staging, use `./install.sh --destdir /absolute/temporary/root`
-and the corresponding uninstall command. The `/usr` layout remains inside that
-root; staging does not update the host linker cache.
-
-Alternatively, build from source using the repository README's CMake instructions.
-Source builds support Qt >=6.8 and custom install prefixes; they are the preferred
-option on other distributions or toolchains.
-
-Stable release publication starts the packaging workflow. Assets appear only after
-builds, tests, installer checks and both Qt consumer checks succeed. Prereleases do
-not publish this binary. A manual workflow run performs verification without
-publication. Failed runs retain diagnostic artifacts. Release tags must be `vX.Y.Z`,
-match the CMake version, and point into main history. Asset reruns accept identical
-bytes and refuse replacement of differing assets. Tag creation and release
-publication are separate maintainer actions.
-
-The integrated release workflow builds and verifies a [pacman-owned Arch Linux package](arch-install.md). Uploads require both Ubuntu and Arch gates, and validate both archive/checksum pairs before publication. The existing v1.1.0 assets remain unchanged.
-
-The 1.5.0 release is pending publication and downloaded-asset acceptance; see [iteration 037](../specs/037-gfm-extended-autolinks/verification.md).
+Follow the archive's `INSTALL.md`, also available as the
+[standalone build/install instructions](source-install.md). Source builds require
+Qt >=6.8, CMake >=3.21 and C99/C++17 compilers. Qt is not bundled.
+No historical release assets are replaced by this workflow change.

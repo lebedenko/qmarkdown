@@ -1,32 +1,85 @@
 #!/usr/bin/env python3
-"""Upload missing assets only after comparing every existing asset byte-for-byte."""
+"""Upload missing assets, refusing any differing bytes, and verify downloads."""
 import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
+import time
 
 
 def gh(*args):
     return subprocess.check_output(['gh', *map(str, args)])
 
 
-def select_assets(directory):
+def select_assets(directory, version=None):
     local = []
     for suffix in ('.tar.gz', '.pkg.tar.zst'):
         archives = sorted(directory.glob('*' + suffix))
         checksums = sorted(directory.glob('*' + suffix + '.sha256'))
         if len(archives) != 1 or len(checksums) != 1:
             raise ValueError(f'Expected one {suffix} archive and its checksum')
-        archive = archives[0]
-        checksum = checksums[0]
+        archive, checksum = archives[0], checksums[0]
         fields = checksum.read_text().split()
         if (checksum.name != archive.name + '.sha256' or len(fields) != 2
                 or fields[1] != archive.name
                 or fields[0] != hashlib.sha256(archive.read_bytes()).hexdigest()):
             raise ValueError(f'Invalid checksum: {checksum.name}')
+        if version:
+            pattern = (re.escape(f'qmarkdown-{version}.tar.gz') if suffix == '.tar.gz' else
+                       rf'qmarkdown-{re.escape(version)}-[1-9]\d*-x86_64\.pkg\.tar\.zst')
+            if not re.fullmatch(pattern, archive.name):
+                raise ValueError('Artifact name does not match release version')
         local.extend((archive, checksum))
+    if set(path.name for path in directory.iterdir()) != {path.name for path in local}:
+        raise ValueError('Only source/Arch deliverables and checksums may be uploaded')
     return local
+
+
+def release_assets(repository, tag):
+    release = json.loads(gh('api', f'repos/{repository}/releases/tags/{tag}'))
+    if release['prerelease']:
+        raise ValueError('Prerelease publication is not supported')
+    return release
+
+
+def compare_existing(repository, release, local, require_all=False):
+    existing = {asset['name']: asset for asset in release['assets']}
+    if set(existing) - {path.name for path in local}:
+        raise ValueError('Release contains unexpected assets; explicit repair required')
+    missing = []
+    for path in local:
+        if path.name not in existing:
+            if require_all:
+                raise ValueError(f'Missing published asset: {path.name}')
+            missing.append(path)
+            continue
+        data = gh('api', '-H', 'Accept: application/octet-stream',
+                  f'repos/{repository}/releases/assets/{existing[path.name]["id"]}')
+        if hashlib.sha256(data).digest() != hashlib.sha256(path.read_bytes()).digest():
+            raise ValueError(f'Refusing differing downloaded asset (SHA-256 mismatch): {path.name}')
+    return missing
+
+
+def upload(repository, tag, local, attempts=3):
+    for attempt in range(attempts):
+        # Refresh after partial upload failure; never clobber even on retries.
+        release = release_assets(repository, tag)
+        missing = compare_existing(repository, release, local)
+        if not missing:
+            return
+        if not release['draft']:
+            raise ValueError('Incomplete published release requires explicit repair')
+        try:
+            subprocess.run(['gh', 'release', 'upload', tag, '--repo', repository,
+                            *map(str, missing)], check=True)
+            compare_existing(repository, release_assets(repository, tag), local, require_all=True)
+            return
+        except subprocess.CalledProcessError:
+            if attempt + 1 == attempts:
+                raise
+            time.sleep(2)
 
 
 def main():
@@ -35,27 +88,7 @@ def main():
     parser.add_argument('--tag', required=True)
     parser.add_argument('--assets', type=Path, required=True)
     args = parser.parse_args()
-    try:
-        local = select_assets(args.assets)
-    except ValueError as error:
-        parser.error(str(error))
-    release = json.loads(gh('api', f'repos/{args.repository}/releases/tags/{args.tag}'))
-    if release['draft'] or release['prerelease']:
-        parser.error('Publication requires a stable published release')
-    existing = {asset['name']: asset for asset in release['assets']}
-    missing = []
-    for path in local:
-        if path.name not in existing:
-            missing.append(path)
-            continue
-        data = gh('api', '-H', 'Accept: application/octet-stream',
-                  f'repos/{args.repository}/releases/assets/{existing[path.name]["id"]}')
-        if data != path.read_bytes():
-            raise SystemExit(f'Refusing to overwrite differing published asset: {path.name}')
-        print(f'Identical published asset: {path.name}')
-    if missing:
-        subprocess.run(['gh', 'release', 'upload', args.tag, '--repo', args.repository,
-                        *map(str, missing)], check=True)
+    upload(args.repository, args.tag, select_assets(args.assets, args.tag.removeprefix('v')))
 
 
 if __name__ == '__main__':
