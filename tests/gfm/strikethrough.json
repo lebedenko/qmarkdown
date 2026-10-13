@@ -1,0 +1,45 @@
+[
+  {
+    "example": 491,
+    "markdown": "~~Hi~~ Hello, ~there~ world!\n",
+    "texts": [
+      "Hi Hello, there world!"
+    ],
+    "ranges": [
+      [
+        [
+          0,
+          2,
+          8
+        ],
+        [
+          10,
+          5,
+          8
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 492,
+    "markdown": "This ~~has a\n\nnew paragraph~~.\n",
+    "texts": [
+      "This ~~has a",
+      "new paragraph~~."
+    ],
+    "ranges": [
+      [],
+      []
+    ]
+  },
+  {
+    "example": 493,
+    "markdown": "This will ~~~not~~~ strike.\n",
+    "texts": [
+      "This will ~~~not~~~ strike."
+    ],
+    "ranges": [
+      []
+    ]
+  }
+]

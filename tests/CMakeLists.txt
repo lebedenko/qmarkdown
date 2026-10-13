@@ -19,7 +19,8 @@ qt_add_executable(qmarkdown-parser-test tst_parser.cpp ../src/QMarkdown/private/
 target_include_directories(qmarkdown-parser-test PRIVATE ../third_party/cmark/src)
 target_include_directories(qmarkdown-parser-test PRIVATE ../src/QMarkdown)
 target_link_libraries(qmarkdown-parser-test PRIVATE Qt6::Test Qt6::Gui)
-target_compile_definitions(qmarkdown-parser-test PRIVATE QMARKDOWN_GFM_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/gfm/task-lists.json")
+target_compile_definitions(qmarkdown-parser-test PRIVATE QMARKDOWN_GFM_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/gfm/task-lists.json"
+    QMARKDOWN_STRIKE_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/gfm/strikethrough.json")
 add_test(NAME qmarkdown-parser COMMAND qmarkdown-parser-test)
 
 # Test-only evidence for the bundled parser and production model, with offline fixtures.
