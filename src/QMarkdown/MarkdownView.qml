@@ -11,6 +11,7 @@ Item {
     property alias baseUrl: viewState.baseUrl
     property alias resourcePolicy: viewState.resourcePolicy
     property alias markdown: viewState.markdown
+    property alias extendedAutolinksEnabled: viewState.extendedAutolinksEnabled
     property alias strikethroughEnabled: viewState.strikethroughEnabled
     property alias taskListsEnabled: viewState.taskListsEnabled
     property alias style: viewState.style

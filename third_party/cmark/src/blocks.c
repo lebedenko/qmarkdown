@@ -1360,6 +1360,8 @@ cmark_node *cmark_parser_finish(cmark_parser *parser) {
   finalize_document(parser);
 
   cmark_consolidate_text_nodes(parser->root);
+  if (parser->options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS)
+    cmark_qmarkdown_autolink_emails(parser->root);
 
   cmark_strbuf_free(&parser->curline);
 

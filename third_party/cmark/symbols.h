@@ -141,3 +141,5 @@
 #define houdini_unescape_ent qmarkdown_cmark_houdini_unescape_ent
 #define houdini_unescape_html qmarkdown_cmark_houdini_unescape_html
 #define houdini_unescape_html_f qmarkdown_cmark_houdini_unescape_html_f
+
+#define cmark_qmarkdown_autolink_emails qmarkdown_cmark_cmark_qmarkdown_autolink_emails

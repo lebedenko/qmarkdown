@@ -20,6 +20,7 @@ target_include_directories(qmarkdown-parser-test PRIVATE ../third_party/cmark/sr
 target_include_directories(qmarkdown-parser-test PRIVATE ../src/QMarkdown)
 target_link_libraries(qmarkdown-parser-test PRIVATE Qt6::Test Qt6::Gui)
 target_compile_definitions(qmarkdown-parser-test PRIVATE QMARKDOWN_GFM_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/gfm/task-lists.json"
+    QMARKDOWN_AUTOLINK_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/gfm/extended-autolinks.json"
     QMARKDOWN_STRIKE_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/gfm/strikethrough.json")
 add_test(NAME qmarkdown-parser COMMAND qmarkdown-parser-test)
 

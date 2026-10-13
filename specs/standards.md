@@ -13,9 +13,9 @@ Documented public QML behavior and CMake integration remain compatible throughou
 Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Document-wide selection/copy, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code padding/borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
-## Selected task-list candidate
+## Selected extension candidate
 
-[Iteration 035](035-gfm-task-lists/requirements.md), approved on 2026-10-13, adds default-off task-list syntax in candidate 1.3.0 / QML 1.3 while retaining CommonMark 0.31.2 core parsing. [Extension fixture provenance](../tests/gfm/PROVENANCE.md) and [actual verification](035-gfm-task-lists/verification.md) remain separate from the strict CommonMark corpus. Tables, strikethrough, extended autolinks and GFM HTML filtering remain deferred; no full GFM conformance is claimed.
+Local candidate: **1.5.0 / QML 1.5**, with independent default-off [task lists](035-gfm-task-lists/requirements.md), [strikethrough](036-gfm-strikethrough/requirements.md) and [extended autolinks](037-gfm-extended-autolinks/requirements.md). Iteration 037 was approved on 2026-10-13 for implementation and verification; see its [verification record](037-gfm-extended-autolinks/verification.md) for actual execution status. Tables and HTML filtering remain deferred; no full GFM conformance is claimed. Published stable/latest remains 1.2.0.
 
 ## Historical direction and bounded slices
 
@@ -31,7 +31,7 @@ This repository-owned summary preserves the initial brief's standards direction 
 
 ## Selected extensions and richer capabilities
 
-[GitHub Flavored Markdown 0.29-gfm](https://github.github.com/gfm/) defines extensions on an older CommonMark baseline (0.29), including tables, task lists, strikethrough, extended autolinks, and raw HTML filtering. Plan the first four as selected GFM syntax extensions, separately from CommonMark 0.31.2 core work. Resolve interactions with the newer core baseline in later approved specifications. Supporting those selected extensions must not be described as full GFM conformance; GFM raw HTML filtering also needs a deliberate policy decision.
+[GitHub Flavored Markdown 0.29-gfm](https://github.github.com/gfm/) defines extensions on an older CommonMark baseline (0.29), including tables, task lists, strikethrough, extended autolinks, and raw HTML filtering. Task lists, strikethrough and extended autolinks have independently selectable implementations on CommonMark 0.31.2; tables remain planned. Their separate extension verification records cover interactions with the newer core baseline. Supporting those selected extensions must not be described as full GFM conformance; GFM raw HTML filtering also needs a deliberate policy decision.
 
 Syntax highlighting, Mermaid, math, footnotes, and other richer capabilities are separate rendering or syntax features, not CommonMark core or the selected GFM set. Their dependencies, policies, and APIs require later design and approval. Streaming and optional extensions are not v1.0 release gates.
 

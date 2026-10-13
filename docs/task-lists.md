@@ -1,6 +1,6 @@
 # Opt-in task lists
 
-Read-only task-list indicators were introduced in the 1.3.0 / QML 1.3 source candidate and remain available in the current 1.4.0 / QML 1.4 candidate. Published 1.2.0 packages do not include this feature.
+Read-only task-list indicators were introduced in the 1.3.0 / QML 1.3 source candidate and remain available in the current 1.5.0 / QML 1.5 candidate. Published 1.2.0 packages do not include this feature.
 
 ```qml
 import QMarkdown 1.3
@@ -22,4 +22,4 @@ Indicators appear alongside existing bullets or numbers, so ordered numbering is
 
 The native indicator exposes checkbox role and checked state through Qt accessibility, with a read-only description. It accepts no pointer, keyboard or accessibility toggle action and does not edit the source. Hosts can update a task by replacing `markdown`. There is no task-toggle signal or clipboard operation.
 
-The playground has a **GFM task lists** toggle and sample. Task-list syntax follows [GFM 0.29-gfm section 5.3](https://github.github.com/gfm/#task-list-items-extension-) on the existing CommonMark 0.31.2 block core. Tables, strikethrough, extended autolinks and GFM HTML filtering are not enabled. This selected extension is not full GFM conformance. The default CommonMark corpus and extension tests are separate evidence; see [iteration 035](../specs/035-gfm-task-lists/verification.md).
+The playground has a **GFM task lists** toggle and sample. Task-list syntax follows [GFM 0.29-gfm section 5.3](https://github.github.com/gfm/#task-list-items-extension-) on the existing CommonMark 0.31.2 block core. Strikethrough and [extended autolinks](extended-autolinks.md) have independent default-off switches in the current candidate. Tables and GFM HTML filtering remain deferred. This selected extension is not full GFM conformance. The default CommonMark corpus and extension tests are separate evidence; see [iteration 035](../specs/035-gfm-task-lists/verification.md).
