@@ -3,9 +3,10 @@
 #include <QString>
 #include <QImage>
 #include <QVector>
+#include <utility>
 
 namespace QMarkdownPrivate {
-enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Image, Segments };
+enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Image, Segments, Table, TableRow, TableCell };
 enum class TaskState { Ordinary, Unchecked, Checked };
 struct Block {
     BlockKind kind;
@@ -25,6 +26,19 @@ struct Block {
     bool tight = true;
     QVector<InlineNode> inlines;
     TaskState taskState = TaskState::Ordinary;
+    int tableAlignment = 0;
+    QString filteredHtml;
+    QVector<CodeSpan> codes;
 };
-QVector<Block> parse(QString source, bool taskListsEnabled = false, bool strikethroughEnabled = false, bool extendedAutolinksEnabled = false);
+struct ParseOptions {
+    bool taskLists = false;
+    bool strikethrough = false;
+    bool extendedAutolinks = false;
+    bool tables = false;
+    bool tagFilter = false;
+};
+QVector<Block> parse(QString source, ParseOptions options = {});
+// Compatibility helper for existing private fixtures; production uses ParseOptions.
+inline QVector<Block> parse(QString source, bool tasks, bool strike = false, bool autolinks = false)
+{ return parse(std::move(source), ParseOptions{tasks, strike, autolinks}); }
 }

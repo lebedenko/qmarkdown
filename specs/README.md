@@ -1,10 +1,8 @@
 # Specifications
 
-Current feature iteration: [037: opt-in GFM extended autolinks](037-gfm-extended-autolinks/requirements.md), **approved on 2026-10-13; implemented and locally verified**. See [design](037-gfm-extended-autolinks/design.md), [mapped tasks](037-gfm-extended-autolinks/tasks.md) and [planned/actual verification](037-gfm-extended-autolinks/verification.md). Stable/latest 1.5.0 delivery is authorized within iteration 037 and pending; candidate 1.5.0 / QML 1.5 is unpublished; task lists and strikethrough remain available, while tables and HTML filtering remain deferred.
+Current iteration: [038: GFM completion and inline-code padding](038-gfm-completion-inline-code-padding/requirements.md), approved and locally verified. Package 1.6.0 / QML 1.6 delivery tasks D1–D3 are authorized by the supplied release plan on 2026-10-13. See [design](038-gfm-completion-inline-code-padding/design.md), [tasks](038-gfm-completion-inline-code-padding/tasks.md) and [actual verification](038-gfm-completion-inline-code-padding/verification.md).
 
-Current status: **published stable/latest 1.2.0 / QML 1.2 on 2026-10-12 UTC**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 032](032-v1.2-integration/verification.md) records completed integration; [iteration 033](033-stable-v1.2-release/verification.md) records completed publication and independent downloaded Ubuntu/Arch lifecycle checks. Code-block actions are released with host-owned clipboard handling and Legacy styling defaults. Earlier entries retain historical scope, versions and environments.
-
-## Historical feature records
+Current published release: [stable 1.5.0 / QML 1.5](https://github.com/lebedenko/qmarkdown/releases/tag/v1.5.0), published 2026-10-13 UTC. Iteration 037 added extended autolinks alongside task lists and strikethrough. Version 1.6.0 adds native tables, tag filtering, aggregate enablement and layout-aware inline-code padding; final release gates remain pending. Historical records below retain their original scope.
 
 The [development workflow](../docs/development-workflow.md) is authoritative for current delivery procedures and supersedes historical procedures below. Historical approvals and verification records remain intact. Integration, evidence recording, and publication are delivery tasks; they do not automatically require separate numbered initiatives.
 

@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "role": "development",
+  "qt": "6.12.0",
+  "result": {
+    "status": "passed",
+    "exitCode": 0,
+    "imageId": "sha256:b4803e6959677074632b41529374eb256c8db80bce1c2d61d051c6b7441170ad",
+    "recipeFingerprint": "08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1",
+    "preparationSeconds": 0.012,
+    "verificationSeconds": 372.45,
+    "elapsedSeconds": 372.508
+  },
+  "artifactDirectory": "build-ci-038-development-verified",
+  "sourceInputs": "source-inputs.json",
+  "sharedCTest": {
+    "passed": 12,
+    "failed": 0
+  },
+  "staticCTest": {
+    "passed": 12,
+    "failed": 0
+  },
+  "releasePackageCTest": {
+    "passed": 12,
+    "failed": 0
+  },
+  "compatibilityRequests": 34,
+  "consumerModes": [
+    "shared-linked",
+    "plugin-only",
+    "static"
+  ],
+  "qmlLint": "passed",
+  "symbolPrivacy": "passed",
+  "benchmarkSmoke": "passed",
+  "ubuntuCandidateArchive": {
+    "name": "qmarkdown-1.6.0-ubuntu24.04-x86_64-qt6.12.tar.gz",
+    "sha256": "c12e7fd411f701e27f823f9ea8d7bf45c744e9ba9ef22d67e19977cd5ca9e5b1",
+    "bytes": 578901,
+    "installerAndConsumerAcceptance": "passed (staged and real /usr install, repeated install/uninstall, linked/plugin-only consumers)"
+  },
+  "productionPaddingMeansMs": [
+    {
+      "padding": 0,
+      "meanMs": 15.0035
+    },
+    {
+      "padding": 4,
+      "meanMs": 32.3549
+    }
+  ],
+  "publication": false,
+  "exactCommitReleaseEvidence": false
+}

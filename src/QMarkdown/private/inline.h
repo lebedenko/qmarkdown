@@ -9,6 +9,10 @@ struct InlineRange {
     int length = 0;
     int flags = 0;
 };
+struct CodeSpan {
+    int start = 0;
+    int length = 0;
+};
 struct LinkSpan {
     int start = 0;
     int length = 0;
@@ -30,6 +34,7 @@ struct InlineNode {
     QString destination;
     QString title;
     QVector<InlineNode> children;
+    QString filteredHtml;
 };
 struct InlineContent {
     QString text;
@@ -37,6 +42,8 @@ struct InlineContent {
     QVector<LinkSpan> links;
     QVector<ImageSpan> images;
     QVector<InlineNode> nodes;
+    QVector<CodeSpan> codes;
 };
+QString filterRawHtml(const QString &literal);
 InlineContent parseInline(const QString &source);
 }

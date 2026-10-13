@@ -1,0 +1,20 @@
+[
+  {
+    "example": 657,
+    "markdown": "<strong> <title> <style> <em>\n\n<blockquote>\n  <xmp> is disallowed.  <XMP> is also disallowed.\n</blockquote>\n",
+    "raw": [
+      "<strong>",
+      "<title>",
+      "<style>",
+      "<em>"
+    ],
+    "filtered": [
+      "<strong>",
+      "&lt;title>",
+      "&lt;style>",
+      "<em>"
+    ],
+    "blockRaw": "<blockquote>\n  <xmp> is disallowed.  <XMP> is also disallowed.\n</blockquote>\n",
+    "blockFiltered": "<blockquote>\n  &lt;xmp> is disallowed.  &lt;XMP> is also disallowed.\n</blockquote>\n"
+  }
+]

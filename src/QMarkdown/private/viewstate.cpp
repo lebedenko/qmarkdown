@@ -12,6 +12,13 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || index.row() < 0 || index.row() >= m_blocks.size()) return {};
     const auto &block = m_blocks[index.row()];
+    if (role == Qt::UserRole + 14) {
+        QVariantList codes;
+        for (const auto &code : block.codes)
+            codes.append(QVariantMap{{"start", code.start}, {"length", code.length}});
+        return codes;
+    }
+    if (role == Qt::UserRole + 13) return block.tableAlignment;
     if (role == Qt::UserRole + 12) return static_cast<int>(block.taskState);
     if (role == Qt::UserRole + 9) return block.image;
     if (role == Qt::UserRole + 10) return block.imageLink;
@@ -39,6 +46,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
             markers.append(block.ordered ? QString::number(qint64(block.start) + i) + block.delimiter : QString::fromUtf8("•"));
         return markers;
     }
+    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::Table) return 10;
     if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::Image) return 8;
     if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::Segments) return 9;
     if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::List) return 4;
@@ -55,7 +63,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
             {Qt::UserRole + 2, "formatted"}, {Qt::UserRole + 3, "formatRanges"}, {Qt::UserRole + 4, "renderKind"}, {Qt::UserRole + 5, "childBlocks"},
             {Qt::UserRole + 6, "tightList"}, {Qt::UserRole + 7, "markers"}, {Qt::UserRole + 8, "linkSpans"}, {Qt::UserRole + 9, "imageData"},
             {Qt::UserRole + 10, "imageLink"}, {Qt::UserRole + 11, "imageLinked"},
-            {Qt::UserRole + 12, "taskState"}};
+            {Qt::UserRole + 12, "taskState"}, {Qt::UserRole + 13, "tableAlignment"}, {Qt::UserRole + 14, "codeSpans"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::Block> blocks)
 {
@@ -68,9 +76,16 @@ void BlockModel::replace(QVector<QMarkdownPrivate::Block> blocks)
         if (block.kind == QMarkdownPrivate::BlockKind::Segments
             || block.kind == QMarkdownPrivate::BlockKind::List
             || block.kind == QMarkdownPrivate::BlockKind::ListItem
-            || block.kind == QMarkdownPrivate::BlockKind::Quote) {
+            || block.kind == QMarkdownPrivate::BlockKind::Quote
+            || block.kind == QMarkdownPrivate::BlockKind::Table
+            || block.kind == QMarkdownPrivate::BlockKind::TableRow
+            || block.kind == QMarkdownPrivate::BlockKind::TableCell) {
             child = new BlockModel(this);
-            child->replace(block.children);
+            if (block.kind == QMarkdownPrivate::BlockKind::TableCell && block.children.isEmpty()) {
+                auto content = block;
+                content.kind = QMarkdownPrivate::BlockKind::Paragraph;
+                child->replace({std::move(content)});
+            } else child->replace(block.children);
         }
         m_children.append(child);
     }
@@ -105,37 +120,62 @@ void ViewState::reloadResources() {
     m_resources.restart(m_sourceBlocks, m_baseUrl, m_policy);
     m_blocks.replace(m_sourceBlocks);
 }
+void ViewState::reparse()
+{
+    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, QMarkdownPrivate::ParseOptions{
+        m_gfmEnabled || m_taskListsEnabled, m_gfmEnabled || m_strikethroughEnabled,
+        m_gfmEnabled || m_extendedAutolinksEnabled, m_gfmEnabled || m_tablesEnabled,
+        m_gfmEnabled || m_tagFilterEnabled});
+    reloadResources();
+}
 void ViewState::setMarkdown(const QString &value)
 {
     if (m_markdown == value) return;
     m_markdown = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(value, m_taskListsEnabled, m_strikethroughEnabled, m_extendedAutolinksEnabled);
-    reloadResources();
+    reparse();
     emit markdownChanged();
 }
 void ViewState::setTaskListsEnabled(bool value)
 {
     if (m_taskListsEnabled == value) return;
     m_taskListsEnabled = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, value, m_strikethroughEnabled, m_extendedAutolinksEnabled);
-    reloadResources();
+    reparse();
     emit taskListsEnabledChanged();
 }
 void ViewState::setStrikethroughEnabled(bool value)
 {
     if (m_strikethroughEnabled == value) return;
     m_strikethroughEnabled = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, m_taskListsEnabled, value, m_extendedAutolinksEnabled);
-    reloadResources();
+    reparse();
     emit strikethroughEnabledChanged();
 }
 void ViewState::setExtendedAutolinksEnabled(bool value)
 {
     if (m_extendedAutolinksEnabled == value) return;
     m_extendedAutolinksEnabled = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, m_taskListsEnabled, m_strikethroughEnabled, value);
-    reloadResources();
+    reparse();
     emit extendedAutolinksEnabledChanged();
+}
+void ViewState::setTablesEnabled(bool value)
+{
+    if (m_tablesEnabled == value) return;
+    m_tablesEnabled = value;
+    reparse();
+    emit tablesEnabledChanged();
+}
+void ViewState::setTagFilterEnabled(bool value)
+{
+    if (m_tagFilterEnabled == value) return;
+    m_tagFilterEnabled = value;
+    reparse();
+    emit tagFilterEnabledChanged();
+}
+void ViewState::setGfmEnabled(bool value)
+{
+    if (m_gfmEnabled == value) return;
+    m_gfmEnabled = value;
+    reparse();
+    emit gfmEnabledChanged();
 }
 void ViewState::setStyle(MarkdownStyle *value)
 {

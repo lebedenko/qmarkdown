@@ -8,6 +8,7 @@
 #include <QQmlProperty>
 #include <QSignalSpy>
 #include <QPainter>
+#include <QElapsedTimer>
 #include <QDir>
 #include <QTemporaryDir>
 #include <QtTest/QTest>
@@ -35,6 +36,154 @@ class StylingTest : public QObject
         return nullptr;
     }
 private slots:
+    void paddingPreparationMeasurements()
+    {
+        QString text; QVariantList codes, ranges;
+        for (int i=0; i<1000; ++i) {
+            const int start=text.size(); text += "word code more ";
+            codes.append(QVariantMap{{"start",start+5},{"length",4}});
+            ranges.append(QVariantMap{{"start",start+5},{"length",4},{"flags",QMarkdownPrivate::Code}});
+        }
+        FormattedText item; QFont font("DejaVu Sans"); font.setPixelSize(16);
+        item.setFont(font); item.setCodeFont(font); item.setText(text); item.setLayoutWidth(240);
+        item.setFormatRanges(ranges); item.setCodeSpans(codes);
+        for (qreal padding : {0.,4.}) {
+            item.setCodeHorizontalPadding(padding); item.setCodeVerticalPadding(padding ? 2 : 0);
+            QElapsedTimer timer; timer.start();
+            for (int run=0; run<5; ++run) { item.setColor(run%2 ? Qt::black : Qt::darkGray); item.ensurePolished(); }
+            QVERIFY(item.layout());
+            qInfo() << "production padding preparation" << padding << "mean_ms" << timer.nsecsElapsed()/5.e6
+                    << "characters" << text.size() << "spans" << codes.size() << "lines" << item.layout()->lineCount();
+        }
+    }
+    void inlinePaddingDefaultsAndReset()
+    {
+        MarkdownStyle style;
+        for (auto preset : {MarkdownStyle::Legacy, MarkdownStyle::PolishedLight, MarkdownStyle::PolishedDark,
+                             MarkdownStyle::MinimalLight, MarkdownStyle::MinimalDark}) {
+            style.setPreset(preset);
+            QCOMPARE(style.inlineCode()->horizontalPadding(), 4.0);
+            QCOMPARE(style.inlineCode()->verticalPadding(), 2.0);
+        }
+        auto *code = style.inlineCode();
+        QSignalSpy horizontal(code, &InlineCodeStyle::horizontalPaddingChanged);
+        QSignalSpy vertical(code, &InlineCodeStyle::verticalPaddingChanged);
+        code->setHorizontalPadding(8); code->setHorizontalPadding(8);
+        QCOMPARE(horizontal.size(), 1);
+        style.setPreset(MarkdownStyle::Legacy); QCOMPARE(code->horizontalPadding(), 8.0);
+        code->resetHorizontalPadding(); QCOMPARE(code->horizontalPadding(), 4.0);
+        code->setVerticalPadding(-1); QCOMPARE(code->verticalPadding(), -1.0);
+        code->setVerticalPadding(std::numeric_limits<qreal>::infinity()); QCOMPARE(vertical.size(), 2);
+        code->resetVerticalPadding(); QCOMPARE(code->verticalPadding(), 2.0);
+        code->setHorizontalPadding(12); style.resetOverrides(); QCOMPARE(code->horizontalPadding(), 4.0);
+    }
+    void inlinePaddingGeometry_data()
+    {
+        QTest::addColumn<QString>("text");
+        QTest::addColumn<int>("width");
+        for (const QString &text : {QString(" "), QString("abc "), QString("firstsecond"), QString::fromUtf8("אבג abc אבג"),
+                                   QString::fromUtf8("é🙂👩‍💻 words")})
+            for (int width : {1, 32, 80, 220})
+                QTest::newRow(qPrintable(text + QString::number(width))) << text << width;
+    }
+    void inlinePaddingGeometry()
+    {
+        QFETCH(QString, text); QFETCH(int, width);
+        QQuickWindow window; window.resize(400, 400); window.show();
+        FormattedText item(window.contentItem());
+        QFont font("DejaVu Sans"); font.setPixelSize(16);
+        item.setFont(font); item.setCodeFont(font); item.setText(text); item.setLayoutWidth(width);
+        item.setFormatRanges({QVariantMap{{"start", 0}, {"length", text.size()}, {"flags", QMarkdownPrivate::Code}}});
+        item.setCodeSpans({QVariantMap{{"start", 0}, {"length", text.size()}}});
+        item.setLinkSpans({QVariantMap{{"start", 0}, {"length", text.size()}, {"destination", "target"}}});
+        item.ensurePolished();
+        QTRY_VERIFY(item.layout() && !item.codeRectangles().isEmpty());
+        QCOMPARE(item.text(), text);
+        QCOMPARE(item.layout()->text(), text);
+        const qreal paddedHeight = item.logicalHeight();
+        for (const auto &rect : item.codeRectangles()) {
+            const QPointF offset(-item.x(), -item.y());
+            QCOMPARE(item.linkAt(rect.left() + .1 + offset.x(), rect.center().y() + offset.y()), 0);
+            QCOMPARE(item.linkAt(rect.right() - .1 + offset.x(), rect.center().y() + offset.y()), 0);
+            QCOMPARE(item.linkAt(rect.center().x() + offset.x(), rect.top() + .1 + offset.y()), 0);
+            QVERIFY(rect.bottom() <= paddedHeight + .01);
+        }
+        item.setCodeHorizontalPadding(0); item.setCodeVerticalPadding(0);
+        QTRY_VERIFY(item.logicalHeight() < paddedHeight);
+        QTextLayout baseline(text, font);
+        baseline.setFormats(item.layout()->formats());
+        QTextOption option; option.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere); baseline.setTextOption(option);
+        baseline.beginLayout(); qreal height = 0; int count = 0;
+        while (true) { auto line = baseline.createLine(); if (!line.isValid()) break; line.setLineWidth(width); height += line.height(); ++count; }
+        baseline.endLayout(); QCOMPARE(item.logicalHeight(), height); QCOMPARE(item.layout()->lineCount(), count);
+        item.setCodeHorizontalPadding(4); item.setCodeVerticalPadding(2);
+        QTRY_COMPARE(item.logicalHeight(), paddedHeight);
+        item.setFont(QFont("DejaVu Sans", 24)); item.setCodeFont(QFont("DejaVu Sans", 24)); QTRY_VERIFY(item.logicalHeight() != paddedHeight);
+    }
+    void codeFragmentWithPartialLink()
+    {
+        FormattedText item; QFont font("DejaVu Sans"); font.setPixelSize(20);
+        item.setFont(font); item.setCodeFont(font); item.setText("abcDEF"); item.setLayoutWidth(200);
+        item.setFormatRanges({QVariantMap{{"start",0},{"length",6},{"flags",QMarkdownPrivate::Code}}});
+        item.setCodeSpans({QVariantMap{{"start",0},{"length",6}}});
+        item.setLinkSpans({QVariantMap{{"start",3},{"length",3},{"destination","target"}}});
+        item.setCodeForeground(Qt::red); item.setLinkColor(Qt::blue); item.ensurePolished();
+        QCOMPARE(item.codeRectangles().size(),1); const auto rect=item.codeRectangles()[0];
+        QCOMPARE(item.linkAt(rect.left()+1-item.x(),rect.center().y()-item.y()),-1);
+        QCOMPARE(item.linkAt(rect.right()-1-item.x(),rect.center().y()-item.y()),0);
+        QImage image(qCeil(item.width()),qCeil(item.height()),QImage::Format_ARGB32_Premultiplied); image.fill(Qt::transparent);
+        { QPainter painter(&image); item.paint(&painter); }
+        int red=0,blue=0;
+        for(int y=0;y<image.height();++y) for(int x=0;x<image.width();++x) {
+            const auto color=image.pixelColor(x,y);
+            if(color.alpha()>100 && color.red()>200 && color.blue()<20) ++red;
+            if(color.alpha()>100 && color.blue()>200 && color.red()<20) ++blue;
+        }
+        QVERIFY(red>10); QVERIFY(blue>10);
+        item.setCodeHorizontalPadding(-1); item.setCodeVerticalPadding(std::numeric_limits<qreal>::quiet_NaN());
+        QCOMPARE(item.codeHorizontalPadding(),0.0); QCOMPARE(item.codeVerticalPadding(),0.0);
+    }
+    void adjacentCodePaddingAndLinkBoundaries()
+    {
+        QQuickWindow window; window.show(); FormattedText item(window.contentItem());
+        QFont font("DejaVu Sans"); font.setPixelSize(20); item.setFont(font); item.setCodeFont(font);
+        item.setText("firstsecond"); item.setLayoutWidth(400);
+        item.setFormatRanges({QVariantMap{{"start", 0}, {"length", 11}, {"flags", QMarkdownPrivate::Code}}});
+        item.setCodeSpans({QVariantMap{{"start", 0}, {"length", 5}}, QVariantMap{{"start", 5}, {"length", 6}}});
+        item.setLinkSpans({QVariantMap{{"start", 0}, {"length", 5}, {"destination", "first"}},
+                           QVariantMap{{"start", 5}, {"length", 6}, {"destination", "second"}}});
+        QTRY_VERIFY(item.layout() && item.codeRectangles().size() == 2);
+        const auto rects = item.codeRectangles(); QVERIFY(rects[0].right() <= rects[1].left() + .01);
+        for (int i = 0; i < 2; ++i) {
+            QCOMPARE(item.linkAt(rects[i].left() + .1 - item.x(), rects[i].center().y() - item.y()), i);
+            QCOMPARE(item.linkAt(rects[i].right() - .1 - item.x(), rects[i].center().y() - item.y()), i);
+        }
+        item.setHorizontalAlignment(Qt::AlignRight);
+        QTRY_VERIFY(item.codeRectangles().last().right() > 399);
+        item.setHorizontalAlignment(Qt::AlignHCenter);
+        QTRY_VERIFY(std::abs((item.codeRectangles().first().left() + item.codeRectangles().last().right()) / 2 - 200) < .1);
+    }
+
+    void tableDefaultsOverridesAndReset()
+    {
+        MarkdownStyle style;
+        for (const auto preset : {MarkdownStyle::Legacy, MarkdownStyle::PolishedLight, MarkdownStyle::PolishedDark,
+                                  MarkdownStyle::MinimalLight, MarkdownStyle::MinimalDark}) {
+            style.setPreset(preset); auto *table=style.table();
+            QCOMPARE(table->headerForeground(),style.bodyColor());
+            QCOMPARE(table->headerBackground(),QColor(Qt::transparent)); QCOMPARE(table->bodyBackground(),QColor(Qt::transparent));
+            QCOMPARE(table->borderColor(),QColor(Qt::transparent)); QCOMPARE(table->borderWidth(),0.0);
+            QCOMPARE(table->horizontalPadding(),4.0); QCOMPARE(table->verticalPadding(),2.0);
+        }
+        auto *table=style.table(); QSignalSpy changed(table,&TableStyle::horizontalPaddingChanged);
+        table->setHorizontalPadding(12); table->setHorizontalPadding(12); QCOMPARE(changed.size(),1);
+        style.setPreset(MarkdownStyle::Legacy); QCOMPARE(table->horizontalPadding(),12.0);
+        table->resetHorizontalPadding(); QCOMPARE(table->horizontalPadding(),4.0); QCOMPARE(changed.size(),2);
+        table->setHeaderForeground(Qt::red); style.setBodyColor(Qt::green); QCOMPARE(table->headerForeground(),QColor(Qt::red));
+        table->resetHeaderForeground(); QCOMPARE(table->headerForeground(),QColor(Qt::green));
+        table->setBodyBackground(Qt::blue); table->setBorderWidth(2); style.resetOverrides();
+        QCOMPARE(table->bodyBackground(),QColor(Qt::transparent)); QCOMPARE(table->borderWidth(),0.0);
+    }
     void defaultsAliasesAndNotifications()
     {
         MarkdownStyle style;
@@ -206,6 +355,12 @@ private slots:
         styledComponent.setData("import QMarkdown 1.1\nMarkdownStyle { preset: MarkdownStyle.PolishedLight }", {});
         QVERIFY2(styledComponent.isReady(), qPrintable(styledComponent.errorString()));
         std::unique_ptr<QObject> styled(styledComponent.create()); QVERIFY(styled);
+        QQmlComponent padding(&engine);
+        padding.setData("import QMarkdown 1.6\nMarkdownStyle { inlineCode.horizontalPadding: 8; inlineCode.verticalPadding: 3 }", {});
+        QVERIFY2(padding.isReady(),qPrintable(padding.errorString()));
+        std::unique_ptr<QObject> padded(padding.create()); QVERIFY(padded);
+        auto *style=qobject_cast<MarkdownStyle *>(padded.get()); QVERIFY(style);
+        QCOMPARE(style->inlineCode()->horizontalPadding(),8.0); QCOMPARE(style->inlineCode()->verticalPadding(),3.0);
     }
     void surfacesAndInvalidMetrics()
     {
