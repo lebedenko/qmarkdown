@@ -26,5 +26,5 @@ struct Block {
     QVector<InlineNode> inlines;
     TaskState taskState = TaskState::Ordinary;
 };
-QVector<Block> parse(QString source, bool taskListsEnabled = false, bool strikethroughEnabled = false);
+QVector<Block> parse(QString source, bool taskListsEnabled = false, bool strikethroughEnabled = false, bool extendedAutolinksEnabled = false);
 }

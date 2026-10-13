@@ -1,6 +1,6 @@
 # Staged roadmap
 
-Local candidate: [035 opt-in GFM task lists](035-gfm-task-lists/requirements.md), approved on 2026-10-13, adds read-only indicators in package 1.3.0 / QML 1.3. Tables, strikethrough and extended autolinks remain deferred; this is not full GFM conformance. See [actual verification](035-gfm-task-lists/verification.md) for execution status.
+Local candidate: **1.5.0 / QML 1.5**, with independent default-off [task lists](035-gfm-task-lists/requirements.md), [strikethrough](036-gfm-strikethrough/requirements.md) and [extended autolinks](037-gfm-extended-autolinks/requirements.md). Iteration 037 was approved on 2026-10-13 for implementation and verification; see its [verification record](037-gfm-extended-autolinks/verification.md) for actual execution status. Tables and HTML filtering remain deferred; no full GFM conformance is claimed. Published stable/latest remains 1.2.0.
 
 ## Current published status
 
@@ -22,7 +22,7 @@ These stages preserve the brief's direction. The table separates completed found
 | Buildable scaffold | [002 project scaffold](002-project-scaffold/requirements.md): import-only Qt/QML module, shared/static packaging, and smoke checks; scaffold foundation completed. |
 | First vertical slice | [001 static text](001-static-text/requirements.md): paragraphs, H1–H6, native block layout, styling, replacement updates. Approved on 2026-10-07 and implemented; see its verification record. |
 | CommonMark core coverage (completed) | Complete CommonMark 0.31.2 semantics: ATX and Setext headings, paragraphs, emphasis/strong emphasis, inline code, fenced and indented code, inline and reference links, images, ordered/unordered and nested lists, block quotes, thematic breaks, escapes/entities, autolinks, hard/soft breaks, and raw HTML recognition. Include whitespace, line handling, delimiter rules, and precedence. Features 009/010 specify host navigation and resource policies; Feature 017 completes semantic evidence. |
-| Selected GFM syntax | [035 task lists](035-gfm-task-lists/requirements.md) is the approved first slice; tables, strikethrough, and extended autolinks remain future slices, with separate extension checks and newer-core compatibility decisions; no full GFM conformance claim. |
+| Selected GFM syntax | Task lists, strikethrough and extended autolinks have independent opt-in slices and separate extension checks on the newer CommonMark core; tables remain future work; no full GFM conformance claim. |
 | Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; document-wide selection/copy remains deferred. |
 | Streaming | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
 | Renderer extensions | Syntax highlighting, extension renderer API, Mermaid, math, and custom fenced-block renderers, subject to dependency and policy decisions. Footnotes and other richer syntax require separate specifications. |

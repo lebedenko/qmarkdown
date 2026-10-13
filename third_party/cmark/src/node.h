@@ -48,6 +48,7 @@ typedef struct {
 } cmark_custom;
 
 enum cmark_node__internal_flags {
+  CMARK_NODE__QMARKDOWN_AUTOLINK = (1 << 4),
   CMARK_NODE__OPEN = (1 << 0),
   CMARK_NODE__LAST_LINE_BLANK = (1 << 1),
   CMARK_NODE__LAST_LINE_CHECKED = (1 << 2),

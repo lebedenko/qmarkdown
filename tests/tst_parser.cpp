@@ -10,6 +10,142 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void extendedAutolinks_data()
+    {
+        QTest::addColumn<QString>("source"); QTest::addColumn<QString>("label"); QTest::addColumn<QString>("destination");
+        QTest::newRow("https") << "https://a.b/path" << "https://a.b/path" << "https://a.b/path";
+        QTest::newRow("www") << "www.a.b" << "www.a.b" << "http://www.a.b";
+        QTest::newRow("www-single-domain") << "www.localhost" << "" << "";
+        QTest::newRow("uppercase") << "HTTP://a.b WWW.a.b" << "" << "";
+        QTest::newRow("single-domain") << "http://localhost" << "" << "";
+        QTest::newRow("empty-segment") << "http://a..b" << "" << "";
+        QTest::newRow("underscore-final") << "http://a.b_c" << "" << "";
+        QTest::newRow("underscore-penultimate") << "http://a_b.c" << "" << "";
+        QTest::newRow("underscore-earlier") << "http://a_b.c.d" << "http://a_b.c.d" << "http://a_b.c.d";
+        QTest::newRow("ascii-domain") << QString::fromUtf8("http://é.b") << "" << "";
+        QTest::newRow("domain-hyphen") << "http://-a.b-" << "http://-a.b-" << "http://-a.b-";
+        QTest::newRow("blocked-boundary") << "xwww.a.b ,http://a.b" << "" << "";
+        QTest::newRow("parenthesis") << "(http://a.b/x(y)))" << "http://a.b/x(y)" << "http://a.b/x(y)";
+        QTest::newRow("interior-parentheses") << "http://a.b/x))+y" << "http://a.b/x))+y" << "http://a.b/x))+y";
+        QTest::newRow("punctuation") << "http://a.b/x?!.,:*_~" << "http://a.b/x" << "http://a.b/x";
+        QTest::newRow("entity-tail") << "http://a.b/x&tail;" << "http://a.b/x" << "http://a.b/x";
+        QTest::newRow("numeric-tail") << "http://a.b/x&#65;" << "http://a.b/xA" << "http://a.b/xA";
+        QTest::newRow("interior-entity") << "http://a.b/x&amp;y" << "http://a.b/x&y" << "http://a.b/x&y";
+        QTest::newRow("semicolon") << "http://a.b/x;" << "http://a.b/x;" << "http://a.b/x;";
+        QTest::newRow("source-escape") << "http://a.b/x\\*y" << "http://a.b/x\\*y" << "http://a.b/x\\*y";
+        QTest::newRow("escaped-prefix") << "\\www.a.b" << "" << "";
+        QTest::newRow("entity-prefix") << "&#119;ww.a.b" << "" << "";
+        QTest::newRow("decoded-email") << "foo&#64;bar.baz" << "foo@bar.baz" << "mailto:foo@bar.baz";
+        QTest::newRow("escaped-email") << "foo\\+bar@a.b" << "foo+bar@a.b" << "mailto:foo+bar@a.b";
+        QTest::newRow("email-anywhere") << ":foo@a.b" << "foo@a.b" << "mailto:foo@a.b";
+        QTest::newRow("email-underscore") << "foo@a_b.c_d" << "foo@a_b.c_d" << "mailto:foo@a_b.c_d";
+        QTest::newRow("email-empty-segment") << "foo@a..b" << "" << "";
+        QTest::newRow("email-plus-domain") << "foo@a.b+c" << "" << "";
+        QTest::newRow("email-trailing-hyphen") << "foo@a.b-" << "" << "";
+        QTest::newRow("email-trailing-underscore") << "foo@a.b_" << "" << "";
+        QTest::newRow("email-period") << "foo@a.b." << "foo@a.b" << "mailto:foo@a.b";
+        QTest::newRow("mailto") << "mailto:foo@a.b/path" << "mailto:foo@a.b" << "mailto:foo@a.b";
+        QTest::newRow("xmpp") << "xmpp:foo@a.b/res@x.y/more" << "xmpp:foo@a.b/res@x.y" << "xmpp:foo@a.b/res@x.y";
+        QTest::newRow("xmpp-resource-grammar") << "xmpp:foo@a.b/res-more" << "xmpp:foo@a.b/res" << "xmpp:foo@a.b/res";
+        QTest::newRow("unicode-offset") << QString::fromUtf8("😀 é http://a.b") << "http://a.b" << "http://a.b";
+        QTest::newRow("unicode-space") << QString::fromUtf8("é\u00a0http://a.b") << "http://a.b" << "http://a.b";
+        QTest::newRow("unicode-blocked") << QString::fromUtf8("éhttp://a.b") << "" << "";
+        QTest::newRow("soft-break") << "one\nhttp://a.b" << "http://a.b" << "http://a.b";
+        QTest::newRow("hard-break") << "one  \nhttp://a.b" << "http://a.b" << "http://a.b";
+        QTest::newRow("code") << "`www.a.b foo@a.b`" << "" << "";
+        QTest::newRow("html") << "a <span title='www.a.b foo@a.b'>" << "" << "";
+    }
+    void extendedAutolinks()
+    {
+        QFETCH(QString, source); QFETCH(QString, label); QFETCH(QString, destination);
+        for (const auto &ending : {QString("\n"), QString("\r\n"), QString("\r")}) {
+            auto input = source; input.replace("\n", ending);
+            const auto block = parse(input, false, false, true)[0];
+            QCOMPARE(block.links.size(), label.isEmpty() ? 0 : 1);
+            if (!label.isEmpty()) {
+                QCOMPARE(block.links[0].destination, destination);
+                QCOMPARE(block.links[0].start, block.text.indexOf(label));
+                QCOMPARE(block.links[0].length, label.size());
+                QCOMPARE(block.text.mid(block.links[0].start, block.links[0].length), label);
+            }
+            QVERIFY(parse(input)[0].links.isEmpty());
+        }
+    }
+    void extendedAutolinkSemantics()
+    {
+        for (const auto &source : {QString("[www.a.b](explicit:target)"), QString("[ www.a.b](explicit:target)"),
+                                  QString("[**http://a.b** foo@a.b](explicit:target)"), QString("[www.a.b][ref]\n\n[ref]: explicit:target")}) {
+            const auto block = parse(source, false, false, true)[0];
+            QCOMPARE(block.links.size(), 1); QCOMPARE(block.links[0].destination, "explicit:target");
+            const auto &link = block.inlines.last(); QCOMPARE(link.kind, InlineKind::Link);
+            for (const auto &child : link.children) QVERIFY(child.kind != InlineKind::Link);
+        }
+        const auto restored = parse("[http://a.b/x\\*y `code`](explicit:target)", false, false, true)[0];
+        QCOMPARE(restored.text, "http://a.b/x*y code"); QCOMPARE(restored.links.size(), 1);
+        QCOMPARE(restored.links[0].destination, "explicit:target");
+        QCOMPARE(restored.inlines[0].children.last().kind, InlineKind::Code);
+        const auto restoredStyle = parse("[http://a.b/*word*](explicit:target)", false, false, true)[0];
+        QCOMPARE(restoredStyle.text, "http://a.b/word"); QCOMPARE(restoredStyle.ranges[0].flags, int(Emphasis));
+        const auto restoredCode = parse("[http://a.b/`x]y`](explicit:target)", false, false, true)[0];
+        QCOMPARE(restoredCode.text, "http://a.b/x]y"); QCOMPARE(restoredCode.links.size(), 1);
+        QCOMPARE(restoredCode.links[0].destination, "explicit:target");
+        const auto restoredEscape = parse("[http://a.b/x\\]y](explicit:target)", false, false, true)[0];
+        QCOMPARE(restoredEscape.text, "http://a.b/x]y"); QCOMPARE(restoredEscape.links.size(), 1);
+        QCOMPARE(restoredEscape.links[0].destination, "explicit:target");
+        const auto nestedLink = parse("[http://a.b/[inner](inner:target)](outer:target)", false, false, true)[0];
+        QCOMPARE(nestedLink.links.size(), 2); QCOMPARE(nestedLink.links[1].destination, "inner:target");
+        QVERIFY(nestedLink.text.startsWith("[http://a.b/inner]"));
+        const auto restoredImage = parse("[http://a.b/![alt](pic)](explicit:target)", false, false, true)[0];
+        QCOMPARE(restoredImage.links.size(), 1); QCOMPARE(restoredImage.links[0].destination, "explicit:target");
+        QCOMPARE(restoredImage.images.size(), 1); QCOMPARE(restoredImage.images[0].destination, "pic");
+        const auto image = parse("![www.a.b foo@a.b](image.png)", false, false, true)[0];
+        QVERIFY(image.links.isEmpty()); QCOMPARE(image.images.size(), 1);
+        QCOMPARE(image.inlines[0].kind, InlineKind::Image);
+        QCOMPARE(image.inlines[0].children[0].kind, InlineKind::Link);
+        QCOMPARE(image.inlines[0].children[0].destination, "http://www.a.b");
+        QCOMPARE(image.inlines[0].children.last().destination, "mailto:foo@a.b");
+        for (const auto &source : {QString("    www.a.b foo@a.b"), QString("```\nwww.a.b foo@a.b\n```"), QString("<div>\nwww.a.b foo@a.b\n</div>")})
+            QVERIFY(parse(source, false, false, true)[0].links.isEmpty());
+        for (bool tasks : {false, true}) for (bool strike : {false, true}) for (bool autolinks : {false, true}) {
+            const auto item = parse("- [x] ~~**www.a.b**~~", tasks, strike, autolinks)[0].children[0];
+            QCOMPARE(item.taskState, tasks ? TaskState::Checked : TaskState::Ordinary);
+            const auto &block = item.children[0];
+            QCOMPARE(block.text, QString(tasks ? "" : "[x] ") + (strike ? "www.a.b" : "~~www.a.b~~"));
+            QCOMPARE(block.links.size(), autolinks ? 1 : 0);
+            if (autolinks) { QCOMPARE(block.links[0].destination, "http://www.a.b"); QCOMPARE(block.links[0].length, 7); }
+            QCOMPARE(block.ranges[0].flags, int(Strong | (strike ? Strikethrough : 0)));
+        }
+    }
+    void officialExtendedAutolinkExamples()
+    {
+        QFile file(QStringLiteral(QMARKDOWN_AUTOLINK_FIXTURE)); QVERIFY(file.open(QIODevice::ReadOnly));
+        const auto examples = QJsonDocument::fromJson(file.readAll()).array(); QCOMPARE(examples.size(), 14);
+        for (int e = 0; e < examples.size(); ++e) {
+            const auto example = examples[e].toObject(); QCOMPARE(example["example"].toInt(), 622 + e);
+            const auto blocks = parse(example["markdown"].toString(), false, false, true);
+            const auto texts = example["texts"].toArray(), links = example["links"].toArray();
+            QCOMPARE(blocks.size(), texts.size());
+            for (int i = 0; i < blocks.size(); ++i) {
+                QCOMPARE(blocks[i].text, texts[i].toString()); const auto expected = links[i].toArray();
+                QCOMPARE(blocks[i].links.size(), expected.size());
+                int semanticLinks = 0;
+                for (const auto &node : blocks[i].inlines) {
+                    if (node.kind != InlineKind::Link) continue;
+                    const auto link = expected[semanticLinks++].toArray();
+                    QCOMPARE(node.destination, link[2].toString());
+                    QCOMPARE(node.children.size(), 1); QCOMPARE(node.children[0].kind, InlineKind::Text);
+                    QCOMPARE(node.children[0].literal, texts[i].toString().mid(link[0].toInt(), link[1].toInt()));
+                }
+                QCOMPARE(semanticLinks, expected.size());
+                for (int j = 0; j < expected.size(); ++j) {
+                    const auto link = expected[j].toArray();
+                    QCOMPARE(blocks[i].links[j].start, link[0].toInt()); QCOMPARE(blocks[i].links[j].length, link[1].toInt());
+                    QCOMPARE(blocks[i].links[j].destination, link[2].toString());
+                }
+            }
+        }
+    }
+
     void strikethrough_data()
     {
         QTest::addColumn<QString>("source");

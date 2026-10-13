@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "approvalDate": "2026-10-13",
+  "dateTimezone": "Europe/Kyiv",
+  "baseCommit": "5f3baa66e6f052ddbd51fd2a79f69b0e48b82d78",
+  "sourceState": "uncommitted approved feature",
+  "candidateVersion": "1.5.0",
+  "qmlVersion": "1.5",
+  "buildInputs": {
+    "count": 148,
+    "aggregateSha256": "ce4f19f3a6443a8219b78419ae54814bcd3ca6769924b853d232c10e752fcc85",
+    "algorithm": "SHA256 of sorted relative-path, NUL, file-SHA256, LF records",
+    "minimumSnapshotMatches": true,
+    "developmentSnapshotMatches": true
+  },
+  "host": {
+    "qt": "6.12.0",
+    "compiler": "GCC 16.2.1",
+    "focusedParserCases": 45,
+    "focusedViewCases": 5,
+    "ctestShared": {
+      "passed": 12,
+      "failed": 0
+    },
+    "ctestStatic": {
+      "passed": 12,
+      "failed": 0
+    },
+    "strictCommonMark": {
+      "examples": 652,
+      "examplesWithLimits": 0,
+      "examplesWithLosses": 0,
+      "model": {
+        "mismatch": 0,
+        "projection-pass": 652,
+        "uncheckable": 0
+      },
+      "parser": {
+        "fail": 0,
+        "pass": 652
+      }
+    },
+    "prefixedCmarkDefinitions": 142,
+    "screenshot": "build-shared/037-autolinks.png"
+  },
+  "containers": {
+    "minimum": {
+      "artifactDirectory": "build-ci/6.8.0/20261013T082130Z-n3wi9pwm",
+      "qt": "6.8.0",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:86b377c037a80ab8c512796c76d2c9ef99981690e8e5f3907fd2c8cd7b7a8a41",
+        "recipeFingerprint": "f3fde433f7ade39fa1df99a5fc0ac1e65db28ae0e3170ae12266e0334d807c8e",
+        "preparationSeconds": 0.013,
+        "verificationSeconds": 307.613,
+        "elapsedSeconds": 307.682
+      },
+      "commonmark": {
+        "shared": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        },
+        "static": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        }
+      },
+      "archiveChecksums": {
+        "qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.8.tar.gz": "0294c2da5b1e90ae60bff674b88a90b973a0e54ba1453811a624120c5032261d"
+      }
+    },
+    "development": {
+      "artifactDirectory": "build-ci/6.12.0/20261013T082136Z-1nzkve81",
+      "qt": "6.12.0",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:b4803e6959677074632b41529374eb256c8db80bce1c2d61d051c6b7441170ad",
+        "recipeFingerprint": "08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1",
+        "preparationSeconds": 0.011,
+        "verificationSeconds": 331.411,
+        "elapsedSeconds": 331.474
+      },
+      "commonmark": {
+        "shared": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        },
+        "static": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        }
+      },
+      "archiveChecksums": {
+        "qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.12.tar.gz": "f8c6883bda5e9d28d5712808ca3471511cfbc085c94ba25c684586570b605d0d"
+      }
+    }
+  },
+  "delivery": {
+    "committed": false,
+    "prCreated": false,
+    "published": false,
+    "exactCommitArchLifecycle": "release-delivery gate, not run for uncommitted candidate"
+  }
+}

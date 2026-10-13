@@ -109,7 +109,7 @@ void ViewState::setMarkdown(const QString &value)
 {
     if (m_markdown == value) return;
     m_markdown = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(value, m_taskListsEnabled, m_strikethroughEnabled);
+    m_sourceBlocks = QMarkdownPrivate::parse(value, m_taskListsEnabled, m_strikethroughEnabled, m_extendedAutolinksEnabled);
     reloadResources();
     emit markdownChanged();
 }
@@ -117,7 +117,7 @@ void ViewState::setTaskListsEnabled(bool value)
 {
     if (m_taskListsEnabled == value) return;
     m_taskListsEnabled = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, value, m_strikethroughEnabled);
+    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, value, m_strikethroughEnabled, m_extendedAutolinksEnabled);
     reloadResources();
     emit taskListsEnabledChanged();
 }
@@ -125,9 +125,17 @@ void ViewState::setStrikethroughEnabled(bool value)
 {
     if (m_strikethroughEnabled == value) return;
     m_strikethroughEnabled = value;
-    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, m_taskListsEnabled, value);
+    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, m_taskListsEnabled, value, m_extendedAutolinksEnabled);
     reloadResources();
     emit strikethroughEnabledChanged();
+}
+void ViewState::setExtendedAutolinksEnabled(bool value)
+{
+    if (m_extendedAutolinksEnabled == value) return;
+    m_extendedAutolinksEnabled = value;
+    m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, m_taskListsEnabled, m_strikethroughEnabled, value);
+    reloadResources();
+    emit extendedAutolinksEnabledChanged();
 }
 void ViewState::setStyle(MarkdownStyle *value)
 {

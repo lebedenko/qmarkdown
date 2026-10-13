@@ -192,6 +192,204 @@ static inline cmark_node *make_autolink(subject *subj, int start_column,
   return link;
 }
 
+/* QMarkdown: locally authored GFM 0.29-gfm section 6.9 recognition.
+ * Web candidates use source bytes; email/protocol candidates use decoded text.
+ */
+static bool autolink_alnum(unsigned char c) {
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+         (c >= '0' && c <= '9');
+}
+
+static bool autolink_domain_char(unsigned char c) {
+  return autolink_alnum(c) || c == '-' || c == '_' || c == '.';
+}
+
+static bool autolink_local_char(unsigned char c) {
+  return autolink_domain_char(c) || c == '+';
+}
+
+static bool autolink_prefix(const unsigned char *s, bufsize_t len,
+                            const char *prefix) {
+  size_t n = strlen(prefix);
+  return (size_t)len >= n && memcmp(s, prefix, n) == 0;
+}
+
+static bool autolink_boundary(subject *subj, bufsize_t pos) {
+  if (pos == 0 || (subj->last_bracket && pos == subj->last_bracket->position))
+    return true;
+  unsigned char c = subj->input.data[pos - 1];
+  if (cmark_isspace(c) || c == '*' || c == '_' || c == '~' || c == '(')
+    return true;
+  if (c >= 0x80) {
+    bufsize_t start = pos - 1;
+    int32_t cp;
+    while (start > 0 && (subj->input.data[start] & 0xc0) == 0x80) start--;
+    if (cmark_utf8proc_iterate(subj->input.data + start, pos - start, &cp) > 0)
+      return cmark_utf8proc_is_space(cp);
+  }
+  return false;
+}
+
+/* A nonempty dotted domain, with no underscores in its final two segments. */
+static bool autolink_web_domain(const unsigned char *s, bufsize_t len) {
+  bufsize_t segment = 0, previous = 0;
+  int dots = 0;
+  for (bufsize_t i = 0; i < len; i++) {
+    if (s[i] == '.') {
+      if (i == segment) return false;
+      previous = segment;
+      segment = i + 1;
+      dots++;
+    }
+  }
+  if (!dots || segment == len) return false;
+  for (bufsize_t i = previous; i < len; i++)
+    if (s[i] == '_') return false;
+  return true;
+}
+
+static bufsize_t autolink_web_end(subject *subj, bool *www) {
+  const unsigned char *s = subj->input.data;
+  bufsize_t start = subj->pos, domain, end;
+  if (!autolink_boundary(subj, start)) return start;
+  *www = autolink_prefix(s + start, subj->input.len - start, "www.");
+  if (*www) domain = start + 4;
+  else if (autolink_prefix(s + start, subj->input.len - start, "https://")) domain = start + 8;
+  else if (autolink_prefix(s + start, subj->input.len - start, "http://")) domain = start + 7;
+  else return start;
+  end = domain;
+  while (end < subj->input.len && autolink_domain_char(s[end])) end++;
+  bufsize_t domain_end = end;
+  while (domain_end > domain && s[domain_end - 1] == '.') domain_end--;
+  if (!autolink_web_domain(s + domain, domain_end - domain)) return start;
+  while (end < subj->input.len && !cmark_isspace(s[end]) && s[end] != '<') {
+    /* A pending Markdown label must be allowed to close before its link is
+     * resolved. Generated links inside a successful explicit link are unwrapped. */
+    if (subj->last_bracket &&
+        (s[end] == '[' || s[end] == ']' || s[end] == '`' || s[end] == '\\' ||
+         (s[end] == '!' && end + 1 < subj->input.len && s[end + 1] == '['))) break;
+    end++;
+  }
+  while (end > domain_end && strchr("?!.,:*_~", s[end - 1])) end--;
+  if (end > start && s[end - 1] == ')') {
+    int balance = 0;
+    for (bufsize_t i = start; i < end; i++) {
+      if (s[i] == '(') balance++;
+      if (s[i] == ')') balance--;
+    }
+    while (balance < 0 && end > domain_end && s[end - 1] == ')') {
+      end--;
+      balance++;
+    }
+  }
+  if (end > start && s[end - 1] == ';') {
+    bufsize_t entity = end - 1;
+    while (entity > start && autolink_alnum(s[entity - 1])) entity--;
+    if (entity < end - 1 && entity > start && s[entity - 1] == '&') end = entity - 1;
+  }
+  return end;
+}
+
+static cmark_node *handle_extended_web(subject *subj) {
+  bool www = false;
+  bufsize_t start = subj->pos, end = autolink_web_end(subj, &www);
+  if (end == start) return NULL;
+  cmark_chunk url = cmark_chunk_dup(&subj->input, start, end - start);
+  cmark_node *link = make_autolink(subj, start, end - 1, url, false);
+  link->flags |= CMARK_NODE__QMARKDOWN_AUTOLINK;
+  if (www) {
+    cmark_strbuf destination = CMARK_BUF_INIT(subj->mem);
+    cmark_strbuf_puts(&destination, "http://");
+    cmark_strbuf_puts(&destination, (char *)link->as.link.url);
+    subj->mem->free(link->as.link.url);
+    link->as.link.url = cmark_strbuf_detach(&destination);
+  }
+  subj->pos = end;
+  return link;
+}
+
+/* A successful explicit link reparses a generated web label using core inline
+ * rules, restoring escapes/code/delimiters consumed by source URL scanning. */
+static bool contains_extended_web(cmark_node *parent) {
+  for (cmark_node *node = parent->first_child; node; node = node->next)
+    if ((node->flags & CMARK_NODE__QMARKDOWN_AUTOLINK) || contains_extended_web(node))
+      return true;
+  return false;
+}
+
+static bufsize_t autolink_email_end(const unsigned char *s, bufsize_t len,
+                                   bufsize_t start, bool xmpp) {
+  bufsize_t at = start;
+  while (at < len && autolink_local_char(s[at])) at++;
+  if (at == start || at == len || s[at] != '@') return start;
+  bufsize_t end = at + 1, segment = end;
+  bool dot = false;
+  while (end < len && autolink_domain_char(s[end])) end++;
+  while (end > at + 1 && s[end - 1] == '.') end--;
+  if (end == at + 1 || s[end - 1] == '-' || s[end - 1] == '_') return start;
+  for (bufsize_t i = at + 1; i < end; i++) {
+    if (s[i] == '.') {
+      if (i == segment) return start;
+      dot = true;
+      segment = i + 1;
+    }
+  }
+  if (!dot || (end < len && (s[end] == '+' || s[end] == '@'))) return start;
+  if (xmpp && end < len && s[end] == '/') {
+    bufsize_t resource = end + 1;
+    while (resource < len && (autolink_alnum(s[resource]) || s[resource] == '@' || s[resource] == '.')) resource++;
+    if (resource > end + 1) end = resource;
+  }
+  return end;
+}
+
+static cmark_node *autolink_text(cmark_mem *mem, const unsigned char *s, bufsize_t len) {
+  cmark_node *node = make_simple(mem, CMARK_NODE_TEXT);
+  node->data = mem->calloc(len + 1, 1);
+  memcpy(node->data, s, len);
+  node->len = len;
+  return node;
+}
+
+static void autolink_emails(cmark_node *text) {
+  const unsigned char *s = text->data;
+  bufsize_t len = text->len, literal = 0, pos = 0;
+  while (pos < len) {
+    bool mailto = autolink_prefix(s + pos, len - pos, "mailto:");
+    bool xmpp = autolink_prefix(s + pos, len - pos, "xmpp:");
+    bufsize_t address = pos + (mailto ? 7 : xmpp ? 5 : 0);
+    if (!mailto && !xmpp && (pos > 0 && autolink_local_char(s[pos - 1]))) {
+      pos++;
+      continue;
+    }
+    bufsize_t end = autolink_email_end(s, len, address, xmpp);
+    if (end == address) { pos++; continue; }
+    if (pos > literal)
+      cmark_node_insert_before(text, autolink_text(text->mem, s + literal, pos - literal));
+    cmark_node *link = make_simple(text->mem, CMARK_NODE_LINK);
+    cmark_strbuf url = CMARK_BUF_INIT(text->mem);
+    if (!mailto && !xmpp) cmark_strbuf_puts(&url, "mailto:");
+    cmark_strbuf_put(&url, s + pos, end - pos);
+    link->as.link.url = cmark_strbuf_detach(&url);
+    append_child(link, autolink_text(text->mem, s + pos, end - pos));
+    cmark_node_insert_before(text, link);
+    literal = pos = end;
+  }
+  if (literal) {
+    if (literal < len)
+      cmark_node_insert_before(text, autolink_text(text->mem, s + literal, len - literal));
+    cmark_node_free(text);
+  }
+}
+
+void cmark_qmarkdown_autolink_emails(cmark_node *parent) {
+  for (cmark_node *node = parent->first_child, *next; node; node = next) {
+    next = node->next;
+    if (node->type == CMARK_NODE_TEXT) autolink_emails(node);
+    else if (node->type != CMARK_NODE_LINK) cmark_qmarkdown_autolink_emails(node);
+  }
+}
+
 static void subject_from_buf(cmark_mem *mem, int line_number, int block_offset, subject *e,
                              cmark_chunk *chunk, cmark_reference_map *refmap) {
   int i;
@@ -1130,7 +1328,7 @@ static bufsize_t manual_scan_link_url(cmark_chunk *input, bufsize_t offset,
 }
 
 // Return a link, an image, or a literal close bracket.
-static cmark_node *handle_close_bracket(subject *subj) {
+static cmark_node *handle_close_bracket(subject *subj, int options) {
   bufsize_t initial_pos, after_link_text_pos;
   bufsize_t endurl, starttitle, endtitle, endall;
   bufsize_t sps, n;
@@ -1257,6 +1455,17 @@ match:
   cmark_node_free(opener->inl_text);
 
   process_emphasis(subj, opener->position);
+  if (!is_image && (options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) && contains_extended_web(inl)) {
+    while (inl->first_child) cmark_node_free(inl->first_child);
+    inl->len = initial_pos - opener->position - 1;
+    inl->data = subj->mem->calloc(inl->len + 1, 1);
+    memcpy(inl->data, subj->input.data + opener->position, inl->len);
+    cmark_parse_inlines(subj->mem, inl, subj->refmap,
+                        options & ~CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS);
+    subj->mem->free(inl->data);
+    inl->data = NULL;
+    inl->len = 0;
+  }
   pop_bracket(subj);
 
   // Now, if we have a link, we also want to deactivate links until
@@ -1325,6 +1534,9 @@ static bufsize_t subject_find_special_char(subject *subj, int options) {
   bufsize_t n = subj->pos + 1;
 
   while (n < subj->input.len) {
+    if ((options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) &&
+        (subj->input.data[n] == 'h' || subj->input.data[n] == 'w') && autolink_boundary(subj, n))
+      return n;
     if ((options & CMARK_OPT_QMARKDOWN_STRIKETHROUGH) && subj->input.data[n] == '~')
       return n;
     if (SPECIAL_CHARS[subj->input.data[n]])
@@ -1347,6 +1559,11 @@ static int parse_inline(subject *subj, cmark_node *parent, int options) {
   c = peek_char(subj);
   if (c == 0) {
     return 0;
+  }
+  if ((options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) &&
+      (c == 'h' || c == 'w')) {
+    new_inl = handle_extended_web(subj);
+    if (new_inl) { append_child(parent, new_inl); return 1; }
   }
   switch (c) {
   case '\r':
@@ -1387,7 +1604,7 @@ static int parse_inline(subject *subj, cmark_node *parent, int options) {
     push_bracket(subj, false, new_inl);
     break;
   case ']':
-    new_inl = handle_close_bracket(subj);
+    new_inl = handle_close_bracket(subj, options);
     break;
   case '!':
     advance(subj);

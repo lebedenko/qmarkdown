@@ -1,0 +1,346 @@
+[
+  {
+    "example": 622,
+    "markdown": "www.commonmark.org\n",
+    "texts": [
+      "www.commonmark.org"
+    ],
+    "links": [
+      [
+        [
+          0,
+          18,
+          "http://www.commonmark.org"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 623,
+    "markdown": "Visit www.commonmark.org/help for more information.\n",
+    "texts": [
+      "Visit www.commonmark.org/help for more information."
+    ],
+    "links": [
+      [
+        [
+          6,
+          23,
+          "http://www.commonmark.org/help"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 624,
+    "markdown": "Visit www.commonmark.org.\n\nVisit www.commonmark.org/a.b.\n",
+    "texts": [
+      "Visit www.commonmark.org.",
+      "Visit www.commonmark.org/a.b."
+    ],
+    "links": [
+      [
+        [
+          6,
+          18,
+          "http://www.commonmark.org"
+        ]
+      ],
+      [
+        [
+          6,
+          22,
+          "http://www.commonmark.org/a.b"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 625,
+    "markdown": "www.google.com/search?q=Markup+(business)\n\nwww.google.com/search?q=Markup+(business)))\n\n(www.google.com/search?q=Markup+(business))\n\n(www.google.com/search?q=Markup+(business)\n",
+    "texts": [
+      "www.google.com/search?q=Markup+(business)",
+      "www.google.com/search?q=Markup+(business)))",
+      "(www.google.com/search?q=Markup+(business))",
+      "(www.google.com/search?q=Markup+(business)"
+    ],
+    "links": [
+      [
+        [
+          0,
+          41,
+          "http://www.google.com/search?q=Markup+(business)"
+        ]
+      ],
+      [
+        [
+          0,
+          41,
+          "http://www.google.com/search?q=Markup+(business)"
+        ]
+      ],
+      [
+        [
+          1,
+          41,
+          "http://www.google.com/search?q=Markup+(business)"
+        ]
+      ],
+      [
+        [
+          1,
+          41,
+          "http://www.google.com/search?q=Markup+(business)"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 626,
+    "markdown": "www.google.com/search?q=(business))+ok\n",
+    "texts": [
+      "www.google.com/search?q=(business))+ok"
+    ],
+    "links": [
+      [
+        [
+          0,
+          38,
+          "http://www.google.com/search?q=(business))+ok"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 627,
+    "markdown": "www.google.com/search?q=commonmark&hl=en\n\nwww.google.com/search?q=commonmark&hl;\n",
+    "texts": [
+      "www.google.com/search?q=commonmark&hl=en",
+      "www.google.com/search?q=commonmark&hl;"
+    ],
+    "links": [
+      [
+        [
+          0,
+          40,
+          "http://www.google.com/search?q=commonmark&hl=en"
+        ]
+      ],
+      [
+        [
+          0,
+          34,
+          "http://www.google.com/search?q=commonmark"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 628,
+    "markdown": "www.commonmark.org/he<lp\n",
+    "texts": [
+      "www.commonmark.org/he<lp"
+    ],
+    "links": [
+      [
+        [
+          0,
+          21,
+          "http://www.commonmark.org/he"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 629,
+    "markdown": "http://commonmark.org\n\n(Visit https://encrypted.google.com/search?q=Markup+(business))\n",
+    "texts": [
+      "http://commonmark.org",
+      "(Visit https://encrypted.google.com/search?q=Markup+(business))"
+    ],
+    "links": [
+      [
+        [
+          0,
+          21,
+          "http://commonmark.org"
+        ]
+      ],
+      [
+        [
+          7,
+          55,
+          "https://encrypted.google.com/search?q=Markup+(business)"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 630,
+    "markdown": "foo@bar.baz\n",
+    "texts": [
+      "foo@bar.baz"
+    ],
+    "links": [
+      [
+        [
+          0,
+          11,
+          "mailto:foo@bar.baz"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 631,
+    "markdown": "hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is.\n",
+    "texts": [
+      "hello@mail+xyz.example isn't valid, but hello+xyz@mail.example is."
+    ],
+    "links": [
+      [
+        [
+          40,
+          22,
+          "mailto:hello+xyz@mail.example"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 632,
+    "markdown": "a.b-c_d@a.b\n\na.b-c_d@a.b.\n\na.b-c_d@a.b-\n\na.b-c_d@a.b_\n",
+    "texts": [
+      "a.b-c_d@a.b",
+      "a.b-c_d@a.b.",
+      "a.b-c_d@a.b-",
+      "a.b-c_d@a.b_"
+    ],
+    "links": [
+      [
+        [
+          0,
+          11,
+          "mailto:a.b-c_d@a.b"
+        ]
+      ],
+      [
+        [
+          0,
+          11,
+          "mailto:a.b-c_d@a.b"
+        ]
+      ],
+      [],
+      []
+    ]
+  },
+  {
+    "example": 633,
+    "markdown": "mailto:foo@bar.baz\n\nmailto:a.b-c_d@a.b\n\nmailto:a.b-c_d@a.b.\n\nmailto:a.b-c_d@a.b/\n\nmailto:a.b-c_d@a.b-\n\nmailto:a.b-c_d@a.b_\n\nxmpp:foo@bar.baz\n\nxmpp:foo@bar.baz.\n",
+    "texts": [
+      "mailto:foo@bar.baz",
+      "mailto:a.b-c_d@a.b",
+      "mailto:a.b-c_d@a.b.",
+      "mailto:a.b-c_d@a.b/",
+      "mailto:a.b-c_d@a.b-",
+      "mailto:a.b-c_d@a.b_",
+      "xmpp:foo@bar.baz",
+      "xmpp:foo@bar.baz."
+    ],
+    "links": [
+      [
+        [
+          0,
+          18,
+          "mailto:foo@bar.baz"
+        ]
+      ],
+      [
+        [
+          0,
+          18,
+          "mailto:a.b-c_d@a.b"
+        ]
+      ],
+      [
+        [
+          0,
+          18,
+          "mailto:a.b-c_d@a.b"
+        ]
+      ],
+      [
+        [
+          0,
+          18,
+          "mailto:a.b-c_d@a.b"
+        ]
+      ],
+      [],
+      [],
+      [
+        [
+          0,
+          16,
+          "xmpp:foo@bar.baz"
+        ]
+      ],
+      [
+        [
+          0,
+          16,
+          "xmpp:foo@bar.baz"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 634,
+    "markdown": "xmpp:foo@bar.baz/txt\n\nxmpp:foo@bar.baz/txt@bin\n\nxmpp:foo@bar.baz/txt@bin.com\n",
+    "texts": [
+      "xmpp:foo@bar.baz/txt",
+      "xmpp:foo@bar.baz/txt@bin",
+      "xmpp:foo@bar.baz/txt@bin.com"
+    ],
+    "links": [
+      [
+        [
+          0,
+          20,
+          "xmpp:foo@bar.baz/txt"
+        ]
+      ],
+      [
+        [
+          0,
+          24,
+          "xmpp:foo@bar.baz/txt@bin"
+        ]
+      ],
+      [
+        [
+          0,
+          28,
+          "xmpp:foo@bar.baz/txt@bin.com"
+        ]
+      ]
+    ]
+  },
+  {
+    "example": 635,
+    "markdown": "xmpp:foo@bar.baz/txt/bin\n",
+    "texts": [
+      "xmpp:foo@bar.baz/txt/bin"
+    ],
+    "links": [
+      [
+        [
+          0,
+          20,
+          "xmpp:foo@bar.baz/txt"
+        ]
+      ]
+    ]
+  }
+]

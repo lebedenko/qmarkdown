@@ -1,16 +1,16 @@
 # Arch Linux release package
 
-The v1.2.0 release provides `qmarkdown-1.2.0-1-x86_64.pkg.tar.zst` and a
+The planned v1.5.0 release will provide `qmarkdown-1.5.0-1-x86_64.pkg.tar.zst` and a
 SHA-256 companion after Ubuntu and Arch verification succeeds. The existing
 v1.1.0 release assets are unchanged. Arch packages use the distribution's Qt 6
 runtime; pacman enforces Qt lower bounds matching the package's build version.
 Qt is not bundled. The viewer is not packaged.
 
-Download the [package](https://github.com/lebedenko/qmarkdown/releases/download/v1.2.0/qmarkdown-1.2.0-1-x86_64.pkg.tar.zst) and [checksum](https://github.com/lebedenko/qmarkdown/releases/download/v1.2.0/qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.sha256), and verify before installation:
+Download the [package](https://github.com/lebedenko/qmarkdown/releases/download/v1.5.0/qmarkdown-1.5.0-1-x86_64.pkg.tar.zst) and [checksum](https://github.com/lebedenko/qmarkdown/releases/download/v1.5.0/qmarkdown-1.5.0-1-x86_64.pkg.tar.zst.sha256), and verify before installation:
 
 ```sh
-sha256sum -c qmarkdown-1.2.0-1-x86_64.pkg.tar.zst.sha256
-sudo pacman -U ./qmarkdown-1.2.0-1-x86_64.pkg.tar.zst
+sha256sum -c qmarkdown-1.5.0-1-x86_64.pkg.tar.zst.sha256
+sudo pacman -U ./qmarkdown-1.5.0-1-x86_64.pkg.tar.zst
 pacman -Qi qmarkdown
 pacman -Qo /usr/lib/libQMarkdown.so
 ```
@@ -61,4 +61,4 @@ Current rolling repositories are intentional. Recorded environment evidence
 does not promise identical bytes from a later rebuild. No AUR publishing,
 package repository hosting or signing infrastructure is included.
 
-The v1.2.0 publication and downloaded-asset results are recorded in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication and independent downloaded-asset acceptance passed.
+The 1.5.0 release is pending publication and downloaded-asset acceptance; see [iteration 037](../specs/037-gfm-extended-autolinks/verification.md).

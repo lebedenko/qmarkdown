@@ -8,13 +8,13 @@ need CMake >=3.21, a C++17 compiler and the matching Qt development SDK.
 The same Qt 6.8.0-built archive is tested with exact Qt 6.8.0 and 6.12.0; this is specific
 verification evidence, not a guarantee for every newer Qt or distribution.
 
-Download the archive and its `.sha256` companion from the [v1.2.0 GitHub release](https://github.com/lebedenko/qmarkdown/releases/tag/v1.2.0).
+Publication is pending. After release gates pass, download the archive and its `.sha256` companion from the [v1.5.0 GitHub release](https://github.com/lebedenko/qmarkdown/releases/tag/v1.5.0).
 Verify before extracting, then run from the enclosing package directory:
 
 ```sh
-sha256sum -c qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256
-tar -xzf qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8.tar.gz
-cd qmarkdown-1.2.0-ubuntu24.04-x86_64-qt6.8
+sha256sum -c qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.8.tar.gz.sha256
+tar -xzf qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.8.tar.gz
+cd qmarkdown-1.5.0-ubuntu24.04-x86_64-qt6.8
 sudo ./install.sh
 ```
 
@@ -25,11 +25,11 @@ by the system linker (for an external SDK, configure its library directory in
 ld.so.conf and run ldconfig). Do not mix incompatible Qt libraries in one process.
 
 CMake discovers `/usr/lib/x86_64-linux-gnu/cmake/QMarkdown` through its normal
-system search. Use `find_package(QMarkdown 1.2 CONFIG REQUIRED)` and link
+system search. Use `find_package(QMarkdown 1.5 CONFIG REQUIRED)` and link
 `QMarkdown::QMarkdown`. For an external Qt SDK, configure `CMAKE_PREFIX_PATH`
-with its root. Import `QMarkdown 1.2` in QML for code-block actions. Existing
-QML 1.0/1.1 imports and CMake 1.0/1.1 requests remain supported with Legacy defaults;
-EXACT 1.0.0/1.1.0 requires the historical package. If your Qt installation does not
+with its root. Import `QMarkdown 1.5` in QML for all three optional extensions. Existing
+QML 1.0–1.4 imports and CMake 1.0–1.4 requests remain supported with Legacy defaults;
+Exact requests for earlier 1.x versions require the historical package. If your Qt installation does not
 search Ubuntu's QML directory, set:
 
 ```sh
@@ -71,4 +71,4 @@ publication are separate maintainer actions.
 
 The integrated release workflow builds and verifies a [pacman-owned Arch Linux package](arch-install.md). Uploads require both Ubuntu and Arch gates, and validate both archive/checksum pairs before publication. The existing v1.1.0 assets remain unchanged.
 
-The v1.2.0 publication and downloaded-asset results are recorded in [iteration 033](../specs/033-stable-v1.2-release/verification.md); publication and independent downloaded-asset acceptance passed.
+The 1.5.0 release is pending publication and downloaded-asset acceptance; see [iteration 037](../specs/037-gfm-extended-autolinks/verification.md).

@@ -59,7 +59,7 @@ QVector<Block> adaptBlocks(cmark_node *node)
     return blocks;
 }
 }
-QVector<Block> parse(QString source, bool taskListsEnabled, bool strikethroughEnabled)
+QVector<Block> parse(QString source, bool taskListsEnabled, bool strikethroughEnabled, bool extendedAutolinksEnabled)
 {
     source.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
     source.replace(u'\r', u'\n');
@@ -67,7 +67,8 @@ QVector<Block> parse(QString source, bool taskListsEnabled, bool strikethroughEn
     const auto input = source.toUtf8();
     NodeOwner document{cmark_parse_document(input.constData(), input.size(),
         (taskListsEnabled ? CMARK_OPT_QMARKDOWN_TASK_LISTS : 0)
-        | (strikethroughEnabled ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0))};
+        | (strikethroughEnabled ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0)
+        | (extendedAutolinksEnabled ? CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS : 0))};
     return document.node ? adaptBlocks(cmark_node_first_child(document.node)) : QVector<Block>{};
 }
 }
