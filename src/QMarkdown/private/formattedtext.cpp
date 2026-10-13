@@ -48,6 +48,23 @@ void FormattedText::itemChange(ItemChange change, const ItemChangeData &data)
     QQuickPaintedItem::itemChange(change, data);
     if (change == ItemDevicePixelRatioHasChanged) polish();
 }
+void FormattedText::setCodeSpans(const QVariantList &value)
+{
+    if (m_codes == value) return;
+    m_codes = value; m_layout.reset(); emit codeSpansChanged(); polish();
+}
+void FormattedText::setCodeHorizontalPadding(qreal value)
+{
+    value = std::isfinite(value) ? qMax(qreal(0), value) : 0;
+    if (m_codeHorizontalPadding == value) return;
+    m_codeHorizontalPadding = value; emit codeHorizontalPaddingChanged(); polish();
+}
+void FormattedText::setCodeVerticalPadding(qreal value)
+{
+    value = std::isfinite(value) ? qMax(qreal(0), value) : 0;
+    if (m_codeVerticalPadding == value) return;
+    m_codeVerticalPadding = value; emit codeVerticalPaddingChanged(); polish();
+}
 void FormattedText::setText(const QString &value)
 {
     if (m_text == value) return;
@@ -92,6 +109,12 @@ void FormattedText::setCodeCornerRadius(qreal value)
     if (m_codeCornerRadius == value) return;
     m_codeCornerRadius = value; emit codeCornerRadiusChanged(); update();
 }
+void FormattedText::setHorizontalAlignment(int value)
+{
+    if (value != Qt::AlignLeft && value != Qt::AlignHCenter && value != Qt::AlignRight) value = Qt::AlignLeft;
+    if (m_alignment == value) return;
+    m_alignment = value; emit horizontalAlignmentChanged(); polish();
+}
 void FormattedText::setLayoutWidth(qreal value)
 {
     value = std::isfinite(value) ? qMax(qreal(0), value) : 0;
@@ -102,6 +125,9 @@ void FormattedText::updatePolish()
 {
     m_layout.reset();
     m_codeRects.clear();
+    m_paddedRuns.clear();
+    m_hitRegions.clear();
+    m_padded = false;
     m_logicalHeight = 0;
     m_paintOffset = {};
     if (m_layoutWidth > 0) {
@@ -113,7 +139,11 @@ void FormattedText::updatePolish()
         m_layout->setCacheEnabled(true);
         QTextOption option;
         option.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
-        option.setAlignment(Qt::AlignLeft);
+        m_padded = (m_codeHorizontalPadding > 0 || m_codeVerticalPadding > 0)
+            && std::any_of(m_ranges.cbegin(), m_ranges.cend(), [](const QVariant &range) {
+                return range.toMap().value("flags").toInt() & QMarkdownPrivate::Code;
+            });
+        option.setAlignment(m_padded ? Qt::AlignLeft : Qt::Alignment(m_alignment));
         m_layout->setTextOption(option);
         QList<QTextLayout::FormatRange> formats;
         const auto intervals = QMarkdownPrivate::prepareFormatIntervals(int(m_text.size()), m_ranges, m_links);
@@ -136,14 +166,145 @@ void FormattedText::updatePolish()
             }
             formats.append({start, length, format});
         }
+        QVector<int> codes(m_text.size(), -1), links(m_text.size(), -1);
+        auto mapSpan = [&](const QVariantMap &span, QVector<int> &map, int identity) {
+            const qint64 start = span.value("start").toLongLong();
+            const qint64 length = span.value("length").toLongLong();
+            if (start < 0 || length <= 0 || start > map.size() || length > map.size() - start) return;
+            const qint64 end = start + length;
+            for (qint64 pos = qMax(qint64(0), start); pos < qMin(qint64(map.size()), end); ++pos)
+                map[int(pos)] = identity;
+        };
+        for (int i = 0; i < m_codes.size(); ++i) mapSpan(m_codes[i].toMap(), codes, i);
+        // Direct private consumers may provide only effective ranges.
+        if (m_codes.isEmpty()) for (int i = 0; i < m_ranges.size(); ++i)
+            if (m_ranges[i].toMap().value("flags").toInt() & QMarkdownPrivate::Code)
+                mapSpan(m_ranges[i].toMap(), codes, i);
+        for (int i = 0; i < m_links.size(); ++i) mapSpan(m_links[i].toMap(), links, i);
+        // A custom format property preserves individual code shaping boundaries
+        // even when their effective fonts and colors are identical.
+        if (m_padded && !m_codes.isEmpty()) {
+            QList<QTextLayout::FormatRange> split;
+            for (const auto &format : formats) {
+                for (int start = format.start; start < format.start + format.length;) {
+                    int end = start + 1;
+                    while (end < format.start + format.length && codes[end] == codes[start]) ++end;
+                    auto part = format.format;
+                    if (codes[start] >= 0) part.setProperty(QTextFormat::UserProperty, codes[start]);
+                    split.append({start, end - start, part});
+                    start = end;
+                }
+            }
+            formats = split;
+        }
         m_layout->setFormats(formats);
+        struct Cell { int source, code; QRectF rect; qreal shift = 0; };
+        auto cellsFor = [&](QTextLine line) {
+            // cursorToX clamps overflowing glyph cells to the assigned width.
+            // Qt's natural width is the minimum preserving this break position.
+            if (line.naturalTextWidth() > line.width()) line.setLineWidth(line.naturalTextWidth());
+            QVector<Cell> cells;
+            for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
+                if (!m_layout->isValidCursorPosition(pos) || layoutText[pos] == QChar::LineSeparator) continue;
+                const qreal a = line.cursorToX(pos, QTextLine::Leading), b = line.cursorToX(pos, QTextLine::Trailing);
+                if (a != b) cells.append({pos, codes[pos], QRectF(qMin(a, b), line.y(), std::abs(a - b), line.height())});
+            }
+            std::stable_sort(cells.begin(), cells.end(), [](const Cell &a, const Cell &b) { return a.rect.left() < b.rect.left(); });
+            return cells;
+        };
+        auto startsFragment = [](const QVector<Cell> &cells, int i) {
+            return cells[i].code >= 0 && (i == 0 || cells[i - 1].code != cells[i].code
+                || cells[i].rect.left() > cells[i - 1].rect.right() + .01);
+        };
         m_layout->beginLayout();
         while (true) {
             auto line = m_layout->createLine();
             if (!line.isValid()) break;
             line.setLineWidth(m_layoutWidth);
-            line.setPosition(QPointF(0, m_logicalHeight));
-            m_logicalHeight += line.height();
+            if (!m_padded) {
+                line.setPosition(QPointF(0, m_logicalHeight));
+                m_logicalHeight += line.height();
+                continue;
+            }
+            int budget = 0, count = 0;
+            QVector<Cell> cells;
+            while (true) {
+                cells = cellsFor(line); count = 0;
+                for (int i = 0; i < cells.size(); ++i) if (startsFragment(cells, i)) ++count;
+                if (m_codeHorizontalPadding == 0 || count <= budget) break;
+                budget = count;
+                line.setLineWidth(qMax(qreal(.01), m_layoutWidth - 2 * m_codeHorizontalPadding * budget));
+            }
+            const qreal vertical = count ? m_codeVerticalPadding : 0;
+            const qreal previousY = line.y();
+            line.setPosition({0, m_logicalHeight + vertical});
+            // Moving the baseline does not change shaping or cursor advances.
+            for (auto &cell : cells) cell.rect.translate(0, line.y() - previousY);
+            qreal shift = 0;
+            QVector<qreal> shifts(line.textLength(), 0);
+            QVector<QRectF> fragments;
+            for (int i = 0; i < cells.size(); ++i) {
+                auto &cell = cells[i];
+                const bool first = startsFragment(cells, i);
+                const bool last = cell.code >= 0 && (i + 1 == cells.size() || cells[i + 1].code != cell.code
+                    || cells[i + 1].rect.left() > cell.rect.right() + .01);
+                // Decide boundaries before translating cells.
+                if (first) shift += m_codeHorizontalPadding;
+                cell.shift = shift;
+                shifts[cell.source - line.textStart()] = shift;
+                if (cell.code >= 0) {
+                    const QRectF rect = cell.rect.translated(shift, 0).adjusted(
+                        first ? -m_codeHorizontalPadding : 0, -vertical,
+                        last ? m_codeHorizontalPadding : 0, vertical);
+                    if (first) fragments.append(rect);
+                    else fragments.last() = fragments.last().united(rect);
+                    m_hitRegions.append({rect, links[cell.source]});
+                } else m_hitRegions.append({cell.rect.translated(shift, 0), links[cell.source]});
+                if (last) shift += m_codeHorizontalPadding;
+            }
+            const qreal contentWidth = line.naturalTextWidth() + shift;
+            const qreal align = m_alignment == Qt::AlignRight ? m_layoutWidth - contentWidth
+                : m_alignment == Qt::AlignHCenter ? (m_layoutWidth - contentWidth) / 2 : 0;
+            for (auto &rect : fragments) { rect.translate(align, 0); m_codeRects.append(rect); }
+            for (int i = m_hitRegions.size() - cells.size(); i < m_hitRegions.size(); ++i)
+                m_hitRegions[i].rect.translate(align, 0);
+            // Retrieve each shaped line once, then partition glyphs by paint
+            // color. Qt retains fallback fonts and decoration flags in each run.
+            const auto runs = line.glyphRuns(-1, -1, QTextLayout::RetrieveGlyphIndexes
+                | QTextLayout::RetrieveGlyphPositions | QTextLayout::RetrieveStringIndexes);
+            for (const auto &run : runs) {
+                const auto positions = run.positions(); const auto indexes = run.stringIndexes();
+                const auto glyphs = run.glyphIndexes();
+                QList<quint32> paintedGlyphs;
+                auto paintedIndexes = indexes; paintedIndexes.clear();
+                QList<QPointF> paintedPositions;
+                QColor color;
+                auto flush = [&] {
+                    if (paintedGlyphs.isEmpty()) return;
+                    auto painted = run;
+                    painted.setGlyphIndexes(paintedGlyphs);
+                    painted.setPositions(paintedPositions);
+                    painted.setStringIndexes(paintedIndexes);
+                    QRectF ink;
+                    for (int i = 0; i < paintedGlyphs.size(); ++i)
+                        ink = ink.united(run.rawFont().boundingRect(paintedGlyphs[i]).translated(paintedPositions[i]));
+                    painted.setBoundingRect(ink);
+                    m_paddedRuns.append({painted, color});
+                    paintedGlyphs.clear(); paintedPositions.clear(); paintedIndexes.clear();
+                };
+                for (int i = 0; i < positions.size(); ++i) {
+                    int source = int(indexes[i]);
+                    while (source > line.textStart() && !m_layout->isValidCursorPosition(source)) --source;
+                    const QColor foreground = links[source] >= 0 ? m_linkColor
+                        : codes[source] >= 0 && m_codeForeground.isValid() ? m_codeForeground : m_color;
+                    if (foreground != color) { flush(); color = foreground; }
+                    auto position = positions[i];
+                    position.rx() += shifts[source - line.textStart()] + align;
+                    paintedGlyphs.append(glyphs[i]); paintedPositions.append(position); paintedIndexes.append(indexes[i]);
+                }
+                flush();
+            }
+            m_logicalHeight += line.height() + 2 * vertical;
         }
         m_layout->endLayout();
         // Use the same visual character cells as link hit testing, including
@@ -152,7 +313,7 @@ void FormattedText::updatePolish()
         const bool hasCode = std::any_of(intervals.cbegin(), intervals.cend(), [](const auto &interval) {
             return interval.flags & QMarkdownPrivate::Code;
         });
-        for (int i = 0; hasCode && i < m_layout->lineCount(); ++i) {
+        for (int i = 0; !m_padded && hasCode && i < m_layout->lineCount(); ++i) {
             const auto line = m_layout->lineAt(i);
             QVector<QRectF> cells;
             for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
@@ -178,7 +339,10 @@ void FormattedText::updatePolish()
         // Raster bounds include ink overhang; wrapping and parent geometry retain
         // the host's logical width and native line height.
         QRectF bounds(0, 0, m_layoutWidth, m_logicalHeight);
-        for (const auto &run : m_layout->glyphRuns()) bounds = bounds.united(run.boundingRect());
+        if (m_padded) {
+            for (const auto &run : m_paddedRuns) bounds = bounds.united(run.glyphs.boundingRect());
+            for (const auto &rect : m_codeRects) bounds = bounds.united(rect);
+        } else for (const auto &run : m_layout->glyphRuns()) bounds = bounds.united(run.boundingRect());
         const qreal left = std::floor(bounds.left()) - 1;
         const qreal top = std::floor(bounds.top()) - 1;
         m_paintOffset = QPointF(-left, -top);
@@ -202,7 +366,10 @@ void FormattedText::paint(QPainter *painter)
         painter->drawRoundedRect(rect, m_codeCornerRadius, m_codeCornerRadius);
     painter->restore();
     painter->setPen(m_color);
-    m_layout->draw(painter, m_paintOffset);
+    if (m_padded) for (const auto &run : m_paddedRuns) {
+        painter->setPen(run.color);
+        painter->drawGlyphRun(m_paintOffset, run.glyphs);
+    } else m_layout->draw(painter, m_paintOffset);
 }
 
 void FormattedText::setLinkSpans(const QVariantList &value)
@@ -224,6 +391,12 @@ int FormattedText::linkAt(qreal x, qreal y) const
 {
     if (!m_layout || m_layout->text().size() != m_text.size()) return -1;
     const QPointF point = QPointF(x, y) - m_paintOffset;
+    if (m_padded) {
+        for (const auto &region : m_hitRegions)
+            if (point.x() >= region.rect.left() && point.x() < region.rect.right()
+                && point.y() >= region.rect.top() && point.y() < region.rect.bottom()) return region.link;
+        return -1;
+    }
     for (int lineIndex = 0; lineIndex < m_layout->lineCount(); ++lineIndex) {
         const auto line = m_layout->lineAt(lineIndex);
         if (point.y() < line.y() || point.y() >= line.y() + line.height()) continue;

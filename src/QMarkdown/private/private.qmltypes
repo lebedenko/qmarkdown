@@ -14,6 +14,7 @@ Module {
         prototype: "QObject"
         exports: ["QMarkdown.Private/ViewState 1.0"]
         exportMetaObjectRevisions: [256]
+        Method { name: "boldFont"; type: "QFont"; Parameter { name: "font"; type: "QFont" } }
         Property { name: "baseUrl"; type: "QUrl"; notify: "baseUrlChanged" }
         Property { name: "resourcePolicy"; type: "MarkdownResourcePolicy"; isPointer: true; notify: "resourcePolicyChanged" }
         Signal { name: "baseUrlChanged" }
@@ -23,6 +24,12 @@ Module {
         Signal { name: "extendedAutolinksEnabledChanged" }
         Property { name: "strikethroughEnabled"; type: "bool"; notify: "strikethroughEnabledChanged" }
         Signal { name: "strikethroughEnabledChanged" }
+        Signal { name: "tablesEnabledChanged" }
+        Property { name: "tablesEnabled"; type: "bool"; notify: "tablesEnabledChanged" }
+        Signal { name: "tagFilterEnabledChanged" }
+        Property { name: "tagFilterEnabled"; type: "bool"; notify: "tagFilterEnabledChanged" }
+        Signal { name: "gfmEnabledChanged" }
+        Property { name: "gfmEnabled"; type: "bool"; notify: "gfmEnabledChanged" }
         Property { name: "taskListsEnabled"; type: "bool"; notify: "taskListsEnabledChanged" }
         Signal { name: "taskListsEnabledChanged" }
         Property { name: "style"; type: "MarkdownStyle"; isPointer: true; notify: "styleChanged" }
@@ -35,6 +42,8 @@ Module {
         prototype: "QQuickPaintedItem"
         exports: ["QMarkdown.Private/FormattedText 1.0"]
         exportMetaObjectRevisions: [256]
+        Property { name: "horizontalAlignment"; type: "int"; notify: "horizontalAlignmentChanged" }
+        Signal { name: "horizontalAlignmentChanged" }
         Property { name: "text"; type: "QString"; notify: "textChanged" }
         Property { name: "formatRanges"; type: "QVariantList"; notify: "formatRangesChanged" }
         Property { name: "linkSpans"; type: "QVariantList"; notify: "linkSpansChanged" }
@@ -49,6 +58,12 @@ Module {
         Property { name: "codeFont"; type: "QFont"; notify: "codeFontChanged" }
         Property { name: "codeForeground"; type: "QColor"; notify: "codeForegroundChanged" }
         Property { name: "codeBackground"; type: "QColor"; notify: "codeBackgroundChanged" }
+        Property { name: "codeSpans"; type: "QVariantList"; notify: "codeSpansChanged" }
+        Property { name: "codeHorizontalPadding"; type: "double"; notify: "codeHorizontalPaddingChanged" }
+        Property { name: "codeVerticalPadding"; type: "double"; notify: "codeVerticalPaddingChanged" }
+        Signal { name: "codeSpansChanged" }
+        Signal { name: "codeHorizontalPaddingChanged" }
+        Signal { name: "codeVerticalPaddingChanged" }
         Property { name: "codeCornerRadius"; type: "double"; notify: "codeCornerRadiusChanged" }
         Signal { name: "codeForegroundChanged" }
         Signal { name: "codeBackgroundChanged" }

@@ -26,6 +26,12 @@ void HeadingStyle::resetSeparatorSpacing() { m_style->resetValue(m_prefix + "sep
 
 InlineCodeStyle::InlineCodeStyle(MarkdownStyle *style, const QString &prefix)
     : QObject(style), m_style(style), m_prefix(prefix) {}
+qreal InlineCodeStyle::horizontalPadding() const { return m_style->value(m_prefix + "horizontalPadding").value<qreal>(); }
+void InlineCodeStyle::setHorizontalPadding(qreal value) { m_style->setValue(m_prefix + "horizontalPadding", QVariant::fromValue(value)); }
+void InlineCodeStyle::resetHorizontalPadding() { m_style->resetValue(m_prefix + "horizontalPadding"); }
+qreal InlineCodeStyle::verticalPadding() const { return m_style->value(m_prefix + "verticalPadding").value<qreal>(); }
+void InlineCodeStyle::setVerticalPadding(qreal value) { m_style->setValue(m_prefix + "verticalPadding", QVariant::fromValue(value)); }
+void InlineCodeStyle::resetVerticalPadding() { m_style->resetValue(m_prefix + "verticalPadding"); }
 QFont InlineCodeStyle::font() const { return m_style->value(m_prefix + "font").value<QFont>(); }
 void InlineCodeStyle::setFont(const QFont &value) { m_style->setValue(m_prefix + "font", QVariant::fromValue(value)); }
 void InlineCodeStyle::resetFont() { m_style->resetValue(m_prefix + "font"); }
@@ -66,6 +72,32 @@ qreal CodeBlockStyle::verticalPadding() const { return m_style->value(m_prefix +
 void CodeBlockStyle::setVerticalPadding(qreal value) { m_style->setValue(m_prefix + "verticalPadding", QVariant::fromValue(value)); }
 void CodeBlockStyle::resetVerticalPadding() { m_style->resetValue(m_prefix + "verticalPadding"); }
 
+TableStyle::TableStyle(MarkdownStyle *style) : QObject(style), m_style(style) {}
+QColor TableStyle::headerForeground() const {
+    const auto color = m_style->value("table.headerForeground").value<QColor>();
+    return color.isValid() ? color : m_style->bodyColor();
+}
+void TableStyle::setHeaderForeground(const QColor &value) { m_style->setValue("table.headerForeground", QVariant::fromValue(value)); }
+void TableStyle::resetHeaderForeground() { m_style->resetValue("table.headerForeground"); }
+QColor TableStyle::headerBackground() const { return m_style->value("table.headerBackground").value<QColor>(); }
+void TableStyle::setHeaderBackground(const QColor &value) { m_style->setValue("table.headerBackground", QVariant::fromValue(value)); }
+void TableStyle::resetHeaderBackground() { m_style->resetValue("table.headerBackground"); }
+QColor TableStyle::bodyBackground() const { return m_style->value("table.bodyBackground").value<QColor>(); }
+void TableStyle::setBodyBackground(const QColor &value) { m_style->setValue("table.bodyBackground", QVariant::fromValue(value)); }
+void TableStyle::resetBodyBackground() { m_style->resetValue("table.bodyBackground"); }
+QColor TableStyle::borderColor() const { return m_style->value("table.borderColor").value<QColor>(); }
+void TableStyle::setBorderColor(const QColor &value) { m_style->setValue("table.borderColor", QVariant::fromValue(value)); }
+void TableStyle::resetBorderColor() { m_style->resetValue("table.borderColor"); }
+qreal TableStyle::borderWidth() const { return m_style->value("table.borderWidth").value<qreal>(); }
+void TableStyle::setBorderWidth(qreal value) { m_style->setValue("table.borderWidth", QVariant::fromValue(value)); }
+void TableStyle::resetBorderWidth() { m_style->resetValue("table.borderWidth"); }
+qreal TableStyle::horizontalPadding() const { return m_style->value("table.horizontalPadding").value<qreal>(); }
+void TableStyle::setHorizontalPadding(qreal value) { m_style->setValue("table.horizontalPadding", QVariant::fromValue(value)); }
+void TableStyle::resetHorizontalPadding() { m_style->resetValue("table.horizontalPadding"); }
+qreal TableStyle::verticalPadding() const { return m_style->value("table.verticalPadding").value<qreal>(); }
+void TableStyle::setVerticalPadding(qreal value) { m_style->setValue("table.verticalPadding", QVariant::fromValue(value)); }
+void TableStyle::resetVerticalPadding() { m_style->resetValue("table.verticalPadding"); }
+
 HeadingStyles::HeadingStyles(MarkdownStyle *style) : QObject(style)
 {
     m_h1 = new HeadingStyle(style, "h1.");
@@ -105,6 +137,7 @@ void MarkdownStyle::setQuoteRuleThickness(qreal value) { setValue("quoteRuleThic
 
 MarkdownStyle::MarkdownStyle(QObject *parent) : QObject(parent)
 {
+    m_table = new TableStyle(this);
     m_headings = new HeadingStyles(this);
     m_inlineCode = new InlineCodeStyle(this, "inlineCode.");
     m_codeBlock = new CodeBlockStyle(this, "codeBlock.");
@@ -139,9 +172,17 @@ MarkdownStyle::MarkdownStyle(QObject *parent) : QObject(parent)
         m_defaults.insert(prefix + "backgroundColor", QColor(Qt::transparent));
         m_defaults.insert(prefix + "cornerRadius", 0.0);
     }
+    m_defaults.insert("inlineCode.horizontalPadding", 4.0);
+    m_defaults.insert("inlineCode.verticalPadding", 2.0);
     m_defaults.insert("codeBlock.borderColor", QColor(Qt::transparent));
     for (const QString &field : {QString("borderWidth"), QString("horizontalPadding"), QString("verticalPadding")})
         m_defaults.insert("codeBlock." + field, 0.0);
+    m_defaults.insert("table.headerForeground", QColor());
+    for (const QString &field : {QString("headerBackground"), QString("bodyBackground"), QString("borderColor")})
+        m_defaults.insert("table." + field, QColor(Qt::transparent));
+    m_defaults.insert("table.borderWidth", 0.0);
+    m_defaults.insert("table.horizontalPadding", 4.0);
+    m_defaults.insert("table.verticalPadding", 2.0);
     restoreDefaults();
 }
 
@@ -164,7 +205,11 @@ void MarkdownStyle::setValue(const QString &key, const QVariant &value, bool exp
     if (key == "codeBlock.color") emit codeBlockColorChanged();
     if (key == "inlineCode.font") emit inlineCodeFontChanged();
     if (key == "bodyFont") emit bodyFontChanged();
-    if (key == "bodyColor") emit bodyColorChanged();
+    if (key == "bodyColor") {
+        emit bodyColorChanged();
+        if (!m_values.value("table.headerForeground").value<QColor>().isValid())
+            emit m_table->headerForegroundChanged();
+    }
     if (key == "h1.font") emit h1FontChanged();
     if (key == "h1.color") emit h1ColorChanged();
     if (key == "h2.font") emit h2FontChanged();
@@ -186,7 +231,8 @@ void MarkdownStyle::setValue(const QString &key, const QVariant &value, bool exp
     if (dot < 0) return;
     QObject *group = nullptr;
     const auto prefix = key.left(dot);
-    if (prefix == "inlineCode") group = m_inlineCode;
+    if (prefix == "table") group = m_table;
+    else if (prefix == "inlineCode") group = m_inlineCode;
     else if (prefix == "codeBlock") group = m_codeBlock;
     else if (prefix.startsWith('h')) group = m_headings->property(prefix.toUtf8()).value<QObject *>();
     if (group) QMetaObject::invokeMethod(group, (key.mid(dot + 1) + "Changed").toUtf8().constData(), Qt::DirectConnection);

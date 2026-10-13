@@ -61,7 +61,15 @@ class InlineCodeStyle : public QObject
     Q_PROPERTY(QColor foreground READ foreground WRITE setForeground RESET resetForeground NOTIFY foregroundChanged FINAL)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET resetBackgroundColor NOTIFY backgroundColorChanged FINAL)
     Q_PROPERTY(qreal cornerRadius READ cornerRadius WRITE setCornerRadius RESET resetCornerRadius NOTIFY cornerRadiusChanged FINAL)
+    Q_PROPERTY(qreal horizontalPadding READ horizontalPadding WRITE setHorizontalPadding RESET resetHorizontalPadding NOTIFY horizontalPaddingChanged FINAL)
+    Q_PROPERTY(qreal verticalPadding READ verticalPadding WRITE setVerticalPadding RESET resetVerticalPadding NOTIFY verticalPaddingChanged FINAL)
 public:
+    qreal horizontalPadding() const;
+    void setHorizontalPadding(qreal value);
+    void resetHorizontalPadding();
+    qreal verticalPadding() const;
+    void setVerticalPadding(qreal value);
+    void resetVerticalPadding();
     InlineCodeStyle(MarkdownStyle *style, const QString &prefix);
     QFont font() const;
     void setFont(const QFont &value);
@@ -76,6 +84,8 @@ public:
     void setCornerRadius(qreal value);
     void resetCornerRadius();
 signals:
+    void horizontalPaddingChanged();
+    void verticalPaddingChanged();
     void fontChanged();
     void foregroundChanged();
     void backgroundColorChanged();
@@ -136,6 +146,53 @@ signals:
 private:
     MarkdownStyle *m_style;
     QString m_prefix;
+};
+
+class TableStyle : public QObject
+{
+    Q_OBJECT
+    QML_ANONYMOUS
+    QML_ADDED_IN_VERSION(1, 6)
+    Q_PROPERTY(QColor headerForeground READ headerForeground WRITE setHeaderForeground RESET resetHeaderForeground NOTIFY headerForegroundChanged FINAL)
+    Q_PROPERTY(QColor headerBackground READ headerBackground WRITE setHeaderBackground RESET resetHeaderBackground NOTIFY headerBackgroundChanged FINAL)
+    Q_PROPERTY(QColor bodyBackground READ bodyBackground WRITE setBodyBackground RESET resetBodyBackground NOTIFY bodyBackgroundChanged FINAL)
+    Q_PROPERTY(QColor borderColor READ borderColor WRITE setBorderColor RESET resetBorderColor NOTIFY borderColorChanged FINAL)
+    Q_PROPERTY(qreal borderWidth READ borderWidth WRITE setBorderWidth RESET resetBorderWidth NOTIFY borderWidthChanged FINAL)
+    Q_PROPERTY(qreal horizontalPadding READ horizontalPadding WRITE setHorizontalPadding RESET resetHorizontalPadding NOTIFY horizontalPaddingChanged FINAL)
+    Q_PROPERTY(qreal verticalPadding READ verticalPadding WRITE setVerticalPadding RESET resetVerticalPadding NOTIFY verticalPaddingChanged FINAL)
+public:
+    explicit TableStyle(MarkdownStyle *style);
+    QColor headerForeground() const;
+    void setHeaderForeground(const QColor &value);
+    void resetHeaderForeground();
+    QColor headerBackground() const;
+    void setHeaderBackground(const QColor &value);
+    void resetHeaderBackground();
+    QColor bodyBackground() const;
+    void setBodyBackground(const QColor &value);
+    void resetBodyBackground();
+    QColor borderColor() const;
+    void setBorderColor(const QColor &value);
+    void resetBorderColor();
+    qreal borderWidth() const;
+    void setBorderWidth(qreal value);
+    void resetBorderWidth();
+    qreal horizontalPadding() const;
+    void setHorizontalPadding(qreal value);
+    void resetHorizontalPadding();
+    qreal verticalPadding() const;
+    void setVerticalPadding(qreal value);
+    void resetVerticalPadding();
+signals:
+    void headerForegroundChanged();
+    void headerBackgroundChanged();
+    void bodyBackgroundChanged();
+    void borderColorChanged();
+    void borderWidthChanged();
+    void horizontalPaddingChanged();
+    void verticalPaddingChanged();
+private:
+    MarkdownStyle *m_style;
 };
 
 class HeadingStyles : public QObject
@@ -200,6 +257,7 @@ class MarkdownStyle : public QObject
     Q_PROPERTY(HeadingStyles *headings READ headings CONSTANT REVISION(1, 1) FINAL)
     Q_PROPERTY(InlineCodeStyle *inlineCode READ inlineCode CONSTANT REVISION(1, 1) FINAL)
     Q_PROPERTY(CodeBlockStyle *codeBlock READ codeBlock CONSTANT REVISION(1, 1) FINAL)
+    Q_PROPERTY(TableStyle *table READ table CONSTANT REVISION(1, 6) FINAL)
 public:
     enum Preset { Legacy, PolishedLight, PolishedDark, MinimalLight, MinimalDark };
     Q_ENUM(Preset)
@@ -210,6 +268,7 @@ public:
     void setPreset(Preset value);
     HeadingStyles *headings() const { return m_headings; }
     InlineCodeStyle *inlineCode() const { return m_inlineCode; }
+    TableStyle *table() const { return m_table; }
     CodeBlockStyle *codeBlock() const { return m_codeBlock; }
     QColor linkColor() const { return value("linkColor").value<QColor>(); }
     void setLinkColor(const QColor &value);
@@ -292,6 +351,7 @@ signals:
     void quoteRuleColorChanged();
     void quoteRuleThicknessChanged();
 private:
+    friend class TableStyle;
     friend class HeadingStyle;
     friend class InlineCodeStyle;
     friend class CodeBlockStyle;
@@ -305,4 +365,5 @@ private:
     HeadingStyles *m_headings;
     InlineCodeStyle *m_inlineCode;
     CodeBlockStyle *m_codeBlock;
+    TableStyle *m_table;
 };

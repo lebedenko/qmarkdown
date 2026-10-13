@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "baseCommit": "d350d4e186c2376adffadcdc91dc13a6aa0e8978",
+  "uncommittedChanges": true,
+  "releaseEvidence": false,
+  "buildTestInputFiles": 148,
+  "sha256": "03a232ff08ce6925bcb28cd77964dd51afff1ae10747b222089bbf8953832093",
+  "digestMethod": "Sorted tracked/nonignored files in CMakeLists.txt, src, tests, scripts, third_party, examples, cmake and .github, excluding __pycache__; hash UTF-8 path + NUL + uint64 big-endian content length + file bytes. Documentation and specification evidence are excluded.",
+  "matchingSnapshots": [
+    "build-ci-038-minimum-verified/source",
+    "build-ci-038-development-verified/source"
+  ]
+}

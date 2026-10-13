@@ -23,6 +23,9 @@ class ViewState : public QObject
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(bool tablesEnabled READ tablesEnabled WRITE setTablesEnabled NOTIFY tablesEnabledChanged FINAL)
+    Q_PROPERTY(bool tagFilterEnabled READ tagFilterEnabled WRITE setTagFilterEnabled NOTIFY tagFilterEnabledChanged FINAL)
+    Q_PROPERTY(bool gfmEnabled READ gfmEnabled WRITE setGfmEnabled NOTIFY gfmEnabledChanged FINAL)
     Q_PROPERTY(QString markdown READ markdown WRITE setMarkdown NOTIFY markdownChanged FINAL)
     Q_PROPERTY(bool extendedAutolinksEnabled READ extendedAutolinksEnabled WRITE setExtendedAutolinksEnabled NOTIFY extendedAutolinksEnabledChanged FINAL)
     Q_PROPERTY(bool strikethroughEnabled READ strikethroughEnabled WRITE setStrikethroughEnabled NOTIFY strikethroughEnabledChanged FINAL)
@@ -33,11 +36,18 @@ class ViewState : public QObject
     Q_PROPERTY(QAbstractItemModel *blocks READ blocks CONSTANT FINAL)
 public:
     explicit ViewState(QObject *parent = nullptr);
+    Q_INVOKABLE QFont boldFont(QFont font) const { font.setWeight(qMax(font.weight(), QFont::Bold)); return font; }
     QUrl baseUrl() const { return m_baseUrl; }
     void setBaseUrl(const QUrl &value);
     MarkdownResourcePolicy *resourcePolicy() const { return m_policy; }
     void setResourcePolicy(MarkdownResourcePolicy *value);
     void resetResourcePolicy();
+    bool tablesEnabled() const { return m_tablesEnabled; }
+    void setTablesEnabled(bool value);
+    bool tagFilterEnabled() const { return m_tagFilterEnabled; }
+    void setTagFilterEnabled(bool value);
+    bool gfmEnabled() const { return m_gfmEnabled; }
+    void setGfmEnabled(bool value);
     QString markdown() const { return m_markdown; }
     void setMarkdown(const QString &value);
     bool extendedAutolinksEnabled() const { return m_extendedAutolinksEnabled; }
@@ -53,6 +63,9 @@ public:
 signals:
     void baseUrlChanged();
     void resourcePolicyChanged();
+    void tablesEnabledChanged();
+    void tagFilterEnabledChanged();
+    void gfmEnabledChanged();
     void markdownChanged();
     void taskListsEnabledChanged();
     void strikethroughEnabledChanged();
@@ -60,6 +73,7 @@ signals:
     void styleChanged();
 private:
     void reloadResources();
+    void reparse();
     QUrl m_baseUrl;
     QVector<QMarkdownPrivate::Block> m_sourceBlocks;
     MarkdownResourcePolicy m_defaultPolicy;
@@ -67,6 +81,9 @@ private:
     QMetaObject::Connection m_policyDestroyed, m_policyChanged;
     ResourceController m_resources;
     QString m_markdown;
+    bool m_tablesEnabled = false;
+    bool m_tagFilterEnabled = false;
+    bool m_gfmEnabled = false;
     bool m_taskListsEnabled = false;
     bool m_strikethroughEnabled = false;
     bool m_extendedAutolinksEnabled = false;

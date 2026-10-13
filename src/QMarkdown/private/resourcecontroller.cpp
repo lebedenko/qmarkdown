@@ -104,6 +104,10 @@ Block textSlice(const Block &block, int start, int end) {
         const int a = qMax(start, range.start), b = qMin(end, range.start + range.length);
         if (a < b) result.ranges.append({a - start, b - a, range.flags});
     }
+    for (const auto &code : block.codes) {
+        const int a = qMax(start, code.start), b = qMin(end, code.start + code.length);
+        if (a < b) result.codes.append({a - start, b - a});
+    }
     for (const auto &link : block.links) {
         const int a = qMax(start, link.start), b = qMin(end, link.start + link.length);
         if (a < b) result.links.append({a - start, b - a, link.destination});
@@ -129,9 +133,12 @@ QVector<Block> projectImages(const QVector<Block> &blocks, const QHash<QUrl, QIm
         }
         if (!segments.isEmpty()) {
             if (start < block.text.size()) segments.append(textSlice(block, start, block.text.size()));
-            block.kind = BlockKind::Segments; block.children = std::move(segments);
+            if (block.kind != BlockKind::TableCell) block.kind = BlockKind::Segments;
+            for (auto &segment : segments)
+                if (segment.kind == BlockKind::TableCell) segment.kind = BlockKind::Paragraph;
+            block.children = std::move(segments);
             block.images.clear(); block.text.clear(); block.ranges.clear(); block.links.clear();
-            block.inlines.clear();
+            block.inlines.clear(); block.codes.clear();
         }
         result.append(std::move(block));
     }

@@ -66,8 +66,13 @@ ApplicationWindow {
                 onActivated: window.previewWidth = currentIndex === 0 ? 0 : Number(currentText)
             }
         }
-        RowLayout {
+        Flow {
+            Layout.fillWidth: true
+            spacing: 8
             CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
+            CheckBox { id: tablesToggle; text: "GFM tables"; objectName: "tablesToggle" }
+            CheckBox { id: tagFilterToggle; text: "GFM tag filter"; objectName: "tagFilterToggle" }
+            CheckBox { id: gfmToggle; text: "All GFM"; objectName: "gfmToggle" }
             CheckBox { id: autolinkToggle; text: "GFM extended autolinks"; objectName: "autolinkToggle" }
             CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
             CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
@@ -166,6 +171,9 @@ ApplicationWindow {
                             width: window.previewWidth > 0 ? Math.min(previewScroll.width, window.previewWidth) : previewScroll.width
                             x: (previewScroll.width - width) / 2
                             markdown: editor.text
+                            tablesEnabled: tablesToggle.checked
+                            tagFilterEnabled: tagFilterToggle.checked
+                            gfmEnabled: gfmToggle.checked
                             taskListsEnabled: taskToggle.checked
                             extendedAutolinksEnabled: autolinkToggle.checked
                             strikethroughEnabled: strikeToggle.checked

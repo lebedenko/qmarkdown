@@ -21,3 +21,11 @@ SHA-256: `9040dc9e2509e48e1c92b9abed592d326de9dce640101071527ee8d3f18f6d6a`.
 `extended-autolinks.json` transcribes all 14 Markdown inputs and IDs 622–635 from [GFM 0.29-gfm section 6.9](https://github.github.com/gfm/#autolinks-extension-) (2019-04-06), acquired 2026-10-13. Attribution: GitHub, based on John MacFarlane's CommonMark specification. Displayed text, link destinations and UTF-16 spans were independently authored from the specification and explicit selected labels, without production or upstream parser output. Tests assert ordinary semantic link/text nodes as well as projected spans. This adapted fixture is CC BY-SA 4.0; see the [full license](../commonmark/LICENSE-CC-BY-SA-4.0.txt). Authored test code remains MIT. The fixture is not installed; tests remain offline and establish selected extension evidence only.
 
 SHA-256: `c7d007666dd272321497fb1867024de1837bca3561b6333d2edcd53024b1525f`.
+
+## Tables and tag filtering
+
+`tables.json` and `tag-filter.json` transcribe all Markdown examples 198–205 (§4.10) and 657 (§6.11) from [GFM 0.29-gfm](https://github.github.com/gfm/) (2019-04-06), acquired 2026-10-13. Attribution: GitHub, based on John MacFarlane's CommonMark specification. Contributors independently authored cell texts, row/column structure, alignment and raw/filtered literal expectations from the syntax rules; neither production nor upstream parser output generated expectations. Fixtures are adapted material under CC BY-SA 4.0; see the [full license](../commonmark/LICENSE-CC-BY-SA-4.0.txt). Test code remains MIT. Fixtures are offline, not installed, and establish selected extension evidence, not exact full GFM conformance.
+
+SHA-256 of `tables.json`: `e49eef7e53dbdf94ab2fc32c31b9772c8d168b6cc398e316a0f7f7d0facd1ca6`.
+
+SHA-256 of `tag-filter.json`: `1a71d4ae1a4ebfec5553c899f41af360a21f537c2bae80e5c57d7788b5c99445`.

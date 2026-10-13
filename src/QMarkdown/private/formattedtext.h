@@ -1,6 +1,7 @@
 #pragma once
 #include <QQuickPaintedItem>
 #include <QTextLayout>
+#include <QGlyphRun>
 #include <QVariantList>
 #include <QtQml/qqmlregistration.h>
 #include <memory>
@@ -9,6 +10,10 @@ class FormattedText : public QQuickPaintedItem
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(int horizontalAlignment READ horizontalAlignment WRITE setHorizontalAlignment NOTIFY horizontalAlignmentChanged FINAL)
+    Q_PROPERTY(QVariantList codeSpans READ codeSpans WRITE setCodeSpans NOTIFY codeSpansChanged FINAL)
+    Q_PROPERTY(qreal codeHorizontalPadding READ codeHorizontalPadding WRITE setCodeHorizontalPadding NOTIFY codeHorizontalPaddingChanged FINAL)
+    Q_PROPERTY(qreal codeVerticalPadding READ codeVerticalPadding WRITE setCodeVerticalPadding NOTIFY codeVerticalPaddingChanged FINAL)
     Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged FINAL)
     Q_PROPERTY(QVariantList formatRanges READ formatRanges WRITE setFormatRanges NOTIFY formatRangesChanged FINAL)
     Q_PROPERTY(QVariantList linkSpans READ linkSpans WRITE setLinkSpans NOTIFY linkSpansChanged FINAL)
@@ -24,6 +29,14 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
     explicit FormattedText(QQuickItem *parent = nullptr);
+    int horizontalAlignment() const { return m_alignment; }
+    void setHorizontalAlignment(int value);
+    QVariantList codeSpans() const { return m_codes; }
+    void setCodeSpans(const QVariantList &value);
+    qreal codeHorizontalPadding() const { return m_codeHorizontalPadding; }
+    qreal codeVerticalPadding() const { return m_codeVerticalPadding; }
+    void setCodeHorizontalPadding(qreal value);
+    void setCodeVerticalPadding(qreal value);
     QString text() const { return m_text; }
     QVariantList formatRanges() const { return m_ranges; }
     QFont font() const { return m_font; }
@@ -37,6 +50,7 @@ public:
     QColor color() const { return m_color; }
     qreal layoutWidth() const { return m_layoutWidth; }
     qreal logicalHeight() const { return m_logicalHeight; }
+    const QVector<QRectF> &codeRectangles() const { return m_codeRects; }
     const QTextLayout *layout() const { return m_layout.get(); }
     void setText(const QString &value);
     void setFormatRanges(const QVariantList &value);
@@ -54,9 +68,13 @@ public:
     Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void codeSpansChanged();
+    void codeHorizontalPaddingChanged();
+    void codeVerticalPaddingChanged();
     void linkSpansChanged();
     void linkColorChanged();
     void linkUnderlineChanged();
+    void horizontalAlignmentChanged();
     void textChanged();
     void formatRangesChanged();
     void fontChanged();
@@ -75,7 +93,13 @@ private:
     void observeScreen(QQuickWindow *window);
     QMetaObject::Connection m_windowScreenConnection, m_screenDpiConnection;
     QString m_text;
-    QVariantList m_ranges, m_links;
+    QVariantList m_ranges, m_links, m_codes;
+    qreal m_codeHorizontalPadding = 4, m_codeVerticalPadding = 2;
+    struct PaintedRun { QGlyphRun glyphs; QColor color; };
+    struct HitRegion { QRectF rect; int link; };
+    QVector<PaintedRun> m_paddedRuns;
+    QVector<HitRegion> m_hitRegions;
+    bool m_padded = false;
     QColor m_linkColor = QColor("#0066cc");
     bool m_linkUnderline = true;
     QFont m_font, m_codeFont, m_layoutFont;
@@ -84,6 +108,7 @@ private:
     qreal m_codeCornerRadius = 0;
     QVector<QRectF> m_codeRects;
     QColor m_color = Qt::black;
+    int m_alignment = Qt::AlignLeft;
     qreal m_layoutWidth = 0, m_logicalHeight = 0;
     QPointF m_paintOffset;
     std::unique_ptr<QTextLayout> m_layout;

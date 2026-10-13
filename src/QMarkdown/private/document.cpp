@@ -9,13 +9,19 @@ struct NodeOwner {
     cmark_node *node;
     ~NodeOwner() { if (node) cmark_node_free(node); }
 };
-QVector<Block> adaptBlocks(cmark_node *node)
+QVector<Block> adaptBlocks(cmark_node *node, bool tagFilter)
 {
     QVector<Block> blocks;
     for (; node; node = cmark_node_next(node)) {
         Block block{BlockKind::Paragraph, {}};
         switch (cmark_node_get_type(node)) {
         case CMARK_NODE_PARAGRAPH: break;
+        case CMARK_NODE_QMARKDOWN_TABLE: block.kind = BlockKind::Table; break;
+        case CMARK_NODE_QMARKDOWN_TABLE_ROW: block.kind = BlockKind::TableRow; break;
+        case CMARK_NODE_QMARKDOWN_TABLE_CELL:
+            block.kind = BlockKind::TableCell;
+            block.tableAlignment = cmark_node_get_table_alignment(node);
+            break;
         case CMARK_NODE_HEADING:
             block.kind = BlockKind::Heading;
             block.level = cmark_node_get_heading_level(node);
@@ -28,6 +34,7 @@ QVector<Block> adaptBlocks(cmark_node *node)
         case CMARK_NODE_HTML_BLOCK:
             block.kind = BlockKind::HtmlBlock;
             block.text = QString::fromUtf8(cmark_node_get_literal(node));
+            block.filteredHtml = tagFilter ? filterRawHtml(block.text) : block.text;
             break;
         case CMARK_NODE_THEMATIC_BREAK: block.kind = BlockKind::ThematicBreak; break;
         case CMARK_NODE_LIST:
@@ -44,31 +51,34 @@ QVector<Block> adaptBlocks(cmark_node *node)
         case CMARK_NODE_BLOCK_QUOTE: block.kind = BlockKind::Quote; break;
         default: continue;
         }
-        if (block.kind == BlockKind::Paragraph || block.kind == BlockKind::Heading) {
-            const auto content = adaptInlineNodes(cmark_node_first_child(node));
+        if (block.kind == BlockKind::Paragraph || block.kind == BlockKind::Heading || block.kind == BlockKind::TableCell) {
+            const auto content = adaptInlineNodes(cmark_node_first_child(node), tagFilter);
             block.text = content.text;
             block.ranges = content.ranges;
             block.links = content.links;
+            block.codes = content.codes;
             block.images = content.images;
             block.inlines = content.nodes;
-        } else if (block.kind == BlockKind::List || block.kind == BlockKind::ListItem || block.kind == BlockKind::Quote) {
-            block.children = adaptBlocks(cmark_node_first_child(node));
+        } else if (block.kind == BlockKind::List || block.kind == BlockKind::ListItem || block.kind == BlockKind::Quote
+                   || block.kind == BlockKind::Table || block.kind == BlockKind::TableRow) {
+            block.children = adaptBlocks(cmark_node_first_child(node), tagFilter);
         }
         blocks.append(std::move(block));
     }
     return blocks;
 }
 }
-QVector<Block> parse(QString source, bool taskListsEnabled, bool strikethroughEnabled, bool extendedAutolinksEnabled)
+QVector<Block> parse(QString source, ParseOptions options)
 {
     source.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
     source.replace(u'\r', u'\n');
     source.replace(QChar(0), QChar(0xfffd));
     const auto input = source.toUtf8();
     NodeOwner document{cmark_parse_document(input.constData(), input.size(),
-        (taskListsEnabled ? CMARK_OPT_QMARKDOWN_TASK_LISTS : 0)
-        | (strikethroughEnabled ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0)
-        | (extendedAutolinksEnabled ? CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS : 0))};
-    return document.node ? adaptBlocks(cmark_node_first_child(document.node)) : QVector<Block>{};
+        (options.taskLists ? CMARK_OPT_QMARKDOWN_TASK_LISTS : 0)
+        | (options.strikethrough ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0)
+        | (options.extendedAutolinks ? CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS : 0)
+        | (options.tables ? CMARK_OPT_QMARKDOWN_TABLES : 0))};
+    return document.node ? adaptBlocks(cmark_node_first_child(document.node), options.tagFilter) : QVector<Block>{};
 }
 }

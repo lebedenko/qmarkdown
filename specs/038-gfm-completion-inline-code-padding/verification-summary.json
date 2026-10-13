@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "feature": "038",
+  "date": "2026-10-13",
+  "status": "Approved local implementation and verification complete; protected release delivery pending",
+  "source": {
+    "baseCommit": "d350d4e186c2376adffadcdc91dc13a6aa0e8978",
+    "uncommittedChanges": true,
+    "releaseEvidence": false
+  },
+  "hostQt": "6.12.0",
+  "prototype": {
+    "normalCases": 144,
+    "fractionalCases": 144,
+    "fractionalScale": 1.25,
+    "productionIntegrated": true
+  },
+  "commonmark": {
+    "parserPass": 652,
+    "modelPass": 652,
+    "mismatches": 0,
+    "semanticLoss": 0,
+    "baselineChanged": false
+  },
+  "packaging": {
+    "sharedCTest": {
+      "passed": 12,
+      "failed": 0
+    },
+    "staticCTest": {
+      "passed": 12,
+      "failed": 0
+    },
+    "compatibilityRequests": 34,
+    "gfmConsumers": [
+      "shared-linked",
+      "plugin-only",
+      "static"
+    ],
+    "relocation": "passed",
+    "testsAndExamplesDisabledBuilds": "passed"
+  },
+  "focusedFinalChecks": {
+    "parser": "passed, including semantic code identities and all official/mixed fixtures",
+    "view": "passed, including padded pointer interaction",
+    "styling": "passed, including padding defaults/geometry/paint/reset/QML assignment",
+    "modelOnlyProbe": "all 9 official table/tag-filter examples passed",
+    "fractionalPointer": "7 passed, 0 failed at QT_SCALE_FACTOR=1.25"
+  },
+  "qmlLint": "passed; existing import-only unused-import info",
+  "symbolPrivacy": {
+    "prefixedDefinitions": 143,
+    "cmarkExports": 0
+  },
+  "benchmarks": {
+    "renderAndParseMeasurements": 18,
+    "inlinePreparationMeasurements": 16,
+    "validators": "passed",
+    "advisory": true
+  },
+  "documents": {
+    "relativeLinksOutsideCodeExamples": 324,
+    "fixtureChecksums": "passed",
+    "whitespace": "passed"
+  },
+  "pending": [
+    "separately authorized commit/PR/protected merge",
+    "exact-commit final Ubuntu/Arch release delivery and publication",
+    "downloaded-package acceptance after authorized publication"
+  ],
+  "finalSourceInputs": "source-inputs.json",
+  "configuredChecks": {
+    "minimum": "configured-minimum-summary.json",
+    "development": "configured-development-summary.json"
+  },
+  "productionPadding": {
+    "horizontalDefault": 4,
+    "verticalDefault": 2,
+    "allPresets": true,
+    "zeroPaddingCompatibility": "passed",
+    "normalAndFractionalGeometry": "passed",
+    "pointerAndDrag": "passed",
+    "advisoryCost": {
+      "hostZeroMeanMs": 18.1457,
+      "hostPaddedMeanMs": 32.0357,
+      "hostRatio": 1.7654706073615234,
+      "minimumZeroMeanMs": 15.4217,
+      "minimumPaddedMeanMs": 31.9342,
+      "minimumRatio": 2.070731501715116,
+      "note": "Minimum-runtime observation slightly exceeds advisory 2x target; investigated cursor reuse, glyph retrieval and ink caching. Target is advisory, not a machine-dependent gate."
+    },
+    "physicalScreenSwitch": "Not exercised by offscreen tests; normal/fractional application scale and font changes verified."
+  }
+}
