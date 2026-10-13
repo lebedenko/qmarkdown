@@ -24,6 +24,7 @@ class ViewState : public QObject
     Q_OBJECT
     QML_ANONYMOUS
     Q_PROPERTY(QString markdown READ markdown WRITE setMarkdown NOTIFY markdownChanged FINAL)
+    Q_PROPERTY(bool strikethroughEnabled READ strikethroughEnabled WRITE setStrikethroughEnabled NOTIFY strikethroughEnabledChanged FINAL)
     Q_PROPERTY(bool taskListsEnabled READ taskListsEnabled WRITE setTaskListsEnabled NOTIFY taskListsEnabledChanged FINAL)
     Q_PROPERTY(MarkdownStyle *style READ style WRITE setStyle RESET resetStyle NOTIFY styleChanged FINAL)
     Q_PROPERTY(QUrl baseUrl READ baseUrl WRITE setBaseUrl NOTIFY baseUrlChanged FINAL)
@@ -38,6 +39,8 @@ public:
     void resetResourcePolicy();
     QString markdown() const { return m_markdown; }
     void setMarkdown(const QString &value);
+    bool strikethroughEnabled() const { return m_strikethroughEnabled; }
+    void setStrikethroughEnabled(bool value);
     bool taskListsEnabled() const { return m_taskListsEnabled; }
     void setTaskListsEnabled(bool value);
     MarkdownStyle *style() const { return m_style; }
@@ -49,6 +52,7 @@ signals:
     void resourcePolicyChanged();
     void markdownChanged();
     void taskListsEnabledChanged();
+    void strikethroughEnabledChanged();
     void styleChanged();
 private:
     void reloadResources();
@@ -60,6 +64,7 @@ private:
     ResourceController m_resources;
     QString m_markdown;
     bool m_taskListsEnabled = false;
+    bool m_strikethroughEnabled = false;
     BlockModel m_blocks;
     MarkdownStyle m_default;
     QPointer<MarkdownStyle> m_style;

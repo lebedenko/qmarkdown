@@ -3,7 +3,7 @@
 #include <QVector>
 
 namespace QMarkdownPrivate {
-enum InlineFlag { Emphasis = 1, Strong = 2, Code = 4 };
+enum InlineFlag { Emphasis = 1, Strong = 2, Code = 4, Strikethrough = 8 };
 struct InlineRange {
     int start = 0;
     int length = 0;
@@ -22,7 +22,7 @@ struct ImageSpan {
     QString enclosingLink;
     bool linked = false;
 };
-enum class InlineKind { Text, Code, Emphasis, Strong, SoftBreak, HardBreak, Link, Image, Html };
+enum class InlineKind { Text, Code, Emphasis, Strong, SoftBreak, HardBreak, Link, Image, Html, Strikethrough };
 // Owned source semantics; presentation spans deliberately retain effective styles.
 struct InlineNode {
     InlineKind kind;

@@ -91,6 +91,99 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void strikethroughToggleAndRendering()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.4\nMarkdownView { width: 150; markdown: '# ~~Heading~~\\n\\n~~**bold** *italic* `code` [link](strike:target) wrapping words wrapping words~~\\n\\n- [x] ~~Task~~\\n  - ~~Nested~~\\n\\n![~~fallback~~](missing.png)' }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create()); auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *state = view->findChild<ViewState *>(); QVERIFY(state);
+        const auto source = state->markdown();
+        QSignalSpy markdownChanges(view, SIGNAL(markdownChanged()));
+        QSignalSpy optionChanges(view, SIGNAL(strikethroughEnabledChanged()));
+        QSignalSpy resets(state->blocks(), &QAbstractItemModel::modelReset);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300, 600); window.show();
+        QTRY_VERIFY(content(view) > 0); QVERIFY(!view->property("strikethroughEnabled").toBool());
+        QVERIFY(view->setProperty("strikethroughEnabled", true));
+        QTRY_COMPARE(painted(view).size(), 5);
+        auto items = painted(view);
+        QCOMPARE(items[0]->text(), "Heading"); QCOMPARE(items[2]->text(), "[x] Task");
+        QCOMPARE(items[3]->text(), "Nested"); QCOMPARE(items[4]->text(), "fallback");
+        for (auto *item : items) {
+            QTRY_VERIFY(item->layout() && !item->layout()->formats().isEmpty());
+            for (const auto &format : item->layout()->formats()) QVERIFY(format.format.font().strikeOut());
+        }
+        auto *body = items[1]; QVERIFY(body->layout()->lineCount() > 1);
+        bool bold = false, italic = false, code = false;
+        for (const auto &format : body->layout()->formats()) {
+            bold |= format.format.font().weight() >= QFont::Bold;
+            italic |= format.format.font().italic();
+            code |= format.start == 12 && format.length == 4;
+        }
+        QVERIFY(bold); QVERIFY(italic); QVERIFY(code);
+        QSignalSpy links(view, SIGNAL(linkActivated(QString)));
+        bool clicked = false;
+        for (int i = 0; i < body->layout()->lineCount(); ++i) {
+            const auto line = body->layout()->lineAt(i);
+            if (line.textStart() <= 17 && 17 < line.textStart() + line.textLength()) {
+                const qreal x = (line.cursorToX(17) + line.cursorToX(18)) / 2, y = line.y() + line.height() / 2;
+                QCOMPARE(body->linkAt(x, y), 0);
+                QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, body->mapToScene(QPointF(x, y)).toPoint());
+                clicked = true; break;
+            }
+        }
+        QVERIFY(clicked); QCOMPARE(links.size(), 1); QCOMPARE(links[0][0].toString(), "strike:target");
+        QFont font = state->style()->bodyFont(); font.setPixelSize(23); state->style()->setBodyFont(font);
+        state->style()->setBodyColor(Qt::red); state->style()->setLinkColor(Qt::green);
+        QTRY_COMPARE(body->layout()->formats()[0].format.font().pixelSize(), 23);
+        QCOMPARE(body->color(), QColor(Qt::red));
+        for (const auto &format : body->layout()->formats()) {
+            QVERIFY(format.format.font().strikeOut());
+            if (format.start == 17) QCOMPARE(format.format.foreground().color(), QColor(Qt::green));
+        }
+        const int resetCount = resets.size();
+        view->setProperty("strikethroughEnabled", true);
+        QCOMPARE(resets.size(), resetCount); QCOMPARE(optionChanges.size(), 1);
+        QCOMPARE(state->markdown(), source); QCOMPARE(markdownChanges.size(), 0);
+        view->setProperty("taskListsEnabled", true);
+        QTRY_COMPARE(painted(view)[2]->text(), "Task");
+        QTRY_VERIFY(painted(view)[2]->layout() && !painted(view)[2]->layout()->formats().isEmpty());
+        QVERIFY(painted(view)[2]->layout()->formats()[0].format.font().strikeOut());
+        view->setProperty("strikethroughEnabled", false);
+        QTRY_VERIFY(texts(view)[0]->property("text").toString().contains("~~Heading~~"));
+        QCOMPARE(optionChanges.size(), 2); QCOMPARE(state->markdown(), source); QCOMPARE(markdownChanges.size(), 0);
+        view->setProperty("strikethroughEnabled", true);
+        view->setProperty("markdown", "~~Replacement~~");
+        QTRY_COMPARE(painted(view).size(), 1); QCOMPARE(painted(view)[0]->text(), "Replacement");
+        QTRY_VERIFY(painted(view)[0]->layout() && !painted(view)[0]->layout()->formats().isEmpty());
+        QVERIFY(painted(view)[0]->layout()->formats()[0].format.font().strikeOut()); QCOMPARE(markdownChanges.size(), 1);
+    }
+    void playgroundStrikethrough()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QQmlEngine engine; QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create()); auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *toggle = window->findChild<QQuickItem *>("strikeToggle"); QVERIFY(toggle);
+        window->setProperty("sampleIndex", 11); QTRY_VERIFY(content(preview) > 0);
+        QVERIFY(!preview->property("strikethroughEnabled").toBool());
+        const auto source = preview->property("markdown"); toggle->setProperty("checked", true);
+        QTRY_VERIFY(preview->property("strikethroughEnabled").toBool());
+        QTRY_VERIFY(!painted(preview).isEmpty());
+        QTRY_VERIFY(painted(preview)[0]->layout() && !painted(preview)[0]->layout()->formats().isEmpty());
+        QVERIFY(painted(preview)[0]->layout()->formats()[0].format.font().strikeOut());
+        const auto screenshot = qEnvironmentVariable("QMARKDOWN_STRIKE_SCREENSHOT");
+        if (!screenshot.isEmpty()) {
+            QImage image; QTRY_VERIFY(!(image = window->grabWindow()).isNull()); QVERIFY(image.save(screenshot));
+        }
+        toggle->setProperty("checked", false); QTRY_VERIFY(!preview->property("strikethroughEnabled").toBool());
+        QCOMPARE(preview->property("markdown"), source);
+#else
+        QSKIP("Playground is not built in this configuration");
+#endif
+    }
+
     void taskListsToggleAndLayout()
     {
         QQmlEngine engine; QQmlComponent component(&engine);

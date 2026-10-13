@@ -10,6 +10,101 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void strikethrough_data()
+    {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<QString>("text");
+        QTest::addColumn<int>("flags");
+        QTest::newRow("single") << "~word~" << "word" << int(Strikethrough);
+        QTest::newRow("double") << "~~word~~" << "word" << int(Strikethrough);
+        QTest::newRow("three") << "a ~~~word~~~" << "a ~~~word~~~" << 0;
+        QTest::newRow("four") << "a ~~~~word~~~~" << "a ~~~~word~~~~" << 0;
+        QTest::newRow("mismatch") << "~word~~" << "~word~~" << 0;
+        QTest::newRow("reverse-mismatch") << "~~word~" << "~~word~" << 0;
+        QTest::newRow("unclosed") << "~~word" << "~~word" << 0;
+        QTest::newRow("opening-space") << "~~ word~~" << "~~ word~~" << 0;
+        QTest::newRow("closing-space") << "~~word ~~" << "~~word ~~" << 0;
+        QTest::newRow("tab") << "~\tword~" << "~\tword~" << 0;
+        QTest::newRow("unicode-space") << QString::fromUtf8("~\xc2\xa0word~") << QString::fromUtf8("~\xc2\xa0word~") << 0;
+        QTest::newRow("intraword") << "a~word~b" << "awordb" << int(Strikethrough);
+        QTest::newRow("punctuation") << "(~word~)" << "(word)" << int(Strikethrough);
+        QTest::newRow("punctuation-blocked") << "a~!word~" << "a~!word~" << 0;
+        QTest::newRow("escaped") << "\\~word\\~" << "~word~" << 0;
+        QTest::newRow("entities") << "&#126;word&#x7e;" << "~word~" << 0;
+        QTest::newRow("mixed-escape") << "\\~~word~~" << "~~word~~" << 0;
+        QTest::newRow("mixed-entity") << "~&#126;word~~" << "~~word~~" << 0;
+        QTest::newRow("softbreak") << "~~a\nb~~" << "a b" << int(Strikethrough);
+        QTest::newRow("hardbreak") << "~~a  \nb~~" << "a\nb" << int(Strikethrough);
+        QTest::newRow("code") << "`~~word~~`" << "~~word~~" << int(Code);
+        QTest::newRow("html-attribute") << "a <span title='~~word~~'>" << "a <span title='~~word~~'>" << 0;
+        QTest::newRow("strong") << "~~**word**~~" << "word" << int(Strikethrough | Strong);
+        QTest::newRow("emphasis-outer") << "*~~word~~*" << "word" << int(Strikethrough | Emphasis);
+        QTest::newRow("code-inner") << "~~`word`~~" << "word" << int(Strikethrough | Code);
+        QTest::newRow("equal-length-search") << "~a ~~b~ c~~" << "a ~~b c~~" << int(Strikethrough);
+    }
+    void strikethrough()
+    {
+        QFETCH(QString, source); QFETCH(QString, text); QFETCH(int, flags);
+        for (const auto &ending : {QString("\n"), QString("\r\n"), QString("\r")}) {
+            auto input = source; input.replace("\n", ending);
+            const auto blocks = parse(input, false, true);
+            QCOMPARE(blocks.size(), 1); QCOMPARE(blocks[0].text, text);
+            int effective = 0;
+            for (const auto &range : blocks[0].ranges) effective |= range.flags;
+            QCOMPARE(effective, flags);
+        }
+    }
+    void strikethroughSemantics()
+    {
+        const auto b = parse(QString::fromUtf8("😀 ~~**é** [~link~](custom:target) ![~~alt~~](pic)~~"), false, true)[0];
+        QCOMPARE(b.text, QString::fromUtf8("😀 é link alt"));
+        QCOMPARE(b.ranges[0].start, 3); QCOMPARE(b.ranges[0].length, 1);
+        QCOMPARE(b.ranges[0].flags, int(Strong | Strikethrough));
+        QCOMPARE(b.inlines[1].kind, InlineKind::Strikethrough);
+        QCOMPARE(b.inlines[1].children[0].kind, InlineKind::Strong);
+        QCOMPARE(b.links[0].start, 5); QCOMPARE(b.links[0].length, 4);
+        QCOMPARE(b.links[0].destination, "custom:target");
+        QCOMPARE(b.images[0].start, 10); QCOMPARE(b.images[0].length, 3);
+        QCOMPARE(b.images[0].destination, "pic");
+        QCOMPARE(b.inlines[1].children.last().children[0].kind, InlineKind::Strikethrough);
+        const auto precedence = parse("~~[word~~](url)", false, true)[0];
+        QCOMPARE(precedence.text, "~~word~~"); QVERIFY(precedence.ranges.isEmpty());
+        QCOMPARE(precedence.links[0].destination, "url");
+        QCOMPARE(parse("~~[word](url)~~", false, true)[0].ranges[0].flags, int(Strikethrough));
+        QCOMPARE(parse("[~~word~~][ref]\n\n[ref]: custom:ref", false, true)[0].links[0].destination, "custom:ref");
+        const auto paragraphs = parse("~~one\n\ntwo~~", false, true);
+        QCOMPARE(paragraphs.size(), 2); QVERIFY(paragraphs[0].ranges.isEmpty()); QVERIFY(paragraphs[1].ranges.isEmpty());
+        for (const auto &source : {QString("    ~~code~~"), QString("```\n~~code~~\n```"), QString("<div>\n~~html~~\n</div>")}) {
+            const auto literal = parse(source, false, true)[0];
+            QVERIFY(literal.text.contains("~~")); QVERIFY(literal.ranges.isEmpty());
+        }
+        for (bool tasks : {false, true}) for (bool strike : {false, true}) {
+            const auto item = parse("- [x] ~~done~~", tasks, strike)[0].children[0];
+            QCOMPARE(item.taskState, tasks ? TaskState::Checked : TaskState::Ordinary);
+            QCOMPARE(item.children[0].text, QString(tasks ? "" : "[x] ") + (strike ? "done" : "~~done~~"));
+            QCOMPARE(item.children[0].ranges.isEmpty(), !strike);
+        }
+    }
+    void officialStrikethroughExamples()
+    {
+        QFile file(QStringLiteral(QMARKDOWN_STRIKE_FIXTURE)); QVERIFY(file.open(QIODevice::ReadOnly));
+        const auto examples = QJsonDocument::fromJson(file.readAll()).array(); QCOMPARE(examples.size(), 3);
+        for (const auto &entry : examples) {
+            const auto example = entry.toObject(); const auto blocks = parse(example["markdown"].toString(), false, true);
+            const auto texts = example["texts"].toArray(), ranges = example["ranges"].toArray();
+            QCOMPARE(blocks.size(), texts.size());
+            for (int i = 0; i < blocks.size(); ++i) {
+                QCOMPARE(blocks[i].text, texts[i].toString()); const auto expected = ranges[i].toArray();
+                QCOMPARE(blocks[i].ranges.size(), expected.size());
+                for (int j = 0; j < expected.size(); ++j) {
+                    const auto r = expected[j].toArray();
+                    QCOMPARE(blocks[i].ranges[j].start, r[0].toInt()); QCOMPARE(blocks[i].ranges[j].length, r[1].toInt());
+                    QCOMPARE(blocks[i].ranges[j].flags, r[2].toInt());
+                }
+            }
+        }
+    }
+
     void taskMarkers_data()
     {
         QTest::addColumn<QString>("source");

@@ -26,7 +26,7 @@ QVector<FormatInterval> reference(int size, const QVariantList &ranges, const QV
             boundaries[start] = boundaries[end] = true;
             for (int pos = int(start); pos < end; ++pos) {
                 if (link) linked[pos] = true;
-                else flags[pos] |= map.value("flags").toInt() & (Emphasis | Strong | Code);
+                else flags[pos] |= map.value("flags").toInt() & (Emphasis | Strong | Code | Strikethrough);
             }
         }
     };
@@ -48,6 +48,9 @@ private slots:
         QTest::addColumn<QString>("text");
         QTest::addColumn<QVariantList>("ranges");
         QTest::addColumn<QVariantList>("links");
+        QTest::newRow("strike-overlap") << QString("abcdefghij")
+            << QVariantList{span(0, 8, Strikethrough), span(2, 4, Strong | Code), span(4, 6, Emphasis | Strikethrough)}
+            << QVariantList{span(3, 5)};
         QTest::newRow("unsorted-overlapping-nested-duplicates") << QString("abcdefghijkl")
             << QVariantList{span(5, 5, Code), span(0, 8, Emphasis), span(2, 2, Strong),
                             span(0, 8, Emphasis), span(3, 8, Emphasis), span(6, 2, Strong | Code)}

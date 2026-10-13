@@ -6,7 +6,7 @@ endif()
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
-    VERSION 1.3
+    VERSION 1.4
     PLUGIN_TARGET QMarkdownPlugin
     CLASS_NAME QMarkdownPlugin
     RESOURCE_PREFIX /qt/qml

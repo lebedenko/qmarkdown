@@ -93,17 +93,19 @@ def main():
         raise RuntimeError('Package integrity failure')
     with tarfile.open(evidence / 'qmarkdown-source.tar.gz') as source:
         source.extractall('/work', filter='data')
-    for link, styling, actions, tasks in (('ON', 'OFF', 'OFF', 'OFF'), ('OFF', 'OFF', 'OFF', 'OFF'),
-                                          ('ON', 'ON', 'OFF', 'OFF'), ('OFF', 'ON', 'OFF', 'OFF'),
-                                          ('ON', 'OFF', 'ON', 'OFF'), ('OFF', 'OFF', 'ON', 'OFF'),
-                                          ('ON', 'OFF', 'OFF', 'ON'), ('OFF', 'OFF', 'OFF', 'ON')):
-        build = Path('/work') / f'consumer-{link}-{styling}-{actions}-{tasks}'
+    for link, styling, actions, tasks, strike in (
+            ('ON', 'OFF', 'OFF', 'OFF', 'OFF'), ('OFF', 'OFF', 'OFF', 'OFF', 'OFF'),
+            ('ON', 'ON', 'OFF', 'OFF', 'OFF'), ('OFF', 'ON', 'OFF', 'OFF', 'OFF'),
+            ('ON', 'OFF', 'ON', 'OFF', 'OFF'), ('OFF', 'OFF', 'ON', 'OFF', 'OFF'),
+            ('ON', 'OFF', 'OFF', 'ON', 'OFF'), ('OFF', 'OFF', 'OFF', 'ON', 'OFF'),
+            ('ON', 'OFF', 'OFF', 'OFF', 'ON'), ('OFF', 'OFF', 'OFF', 'OFF', 'ON')):
+        build = Path('/work') / f'consumer-{link}-{styling}-{actions}-{tasks}-{strike}'
         run('cmake', '-S', '/work/qmarkdown/tests/installed-consumer', '-B', build,
             '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
             f'-DQMARKDOWN_STYLING_CONSUMER={styling}', f'-DQMARKDOWN_ACTIONS_CONSUMER={actions}',
-            f'-DQMARKDOWN_TASKS_CONSUMER={tasks}',
-            f'-DQMARKDOWN_REQUEST_VERSION={"1.3.0" if tasks == "ON" else "1.2" if actions == "ON" else "1.0"}',
-            f'-DQMARKDOWN_REQUEST_EXACT={tasks}')
+            f'-DQMARKDOWN_TASKS_CONSUMER={tasks}', f'-DQMARKDOWN_STRIKE_CONSUMER={strike}',
+            f'-DQMARKDOWN_REQUEST_VERSION={"1.4.0" if strike == "ON" else "1.3.0" if tasks == "ON" else "1.2" if actions == "ON" else "1.0"}',
+            f'-DQMARKDOWN_REQUEST_EXACT={strike}')
         run('cmake', '--build', build, '--parallel', '2')
         executable = build / 'qmarkdown-consumer'
         if link == 'OFF' and 'libQMarkdown' in output('readelf', '-d', executable):

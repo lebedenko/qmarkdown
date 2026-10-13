@@ -22,3 +22,7 @@ CommonMark 0.31.2 requires a closing fence of the same character and at least th
 - symbols.h: prefix the added getter; hidden visibility and no installed headers remain unchanged.
 
 The recognition routine is locally authored from [GFM 0.29-gfm section 5.3](https://github.github.com/gfm/#task-list-items-extension-), with the CommonMark 0.31.2 block parser retained. Default-off strict corpus checks and separate extension fixtures test both paths. This is selected task-list syntax, not full GFM conformance. No cmark-gfm code is copied or new library added. The upstream version, archive checksum and notices are unchanged.
+
+## Local opt-in strikethrough (iteration 036)
+
+`src/cmark.h`, `src/inlines.c` and `src/node.c` add a private default-off option and inline container, raw tilde recognition, equal-length one/two delimiter pairing with existing flanking rules, and reuse existing emphasis splicing. The routine is locally authored from [GFM §6.5](https://github.github.com/gfm/#strikethrough-extension-); no cmark-gfm implementation is copied. Separate extension tests and unchanged strict CommonMark checks cover both paths. No new external symbols, installed headers or dependencies are added; upstream version/checksum/notices remain unchanged.

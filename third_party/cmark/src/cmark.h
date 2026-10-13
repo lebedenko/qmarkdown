@@ -61,9 +61,10 @@ typedef enum {
   CMARK_NODE_STRONG,
   CMARK_NODE_LINK,
   CMARK_NODE_IMAGE,
+  CMARK_NODE_QMARKDOWN_STRIKETHROUGH,
 
   CMARK_NODE_FIRST_INLINE = CMARK_NODE_TEXT,
-  CMARK_NODE_LAST_INLINE = CMARK_NODE_IMAGE
+  CMARK_NODE_LAST_INLINE = CMARK_NODE_QMARKDOWN_STRIKETHROUGH
 } cmark_node_type;
 
 /* For backwards compatibility: */
@@ -596,6 +597,7 @@ char *cmark_render_latex(cmark_node *root, int options, int width);
 
 /* QMarkdown-private opt-in task-list recognition, disabled by default. */
 #define CMARK_OPT_QMARKDOWN_TASK_LISTS (1 << 18)
+#define CMARK_OPT_QMARKDOWN_STRIKETHROUGH (1 << 19)
 CMARK_EXPORT int cmark_node_get_task_state(cmark_node *node);
 
 /**

@@ -582,7 +582,7 @@ static cmark_node *handle_delim(subject *subj, unsigned char c, bool smart) {
 
   inl_text = make_str(subj, subj->pos - numdelims, subj->pos - 1, contents);
 
-  if ((can_open || can_close) && (!(c == '\'' || c == '"') || smart)) {
+  if ((c != '~' || numdelims <= 2) && (can_open || can_close) && (!(c == '\'' || c == '"') || smart)) {
     push_delimiter(subj, c, can_open, can_close, inl_text);
   }
 
@@ -655,11 +655,12 @@ static void process_emphasis(subject *subj, bufsize_t stack_bottom) {
   delimiter *old_closer;
   bool opener_found;
   int openers_bottom_index = 0;
-  bufsize_t openers_bottom[15] = {stack_bottom, stack_bottom, stack_bottom,
+  bufsize_t openers_bottom[19] = {stack_bottom, stack_bottom, stack_bottom,
                                   stack_bottom, stack_bottom, stack_bottom,
                                   stack_bottom, stack_bottom, stack_bottom,
                                   stack_bottom, stack_bottom, stack_bottom,
-                                  stack_bottom, stack_bottom, stack_bottom};
+                                  stack_bottom, stack_bottom, stack_bottom,
+                                  stack_bottom, stack_bottom, stack_bottom, stack_bottom};
 
   // move back to first relevant delim.
   candidate = subj->last_delim;
@@ -682,6 +683,9 @@ static void process_emphasis(subject *subj, bufsize_t stack_bottom) {
         openers_bottom_index = 2 +
                 (closer->can_open ? 3 : 0) + (closer->length % 3);
         break;
+      case '~':
+        openers_bottom_index = 15 + (closer->can_open ? 2 : 0) + closer->length - 1;
+        break;
       case '*':
         openers_bottom_index = 8 +
                 (closer->can_open ? 3 : 0) + (closer->length % 3);
@@ -698,9 +702,11 @@ static void process_emphasis(subject *subj, bufsize_t stack_bottom) {
         if (opener->can_open && opener->delim_char == closer->delim_char) {
           // interior closer of size 2 can't match opener of size 1
           // or of size 1 can't match 2
-          if (!(closer->can_open || opener->can_close) ||
-              closer->length % 3 == 0 ||
-              (opener->length + closer->length) % 3 != 0) {
+          if (closer->delim_char == '~'
+                  ? opener->length == closer->length
+                  : (!(closer->can_open || opener->can_close) ||
+                     closer->length % 3 == 0 ||
+                     (opener->length + closer->length) % 3 != 0)) {
             opener_found = true;
             break;
           }
@@ -708,7 +714,7 @@ static void process_emphasis(subject *subj, bufsize_t stack_bottom) {
         opener = opener->previous;
       }
       old_closer = closer;
-      if (closer->delim_char == '*' || closer->delim_char == '_') {
+      if (closer->delim_char == '*' || closer->delim_char == '_' || closer->delim_char == '~') {
         if (opener_found) {
           closer = S_insert_emph(subj, opener, closer);
         } else {
@@ -785,7 +791,9 @@ static delimiter *S_insert_emph(subject *subj, delimiter *opener,
 
   // create new emph or strong, and splice it in to our inlines
   // between the opener and closer
-  emph = use_delims == 1 ? make_emph(subj->mem) : make_strong(subj->mem);
+  emph = opener->delim_char == '~'
+      ? cmark_node_new_with_mem(CMARK_NODE_QMARKDOWN_STRIKETHROUGH, subj->mem)
+      : (use_delims == 1 ? make_emph(subj->mem) : make_strong(subj->mem));
 
   tmp = opener_inl->next;
   if (tmp && tmp != closer_inl) {
@@ -1317,6 +1325,8 @@ static bufsize_t subject_find_special_char(subject *subj, int options) {
   bufsize_t n = subj->pos + 1;
 
   while (n < subj->input.len) {
+    if ((options & CMARK_OPT_QMARKDOWN_STRIKETHROUGH) && subj->input.data[n] == '~')
+      return n;
     if (SPECIAL_CHARS[subj->input.data[n]])
       return n;
     if (options & CMARK_OPT_SMART && SMART_PUNCT_CHARS[subj->input.data[n]])
@@ -1361,6 +1371,10 @@ static int parse_inline(subject *subj, cmark_node *parent, int options) {
   case '"':
     new_inl = handle_delim(subj, c, (options & CMARK_OPT_SMART) != 0);
     break;
+  case '~':
+    if (!(options & CMARK_OPT_QMARKDOWN_STRIKETHROUGH)) goto literal_text;
+    new_inl = handle_delim(subj, c, false);
+    break;
   case '-':
     new_inl = handle_hyphen(subj, (options & CMARK_OPT_SMART) != 0);
     break;
@@ -1386,6 +1400,7 @@ static int parse_inline(subject *subj, cmark_node *parent, int options) {
     }
     break;
   default:
+  literal_text:
     endpos = subject_find_special_char(subj, options);
     contents = cmark_chunk_dup(&subj->input, subj->pos, endpos - subj->pos);
     startpos = subj->pos;

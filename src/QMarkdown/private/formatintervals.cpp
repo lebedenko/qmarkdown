@@ -18,7 +18,7 @@ QVector<FormatInterval> prepareFormatIntervals(
             if (!startOk || !lengthOk || decodedStart < 0 || decodedLength <= 0
                 || decodedStart > textLength || decodedLength > textLength - decodedStart) continue;
             const int start = int(decodedStart), length = int(decodedLength);
-            const int flags = linked ? 0 : span.value("flags").toInt() & (Emphasis | Strong | Code);
+            const int flags = linked ? 0 : span.value("flags").toInt() & (Emphasis | Strong | Code | Strikethrough);
             events.append({start, flags, linked, 1});
             events.append({start + length, flags, linked, -1});
         }
@@ -29,21 +29,21 @@ QVector<FormatInterval> prepareFormatIntervals(
         return a.offset < b.offset;
     });
     QVector<FormatInterval> intervals;
-    std::array<qsizetype, 4> active{};
-    constexpr std::array<int, 3> flags{Emphasis, Strong, Code};
+    std::array<qsizetype, 5> active{};
+    constexpr std::array<int, 4> flags{Emphasis, Strong, Code, Strikethrough};
     for (qsizetype i = 0; i < events.size();) {
         const int start = events[i].offset;
         do {
             const auto &event = events[i++];
-            for (int flag = 0; flag < 3; ++flag)
+            for (int flag = 0; flag < 4; ++flag)
                 if (event.flags & flags[flag]) active[flag] += event.delta;
-            if (event.linked) active[3] += event.delta;
+            if (event.linked) active[4] += event.delta;
         } while (i < events.size() && events[i].offset == start);
         int effective = 0;
-        for (int flag = 0; flag < 3; ++flag)
+        for (int flag = 0; flag < 4; ++flag)
             if (active[flag] > 0) effective |= flags[flag];
-        if (i < events.size() && (effective || active[3] > 0))
-            intervals.append({start, events[i].offset - start, effective, active[3] > 0});
+        if (i < events.size() && (effective || active[4] > 0))
+            intervals.append({start, events[i].offset - start, effective, active[4] > 0});
     }
     return intervals;
 }

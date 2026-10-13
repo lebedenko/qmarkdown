@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0 source candidate (unreleased)
+
+- Add independent, default-off `MarkdownView.strikethroughEnabled` with native inline strikeout, nested formatting, links and image descriptions.
+- Retain CommonMark 0.31.2 and historical imports; advance candidate package/QML versions to 1.4.0/1.4.
+- Add selected GFM strikethrough fixtures, playground controls and installed consumers.
+
 ## 1.3.0 — unreleased
 
 - Add default-off `MarkdownView.taskListsEnabled` with native read-only checked/unchecked indicators in ordered, unordered, nested and quoted lists. Preserve source text, list numbering, styling and host resource policies.

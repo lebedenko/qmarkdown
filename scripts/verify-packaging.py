@@ -70,7 +70,7 @@ for variant in ("shared", "static"):
     for version, exact, accepted in (("1.0", False, True), ("1.0.0", True, False),
                                      ("1.1", False, True), ("1.1.0", True, False),
                                      ("0.7", False, False), ("1.2", False, True), ("1.2.0", True, False),
-                                     ("1.3", False, True), ("1.3.0", True, True), ("1.4", False, False), ("2.0", False, False)):
+                                     ("1.3", False, True), ("1.3.0", True, False), ("1.4", False, True), ("1.4.0", True, True), ("1.5", False, False), ("2.0", False, False)):
         request_build = work / f"request-{variant}-{version}"
         command = ["cmake", "-S", str(consumer_source), "-B", str(request_build),
                    *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
@@ -82,7 +82,7 @@ for variant in ("shared", "static"):
             raise RuntimeError(f"Unexpected package compatibility: {variant} {version}: {result.stdout}{result.stderr}")
         expected_error = "exactly matches requested version" if exact else "compatible with requested version"
         if not accepted and (expected_error not in " ".join(result.stderr.split())
-                             or "version: 1.3.0" not in result.stderr):
+                             or "version: 1.4.0" not in result.stderr):
             raise RuntimeError(f"Package request failed for an unrelated reason: {result.stderr}")
         print(f"PASS: {variant} package request {version}, exact={exact}, accepted={accepted}", flush=True)
     run("cmake", "--build", consumer_build, "--parallel", "2")
@@ -111,9 +111,16 @@ for variant in ("shared", "static"):
         run("cmake", "-S", consumer_source, "-B", tasks_build,
             *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
             "-DQMARKDOWN_TASKS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.3.0",
-            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
+            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", tasks_build, "--parallel", "2")
         run(tasks_build / executable, env=environment)
+        strike_build = work / f"strike-{variant}-{link}"
+        run("cmake", "-S", consumer_source, "-B", strike_build,
+            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
+            "-DQMARKDOWN_STRIKE_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.4.0",
+            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
+        run("cmake", "--build", strike_build, "--parallel", "2")
+        run(strike_build / executable, env=environment)
     if variant == "shared":
         plugin_consumer = work / "consumer-shared-plugin"
         run("cmake", "-S", consumer_source, "-B", plugin_consumer,

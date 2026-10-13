@@ -125,6 +125,7 @@ void FormattedText::updatePolish()
                 resolved = layoutFont(resolved);
             if (flags & QMarkdownPrivate::Emphasis) resolved.setItalic(true);
             if (flags & QMarkdownPrivate::Strong) resolved.setWeight(qMax(resolved.weight(), QFont::Bold));
+            if (flags & QMarkdownPrivate::Strikethrough) resolved.setStrikeOut(true);
             QTextCharFormat format;
             format.setFont(resolved);
             if ((flags & QMarkdownPrivate::Code) && m_codeForeground.isValid())
