@@ -1,9 +1,9 @@
-"""Verify publication reruns using fake GitHub responses, without network writes."""
-import importlib.util
+"""Fake GitHub upload retries and byte verification without network writes."""
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
-import sys
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -18,83 +18,122 @@ class UploadTest(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        self.archive = self.root / 'package.tar.gz'
-        self.archive.write_bytes(b'archive')
-        self.checksum = self.root / 'package.tar.gz.sha256'
-        self.checksum.write_text(hashlib.sha256(b'archive').hexdigest() + '  ' + self.archive.name + '\n')
-        self.arch = self.root / 'qmarkdown-1.0.0-1-x86_64.pkg.tar.zst'
-        self.arch.write_bytes(b'arch package')
-        self.arch_checksum = self.root / (self.arch.name + '.sha256')
-        self.arch_checksum.write_text(hashlib.sha256(b'arch package').hexdigest() + '  ' + self.arch.name + '\n')
-        self.release = {'draft': False, 'prerelease': False, 'assets': [
-            {'name': path.name, 'id': number} for number, path in enumerate(
-                (self.archive, self.checksum, self.arch, self.arch_checksum), 1)]}
-        self.responses = [json.dumps(self.release).encode(), *[path.read_bytes() for path in
-            (self.archive, self.checksum, self.arch, self.arch_checksum)]]
+        for name, data in (('qmarkdown-1.6.0.tar.gz', b'source'),
+                           ('qmarkdown-1.6.0-1-x86_64.pkg.tar.zst', b'arch')):
+            path = self.root / name
+            path.write_bytes(data)
+            path.with_name(name + '.sha256').write_text(hashlib.sha256(data).hexdigest() + '  ' + name + '\n')
+        self.local = upload.select_assets(self.root, '1.6.0')
+        self.remote = {path.name: path.read_bytes() for path in self.local}
+        self.draft = True
 
-    def invoke(self):
-        with patch.object(sys, 'argv', ['upload-assets.py', '--repository', 'owner/repo',
-                                      '--tag', 'v1.0.0', '--assets', str(self.root)]):
-            upload.main()
+    def gh(self, *args):
+        endpoint = args[-1]
+        if '/releases/tags/' in endpoint:
+            return json.dumps({'draft': self.draft, 'prerelease': False,
+                               'assets': [{'name': name, 'id': name} for name in self.remote]}).encode()
+        return self.remote[endpoint.split('/assets/')[1]]
+
+    def upload_missing(self, command, **kwargs):
+        for path in command[6:]:
+            path = Path(path)
+            self.remote[path.name] = path.read_bytes()
+        self.assertNotIn('--clobber', command)
 
     def test_identical_assets_are_accepted_without_upload(self):
-        with patch.object(upload, 'gh', side_effect=self.responses), patch.object(upload.subprocess, 'run') as run:
-            self.invoke()
+        with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run') as run:
+            upload.upload('owner/repo', 'v1.6.0', self.local)
             run.assert_not_called()
 
-    def test_differing_asset_blocks_all_uploads(self):
-        self.responses[1] = b'other archive'
-        with patch.object(upload, 'gh', side_effect=self.responses), patch.object(upload.subprocess, 'run') as run:
-            with self.assertRaisesRegex(SystemExit, 'Refusing to overwrite'):
-                self.invoke()
+    def test_differing_existing_asset_blocks_all_uploads(self):
+        self.remote = {self.local[-2].name: b'different'}
+        with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run') as run:
+            with self.assertRaisesRegex(ValueError, 'SHA-256 mismatch'):
+                upload.upload('owner/repo', 'v1.6.0', self.local)
             run.assert_not_called()
 
-    def test_missing_assets_are_uploaded_without_clobber(self):
-        self.release['assets'] = []
-        with patch.object(upload, 'gh', return_value=json.dumps(self.release).encode()), patch.object(upload.subprocess, 'run') as run:
-            self.invoke()
-            command = run.call_args.args[0]
-            self.assertIn(str(self.archive), command)
-            self.assertIn(str(self.checksum), command)
-            self.assertIn(str(self.arch), command)
-            self.assertIn(str(self.arch_checksum), command)
-            self.assertNotIn('--clobber', command)
+    def test_missing_draft_assets_are_uploaded_without_clobber(self):
+        self.remote = {}
+        with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run', side_effect=self.upload_missing):
+            upload.upload('owner/repo', 'v1.6.0', self.local)
+        self.assertEqual(self.remote, {path.name: path.read_bytes() for path in self.local})
 
-    def test_invalid_checksum_prevents_remote_access(self):
-        self.arch.write_bytes(b'corrupted')
-        with patch.object(upload, 'gh') as gh:
-            with self.assertRaises(SystemExit):
-                self.invoke()
-            gh.assert_not_called()
+    def test_partial_upload_retry_refreshes_and_accepts_identical_bytes(self):
+        self.remote = {}
+        attempts = []
 
-    def test_missing_arch_pair_is_rejected(self):
-        self.arch_checksum.unlink()
+        def partial(command, **kwargs):
+            attempts.append(command)
+            if len(attempts) == 1:
+                first = Path(command[6])
+                self.remote[first.name] = first.read_bytes()
+                raise subprocess.CalledProcessError(1, command)
+            self.upload_missing(command, **kwargs)
+
+        with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run', side_effect=partial), patch.object(upload.time, 'sleep'):
+            upload.upload('owner/repo', 'v1.6.0', self.local)
+        self.assertEqual(len(attempts), 2)
+        self.assertNotIn(attempts[0][6], attempts[1][6:])
+
+    def test_retry_rejects_a_differing_asset(self):
+        self.remote = {}
+
+        def partial(command, **kwargs):
+            self.remote[self.local[0].name] = b'other'
+            raise subprocess.CalledProcessError(1, command)
+
+        with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run', side_effect=partial) as run, patch.object(upload.time, 'sleep'):
+            with self.assertRaises(ValueError):
+                upload.upload('owner/repo', 'v1.6.0', self.local)
+            self.assertEqual(run.call_count, 1)
+
+    def test_retries_are_bounded(self):
+        self.remote = {}
+        with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run', side_effect=subprocess.CalledProcessError(1, 'gh')) as run, patch.object(upload.time, 'sleep'):
+            with self.assertRaises(subprocess.CalledProcessError):
+                upload.upload('owner/repo', 'v1.6.0', self.local)
+            self.assertEqual(run.call_count, 3)
+
+    def test_published_hash_mismatch_and_missing_download_are_rejected(self):
+        self.draft = False
+        for remote in ({self.local[0].name: b'corrupted'}, {}):
+            self.remote = remote
+            with patch.object(upload, 'gh', side_effect=self.gh):
+                release = upload.release_assets('owner/repo', 'v1.6.0')
+                with self.assertRaises(ValueError):
+                    upload.compare_existing('owner/repo', release, self.local, require_all=True)
+
+    def test_incomplete_published_release_requires_explicit_repair(self):
+        self.draft = False
+        self.remote = {}
+        with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run') as run:
+            with self.assertRaisesRegex(ValueError, 'explicit repair'):
+                upload.upload('owner/repo', 'v1.6.0', self.local)
+            run.assert_not_called()
+
+    def test_invalid_missing_extra_or_wrong_version_assets_are_rejected(self):
+        with self.assertRaises(ValueError):
+            upload.select_assets(self.root, '1.7.0')
+        extra = self.root / 'summary.json'
+        extra.write_text('{}')
+        with self.assertRaises(ValueError):
+            upload.select_assets(self.root)
+        extra.unlink()
+        checksum = self.local[-1]
+        original = checksum.read_bytes()
+        checksum.write_text('invalid')
+        with self.assertRaises(ValueError):
+            upload.select_assets(self.root)
+        checksum.write_bytes(original)
+        checksum.unlink()
         with self.assertRaises(ValueError):
             upload.select_assets(self.root)
 
-    def test_extra_archive_is_rejected(self):
-        (self.root / 'extra.pkg.tar.zst').write_bytes(b'extra')
-        with self.assertRaises(ValueError):
-            upload.select_assets(self.root)
-
-    def test_checksum_filename_must_match(self):
-        self.arch_checksum.write_text(hashlib.sha256(self.arch.read_bytes()).hexdigest() + '  other.pkg.tar.zst\n')
-        with self.assertRaises(ValueError):
-            upload.select_assets(self.root)
-
-    def test_differing_arch_asset_blocks_missing_uploads(self):
-        self.release['assets'] = [{'name': self.arch.name, 'id': 3}]
-        with patch.object(upload, 'gh', side_effect=[json.dumps(self.release).encode(), b'different']), patch.object(upload.subprocess, 'run') as run:
-            with self.assertRaisesRegex(SystemExit, 'Refusing to overwrite'):
-                self.invoke()
-            run.assert_not_called()
-
-    def test_prerelease_is_rejected_without_upload(self):
-        self.release['prerelease'] = True
-        with patch.object(upload, 'gh', return_value=json.dumps(self.release).encode()), patch.object(upload.subprocess, 'run') as run:
-            with self.assertRaises(SystemExit):
-                self.invoke()
-            run.assert_not_called()
+    def test_unexpected_remote_assets_require_repair(self):
+        self.remote['summary.json'] = b'{}'
+        with patch.object(upload, 'gh', side_effect=self.gh):
+            with self.assertRaisesRegex(ValueError, 'unexpected'):
+                upload.upload('owner/repo', 'v1.6.0', self.local)
 
 
 if __name__ == '__main__':

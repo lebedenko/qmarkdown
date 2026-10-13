@@ -13,9 +13,9 @@ Documented public QML APIs and CMake integration remain compatible throughout 1.
 Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Document-wide selection/copy, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
-## Selected extension candidate
+## Selected extensions in 1.6.0
 
-Local candidate: **1.6.0 / QML 1.6**, with all five independent default-off GFM extensions and an aggregate switch on CommonMark 0.31.2 core. [Iteration 038](038-gfm-completion-inline-code-padding/requirements.md) is approved for local implementation/verification; native tables and filtered raw-HTML semantics are implemented. Layout-aware inline-code padding is implemented after approval of the prototype-backed detailed design. See [actual verification](038-gfm-completion-inline-code-padding/verification.md); exact GFM 0.29-gfm conformance and 1.6 publication are not claimed. Published stable/latest remains 1.2.0.
+Released **1.6.0 / QML 1.6** supports all five independent default-off GFM extensions and an aggregate switch on CommonMark 0.31.2 core. Native tables, filtered raw-HTML semantics and layout-aware inline-code padding are implemented. [Iteration 038](038-gfm-completion-inline-code-padding/verification.md) preserves historical verification and approvals. Exact GFM 0.29-gfm conformance is not claimed.
 
 ## Historical direction and bounded slices
 

@@ -1,9 +1,6 @@
 name: Linux Qt verification
 on:
   pull_request:
-  push:
-    branches: [main]
-  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -11,13 +8,20 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.targets.outputs.matrix }}
-      minimum: ${{ steps.targets.outputs.minimum }}
+      full: ${{ steps.scope.outputs.full }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Validate documentation
+        run: python3 scripts/check-docs.py
+      - id: scope
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: echo "full=$(python3 scripts/ci-toolchain/check-scope.py --base "$BASE_SHA")" >> "$GITHUB_OUTPUT"
       - id: targets
         run: |
           echo "matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)" >> "$GITHUB_OUTPUT"
-          echo "minimum=$(python3 scripts/ci-toolchain/qt_versions.py --role minimum)" >> "$GITHUB_OUTPUT"
   packaging:
     name: packaging (${{ matrix.role }})
     needs: targets
@@ -28,7 +32,10 @@ jobs:
       matrix: ${{ fromJSON(needs.targets.outputs.matrix) }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Validate documentation
+        run: python3 scripts/check-docs.py
       - name: Resolve toolchain identity
+        if: needs.targets.outputs.full == 'true'
         id: toolchain
         env:
           CI_QT_VERSION: ${{ matrix.qt }}
@@ -42,6 +49,7 @@ jobs:
               print(f"{key}={value}")
           PY
       - uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
+        if: needs.targets.outputs.full == 'true'
         with:
           # Bootstrap without the Docker Hub authentication endpoint.
           driver-opts: image=mirror.gcr.io/moby/buildkit:buildx-stable-1
@@ -49,6 +57,7 @@ jobs:
             [registry."docker.io"]
               mirrors = ["mirror.gcr.io"]
       - name: Prepare toolchain image
+        if: needs.targets.outputs.full == 'true'
         id: image
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
@@ -61,7 +70,7 @@ jobs:
           cache-from: type=gha,version=2,scope=qmarkdown-qt-${{ matrix.qt }}-amd64
           cache-to: type=gha,version=2,scope=qmarkdown-qt-${{ matrix.qt }}-amd64,mode=max,ignore-error=true
       - name: Record hosted image preparation
-        if: always()
+        if: needs.targets.outputs.full == 'true'
         env:
           IMAGE_METADATA: ${{ steps.image.outputs.metadata }}
           IMAGE_ID: ${{ steps.image.outputs.imageid }}
@@ -78,7 +87,8 @@ jobs:
                   evidence["preparationSeconds"] = round(time.time() - float(started.read_text()), 3)
               json.dump(evidence, output, indent=2)
           PY
-      - name: Ubuntu container packaging and benchmark smoke
+      - name: Shared/static verification and benchmark smoke
+        if: needs.targets.outputs.full == 'true'
         env:
           CI_QT_VERSION: ${{ matrix.qt }}
         run: python3 scripts/run-ci.py --qt "$CI_QT_VERSION" --artifact-dir "$RUNNER_TEMP/qmarkdown-ci"
@@ -97,7 +107,29 @@ jobs:
             ${{ runner.temp }}/qmarkdown-ci/packaging/**/commonmark-report.json
             ${{ runner.temp }}/qmarkdown-ci/packaging/**/CMakeConfigureLog.yaml
             ${{ runner.temp }}/qmarkdown-ci/benchmarks/benchmark.json
-            ${{ runner.temp }}/qmarkdown-ci/release-package/build/Testing/Temporary/*.log
-            ${{ runner.temp }}/qmarkdown-ci/release-verification/**/CMakeConfigureLog.yaml
-            ${{ runner.temp }}/qmarkdown-ci/release-real/**/CMakeConfigureLog.yaml
           retention-days: 14
+  release-gate:
+    needs: [targets, packaging]
+    if: needs.targets.outputs.full == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Record tested release inputs
+        env:
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          python3 - <<'PYCODE'
+          import json, os, re, subprocess
+          from pathlib import Path
+          gate = {'full': True, 'pr': int(os.environ['PR_NUMBER']), 'head': os.environ['PR_HEAD'],
+                  'tree': subprocess.check_output(['git', 'rev-parse', 'HEAD^{tree}'], text=True).strip(),
+                  'qt': json.loads(Path('scripts/ci-toolchain/qt-versions.json').read_text()),
+                  'version': re.search(r'project\(QMarkdown VERSION (\d+\.\d+\.\d+)', Path('CMakeLists.txt').read_text())[1]}
+          Path('gate.json').write_text(json.dumps(gate) + '\n')
+          PYCODE
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: release-gate
+          path: gate.json
+          retention-days: 90

@@ -34,6 +34,10 @@ add_test(NAME qmarkdown-arch-recipe
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_arch_package.py")
 add_test(NAME qmarkdown-release-upload
     COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_release_upload.py")
+add_test(NAME qmarkdown-release-publish
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_release_publish.py")
+add_test(NAME qmarkdown-release-delivery
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/test_release_delivery.py")
 qt_add_executable(qmarkdown-commonmark-probe commonmark/probe.cpp
     ../src/QMarkdown/private/document.cpp ../src/QMarkdown/private/inline.cpp
     $<TARGET_OBJECTS:qmarkdown_cmark>)

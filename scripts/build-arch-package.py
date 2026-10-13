@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import tarfile
 
 SOURCE = Path(__file__).resolve().parents[1]
 
@@ -30,14 +31,19 @@ def recipe(template, version, pkgrel, qt, checksum):
 
 def run(command, log):
     with log.open('w') as output:
-        result = subprocess.run(command, stdout=output, stderr=subprocess.STDOUT)
-    if result.returncode:
-        raise RuntimeError(f'Command failed ({result.returncode}); see {log}')
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        for line in process.stdout:
+            output.write(line)
+            output.flush()
+            print(line, end='', flush=True)
+        status = process.wait()
+    if status:
+        raise RuntimeError(f'Command failed ({status}); see {log}')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source-commit', default='HEAD')
+    parser.add_argument('--source-archive', type=Path, required=True)
     parser.add_argument('--pkgrel', default='1')
     parser.add_argument('--work-dir', type=Path, required=True)
     args = parser.parse_args()
@@ -45,28 +51,39 @@ def main():
     work.mkdir(parents=True, exist_ok=True)
     if any(work.iterdir()):
         parser.error('--work-dir must be empty')
-    commit = subprocess.check_output(['git', 'rev-parse', '--verify', args.source_commit + '^{commit}'], cwd=SOURCE, text=True).strip()
-    cmake = subprocess.check_output(['git', 'show', f'{commit}:CMakeLists.txt'], cwd=SOURCE, text=True)
+    source_archive = args.source_archive.resolve()
+    with tarfile.open(source_archive) as source:
+        roots = {Path(member.name).parts[0] for member in source.getmembers()}
+        if len(roots) != 1:
+            parser.error('Expected one source root')
+        source_root = roots.pop()
+        cmake = source.extractfile(source_root + '/CMakeLists.txt').read().decode()
     version = version_from_cmake(cmake)
-    # Validate all substituted values before provisioning.
+    if source_archive.name != f'qmarkdown-{version}.tar.gz' or source_root != f'qmarkdown-{version}':
+        parser.error('Source archive identity must match CMake version')
     recipe('', version, args.pkgrel, '6.8.0', '0' * 64)
-    archive = work / 'qmarkdown-source.tar.gz'
-    subprocess.run(['git', 'archive', '--format=tar.gz', '--prefix=qmarkdown/', '-o', str(archive), commit], cwd=SOURCE, check=True)
+    archive = work / source_archive.name
+    shutil.copy2(source_archive, archive)
     digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+    checksum = source_archive.with_name(source_archive.name + '.sha256')
+    if checksum.read_text() != digest + '  ' + source_archive.name + '\n':
+        parser.error('Source checksum mismatch')
+    # Installed-consumer tooling is development input, never part of the distribution.
     tooling = work / 'tooling'
     tooling.mkdir()
     for name in ('PKGBUILD.in', 'container.sh', 'verify.py'):
         shutil.copy2(Path(__file__).resolve().parent / 'arch' / name, tooling / name)
     shutil.copy2(Path(__file__).resolve(), tooling / 'build-arch-package.py')
+    shutil.copytree(SOURCE / 'tests/installed-consumer', tooling / 'installed-consumer')
     cache = work / 'pacman-cache'
     cache.mkdir()
     run(['docker', 'pull', '--platform', 'linux/amd64', 'archlinux:base'], work / 'image-pull.log')
     identity = json.loads(subprocess.check_output(['docker', 'image', 'inspect', 'archlinux:base']))[0]
-    (work / 'environment.json').write_text(json.dumps({'sourceCommit': commit, 'version': version,
+    (work / 'environment.json').write_text(json.dumps({'version': version,
         'pkgrel': args.pkgrel, 'sourceSha256': digest, 'imageId': identity['Id'],
         'repoDigests': identity['RepoDigests'], 'architecture': identity['Architecture'],
-        'toolingSha256': {path.name: hashlib.sha256(path.read_bytes()).hexdigest()
-                         for path in sorted(tooling.iterdir())}}, indent=2) + '\n')
+        'toolingSha256': {path.relative_to(tooling).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+                         for path in sorted(tooling.rglob('*')) if path.is_file()}}, indent=2) + '\n')
     for mode in ('build', 'verify'):
         print(f'Arch {mode}: evidence in {work / (mode + ".log")}', flush=True)
         run(['docker', 'run', '--rm', '--platform', 'linux/amd64',

@@ -8,6 +8,6 @@ Inline code now reserves **4/2 logical pixels of horizontal/vertical padding in 
 
 Historical QML 1.0–1.5 imports and compatible CMake 1.0–1.6 requests remain supported. EXACT 1.6.0 selects this package; exact historical versions require their historical packages. Future 1.7/2.0 requests are rejected. Supported scope remains Linux x86_64, Qt >=6.8, C++17 and CMake >=3.21.
 
-Release assets are the Ubuntu 24.04 x86_64 archive built with Qt 6.8.0 and the Arch `1.6.0-1` package, each with a SHA-256 file. Follow the [installation instructions](release-install.md). Compact release evidence links the exact commit, workflow verification and independently downloaded-package acceptance. Local candidate archives are not final release artifacts.
+Release assets are the Ubuntu 24.04 x86_64 archive built with Qt 6.8.0 and the Arch `1.6.0-1` package, each with a SHA-256 file. Follow the [installation instructions](release-install.md). These historical assets remain unchanged. Future releases use library-only source and Arch archives with SHA-256 companions.
 
 Offscreen checks cover normal/fractional application scale and font changes. A physical live display/DPI switch remains untested in the headless verification environment. See [feature verification](../specs/038-gfm-completion-inline-code-padding/verification.md) for local results and limitations.

@@ -4,9 +4,9 @@ project(QMarkdown VERSION 1.6.0 LANGUAGES C CXX)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-option(QMARKDOWN_BUILD_EXAMPLES "Build examples" ${PROJECT_IS_TOP_LEVEL})
+option(QMARKDOWN_BUILD_EXAMPLES "Build examples" OFF)
 option(QMARKDOWN_BUILD_BENCHMARKS "Build standalone advisory benchmarks (requires tests)" OFF)
-option(BUILD_TESTING "Build tests" ${PROJECT_IS_TOP_LEVEL})
+option(BUILD_TESTING "Build tests" OFF)
 set(QMARKDOWN_QML_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt6/qml" CACHE STRING
     "QML import directory, relative to the installation prefix or absolute")
 

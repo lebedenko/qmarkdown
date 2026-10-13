@@ -1,64 +1,45 @@
 # Arch Linux release package
 
-The planned v1.5.0 release will provide `qmarkdown-1.5.0-1-x86_64.pkg.tar.zst` and a
-SHA-256 companion after Ubuntu and Arch verification succeeds. The existing
-v1.1.0 release assets are unchanged. Arch packages use the distribution's Qt 6
-runtime; pacman enforces Qt lower bounds matching the package's build version.
-Qt is not bundled. The viewer is not packaged.
+The released [QMarkdown 1.6.0](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0)
+provides `qmarkdown-1.6.0-1-x86_64.pkg.tar.zst` with a SHA-256 companion.
+Pacman enforces Qt lower bounds matching the package's build version. Qt and
+the development viewer are not bundled.
 
-Download the [package](https://github.com/lebedenko/qmarkdown/releases/download/v1.5.0/qmarkdown-1.5.0-1-x86_64.pkg.tar.zst) and [checksum](https://github.com/lebedenko/qmarkdown/releases/download/v1.5.0/qmarkdown-1.5.0-1-x86_64.pkg.tar.zst.sha256), and verify before installation:
+Download the package and checksum from the release, then verify and install:
 
 ```sh
-sha256sum -c qmarkdown-1.5.0-1-x86_64.pkg.tar.zst.sha256
-sudo pacman -U ./qmarkdown-1.5.0-1-x86_64.pkg.tar.zst
+sha256sum -c qmarkdown-1.6.0-1-x86_64.pkg.tar.zst.sha256
+sudo pacman -U ./qmarkdown-1.6.0-1-x86_64.pkg.tar.zst
 pacman -Qi qmarkdown
 pacman -Qo /usr/lib/libQMarkdown.so
 ```
 
-Pacman owns
-the shared library, QML plugin/metadata, CMake configuration and licenses, and
-tracks runtime dependencies. The system locations are `/usr/lib`,
+Pacman owns the shared library, QML plugin/metadata, CMake configuration and
+licenses, and tracks runtime dependencies. Locations are `/usr/lib`,
 `/usr/lib/qt6/qml/QMarkdown`, `/usr/lib/cmake/QMarkdown` and
-`/usr/share/licenses/qmarkdown`. Arch's Qt discovers these paths normally;
-no custom library or QML search path is required. Development consumers need
-CMake and a C++17 compiler. Existing public CMake and QML versions are unchanged.
+`/usr/share/licenses/qmarkdown`. Arch's Qt discovers these paths normally.
+Development consumers need CMake and a C++17 compiler. Use
+`find_package(QMarkdown 1.6 CONFIG REQUIRED)` and `import QMarkdown 1.6`.
+Install a later package with `pacman -U`; remove with `sudo pacman -R qmarkdown`.
 
-Install a later package using the same `pacman -U` command. Remove it with:
+## Local distribution building
 
-```sh
-sudo pacman -R qmarkdown
-```
-
-See the [pacman manual](https://man.archlinux.org/man/pacman.8.en) for package
-inspection and lifecycle commands. Do not overlay the Ubuntu custom installer
-on pacman-owned files.
-
-## Local building
-
-From a source checkout, with Python 3, Git, Docker and access to its daemon:
+From a development checkout with Python 3, Docker and daemon access:
 
 ```sh
-python3 scripts/build-arch-package.py --source-commit HEAD --work-dir /tmp/qmarkdown-arch-build
+python3 scripts/build-source-archive.py --source-commit HEAD --work-dir /tmp/qmarkdown-source
+python3 scripts/build-arch-package.py --source-archive /tmp/qmarkdown-source/qmarkdown-1.6.0.tar.gz --work-dir /tmp/qmarkdown-arch
 ```
 
-Choose a new or empty output directory. The runner archives the selected commit,
-not working-tree edits; packaging tools are snapshotted from the current checkout at run start. `--pkgrel`
-defaults to `1` and accepts a positive integer. Containers are disposable x86_64
-Arch environments with fully updated repositories. makepkg runs as an
-unprivileged account and validates the source checksum. The PKGBUILD uses
-[makepkg's package/check lifecycle](https://man.archlinux.org/man/makepkg.8.en)
-and disables a separate debug package.
+Use new output directories and substitute the version being built. The source
+archive is library-only and comes from the selected commit's explicit allowlist.
+The Arch runner consumes those exact source bytes and their checksum. Packaging
+and installed-consumer tooling comes from the development checkout.
 
-The output contains the verified package/checksum, source archive and checksum
-identity, rendered PKGBUILD, source commit, immutable container identity,
-installed package versions and verification logs. CTest, QML lint, parser symbol
-privacy, namcap, actual pacman ownership/integrity, installed consumers and a
-temporary higher-pkgrel upgrade/removal are release gates. The upgrade artifact
-stays inside the verification container. No packages are installed on the host.
-Manual release-workflow runs perform these checks without publication.
-
-Current rolling repositories are intentional. Recorded environment evidence
-does not promise identical bytes from a later rebuild. No AUR publishing,
-package repository hosting or signing infrastructure is included.
-
-The 1.5.0 release is pending publication and downloaded-asset acceptance; see [iteration 037](../specs/037-gfm-extended-autolinks/verification.md).
+Disposable x86_64 Arch containers update rolling repositories. makepkg runs
+unprivileged, builds and installs the library without rerunning the full test
+suite. Focused checks cover metadata, dependencies, payload, namcap, root/pacman
+ownership, integrity, linked/plugin-only consumers and removal once. Logs remain
+in the output directory and Actions; only package/checksum files are published.
+Recorded container identity does not promise reproducible rolling-Arch binaries.
+No AUR submission, repository hosting or signing infrastructure is included.

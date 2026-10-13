@@ -5,6 +5,7 @@ import argparse
 import json
 from pathlib import Path
 import re
+import subprocess
 
 CONFIG = Path(__file__).with_name("qt-versions.json")
 ROLES = ("minimum", "development")
@@ -23,16 +24,32 @@ def load_versions(path=CONFIG):
     return values
 
 
+def sync_host(qmake, path=CONFIG):
+    values = load_versions(path)
+    version = subprocess.check_output([qmake, '-query', 'QT_VERSION'], text=True).strip()
+    values['development'] = version
+    # Validate before changing the committed configuration.
+    if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', version):
+        raise ValueError('Selected qmake did not return an exact Qt version')
+    if tuple(map(int, version.split('.'))) <= tuple(map(int, values['minimum'].split('.'))):
+        raise ValueError('Host Qt must be newer than minimum Qt')
+    Path(path).write_text(json.dumps(values, indent=2) + '\n')
+    return version
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     selection = parser.add_mutually_exclusive_group(required=True)
     selection.add_argument("--role", choices=ROLES)
+    selection.add_argument("--sync-host", metavar="QMAKE", help="Update development from selected host qmake")
     selection.add_argument("--validate-version")
     selection.add_argument("--matrix", action="store_true")
     args = parser.parse_args()
     try:
         versions = load_versions()
-        if args.role:
+        if args.sync_host:
+            print(sync_host(args.sync_host))
+        elif args.role:
             print(versions[args.role])
         elif args.matrix:
             print(json.dumps({"include": [{"role": role, "qt": versions[role]} for role in ROLES]}))

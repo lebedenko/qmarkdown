@@ -1,13 +1,13 @@
 # Changelog
 
-## 1.6.0 — release preparation
+## 1.6.0 — 2026-10-13
 
 - Add independent default-off tables and tag-filter controls plus aggregate GFM enablement that preserves individual values.
 - Render equal-width native tables with wrapping, alignment, bold headers, formatted links/code/strikethrough and resource-controlled images inside lists and quotes.
 - Add grouped table surfaces, borders and padding with inherited foreground, transparent defaults and 4/2 logical-pixel padding in every preset.
 - Retain private filtered HTML semantics while preserving visible raw spelling; keep CommonMark 0.31.2 core and bounded extension claims.
 - Reserve layout-aware inline-code padding with 4/2 defaults in every preset, fragment backgrounds and source-mapped linked padding; zero metrics restore previous spacing.
-- Extend package/module compatibility and installed consumers to 1.6.0/1.6. Release delivery and publication are authorized; exact-commit gates remain pending.
+- Extend package/module compatibility and installed consumers to 1.6.0/1.6. Released on 2026-10-13.
 
 ## 1.5.0 — 2026-10-13
 

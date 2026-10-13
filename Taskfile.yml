@@ -1,6 +1,12 @@
 version: '3'
 
 tasks:
+  sync-qt:
+    desc: Synchronize development Qt with the selected host qmake before PR verification
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - python3 scripts/ci-toolchain/qt_versions.py --sync-host "{{.QMAKE | default "qmake6"}}"
+
   ci-minimum:
     desc: Run verification with the configured minimum Qt SDK
     dir: '{{.TASKFILE_DIR}}'

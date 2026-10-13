@@ -38,6 +38,7 @@ for variant in ("shared", "static"):
     relocated = work / f"relocated-{variant}"
     qml_dir = "lib/qt6/qml" if variant == "shared" else "share/qml"
     run("cmake", "-S", source, "-B", build,
+        "-DBUILD_TESTING=ON", "-DQMARKDOWN_BUILD_EXAMPLES=ON",
         f"-DBUILD_SHARED_LIBS={'ON' if variant == 'shared' else 'OFF'}",
         "-DCMAKE_INSTALL_LIBDIR=lib", f"-DCMAKE_INSTALL_PREFIX={prefix}",
         f"-DQMARKDOWN_QML_INSTALL_DIR={qml_dir}", *qt_args)
