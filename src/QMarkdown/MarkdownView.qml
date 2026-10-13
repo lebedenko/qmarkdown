@@ -13,6 +13,9 @@ Item {
     property alias markdown: viewState.markdown
     property alias extendedAutolinksEnabled: viewState.extendedAutolinksEnabled
     property alias strikethroughEnabled: viewState.strikethroughEnabled
+    property alias tablesEnabled: viewState.tablesEnabled
+    property alias tagFilterEnabled: viewState.tagFilterEnabled
+    property alias gfmEnabled: viewState.gfmEnabled
     property alias taskListsEnabled: viewState.taskListsEnabled
     property alias style: viewState.style
     readonly property real contentHeight: width > 0 ? blocks.height : 0
@@ -111,6 +114,9 @@ Item {
         property var model: null
         property bool suppressHeadingSeparators: false
         property var style: viewState.style
+        property font bodyFont: style.bodyFont
+        property color bodyColor: style.bodyColor
+        property int textAlignment: Qt.AlignLeft
         property real gap: Number.isFinite(style.blockSpacing) ? Math.max(0, style.blockSpacing) : 8
 
         spacing: gap
@@ -118,6 +124,79 @@ Item {
             model: sequence.width > 0 ? sequence.model : null
             delegate: DelegateChooser {
                 role: "renderKind"
+                DelegateChoice {
+                    roleValue: 10
+                    delegate: Column {
+                        id: table
+                        objectName: "markdownTable"
+                        required property var childBlocks
+                        width: sequence.width
+                        spacing: 0
+                        Repeater {
+                            model: table.childBlocks
+                            delegate: Item {
+                                id: tableRow
+                                objectName: "tableRow"
+                                required property int index
+                                required property var childBlocks
+                                readonly property bool header: index === 0
+                                width: table.width
+                                height: {
+                                    let tallest = 0
+                                    for (let i = 0; i < cells.count; ++i) {
+                                        const cell = cells.itemAt(i)
+                                        if (cell) tallest = Math.max(tallest, cell.implicitHeight)
+                                    }
+                                    return tallest
+                                }
+                                Repeater {
+                                    id: cells
+                                    model: tableRow.childBlocks
+                                    delegate: Rectangle {
+                                        id: tableCell
+                                        objectName: "tableCell"
+                                        required property int index
+                                        required property var childBlocks
+                                        required property int tableAlignment
+                                        width: cells.count > 0 ? tableRow.width / cells.count : 0
+                                        x: index * width
+                                        height: tableRow.height
+                                        readonly property font cellFont: tableRow.header ? viewState.boldFont(sequence.style.bodyFont) : sequence.style.bodyFont
+                                        readonly property real edge: Math.min(root.metric(sequence.style.table.borderWidth), width / 2)
+                                        readonly property real padX: Math.min(root.metric(sequence.style.table.horizontalPadding), Math.max(0, (width - 1 - 2 * edge) / 2))
+                                        readonly property real padY: root.metric(sequence.style.table.verticalPadding)
+                                        implicitHeight: Math.max(cellMetrics.height, cellContents.item ? (cellContents.item as Item).height : 0) + 2 * (padY + edge)
+                                        color: tableRow.header ? sequence.style.table.headerBackground : sequence.style.table.bodyBackground
+                                        border.color: sequence.style.table.borderColor
+                                        border.width: edge
+                                        FontMetrics { id: cellMetrics; font: tableCell.cellFont }
+                                        Loader {
+                                            id: cellContents
+                                            x: tableCell.edge + tableCell.padX
+                                            y: tableCell.edge + tableCell.padY
+                                            width: Math.max(0, tableCell.width - 2 * x)
+                                            sourceComponent: sequenceComponent
+                                            onLoaded: {
+                                                const loaded = item as BlockSequence
+                                                loaded.model = Qt.binding(function() { return tableCell.childBlocks })
+                                                loaded.style = Qt.binding(function() { return sequence.style })
+                                                loaded.bodyFont = Qt.binding(function() { return tableCell.cellFont })
+                                                loaded.bodyColor = Qt.binding(function() {
+                                                    return tableRow.header ? sequence.style.table.headerForeground : sequence.style.bodyColor
+                                                })
+                                                loaded.textAlignment = Qt.binding(function() {
+                                                    return tableCell.tableAlignment === 2 ? Qt.AlignHCenter
+                                                        : tableCell.tableAlignment === 3 ? Qt.AlignRight : Qt.AlignLeft
+                                                })
+                                                loaded.gap = 0
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 DelegateChoice {
                     roleValue: 9
                     delegate: Item {
@@ -135,6 +214,9 @@ Item {
                                 loaded.model = Qt.binding(function() { return segments.childBlocks })
                                 loaded.style = Qt.binding(function() { return sequence.style })
                                 loaded.gap = Qt.binding(function() { return sequence.gap })
+                                loaded.bodyFont = Qt.binding(function() { return sequence.bodyFont })
+                                loaded.bodyColor = Qt.binding(function() { return sequence.bodyColor })
+                                loaded.textAlignment = Qt.binding(function() { return sequence.textAlignment })
                                 loaded.suppressHeadingSeparators = true
                             }
                         }
@@ -162,6 +244,8 @@ Item {
                             image: imageRow.imageData
                             width: Math.min(imageRow.width, imagePaint.naturalWidth)
                             height: implicitHeight
+                            x: sequence.textAlignment === Qt.AlignRight ? imageRow.width - width
+                                : sequence.textAlignment === Qt.AlignHCenter ? (imageRow.width - width) / 2 : 0
                             HoverHandler { cursorShape: imageRow.imageLinked ? Qt.PointingHandCursor : Qt.ArrowCursor }
                             TapHandler {
                                 acceptedButtons: Qt.LeftButton
@@ -363,7 +447,7 @@ Item {
                             text: codeSurface.blockText.endsWith("\n") ? codeSurface.blockText.slice(0, -1) : codeSurface.blockText
                             textFormat: Text.PlainText
                             wrapMode: Text.Wrap
-                            horizontalAlignment: Text.AlignLeft
+                            horizontalAlignment: sequence.textAlignment
                             elide: Text.ElideNone
                             font: sequence.style.codeBlockFont
                             color: sequence.style.codeBlockColor
@@ -382,20 +466,20 @@ Item {
                         text: blockText
                         textFormat: Text.PlainText
                         wrapMode: Text.Wrap
-                        horizontalAlignment: Text.AlignLeft
+                        horizontalAlignment: sequence.textAlignment
                         elide: Text.ElideNone
                         font: headingLevel === 1 ? sequence.style.h1Font
                             : headingLevel === 2 ? sequence.style.h2Font
                             : headingLevel === 3 ? sequence.style.h3Font
                             : headingLevel === 4 ? sequence.style.h4Font
                             : headingLevel === 5 ? sequence.style.h5Font
-                            : headingLevel === 6 ? sequence.style.h6Font : sequence.style.bodyFont
+                            : headingLevel === 6 ? sequence.style.h6Font : sequence.bodyFont
                         color: headingLevel === 1 ? sequence.style.h1Color
                             : headingLevel === 2 ? sequence.style.h2Color
                             : headingLevel === 3 ? sequence.style.h3Color
                             : headingLevel === 4 ? sequence.style.h4Color
                             : headingLevel === 5 ? sequence.style.h5Color
-                            : headingLevel === 6 ? sequence.style.h6Color : sequence.style.bodyColor
+                            : headingLevel === 6 ? sequence.style.h6Color : sequence.bodyColor
                         readonly property real textHeight: blockText.length === 0 && headingLevel > 0 ? metrics.height : implicitHeight
                         height: textHeight + plainRule.decorationSpacing + plainRule.height
                         HeadingSeparator {
@@ -415,6 +499,7 @@ Item {
                         required property string blockText
                         required property int headingLevel
                         required property var linkSpans
+                        required property var codeSpans
                         required property var formatRanges
                         width: sequence.width
                         height: painted.logicalHeight + formattedRule.decorationSpacing + formattedRule.height
@@ -427,8 +512,10 @@ Item {
                         }
                         FormattedText {
                             id: painted
+                            horizontalAlignment: sequence.textAlignment
                             text: formattedBlock.blockText
                             formatRanges: formattedBlock.formatRanges
+                            codeSpans: formattedBlock.codeSpans
                             linkSpans: formattedBlock.linkSpans
                             linkColor: sequence.style.linkColor
                             linkUnderline: sequence.style.linkUnderline
@@ -467,18 +554,20 @@ Item {
                             codeForeground: sequence.style.inlineCode.foreground
                             codeBackground: sequence.style.inlineCode.backgroundColor
                             codeCornerRadius: sequence.style.inlineCode.cornerRadius
+                            codeHorizontalPadding: sequence.style.inlineCode.horizontalPadding
+                            codeVerticalPadding: sequence.style.inlineCode.verticalPadding
                             font: formattedBlock.headingLevel === 1 ? sequence.style.h1Font
                                 : formattedBlock.headingLevel === 2 ? sequence.style.h2Font
                                 : formattedBlock.headingLevel === 3 ? sequence.style.h3Font
                                 : formattedBlock.headingLevel === 4 ? sequence.style.h4Font
                                 : formattedBlock.headingLevel === 5 ? sequence.style.h5Font
-                                : formattedBlock.headingLevel === 6 ? sequence.style.h6Font : sequence.style.bodyFont
+                                : formattedBlock.headingLevel === 6 ? sequence.style.h6Font : sequence.bodyFont
                             color: formattedBlock.headingLevel === 1 ? sequence.style.h1Color
                                 : formattedBlock.headingLevel === 2 ? sequence.style.h2Color
                                 : formattedBlock.headingLevel === 3 ? sequence.style.h3Color
                                 : formattedBlock.headingLevel === 4 ? sequence.style.h4Color
                                 : formattedBlock.headingLevel === 5 ? sequence.style.h5Color
-                                : formattedBlock.headingLevel === 6 ? sequence.style.h6Color : sequence.style.bodyColor
+                                : formattedBlock.headingLevel === 6 ? sequence.style.h6Color : sequence.bodyColor
                         }
                     }
                 }

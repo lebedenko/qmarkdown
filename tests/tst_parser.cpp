@@ -10,6 +10,129 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void semanticCodeSpanIdentity()
+    {
+        const auto content=parseInline(QString::fromUtf8("`f`**`i`** [אבג `🙂`](target)"));
+        QCOMPARE(content.text,QString::fromUtf8("fi אבג 🙂"));
+        QCOMPARE(content.codes.size(),3);
+        QCOMPARE(content.codes[0].start,0); QCOMPARE(content.codes[0].length,1);
+        QCOMPARE(content.codes[1].start,1); QCOMPARE(content.codes[1].length,1);
+        QCOMPARE(content.codes[2].start,7); QCOMPARE(content.codes[2].length,2);
+        QCOMPARE(content.links[0].start,3); QCOMPARE(content.links[0].length,6);
+        const auto block=parse("`one` *`two`*")[0]; QCOMPARE(block.codes.size(),2);
+    }
+
+    void allExtensionCombinations()
+    {
+        const QString source="- [x] task\n\n| ~~www.a.b~~ | <script> |\n| :- | -: |\n| `code` | ![image](pic) |\n\ntext <STYLE>";
+        for(int mask=0;mask<32;++mask) {
+            const auto blocks=parse(source,ParseOptions{bool(mask&1),bool(mask&2),bool(mask&4),bool(mask&8),bool(mask&16)});
+            QCOMPARE(blocks[0].children[0].taskState,(mask&1)?TaskState::Checked:TaskState::Ordinary);
+            if(mask&8) {
+                const auto &cells=blocks[1].children[0].children; QCOMPARE(blocks[1].kind,BlockKind::Table);
+                QCOMPARE(!cells[0].ranges.isEmpty(),bool(mask&2)); QCOMPARE(!cells[0].links.isEmpty(),bool(mask&4));
+                QCOMPARE(cells[1].inlines[0].literal,"<script>");
+                QCOMPARE(cells[1].inlines[0].filteredHtml,(mask&16)?QString("&lt;script>"):QString("<script>"));
+                QCOMPARE(blocks[1].children[1].children[1].images[0].destination,"pic");
+            } else QVERIFY(blocks[1].kind!=BlockKind::Table);
+            const auto &html=blocks.last().inlines.last(); QCOMPARE(html.literal,"<STYLE>");
+            QCOMPARE(html.filteredHtml,(mask&16)?QString("&lt;STYLE>"):QString("<STYLE>"));
+        }
+    }
+    void officialTables()
+    {
+        QFile file(QStringLiteral(QMARKDOWN_TABLE_FIXTURE)); QVERIFY(file.open(QIODevice::ReadOnly));
+        const auto examples = QJsonDocument::fromJson(file.readAll()).array(); QCOMPARE(examples.size(), 8);
+        for (const auto &value : examples) {
+            const auto example = value.toObject(); const auto source = example["markdown"].toString();
+            const auto rows = example["rows"].toArray();
+            const auto blocks = parse(source, ParseOptions{false, false, false, true});
+            QVERIFY2(!blocks.isEmpty(), qPrintable(QString::number(example["example"].toInt())));
+            if (rows.isEmpty()) {
+                QCOMPARE(blocks[0].kind, BlockKind::Paragraph);
+                QCOMPARE(blocks[0].text, "| abc | def | | --- | | bar |");
+                continue;
+            }
+            QCOMPARE(blocks[0].kind, BlockKind::Table); QCOMPARE(blocks[0].children.size(), rows.size());
+            const auto alignment = example["alignment"].toArray();
+            for (int row = 0; row < rows.size(); ++row) {
+                const auto &actual = blocks[0].children[row]; QCOMPARE(actual.kind, BlockKind::TableRow);
+                const auto cells = rows[row].toArray(); QCOMPARE(actual.children.size(), cells.size());
+                for (int cell = 0; cell < cells.size(); ++cell) {
+                    QCOMPARE(actual.children[cell].kind, BlockKind::TableCell);
+                    QCOMPARE(actual.children[cell].text, cells[cell].toString());
+                    QCOMPARE(actual.children[cell].tableAlignment, alignment[cell].toInt());
+                }
+            }
+            if (example["example"].toInt() == 200) {
+                const auto &body = blocks[0].children;
+                QCOMPARE(body[1].children[0].ranges[0].flags, int(Code));
+                QCOMPARE(body[1].children[0].ranges[0].start, 2);
+                QCOMPARE(body[1].children[0].inlines[1].literal, "|");
+                QCOMPARE(body[2].children[0].ranges[0].flags, int(Strong));
+            }
+            const auto following = example["following"].toArray(); QCOMPARE(blocks.size(), following.size() + 1);
+            if (!following.isEmpty()) {
+                QCOMPARE(blocks[1].kind, following[0].toString() == "Quote" ? BlockKind::Quote : BlockKind::Paragraph);
+                QCOMPARE(blocks[1].kind == BlockKind::Quote ? blocks[1].children[0].text : blocks[1].text, "bar");
+            }
+            QVERIFY(parse(source)[0].kind != BlockKind::Table);
+        }
+    }
+    void tableContainersAndInlineSemantics()
+    {
+        const auto options = ParseOptions{true, true, true, true, true};
+        const auto table = parse("> - | [**link**](host:target) | `a\\|b` |\n>   | :- | -: |\n>   | ~~www.a.b~~ | ![alt](pic.png) |\n", options)[0].children[0].children[0].children[0];
+        QCOMPARE(table.kind, BlockKind::Table);
+        const auto &header = table.children[0].children;
+        QCOMPARE(header[0].links[0].destination, "host:target"); QCOMPARE(header[0].ranges[0].flags, int(Strong));
+        QCOMPARE(header[1].text, "a|b"); QCOMPARE(header[1].inlines[0].kind, InlineKind::Code);
+        const auto &body = table.children[1].children;
+        QCOMPARE(body[0].links[0].destination, "http://www.a.b");
+        QCOMPARE(body[0].ranges[0].flags, int(Strikethrough));
+        QCOMPARE(body[1].images[0].destination, "pic.png");
+        QCOMPARE(body[1].inlines[0].kind, InlineKind::Image);
+        const auto preceding = parse("ordinary\n| a |\n| - |\nbody\n", options);
+        QCOMPARE(preceding.size(), 2); QCOMPARE(preceding[0].text, "ordinary"); QCOMPARE(preceding[1].kind, BlockKind::Table);
+        QCOMPARE(preceding[1].children[1].children[0].text, "body");
+        for (const auto &delimiter : {QString("| : |"), QString("| - x |"), QString("| --:x |"), QString("| - | - |")})
+            QVERIFY(parse("| a |\n" + delimiter, options)[0].kind != BlockKind::Table);
+        QCOMPARE(parse("heading\n---", options)[0].kind, BlockKind::Heading);
+        QCOMPARE(parse("| a |\n-", options)[0].kind, BlockKind::Table);
+        const auto empty = parse("||\n|-|\n||", options)[0]; QCOMPARE(empty.children[0].children[0].text, "");
+        for (const auto &ending : {QString("\n# heading"), QString("\n```\ncode\n```"), QString("\n- item"), QString("\n\ntext")}) {
+            const auto blocks = parse("| a |\n| - |" + ending, options);
+            QCOMPARE(blocks.size(), 2); QCOMPARE(blocks[0].children.size(), 1);
+        }
+        const auto escaped = parse("| a | b |\n| - | - |\n| x\\\\|y |", options)[0].children[1].children;
+        QCOMPARE(escaped[0].text, "x\\"); QCOMPARE(escaped[1].text, "y");
+    }
+    void officialTagFilter()
+    {
+        QFile file(QStringLiteral(QMARKDOWN_TAG_FILTER_FIXTURE)); QVERIFY(file.open(QIODevice::ReadOnly));
+        const auto examples = QJsonDocument::fromJson(file.readAll()).array(); QCOMPARE(examples.size(), 1);
+        const auto example = examples[0].toObject();
+        const auto blocks = parse(example["markdown"].toString(), ParseOptions{false, false, false, false, true});
+        QCOMPARE(blocks.size(), 2); int html = 0;
+        for (const auto &node : blocks[0].inlines) if (node.kind == InlineKind::Html) {
+            QCOMPARE(node.literal, example["raw"].toArray()[html].toString());
+            QCOMPARE(node.filteredHtml, example["filtered"].toArray()[html].toString()); ++html;
+        }
+        QCOMPARE(html, 4); QCOMPARE(blocks[1].text, example["blockRaw"].toString());
+        QCOMPARE(blocks[1].filteredHtml, example["blockFiltered"].toString());
+        const auto disabled = parse(example["markdown"].toString());
+        QCOMPARE(disabled[1].filteredHtml, disabled[1].text);
+        QCOMPARE(disabled[0].text, blocks[0].text);
+        for (const auto &name : {QString("title"), QString("textarea"), QString("style"), QString("xmp"), QString("iframe"),
+                                 QString("noembed"), QString("noframes"), QString("script"), QString("plaintext")}) {
+            const auto input = "<" + name.toUpper() + " a='b'></" + name + "><" + name + "Extra>";
+            QCOMPARE(filterRawHtml(input), "&lt;" + name.toUpper() + " a='b'>&lt;/" + name + "><" + name + "Extra>");
+        }
+        QCOMPARE(filterRawHtml("<scripture> <script-x> <script1> < script> <script/foo> <script/>"),
+                 "<scripture> <script-x> <script1> < script> <script/foo> &lt;script/>");
+        const auto code = parse("`<script>`", ParseOptions{false, false, false, false, true})[0];
+        QCOMPARE(code.inlines[0].kind, InlineKind::Code); QCOMPARE(code.inlines[0].literal, "<script>");
+    }
     void extendedAutolinks_data()
     {
         QTest::addColumn<QString>("source"); QTest::addColumn<QString>("label"); QTest::addColumn<QString>("destination");

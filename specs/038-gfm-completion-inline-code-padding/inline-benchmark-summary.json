@@ -1,0 +1,190 @@
+{
+  "advisory": true,
+  "architecture": "x86_64",
+  "buildType": "Release",
+  "compiler": "GNU 16.2.1",
+  "measurements": [
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 1024,
+      "linkSpans": 0,
+      "maximumMs": 73.340613,
+      "medianMs": 72.1813225,
+      "outputIntervals": 1024,
+      "textLengthUtf16": 4096,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 1024,
+      "linkSpans": 0,
+      "maximumMs": 0.160545,
+      "medianMs": 0.157659,
+      "outputIntervals": 1024,
+      "textLengthUtf16": 4096,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 1024,
+      "linkSpans": 1024,
+      "maximumMs": 145.345838,
+      "medianMs": 144.2008835,
+      "outputIntervals": 1024,
+      "textLengthUtf16": 4096,
+      "workload": "overlapping-links"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 1024,
+      "linkSpans": 1024,
+      "maximumMs": 0.332295,
+      "medianMs": 0.30831200000000003,
+      "outputIntervals": 1024,
+      "textLengthUtf16": 4096,
+      "workload": "overlapping-links"
+    },
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 2048,
+      "linkSpans": 0,
+      "maximumMs": 292.933725,
+      "medianMs": 291.671138,
+      "outputIntervals": 2048,
+      "textLengthUtf16": 8192,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 2048,
+      "linkSpans": 0,
+      "maximumMs": 0.327893,
+      "medianMs": 0.3181045,
+      "outputIntervals": 2048,
+      "textLengthUtf16": 8192,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 2048,
+      "linkSpans": 2048,
+      "maximumMs": 581.454599,
+      "medianMs": 580.150755,
+      "outputIntervals": 2048,
+      "textLengthUtf16": 8192,
+      "workload": "overlapping-links"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 2048,
+      "linkSpans": 2048,
+      "maximumMs": 0.697684,
+      "medianMs": 0.664676,
+      "outputIntervals": 2048,
+      "textLengthUtf16": 8192,
+      "workload": "overlapping-links"
+    },
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 4096,
+      "linkSpans": 0,
+      "maximumMs": 1174.873755,
+      "medianMs": 1168.600241,
+      "outputIntervals": 4096,
+      "textLengthUtf16": 16384,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 4096,
+      "linkSpans": 0,
+      "maximumMs": 0.636154,
+      "medianMs": 0.631933,
+      "outputIntervals": 4096,
+      "textLengthUtf16": 16384,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 4096,
+      "linkSpans": 4096,
+      "maximumMs": 2326.333505,
+      "medianMs": 2319.8597505,
+      "outputIntervals": 4096,
+      "textLengthUtf16": 16384,
+      "workload": "overlapping-links"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 4096,
+      "linkSpans": 4096,
+      "maximumMs": 1.445045,
+      "medianMs": 1.3951395,
+      "outputIntervals": 4096,
+      "textLengthUtf16": 16384,
+      "workload": "overlapping-links"
+    },
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 8192,
+      "linkSpans": 0,
+      "maximumMs": 4697.870148,
+      "medianMs": 4678.582138,
+      "outputIntervals": 8192,
+      "textLengthUtf16": 32768,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 8192,
+      "linkSpans": 0,
+      "maximumMs": 1.252773,
+      "medianMs": 1.2130684999999999,
+      "outputIntervals": 8192,
+      "textLengthUtf16": 32768,
+      "workload": "format-only"
+    },
+    {
+      "algorithm": "previous",
+      "equivalent": true,
+      "formatSpans": 8192,
+      "linkSpans": 8192,
+      "maximumMs": 9362.364612,
+      "medianMs": 9349.4788255,
+      "outputIntervals": 8192,
+      "textLengthUtf16": 32768,
+      "workload": "overlapping-links"
+    },
+    {
+      "algorithm": "sweep",
+      "equivalent": true,
+      "formatSpans": 8192,
+      "linkSpans": 8192,
+      "maximumMs": 2.962255,
+      "medianMs": 2.879016,
+      "outputIntervals": 8192,
+      "textLengthUtf16": 32768,
+      "workload": "overlapping-links"
+    }
+  ],
+  "os": "Arch Linux",
+  "qt": "6.12.0",
+  "runs": 10,
+  "schema": 1,
+  "warmups": 2,
+  "sourceInputs": "source-inputs.json"
+}

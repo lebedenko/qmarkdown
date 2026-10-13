@@ -1,6 +1,7 @@
 #include "inlineadapter.h"
 #include "../../../third_party/cmark/symbols.h"
 #include <cmark.h>
+#include <QStringList>
 
 namespace QMarkdownPrivate {
 namespace {
@@ -19,7 +20,7 @@ void append(InlineContent &output, const QString &text, int flags)
         output.ranges.last().length += text.size();
     else output.ranges.append({start, int(text.size()), flags});
 }
-QVector<InlineNode> retain(cmark_node *node)
+QVector<InlineNode> retain(cmark_node *node, bool tagFilter)
 {
     QVector<InlineNode> result;
     for (; node; node = cmark_node_next(node)) {
@@ -46,7 +47,9 @@ QVector<InlineNode> retain(cmark_node *node)
         // cmark can leave an empty Text leaf after trimming line-end spaces.
         // It carries no source semantics; empty link/image containers still survive.
         if (value.kind == InlineKind::Text && value.literal.isEmpty()) continue;
-        value.children = retain(cmark_node_first_child(node));
+        if (value.kind == InlineKind::Html)
+            value.filteredHtml = tagFilter ? filterRawHtml(value.literal) : value.literal;
+        value.children = retain(cmark_node_first_child(node), tagFilter);
         result.append(std::move(value));
     }
     return result;
@@ -58,7 +61,9 @@ void project(const QVector<InlineNode> &nodes, InlineContent &output, int flags 
         switch (node.kind) {
         case InlineKind::Text:
         case InlineKind::Html: append(output, node.literal, flags); break;
-        case InlineKind::Code: append(output, node.literal, flags | Code); break;
+        case InlineKind::Code:
+            if (!node.literal.isEmpty()) output.codes.append({int(output.text.size()), int(node.literal.size())});
+            append(output, node.literal, flags | Code); break;
         case InlineKind::SoftBreak: append(output, QStringLiteral(" "), flags); break;
         case InlineKind::HardBreak: append(output, QStringLiteral("\n"), flags); break;
         case InlineKind::Emphasis: project(node.children, output, flags | Emphasis, inImage, enclosingLink, linked); break;
@@ -83,10 +88,39 @@ void project(const QVector<InlineNode> &nodes, InlineContent &output, int flags 
     }
 }
 }
-InlineContent adaptInlineNodes(cmark_node *node)
+QString filterRawHtml(const QString &literal)
+{
+    static const QStringList names{QStringLiteral("title"), QStringLiteral("textarea"),
+        QStringLiteral("style"), QStringLiteral("xmp"), QStringLiteral("iframe"),
+        QStringLiteral("noembed"), QStringLiteral("noframes"), QStringLiteral("script"),
+        QStringLiteral("plaintext")};
+    QString result;
+    result.reserve(literal.size());
+    for (qsizetype i = 0; i < literal.size(); ++i) {
+        bool disallowed = false;
+        if (literal[i] == u'<') {
+            qsizetype start = i + 1;
+            if (start < literal.size() && literal[start] == u'/') ++start;
+            qsizetype end = start;
+            while (end < literal.size() && ((literal[end] >= u'a' && literal[end] <= u'z')
+                   || (literal[end] >= u'A' && literal[end] <= u'Z'))) ++end;
+            if (end < literal.size()) {
+                const auto next = literal[end];
+                const bool selfClosing = next == u'/' && end + 1 < literal.size() && literal[end + 1] == u'>';
+                const bool boundary = next == u'>' || selfClosing || next == u' '
+                    || next == u'\t' || next == u'\n' || next == u'\r' || next == u'\f';
+                disallowed = boundary && names.contains(literal.mid(start, end - start).toLower());
+            }
+        }
+        if (disallowed) result += QStringLiteral("&lt;");
+        else result += literal[i];
+    }
+    return result;
+}
+InlineContent adaptInlineNodes(cmark_node *node, bool tagFilter)
 {
     InlineContent output;
-    output.nodes = retain(node);
+    output.nodes = retain(node, tagFilter);
     project(output.nodes, output);
     return output;
 }
@@ -104,6 +138,7 @@ InlineContent parseInline(const QString &source)
     }
     result.text.remove(0, 16);
     for (auto &range : result.ranges) range.start -= 16;
+    for (auto &code : result.codes) code.start -= 16;
     for (auto &link : result.links) link.start -= 16;
     for (auto &image : result.images) image.start -= 16;
     return result;

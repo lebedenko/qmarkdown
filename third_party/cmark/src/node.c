@@ -8,6 +8,10 @@ int cmark_node_get_task_state(cmark_node *node) {
   return node && node->type == CMARK_NODE_ITEM ? node->as.list.task_state : 0;
 }
 
+int cmark_node_get_table_alignment(cmark_node *node) {
+  return node && node->type == CMARK_NODE_QMARKDOWN_TABLE_CELL ? node->qmarkdown_table_alignment : 0;
+}
+
 static void S_node_unlink(cmark_node *node);
 
 bool cmark_node_is_block(cmark_node *node) {
@@ -75,6 +79,11 @@ static bool S_can_contain(cmark_node *node, cmark_node *child) {
   case CMARK_NODE_CUSTOM_BLOCK:
     return true;
 
+  case CMARK_NODE_QMARKDOWN_TABLE:
+    return child->type == CMARK_NODE_QMARKDOWN_TABLE_ROW;
+  case CMARK_NODE_QMARKDOWN_TABLE_ROW:
+    return child->type == CMARK_NODE_QMARKDOWN_TABLE_CELL;
+  case CMARK_NODE_QMARKDOWN_TABLE_CELL:
   case CMARK_NODE_PARAGRAPH:
   case CMARK_NODE_HEADING:
   case CMARK_NODE_EMPH:
@@ -220,6 +229,9 @@ const char *cmark_node_get_type_string(cmark_node *node) {
     return "emph";
   case CMARK_NODE_STRONG:
     return "strong";
+  case CMARK_NODE_QMARKDOWN_TABLE: return "table";
+  case CMARK_NODE_QMARKDOWN_TABLE_ROW: return "table_row";
+  case CMARK_NODE_QMARKDOWN_TABLE_CELL: return "table_cell";
   case CMARK_NODE_QMARKDOWN_STRIKETHROUGH:
     return "strikethrough";
   case CMARK_NODE_LINK:

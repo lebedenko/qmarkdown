@@ -1,0 +1,152 @@
+[
+  {
+    "example": 198,
+    "markdown": "| foo | bar |\n| --- | --- |\n| baz | bim |\n",
+    "rows": [
+      [
+        "foo",
+        "bar"
+      ],
+      [
+        "baz",
+        "bim"
+      ]
+    ],
+    "alignment": [
+      0,
+      0
+    ],
+    "following": []
+  },
+  {
+    "example": 199,
+    "markdown": "| abc | defghi |\n:-: | -----------:\nbar | baz\n",
+    "rows": [
+      [
+        "abc",
+        "defghi"
+      ],
+      [
+        "bar",
+        "baz"
+      ]
+    ],
+    "alignment": [
+      2,
+      3
+    ],
+    "following": []
+  },
+  {
+    "example": 200,
+    "markdown": "| f\\|oo  |\n| ------ |\n| b `\\|` az |\n| b **\\|** im |\n",
+    "rows": [
+      [
+        "f|oo"
+      ],
+      [
+        "b | az"
+      ],
+      [
+        "b | im"
+      ]
+    ],
+    "alignment": [
+      0
+    ],
+    "following": []
+  },
+  {
+    "example": 201,
+    "markdown": "| abc | def |\n| --- | --- |\n| bar | baz |\n> bar\n",
+    "rows": [
+      [
+        "abc",
+        "def"
+      ],
+      [
+        "bar",
+        "baz"
+      ]
+    ],
+    "alignment": [
+      0,
+      0
+    ],
+    "following": [
+      "Quote"
+    ]
+  },
+  {
+    "example": 202,
+    "markdown": "| abc | def |\n| --- | --- |\n| bar | baz |\nbar\n\nbar\n",
+    "rows": [
+      [
+        "abc",
+        "def"
+      ],
+      [
+        "bar",
+        "baz"
+      ],
+      [
+        "bar",
+        ""
+      ]
+    ],
+    "alignment": [
+      0,
+      0
+    ],
+    "following": [
+      "Paragraph"
+    ]
+  },
+  {
+    "example": 203,
+    "markdown": "| abc | def |\n| --- |\n| bar |\n",
+    "rows": [],
+    "alignment": [],
+    "following": [
+      "Paragraph"
+    ]
+  },
+  {
+    "example": 204,
+    "markdown": "| abc | def |\n| --- | --- |\n| bar |\n| bar | baz | boo |\n",
+    "rows": [
+      [
+        "abc",
+        "def"
+      ],
+      [
+        "bar",
+        ""
+      ],
+      [
+        "bar",
+        "baz"
+      ]
+    ],
+    "alignment": [
+      0,
+      0
+    ],
+    "following": []
+  },
+  {
+    "example": 205,
+    "markdown": "| abc | def |\n| --- | --- |\n",
+    "rows": [
+      [
+        "abc",
+        "def"
+      ]
+    ],
+    "alignment": [
+      0,
+      0
+    ],
+    "following": []
+  }
+]

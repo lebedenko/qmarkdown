@@ -147,6 +147,21 @@ ColumnLayout {
             onValueModified: panel.targetStyle.inlineCode.cornerRadius = value
         }
     }
+    RowLayout {
+        Label { text: "Inline padding X / Y" }
+        SpinBox {
+            objectName: "inlineHorizontalPadding"
+            from: 0; to: 100
+            value: panel.targetStyle.inlineCode.horizontalPadding
+            onValueModified: panel.targetStyle.inlineCode.horizontalPadding = value
+        }
+        SpinBox {
+            objectName: "inlineVerticalPadding"
+            from: 0; to: 100
+            value: panel.targetStyle.inlineCode.verticalPadding
+            onValueModified: panel.targetStyle.inlineCode.verticalPadding = value
+        }
+    }
     Label { text: "Host typography and colors"; font.bold: true }
     RowLayout {
         Button { text: "Neutral"; objectName: "neutralButton"; onClicked: panel.applyPreset(false) }

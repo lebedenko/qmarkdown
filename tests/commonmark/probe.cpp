@@ -25,6 +25,7 @@ QJsonArray serializeInline(const QVector<InlineNode> &nodes)
         case InlineKind::SoftBreak: value["kind"] = "SoftBreak"; break;
         case InlineKind::HardBreak: value["kind"] = "HardBreak"; break;
         case InlineKind::Emphasis: value["kind"] = "Emphasis"; break;
+        case InlineKind::Strikethrough: value["kind"] = "Strikethrough"; break;
         case InlineKind::Strong: value["kind"] = "Strong"; break;
         case InlineKind::Link: value["kind"] = "Link"; break;
         case InlineKind::Image: value["kind"] = "Image"; break;
@@ -37,6 +38,8 @@ QJsonArray serializeInline(const QVector<InlineNode> &nodes)
             value["destination"] = node.destination;
             value["title"] = node.title;
         }
+        if (node.kind == InlineKind::Html && node.filteredHtml != node.literal)
+            value["filteredLiteral"] = node.filteredHtml;
         result.append(value);
     }
     return result;
@@ -47,9 +50,11 @@ QJsonArray serialize(const QVector<Block> &blocks)
     for (const auto &block : blocks) {
         QJsonObject value;
         switch (block.kind) {
+        case BlockKind::TableCell:
         case BlockKind::Paragraph:
         case BlockKind::Heading: {
-            value["kind"] = block.kind == BlockKind::Heading ? "Heading" : "Paragraph";
+            value["kind"] = block.kind == BlockKind::TableCell ? "TableCell" : block.kind == BlockKind::Heading ? "Heading" : "Paragraph";
+            if (block.kind == BlockKind::TableCell) value["alignment"] = block.tableAlignment;
             value["text"] = block.text;
             value["inlines"] = serializeInline(block.inlines);
             if (block.kind == BlockKind::Heading) value["level"] = block.level;
@@ -72,6 +77,7 @@ QJsonArray serialize(const QVector<Block> &blocks)
             break;
         case BlockKind::HtmlBlock:
             value = {{"kind", "HtmlBlock"}, {"text", block.text}};
+            if (block.filteredHtml != block.text) value["filteredLiteral"] = block.filteredHtml;
             break;
         case BlockKind::ThematicBreak:
             value["kind"] = "ThematicBreak";
@@ -79,6 +85,10 @@ QJsonArray serialize(const QVector<Block> &blocks)
         case BlockKind::List:
             value = {{"kind", "List"}, {"ordered", block.ordered}, {"start", block.start},
                 {"delimiter", QString(block.delimiter)}, {"tight", block.tight}, {"children", serialize(block.children)}};
+            break;
+        case BlockKind::Table:
+        case BlockKind::TableRow:
+            value = {{"kind", block.kind == BlockKind::Table ? "Table" : "TableRow"}, {"children", serialize(block.children)}};
             break;
         case BlockKind::ListItem:
         case BlockKind::Quote:
@@ -88,6 +98,8 @@ QJsonArray serialize(const QVector<Block> &blocks)
         default:
             qFatal("Unexpected resource/rendering block in parser output");
         }
+        if (block.kind == BlockKind::ListItem && block.taskState != TaskState::Ordinary)
+            value["taskState"] = int(block.taskState);
         result.append(value);
     }
     return result;
@@ -97,6 +109,8 @@ QJsonArray serialize(const QVector<Block> &blocks)
 int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
+    const bool gfmModel = app.arguments() == QStringList{app.arguments()[0], QStringLiteral("--gfm-model")};
+    if (argc > 1 && !gfmModel) return 2;
     QFile input, output;
     if (!input.open(stdin, QIODevice::ReadOnly) || !output.open(stdout, QIODevice::WriteOnly)) return 2;
     QJsonParseError error;
@@ -119,6 +133,10 @@ int main(int argc, char **argv)
         }
         seen.insert(id.toInt());
         const auto source = example["markdown"].toString();
+        if (gfmModel) {
+            results.append(QJsonObject{{"example", id}, {"model", serialize(parse(source, ParseOptions{true,true,true,true,true}))}});
+            continue;
+        }
         const auto bytes = source.toUtf8();
         std::unique_ptr<cmark_node, decltype(&cmark_node_free)> tree(
             cmark_parse_document(bytes.constData(), bytes.size(), CMARK_OPT_DEFAULT), cmark_node_free);
@@ -131,8 +149,8 @@ int main(int argc, char **argv)
         results.append(QJsonObject{{"example", id}, {"html", rendered}, {"model", serialize(parse(source))}});
     }
     const QJsonDocument response(QJsonObject{{"schema", 2}, {"qt", qVersion()},
-        {"cmark", cmark_version_string()}, {"parseOptions", "CMARK_OPT_DEFAULT"},
-        {"htmlOptions", "CMARK_OPT_UNSAFE (test serializer only)"}, {"examples", results}});
+        {"cmark", cmark_version_string()}, {"parseOptions", gfmModel ? "all five extensions (model only)" : "CMARK_OPT_DEFAULT"},
+        {"htmlOptions", gfmModel ? "none (model only)" : "CMARK_OPT_UNSAFE (test serializer only)"}, {"examples", results}});
     const auto bytes = response.toJson(QJsonDocument::Compact);
     return output.write(bytes) == bytes.size() ? 0 : 2;
 }

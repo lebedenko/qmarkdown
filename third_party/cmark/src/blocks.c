@@ -176,7 +176,8 @@ static inline bool accepts_lines(cmark_node_type block_type) {
 
 static inline bool contains_inlines(cmark_node_type block_type) {
   return (block_type == CMARK_NODE_PARAGRAPH ||
-          block_type == CMARK_NODE_HEADING);
+          block_type == CMARK_NODE_HEADING ||
+          block_type == CMARK_NODE_QMARKDOWN_TABLE_CELL);
 }
 
 static void add_line(cmark_chunk *ch, cmark_parser *parser) {
@@ -976,6 +977,7 @@ static cmark_node *check_open_blocks(cmark_parser *parser, cmark_chunk *input,
       if (!parse_html_block_prefix(parser, container))
         goto done;
       break;
+    case CMARK_NODE_QMARKDOWN_TABLE:
     case CMARK_NODE_PARAGRAPH:
       if (parser->blank)
         goto done;
@@ -1003,7 +1005,8 @@ static void open_new_blocks(cmark_parser *parser, cmark_node **container,
                             cmark_chunk *input, bool all_matched) {
   bool indented;
   cmark_list *data = NULL;
-  bool maybe_lazy = S_type(parser->current) == CMARK_NODE_PARAGRAPH;
+  bool maybe_lazy = S_type(parser->current) == CMARK_NODE_PARAGRAPH ||
+                    S_type(parser->current) == CMARK_NODE_QMARKDOWN_TABLE;
   cmark_node_type cont_type = S_type(*container);
   bufsize_t matched = 0;
   int lev = 0;
@@ -1182,6 +1185,8 @@ static void open_new_blocks(cmark_parser *parser, cmark_node **container,
   }
 }
 
+static void qmarkdown_table_body(cmark_parser *parser, cmark_node *table, cmark_chunk *input);
+
 static void add_text_to_container(cmark_parser *parser, cmark_node *container,
                                   cmark_node *last_matched_container,
                                   cmark_chunk *input) {
@@ -1272,6 +1277,8 @@ static void add_text_to_container(cmark_parser *parser, cmark_node *container,
         container = finalize(parser, container);
         assert(parser->current != NULL);
       }
+    } else if (S_type(container) == CMARK_NODE_QMARKDOWN_TABLE && !parser->blank) {
+      qmarkdown_table_body(parser, container, input);
     } else if (parser->blank) {
       // ??? do nothing
     } else if (accepts_lines(S_type(container))) {
@@ -1296,6 +1303,119 @@ static void add_text_to_container(cmark_parser *parser, cmark_node *container,
 }
 
 /* See http://spec.commonmark.org/0.24/#phase-1-block-structure */
+// QMarkdown: split table rows before ordinary inline parsing. Remove only the
+// backslash escaping a pipe, including inside code spans (GFM table semantics).
+static cmark_node *qmarkdown_table_row(cmark_mem *mem, const unsigned char *data,
+                                      bufsize_t len, bool *has_pipe) {
+  while (len && (data[len - 1] == '\n' || data[len - 1] == '\r' ||
+                 S_is_space_or_tab(data[len - 1]))) --len;
+  while (len && S_is_space_or_tab(*data)) { ++data; --len; }
+  *has_pipe = false;
+  if (len && *data == '|') { *has_pipe = true; ++data; --len; }
+  cmark_node *row = cmark_node_new_with_mem(CMARK_NODE_QMARKDOWN_TABLE_ROW, mem);
+  cmark_strbuf cell = CMARK_BUF_INIT(mem);
+  for (bufsize_t i = 0; i <= len; ++i) {
+    if (i < len && data[i] == '\\' && i + 1 < len) {
+      if (data[i + 1] == '|') { cmark_strbuf_putc(&cell, '|'); ++i; continue; }
+      // Consume pairs to preserve escape parity at a following pipe.
+      cmark_strbuf_putc(&cell, data[i]);
+      cmark_strbuf_putc(&cell, data[++i]);
+      continue;
+    }
+    if (i == len || data[i] == '|') {
+      if (i < len) *has_pipe = true;
+      cmark_strbuf_trim(&cell);
+      cmark_node *node = cmark_node_new_with_mem(CMARK_NODE_QMARKDOWN_TABLE_CELL, mem);
+      node->len = cell.size;
+      node->data = cmark_strbuf_detach(&cell);
+      cmark_node_append_child(row, node);
+      // A trailing pipe is a border, not another empty cell.
+      if (i < len && i + 1 == len) break;
+    } else cmark_strbuf_putc(&cell, data[i]);
+  }
+  cmark_strbuf_free(&cell);
+  return row;
+}
+
+static int qmarkdown_cell_count(cmark_node *row) {
+  int count = 0;
+  for (cmark_node *cell = row->first_child; cell; cell = cell->next) ++count;
+  return count;
+}
+
+static bool qmarkdown_table_start(cmark_parser *parser, cmark_node *paragraph,
+                                  cmark_chunk *input) {
+  if (!(parser->options & CMARK_OPT_QMARKDOWN_TABLES) ||
+      paragraph->type != CMARK_NODE_PARAGRAPH || parser->indent >= CODE_INDENT)
+    return false;
+  cmark_strbuf *content = &parser->content;
+  // Only the final paragraph line is the header; preceding text remains a
+  // separate paragraph and reference definitions retain the shared refmap.
+  bufsize_t end = content->size;
+  while (end && S_is_line_end_char(content->ptr[end - 1])) --end;
+  bufsize_t start = end;
+  while (start && !S_is_line_end_char(content->ptr[start - 1])) --start;
+  bool header_pipe, delimiter_pipe;
+  cmark_node *header = qmarkdown_table_row(parser->mem, content->ptr + start,
+                                           end - start, &header_pipe);
+  cmark_node *delimiter = qmarkdown_table_row(parser->mem,
+      input->data + parser->first_nonspace, input->len - parser->first_nonspace,
+      &delimiter_pipe);
+  const int columns = qmarkdown_cell_count(header);
+  bool valid = header_pipe && columns == qmarkdown_cell_count(delimiter);
+  cmark_node *head = header->first_child;
+  for (cmark_node *cell = delimiter->first_child; valid && cell; cell = cell->next) {
+    bufsize_t left = 0, right = cell->len;
+    const bool align_left = right && cell->data[0] == ':';
+    const bool align_right = right && cell->data[right - 1] == ':';
+    if (align_left) ++left;
+    if (align_right) --right;
+    if (right <= left) valid = false;
+    for (bufsize_t i = left; valid && i < right; ++i)
+      if (cell->data[i] != '-') valid = false;
+    head->qmarkdown_table_alignment = align_left ? (align_right ? 2 : 1) : (align_right ? 3 : 0);
+    head = head->next;
+  }
+  cmark_node_free(delimiter);
+  if (!valid) { cmark_node_free(header); return false; }
+  cmark_node *table = paragraph;
+  if (start) {
+    cmark_strbuf_truncate(content, start);
+    cmark_node *parent = finalize(parser, paragraph);
+    table = add_child(parser, parent, CMARK_NODE_QMARKDOWN_TABLE, parser->first_nonspace + 1);
+    table->start_line = parser->line_number - 1;
+  } else {
+    table->type = CMARK_NODE_QMARKDOWN_TABLE;
+    cmark_strbuf_clear(content);
+  }
+  table->qmarkdown_table_columns = columns;
+  cmark_node_append_child(table, header);
+  parser->current = table;
+  return true;
+}
+
+static void qmarkdown_table_body(cmark_parser *parser, cmark_node *table,
+                                 cmark_chunk *input) {
+  bool pipe;
+  cmark_node *row = qmarkdown_table_row(parser->mem, input->data + parser->first_nonspace,
+                                        input->len - parser->first_nonspace, &pipe);
+  int count = qmarkdown_cell_count(row);
+  while (count > table->qmarkdown_table_columns) {
+    cmark_node_free(row->last_child); --count;
+  }
+  while (count < table->qmarkdown_table_columns) {
+    cmark_node *cell = cmark_node_new_with_mem(CMARK_NODE_QMARKDOWN_TABLE_CELL, parser->mem);
+    cell->data = (unsigned char *)parser->mem->calloc(1, 1);
+    cmark_node_append_child(row, cell); ++count;
+  }
+  cmark_node *head = table->first_child->first_child;
+  for (cmark_node *cell = row->first_child; cell; cell = cell->next) {
+    cell->qmarkdown_table_alignment = head->qmarkdown_table_alignment;
+    head = head->next;
+  }
+  cmark_node_append_child(table, row);
+}
+
 static void S_process_line(cmark_parser *parser, const unsigned char *buffer,
                            bufsize_t bytes) {
   cmark_node *last_matched_container;
@@ -1334,6 +1454,8 @@ static void S_process_line(cmark_parser *parser, const unsigned char *buffer,
     goto finished;
 
   container = last_matched_container;
+  if (all_matched && qmarkdown_table_start(parser, container, &input))
+    goto finished;
 
   open_new_blocks(parser, &container, &input, all_matched);
 

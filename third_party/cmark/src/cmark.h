@@ -46,9 +46,12 @@ typedef enum {
   CMARK_NODE_PARAGRAPH,
   CMARK_NODE_HEADING,
   CMARK_NODE_THEMATIC_BREAK,
+  CMARK_NODE_QMARKDOWN_TABLE,
+  CMARK_NODE_QMARKDOWN_TABLE_ROW,
+  CMARK_NODE_QMARKDOWN_TABLE_CELL,
 
   CMARK_NODE_FIRST_BLOCK = CMARK_NODE_DOCUMENT,
-  CMARK_NODE_LAST_BLOCK = CMARK_NODE_THEMATIC_BREAK,
+  CMARK_NODE_LAST_BLOCK = CMARK_NODE_QMARKDOWN_TABLE_CELL,
 
   /* Inline */
   CMARK_NODE_TEXT,
@@ -599,6 +602,10 @@ char *cmark_render_latex(cmark_node *root, int options, int width);
 #define CMARK_OPT_QMARKDOWN_TASK_LISTS (1 << 18)
 #define CMARK_OPT_QMARKDOWN_STRIKETHROUGH (1 << 19)
 #define CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS (1 << 20)
+#define CMARK_OPT_QMARKDOWN_TABLES (1 << 21)
+
+/* Private table metadata: 0 unspecified, 1 left, 2 center, 3 right. */
+CMARK_EXPORT int cmark_node_get_table_alignment(cmark_node *node);
 CMARK_EXPORT int cmark_node_get_task_state(cmark_node *node);
 
 /**

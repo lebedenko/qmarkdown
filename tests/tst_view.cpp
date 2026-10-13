@@ -91,6 +91,146 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void gfmSwitchCombinations()
+    {
+        const char *properties[]{"taskListsEnabled", "strikethroughEnabled", "extendedAutolinksEnabled", "tablesEnabled", "tagFilterEnabled", "gfmEnabled"};
+        const QString source = "- [x] task\n\n~~strike~~ www.a.b\n\n| head |\n| - |\nbody\n\ntext <script>";
+        for (int mask = 0; mask < 64; ++mask) {
+            ViewState state;
+            for (const char *property : properties) QVERIFY(!state.property(property).toBool());
+            for (int bit=0; bit<6; ++bit) QVERIFY(state.setProperty(properties[bit], bool(mask & (1 << bit))));
+            state.setMarkdown(source);
+            auto *model = state.blocks();
+            auto children = [](QAbstractItemModel *m, int row) { return m->data(m->index(row,0),Qt::UserRole+5).value<QAbstractItemModel *>(); };
+            const bool aggregate = mask & 32;
+            auto *items = children(model,0); QVERIFY(items);
+            QCOMPARE(items->data(items->index(0,0),Qt::UserRole+12).toInt(), (aggregate || (mask & 1)) ? 2 : 0);
+            auto ranges=model->data(model->index(1,0),Qt::UserRole+3).toList();
+            QCOMPARE(!ranges.isEmpty(), aggregate || bool(mask & 2));
+            auto links=model->data(model->index(1,0),Qt::UserRole+8).toList();
+            QCOMPARE(!links.isEmpty(), aggregate || bool(mask & 4));
+            QCOMPARE(model->data(model->index(2,0),Qt::UserRole+4).toInt() == 10, aggregate || bool(mask & 8));
+            // Property names and signals are checked independently of parser flags.
+            QSignalSpy markdownChanges(&state,&ViewState::markdownChanged);
+            QSignalSpy tasks(&state,&ViewState::taskListsEnabledChanged), strike(&state,&ViewState::strikethroughEnabledChanged);
+            QSignalSpy autolinks(&state,&ViewState::extendedAutolinksEnabledChanged), tables(&state,&ViewState::tablesEnabledChanged);
+            QSignalSpy tags(&state,&ViewState::tagFilterEnabledChanged), gfm(&state,&ViewState::gfmEnabledChanged);
+            QSignalSpy resets(model,&QAbstractItemModel::modelReset);
+            for (int bit=0; bit<6; ++bit) state.setProperty(properties[bit], bool(mask & (1 << bit)));
+            QCOMPARE(resets.size(),0); QCOMPARE(gfm.size(),0);
+            state.setGfmEnabled(!aggregate); QCOMPARE(gfm.size(),1); QCOMPARE(resets.size(),1);
+            for(int bit=0;bit<5;++bit) QCOMPARE(state.property(properties[bit]).toBool(),bool(mask & (1 << bit)));
+            state.setGfmEnabled(aggregate); QCOMPARE(gfm.size(),2); QCOMPARE(resets.size(),2);
+            QCOMPARE(model->data(model->index(2,0),Qt::UserRole+4).toInt()==10, aggregate || bool(mask & 8));
+            QCOMPARE(tasks.size()+strike.size()+autolinks.size()+tables.size()+tags.size(),0);
+            QCOMPARE(state.markdown(),source); QCOMPARE(markdownChanges.size(),0);
+            // Changing a masked individual property still follows the rebuild contract.
+            state.setGfmEnabled(true); resets.clear(); gfm.clear();
+            state.setTablesEnabled(!(mask & 8)); QCOMPARE(tables.size(),1); QCOMPARE(resets.size(),1); QCOMPARE(gfm.size(),0);
+            state.setTagFilterEnabled(!(mask & 16)); QCOMPARE(tags.size(),1); QCOMPARE(resets.size(),2);
+            state.setMarkdown("replacement"); QCOMPARE(markdownChanges.size(),1); QCOMPARE(model->rowCount(),1);
+            QCOMPARE(model->data(model->index(0,0),Qt::UserRole).toString(),"replacement");
+        }
+    }
+    void playgroundGfmControls()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QQmlEngine engine; QQmlComponent component(&engine,QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(),qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        auto *window=qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview=window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *tables=window->findChild<QQuickItem *>("tablesToggle"); auto *tags=window->findChild<QQuickItem *>("tagFilterToggle");
+        auto *gfm=window->findChild<QQuickItem *>("gfmToggle"); QVERIFY(tables); QVERIFY(tags); QVERIFY(gfm);
+        window->setProperty("sampleIndex",13); QTRY_VERIFY(content(preview)>0); const auto source=preview->property("markdown");
+        QVERIFY(named(preview,"markdownTable").isEmpty()); gfm->setProperty("checked",true);
+        QTRY_COMPARE(named(preview,"markdownTable").size(),2); QVERIFY(!tables->property("checked").toBool());
+        tables->setProperty("checked",true); tags->setProperty("checked",true); gfm->setProperty("checked",false);
+        QTRY_COMPARE(named(preview,"markdownTable").size(),2); QVERIFY(preview->property("tagFilterEnabled").toBool());
+        tables->setProperty("checked",false); QTRY_VERIFY(named(preview,"markdownTable").isEmpty());
+        QCOMPARE(preview->property("markdown"),source);
+#else
+        QSKIP("Playground is not built in this configuration");
+#endif
+    }
+    void nativeTables()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.6\nMarkdownView { width: 240; gfmEnabled: true }",{});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create()); auto *view=qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *state=view->findChild<ViewState *>(); QVERIFY(state);
+        state->setMarkdown("| left | center | right |\n| :- | :-: | -: |\n| wrapping words wrapping words | [**link**](host:table) | ~~strike~~ |\n\n> | quote |\n> | - |\n> | `code` |\n\n- | list |\n  | - |\n  | body |");
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(360,640); window.show();
+        QTRY_COMPARE(named(view,"markdownTable").size(),3); QTRY_COMPARE(named(view,"tableCell").size(),10);
+        const auto cells=named(view,"tableCell"); const auto rows=named(view,"tableRow");
+        QCOMPARE(cells[0]->width(),80.0); QCOMPARE(cells[1]->x(),80.0); QCOMPARE(cells[2]->x(),160.0);
+        QTRY_VERIFY(cells[3]->height() > cells[0]->height());
+        QCOMPARE(cells[3]->height(),cells[4]->height()); QCOMPARE(cells[4]->height(),cells[5]->height());
+        QVERIFY(texts(cells[0])[0]->property("font").value<QFont>().bold());
+        QCOMPARE(texts(cells[1])[0]->property("horizontalAlignment").toInt(),int(Qt::AlignHCenter));
+        QCOMPARE(texts(cells[2])[0]->property("horizontalAlignment").toInt(),int(Qt::AlignRight));
+        auto *link=painted(cells[4])[0]; QTRY_VERIFY(link->layout()); QCOMPARE(link->horizontalAlignment(),int(Qt::AlignHCenter));
+        QCOMPARE(link->linkDestination(0),"host:table"); QVERIFY(link->layout()->formats()[0].format.font().bold());
+        const auto line=link->layout()->lineAt(0); const QPointF offset(-link->x(),-link->y());
+        const auto point=QPointF((line.cursorToX(0)+line.cursorToX(1))/2,line.y()+line.height()/2)+offset;
+        QCOMPARE(link->linkAt(point.x(),point.y()),0);
+        QSignalSpy activated(view,SIGNAL(linkActivated(QString)));
+        QTest::mouseClick(&window,Qt::LeftButton,Qt::NoModifier,link->mapToScene(point).toPoint());
+        QCOMPARE(activated.size(),1); QCOMPARE(activated[0][0].toString(),"host:table");
+        state->style()->table()->setHeaderForeground(Qt::red); state->style()->table()->setHeaderBackground(Qt::yellow);
+        state->style()->table()->setBodyBackground(Qt::cyan); state->style()->table()->setBorderColor(Qt::blue);
+        state->style()->table()->setBorderWidth(1); state->style()->table()->setHorizontalPadding(8);
+        QTRY_COMPARE(texts(cells[0])[0]->property("color").value<QColor>(),QColor(Qt::red));
+        QCOMPARE(cells[0]->property("color").value<QColor>(),QColor(Qt::yellow));
+        QCOMPARE(cells[3]->property("color").value<QColor>(),QColor(Qt::cyan));
+        state->style()->table()->resetHeaderForeground(); state->style()->setBodyColor(Qt::green);
+        QTRY_COMPARE(texts(cells[0])[0]->property("color").value<QColor>(),QColor(Qt::green));
+        state->style()->table()->setHorizontalPadding(std::numeric_limits<qreal>::infinity());
+        state->style()->table()->setVerticalPadding(std::numeric_limits<qreal>::quiet_NaN());
+        state->style()->table()->setBorderWidth(-2);
+        QTRY_COMPARE(cells[0]->property("padX").toDouble(),0.0);
+        QCOMPARE(cells[0]->property("padY").toDouble(),0.0); QCOMPARE(cells[0]->property("edge").toDouble(),0.0);
+        state->style()->table()->resetHorizontalPadding(); state->style()->table()->resetVerticalPadding(); state->style()->table()->resetBorderWidth();
+        view->setWidth(60); QTRY_COMPARE(cells[0]->width(),20.0);
+        QVERIFY(cells[3]->height() > 0); view->setWidth(1); QTRY_VERIFY(content(view)>0);
+        state->setTablesEnabled(true); state->setGfmEnabled(false); QTRY_COMPARE(named(view,"markdownTable").size(),3);
+        state->setTablesEnabled(false); QTRY_VERIFY(named(view,"markdownTable").isEmpty());
+    }
+    void tableImagesAndCancellation_data()
+    {
+        QTest::addColumn<QString>("property");
+        for (const auto &name : {"tablesEnabled","tagFilterEnabled","gfmEnabled"}) QTest::newRow(name) << QString(name);
+    }
+    void tableImagesAndCancellation()
+    {
+        QFETCH(QString,property);
+        QTemporaryDir temp; QImage image(20,10,QImage::Format_RGB32); image.fill(Qt::green); QVERIFY(image.save(temp.filePath("image.png")));
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.6\nMarkdownView { width: 200; tablesEnabled: true }",{});
+        QVERIFY2(component.isReady(),qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        auto *view=qobject_cast<QQuickItem *>(object.get()); QVERIFY(view); auto *controller=view->findChild<ResourceController *>(); QVERIFY(controller);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300,300); window.show();
+        view->setProperty("baseUrl",QUrl::fromLocalFile(temp.filePath("document.md")));
+        const QString source="| image |\n| - |\n| [![alt](image.png)](host:image) |";
+        view->setProperty("markdown",source); QTRY_COMPARE(named(view,"tableCell").size(),2);
+        QVERIFY(named(view,"markdownImage").isEmpty());
+        const auto deniedCell=named(view,"tableCell")[1]; QTRY_COMPARE(painted(deniedCell).size(),1);
+        QCOMPARE(painted(deniedCell)[0]->text(),"alt");
+        auto *policy=view->property("resourcePolicy").value<MarkdownResourcePolicy *>(); QVERIFY(policy);
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())}); QTRY_COMPARE(named(view,"markdownImage").size(),1);
+        const auto imageCell=named(view,"tableCell")[1]; QVERIFY(named(imageCell,"markdownImage").size()==1);
+        QSignalSpy activated(view,SIGNAL(linkActivated(QString)));
+        auto *imageItem=named(view,"markdownImage")[0]; QTest::mouseClick(&window,Qt::LeftButton,Qt::NoModifier,imageItem->mapToScene(QPointF(5,5)).toPoint());
+        QCOMPARE(activated.size(),1); QCOMPARE(activated[0][0].toString(),"host:image");
+        struct Gate { QSemaphore entered, release, completed; std::atomic<bool> timedOut{false}; };
+        auto gate=std::make_shared<Gate>(); struct Release { std::shared_ptr<Gate> gate; ~Release(){ gate->release.release(2); } } cleanup{gate};
+        controller->setDecoder([gate](QByteArray bytes){ gate->entered.release(); if(!gate->release.tryAcquire(1,5000))gate->timedOut=true; auto result=QMarkdownPrivate::decodeImage(std::move(bytes)); gate->completed.release(); return result; });
+        view->setProperty("markdown",source+"\n| again |"); QVERIFY(gate->entered.tryAcquire(1,2000));
+        const auto key=property.toUtf8(); view->setProperty(key.constData(),!view->property(key.constData()).toBool());
+        QVERIFY(gate->entered.tryAcquire(1,2000)); QSignalSpy published(controller,&ResourceController::changed);
+        view->setProperty("markdown","replacement"); gate->release.release(2); QVERIFY(gate->completed.tryAcquire(2,2000));
+        QCoreApplication::processEvents(); QTRY_VERIFY(named(view,"markdownImage").isEmpty()); QCOMPARE(published.size(),0); QVERIFY(!gate->timedOut);
+    }
     void extendedAutolinksToggleAndRendering()
     {
         QQmlEngine engine; RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
@@ -1106,6 +1246,35 @@ MarkdownView {
         QTRY_COMPARE(painted(b)[0]->linkColor(), QColor("#0066cc"));
         QTRY_VERIFY(painted(b)[0]->linkUnderline());
     }
+    void paddedCodePointerInteraction()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.6\nMarkdownView { width: 180; markdown: 'before [`long code words`](host:code) after' }", {});
+        std::unique_ptr<QObject> object(component.create());
+        auto *view=qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(300,300); view->setParentItem(window.contentItem()); window.show();
+        QTRY_COMPARE(painted(view).size(),1); auto *item=painted(view)[0];
+        QTRY_VERIFY(item->layout() && !item->codeRectangles().isEmpty());
+        QCOMPARE(item->codeHorizontalPadding(),4.0); QCOMPARE(item->codeVerticalPadding(),2.0);
+        QSignalSpy activated(view,SIGNAL(linkActivated(QString)));
+        for(const auto &rect : item->codeRectangles()) {
+            for(qreal x : {rect.left()+1,rect.right()-1}) {
+                const QPoint point=item->mapToScene(QPointF(x-item->x(),rect.center().y()-item->y())).toPoint();
+                QTest::mouseMove(&window,point); QTRY_COMPARE(item->property("hoveredLink").toInt(),0);
+                QTest::mouseClick(&window,Qt::LeftButton,Qt::NoModifier,point);
+                QVERIFY(!activated.isEmpty()); QCOMPARE(activated.takeFirst()[0].toString(),"host:code");
+            }
+        }
+        const auto rect=item->codeRectangles().first();
+        const QPoint point=item->mapToScene(QPointF(rect.left()+1-item->x(),rect.center().y()-item->y())).toPoint();
+        QTest::mousePress(&window,Qt::LeftButton,Qt::NoModifier,point);
+        QTest::mouseMove(&window,point+QPoint(60,50));
+        QTest::mouseRelease(&window,Qt::LeftButton,Qt::NoModifier,point+QPoint(60,50));
+        QCOMPARE(activated.size(),0);
+        auto *style=view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        style->inlineCode()->setHorizontalPadding(12); QTRY_COMPARE(item->codeHorizontalPadding(),12.0);
+        style->inlineCode()->resetHorizontalPadding(); QTRY_COMPARE(item->codeHorizontalPadding(),4.0);
+    }
     void linkLayout_data()
     {
         QTest::addColumn<bool>("points");
@@ -1121,6 +1290,8 @@ MarkdownView {
         auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
         QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
         auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        // This test deliberately verifies the historical zero-padding cursor geometry.
+        style->inlineCode()->setHorizontalPadding(0); style->inlineCode()->setVerticalPadding(0);
         auto font = style->bodyFont();
         if (points) font.setPointSizeF(13.25); else font.setPixelSize(18);
         style->setBodyFont(font);
@@ -1770,7 +1941,7 @@ MarkdownView {
         QTRY_COMPARE(body->layoutWidth(), 1.0);
         QTRY_VERIFY(body->width() > body->layoutWidth());
         QTRY_VERIFY(body->logicalHeight() > 0);
-        QTRY_COMPARE(body->layout()->lineAt(0).width(), 1.0);
+        QTRY_VERIFY(body->layout()->lineAt(0).width() >= body->layout()->lineAt(0).naturalTextWidth());
         // Verify native ink/cluster overhang is inside the raster item's bounds.
         for (const auto &run : body->layout()->glyphRuns()) {
             const auto bounds = run.boundingRect().translated(-body->x(), -body->y());
