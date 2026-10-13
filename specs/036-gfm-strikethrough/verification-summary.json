@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "approvalDate": "2026-10-13",
+  "dateTimezone": "Europe/Kyiv",
+  "baseCommit": "d4b0afd39ebf15eb3a07414554048a637aea1f96",
+  "sourceState": "uncommitted approved feature",
+  "candidateVersion": "1.4.0",
+  "qmlVersion": "1.4",
+  "buildInputs": {
+    "count": 144,
+    "aggregateSha256": "9be757c1f78bd1acf2392b3a1474dc54e9bc582c24b9e6a2d850b80a22fda724",
+    "algorithm": "SHA256 of sorted relative-path, NUL, file-SHA256, LF records",
+    "minimumSnapshotMatches": true,
+    "developmentSnapshotMatches": true
+  },
+  "host": {
+    "qt": "6.12.0",
+    "compiler": "GCC 16.2.1",
+    "ctestShared": {
+      "passed": 12,
+      "failed": 0
+    },
+    "ctestStatic": {
+      "passed": 12,
+      "failed": 0
+    },
+    "strictCommonMark": {
+      "examples": 652,
+      "examplesWithLimits": 0,
+      "examplesWithLosses": 0,
+      "model": {
+        "mismatch": 0,
+        "projection-pass": 652,
+        "uncheckable": 0
+      },
+      "parser": {
+        "fail": 0,
+        "pass": 652
+      }
+    },
+    "prefixedCmarkDefinitions": 141,
+    "screenshot": "build-shared/036-strikethrough.png"
+  },
+  "containers": {
+    "minimum": {
+      "artifactDirectory": "build-ci/6.8.0/20261012T225149Z-vxvcqqcq",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:86b377c037a80ab8c512796c76d2c9ef99981690e8e5f3907fd2c8cd7b7a8a41",
+        "recipeFingerprint": "f3fde433f7ade39fa1df99a5fc0ac1e65db28ae0e3170ae12266e0334d807c8e",
+        "preparationSeconds": 0.013,
+        "verificationSeconds": 277.214,
+        "elapsedSeconds": 277.268
+      },
+      "qt": "6.8.0",
+      "imageId": "sha256:86b377c037a80ab8c512796c76d2c9ef99981690e8e5f3907fd2c8cd7b7a8a41",
+      "recipeFingerprint": "f3fde433f7ade39fa1df99a5fc0ac1e65db28ae0e3170ae12266e0334d807c8e",
+      "commonmark": {
+        "shared": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        },
+        "static": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        }
+      },
+      "archiveChecksums": {
+        "qmarkdown-1.4.0-ubuntu24.04-x86_64-qt6.8.tar.gz": "f45498593024c1b58242b12de0141ca1f8fe57830370db6d2cf904003cd99c40"
+      }
+    },
+    "development": {
+      "artifactDirectory": "build-ci/6.12.0/20261012T225151Z-5uj_gatb",
+      "result": {
+        "status": "passed",
+        "exitCode": 0,
+        "imageId": "sha256:b4803e6959677074632b41529374eb256c8db80bce1c2d61d051c6b7441170ad",
+        "recipeFingerprint": "08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1",
+        "preparationSeconds": 0.011,
+        "verificationSeconds": 298.911,
+        "elapsedSeconds": 298.965
+      },
+      "qt": "6.12.0",
+      "imageId": "sha256:b4803e6959677074632b41529374eb256c8db80bce1c2d61d051c6b7441170ad",
+      "recipeFingerprint": "08d420c7e0a920f8a8079a2f2b24ef943a6aadd13173d8b57d806fc22a8e1ee1",
+      "commonmark": {
+        "shared": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        },
+        "static": {
+          "examples": 652,
+          "examplesWithLimits": 0,
+          "examplesWithLosses": 0,
+          "model": {
+            "mismatch": 0,
+            "projection-pass": 652,
+            "uncheckable": 0
+          },
+          "parser": {
+            "fail": 0,
+            "pass": 652
+          }
+        }
+      },
+      "archiveChecksums": {
+        "qmarkdown-1.4.0-ubuntu24.04-x86_64-qt6.12.tar.gz": "572ffb1f92b2efd47fa09f1a65c061ffee3df0223452d2a944192ed0f40e41a5"
+      }
+    }
+  },
+  "delivery": {
+    "committed": false,
+    "prCreated": false,
+    "published": false,
+    "exactCommitArchLifecycle": "release-delivery gate, not run for uncommitted candidate"
+  }
+}

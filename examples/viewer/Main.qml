@@ -68,6 +68,7 @@ ApplicationWindow {
         }
         RowLayout {
             CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
+            CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
             CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
         }
         ScrollView {
@@ -165,6 +166,7 @@ ApplicationWindow {
                             x: (previewScroll.width - width) / 2
                             markdown: editor.text
                             taskListsEnabled: taskToggle.checked
+                            strikethroughEnabled: strikeToggle.checked
                             style: hostStyle
                             codeBlockActions: Item {
                                 id: actions

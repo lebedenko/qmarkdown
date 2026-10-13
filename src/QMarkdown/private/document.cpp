@@ -59,14 +59,15 @@ QVector<Block> adaptBlocks(cmark_node *node)
     return blocks;
 }
 }
-QVector<Block> parse(QString source, bool taskListsEnabled)
+QVector<Block> parse(QString source, bool taskListsEnabled, bool strikethroughEnabled)
 {
     source.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
     source.replace(u'\r', u'\n');
     source.replace(QChar(0), QChar(0xfffd));
     const auto input = source.toUtf8();
     NodeOwner document{cmark_parse_document(input.constData(), input.size(),
-        taskListsEnabled ? CMARK_OPT_QMARKDOWN_TASK_LISTS : CMARK_OPT_DEFAULT)};
+        (taskListsEnabled ? CMARK_OPT_QMARKDOWN_TASK_LISTS : 0)
+        | (strikethroughEnabled ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0))};
     return document.node ? adaptBlocks(cmark_node_first_child(document.node)) : QVector<Block>{};
 }
 }

@@ -1,6 +1,6 @@
 # Specifications
 
-Current feature iteration: [035: opt-in GFM task lists](035-gfm-task-lists/requirements.md), **approved on 2026-10-13 for local implementation and verification**. See [design](035-gfm-task-lists/design.md), [mapped tasks](035-gfm-task-lists/tasks.md) and [verification plan](035-gfm-task-lists/verification.md). Implemented with read-only native task indicators; host shared/static and both configured Qt container gates pass. Later extensions remain deferred; candidate 1.3.0 is unpublished.
+Current feature iteration: [036: opt-in GFM strikethrough](036-gfm-strikethrough/requirements.md), **approved on 2026-10-13 for implementation and verification**. See [design](036-gfm-strikethrough/design.md), [tasks](036-gfm-strikethrough/tasks.md) and [planned/actual verification](036-gfm-strikethrough/verification.md). Candidate 1.4.0 / QML 1.4 is unpublished; later extensions remain deferred.
 
 Current status: **published stable/latest 1.2.0 / QML 1.2 on 2026-10-12 UTC**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 032](032-v1.2-integration/verification.md) records completed integration; [iteration 033](033-stable-v1.2-release/verification.md) records completed publication and independent downloaded Ubuntu/Arch lifecycle checks. Code-block actions are released with host-owned clipboard handling and Legacy styling defaults. Earlier entries retain historical scope, versions and environments.
 
@@ -112,3 +112,7 @@ Iteration 032 final candidate gates passed on `a65f537e5b2134e026bf328a1ec4a307c
 Iteration 033: [stable v1.2.0 publication](033-stable-v1.2-release/requirements.md), approved on 2026-10-12 through the supplied plan. See [design](033-stable-v1.2-release/design.md), [mapped tasks](033-stable-v1.2-release/tasks.md) and [planned/actual verification](033-stable-v1.2-release/verification.md). Includes protected release preparation, fresh exact-main gates, annotated tagging, Ubuntu/Arch stable/latest publication and independent downloaded-asset acceptance. Publication and independent downloaded-asset acceptance are complete.
 
 Iteration 034: [post-v1.2 release upkeep](034-post-v1.2-release-upkeep/requirements.md), approved on 2026-10-12 through the supplied plan. See [design](034-post-v1.2-release-upkeep/design.md), [mapped tasks](034-post-v1.2-release-upkeep/tasks.md) and [planned/actual verification](034-post-v1.2-release-upkeep/verification.md). Integrates completed publication evidence and reconciles current status through protected merge; no new feature or release.
+
+## 036 — Opt-in GFM strikethrough
+
+Approved for implementation and verification on 2026-10-13. [Requirements](036-gfm-strikethrough/requirements.md), [design](036-gfm-strikethrough/design.md), [tasks](036-gfm-strikethrough/tasks.md), [verification](036-gfm-strikethrough/verification.md). Candidate 1.4.0 / QML 1.4 is unpublished.

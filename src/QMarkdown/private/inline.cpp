@@ -31,6 +31,7 @@ QVector<InlineNode> retain(cmark_node *node)
         case CMARK_NODE_SOFTBREAK: value.kind = InlineKind::SoftBreak; break;
         case CMARK_NODE_LINEBREAK: value.kind = InlineKind::HardBreak; break;
         case CMARK_NODE_EMPH: value.kind = InlineKind::Emphasis; break;
+        case CMARK_NODE_QMARKDOWN_STRIKETHROUGH: value.kind = InlineKind::Strikethrough; break;
         case CMARK_NODE_STRONG: value.kind = InlineKind::Strong; break;
         case CMARK_NODE_LINK: value.kind = InlineKind::Link; break;
         case CMARK_NODE_IMAGE: value.kind = InlineKind::Image; break;
@@ -61,6 +62,7 @@ void project(const QVector<InlineNode> &nodes, InlineContent &output, int flags 
         case InlineKind::SoftBreak: append(output, QStringLiteral(" "), flags); break;
         case InlineKind::HardBreak: append(output, QStringLiteral("\n"), flags); break;
         case InlineKind::Emphasis: project(node.children, output, flags | Emphasis, inImage, enclosingLink, linked); break;
+        case InlineKind::Strikethrough: project(node.children, output, flags | Strikethrough, inImage, enclosingLink, linked); break;
         case InlineKind::Strong: project(node.children, output, flags | Strong, inImage, enclosingLink, linked); break;
         case InlineKind::Link: {
             const int start = output.text.size();
