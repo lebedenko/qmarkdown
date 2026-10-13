@@ -1,8 +1,8 @@
 # Specifications
 
-Current iteration: [038: GFM completion and inline-code padding](038-gfm-completion-inline-code-padding/requirements.md), approved and locally verified. Package 1.6.0 / QML 1.6 delivery tasks D1–D3 are authorized by the supplied release plan on 2026-10-13. See [design](038-gfm-completion-inline-code-padding/design.md), [tasks](038-gfm-completion-inline-code-padding/tasks.md) and [actual verification](038-gfm-completion-inline-code-padding/verification.md).
+Current release: [stable 1.6.0 / QML 1.6](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0), released 2026-10-13 UTC. [Iteration 038](038-gfm-completion-inline-code-padding/requirements.md) adds native tables, tag filtering, aggregate enablement and layout-aware inline-code padding. Its [design](038-gfm-completion-inline-code-padding/design.md), [tasks](038-gfm-completion-inline-code-padding/tasks.md) and [verification](038-gfm-completion-inline-code-padding/verification.md) retain the historical implementation and authorization records.
 
-Current published release: [stable 1.5.0 / QML 1.5](https://github.com/lebedenko/qmarkdown/releases/tag/v1.5.0), published 2026-10-13 UTC. Iteration 037 added extended autolinks alongside task lists and strikethrough. Version 1.6.0 adds native tables, tag filtering, aggregate enablement and layout-aware inline-code padding; final release gates remain pending. Historical records below retain their original scope.
+Current workflow change: [039: simplified CI and release delivery](039-simplified-delivery/requirements.md), approved through the supplied implementation plan on 2026-10-13. Historical records below retain their original scope.
 
 The [development workflow](../docs/development-workflow.md) is authoritative for current delivery procedures and supersedes historical procedures below. Historical approvals and verification records remain intact. Integration, evidence recording, and publication are delivery tasks; they do not automatically require separate numbered initiatives.
 

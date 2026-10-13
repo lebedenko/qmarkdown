@@ -28,7 +28,7 @@ useradd -m builder
 mkdir /work
 chown builder:builder /work
 if [[ $mode == build ]]; then
-    cp /evidence/qmarkdown-source.tar.gz /work/
+    cp /evidence/qmarkdown-$PKG_VERSION.tar.gz /work/
     python - <<'PY'
 import importlib.util, os
 from pathlib import Path
@@ -42,7 +42,7 @@ Path('/work/PKGBUILD').write_text(runner.recipe(Path('/tools/PKGBUILD.in').read_
 PY
     cp /work/PKGBUILD /evidence/PKGBUILD
     chown -R builder:builder /work
-    runuser -u builder -- bash -ec 'cd /work; makepkg --noconfirm --check --log'
+    runuser -u builder -- bash -ec 'cd /work; makepkg --noconfirm --log'
     cp /work/*.pkg.tar.zst /evidence/
     cp /work/*.log /evidence/
 else

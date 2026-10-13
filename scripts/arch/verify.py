@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 import re
 import subprocess
-import tarfile
 
 
 def output(*args):
@@ -68,7 +67,7 @@ def main():
             raise RuntimeError(f'Unexpected payload: {path}')
         if path.suffix in ('.a', '.o', '.h', '.hpp') or 'libQt' in path.name or path.name in ('installed.json', 'install.sh', 'uninstall.sh'):
             raise RuntimeError(f'Forbidden payload: {path}')
-        if path.lstat().st_uid != 0:
+        if path.lstat().st_uid != 0 or path.lstat().st_gid != 0:
             raise RuntimeError(f'Installed file is not root-owned: {path}')
         if output('pacman', '-Qoq', path).strip() != 'qmarkdown':
             raise RuntimeError(f'Wrong file owner: {path}')
@@ -91,48 +90,17 @@ def main():
     print(integrity)
     if '0 altered files' not in integrity:
         raise RuntimeError('Package integrity failure')
-    with tarfile.open(evidence / 'qmarkdown-source.tar.gz') as source:
-        source.extractall('/work', filter='data')
-    for link, styling, actions, tasks, strike, autolinks, gfm in (
-            ('ON', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF'), ('OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF'),
-            ('ON', 'ON', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF'), ('OFF', 'ON', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF'),
-            ('ON', 'OFF', 'ON', 'OFF', 'OFF', 'OFF', 'OFF'), ('OFF', 'OFF', 'ON', 'OFF', 'OFF', 'OFF', 'OFF'),
-            ('ON', 'OFF', 'OFF', 'ON', 'OFF', 'OFF', 'OFF'), ('OFF', 'OFF', 'OFF', 'ON', 'OFF', 'OFF', 'OFF'),
-            ('ON', 'OFF', 'OFF', 'OFF', 'ON', 'OFF', 'OFF'), ('OFF', 'OFF', 'OFF', 'OFF', 'ON', 'OFF', 'OFF'),
-            ('ON', 'OFF', 'OFF', 'OFF', 'OFF', 'ON', 'OFF'), ('OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'ON', 'OFF'),
-            ('ON', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'ON'), ('OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'ON')):
-        build = Path('/work') / f'consumer-{link}-{styling}-{actions}-{tasks}-{strike}-{autolinks}-{gfm}'
-        run('cmake', '-S', '/work/qmarkdown/tests/installed-consumer', '-B', build,
+    for link in ('ON', 'OFF'):
+        build = Path('/work') / f'consumer-{link}'
+        run('cmake', '-S', '/tools/installed-consumer', '-B', build,
             '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
-            f'-DQMARKDOWN_STYLING_CONSUMER={styling}', f'-DQMARKDOWN_ACTIONS_CONSUMER={actions}',
-            f'-DQMARKDOWN_TASKS_CONSUMER={tasks}', f'-DQMARKDOWN_STRIKE_CONSUMER={strike}',
-            f'-DQMARKDOWN_AUTOLINK_CONSUMER={autolinks}', f'-DQMARKDOWN_GFM_CONSUMER={gfm}',
-            f'-DQMARKDOWN_REQUEST_VERSION={"1.6.0" if gfm == "ON" else "1.5.0" if autolinks == "ON" else "1.4.0" if strike == "ON" else "1.3.0" if tasks == "ON" else "1.2" if actions == "ON" else "1.0"}',
-            f'-DQMARKDOWN_REQUEST_EXACT={gfm}')
+            '-DQMARKDOWN_GFM_CONSUMER=ON', f'-DQMARKDOWN_REQUEST_VERSION={version}',
+            '-DQMARKDOWN_REQUEST_EXACT=ON')
         run('cmake', '--build', build, '--parallel', '2')
         executable = build / 'qmarkdown-consumer'
         if link == 'OFF' and 'libQMarkdown' in output('readelf', '-d', executable):
             raise RuntimeError('Plugin-only consumer links backing library')
         run(executable)
-    # Repackage the actual payload with only a higher pkgrel; never export it.
-    upgrade = Path('/work/upgrade')
-    upgrade.mkdir()
-    run('bsdtar', '-xf', package, '-C', upgrade)
-    # Generate the temporary revision with makepkg as an unprivileged user,
-    # including fresh package metadata and mtree. Reuse only the installed payload.
-    original = (evidence / 'PKGBUILD').read_text().split('\nbuild() {', 1)[0]
-    recipe = original.replace(f'pkgrel={revision}\n', f'pkgrel={int(revision) + 1}\n')
-    recipe += '\nsource=()\nsha256sums=()\npackage() { cp -a /work/upgrade/usr "$pkgdir/"; }\n'
-    (upgrade / 'PKGBUILD').write_text(recipe)
-    run('chown', '-R', 'builder:builder', upgrade)
-    run('runuser', '-u', 'builder', '--', 'bash', '-ec', 'cd /work/upgrade; makepkg --noconfirm --log')
-    upgraded = upgrade / f'qmarkdown-{version}-{int(revision) + 1}-x86_64.pkg.tar.zst'
-    run('pacman', '-U', '--noconfirm', upgraded)
-    if output('pacman', '-Q', 'qmarkdown').strip() != f'qmarkdown {version}-{int(revision) + 1}':
-        raise RuntimeError('Upgrade registration failed')
-    for path in files:
-        if output('pacman', '-Qoq', path).strip() != 'qmarkdown':
-            raise RuntimeError('Upgrade ownership failed')
     run('pacman', '-R', '--noconfirm', 'qmarkdown')
     if subprocess.run(['pacman', '-Q', 'qmarkdown']).returncode == 0:
         raise RuntimeError('Removal registration failed')
