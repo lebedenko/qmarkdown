@@ -13,3 +13,13 @@ R4: Advance the unpublished source candidate to package 1.5.0 / QML 1.5. Preserv
 R5: Pin all 14 official examples 622–635 with offline fixtures and independently authored text, semantic link/destination and UTF-16-span expectations. Record attribution, CC BY-SA license, acquisition date and checksum. Require focused syntax/state/native checks, eight extension combinations, unchanged strict 652-example CommonMark parser/model gate, shared/static CTest, QML lint, symbol privacy and configured Qt 6.8.0/6.12.0 container packaging gates.
 
 No new dependencies, renderer, navigation, network requests or public style properties. Tables, combined GFM mode, HTML filtering, streaming and full GFM conformance remain deferred. Commit, PR creation, merge and publication require separate authorization. Exact-commit Arch lifecycle and publication checks belong to later release delivery.
+
+## Authorized 1.5.0 release delivery
+
+2026-10-13: the user supplied and requested implementation of the Release QMarkdown 1.5.0 plan. This explicitly authorizes release preparation commits, branch push, one protected PR containing the autolink implementation and preparation, squash merge after both required packaging checks, exact-merged-commit stable-release preflight, annotated v1.5.0 tagging, stable/latest publication and independent downloaded-package verification. This authorization supersedes earlier pending delivery boundaries without changing historical verification claims.
+
+Task lists and strikethrough from unpublished 1.3/1.4 candidates ship together with extended autolinks in 1.5.0 / QML 1.5. No new APIs, dependencies, features or workflow changes. Linux amd64 Ubuntu/Arch distribution remains bounded; host installation and AUR submission are excluded.
+
+Delivery checks: both main packaging checks; release workflow Qt 6.8.0/6.12.0 builds, the same minimum-built Ubuntu archive on both runtimes, exact-commit Arch lifecycle, source/provenance/checksum inspection and skipped manual upload. Changed package inputs require a new candidate and affected gates before tagging. Publication must use its own verified artifacts. Independently download all four assets, compare publication hashes and repeat Ubuntu consumers and Arch ownership/consumers/upgrade/removal in fresh disposable containers. Attach a compact summary to the release linking detailed Actions logs. Preserve tags/assets; no evidence branches, evidence-only PRs or automatic upkeep commits.
+
+Publication and downloaded-package acceptance remain pending. Historical local results above describe the source state actually tested.

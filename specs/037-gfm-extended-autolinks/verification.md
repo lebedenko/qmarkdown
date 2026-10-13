@@ -45,3 +45,11 @@ All 148 build/test/package inputs match both final source snapshots. The [machin
 Changes cover bundled cmark option/source-web/decoded-email parsing and provenance; private document/ViewState and QML alias/metadata; package/module versions; playground toggle/sample; parser/view/import tests, pinned GFM fixture/provenance and installed QML 1.5 consumer; relocated/Ubuntu/Arch compatibility consumers; README, changelog, extension guides and current specification summaries; iteration 037 requirements/design/mapped tasks and actual verification evidence.
 
 Implementation and local verification are complete. At completion of verification, no commit, PR, merge, tag or publication had been performed for iteration 037. Commit was subsequently authorized by the user instruction "commit" on 2026-10-13; PR creation, merge, tagging and publication remain separately authorized. The Arch verifier now includes the 1.5 consumer, but exact-commit Arch package lifecycle cannot establish this uncommitted candidate's release evidence; it remains a later release-delivery task. Candidate 1.5.0 is unpublished.
+
+## Authorized 1.5.0 release delivery
+
+The user requested implementation of the release plan on 2026-10-13, authorizing preparation, protected PR/squash merge, exact-main release gates, annotated tagging, stable/latest publication and downloaded-package acceptance. See [delivery scope and gates](requirements.md#authorized-150-release-delivery). Earlier verification and authorization records remain historical.
+
+Release preparation is prose-only. The existing feature commit is `899a423`; runtime/package inputs are unchanged. Publication and independent downloaded-package acceptance are pending and will be recorded in a release attachment, with detailed hosted logs in Actions.
+
+Preparation checks: local prose links pass (code samples excluded), `git diff --check` passes, package/QML versions and filenames match 1.5.0/1.5. Future release URLs intentionally remain unavailable until publication. No runtime checks repeated for these prose-only inputs; required hosted checks will run.

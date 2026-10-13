@@ -13,3 +13,7 @@ Add the ViewState property, notification, private QML metadata and public Markdo
 Update package/module versions and every compatibility matrix together. Add a QML 1.5 installed consumer asserting default-off, enabled destinations and toggle behavior in shared linked/plugin-only/static modes. Extend the playground with an independent toggle and representative examples. Update README, changelog, extension guides, parser provenance and current specification summaries, preserving historical evidence.
 
 Trade-off: a bounded private cmark patch preserves established syntax precedence and avoids a parser replacement or new dependency. Separate source-web and decoded-text passes follow the requested recognition semantics; focused escape/entity and link-precedence tests will guard their interaction.
+
+## Authorized 1.5.0 release delivery
+
+The user requested implementation of the release plan on 2026-10-13, authorizing preparation, protected PR/squash merge, exact-main release gates, annotated tagging, stable/latest publication and downloaded-package acceptance. See [delivery scope and gates](requirements.md#authorized-150-release-delivery). Earlier verification and authorization records remain historical.

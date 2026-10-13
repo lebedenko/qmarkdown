@@ -1,7 +1,8 @@
 # Changelog
 
-## 1.5.0 source candidate (unreleased)
+## 1.5.0 — release preparation (publication pending)
 
+- Ship task lists, strikethrough and extended autolinks together; historical 1.3/1.4 candidates were not published. All three switches are independent and default off.
 - Add independent, default-off `MarkdownView.extendedAutolinksEnabled` for HTTP(S), `www.`, email, `mailto:` and `xmpp:` including resources.
 - Preserve explicit-link precedence, inert image descriptions, CommonMark defaults and host-owned navigation; reuse native link styling and activation.
 - Advance package/QML versions to 1.5.0/1.5 with historical imports, installed consumers and a playground toggle/sample.
