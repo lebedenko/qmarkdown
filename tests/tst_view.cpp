@@ -91,6 +91,109 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void extendedAutolinksToggleAndRendering()
+    {
+        QQmlEngine engine; RequestFactory factory; engine.setNetworkAccessManagerFactory(&factory);
+        QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.5\nMarkdownView { width: 150; taskListsEnabled: true; strikethroughEnabled: true }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create()); auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *state = view->findChild<ViewState *>(); QVERIFY(state);
+        state->setMarkdown("# www.a.b\n\n~~**http://a.b/wrapping-path**~~ *foo@a.b*\n\n- [x] www.task.test\n  - xmpp:foo@a.b/res\n\n![www.inert.test](missing.png)");
+        const auto source = state->markdown();
+        QSignalSpy markdownChanges(view, SIGNAL(markdownChanged())); QSignalSpy changes(view, SIGNAL(extendedAutolinksEnabledChanged()));
+        QSignalSpy taskChanges(view, SIGNAL(taskListsEnabledChanged())); QSignalSpy strikeChanges(view, SIGNAL(strikethroughEnabledChanged()));
+        QSignalSpy resets(state->blocks(), &QAbstractItemModel::modelReset); QSignalSpy links(view, SIGNAL(linkActivated(QString)));
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(320, 650); window.show();
+        QTRY_VERIFY(content(view) > 0); QVERIFY(!view->property("extendedAutolinksEnabled").toBool());
+        for (auto *item : painted(view)) QVERIFY(item->linkSpans().isEmpty());
+        QVERIFY(view->setProperty("extendedAutolinksEnabled", true)); QTRY_COMPARE(painted(view).size(), 4);
+        const auto items = painted(view);
+        const QStringList destinations{"http://www.a.b", "http://a.b/wrapping-path", "http://www.task.test", "xmpp:foo@a.b/res"};
+        for (int i = 0; i < 4; ++i) {
+            QTRY_VERIFY(items[i]->layout() && !items[i]->layout()->formats().isEmpty());
+            QCOMPARE(items[i]->linkDestination(0), destinations[i]);
+            const auto line = items[i]->layout()->lineAt(0);
+            const qreal x = (line.cursorToX(0) + line.cursorToX(1)) / 2, y = line.y() + line.height() / 2;
+            QCOMPARE(items[i]->linkAt(x, y), 0);
+            const QPoint hit = items[i]->mapToScene(QPointF(x, y)).toPoint();
+            QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, hit);
+            QCOMPARE(links.size(), i + 1); QCOMPARE(links.last()[0].toString(), destinations[i]);
+        }
+        auto *body = items[1]; QVERIFY(body->layout()->lineCount() > 1);
+        QCOMPARE(body->linkDestination(1), "mailto:foo@a.b");
+        QVERIFY(body->layout()->formats()[0].format.font().strikeOut());
+        QVERIFY(body->layout()->formats()[0].format.font().weight() >= QFont::Bold);
+        QVERIFY(body->layout()->formats().last().format.font().italic());
+        QVERIFY(texts(view).last()->property("text").toString().contains("www.inert.test"));
+        const auto firstLine = body->layout()->lineAt(0);
+        const QPoint hit = body->mapToScene(QPointF((firstLine.cursorToX(0) + firstLine.cursorToX(1)) / 2, firstLine.height() / 2)).toPoint();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, hit);
+        QTest::mouseMove(&window, hit + QPoint(40, 30));
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, hit + QPoint(40, 30)); QCOMPARE(links.size(), 4);
+        QFont font = state->style()->bodyFont(); font.setPixelSize(23); state->style()->setBodyFont(font);
+        state->style()->setBodyColor(Qt::red); state->style()->setLinkColor(Qt::green);
+        QTRY_COMPARE(body->layout()->formats()[0].format.font().pixelSize(), 23);
+        QCOMPARE(body->color(), QColor(Qt::red)); QCOMPARE(body->layout()->formats()[0].format.foreground().color(), QColor(Qt::green));
+        QVERIFY(body->layout()->formats()[0].format.font().strikeOut());
+        const int resetCount = resets.size(); view->setProperty("extendedAutolinksEnabled", true);
+        QCOMPARE(resets.size(), resetCount); QCOMPARE(changes.size(), 1);
+        view->setProperty("extendedAutolinksEnabled", false); QCOMPARE(changes.size(), 2);
+        QTRY_COMPARE(painted(view).size(), 1); QVERIFY(painted(view)[0]->linkSpans().isEmpty());
+        QCOMPARE(state->markdown(), source); QCOMPARE(markdownChanges.size(), 0); QCOMPARE(taskChanges.size(), 0); QCOMPARE(strikeChanges.size(), 0);
+        view->setProperty("extendedAutolinksEnabled", true); view->setProperty("markdown", "mailto:new@a.b");
+        QTRY_COMPARE(painted(view).size(), 1); QCOMPARE(painted(view)[0]->linkDestination(0), "mailto:new@a.b");
+        QCOMPARE(markdownChanges.size(), 1); QCOMPARE(changes.size(), 3); QCOMPARE(factory.requests, 0);
+    }
+    void extendedAutolinksResourceCancellation()
+    {
+        QTemporaryDir temp; QImage image(20,10,QImage::Format_RGB32); image.fill(Qt::green); QVERIFY(image.save(temp.filePath("image.png")));
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.5\nMarkdownView { width: 200 }", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *controller = view->findChild<ResourceController *>(); QVERIFY(controller);
+        struct Gate { QSemaphore entered, release, completed; std::atomic<bool> timedOut{false}; };
+        auto gate = std::make_shared<Gate>();
+        struct Release { std::shared_ptr<Gate> gate; ~Release() { gate->release.release(2); } } cleanup{gate};
+        controller->setDecoder([gate](QByteArray bytes) {
+            gate->entered.release(); if (!gate->release.tryAcquire(1, 5000)) gate->timedOut = true;
+            auto result = QMarkdownPrivate::decodeImage(std::move(bytes)); gate->completed.release(); return result;
+        });
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300,300); window.show();
+        view->setProperty("baseUrl", QUrl::fromLocalFile(temp.filePath("document.md")));
+        auto *policy = view->property("resourcePolicy").value<MarkdownResourcePolicy *>(); QVERIFY(policy);
+        policy->setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
+        view->setProperty("markdown", "![www.a.b](image.png)"); QVERIFY(gate->entered.tryAcquire(1, 2000));
+        view->setProperty("extendedAutolinksEnabled", true); QVERIFY(gate->entered.tryAcquire(1, 2000));
+        QSignalSpy published(controller, &ResourceController::changed);
+        view->setProperty("markdown", "www.replacement.test"); gate->release.release(2);
+        QVERIFY(gate->completed.tryAcquire(2, 2000)); QCoreApplication::processEvents();
+        QTRY_COMPARE(painted(view).size(), 1); QCOMPARE(painted(view)[0]->linkDestination(0), "http://www.replacement.test");
+        QVERIFY(named(view, "markdownImage").isEmpty()); QCOMPARE(published.size(), 0); QVERIFY(!gate->timedOut);
+        controller->setDecoder(QMarkdownPrivate::decodeImage);
+        view->setProperty("markdown", "![www.a.b](image.png)"); QTRY_COMPARE(named(view, "markdownImage").size(), 1);
+        view->setProperty("extendedAutolinksEnabled", false); QTRY_COMPARE(named(view, "markdownImage").size(), 1);
+    }
+    void playgroundExtendedAutolinks()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QQmlEngine engine; QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview = window->findChild<QQuickItem *>("preview"); auto *toggle = window->findChild<QQuickItem *>("autolinkToggle"); QVERIFY(preview); QVERIFY(toggle);
+        window->setProperty("sampleIndex", 12); QTRY_VERIFY(content(preview) > 0);
+        QVERIFY(!preview->property("extendedAutolinksEnabled").toBool()); const auto source = preview->property("markdown");
+        toggle->setProperty("checked", true); QTRY_VERIFY(preview->property("extendedAutolinksEnabled").toBool());
+        QTRY_VERIFY(!painted(preview).isEmpty()); QCOMPARE(painted(preview)[0]->linkDestination(0), "http://www.commonmark.org");
+        const auto screenshot = qEnvironmentVariable("QMARKDOWN_AUTOLINK_SCREENSHOT");
+        if (!screenshot.isEmpty()) { QImage image; QTRY_VERIFY(!(image = window->grabWindow()).isNull()); QVERIFY(image.save(screenshot)); }
+        toggle->setProperty("checked", false); QTRY_VERIFY(!preview->property("extendedAutolinksEnabled").toBool()); QCOMPARE(preview->property("markdown"), source);
+#else
+        QSKIP("Playground is not built in this configuration");
+#endif
+    }
+
     void strikethroughToggleAndRendering()
     {
         QQmlEngine engine; QQmlComponent component(&engine);

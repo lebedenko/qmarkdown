@@ -68,6 +68,7 @@ ApplicationWindow {
         }
         RowLayout {
             CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
+            CheckBox { id: autolinkToggle; text: "GFM extended autolinks"; objectName: "autolinkToggle" }
             CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
             CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
         }
@@ -166,6 +167,7 @@ ApplicationWindow {
                             x: (previewScroll.width - width) / 2
                             markdown: editor.text
                             taskListsEnabled: taskToggle.checked
+                            extendedAutolinksEnabled: autolinkToggle.checked
                             strikethroughEnabled: strikeToggle.checked
                             style: hostStyle
                             codeBlockActions: Item {

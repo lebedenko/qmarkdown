@@ -19,6 +19,8 @@ Module {
         Signal { name: "baseUrlChanged" }
         Signal { name: "resourcePolicyChanged" }
         Property { name: "markdown"; type: "QString"; notify: "markdownChanged" }
+        Property { name: "extendedAutolinksEnabled"; type: "bool"; notify: "extendedAutolinksEnabledChanged" }
+        Signal { name: "extendedAutolinksEnabledChanged" }
         Property { name: "strikethroughEnabled"; type: "bool"; notify: "strikethroughEnabledChanged" }
         Signal { name: "strikethroughEnabledChanged" }
         Property { name: "taskListsEnabled"; type: "bool"; notify: "taskListsEnabledChanged" }

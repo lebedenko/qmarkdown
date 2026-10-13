@@ -1,6 +1,6 @@
 # Project overview
 
-Local candidate: [035 opt-in GFM task lists](035-gfm-task-lists/requirements.md), approved on 2026-10-13, adds read-only indicators in package 1.3.0 / QML 1.3. Tables, strikethrough and extended autolinks remain deferred; this is not full GFM conformance. See [actual verification](035-gfm-task-lists/verification.md) for execution status.
+Local candidate: **1.5.0 / QML 1.5**, with independent default-off [task lists](035-gfm-task-lists/requirements.md), [strikethrough](036-gfm-strikethrough/requirements.md) and [extended autolinks](037-gfm-extended-autolinks/requirements.md). Iteration 037 was approved on 2026-10-13 for implementation and verification; see its [verification record](037-gfm-extended-autolinks/verification.md) for actual execution status. Tables and HTML filtering remain deferred; no full GFM conformance is claimed. Published stable/latest remains 1.2.0.
 
 ## Current published status
 

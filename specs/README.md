@@ -1,6 +1,6 @@
 # Specifications
 
-Current feature iteration: [036: opt-in GFM strikethrough](036-gfm-strikethrough/requirements.md), **approved on 2026-10-13 for implementation and verification**. See [design](036-gfm-strikethrough/design.md), [tasks](036-gfm-strikethrough/tasks.md) and [planned/actual verification](036-gfm-strikethrough/verification.md). Candidate 1.4.0 / QML 1.4 is unpublished; later extensions remain deferred.
+Current feature iteration: [037: opt-in GFM extended autolinks](037-gfm-extended-autolinks/requirements.md), **approved on 2026-10-13; implemented and locally verified**. See [design](037-gfm-extended-autolinks/design.md), [mapped tasks](037-gfm-extended-autolinks/tasks.md) and [planned/actual verification](037-gfm-extended-autolinks/verification.md). Candidate 1.5.0 / QML 1.5 is unpublished; task lists and strikethrough remain available, while tables and HTML filtering remain deferred.
 
 Current status: **published stable/latest 1.2.0 / QML 1.2 on 2026-10-12 UTC**, with configured minimum Qt 6.8.0 and development Qt 6.12.0 checks. [Iteration 032](032-v1.2-integration/verification.md) records completed integration; [iteration 033](033-stable-v1.2-release/verification.md) records completed publication and independent downloaded Ubuntu/Arch lifecycle checks. Code-block actions are released with host-owned clipboard handling and Legacy styling defaults. Earlier entries retain historical scope, versions and environments.
 
