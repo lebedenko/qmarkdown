@@ -6,6 +6,7 @@
 #include "markdownstyle.h"
 #include <QGuiApplication>
 #include <QSignalSpy>
+#include <QStyleHints>
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QQuickWindow>
@@ -45,6 +46,264 @@ class SelectionTest : public QObject
         return result;
     }
 private slots:
+    void repeatedSelection_data() {
+        QTest::addColumn<QString>("source");
+        QTest::addColumn<int>("leaf"); QTest::addColumn<int>("offset");
+        QTest::addColumn<int>("clicks"); QTest::addColumn<QString>("expected");
+        QTest::newRow("word") << "alpha beta" << 0 << 2 << 2 << "alpha";
+        QTest::newRow("combining") << QString::fromUtf8("café next") << 0 << 3 << 2 << QString::fromUtf8("café");
+        QTest::newRow("bidi") << QString::fromUtf8("abc שלום xyz") << 0 << 5 << 2 << QString::fromUtf8("שלום");
+        QTest::newRow("punctuation") << "one!? next" << 0 << 3 << 2 << "!";
+        QTest::newRow("emoji") << QString::fromUtf8("a 🙂 next") << 0 << 2 << 2 << QString::fromUtf8("🙂");
+        QTest::newRow("whitespace") << "```\na   b\n```" << 0 << 2 << 2 << "   ";
+        QTest::newRow("paragraph") << "long paragraph wraps over several visual lines\n\nsibling" << 0 << 7 << 3 << "long paragraph wraps over several visual lines";
+        QTest::newRow("heading") << "# heading words\n\nsibling" << 0 << 3 << 3 << "heading words";
+        QTest::newRow("nested") << "> - parent\n>   - child words\n>   - next" << 1 << 3 << 3 << "child words";
+        QTest::newRow("cell") << "| left | right |\n|-|-|\n|body||" << 1 << 2 << 3 << "right";
+        QTest::newRow("empty-cell") << "| left | right |\n|-|-|\n|body||" << 3 << 0 << 3 << "";
+        QTest::newRow("code-line") << "```\nfirst\nsecond line\n```" << 0 << 9 << 3 << "second line\n";
+        QTest::newRow("empty-code-line") << "```\nfirst\n\nlast\n```" << 0 << 6 << 3 << "\n";
+        QTest::newRow("final-html-line") << "<div>\nraw text\n</div>" << 0 << 17 << 3 << "</div>\n";
+        QTest::newRow("html-line") << "<div>\nraw text\n</div>" << 0 << 8 << 3 << "raw text\n";
+    }
+    void repeatedSelection() {
+        QFETCH(QString, source); QFETCH(int, leaf); QFETCH(int, offset);
+        QFETCH(int, clicks); QFETCH(QString, expected);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.7\nMarkdownView { width: 140; selectionEnabled: true; tablesEnabled: true }", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        view->setProperty("markdown", source);
+        QQuickWindow window; window.resize(200, 500); view->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window)); QTRY_VERIFY(leaves(view).size() > leaf);
+        auto *text = leaves(view)[leaf]; QTRY_VERIFY(text->layout());
+        const auto point = position(text, offset, window.contentItem());
+        for (int i = 0; i < clicks; ++i) QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QCOMPARE(view->property("selectedText").toString(), expected);
+    }
+    void repeatedClickThresholds() {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.8\nMarkdownView { width: 300; selectionEnabled: true; markdown: 'first word next' }", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(300, 140); view->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window)); QTRY_COMPARE(leaves(view).size(), 1);
+        QTRY_VERIFY(leaves(view)[0]->layout());
+        const auto first = position(leaves(view)[0], 2, window.contentItem());
+        const auto distant = position(leaves(view)[0], 12, window.contentItem());
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, first);
+        QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 30);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, first);
+        QVERIFY(view->property("selectedText").toString().isEmpty());
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, distant);
+        QVERIFY(view->property("selectedText").toString().isEmpty());
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, distant);
+        QCOMPARE(view->property("selectedText").toString(), "next");
+    }
+    void wholeUnitDragging() {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.7\nMarkdownView { width: 300; selectionEnabled: true; markdown: 'one two three\\n\\nfour five' }", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(300, 200); view->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window)); QTRY_COMPARE(leaves(view).size(), 2);
+        auto text = leaves(view); QTRY_VERIFY(text[0]->layout() && text[1]->layout());
+        const auto start = position(text[0], 5, window.contentItem());
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, start);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start);
+        QCOMPARE(view->property("selectedText").toString(), "two");
+        QTest::mouseMove(&window, position(text[0], 11, window.contentItem()));
+        QTRY_COMPARE(view->property("selectedText").toString(), "two three");
+        QTest::mouseMove(&window, position(text[0], 1, window.contentItem()));
+        QTRY_COMPARE(view->property("selectedText").toString(), "one two");
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, position(text[0], 1, window.contentItem()));
+        QVERIFY(QMetaObject::invokeMethod(view, "clearSelection"));
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, start);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, start);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start);
+        QCOMPARE(view->property("selectedText").toString(), "one two three");
+        const auto end = position(text[1], 2, window.contentItem());
+        QTest::mouseMove(&window, end);
+        QTRY_COMPARE(view->property("selectedText").toString(), "one two three\n\nfour five");
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, end);
+    }
+    void edgeScrollSpeed_data() {
+        QTest::addColumn<int>("y"); QTest::addColumn<qreal>("expectedSpeed");
+        QTest::newRow("upper-half") << 16 << qreal(-300);
+        QTest::newRow("lower-half") << 144 << qreal(300);
+        QTest::newRow("above") << -10 << qreal(-600);
+        QTest::newRow("below") << 170 << qreal(600);
+    }
+    void edgeScrollSpeed() {
+        QFETCH(int, y); QFETCH(qreal, expectedSpeed);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.8
+Item {
+    id: viewport; width: 240; height: 160
+    property alias document: document
+    MarkdownView {
+        id: document; width: 240; selectionEnabled: true; selectionViewport: viewport
+        markdown: "paragraph words\n\n".repeat(20)
+    }
+})", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *viewport = qobject_cast<QQuickItem *>(object.get()); QVERIFY(viewport);
+        auto *view = viewport->property("document").value<QQuickItem *>(); QVERIFY(view);
+        QQuickWindow window; window.resize(240, 160); viewport->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window)); QTRY_VERIFY(!leaves(view).isEmpty());
+        QSignalSpy requests(view, SIGNAL(selectionScrollRequested(double)));
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, QPoint(40, 80));
+        QElapsedTimer elapsed; elapsed.start();
+        QTest::mouseMove(&window, QPoint(40, y));
+        QTRY_VERIFY(requests.size() >= 8);
+        qreal displacement = 0;
+        for (const auto &request : requests) { displacement += request[0].toDouble(); QVERIFY(qAbs(request[0].toDouble()) <= 30); }
+        const qreal measuredSpeed = displacement * 1000 / elapsed.elapsed();
+        QVERIFY2(qAbs(measuredSpeed - expectedSpeed) < qAbs(expectedSpeed) * .2,
+            qPrintable(QString::number(measuredSpeed)));
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, QPoint(40, y));
+    }
+    void edgeAutoscrolling() {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.7
+Flickable {
+    id: host
+    width: 240; height: 160; clip: true; contentHeight: document.contentHeight
+    property alias document: document
+    MarkdownView {
+        id: document; width: host.width; selectionEnabled: true; selectionViewport: host
+        markdown: "paragraph words\n\n".repeat(40)
+        onSelectionScrollRequested: function(deltaY) {
+            host.contentY = Math.max(0, Math.min(host.contentHeight - host.height, host.contentY + deltaY))
+        }
+    }
+})", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *host = qobject_cast<QQuickItem *>(object.get()); QVERIFY(host);
+        auto *view = host->property("document").value<QQuickItem *>(); QVERIFY(view);
+        QQuickWindow window; window.resize(240, 160); host->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window)); QTRY_VERIFY(leaves(view).size() == 40);
+        QTRY_VERIFY(leaves(view)[0]->layout());
+        QSignalSpy requests(view, SIGNAL(selectionScrollRequested(double)));
+        const QPoint start = position(leaves(view)[0], 1, window.contentItem());
+        const QPoint bottom(100, 159);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start);
+        QTest::mouseMove(&window, bottom);
+        QTRY_VERIFY(host->property("contentY").toDouble() > 40);
+        const int initialEnd = view->property("selectionEnd").toInt();
+        QTRY_VERIFY(view->property("selectionEnd").toInt() > initialEnd);
+        QVERIFY(!requests.isEmpty());
+        for (const auto &request : requests) { QVERIFY(request[0].toDouble() > 0); QVERIFY(request[0].toDouble() <= 30); }
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        const int stopped = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), stopped);
+        // A stationary pointer above the top edge scrolls upward, then clamps at zero.
+        host->setProperty("contentY", 120);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, QPoint(100, 80));
+        QTest::mouseMove(&window, QPoint(100, -10));
+        QTRY_VERIFY(host->property("contentY").toDouble() < 80);
+        QTRY_COMPARE(host->property("contentY").toDouble(), 0.0);
+        QVERIFY(requests.last()[0].toDouble() < 0);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, QPoint(100, -10));
+        requests.clear();
+        // Requests at the lower document boundary leave the host clamped.
+        const qreal maximum = host->property("contentHeight").toDouble() - host->height();
+        host->setProperty("contentY", maximum - 5);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, QPoint(100, 80));
+        QTest::mouseMove(&window, bottom);
+        QTRY_COMPARE(host->property("contentY").toDouble(), maximum);
+        const int boundEnd = view->property("selectionEnd").toInt();
+        QTest::qWait(70); QCOMPARE(host->property("contentY").toDouble(), maximum);
+        QCOMPARE(view->property("selectionEnd").toInt(), boundEnd);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        host->setProperty("contentY", 0);
+        // Source reset and disabling selection stop an existing drag immediately.
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start); QTest::mouseMove(&window, bottom);
+        QTRY_VERIFY(!requests.isEmpty());
+        view->setProperty("markdown", "replacement");
+        const int resetCount = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), resetCount);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        view->setProperty("markdown", QString("paragraph words\n\n").repeated(40));
+        host->setProperty("contentY", 0); QTRY_VERIFY(leaves(view)[0]->layout());
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start); QTest::mouseMove(&window, bottom);
+        QTRY_VERIFY(requests.size() > resetCount);
+        view->setProperty("selectionEnabled", false);
+        const int disabledCount = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), disabledCount);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        view->setProperty("selectionEnabled", true); host->setProperty("contentY", 0);
+        QTRY_VERIFY(leaves(view)[0]->layout());
+        auto viewport = std::make_unique<QQuickItem>(window.contentItem()); viewport->setSize({240, 160});
+        view->setProperty("selectionViewport", QVariant::fromValue(viewport.get()));
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start); QTest::mouseMove(&window, bottom);
+        QTRY_VERIFY(requests.size() > disabledCount);
+        viewport.reset();
+        QVERIFY(!view->property("selectionViewport").value<QQuickItem *>());
+        const int destroyedCount = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), destroyedCount);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        // Explicit viewport removal stops requests during the current drag.
+        host->setProperty("contentY", 0);
+        view->setProperty("selectionViewport", QVariant::fromValue(host));
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start); QTest::mouseMove(&window, bottom);
+        QTRY_VERIFY(requests.size() > destroyedCount);
+        view->setProperty("selectionViewport", QVariant::fromValue<QQuickItem *>(nullptr));
+        const int removedCount = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), removedCount);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        // Null viewport permits selection without requesting scrolling.
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start); QTest::mouseMove(&window, bottom);
+        QTest::qWait(70); QCOMPARE(requests.size(), removedCount);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        view->setProperty("selectionViewport", QVariant::fromValue(host));
+        host->setProperty("contentY", 0);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start); QTest::mouseMove(&window, bottom);
+        QTRY_VERIFY(requests.size() > removedCount);
+        view->forceActiveFocus(); QTest::keyClick(&window, Qt::Key_Escape);
+        const int escapedCount = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), escapedCount);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        host->setProperty("contentY", 0);
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, start); QTest::mouseMove(&window, bottom);
+        QTRY_VERIFY(requests.size() > escapedCount);
+        QQuickWindow other; other.resize(100, 100); other.show(); other.requestActivate();
+        QTRY_VERIFY(!window.isActive());
+        const QString retained = view->property("selectedText").toString();
+        const int inactiveCount = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), inactiveCount);
+        QCOMPARE(view->property("selectedText").toString(), retained);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+    }
+    void delayedLinks() {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData("import QtQuick\nimport QMarkdown 1.7\nMarkdownView { width: 200; selectionEnabled: true; markdown: '[label](host:x)' }", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(200, 120); view->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window)); QTRY_COMPARE(leaves(view).size(), 1);
+        QTRY_VERIFY(leaves(view)[0]->layout());
+        const auto point = position(leaves(view)[0], 2, window.contentItem());
+        QSignalSpy links(view, SIGNAL(linkActivated(QString)));
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QCOMPARE(links.size(), 0); QTRY_COMPARE(links.size(), 1);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QCOMPARE(view->property("selectedText").toString(), "label");
+        QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 30);
+        QCOMPARE(links.size(), 1);
+        QVERIFY(QMetaObject::invokeMethod(view, "clearSelection"));
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        view->setProperty("markdown", "replacement");
+        QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 30);
+        QCOMPARE(links.size(), 1);
+        view->setProperty("markdown", "[label](host:x)"); QTRY_VERIFY(leaves(view)[0]->layout());
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        view->setProperty("selectionEnabled", false);
+        QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 30);
+        QCOMPARE(links.size(), 1);
+        view->setProperty("selectionEnabled", true); QTRY_VERIFY(leaves(view)[0]->layout());
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+        QQuickWindow other; other.resize(100, 100); other.show(); other.requestActivate();
+        QTRY_VERIFY(!window.isActive());
+        QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 30);
+        QCOMPARE(links.size(), 1);
+    }
     void projection_data() {
         QTest::addColumn<QString>("source"); QTest::addColumn<QString>("expected");
         QTest::newRow("empty") << "" << "";
@@ -221,6 +480,13 @@ private slots:
         QCOMPARE(view->property("selectedText").toString(), "before alt after");
         auto *paint = named(view, "markdownImage")[0];
         QVERIFY(!paint->childItems().isEmpty()); QVERIFY(paint->childItems()[0]->isVisible());
+        const auto center = paint->mapToScene({paint->width() / 2, paint->height() / 2}).toPoint();
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, center);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, center);
+        QCOMPARE(view->property("selectedText").toString(), "alt");
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, center);
+        QCOMPARE(view->property("selectedText").toString(), "before alt after");
+        QVERIFY(QMetaObject::invokeMethod(view, "clearSelection"));
         const auto left = paint->mapToScene({1, paint->height() / 2}).toPoint();
         const auto right = paint->mapToScene({paint->width() - 1, paint->height() / 2}).toPoint();
         QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, left);
@@ -323,7 +589,7 @@ Flickable {
         QCOMPARE(link.size(), 0); QCOMPARE(view->property("selectionStart").toInt(), 2);
         QCOMPARE(view->property("selectionEnd").toInt(), 2);
         QTRY_VERIFY(leaves(view)[0]->layout());
-        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point); QCOMPARE(link.size(), 1);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point); QTRY_COMPARE(link.size(), 1);
     }
     void emptyDestinationLink() {
         QQmlEngine engine; QQmlComponent component(&engine);
@@ -335,7 +601,7 @@ Flickable {
         auto *text = leaves(view)[0]; QTRY_VERIFY(text->layout());
         QSignalSpy link(view, SIGNAL(linkActivated(QString)));
         QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, position(text, 2, window.contentItem()));
-        QCOMPARE(link.size(), 1); QCOMPARE(link[0][0].toString(), QString());
+        QTRY_COMPARE(link.size(), 1); QCOMPARE(link[0][0].toString(), QString());
     }
     void mouseAndKeyboard() {
         QQmlEngine engine; QQmlComponent component(&engine);
@@ -348,14 +614,14 @@ Flickable {
         auto text = leaves(view); QTRY_VERIFY(text[0]->layout() && text[1]->layout());
         QSignalSpy link(view, SIGNAL(linkActivated(QString))); QSignalSpy copy(view, SIGNAL(copyRequested(QString)));
         const auto a = position(text[0], 1, window.contentItem()), b = position(text[1], 6, window.contentItem());
-        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, a); QCOMPARE(link.size(), 1);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, a); QTRY_COMPARE(link.size(), 1);
         QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, a);
         QTest::mouseMove(&window, b); QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, b);
-        QCOMPARE(link.size(), 1); QCOMPARE(view->property("selectedText").toString(), "irst block\n\nsecond");
+        QTRY_COMPARE(link.size(), 1); QCOMPARE(view->property("selectedText").toString(), "irst block\n\nsecond");
         QTest::keyClick(&window, Qt::Key_C, Qt::ControlModifier);
         QCOMPARE(copy.size(), 1); QCOMPARE(copy[0][0].toString(), view->property("selectedText").toString());
         QTest::mouseClick(&window, Qt::LeftButton, Qt::ShiftModifier, position(text[0], 4, window.contentItem()));
-        QCOMPARE(view->property("selectedText").toString(), "irs"); QCOMPARE(link.size(), 1);
+        QCOMPARE(view->property("selectedText").toString(), "irs"); QTRY_COMPARE(link.size(), 1);
         QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, b);
         QTest::mouseMove(&window, a); QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, a);
         QCOMPARE(view->property("selectedText").toString(), "irst block\n\nsecond");

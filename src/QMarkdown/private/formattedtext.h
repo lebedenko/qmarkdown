@@ -39,6 +39,7 @@ public:
     void setSelectionEnd(int value);
     void setSelectionColor(const QColor &value);
     Q_INVOKABLE int cursorAt(qreal x, qreal y) const;
+    int characterAt(qreal x, qreal y) const;
     QVector<QRectF> selectionRectangles() const;
     int horizontalAlignment() const { return m_alignment; }
     void setHorizontalAlignment(int value);

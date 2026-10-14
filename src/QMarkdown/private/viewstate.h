@@ -5,6 +5,8 @@
 #include <QAbstractListModel>
 #include <QPointer>
 #include <QQuickItem>
+#include <QElapsedTimer>
+#include <QTimer>
 
 class BlockModel : public QAbstractListModel
 {
@@ -46,6 +48,7 @@ class ViewState : public QObject
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(QQuickItem *selectionViewport READ selectionViewport WRITE setSelectionViewport NOTIFY selectionViewportChanged FINAL)
     Q_PROPERTY(bool selectionEnabled READ selectionEnabled WRITE setSelectionEnabled NOTIFY selectionEnabledChanged FINAL)
     Q_PROPERTY(QString selectedText READ selectedText NOTIFY selectionChanged FINAL)
     Q_PROPERTY(int selectionStart READ selectionStart NOTIFY selectionChanged FINAL)
@@ -67,6 +70,12 @@ public:
     enum SelectionItemKind { TextSelection = 0, ImageSelection = 1, TableCellSelection = 2, ActionSelection = 3 };
     Q_ENUM(SelectionItemKind)
     explicit ViewState(QObject *parent = nullptr);
+    QQuickItem *selectionViewport() const { return m_selectionViewport; }
+    void setSelectionViewport(QQuickItem *item);
+    Q_INVOKABLE void dragSelection(QQuickItem *view, QPointF point);
+    Q_INVOKABLE void endSelectionDrag();
+    Q_INVOKABLE void cancelSelectionGesture();
+    Q_INVOKABLE void finishSelectionTap(QQuickItem *view, QPointF point);
     bool selectionEnabled() const { return m_selectionEnabled; }
     void setSelectionEnabled(bool value);
     int selectionStart() const { return qMin(m_anchor, m_active); }
@@ -107,6 +116,9 @@ public:
     void resetStyle();
     QAbstractItemModel *blocks() { return &m_blocks; }
 signals:
+    void selectionViewportChanged();
+    void selectionScrollRequested(qreal deltaY);
+    void selectionLinkActivated(const QString &destination);
     void presentationReset();
     void selectionEnabledChanged();
     void selectionChanged();
@@ -122,6 +134,19 @@ signals:
     void extendedAutolinksEnabledChanged();
     void styleChanged();
 private:
+    struct SelectionUnit { int start, end; bool lines; };
+    QVector<SelectionUnit> m_selectionUnits;
+    QPair<int, int> selectionUnitAt(QQuickItem *view, QPointF point, int granularity) const;
+    QPointer<QQuickItem> m_selectionViewport, m_dragView;
+    QMetaObject::Connection m_viewportDestroyed, m_windowActive, m_windowChanged;
+    QTimer m_scrollTimer, m_linkTimer;
+    QElapsedTimer m_scrollElapsed, m_clickElapsed;
+    QPointF m_pointerScene, m_lastClickScene;
+    QVariant m_pressedLink;
+    int m_clickCount = 0, m_granularity = 1, m_unitStart = 0, m_unitEnd = 0;
+    bool m_dragging = false, m_shiftClick = false, m_gestureActive = false;
+    void scrollSelection();
+    void observeSelectionWindow(QQuickItem *view);
     struct SelectionItem { QPointer<QQuickItem> item; int kind; };
     QVector<SelectionItem> m_selectionItems;
     QQuickItem *selectionItemAt(QQuickItem *view, QPointF point) const;

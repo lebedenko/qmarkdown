@@ -7,6 +7,8 @@ import "private/Layout.js" as Layout
 Item {
     id: root
     signal copyRequested(string text)
+    property alias selectionViewport: viewState.selectionViewport
+    signal selectionScrollRequested(real deltaY)
     property alias selectionEnabled: viewState.selectionEnabled
     readonly property string selectedText: viewState.selectedText
     readonly property int selectionStart: viewState.selectionStart
@@ -29,24 +31,25 @@ Item {
         else return
         event.accepted = true
     }
+    // Wayland can label mouse events as TouchPad; accept both pointer devices.
     // Reserve document mouse taps after the passive observer excludes actions.
     // Qt 6.8 Flickable otherwise retains the grab and filters drag updates.
     TapHandler {
         enabled: root.selectionEnabled && !selectionGesture.blocked
-        acceptedDevices: PointerDevice.Mouse
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         acceptedButtons: Qt.LeftButton
         gesturePolicy: TapHandler.WithinBounds
     }
     PointHandler {
         enabled: root.selectionEnabled
-        acceptedDevices: PointerDevice.Mouse
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         acceptedButtons: Qt.LeftButton
         onActiveChanged: if (!active) selectionGesture.blocked = false
     }
     TapHandler {
         id: selectionTap
         enabled: root.selectionEnabled
-        acceptedDevices: PointerDevice.Mouse
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         acceptedButtons: Qt.LeftButton
         gesturePolicy: TapHandler.DragThreshold
         onPressedChanged: {
@@ -61,23 +64,29 @@ Item {
         onTapped: function(eventPoint, button) {
             if (selectionGesture.blocked || selectionGesture.dragged || selectionGesture.shift) return
             const link = viewState.selectionLink(root, eventPoint.position)
-            if (link !== null && link !== undefined && link === selectionGesture.pressedLink) root.linkActivated(link)
+            if (link !== null && link !== undefined && link === selectionGesture.pressedLink) viewState.finishSelectionTap(root, eventPoint.position)
         }
     }
     DragHandler {
         id: selectionDrag
         grabPermissions: PointerHandler.CanTakeOverFromAnything
         enabled: root.selectionEnabled && !selectionGesture.blocked
-        acceptedDevices: PointerDevice.Mouse
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         acceptedButtons: Qt.LeftButton
         target: null
         onActiveChanged: {
             if (active) {
                 selectionGesture.dragged = true
-                viewState.extendSelection(root, centroid.position)
-            }
+                viewState.dragSelection(root, centroid.position)
+            } else viewState.endSelectionDrag()
         }
-        onCentroidChanged: if (active) viewState.extendSelection(root, centroid.position)
+        onCanceled: viewState.cancelSelectionGesture()
+        onCentroidChanged: if (active) viewState.dragSelection(root, centroid.position)
+    }
+    Connections {
+        target: viewState
+        function onSelectionScrollRequested(deltaY) { root.selectionScrollRequested(deltaY) }
+        function onSelectionLinkActivated(destination) { root.linkActivated(destination) }
     }
     signal linkActivated(string destination)
     signal codeBlockCopyRequested(string text)
@@ -230,7 +239,7 @@ Item {
                                 acceptedButtons: Qt.LeftButton
                                 gesturePolicy: TapHandler.DragThreshold
                                 enabled: imageRow.imageLinked
-                                acceptedDevices: root.selectionEnabled ? PointerDevice.TouchScreen | PointerDevice.TouchPad | PointerDevice.Stylus : PointerDevice.AllDevices
+                                acceptedDevices: root.selectionEnabled ? PointerDevice.TouchScreen | PointerDevice.Stylus : PointerDevice.AllDevices
                                 onTapped: function(eventPoint, button) {
                                     if (eventPoint.position.x >= 0 && eventPoint.position.x < imagePaint.width
                                         && eventPoint.position.y >= 0 && eventPoint.position.y < imagePaint.height)
@@ -582,7 +591,7 @@ Item {
                             }
                             TapHandler {
                                 id: tap
-                                acceptedDevices: root.selectionEnabled ? PointerDevice.TouchScreen | PointerDevice.TouchPad | PointerDevice.Stylus : PointerDevice.AllDevices
+                                acceptedDevices: root.selectionEnabled ? PointerDevice.TouchScreen | PointerDevice.Stylus : PointerDevice.AllDevices
                                 acceptedButtons: Qt.LeftButton
                                 gesturePolicy: TapHandler.DragThreshold
                                 onPressedChanged: {

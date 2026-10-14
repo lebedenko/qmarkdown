@@ -3,9 +3,20 @@
 #include "imageitem.h"
 #include <QCoreApplication>
 #include <QMetaProperty>
+#include <QGuiApplication>
+#include <QQuickWindow>
+#include <QStyleHints>
+#include <QTextBoundaryFinder>
 #include <limits>
 #include <tuple>
 #include <QtQml/qqml.h>
+
+namespace {
+constexpr int selectionScrollInterval = 16;
+constexpr qint64 selectionMaximumTick = 50;
+constexpr qreal selectionEdgeDistance = 32;
+constexpr qreal selectionMaximumSpeed = 600;
+}
 
 int BlockModel::rowCount(const QModelIndex &parent) const
 {
@@ -107,7 +118,18 @@ void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 ViewState::ViewState(QObject *parent)
     : QObject(parent), m_defaultPolicy(this), m_policy(&m_defaultPolicy), m_resources(this), m_blocks(this), m_default(this), m_style(&m_default)
 {
-    connect(&m_blocks, &QAbstractItemModel::modelAboutToBeReset, this, &ViewState::presentationReset);
+    m_linkTimer.setSingleShot(true);
+    connect(&m_linkTimer, &QTimer::timeout, this, [this] {
+        const auto link = m_pressedLink;
+        m_pressedLink = {};
+        if (m_selectionEnabled && link.isValid()) emit selectionLinkActivated(link.toString());
+    });
+    m_scrollTimer.setInterval(selectionScrollInterval);
+    connect(&m_scrollTimer, &QTimer::timeout, this, &ViewState::scrollSelection);
+    connect(&m_blocks, &QAbstractItemModel::modelAboutToBeReset, this, [this] {
+        m_linkTimer.stop(); m_pressedLink = {}; m_clickElapsed.invalidate();
+        emit presentationReset();
+    });
     m_policyChanged = connect(m_policy, &MarkdownResourcePolicy::changed, this, &ViewState::reloadResources);
     connect(&m_resources, &ResourceController::changed, this, [this] {
         m_blocks.replace(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
@@ -145,6 +167,18 @@ void ViewState::reparse()
     m_parsedOptions = options;
     m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, options);
     auto presentation = QMarkdownPrivate::projectDocument(m_sourceBlocks);
+    m_selectionUnits.clear();
+    auto collect = [this](auto &&self, const auto &blocks) -> void {
+        using Kind = QMarkdownPrivate::PresentationKind;
+        for (const auto &block : blocks) {
+            if (block.kind == Kind::Paragraph || block.kind == Kind::Heading
+                || block.kind == Kind::TableCell || block.kind == Kind::CodeBlock || block.kind == Kind::HtmlBlock)
+                m_selectionUnits.append({block.selectionOffset, block.selectionOffset + block.selectionLength,
+                    block.kind == Kind::CodeBlock || block.kind == Kind::HtmlBlock});
+            self(self, block.children);
+        }
+    };
+    collect(collect, presentation.blocks);
     m_projection = std::move(presentation.text);
     m_presentationBlocks = std::move(presentation.blocks);
     reloadResources();
@@ -263,6 +297,7 @@ void ViewState::selectAll()
 }
 void ViewState::clearSelection()
 {
+    cancelSelectionGesture();
     m_hasAnchor = false;
     setSelection(0, 0);
 }
@@ -326,15 +361,171 @@ int ViewState::selectionPosition(QQuickItem *view, QPointF point) const
 }
 bool ViewState::beginSelection(QQuickItem *view, QPointF point, bool extend)
 {
-    if (!m_selectionEnabled || !view || selectionExcluded(view, point)) return false;
-    const int position = selectionPosition(view, point);
-    setSelection(extend && m_hasAnchor ? m_anchor : position, position);
+    if (!m_selectionEnabled || !view || selectionExcluded(view, point)) {
+        cancelSelectionGesture();
+        return false;
+    }
+    observeSelectionWindow(view);
+    m_gestureActive = true;
+    m_linkTimer.stop();
+    m_shiftClick = extend;
+    m_dragging = false;
+    const auto scene = view->mapToScene(point);
+    const auto *hints = QGuiApplication::styleHints();
+    const auto distance = scene - m_lastClickScene;
+    const bool repeated = !extend && m_clickElapsed.isValid()
+        && m_clickElapsed.elapsed() <= hints->mouseDoubleClickInterval()
+        && qAbs(distance.x()) <= hints->mouseDoubleClickDistance()
+        && qAbs(distance.y()) <= hints->mouseDoubleClickDistance();
+    m_clickCount = repeated ? m_clickCount % 3 + 1 : 1;
+    m_clickElapsed.start();
+    m_lastClickScene = scene;
+    m_granularity = extend ? 1 : m_clickCount;
+    m_pressedLink = !extend && m_clickCount == 1 ? selectionLink(view, point) : QVariant();
+    if (m_granularity > 1) {
+        const auto unit = selectionUnitAt(view, point, m_granularity);
+        m_unitStart = unit.first; m_unitEnd = unit.second;
+        setSelection(m_unitStart, m_unitEnd);
+    } else {
+        const int position = selectionPosition(view, point);
+        setSelection(extend && m_hasAnchor ? m_anchor : position, position);
+    }
     m_hasAnchor = true;
     return true;
 }
 void ViewState::extendSelection(QQuickItem *view, QPointF point)
 {
-    if (m_selectionEnabled && m_hasAnchor && view) setSelection(m_anchor, selectionPosition(view, point));
+    if (!m_selectionEnabled || !m_hasAnchor || !view) return;
+    if (m_granularity == 1) {
+        setSelection(m_anchor, selectionPosition(view, point));
+    } else {
+        const auto unit = selectionUnitAt(view, point, m_granularity);
+        if (unit.first < m_unitStart) setSelection(m_unitEnd, unit.first);
+        else setSelection(m_unitStart, qMax(m_unitEnd, unit.second));
+    }
+}
+QPair<int, int> ViewState::selectionUnitAt(QQuickItem *view, QPointF point, int granularity) const
+{
+    auto *item = selectionItemAt(view, point);
+    if (!item) return {0, 0};
+    const int offset = item->property("projectionOffset").toInt();
+    const int length = item->property("projectionLength").toInt();
+    int position = offset;
+    if (auto *text = qobject_cast<::FormattedText *>(item)) {
+        const auto local = item->mapFromItem(view, point);
+        position += text->characterAt(local.x(), local.y());
+    } else if (granularity == 2) return {offset, offset + length};
+    // Empty image/cell ranges can share an offset with a preceding terminal
+    // newline. Prefer the later semantic unit at such boundaries.
+    for (auto it = m_selectionUnits.crbegin(); it != m_selectionUnits.crend(); ++it) {
+        const auto &unit = *it;
+        if (offset < unit.start || offset + length > unit.end) continue;
+        position = qBound(unit.start, position, qMax(unit.start, unit.end - 1));
+        if (granularity == 3) {
+            if (!unit.lines) return {unit.start, unit.end};
+            int start = position, end = position;
+            while (start > unit.start && m_projection[start - 1] != u'\n') --start;
+            while (end < unit.end && m_projection[end] != u'\n') ++end;
+            if (end < unit.end) ++end;
+            return {start, end};
+        }
+        if (unit.start == unit.end) return {unit.start, unit.end};
+        const auto text = m_projection.mid(unit.start, unit.end - unit.start);
+        const int local = position - unit.start;
+        if (text[local].isSpace()) {
+            int start = local, end = local + 1;
+            while (start > 0 && text[start - 1].isSpace()) --start;
+            while (end < text.size() && text[end].isSpace()) ++end;
+            return {unit.start + start, unit.start + end};
+        }
+        QTextBoundaryFinder words(QTextBoundaryFinder::Word, text);
+        words.toStart();
+        int start = -1;
+        do {
+            const auto reasons = words.boundaryReasons();
+            if (reasons & QTextBoundaryFinder::StartOfItem) start = words.position();
+            if ((reasons & QTextBoundaryFinder::EndOfItem) && start >= 0
+                && local >= start && local < words.position())
+                return {unit.start + start, unit.start + words.position()};
+        } while (words.toNextBoundary() >= 0);
+        QTextBoundaryFinder graphemes(QTextBoundaryFinder::Grapheme, text);
+        graphemes.setPosition(local);
+        const int startGrapheme = graphemes.isAtBoundary() ? local : graphemes.toPreviousBoundary();
+        graphemes.setPosition(local);
+        const int endGrapheme = graphemes.toNextBoundary();
+        return {unit.start + startGrapheme, unit.start + endGrapheme};
+    }
+    return {offset, offset + length};
+}
+void ViewState::observeSelectionWindow(QQuickItem *view)
+{
+    disconnect(m_windowActive); disconnect(m_windowChanged);
+    m_windowChanged = connect(view, &QQuickItem::windowChanged, this, &ViewState::cancelSelectionGesture);
+    if (auto *window = view->window())
+        m_windowActive = connect(window, &QWindow::activeChanged, this, [this, window] {
+            if (!window->isActive()) cancelSelectionGesture();
+        });
+}
+void ViewState::finishSelectionTap(QQuickItem *view, QPointF point)
+{
+    if (!m_selectionEnabled || m_dragging || m_shiftClick || m_clickCount != 1) return;
+    if (m_pressedLink.isValid() && selectionLink(view, point) == m_pressedLink)
+        m_linkTimer.start(QGuiApplication::styleHints()->mouseDoubleClickInterval());
+}
+void ViewState::dragSelection(QQuickItem *view, QPointF point)
+{
+    if (!m_selectionEnabled || !m_hasAnchor || !m_gestureActive || !view) return;
+    m_dragging = true;
+    m_linkTimer.stop(); m_pressedLink = {};
+    m_clickElapsed.invalidate();
+    m_dragView = view;
+    m_pointerScene = view->mapToScene(point);
+    extendSelection(view, point);
+    if (m_selectionViewport && !m_scrollTimer.isActive()) {
+        m_scrollElapsed.start(); m_scrollTimer.start();
+    }
+}
+void ViewState::endSelectionDrag()
+{
+    m_scrollTimer.stop(); m_dragView = nullptr;
+    m_gestureActive = false;
+}
+void ViewState::cancelSelectionGesture()
+{
+    endSelectionDrag();
+    m_linkTimer.stop(); m_pressedLink = {};
+    m_clickElapsed.invalidate(); m_clickCount = 0;
+    m_granularity = 1; m_dragging = false;
+}
+void ViewState::setSelectionViewport(QQuickItem *item)
+{
+    if (m_selectionViewport == item) return;
+    m_scrollTimer.stop(); m_dragView = nullptr;
+    disconnect(m_viewportDestroyed);
+    m_selectionViewport = item;
+    if (item) m_viewportDestroyed = connect(item, &QObject::destroyed, this, [this] {
+        m_scrollTimer.stop(); m_dragView = nullptr; emit selectionViewportChanged();
+    });
+    emit selectionViewportChanged();
+}
+void ViewState::scrollSelection()
+{
+    if (!m_selectionEnabled || !m_dragView || !m_selectionViewport
+        || !m_dragView->window() || m_selectionViewport->window() != m_dragView->window()) {
+        endSelectionDrag(); return;
+    }
+    const qreal elapsed = qMin(selectionMaximumTick, m_scrollElapsed.restart()) / 1000.0;
+    const qreal y = m_selectionViewport->mapFromScene(m_pointerScene).y();
+    const qreal height = m_selectionViewport->height();
+    const qreal top = y, bottom = height - y;
+    qreal speed = 0;
+    if (height > 0 && qMin(top, bottom) < selectionEdgeDistance && top != bottom)
+        speed = (top < bottom ? -1 : 1) * selectionMaximumSpeed * qBound(qreal(0),
+            (selectionEdgeDistance - qMin(top, bottom)) / selectionEdgeDistance, qreal(1));
+    if (speed != 0) emit selectionScrollRequested(speed * elapsed);
+    // Hosts may synchronously remove the viewport or replace the source.
+    if (m_dragView && m_selectionViewport)
+        extendSelection(m_dragView, m_dragView->mapFromScene(m_pointerScene));
 }
 QVariant ViewState::selectionLink(QQuickItem *view, QPointF point) const
 {

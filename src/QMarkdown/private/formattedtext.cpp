@@ -500,3 +500,11 @@ int FormattedText::cursorAt(qreal x, qreal y) const
     }
     return position;
 }
+
+int FormattedText::characterAt(qreal x, qreal y) const
+{
+    const QPointF point = QPointF(x, y) - m_paintOffset;
+    for (const auto &cell : m_cursorCells)
+        if (cell.rect.contains(point)) return cell.start;
+    return cursorAt(x, y);
+}
