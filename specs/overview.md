@@ -1,18 +1,24 @@
 # Project overview
 
-Current local package: **1.7.0 / QML 1.7**. All five independent opt-in GFM extensions
-(task lists, strikethrough, extended autolinks, tables and tag filtering) are implemented
-on CommonMark 0.31.2; exact GFM 0.29-gfm conformance is not claimed.
-[Feature 040](040-document-selection/verification.md) implements opt-in document-wide
-desktop selection and host-owned plain-text copy requests.
-[Feature 041](041-library-maintainability/verification.md) is implemented and locally
-verified. Protected delivery of those features is recorded by merged
-[PR 19](https://github.com/lebedenko/qmarkdown/pull/19) and
-[PR 20](https://github.com/lebedenko/qmarkdown/pull/20); their verification documents
-retain the original local-stage records. Publication requires separate authorization. Published package **1.6.0 / QML 1.6** and its historical evidence remain
-in [Feature 038](038-gfm-completion-inline-code-padding/verification.md).
+## Current release
 
-## Current published status
+<!-- current-release:start -->
+Published package **1.7.0 / QML 1.7** is available in the [1.7.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.7.0).
+It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
+native tables, inline-code padding, opt-in document-wide desktop selection and
+host-owned plain-text copy requests. Exact GFM 0.29-gfm conformance is not claimed.
+See the [release notes](../docs/release-notes-1.7.0.md) and
+[installation instructions](../docs/release-install.md).
+
+Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
+targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
+compatible throughout 1.x. Package 1.7.0 accepts compatible 1.0–1.7 requests and
+EXACT 1.7.0; exact earlier versions require historical packages. Native classes
+and QMarkdown.Private remain private; no public C++ ABI is promised.
+Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
+<!-- current-release:end -->
+
+## Historical 1.6.0 status
 
 Package **1.6.0 / QML 1.6** is [released](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0) on **2026-10-13 UTC**. Optional code-block actions retain host-owned clipboard handling. Styling includes opt-in Polished/Minimal light/dark presets; Legacy remains the default. Inline-code padding defaults to 4/2 logical pixels in every preset; zero metrics restore previous spacing. Hosts own visual identity, scrolling, navigation and resource authorization.
 
@@ -42,7 +48,8 @@ Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a
 - Bundled renderer engines: highlighting, Mermaid and math remain deferred.
 
 [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14,
-implements host-provided fenced-block QML Components within existing code surfaces.
+implements host-provided fenced-block QML Components after the 1.7.0 tag.
+These renderers are absent from the 1.7.0 downloads.
 Selection enabled displays source; copying retains source. See the
 [renderer guide](../docs/fenced-block-renderers.md) and separate
 [verification/delivery record](042-custom-fenced-block-renderers/verification.md).

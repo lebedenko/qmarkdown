@@ -1,5 +1,6 @@
 # QMarkdown 1.7.0
 
+<!-- current-release:start -->
 QMarkdown 1.7.0 / QML 1.7 adds opt-in document-wide desktop selection across native
 Markdown blocks. Mouse dragging, Shift-click, standard Select All/Copy shortcuts
 and Escape operate on a deterministic plain-text projection. Links retain ordinary
@@ -24,4 +25,5 @@ remains Linux x86_64, Qt >=6.8, C++17 and CMake >=3.21.
 Touch handles, automatic edge scrolling, double/triple-click selection, full caret
 navigation, rich-text/Markdown copying and editing are outside this scope. Source
 and Arch distribution instructions are in the [installation guide](release-install.md).
-Publication requires separate authorization.
+Download source and Arch assets from the [1.7.0 release](https://github.com/lebedenko/qmarkdown/releases/tag/v1.7.0).
+<!-- current-release:end -->
