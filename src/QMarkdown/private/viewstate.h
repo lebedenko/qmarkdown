@@ -28,7 +28,9 @@ public:
         CodeSpansRole = Qt::UserRole + 14,
         SelectionOffsetRole = Qt::UserRole + 15,
         SelectionLengthRole = Qt::UserRole + 16,
-        SelectionKindRole = Qt::UserRole + 17
+        SelectionKindRole = Qt::UserRole + 17,
+        CodeInfoRole = Qt::UserRole + 18,
+        CodeFencedRole = Qt::UserRole + 19
     };
     using QAbstractListModel::QAbstractListModel;
     int rowCount(const QModelIndex &parent = {}) const override;
@@ -70,6 +72,7 @@ public:
     int selectionStart() const { return qMin(m_anchor, m_active); }
     int selectionEnd() const { return qMax(m_anchor, m_active); }
     QString selectedText() const { return m_projection.mid(selectionStart(), selectionEnd() - selectionStart()); }
+    Q_INVOKABLE bool validFencedRenderer(QObject *object) const;
     Q_INVOKABLE void selectAll();
     Q_INVOKABLE void clearSelection();
     Q_INVOKABLE void requestCopy();

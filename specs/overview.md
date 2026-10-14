@@ -1,6 +1,16 @@
 # Project overview
 
-Current package: **1.7.0 / QML 1.7**, with opt-in document-wide desktop selection and readable plain-text copy requests. Hosts retain clipboard and scrolling ownership. See [Feature 040](040-document-selection/requirements.md); publication is separately authorized. Historical 1.6.0 publication and verification remain below.
+Current local package: **1.7.0 / QML 1.7**. All five independent opt-in GFM extensions
+(task lists, strikethrough, extended autolinks, tables and tag filtering) are implemented
+on CommonMark 0.31.2; exact GFM 0.29-gfm conformance is not claimed.
+[Feature 040](040-document-selection/verification.md) implements opt-in document-wide
+desktop selection and host-owned plain-text copy requests.
+[Feature 041](041-library-maintainability/verification.md) is implemented and locally
+verified. Protected delivery of those features is recorded by merged
+[PR 19](https://github.com/lebedenko/qmarkdown/pull/19) and
+[PR 20](https://github.com/lebedenko/qmarkdown/pull/20); their verification documents
+retain the original local-stage records. Publication requires separate authorization. Published package **1.6.0 / QML 1.6** and its historical evidence remain
+in [Feature 038](038-gfm-completion-inline-code-padding/verification.md).
 
 ## Current published status
 
@@ -12,7 +22,7 @@ The evidence contracts remain separate: [iteration 017](017-complete-semantic-ev
 
 Documented public QML behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes remain private; no C++ headers are installed and no public C++ ABI is promised. Package 1.6.0 accepts compatible 1.0–1.6 requests and EXACT 1.6.0; exact earlier versions require historical packages.
 
-Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Touch selection handles, edge autoscrolling, rich-text copying, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
+Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Touch selection handles, edge autoscrolling, rich-text copying, streaming, highlighting, bundled renderer engines, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
 ## Accepted project direction
@@ -29,7 +39,13 @@ Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a
 
 - Resource policies: Feature 010 implements opt-in PNG/JPEG access and Feature 009 reports link destinations to hosts. SVG, additional formats and richer raw HTML behavior require later policy/design approval. Feature 001’s no-resource/no-link slice remains historical.
 - Streaming: shared semantics for static and appended input, with incremental parsing/rendering considered in its own feature.
-- Fenced-block extensions: Feature 004 preserves decoded info privately and renders native code; future rendering can select ordinary code or an extension such as diagrams or math. Extension APIs and engines require later design and approval.
+- Bundled renderer engines: highlighting, Mermaid and math remain deferred.
+
+[Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14,
+implements host-provided fenced-block QML Components within existing code surfaces.
+Selection enabled displays source; copying retains source. See the
+[renderer guide](../docs/fenced-block-renderers.md) and separate
+[verification/delivery record](042-custom-fenced-block-renderers/verification.md).
 
 The brief's directory tree, C++ renderer interface, `MarkdownDocument.append`, `baseUrl`, `MarkdownPolicy`, style fields, and extension names are illustrative, not accepted public contracts. The approved public interface is described in [001 design](001-static-text/design.md) and its [003 inline-formatting extension](003-inline-formatting/design.md) and [004 fenced-code extension](004-fenced-code-blocks/design.md).
 

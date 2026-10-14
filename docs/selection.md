@@ -66,3 +66,7 @@ touch scrolling remain host-controlled. Touch links retain their ordinary activa
 behavior. This desktop scope provides no touch selection handles, automatic edge
 scrolling, double/triple-click selection, full caret navigation, rich-text/Markdown
 copying or editing.
+
+When selection is enabled, [custom fenced-block renderers](fenced-block-renderers.md)
+show ordinary selectable source. Copy payloads retain source text; disabling selection
+recreates eligible custom visuals.

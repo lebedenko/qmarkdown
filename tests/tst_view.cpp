@@ -132,6 +132,27 @@ private slots:
             QCOMPARE(model->data(model->index(0,0),BlockModel::BlockTextRole).toString(),"replacement");
         }
     }
+    void playgroundRendererControls()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QQmlEngine engine; QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window); window->show();
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *renderers = window->findChild<QQuickItem *>("rendererToggle"); QVERIFY(renderers);
+        auto *selection = window->findChild<QQuickItem *>("selectionToggle"); QVERIFY(selection);
+        window->setProperty("sampleIndex", 14);
+        renderers->setProperty("checked", true);
+        QTRY_VERIFY(content(preview) > 0); QVERIFY(named(preview, "nativeFencePreview").isEmpty());
+        selection->setProperty("checked", false);
+        QTRY_COMPARE(named(preview, "nativeFencePreview").size(), 2);
+        QCOMPARE(named(preview, "codeSurface").size(), 3);
+        selection->setProperty("checked", true);
+        QTRY_VERIFY(named(preview, "nativeFencePreview").isEmpty());
+        selection->setProperty("checked", false); QTRY_COMPARE(named(preview, "nativeFencePreview").size(), 2);
+        renderers->setProperty("checked", false); QTRY_VERIFY(named(preview, "nativeFencePreview").isEmpty());
+#endif
+    }
     void playgroundGfmControls()
     {
 #ifdef QMARKDOWN_VIEWER_SOURCE

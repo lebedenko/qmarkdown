@@ -355,6 +355,9 @@ CMARK_EXPORT int cmark_node_set_list_tight(cmark_node *node, int tight);
  */
 CMARK_EXPORT const char *cmark_node_get_fence_info(cmark_node *node);
 
+/** QMarkdown: true for fenced code, false for indented code or other nodes. */
+CMARK_EXPORT int cmark_node_get_code_fenced(cmark_node *node);
+
 /** Sets the info string in a fenced code block, returning 1 on
  * success and 0 on failure.
  */

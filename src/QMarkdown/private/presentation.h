@@ -9,6 +9,8 @@ enum class PresentationKind { Paragraph, Heading, CodeBlock, ThematicBreak, List
 struct PresentationBlock {
     PresentationKind kind;
     QString text;
+    QString infoString;
+    bool codeFenced = false;
     int level = 0;
     QVector<InlineRange> ranges;
     QVector<LinkSpan> links;

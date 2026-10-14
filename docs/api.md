@@ -23,6 +23,7 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 | `baseUrl` | url / empty | 1.0 | Explicit base for relative image URLs; no inferred working/component directory. |
 | `resourcePolicy` | MarkdownResourcePolicy / view-owned deny-all policy | 1.0 | Shared host policies are borrowed. |
 | `contentHeight` | readonly real / 0 | 1.0 | Settled document height; zero at nonpositive width. Layout settles through Qt polish. |
+| `fencedBlockRenderers` | var / empty map | 1.7 | Language-to-Component map; replace whole map to update; contract below. |
 | `codeBlockActions` | Component / null | 1.2 | Per-code-block host action Item; contract below. |
 | `taskListsEnabled` | bool / false | 1.3 | Enables task markers. |
 | `strikethroughEnabled` | bool / false | 1.4 | Enables strikethrough. |
@@ -58,6 +59,16 @@ reserves finite nonnegative implicitHeight. Component/block replacement or view
 removal invalidates old callbacks. Hosts own controls, accessibility, focus and
 feedback; the Component creation context must remain valid. See
 [code actions](code-block-actions.md) for an example.
+
+`fencedBlockRenderers` selects host Items for fenced code using the first token of
+the decoded info string, case-sensitively. Indented/empty/unmatched blocks remain
+ordinary code. Hosts declare required string `codeText`, `infoString`, `language`
+and required `markdownStyle`; the library supplies them at construction, assigns
+width and reserves finite nonnegative implicitHeight. Existing surface/actions
+remain. Selection enabled always displays selectable source; copy payloads retain
+source. Null/invalid entries and creation failures fall back with diagnostics.
+Instances follow document/component/selection lifetime; width/style changes update
+them. Components are trusted host code. See [renderer contract and example](fenced-block-renderers.md).
 
 Assigning null/resetting style or resourcePolicy, or destroying a supplied object,
 restores the view-owned default. The view does not take ownership of supplied
