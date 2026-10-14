@@ -14,7 +14,7 @@ Throughout 1.x, documented public QML properties, signals and CMake integration 
 
 Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: The 1.7.0 package accepts compatible 1.0–1.7 requests and exact 1.7.0, and rejects exact earlier releases, 0.7, 1.8 and 2.0. See [CHANGELOG](CHANGELOG.md). See [1.7.0 release notes](docs/release-notes-1.7.0.md) for these changes. [1.6.0 release notes](docs/release-notes-1.6.0.md) retain the historical release. [1.5.0 release notes](docs/release-notes-1.5.0.md) describe the published Ubuntu and Arch packages; [1.2.0 release notes](docs/release-notes-1.2.0.md) describe historical downloads. Historical [1.1.0 release notes](docs/release-notes-1.1.0.md) remain available.
 
-Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, renderer extensions, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
+Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, bundled highlighting/Mermaid/math, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
 
 ## Build and check
 
@@ -242,3 +242,5 @@ Feature 013 uses a private event sweep for inline format preparation. With the s
 ## Document selection (1.7)
 
 Enable `selectionEnabled` for desktop dragging, Shift-click, Select All, Copy and Escape. `copyRequested(text)` lets the host write readable plain text to its clipboard. See [selection API and copy rules](docs/selection.md). The playground enables selection and supplies Select All/Copy controls.
+
+Custom fenced-block content can use host QML Components through `fencedBlockRenderers`; see the [renderer guide](docs/fenced-block-renderers.md). Selection enabled displays source instead of custom visuals.

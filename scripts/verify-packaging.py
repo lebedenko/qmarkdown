@@ -143,6 +143,13 @@ for variant in ("shared", "static"):
             "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", selection_build, "--parallel", "2")
         run(selection_build / executable, env=environment)
+        renderer_build = work / f"renderers-{variant}-{link}"
+        run("cmake", "-S", consumer_source, "-B", renderer_build,
+            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
+            "-DQMARKDOWN_RENDERERS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.7.0",
+            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
+        run("cmake", "--build", renderer_build, "--parallel", "2")
+        run(renderer_build / executable, env=environment)
     if variant == "shared":
         plugin_consumer = work / "consumer-shared-plugin"
         run("cmake", "-S", consumer_source, "-B", plugin_consumer,

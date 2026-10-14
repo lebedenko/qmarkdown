@@ -27,6 +27,7 @@ QVector<Block> adaptBlocks(cmark_node *node, bool tagFilter)
             block.kind = BlockKind::CodeBlock;
             block.text = QString::fromUtf8(cmark_node_get_literal(node));
             block.infoString = QString::fromUtf8(cmark_node_get_fence_info(node));
+            block.codeFenced = cmark_node_get_code_fenced(node);
             break;
         case CMARK_NODE_HTML_BLOCK:
             block.kind = BlockKind::HtmlBlock;

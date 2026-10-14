@@ -2,6 +2,7 @@
 #include "formattedtext.h"
 #include "imageitem.h"
 #include <QCoreApplication>
+#include <QMetaProperty>
 #include <limits>
 #include <tuple>
 #include <QtQml/qqml.h>
@@ -20,6 +21,8 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
             : kind == ViewState::CodeBlock ? ViewState::SelectedCode
             : kind == ViewState::HtmlBlock ? ViewState::SelectedHtml : kind;
     }
+    if (role == CodeInfoRole) return block.infoString;
+    if (role == CodeFencedRole) return block.codeFenced;
     if (role == SelectionOffsetRole) return block.selectionOffset;
     if (role == SelectionLengthRole) return block.selectionLength;
     if (role == CodeSpansRole) {
@@ -73,7 +76,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
             {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
             {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
             {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
-            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}};
+            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 {
@@ -221,6 +224,20 @@ void registerPrivateTypes()
 }
 }
 Q_COREAPP_STARTUP_FUNCTION(registerPrivateTypes)
+
+bool ViewState::validFencedRenderer(QObject *object) const
+{
+    if (!qobject_cast<QQuickItem *>(object)) return false;
+    const auto *meta = object->metaObject();
+    for (const char *name : {"codeText", "infoString", "language", "markdownStyle"}) {
+        const int index = meta->indexOfProperty(name);
+        if (index < 0) return false;
+        const auto property = meta->property(index);
+        if (!property.isWritable()) return false;
+        if (QByteArray(name) != "markdownStyle" && property.metaType() != QMetaType::fromType<QString>()) return false;
+    }
+    return object->property("markdownStyle").value<QObject *>() == m_style;
+}
 
 void ViewState::setSelectionEnabled(bool value)
 {
