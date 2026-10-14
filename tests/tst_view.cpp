@@ -13,6 +13,9 @@
 #include <QGuiApplication>
 #include <QClipboard>
 #include <QMimeData>
+#include <QMouseEvent>
+#include <QPointingDevice>
+#include <QStyleHints>
 #include <QFontMetricsF>
 #include <QFontDatabase>
 #include <QSignalSpy>
@@ -151,6 +154,196 @@ private slots:
         QTRY_VERIFY(named(preview, "nativeFencePreview").isEmpty());
         selection->setProperty("checked", false); QTRY_COMPARE(named(preview, "nativeFencePreview").size(), 2);
         renderers->setProperty("checked", false); QTRY_VERIFY(named(preview, "nativeFencePreview").isEmpty());
+#endif
+    }
+    void playgroundSelectionShortcuts_data()
+    {
+        QTest::addColumn<bool>("touchpad");
+        QTest::newRow("mouse") << false;
+        QTest::newRow("wayland-touchpad-mouse") << true;
+    }
+    void playgroundSelectionShortcuts()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QFETCH(bool, touchpad);
+        QPointingDevice device("playground pointer", 101,
+            touchpad ? QInputDevice::DeviceType::TouchPad : QInputDevice::DeviceType::Mouse,
+            touchpad ? QPointingDevice::PointerType::Finger : QPointingDevice::PointerType::Generic,
+            QInputDevice::Capability::Position, 1, 3);
+        QQmlEngine engine; QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *editor = window->findChild<QQuickItem *>("editor"); QVERIFY(editor);
+        editor->setProperty("text", "one two three\n\nfour five");
+        window->show(); QVERIFY(QTest::qWaitForWindowExposed(window));
+        window->requestActivate(); QVERIFY(QTest::qWaitForWindowActive(window));
+        QTRY_COMPARE(painted(preview).size(), 2);
+        auto text = painted(preview); QTRY_VERIFY(text[0]->layout() && text[1]->layout());
+        auto position = [](FormattedText *item, int offset) {
+            const auto line = item->layout()->lineForTextPosition(offset);
+            return item->mapToScene(QPointF(line.cursorToX(offset) - item->x() + .5,
+                line.y() + line.height() / 2 - item->y())).toPoint();
+        };
+        Qt::MouseButtons buttons;
+        ulong timestamp = 1000;
+        auto mouse = [&](QEvent::Type type, QPoint point, Qt::KeyboardModifiers modifiers = Qt::NoModifier) {
+            const auto button = type == QEvent::MouseMove ? Qt::NoButton : Qt::LeftButton;
+            if (type == QEvent::MouseButtonPress) buttons = Qt::LeftButton;
+            if (type == QEvent::MouseButtonRelease) buttons = Qt::NoButton;
+            QMouseEvent event(type, point, point, window->mapToGlobal(point), button, buttons, modifiers, &device);
+            event.setTimestamp(timestamp += 20);
+            QCoreApplication::sendEvent(window, &event);
+        };
+        auto click = [&](QPoint point, Qt::KeyboardModifiers modifiers = Qt::NoModifier) {
+            mouse(QEvent::MouseButtonPress, point, modifiers);
+            mouse(QEvent::MouseButtonRelease, point, modifiers);
+        };
+        const auto start = position(text[0], 4), end = position(text[1], 4);
+        editor->forceActiveFocus(); QVERIFY(editor->hasActiveFocus());
+        mouse(QEvent::MouseButtonPress, start);
+        QTRY_VERIFY(preview->hasActiveFocus());
+        mouse(QEvent::MouseMove, end);
+        mouse(QEvent::MouseButtonRelease, end);
+        QCOMPARE(preview->property("selectedText").toString(), "two three\n\nfour");
+        QSignalSpy copies(preview, SIGNAL(copyRequested(QString)));
+        QTest::keyClick(window, Qt::Key_C, Qt::ControlModifier);
+        QCOMPARE(copies.size(), 1);
+        QCOMPARE(QGuiApplication::clipboard()->text(), "two three\n\nfour");
+        QTest::keyClick(window, Qt::Key_A, Qt::ControlModifier);
+        QCOMPARE(preview->property("selectedText").toString(), "one two three\n\nfour five");
+        QTest::keyClick(window, Qt::Key_Escape);
+        QVERIFY(preview->property("selectedText").toString().isEmpty());
+        // A reverse drag retains the same ordered document range.
+        mouse(QEvent::MouseButtonPress, end);
+        mouse(QEvent::MouseMove, start);
+        mouse(QEvent::MouseButtonRelease, start);
+        QCOMPARE(preview->property("selectedText").toString(), "two three\n\nfour");
+        click(position(text[0], 0));
+        QVERIFY(preview->property("selectedText").toString().isEmpty());
+        click(end, Qt::ShiftModifier);
+        QCOMPARE(preview->property("selectedText").toString(), "one two three\n\nfour");
+        // Copy remains available after transferring focus to a host control.
+        auto *copy = window->findChild<QQuickItem *>("selectionCopyButton"); QVERIFY(copy);
+        copy->forceActiveFocus(); QVERIFY(copy->hasActiveFocus());
+        const auto selected = preview->property("selectedText").toString();
+        click(copy->mapToScene(QPointF(copy->width() / 2, copy->height() / 2)).toPoint());
+        QCOMPARE(copies.size(), 2); QCOMPARE(copies.last()[0].toString(), selected);
+        QCOMPARE(QGuiApplication::clipboard()->text(), selected);
+        QCOMPARE(preview->property("selectedText").toString(), selected);
+        // Editor shortcuts must stay with the editor.
+        editor->forceActiveFocus();
+        QTest::keyClick(window, Qt::Key_A, Qt::ControlModifier);
+        QCOMPARE(editor->property("selectedText").toString(), editor->property("text").toString());
+        QTest::keyClick(window, Qt::Key_C, Qt::ControlModifier);
+        QCOMPARE(copies.size(), 2);
+        QCOMPARE(QGuiApplication::clipboard()->text(), editor->property("text").toString());
+        // Returning by mouse reacquires preview focus, including repeated clicks.
+        click(start); QTRY_VERIFY(preview->hasActiveFocus());
+        click(start); QCOMPARE(preview->property("selectedText").toString(), "two");
+        QTest::keyClick(window, Qt::Key_C, Qt::ControlModifier);
+        QCOMPARE(copies.size(), 3); QCOMPARE(copies.last()[0].toString(), "two");
+        QCOMPARE(QGuiApplication::clipboard()->text(), "two");
+        click(start); QCOMPARE(preview->property("selectedText").toString(), "one two three");
+        // Reset click history through Escape, then drag whole words and paragraphs.
+        QTest::keyClick(window, Qt::Key_Escape);
+        click(start); mouse(QEvent::MouseButtonPress, start);
+        QCOMPARE(preview->property("selectedText").toString(), "two");
+        mouse(QEvent::MouseMove, position(text[0], 11));
+        QCOMPARE(preview->property("selectedText").toString(), "two three");
+        mouse(QEvent::MouseMove, position(text[0], 1));
+        QCOMPARE(preview->property("selectedText").toString(), "one two");
+        mouse(QEvent::MouseButtonRelease, position(text[0], 1));
+        QTest::keyClick(window, Qt::Key_Escape);
+        click(start); click(start); mouse(QEvent::MouseButtonPress, start);
+        QCOMPARE(preview->property("selectedText").toString(), "one two three");
+        mouse(QEvent::MouseMove, end);
+        QCOMPARE(preview->property("selectedText").toString(), "one two three\n\nfour five");
+        mouse(QEvent::MouseButtonRelease, end);
+#else
+        QSKIP("Playground is not built in this configuration");
+#endif
+    }
+    void playgroundSelectionExclusionsAndScrolling()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QPointingDevice device("Wayland pointer", 102, QInputDevice::DeviceType::TouchPad,
+            QPointingDevice::PointerType::Finger, QInputDevice::Capability::Position, 1, 3);
+        QQmlEngine engine; QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *editor = window->findChild<QQuickItem *>("editor"); QVERIFY(editor);
+        auto *scroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(scroll);
+        editor->setProperty("text", "[label](host:link) text\n\n```\ncode text\n```");
+        window->show(); QVERIFY(QTest::qWaitForWindowExposed(window));
+        window->requestActivate(); QVERIFY(QTest::qWaitForWindowActive(window));
+        QTRY_COMPARE(painted(preview).size(), 2);
+        QTRY_VERIFY(painted(preview)[0]->layout());
+        auto position = [](FormattedText *item, int offset) {
+            const auto line = item->layout()->lineForTextPosition(offset);
+            return item->mapToScene(QPointF(line.cursorToX(offset) - item->x() + .5,
+                line.y() + line.height() / 2 - item->y())).toPoint();
+        };
+        ulong timestamp = 2000;
+        auto mouse = [&](QEvent::Type type, QPoint point) {
+            QMouseEvent event(type, point, point, window->mapToGlobal(point),
+                type == QEvent::MouseMove ? Qt::NoButton : Qt::LeftButton,
+                type == QEvent::MouseButtonRelease ? Qt::NoButton : Qt::LeftButton,
+                Qt::NoModifier, &device);
+            event.setTimestamp(timestamp += 20);
+            QCoreApplication::sendEvent(window, &event);
+        };
+        auto click = [&](QPoint point) {
+            mouse(QEvent::MouseButtonPress, point); mouse(QEvent::MouseButtonRelease, point);
+        };
+        const auto linkPoint = position(painted(preview)[0], 2);
+        QSignalSpy links(preview, SIGNAL(linkActivated(QString)));
+        click(linkPoint); QCOMPARE(links.size(), 0);
+        QTRY_COMPARE(links.size(), 1); QCOMPARE(links[0][0].toString(), "host:link");
+        QVERIFY(QMetaObject::invokeMethod(preview, "clearSelection")); links.clear();
+        click(linkPoint); click(linkPoint);
+        QCOMPARE(preview->property("selectedText").toString(), "label");
+        QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 30);
+        QCOMPARE(links.size(), 0);
+        QVERIFY(QMetaObject::invokeMethod(preview, "clearSelection"));
+        mouse(QEvent::MouseButtonPress, linkPoint);
+        const auto end = position(painted(preview)[0], 10);
+        mouse(QEvent::MouseMove, end); mouse(QEvent::MouseButtonRelease, end);
+        const auto selected = preview->property("selectedText").toString(); QVERIFY(!selected.isEmpty());
+        QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 30);
+        QCOMPARE(links.size(), 0);
+        auto actions = named(preview, "copyButton"); QCOMPARE(actions.size(), 1);
+        QSignalSpy codeCopies(preview, SIGNAL(codeBlockCopyRequested(QString)));
+        click(actions[0]->mapToScene(QPointF(actions[0]->width() / 2, actions[0]->height() / 2)).toPoint());
+        QCOMPARE(codeCopies.size(), 1); QCOMPARE(codeCopies[0][0].toString(), "code text\n");
+        QCOMPARE(QGuiApplication::clipboard()->text(), "code text\n");
+        QCOMPARE(preview->property("selectedText").toString(), selected);
+        QVERIFY(!preview->hasActiveFocus());
+        click(end); QTRY_VERIFY(preview->hasActiveFocus());
+        QTest::keyClick(window, Qt::Key_A, Qt::ControlModifier);
+        QVERIFY(!preview->property("selectedText").toString().isEmpty());
+        // A stationary pointer at the host edge scrolls; Escape cancels it while held.
+        editor->setProperty("text", QString("paragraph words\n\n").repeated(150));
+        QTRY_COMPARE(painted(preview).size(), 150);
+        QTRY_VERIFY(content(preview) > scroll->height());
+        QTRY_VERIFY(painted(preview)[0]->layout());
+        mouse(QEvent::MouseButtonPress, position(painted(preview)[0], 2));
+        const auto edge = scroll->mapToScene(QPointF(40, scroll->height() - 2)).toPoint();
+        QSignalSpy requests(preview, SIGNAL(selectionScrollRequested(double)));
+        mouse(QEvent::MouseMove, edge);
+        QTRY_VERIFY(scroll->property("contentY").toDouble() > 0);
+        QVERIFY(requests.size() > 0);
+        QTest::keyClick(window, Qt::Key_Escape);
+        QVERIFY(preview->property("selectedText").toString().isEmpty());
+        const auto stopped = scroll->property("contentY").toDouble();
+        requests.clear(); QTest::qWait(100);
+        QCOMPARE(requests.size(), 0); QCOMPARE(scroll->property("contentY").toDouble(), stopped);
+        mouse(QEvent::MouseButtonRelease, edge);
+#else
+        QSKIP("Playground is not built in this configuration");
 #endif
     }
     void playgroundGfmControls()

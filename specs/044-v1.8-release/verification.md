@@ -64,3 +64,54 @@ Tagging and publication have not occurred and remain separately authorized.
   avoiding evidence-only commits that would invalidate the verified head.
 - No protected merge, tagging, distribution publication or downloaded-asset
   acceptance has been performed for 1.8.0.
+
+## Selection interaction repair — 2026-10-14
+
+The user authorized the repair plan within approved Features 040/044, including
+all documented selection shortcuts and verification in PR #25. No public API or
+host clipboard ownership change was needed.
+
+- Reproduced the full-playground mouse-focus failure on native Wayland before
+  the fix. Qt pointer diagnostics showed `MouseButtonPress` with a `TouchPad`
+  device and `Finger` pointer type. Mouse-only selection handlers ignored the
+  press, so the preview did not acquire focus and its existing key handler never
+  received Copy/Select All/Escape. Offscreen mouse tests alone passed before the
+  repair and did not expose the device mismatch.
+- Selection observers, tap reservation and dragging now accept Mouse and TouchPad
+  devices. Per-block link handlers exclude both during selection, preserving
+  delayed-link suppression without duplicate immediate activation. TouchScreen
+  and Stylus links retain their existing handling.
+- Added full-playground regression checks with explicit Mouse and TouchPad/Finger
+  mouse events. They cover mouse-acquired focus (without forcing preview focus),
+  collapse, forward/reverse cross-block dragging, Shift-click, double/triple-click,
+  whole-word/paragraph dragging, Ctrl+C signal and matching clipboard text,
+  Ctrl+A, Escape, host-focus preservation/button copying, editor-owned shortcuts,
+  and shortcuts after returning to the preview by mouse.
+- Added full-playground TouchPad/Finger checks for delayed single-link activation,
+  repeated-click/drag suppression, code-action exclusion and copying, returning
+  preview focus, host edge scrolling and Escape cancellation while held.
+- Focused host checks passed: full-playground repair cases and CTest `view`,
+  `selection`, `selection-fractional` (3/3). The mouse and TouchPad/Finger shortcut
+  cases also passed in a native Wayland full-playground window.
+- The user physically checked the opened repaired Wayland viewer and confirmed
+  Ctrl+C, Ctrl+A, click-drag, double-click, triple-click and double-click with Shift.
+  The user pasted the Ctrl+A/C output, confirming clean projected document text
+  without Markdown formatting delimiters. Additional physical edge-scroll,
+  exclusion and focus-transfer checks were provided as a manual checklist; those
+  behaviors have automated full-playground coverage. Desktop pointer automation
+  was stopped because approval prompts interfered with cursor placement.
+- `python3 scripts/ci-toolchain/qt_versions.py --sync-host qmake6`: configured
+  development Qt remains 6.12.0; no change required.
+- Final repair matrices passed (exit 0):
+
+  | Qt | Evidence directory | Shared CTest | Static CTest | Other checks |
+  | --- | --- | --- | --- | --- |
+  | 6.8.0 | `build-ci-selection-repair-minimum-final` | 17/17 | 17/17 | QML lint, packaging/consumers, benchmark smoke passed |
+  | 6.12.0 | `build-ci-selection-repair-development` | 17/17 | 17/17 | QML lint, packaging/consumers, benchmark smoke passed |
+
+  The initial minimum runner attempt in `build-ci-selection-repair-minimum`
+  failed because the sandbox denied Docker socket access. Its evidence was
+  preserved; the successful run used approved Docker access and a fresh directory.
+- Strict release documentation validation passed. Final-head hosted check status
+  is maintained on PR #25, without a follow-up evidence-only commit.
+- Merge, tagging and publication remain outside this repair.
