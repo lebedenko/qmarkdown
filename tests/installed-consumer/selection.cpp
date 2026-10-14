@@ -12,10 +12,18 @@ Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv); QQmlEngine engine; QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.7\nMarkdownView { width: 200; markdown: '**one**\\n\\ntwo'; style: MarkdownStyle { selectionBackgroundColor: '#603b82f6' } }", {});
+    component.setData("import QtQuick\nimport QMarkdown 1.8\nMarkdownView { width: 200; markdown: '**one**\\n\\ntwo'; style: MarkdownStyle { selectionBackgroundColor: '#603b82f6' } }", {});
     std::unique_ptr<QObject> view(component.create());
     if (!view) { qWarning() << component.errorString(); return 1; }
     if (view->property("selectionEnabled").toBool() || !view->property("selectedText").toString().isEmpty()) return 2;
+    if (view->property("selectionViewport").value<QQuickItem *>()) return 9;
+    QSignalSpy scroll(view.get(), SIGNAL(selectionScrollRequested(double)));
+    if (!scroll.isValid()) return 10;
+    auto viewport = std::make_unique<QQuickItem>();
+    if (!view->setProperty("selectionViewport", QVariant::fromValue(viewport.get()))
+        || view->property("selectionViewport").value<QQuickItem *>() != viewport.get()) return 11;
+    viewport.reset();
+    if (view->property("selectionViewport").value<QQuickItem *>()) return 12;
     QSignalSpy copy(view.get(), SIGNAL(copyRequested(QString)));
     QMetaObject::invokeMethod(view.get(), "selectAll"); QMetaObject::invokeMethod(view.get(), "requestCopy");
     if (copy.size()) return 3;

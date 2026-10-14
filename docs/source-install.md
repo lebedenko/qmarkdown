@@ -18,7 +18,7 @@ The archive builds only the library. Tests, benchmarks and the example viewer
 are available in the development repository. Use `-DBUILD_SHARED_LIBS=OFF` for
 a static library. No public C++ headers or ABI are provided.
 
-CMake consumers use `find_package(QMarkdown 1.7 CONFIG REQUIRED)` and link
+CMake consumers use `find_package(QMarkdown 1.8 CONFIG REQUIRED)` and link
 `QMarkdown::QMarkdown`. Static consumers also link `QMarkdown::QMarkdownPlugin`.
 Set `CMAKE_PREFIX_PATH` to your installation prefix. Import `QMarkdown 1.7` in QML.
 The default QML installation directory is `lib/qt6/qml` (GNUInstallDirs may choose

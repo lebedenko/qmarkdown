@@ -13,7 +13,7 @@ set_source_files_properties(private/Layout.js PROPERTIES QT_QML_SKIP_QMLDIR_ENTR
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
-    VERSION 1.7
+    VERSION 1.8
     PLUGIN_TARGET QMarkdownPlugin
     CLASS_NAME QMarkdownPlugin
     RESOURCE_PREFIX /qt/qml

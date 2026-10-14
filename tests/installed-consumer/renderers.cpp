@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     component.setData(R"QML(
 pragma ComponentBehavior: Bound
 import QtQuick
-import QMarkdown 1.7
+import QMarkdown 1.8
 MarkdownView {
     width: 200
     markdown: "~~~ preview &amp;\n  source\n~~~"

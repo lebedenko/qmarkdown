@@ -2,10 +2,10 @@
 
 See the [public API reference](api.md) for the complete supported contract.
 
-QMarkdown 1.7.0 / QML 1.7 supports opt-in desktop selection across native blocks.
+QMarkdown 1.8.0 / QML 1.8 supports opt-in desktop selection across native blocks.
 
 ```qml
-import QMarkdown 1.7
+import QMarkdown 1.8
 
 MarkdownView {
     id: document
@@ -31,8 +31,9 @@ clipboard. Hosts also own scrolling, clipping and action controls.
 | `style.selectionBackgroundColor` | Translucent selection background; follows preset/override/reset conventions. |
 
 Drag with the left mouse button across blocks in either direction. Ordinary
-clicks establish a new anchor; Shift-click extends it. A plain link click activates
-its destination, while dragging or Shift-click suppresses activation. With view
+clicks establish a new anchor; Shift-click extends it. A desktop mouse link click activates
+its destination after the platform double-click interval when selection is enabled.
+Repeated clicks, dragging and Shift-click suppress activation. With view
 active focus, platform Select All and Copy shortcuts call the corresponding
 methods; Escape clears selection. Moving focus to a host Copy button preserves
 selection so it can call `requestCopy()`.
@@ -63,10 +64,52 @@ padding geometry. Highlights preserve existing text colors and layout.
 
 Code action delegates are excluded from document gestures and copy text. Wheel and
 touch scrolling remain host-controlled. Touch links retain their ordinary activation
-behavior. This desktop scope provides no touch selection handles, automatic edge
-scrolling, double/triple-click selection, full caret navigation, rich-text/Markdown
-copying or editing.
+behavior. Touch selection handles, horizontal autoscrolling, full caret navigation,
+rich-text/Markdown copying and editing remain deferred.
 
 When selection is enabled, [custom fenced-block renderers](fenced-block-renderers.md)
 show ordinary selectable source. Copy payloads retain source text; disabling selection
 recreates eligible custom visuals.
+
+## Repeated clicks (1.8)
+
+Double-click selects a Unicode word using Qt word boundaries. Whitespace selects
+its contiguous run; punctuation selects one grapheme. Loaded images select their
+complete alt-text range. Triple-click selects a complete prose paragraph or
+heading, a table cell, or one logical code/literal-HTML line including its newline
+when present. Paragraph ranges survive image loading and include image alt text;
+synthetic list prefixes and sibling separators are excluded. Dragging after a
+repeated click extends by whole words or triple-click units in either direction.
+Timing and distance use the platform's repeated-click settings.
+
+## Host-owned edge scrolling (1.8)
+
+Set `selectionViewport` to the visible scrolling Item and handle
+`selectionScrollRequested(real deltaY)`. A null viewport disables requests. The
+library never changes a Flickable or searches for an ancestor. For example:
+
+```qml
+Flickable {
+    id: scroll
+    width: 400; height: 300; clip: true
+    contentHeight: document.contentHeight
+    MarkdownView {
+        id: document
+        width: scroll.width
+        selectionEnabled: true
+        selectionViewport: scroll
+        onSelectionScrollRequested: function(deltaY) {
+            scroll.contentY = Math.max(0, Math.min(
+                Math.max(0, scroll.contentHeight - scroll.height), scroll.contentY + deltaY))
+        }
+    }
+}
+```
+
+During desktop selection dragging, the 32 logical pixels nearest either vertical
+edge request linearly increasing speed up to 600 logical pixels/second, retaining
+maximum speed outside the edge. Requests use a 16 ms timer with elapsed-time deltas
+capped at 50 ms per tick. Positive deltas scroll downward. The stationary
+window-space pointer updates selection as the host reveals content. Hosts clamp
+their scroll position. Release, cancellation, window deactivation, selection
+disablement, viewport removal/destruction and source replacement stop requests.

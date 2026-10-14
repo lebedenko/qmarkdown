@@ -16,6 +16,14 @@ Module {
         exportMetaObjectRevisions: [256]
         Enum { name: "RenderKind"; values: { "PlainText": 0, "FormattedText": 1, "CodeBlock": 2, "ThematicBreak": 3, "List": 4, "Quote": 5, "ListItem": 6, "HtmlBlock": 7, "Image": 8, "Segments": 9, "Table": 10, "SelectedText": 11, "SelectedCode": 12, "SelectedHtml": 13 } }
         Enum { name: "SelectionItemKind"; values: { "TextSelection": 0, "ImageSelection": 1, "TableCellSelection": 2, "ActionSelection": 3 } }
+        Property { name: "selectionViewport"; type: "QQuickItem"; isPointer: true; notify: "selectionViewportChanged" }
+        Signal { name: "selectionViewportChanged" }
+        Signal { name: "selectionScrollRequested"; Parameter { name: "deltaY"; type: "double" } }
+        Signal { name: "selectionLinkActivated"; Parameter { name: "destination"; type: "QString" } }
+        Method { name: "dragSelection"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } }
+        Method { name: "endSelectionDrag" }
+        Method { name: "cancelSelectionGesture" }
+        Method { name: "finishSelectionTap"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } }
         Property { name: "selectionEnabled"; type: "bool"; notify: "selectionEnabledChanged" }
         Property { name: "selectedText"; type: "QString"; notify: "selectionChanged"; isReadonly: true }
         Property { name: "selectionStart"; type: "int"; notify: "selectionChanged"; isReadonly: true }

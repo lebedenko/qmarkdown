@@ -3,17 +3,18 @@
 ## Current release
 
 <!-- current-release:start -->
-Published package **1.7.0 / QML 1.7** is available in the [1.7.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.7.0).
+Published package **1.8.0 / QML 1.8** is available in the [1.8.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.8.0).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
-host-owned plain-text copy requests. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.7.0.md) and
+host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
+selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
+See the [release notes](../docs/release-notes-1.8.0.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.7.0 accepts compatible 1.0–1.7 requests and
-EXACT 1.7.0; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.8.0 accepts compatible 1.0–1.8 requests and
+EXACT 1.8.0; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
 <!-- current-release:end -->
@@ -39,12 +40,19 @@ These stages preserve the brief's direction. The table separates completed found
 | First vertical slice | [001 static text](001-static-text/requirements.md): paragraphs, H1–H6, native block layout, styling, replacement updates. Approved on 2026-10-07 and implemented; see its verification record. |
 | CommonMark core coverage (completed) | Complete CommonMark 0.31.2 semantics: ATX and Setext headings, paragraphs, emphasis/strong emphasis, inline code, fenced and indented code, inline and reference links, images, ordered/unordered and nested lists, block quotes, thematic breaks, escapes/entities, autolinks, hard/soft breaks, and raw HTML recognition. Include whitespace, line handling, delimiter rules, and precedence. Features 009/010 specify host navigation and resource policies; Feature 017 completes semantic evidence. |
 | Selected GFM syntax (implemented) | Task lists, strikethrough and extended autolinks have independent opt-in slices and separate extension checks on the newer CommonMark core; tables and tag filtering are released in 1.6.0; no full GFM conformance claim. |
-| Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Selection is included in the 1.7.0 downloads. Touch selection handles, automatic edge scrolling, double/triple-click selection, full caret navigation and rich-text copying remain deferred. |
+| Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Selection is included in the 1.7.0 downloads. Iteration 044 adds double/triple-click selection and host-owned vertical edge scrolling in 1.8. Touch handles, horizontal autoscrolling, caret navigation and rich-text copying remain deferred. |
 | Streaming | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
 | Renderer extensions | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers after the 1.7.0 tag; these are absent from 1.7.0 downloads. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Bundled syntax highlighting, Mermaid and math remain deferred. Footnotes and other richer syntax require separate specifications. |
 | v1.0 conformance gate (completed) | All pinned CommonMark 0.31.2 official examples pass semantic checks, with native renderer verification and documented resource/HTML behavior. Record reproducible commands and actual counts. Streaming and optional extensions are not gates. |
 
 The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Iteration 021 records historical local candidate readiness; iterations 023/027 record completed 1.0.0/1.1.0 publication separately.
+
+## Current implementation iteration
+
+[044: 1.8 desktop reading improvements](044-v1.8-release/requirements.md) delivers custom fenced-block renderers, repeated-click desktop selection
+and host-owned selection edge autoscrolling, with the release documentation gate. Requirements, design and tasks are approved for implementation and verification;
+tagging and publication require separate authorization.
+Streaming remains a subsequent feature requiring its own bounded design and approval.
 
 ## Historical implementation stages
 
