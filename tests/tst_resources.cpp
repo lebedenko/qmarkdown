@@ -1,4 +1,9 @@
 #include "private/resourcecontroller.h"
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QFutureWatcher>
+#include "private/decodescheduler.h"
+#include "private/presentation.h"
 #include <QBuffer>
 #include <QSemaphore>
 #include <atomic>
@@ -149,39 +154,62 @@ private slots:
         jpeg.insert(2, QByteArray::fromHex("ffe1002245786966000049492a0008000000010012010300010000000600000000000000"));
         QCOMPARE(decodeImage(jpeg).size(), QSize(10, 20));
     }
+    void networkManagerOwnership() {
+        QPointer<FakeManager> first = new FakeManager;
+        QPointer<FakeManager> second = new FakeManager;
+        {
+            ResourceController controller;
+            controller.setNetworkManager(first);
+            QCOMPARE(first->parent(), &controller);
+            controller.setNetworkManager(first);
+            controller.setNetworkManager(nullptr);
+            QVERIFY(first);
+            MarkdownResourcePolicy policy;
+            policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
+            controller.restart(parse("![](https://a.invalid/image)"), {}, policy);
+            QCOMPARE(first->requests.size(), 1);
+            controller.setNetworkManager(second);
+            QVERIFY(first.isNull());
+            QCOMPARE(second->parent(), &controller);
+            controller.restart(parse("![](https://a.invalid/image)"), {}, policy);
+            QCOMPARE(second->requests.size(), 1);
+        }
+        QVERIFY(second.isNull());
+    }
     void localResolutionAndProjection() {
         QTemporaryDir temp; const auto file = temp.filePath("image.png"); write(file, png());
         MarkdownResourcePolicy policy; policy.setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
         ResourceController controller; const auto blocks = parse("😀 **before ![*alt*](image.png) after** ![](image.png)");
-        controller.restart(blocks, {}, &policy); QVERIFY(controller.images().isEmpty());
+        controller.restart(blocks, {}, policy); QVERIFY(controller.images().isEmpty());
         const auto base = QUrl::fromLocalFile(temp.filePath("document.md"));
-        QSignalSpy ready(&controller, &ResourceController::changed); controller.restart(blocks, base, &policy);
+        QSignalSpy ready(&controller, &ResourceController::changed); controller.restart(blocks, base, policy);
         QTRY_COMPARE(ready.size(), 1); QCOMPARE(controller.images().size(), 1);
-        const auto projected = projectImages(blocks, controller.images(), base);
-        QCOMPARE(projected[0].kind, BlockKind::Segments); QCOMPARE(projected[0].children.size(), 4);
+        const auto projected = projectImages(projectDocument(blocks).blocks, controller.images(), base);
+        QCOMPARE(projected[0].kind, PresentationKind::Segments); QCOMPARE(projected[0].children.size(), 4);
         QCOMPARE(projected[0].children[0].text, QString::fromUtf8("😀 before "));
-        QCOMPARE(projected[0].children[1].kind, BlockKind::Image);
+        QCOMPARE(projected[0].children[1].kind, PresentationKind::Image);
         QCOMPARE(projected[0].children[2].text, " after ");
         QVERIFY(!blocks[0].inlines.isEmpty());
-        QVERIFY(projected[0].inlines.isEmpty());
-        for (const auto &segment : projected[0].children) QVERIFY(segment.inlines.isEmpty());
+        QCOMPARE(blocks[0].kind, BlockKind::Paragraph);
+        QCOMPARE(blocks[0].images.size(), 2);
+        QCOMPARE(projectDocument(blocks).text, QString::fromUtf8("😀 before alt after "));
         QCOMPARE(projected[0].children[2].ranges[0].start, 0); QCOMPARE(projected[0].children[2].ranges[0].length, 6);
-        controller.restart({}, base, &policy); QVERIFY(controller.images().isEmpty());
+        controller.restart({}, base, policy); QVERIFY(controller.images().isEmpty());
     }
     void networkPolicyDedupAndRedirects() {
         ResourceController controller; auto *manager = new FakeManager; controller.setNetworkManager(manager);
         MarkdownResourcePolicy policy;
         const auto blocks = parse("![a](https://a.invalid/image) ![b](https://a.invalid/image)");
-        controller.restart(blocks, {}, &policy); QCOMPARE(manager->requests.size(), 0);
+        controller.restart(blocks, {}, policy); QCOMPARE(manager->requests.size(), 0);
         policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
-        controller.restart(parse("<img src='https://a.invalid/image'>\n\ntext <img src='https://a.invalid/image'>"), {}, &policy);
+        controller.restart(parse("<img src='https://a.invalid/image'>\n\ntext <img src='https://a.invalid/image'>"), {}, policy);
         QCOMPARE(manager->requests.size(), 0);
         manager->responses[QUrl("https://a.invalid/image")] = {png(), QUrl("https://b.invalid/image")};
-        controller.restart(blocks, {}, &policy); QTRY_COMPARE(manager->requests.size(), 1);
+        controller.restart(blocks, {}, policy); QTRY_COMPARE(manager->requests.size(), 1);
         QTRY_VERIFY(manager->replies[0].isNull()); QVERIFY(controller.images().isEmpty());
         policy.setAllowedHttpsOrigins({QUrl("https://a.invalid"), QUrl("https://b.invalid")});
         manager->responses[QUrl("https://b.invalid/image")] = {png()};
-        QSignalSpy ready(&controller, &ResourceController::changed); controller.restart(blocks, {}, &policy);
+        QSignalSpy ready(&controller, &ResourceController::changed); controller.restart(blocks, {}, policy);
         QTRY_COMPARE(ready.size(), 1); QCOMPARE(manager->requests.size(), 3); QCOMPARE(controller.images().size(), 1);
         for (const auto &request : manager->requests) {
             QCOMPARE(request.attribute(QNetworkRequest::RedirectPolicyAttribute).toInt(), int(QNetworkRequest::ManualRedirectPolicy));
@@ -195,10 +223,10 @@ private slots:
         QTemporaryDir temp; write(temp.filePath("image.png"), png());
         policy.setAllowedFileRoots({QUrl::fromLocalFile(temp.path())});
         manager->responses[QUrl("https://a.invalid/image")] = {png(), QUrl::fromLocalFile(temp.filePath("image.png"))};
-        controller.restart(blocks, {}, &policy); QTRY_VERIFY(manager->replies.last().isNull()); QVERIFY(controller.images().isEmpty());
+        controller.restart(blocks, {}, policy); QTRY_VERIFY(manager->replies.last().isNull()); QVERIFY(controller.images().isEmpty());
         const auto before = manager->requests.size();
         manager->responses[QUrl("https://a.invalid/image")] = {{}, QUrl("/image")};
-        controller.restart(blocks, {}, &policy); QTRY_COMPARE(manager->requests.size(), before + 6);
+        controller.restart(blocks, {}, policy); QTRY_COMPARE(manager->requests.size(), before + 6);
         QTRY_VERIFY(manager->replies.last().isNull()); QVERIFY(controller.images().isEmpty());
     }
     void errors_data() {
@@ -214,7 +242,7 @@ private slots:
         ResourceController controller; auto *manager = new FakeManager; controller.setNetworkManager(manager);
         MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
         manager->responses[QUrl("https://a.invalid/image")] = {bytes, {}, QNetworkReply::NetworkError(error), false, status};
-        controller.restart(parse("![alt](https://a.invalid/image)"), {}, &policy);
+        controller.restart(parse("![alt](https://a.invalid/image)"), {}, policy);
         QTRY_VERIFY(controller.idle());
         QVERIFY(controller.images().isEmpty()); QCOMPARE(manager->requests.size(), 1);
     }
@@ -226,17 +254,17 @@ private slots:
             const auto url = QUrl("https://a.invalid/" + QString::number(i));
             manager->responses[url] = {png(), {}, QNetworkReply::NoError, true}; source += "![alt](" + url.toString() + ") ";
         }
-        controller.restart(parse(source), {}, &policy); QCOMPARE(manager->requests.size(), 4);
+        controller.restart(parse(source), {}, policy); QCOMPARE(manager->requests.size(), 4);
         auto first = manager->replies[0]; auto second = manager->replies[1];
         second->complete(); QVERIFY(controller.images().isEmpty()); // admission waits for document order
-        controller.restart({}, {}, &policy); QVERIFY(first->aborted); QVERIFY(controller.images().isEmpty());
+        controller.restart({}, {}, policy); QVERIFY(first->aborted); QVERIFY(controller.images().isEmpty());
         // Late completion from an aborted old generation cannot admit an image.
         first->complete(); QCoreApplication::processEvents(); QVERIFY(controller.images().isEmpty());
         manager->responses[QUrl("https://a.invalid/new")] = {png()};
-        controller.restart(parse("![](https://a.invalid/new)"), {}, &policy);
+        controller.restart(parse("![](https://a.invalid/new)"), {}, policy);
         QTRY_COMPARE(controller.images().size(), 1); QVERIFY(controller.images().contains(QUrl("https://a.invalid/new")));
-        controller.restart(parse("![](https://a.invalid/0)"), {}, &policy); QVERIFY(controller.images().isEmpty());
-        controller.restart({}, {}, &policy);
+        controller.restart(parse("![](https://a.invalid/0)"), {}, policy); QVERIFY(controller.images().isEmpty());
+        controller.restart({}, {}, policy);
     }
     void staleDecoderCompletion_data() {
         QTest::addColumn<QString>("change");
@@ -258,18 +286,18 @@ private slots:
         const int repetitions = change == "repeated" ? 5 : 1;
         for (int iteration = 0; iteration < repetitions; ++iteration) {
             published.clear();
-            controller.restart(parse("![](image)"), QUrl("https://a.invalid/old/"), &policy);
+            controller.restart(parse("![](image)"), QUrl("https://a.invalid/old/"), policy);
             manager->replies.last()->complete();
             QVERIFY(gate->entered.tryAcquire(1, 2000)); // Cancellation now occurs inside the real decoder wrapper.
             if (change == "policy") {
                 policy.setAllowedHttpsOrigins({});
-                controller.restart(parse("![](image)"), QUrl("https://a.invalid/old/"), &policy);
+                controller.restart(parse("![](image)"), QUrl("https://a.invalid/old/"), policy);
             } else if (change == "base") {
-                controller.restart(parse("![](image)"), QUrl("https://a.invalid/new/"), &policy);
+                controller.restart(parse("![](image)"), QUrl("https://a.invalid/new/"), policy);
             } else {
                 if (change == "repeated")
-                    for (int i = 0; i < 20; ++i) controller.restart({}, {}, &policy);
-                controller.restart(parse("![](https://a.invalid/new/image)"), {}, &policy);
+                    for (int i = 0; i < 20; ++i) controller.restart({}, {}, policy);
+                controller.restart(parse("![](https://a.invalid/new/image)"), {}, policy);
             }
             gate->release.release();
             QVERIFY(gate->completed.tryAcquire(1, 2000));
@@ -277,7 +305,7 @@ private slots:
             QCOMPARE(published.size(), 0); QVERIFY(controller.images().isEmpty());
             if (change == "policy") {
                 policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
-                controller.restart(parse("![](https://a.invalid/new/image)"), {}, &policy);
+                controller.restart(parse("![](https://a.invalid/new/image)"), {}, policy);
             }
             manager->replies.last()->complete();
             QVERIFY(gate->entered.tryAcquire(1, 2000));
@@ -294,7 +322,7 @@ private slots:
         auto *manager = new FakeManager; controller->setNetworkManager(manager);
         MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
         manager->responses[QUrl("https://a.invalid/image")] = {png(), {}, QNetworkReply::NoError, true};
-        controller->restart(parse("![](https://a.invalid/image)"), {}, &policy);
+        controller->restart(parse("![](https://a.invalid/image)"), {}, policy);
         auto reply = manager->replies.last();
         bool aborted = false; int publications = 0;
         connect(reply, &QNetworkReply::finished, this, [&] { aborted = reply->aborted; });
@@ -312,7 +340,7 @@ private slots:
         manager->responses[QUrl("https://a.invalid/image")] = {png(), {}, QNetworkReply::NoError, true};
         int publications = 0;
         connect(controller.get(), &ResourceController::changed, this, [&] { ++publications; });
-        controller->restart(parse("![](https://a.invalid/image)"), {}, &policy);
+        controller->restart(parse("![](https://a.invalid/image)"), {}, policy);
         manager->replies.last()->complete(); QVERIFY(gate->entered.tryAcquire(1, 2000));
         QElapsedTimer elapsed; elapsed.start();
         controller.reset();
@@ -336,14 +364,14 @@ private slots:
         auto stale = std::make_unique<ResourceController>();
         auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
         stale->setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
-        stale->restart(blocks, base, &policy);
+        stale->restart(blocks, base, policy);
         QVERIFY(gate->entered.tryAcquire(1, 2000));
         ResourceController fresh;
         auto *current = replacement ? stale.get() : &fresh;
         if (!replacement) stale.reset();
         current->setDecoder(decodeImage);
         QSignalSpy publications(current, &ResourceController::changed);
-        current->restart(blocks, base, &policy);
+        current->restart(blocks, base, policy);
         QTRY_VERIFY_WITH_TIMEOUT(current->idle(), 2000);
         QCOMPARE(publications.size(), 1); QCOMPARE(current->images().size(), 1);
         QCOMPARE(gate->completed.available(), 0);
@@ -363,20 +391,20 @@ private slots:
         ReleaseGate ca{a}, cb{b}, cc{c}, cd{d}, ce{e};
         auto start = [&](ResourceController &controller, const std::shared_ptr<DecodeGate> &gate) {
             controller.setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
-            controller.restart(blocks, base, &policy);
+            controller.restart(blocks, base, policy);
         };
         start(first, a); start(second, b);
         QVERIFY(a->entered.tryAcquire(1, 2000)); QVERIFY(b->entered.tryAcquire(1, 2000));
         auto obsolete = std::make_shared<std::atomic<int>>(0);
         auto victim = std::make_unique<ResourceController>();
         victim->setDecoder([obsolete](QByteArray) { ++*obsolete; return QImage{}; });
-        victim->restart(blocks, base, &policy);
+        victim->restart(blocks, base, policy);
         start(third, c); start(fourth, d);
         QList<std::weak_ptr<int>> obsoleteStorage;
         for (int i = 0; i < 30; ++i) {
             auto storage = std::make_shared<int>(i); obsoleteStorage.append(storage);
             replaced.setDecoder([obsolete, storage](QByteArray) { ++*obsolete; return QImage{}; });
-            replaced.restart(blocks, base, &policy);
+            replaced.restart(blocks, base, policy);
         }
         start(replaced, e);
         victim.reset(); // Cancelling one queued controller leaves the others intact.
@@ -405,13 +433,13 @@ private slots:
         auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
         for (auto *controller : {&first, &second}) {
             controller->setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
-            controller->restart(blocks, base, &policy);
+            controller->restart(blocks, base, policy);
         }
         QVERIFY(gate->entered.tryAcquire(2, 2000));
         auto invoked = std::make_shared<std::atomic<int>>(0);
         queued.setAdmissionTimeout(100); // Private fixture seam; production remains 15 seconds.
         queued.setDecoder([invoked](QByteArray bytes) { ++*invoked; return decodeImage(std::move(bytes)); });
-        queued.restart(blocks, base, &policy);
+        queued.restart(blocks, base, policy);
         QTRY_VERIFY_WITH_TIMEOUT(queued.idle(), 2000);
         QCOMPARE(invoked->load(), 0); QVERIFY(queued.images().isEmpty());
         QCOMPARE(gate->completed.available(), 0);
@@ -441,7 +469,7 @@ private slots:
         ResourceController controller; controller.setAdmissionTimeout(100);
         auto gate = std::make_shared<DecodeGate>(); ReleaseGate cleanup{gate};
         controller.setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
-        controller.restart(parse("![](image.png)"), QUrl::fromLocalFile(temp.filePath("document.md")), &policy);
+        controller.restart(parse("![](image.png)"), QUrl::fromLocalFile(temp.filePath("document.md")), policy);
         QVERIFY(gate->entered.tryAcquire(1, 2000));
         auto *watcher = controller.findChild<QFutureWatcherBase *>(); QVERIFY(watcher);
         QTRY_VERIFY_WITH_TIMEOUT(watcher->isCanceled(), 2000);
@@ -465,7 +493,7 @@ private slots:
         ResourceController controller; auto *manager = new FakeManager; controller.setNetworkManager(manager);
         MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
         manager->responses[QUrl("https://a.invalid/image")] = {png(), {}, QNetworkReply::NoError, true};
-        controller.restart(parse("![](https://a.invalid/image)"), {}, &policy);
+        controller.restart(parse("![](https://a.invalid/image)"), {}, policy);
         QTRY_VERIFY_WITH_TIMEOUT(manager->replies[0].isNull(), 16000); QVERIFY(controller.images().isEmpty());
         QCOMPARE(manager->requests.size(), 1);
     }
@@ -477,7 +505,7 @@ private slots:
         for (int i = 0; i < 5; ++i) {
             const QUrl url("https://a.invalid/" + QString::number(i)); manager->responses[url] = {bytes}; source += "![](" + url.toString() + ") ";
         }
-        QSignalSpy ready(&controller, &ResourceController::changed); controller.restart(parse(source), {}, &policy);
+        QSignalSpy ready(&controller, &ResourceController::changed); controller.restart(parse(source), {}, policy);
         QTRY_COMPARE(ready.size(), 4); QTRY_COMPARE(manager->requests.size(), 5);
         QTRY_VERIFY(controller.idle());
         QCOMPARE(controller.images().size(), 4);

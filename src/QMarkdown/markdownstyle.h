@@ -2,9 +2,8 @@
 #include <QObject>
 #include <QFont>
 #include <QColor>
-#include <QVariant>
-#include <QHash>
-#include <QSet>
+#include <array>
+#include <bitset>
 #include <QtQml/qqmlregistration.h>
 
 class MarkdownStyle;
@@ -21,7 +20,7 @@ class HeadingStyle : public QObject
     Q_PROPERTY(qreal separatorThickness READ separatorThickness WRITE setSeparatorThickness RESET resetSeparatorThickness NOTIFY separatorThicknessChanged FINAL)
     Q_PROPERTY(qreal separatorSpacing READ separatorSpacing WRITE setSeparatorSpacing RESET resetSeparatorSpacing NOTIFY separatorSpacingChanged FINAL)
 public:
-    HeadingStyle(MarkdownStyle *style, const QString &prefix);
+    HeadingStyle(MarkdownStyle *style, int index);
     QFont font() const;
     void setFont(const QFont &value);
     void resetFont();
@@ -49,7 +48,7 @@ signals:
     void separatorSpacingChanged();
 private:
     MarkdownStyle *m_style;
-    QString m_prefix;
+    int m_index;
 };
 
 class InlineCodeStyle : public QObject
@@ -70,7 +69,7 @@ public:
     qreal verticalPadding() const;
     void setVerticalPadding(qreal value);
     void resetVerticalPadding();
-    InlineCodeStyle(MarkdownStyle *style, const QString &prefix);
+    explicit InlineCodeStyle(MarkdownStyle *style);
     QFont font() const;
     void setFont(const QFont &value);
     void resetFont();
@@ -92,7 +91,6 @@ signals:
     void cornerRadiusChanged();
 private:
     MarkdownStyle *m_style;
-    QString m_prefix;
 };
 
 class CodeBlockStyle : public QObject
@@ -109,7 +107,7 @@ class CodeBlockStyle : public QObject
     Q_PROPERTY(qreal horizontalPadding READ horizontalPadding WRITE setHorizontalPadding RESET resetHorizontalPadding NOTIFY horizontalPaddingChanged FINAL)
     Q_PROPERTY(qreal verticalPadding READ verticalPadding WRITE setVerticalPadding RESET resetVerticalPadding NOTIFY verticalPaddingChanged FINAL)
 public:
-    CodeBlockStyle(MarkdownStyle *style, const QString &prefix);
+    explicit CodeBlockStyle(MarkdownStyle *style);
     QFont font() const;
     void setFont(const QFont &value);
     void resetFont();
@@ -145,7 +143,6 @@ signals:
     void verticalPaddingChanged();
 private:
     MarkdownStyle *m_style;
-    QString m_prefix;
 };
 
 class TableStyle : public QObject
@@ -271,60 +268,60 @@ public:
     InlineCodeStyle *inlineCode() const { return m_inlineCode; }
     TableStyle *table() const { return m_table; }
     CodeBlockStyle *codeBlock() const { return m_codeBlock; }
-    QColor selectionBackgroundColor() const { return value("selectionBackgroundColor").value<QColor>(); }
+    QColor selectionBackgroundColor() const { return m_values.selectionBackgroundColor; }
     void setSelectionBackgroundColor(const QColor &value);
     void resetSelectionBackgroundColor();
-    QColor linkColor() const { return value("linkColor").value<QColor>(); }
+    QColor linkColor() const { return m_values.linkColor; }
     void setLinkColor(const QColor &value);
-    bool linkUnderline() const { return value("linkUnderline").value<bool>(); }
+    bool linkUnderline() const { return m_values.linkUnderline; }
     void setLinkUnderline(bool value);
-    QColor thematicBreakColor() const { return value("thematicBreakColor").value<QColor>(); }
+    QColor thematicBreakColor() const { return m_values.thematicBreakColor; }
     void setThematicBreakColor(const QColor &value);
-    qreal thematicBreakThickness() const { return value("thematicBreakThickness").value<qreal>(); }
+    qreal thematicBreakThickness() const { return m_values.thematicBreakThickness; }
     void setThematicBreakThickness(qreal value);
-    QFont codeBlockFont() const { return value("codeBlock.font").value<QFont>(); }
+    QFont codeBlockFont() const { return m_values.codeBlock.font; }
     void setCodeBlockFont(const QFont &value);
-    QColor codeBlockColor() const { return value("codeBlock.color").value<QColor>(); }
+    QColor codeBlockColor() const { return m_values.codeBlock.color; }
     void setCodeBlockColor(const QColor &value);
-    QFont inlineCodeFont() const { return value("inlineCode.font").value<QFont>(); }
+    QFont inlineCodeFont() const { return m_values.inlineCode.font; }
     void setInlineCodeFont(const QFont &value);
-    QFont bodyFont() const { return value("bodyFont").value<QFont>(); }
+    QFont bodyFont() const { return m_values.bodyFont; }
     void setBodyFont(const QFont &value);
-    QColor bodyColor() const { return value("bodyColor").value<QColor>(); }
+    QColor bodyColor() const { return m_values.bodyColor; }
     void setBodyColor(const QColor &value);
-    QFont h1Font() const { return value("h1.font").value<QFont>(); }
+    QFont h1Font() const { return m_values.headings[0].font; }
     void setH1Font(const QFont &value);
-    QColor h1Color() const { return value("h1.color").value<QColor>(); }
+    QColor h1Color() const { return m_values.headings[0].color; }
     void setH1Color(const QColor &value);
-    QFont h2Font() const { return value("h2.font").value<QFont>(); }
+    QFont h2Font() const { return m_values.headings[1].font; }
     void setH2Font(const QFont &value);
-    QColor h2Color() const { return value("h2.color").value<QColor>(); }
+    QColor h2Color() const { return m_values.headings[1].color; }
     void setH2Color(const QColor &value);
-    QFont h3Font() const { return value("h3.font").value<QFont>(); }
+    QFont h3Font() const { return m_values.headings[2].font; }
     void setH3Font(const QFont &value);
-    QColor h3Color() const { return value("h3.color").value<QColor>(); }
+    QColor h3Color() const { return m_values.headings[2].color; }
     void setH3Color(const QColor &value);
-    QFont h4Font() const { return value("h4.font").value<QFont>(); }
+    QFont h4Font() const { return m_values.headings[3].font; }
     void setH4Font(const QFont &value);
-    QColor h4Color() const { return value("h4.color").value<QColor>(); }
+    QColor h4Color() const { return m_values.headings[3].color; }
     void setH4Color(const QColor &value);
-    QFont h5Font() const { return value("h5.font").value<QFont>(); }
+    QFont h5Font() const { return m_values.headings[4].font; }
     void setH5Font(const QFont &value);
-    QColor h5Color() const { return value("h5.color").value<QColor>(); }
+    QColor h5Color() const { return m_values.headings[4].color; }
     void setH5Color(const QColor &value);
-    QFont h6Font() const { return value("h6.font").value<QFont>(); }
+    QFont h6Font() const { return m_values.headings[5].font; }
     void setH6Font(const QFont &value);
-    QColor h6Color() const { return value("h6.color").value<QColor>(); }
+    QColor h6Color() const { return m_values.headings[5].color; }
     void setH6Color(const QColor &value);
-    qreal blockSpacing() const { return value("blockSpacing").value<qreal>(); }
+    qreal blockSpacing() const { return m_values.blockSpacing; }
     void setBlockSpacing(qreal value);
-    qreal listIndent() const { return value("listIndent").value<qreal>(); }
+    qreal listIndent() const { return m_values.listIndent; }
     void setListIndent(qreal value);
-    qreal quoteIndent() const { return value("quoteIndent").value<qreal>(); }
+    qreal quoteIndent() const { return m_values.quoteIndent; }
     void setQuoteIndent(qreal value);
-    QColor quoteRuleColor() const { return value("quoteRuleColor").value<QColor>(); }
+    QColor quoteRuleColor() const { return m_values.quoteRuleColor; }
     void setQuoteRuleColor(const QColor &value);
-    qreal quoteRuleThickness() const { return value("quoteRuleThickness").value<qreal>(); }
+    qreal quoteRuleThickness() const { return m_values.quoteRuleThickness; }
     void setQuoteRuleThickness(qreal value);
 signals:
     void presetChanged();
@@ -360,12 +357,140 @@ private:
     friend class HeadingStyle;
     friend class InlineCodeStyle;
     friend class CodeBlockStyle;
-    QVariant value(const QString &key) const { return m_values.value(key); }
-    void setValue(const QString &key, const QVariant &value, bool explicitOverride = true);
-    void resetValue(const QString &key);
+    struct HeadingValues {
+        QFont font{};
+        QColor color{};
+        bool separatorVisible{};
+        QColor separatorColor{};
+        qreal separatorThickness{};
+        qreal separatorSpacing{};
+    };
+    struct InlineCodeValues {
+        QFont font{};
+        QColor foreground{};
+        QColor backgroundColor{};
+        qreal cornerRadius{};
+        qreal horizontalPadding{};
+        qreal verticalPadding{};
+    };
+    struct CodeBlockValues {
+        QFont font{};
+        QColor color{};
+        QColor backgroundColor{};
+        QColor borderColor{};
+        qreal borderWidth{};
+        qreal cornerRadius{};
+        qreal horizontalPadding{};
+        qreal verticalPadding{};
+    };
+    struct TableValues {
+        QColor headerForeground{};
+        QColor headerBackground{};
+        QColor bodyBackground{};
+        QColor borderColor{};
+        qreal borderWidth{};
+        qreal horizontalPadding{};
+        qreal verticalPadding{};
+    };
+    struct Values {
+        QColor selectionBackgroundColor{};
+        QColor linkColor{};
+        bool linkUnderline{};
+        QColor thematicBreakColor{};
+        qreal thematicBreakThickness{};
+        QFont bodyFont{};
+        QColor bodyColor{};
+        qreal blockSpacing{};
+        qreal listIndent{};
+        qreal quoteIndent{};
+        QColor quoteRuleColor{};
+        qreal quoteRuleThickness{};
+        std::array<HeadingValues, 6> headings;
+        InlineCodeValues inlineCode;
+        CodeBlockValues codeBlock;
+        TableValues table;
+    };
+    enum class Property {
+        SelectionBackgroundColor,
+        LinkColor,
+        LinkUnderline,
+        ThematicBreakColor,
+        ThematicBreakThickness,
+        BodyFont,
+        BodyColor,
+        BlockSpacing,
+        ListIndent,
+        QuoteIndent,
+        QuoteRuleColor,
+        QuoteRuleThickness,
+        H1Font,
+        H1Color,
+        H1SeparatorVisible,
+        H1SeparatorColor,
+        H1SeparatorThickness,
+        H1SeparatorSpacing,
+        H2Font,
+        H2Color,
+        H2SeparatorVisible,
+        H2SeparatorColor,
+        H2SeparatorThickness,
+        H2SeparatorSpacing,
+        H3Font,
+        H3Color,
+        H3SeparatorVisible,
+        H3SeparatorColor,
+        H3SeparatorThickness,
+        H3SeparatorSpacing,
+        H4Font,
+        H4Color,
+        H4SeparatorVisible,
+        H4SeparatorColor,
+        H4SeparatorThickness,
+        H4SeparatorSpacing,
+        H5Font,
+        H5Color,
+        H5SeparatorVisible,
+        H5SeparatorColor,
+        H5SeparatorThickness,
+        H5SeparatorSpacing,
+        H6Font,
+        H6Color,
+        H6SeparatorVisible,
+        H6SeparatorColor,
+        H6SeparatorThickness,
+        H6SeparatorSpacing,
+        InlineCodeFont,
+        InlineCodeForeground,
+        InlineCodeBackgroundColor,
+        InlineCodeCornerRadius,
+        InlineCodeHorizontalPadding,
+        InlineCodeVerticalPadding,
+        CodeBlockFont,
+        CodeBlockColor,
+        CodeBlockBackgroundColor,
+        CodeBlockBorderColor,
+        CodeBlockBorderWidth,
+        CodeBlockCornerRadius,
+        CodeBlockHorizontalPadding,
+        CodeBlockVerticalPadding,
+        TableHeaderForeground,
+        TableHeaderBackground,
+        TableBodyBackground,
+        TableBorderColor,
+        TableBorderWidth,
+        TableHorizontalPadding,
+        TableVerticalPadding,
+        Count
+    };
+    static Property headingProperty(int index, Property first) {
+        return static_cast<Property>(static_cast<int>(first) + index * (static_cast<int>(Property::H2Font) - static_cast<int>(Property::H1Font)));
+    }
+    template<typename T> void update(Property property, T &current, const T &value, bool explicitOverride = true);
+    void notify(Property property);
+    void reset(Property property);
     void applyPreset();
-    QHash<QString, QVariant> m_values, m_defaults;
-    QSet<QString> m_overrides;
+    Values m_values, m_defaults;
+    std::bitset<static_cast<size_t>(Property::Count)> m_overrides;
     Preset m_preset = Legacy;
     HeadingStyles *m_headings;
     InlineCodeStyle *m_inlineCode;

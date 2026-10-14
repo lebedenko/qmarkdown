@@ -1,5 +1,7 @@
 # Opt-in GFM strikethrough
 
+See the [public API reference](api.md) for the complete supported contract.
+
 Native inline strikethrough was introduced in the 1.4.0 / QML 1.4 candidate and remains available in the current 1.5.0 / QML 1.5 candidate. It is not published; published 1.2.0 packages do not include this feature.
 
 ```qml
