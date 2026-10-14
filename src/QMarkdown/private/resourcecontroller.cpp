@@ -99,6 +99,8 @@ namespace {
 Block textSlice(const Block &block, int start, int end) {
     Block result{block.kind, {}};
     result.level = block.level;
+    result.selectionOffset = block.selectionOffset + start;
+    result.selectionLength = end - start;
     result.text = block.text.mid(start, end - start);
     for (const auto &range : block.ranges) {
         const int a = qMax(start, range.start), b = qMin(end, range.start + range.length);
@@ -127,6 +129,8 @@ QVector<Block> projectImages(const QVector<Block> &blocks, const QHash<QUrl, QIm
             if (!images.contains(key)) continue;
             if (span.start > start) segments.append(textSlice(block, start, span.start));
             Block image{BlockKind::Image, {}};
+            image.selectionOffset = block.selectionOffset + span.start;
+            image.selectionLength = span.length;
             image.image = images.value(key); image.imageLink = span.enclosingLink; image.imageLinked = span.linked;
             segments.append(std::move(image));
             start = span.start + span.length;

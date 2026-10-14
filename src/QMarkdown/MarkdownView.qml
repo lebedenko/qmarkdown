@@ -5,6 +5,79 @@ import QMarkdown.Private
 
 Item {
     id: root
+    signal copyRequested(string text)
+    property alias selectionEnabled: viewState.selectionEnabled
+    readonly property string selectedText: viewState.selectedText
+    readonly property int selectionStart: viewState.selectionStart
+    readonly property int selectionEnd: viewState.selectionEnd
+    function selectAll() { viewState.selectAll() }
+    function clearSelection() { viewState.clearSelection() }
+    function requestCopy() { viewState.requestCopy() }
+    QtObject {
+        id: selectionGesture
+        property bool blocked: false
+        property bool dragged: false
+        property bool shift: false
+        property var pressedLink: null
+    }
+    Keys.onPressed: function(event) {
+        if (!root.selectionEnabled || !root.activeFocus) return
+        if (event.matches(StandardKey.SelectAll)) root.selectAll()
+        else if (event.matches(StandardKey.Copy)) root.requestCopy()
+        else if (event.key === Qt.Key_Escape) root.clearSelection()
+        else return
+        event.accepted = true
+    }
+    // Reserve document mouse taps after the passive observer excludes actions.
+    // Qt 6.8 Flickable otherwise retains the grab and filters drag updates.
+    TapHandler {
+        enabled: root.selectionEnabled && !selectionGesture.blocked
+        acceptedDevices: PointerDevice.Mouse
+        acceptedButtons: Qt.LeftButton
+        gesturePolicy: TapHandler.WithinBounds
+    }
+    PointHandler {
+        enabled: root.selectionEnabled
+        acceptedDevices: PointerDevice.Mouse
+        acceptedButtons: Qt.LeftButton
+        onActiveChanged: if (!active) selectionGesture.blocked = false
+    }
+    TapHandler {
+        id: selectionTap
+        enabled: root.selectionEnabled
+        acceptedDevices: PointerDevice.Mouse
+        acceptedButtons: Qt.LeftButton
+        gesturePolicy: TapHandler.DragThreshold
+        onPressedChanged: {
+            if (pressed) {
+                selectionGesture.dragged = false
+                selectionGesture.shift = (point.modifiers & Qt.ShiftModifier) !== 0
+                selectionGesture.blocked = !viewState.beginSelection(root, point.position, selectionGesture.shift)
+                selectionGesture.pressedLink = viewState.selectionLink(root, point.position)
+                if (!selectionGesture.blocked) root.forceActiveFocus(Qt.MouseFocusReason)
+            }
+        }
+        onTapped: function(eventPoint, button) {
+            if (selectionGesture.blocked || selectionGesture.dragged || selectionGesture.shift) return
+            const link = viewState.selectionLink(root, eventPoint.position)
+            if (link !== null && link !== undefined && link === selectionGesture.pressedLink) root.linkActivated(link)
+        }
+    }
+    DragHandler {
+        id: selectionDrag
+        grabPermissions: PointerHandler.CanTakeOverFromAnything
+        enabled: root.selectionEnabled && !selectionGesture.blocked
+        acceptedDevices: PointerDevice.Mouse
+        acceptedButtons: Qt.LeftButton
+        target: null
+        onActiveChanged: {
+            if (active) {
+                selectionGesture.dragged = true
+                viewState.extendSelection(root, centroid.position)
+            }
+        }
+        onCentroidChanged: if (active) viewState.extendSelection(root, centroid.position)
+    }
     signal linkActivated(string destination)
     signal codeBlockCopyRequested(string text)
     property Component codeBlockActions: null
@@ -27,6 +100,16 @@ Item {
     }
     function headingStyle(style: var, level: int): var {
         return level > 0 ? style.headings["h" + level] : null
+    }
+    component SelectableText: FormattedText {
+        id: selectable
+        property int projectionOffset: 0
+        property int projectionLength: 0
+        selectionStart: root.selectionEnabled ? Math.max(0, root.selectionStart - projectionOffset) : 0
+        selectionEnd: root.selectionEnabled ? Math.max(0, root.selectionEnd - projectionOffset) : 0
+        implicitHeight: logicalHeight
+        Component.onCompleted: viewState.registerSelectionItem(selectable, 0)
+        Component.onDestruction: viewState.unregisterSelectionItem(selectable)
     }
     component HeadingSeparator: Rectangle {
         required property var headingStyle
@@ -91,11 +174,15 @@ Item {
         }
         onActionsChanged: rebuild()
         onCodeTextChanged: rebuild()
-        Component.onCompleted: { ready = true; rebuild() }
-        Component.onDestruction: clearAction()
+        Component.onCompleted: { viewState.registerSelectionItem(actionHost, 3); ready = true; rebuild() }
+        Component.onDestruction: { viewState.unregisterSelectionItem(actionHost); clearAction() }
     }
 
-    ViewState { id: viewState }
+    ViewState {
+        id: viewState
+        onCopyRequested: function(text) { root.copyRequested(text) }
+        onPresentationReset: selectionGesture.pressedLink = null
+    }
     Loader {
         id: blocks
         width: Math.max(0, root.width)
@@ -123,7 +210,7 @@ Item {
         Repeater {
             model: sequence.width > 0 ? sequence.model : null
             delegate: DelegateChooser {
-                role: "renderKind"
+                role: root.selectionEnabled ? "selectionKind" : "renderKind"
                 DelegateChoice {
                     roleValue: 10
                     delegate: Column {
@@ -158,6 +245,8 @@ Item {
                                         required property int index
                                         required property var childBlocks
                                         required property int tableAlignment
+                                        Component.onCompleted: viewState.registerSelectionItem(tableCell, 2)
+                                        Component.onDestruction: viewState.unregisterSelectionItem(tableCell)
                                         width: cells.count > 0 ? tableRow.width / cells.count : 0
                                         x: index * width
                                         height: tableRow.height
@@ -236,11 +325,26 @@ Item {
                         required property var imageData
                         required property string imageLink
                         required property bool imageLinked
+                        required property int selectionOffset
+                        required property int selectionLength
                         width: sequence.width
                         height: imagePaint.implicitHeight
                         ImageItem {
                             id: imagePaint
                             objectName: "markdownImage"
+                            property int projectionOffset: imageRow.selectionOffset
+                            property int projectionLength: imageRow.selectionLength
+                            property bool imageLinked: imageRow.imageLinked
+                            property string imageLink: imageRow.imageLink
+                            Component.onCompleted: viewState.registerSelectionItem(imagePaint, 1)
+                            Component.onDestruction: viewState.unregisterSelectionItem(imagePaint)
+                            Rectangle {
+                                anchors.fill: parent
+                                color: sequence.style.selectionBackgroundColor
+                                visible: root.selectionEnabled && root.selectionStart < root.selectionEnd
+                                    && imageRow.selectionLength > 0 && root.selectionStart < imageRow.selectionOffset + imageRow.selectionLength
+                                    && root.selectionEnd > imageRow.selectionOffset
+                            }
                             image: imageRow.imageData
                             width: Math.min(imageRow.width, imagePaint.naturalWidth)
                             height: implicitHeight
@@ -251,6 +355,7 @@ Item {
                                 acceptedButtons: Qt.LeftButton
                                 gesturePolicy: TapHandler.DragThreshold
                                 enabled: imageRow.imageLinked
+                                acceptedDevices: root.selectionEnabled ? PointerDevice.TouchScreen | PointerDevice.TouchPad | PointerDevice.Stylus : PointerDevice.AllDevices
                                 onTapped: function(eventPoint, button) {
                                     if (eventPoint.position.x >= 0 && eventPoint.position.x < imagePaint.width
                                         && eventPoint.position.y >= 0 && eventPoint.position.y < imagePaint.height)
@@ -409,6 +514,34 @@ Item {
                     }
                 }
                 DelegateChoice {
+                    roleValue: 13
+                    delegate: Item {
+                        id: htmlBlock
+                        required property string blockText
+                        required property int selectionOffset
+                        required property int selectionLength
+                        width: sequence.width
+                        height: htmlLoader.item ? (htmlLoader.item as Item).height : 0
+                        Loader {
+                            id: htmlLoader
+                            width: htmlBlock.width
+                            sourceComponent: selectedHtml
+                        }
+                        Component {
+                            id: selectedHtml
+                            SelectableText {
+                                text: htmlBlock.blockText.endsWith("\n") ? htmlBlock.blockText.slice(0, -1) : htmlBlock.blockText
+                                layoutWidth: htmlBlock.width
+                                projectionOffset: htmlBlock.selectionOffset
+                                projectionLength: htmlBlock.selectionLength
+                                font: sequence.style.bodyFont
+                                color: sequence.style.bodyColor
+                                selectionColor: sequence.style.selectionBackgroundColor
+                            }
+                        }
+                    }
+                }
+                DelegateChoice {
                     roleValue: 3
                     delegate: Rectangle {
                         width: sequence.width
@@ -457,6 +590,52 @@ Item {
                     }
                 }
                 DelegateChoice {
+                    roleValue: 12
+                    delegate: Rectangle {
+                        id: selectedCodeSurface
+                        required property string blockText
+                        required property int selectionOffset
+                        required property int selectionLength
+                        width: sequence.width
+                        readonly property real padX: Math.min(root.metric(sequence.style.codeBlock.horizontalPadding),
+                            Math.max(0, (width - 1) / 2))
+                        readonly property real padY: root.metric(sequence.style.codeBlock.verticalPadding)
+                        height: selectedCodeActions.height + selectedCodeBlock.height + 2 * padY
+                        color: sequence.style.codeBlock.backgroundColor
+                        border.color: sequence.style.codeBlock.borderColor
+                        border.width: root.metric(sequence.style.codeBlock.borderWidth)
+                        radius: root.metric(sequence.style.codeBlock.cornerRadius)
+                        objectName: "codeSurface"
+                        CodeActionHost {
+                            id: selectedCodeActions
+                            x: selectedCodeSurface.padX
+                            y: selectedCodeSurface.padY
+                            width: Math.max(1, selectedCodeSurface.width - 2 * selectedCodeSurface.padX)
+                            codeText: selectedCodeSurface.blockText
+                        }
+                        Loader {
+                            id: selectedCodeBlock
+                            x: selectedCodeSurface.padX
+                            y: selectedCodeSurface.padY + selectedCodeActions.height
+                            width: Math.max(1, selectedCodeSurface.width - 2 * selectedCodeSurface.padX)
+                            sourceComponent: selectedCode
+                        }
+                        Component {
+                            id: selectedCode
+                            SelectableText {
+                                text: selectedCodeSurface.blockText.endsWith("\n") ? selectedCodeSurface.blockText.slice(0, -1) : selectedCodeSurface.blockText
+                                layoutWidth: selectedCodeBlock.width
+                                projectionOffset: selectedCodeSurface.selectionOffset
+                                projectionLength: selectedCodeSurface.selectionLength
+                                horizontalAlignment: sequence.textAlignment
+                                font: sequence.style.codeBlockFont
+                                color: sequence.style.codeBlockColor
+                                selectionColor: sequence.style.selectionBackgroundColor
+                            }
+                        }
+                    }
+                }
+                DelegateChoice {
                     roleValue: 0
                     delegate: Text {
                         id: blockItem
@@ -493,6 +672,36 @@ Item {
                     }
                 }
                 DelegateChoice {
+                    roleValue: 11
+                    delegate: Item {
+                        id: plainBlock
+                        required property string blockText
+                        required property int headingLevel
+                        required property int selectionOffset
+                        required property int selectionLength
+                        width: sequence.width
+                        height: selectedText.logicalHeight + selectedRule.decorationSpacing + selectedRule.height
+                        SelectableText {
+                            id: selectedText
+                            text: plainBlock.blockText
+                            layoutWidth: plainBlock.width
+                            projectionOffset: plainBlock.selectionOffset
+                            projectionLength: plainBlock.selectionLength
+                            horizontalAlignment: sequence.textAlignment
+                            font: plainBlock.headingLevel > 0 ? root.headingStyle(sequence.style, plainBlock.headingLevel).font : sequence.bodyFont
+                            color: plainBlock.headingLevel > 0 ? root.headingStyle(sequence.style, plainBlock.headingLevel).color : sequence.bodyColor
+                            selectionColor: sequence.style.selectionBackgroundColor
+                        }
+                        HeadingSeparator {
+                            id: selectedRule
+                            width: plainBlock.width
+                            y: selectedText.logicalHeight + decorationSpacing
+                            headingStyle: root.headingStyle(sequence.style, plainBlock.headingLevel)
+                            suppressed: sequence.suppressHeadingSeparators
+                        }
+                    }
+                }
+                DelegateChoice {
                     roleValue: 1
                     delegate: Item {
                         id: formattedBlock
@@ -501,6 +710,8 @@ Item {
                         required property var linkSpans
                         required property var codeSpans
                         required property var formatRanges
+                        required property int selectionOffset
+                        required property int selectionLength
                         width: sequence.width
                         height: painted.logicalHeight + formattedRule.decorationSpacing + formattedRule.height
                         HeadingSeparator {
@@ -510,8 +721,11 @@ Item {
                             headingStyle: root.headingStyle(sequence.style, formattedBlock.headingLevel)
                             suppressed: sequence.suppressHeadingSeparators
                         }
-                        FormattedText {
+                        SelectableText {
                             id: painted
+                            projectionOffset: formattedBlock.selectionOffset
+                            projectionLength: formattedBlock.selectionLength
+                            selectionColor: sequence.style.selectionBackgroundColor
                             horizontalAlignment: sequence.textAlignment
                             text: formattedBlock.blockText
                             formatRanges: formattedBlock.formatRanges
@@ -536,6 +750,7 @@ Item {
                             }
                             TapHandler {
                                 id: tap
+                                acceptedDevices: root.selectionEnabled ? PointerDevice.TouchScreen | PointerDevice.TouchPad | PointerDevice.Stylus : PointerDevice.AllDevices
                                 acceptedButtons: Qt.LeftButton
                                 gesturePolicy: TapHandler.DragThreshold
                                 onPressedChanged: {

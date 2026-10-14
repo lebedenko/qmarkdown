@@ -4,6 +4,7 @@
 #include "resourcecontroller.h"
 #include <QAbstractListModel>
 #include <QPointer>
+#include <QQuickItem>
 
 class BlockModel : public QAbstractListModel
 {
@@ -23,6 +24,10 @@ class ViewState : public QObject
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(bool selectionEnabled READ selectionEnabled WRITE setSelectionEnabled NOTIFY selectionEnabledChanged FINAL)
+    Q_PROPERTY(QString selectedText READ selectedText NOTIFY selectionChanged FINAL)
+    Q_PROPERTY(int selectionStart READ selectionStart NOTIFY selectionChanged FINAL)
+    Q_PROPERTY(int selectionEnd READ selectionEnd NOTIFY selectionChanged FINAL)
     Q_PROPERTY(bool tablesEnabled READ tablesEnabled WRITE setTablesEnabled NOTIFY tablesEnabledChanged FINAL)
     Q_PROPERTY(bool tagFilterEnabled READ tagFilterEnabled WRITE setTagFilterEnabled NOTIFY tagFilterEnabledChanged FINAL)
     Q_PROPERTY(bool gfmEnabled READ gfmEnabled WRITE setGfmEnabled NOTIFY gfmEnabledChanged FINAL)
@@ -36,6 +41,20 @@ class ViewState : public QObject
     Q_PROPERTY(QAbstractItemModel *blocks READ blocks CONSTANT FINAL)
 public:
     explicit ViewState(QObject *parent = nullptr);
+    bool selectionEnabled() const { return m_selectionEnabled; }
+    void setSelectionEnabled(bool value);
+    int selectionStart() const { return qMin(m_anchor, m_active); }
+    int selectionEnd() const { return qMax(m_anchor, m_active); }
+    QString selectedText() const { return m_projection.mid(selectionStart(), selectionEnd() - selectionStart()); }
+    Q_INVOKABLE void selectAll();
+    Q_INVOKABLE void clearSelection();
+    Q_INVOKABLE void requestCopy();
+    Q_INVOKABLE void registerSelectionItem(QQuickItem *item, int kind);
+    Q_INVOKABLE void unregisterSelectionItem(QQuickItem *item);
+    Q_INVOKABLE bool beginSelection(QQuickItem *view, QPointF point, bool extend);
+    Q_INVOKABLE void extendSelection(QQuickItem *view, QPointF point);
+    Q_INVOKABLE QVariant selectionLink(QQuickItem *view, QPointF point) const;
+
     Q_INVOKABLE QFont boldFont(QFont font) const { font.setWeight(qMax(font.weight(), QFont::Bold)); return font; }
     QUrl baseUrl() const { return m_baseUrl; }
     void setBaseUrl(const QUrl &value);
@@ -61,6 +80,10 @@ public:
     void resetStyle();
     QAbstractItemModel *blocks() { return &m_blocks; }
 signals:
+    void presentationReset();
+    void selectionEnabledChanged();
+    void selectionChanged();
+    void copyRequested(const QString &text);
     void baseUrlChanged();
     void resourcePolicyChanged();
     void tablesEnabledChanged();
@@ -72,6 +95,16 @@ signals:
     void extendedAutolinksEnabledChanged();
     void styleChanged();
 private:
+    struct SelectionItem { QPointer<QQuickItem> item; int kind; };
+    QVector<SelectionItem> m_selectionItems;
+    QQuickItem *selectionItemAt(QQuickItem *view, QPointF point) const;
+    int selectionPosition(QQuickItem *view, QPointF point) const;
+    bool selectionExcluded(QQuickItem *view, QPointF point) const;
+    void setSelection(int anchor, int active);
+    QString m_projection;
+    bool m_selectionEnabled = false, m_hasAnchor = false;
+    int m_anchor = 0, m_active = 0;
+    QMarkdownPrivate::ParseOptions m_parsedOptions;
     void reloadResources();
     void reparse();
     QUrl m_baseUrl;

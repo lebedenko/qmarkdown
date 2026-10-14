@@ -1,6 +1,11 @@
 # Specifications
 
-Current release: [stable 1.6.0 / QML 1.6](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0), released 2026-10-13 UTC. [Iteration 038](038-gfm-completion-inline-code-padding/requirements.md) adds native tables, tag filtering, aggregate enablement and layout-aware inline-code padding. Its [design](038-gfm-completion-inline-code-padding/design.md), [tasks](038-gfm-completion-inline-code-padding/tasks.md) and [verification](038-gfm-completion-inline-code-padding/verification.md) retain the historical implementation and authorization records.
+Feature 040: [document-wide selection requirements](040-document-selection/requirements.md),
+**approved on 2026-10-14**. See [design](040-document-selection/design.md),
+[mapped tasks](040-document-selection/tasks.md) and [planned/actual verification](040-document-selection/verification.md).
+Targets package 1.7.0 / QML 1.7; implementation and protected squash delivery are authorized; publication is excluded.
+
+Current package: **1.7.0 / QML 1.7**, with opt-in document-wide selection and host-owned plain-text copying in [Feature 040](040-document-selection/requirements.md). Publication requires separate authorization. Historical [stable 1.6.0 / QML 1.6](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0) was released 2026-10-13 UTC; [iteration 038](038-gfm-completion-inline-code-padding/verification.md) retains its evidence.
 
 Current workflow change: [039: simplified CI and release delivery](039-simplified-delivery/requirements.md), approved through the supplied implementation plan on 2026-10-13. Historical records below retain their original scope.
 

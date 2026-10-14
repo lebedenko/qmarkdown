@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown 1.3
+import QMarkdown 1.7
 import QMarkdownViewer.Tools
 
 ApplicationWindow {
@@ -154,7 +154,20 @@ ApplicationWindow {
                 padding: 8
                 ColumnLayout {
                     anchors.fill: parent
-                    Label { objectName: "previewLabel"; text: "Native preview"; color: window.palette.text }
+                    RowLayout {
+                        Label { objectName: "previewLabel"; text: "Native preview"; color: window.palette.text }
+                        Item { Layout.fillWidth: true }
+                        Button { text: "Select All"; onClicked: preview.selectAll() }
+                        Button {
+                            id: selectionCopy
+                            objectName: "selectionCopyButton"
+                            property bool copied: false
+                            text: copied ? "Copied" : "Copy selection"
+                            enabled: preview.selectedText.length > 0
+                            onClicked: preview.requestCopy()
+                            Timer { id: selectionFeedback; interval: 1500; onTriggered: selectionCopy.copied = false }
+                        }
+                    }
                     Flickable {
                         id: previewScroll
                         objectName: "previewScroll"
@@ -165,6 +178,8 @@ ApplicationWindow {
                         contentHeight: preview.contentHeight
                         ScrollBar.vertical: ScrollBar {}
                         MarkdownView {
+                            selectionEnabled: true
+                            onCopyRequested: function(text) { clipboard.copyText(text); selectionCopy.copied = true; selectionFeedback.restart() }
                             resourcePolicy: MarkdownResourcePolicy { allowQrc: true }
                             id: preview
                             objectName: "preview"

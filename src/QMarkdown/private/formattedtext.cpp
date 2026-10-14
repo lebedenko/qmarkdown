@@ -8,6 +8,7 @@
 #include <QQuickWindow>
 #include <QScreen>
 #include <cmath>
+#include <limits>
 #include <algorithm>
 
 namespace {
@@ -125,6 +126,8 @@ void FormattedText::updatePolish()
 {
     m_layout.reset();
     m_codeRects.clear();
+    m_cursorCells.clear();
+    m_cursorLines.clear();
     m_paddedRuns.clear();
     m_hitRegions.clear();
     m_padded = false;
@@ -198,17 +201,21 @@ void FormattedText::updatePolish()
             formats = split;
         }
         m_layout->setFormats(formats);
-        struct Cell { int source, code; QRectF rect; qreal shift = 0; };
+        struct Cell { int source, code; QRectF rect; qreal shift = 0; bool reversed = false; };
         auto cellsFor = [&](QTextLine line) {
             // cursorToX clamps overflowing glyph cells to the assigned width.
             // Qt's natural width is the minimum preserving this break position.
-            if (line.naturalTextWidth() > line.width()) line.setLineWidth(line.naturalTextWidth());
+            const qreal originalWidth = line.width();
+            if (line.naturalTextWidth() > originalWidth) line.setLineWidth(line.naturalTextWidth());
+            const qreal alignmentShift = m_padded ? 0 : (originalWidth - line.width())
+                * (m_alignment == Qt::AlignRight ? 1 : m_alignment == Qt::AlignHCenter ? .5 : 0);
             QVector<Cell> cells;
             for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
                 if (!m_layout->isValidCursorPosition(pos) || layoutText[pos] == QChar::LineSeparator) continue;
                 const qreal a = line.cursorToX(pos, QTextLine::Leading), b = line.cursorToX(pos, QTextLine::Trailing);
-                if (a != b) cells.append({pos, codes[pos], QRectF(qMin(a, b), line.y(), std::abs(a - b), line.height())});
+                if (a != b) cells.append({pos, codes[pos], QRectF(qMin(a, b) + alignmentShift, line.y(), std::abs(a - b), line.height()), 0, a > b});
             }
+            if (!m_padded && line.width() != originalWidth) line.setLineWidth(originalWidth);
             std::stable_sort(cells.begin(), cells.end(), [](const Cell &a, const Cell &b) { return a.rect.left() < b.rect.left(); });
             return cells;
         };
@@ -223,6 +230,10 @@ void FormattedText::updatePolish()
             line.setLineWidth(m_layoutWidth);
             if (!m_padded) {
                 line.setPosition(QPointF(0, m_logicalHeight));
+                for (const auto &cell : cellsFor(line)) {
+                    m_cursorCells.append({cell.source, m_layout->nextCursorPosition(cell.source), cell.rect, cell.reversed});
+                }
+                m_cursorLines.append({line.textStart(), line.y(), line.y() + line.height()});
                 m_logicalHeight += line.height();
                 continue;
             }
@@ -266,8 +277,12 @@ void FormattedText::updatePolish()
             const qreal align = m_alignment == Qt::AlignRight ? m_layoutWidth - contentWidth
                 : m_alignment == Qt::AlignHCenter ? (m_layoutWidth - contentWidth) / 2 : 0;
             for (auto &rect : fragments) { rect.translate(align, 0); m_codeRects.append(rect); }
-            for (int i = m_hitRegions.size() - cells.size(); i < m_hitRegions.size(); ++i)
-                m_hitRegions[i].rect.translate(align, 0);
+            for (int i = 0; i < cells.size(); ++i) {
+                auto &region = m_hitRegions[m_hitRegions.size() - cells.size() + i];
+                region.rect.translate(align, 0);
+                const int pos = cells[i].source;
+                m_cursorCells.append({pos, m_layout->nextCursorPosition(pos), region.rect, cells[i].reversed});
+            }
             // Retrieve each shaped line once, then partition glyphs by paint
             // color. Qt retains fallback fonts and decoration flags in each run.
             const auto runs = line.glyphRuns(-1, -1, QTextLayout::RetrieveGlyphIndexes
@@ -304,6 +319,7 @@ void FormattedText::updatePolish()
                 }
                 flush();
             }
+            m_cursorLines.append({line.textStart(), line.y() - vertical, line.y() + line.height() + vertical});
             m_logicalHeight += line.height() + 2 * vertical;
         }
         m_layout->endLayout();
@@ -364,6 +380,8 @@ void FormattedText::paint(QPainter *painter)
     painter->setBrush(m_codeBackground);
     for (const auto &rect : m_codeRects)
         painter->drawRoundedRect(rect, m_codeCornerRadius, m_codeCornerRadius);
+    painter->setBrush(m_selectionColor);
+    for (const auto &rect : selectionRectangles()) painter->drawRect(rect);
     painter->restore();
     painter->setPen(m_color);
     if (m_padded) for (const auto &run : m_paddedRuns) {
@@ -422,4 +440,63 @@ QString FormattedText::linkDestination(int identity) const
 {
     return identity >= 0 && identity < m_links.size()
         ? m_links[identity].toMap().value("destination").toString() : QString();
+}
+
+void FormattedText::setSelectionStart(int value)
+{
+    if (m_selectionStart == value) return;
+    m_selectionStart = value; emit selectionChanged(); update();
+}
+void FormattedText::setSelectionEnd(int value)
+{
+    if (m_selectionEnd == value) return;
+    m_selectionEnd = value; emit selectionChanged(); update();
+}
+void FormattedText::setSelectionColor(const QColor &value)
+{
+    if (m_selectionColor == value) return;
+    m_selectionColor = value; emit selectionChanged(); update();
+}
+QVector<QRectF> FormattedText::selectionRectangles() const
+{
+    QVector<QRectF> result;
+    if (!m_layout || m_selectionStart >= m_selectionEnd) return result;
+    for (const auto &cell : m_cursorCells)
+        if (cell.start < m_selectionEnd && cell.end > m_selectionStart) {
+            if (!result.isEmpty() && result.last().top() == cell.rect.top()
+                && cell.rect.left() <= result.last().right() + .01)
+                result.last() = result.last().united(cell.rect);
+            else result.append(cell.rect);
+        }
+    return result;
+}
+int FormattedText::cursorAt(qreal x, qreal y) const
+{
+    if (!m_layout || m_layout->text().size() != m_text.size()) return 0;
+    const QPointF p = QPointF(x, y) - m_paintOffset;
+    if (p.y() < 0) return 0;
+    if (p.y() >= m_logicalHeight) return int(m_text.size());
+    qreal nearest = std::numeric_limits<qreal>::max();
+    int position = 0;
+    // Prefer the nearest visual line, then its nearest cursor edge. Cursor
+    // cells retain source direction after bidi shaping and padding translation.
+    qreal lineDistance = std::numeric_limits<qreal>::max();
+    const CursorLine *line = nullptr;
+    for (const auto &candidate : m_cursorLines) {
+        const qreal distance = qMax(qreal(0), qMax(candidate.top - p.y(), p.y() - candidate.bottom));
+        if (distance < lineDistance) { lineDistance = distance; line = &candidate; }
+    }
+    if (!line) return 0;
+    position = line->start;
+    for (const auto &cell : m_cursorCells) {
+        const qreal dy = qMax(qreal(0), qMax(cell.rect.top() - p.y(), p.y() - cell.rect.bottom()));
+        if (dy > lineDistance || cell.rect.top() < line->top || cell.rect.bottom() > line->bottom) continue;
+        const qreal left = std::abs(p.x() - cell.rect.left()), right = std::abs(p.x() - cell.rect.right());
+        const qreal distance = qMin(left, right);
+        if (distance < nearest) {
+            nearest = distance;
+            position = (left <= right) != cell.reversed ? cell.start : cell.end;
+        }
+    }
+    return position;
 }

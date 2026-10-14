@@ -112,3 +112,17 @@ set_tests_properties(qmarkdown-styling PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
 set_tests_properties(qmarkdown-styling-fractional PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_SCALE_FACTOR=1.25;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-selection-test tst_selection.cpp)
+target_include_directories(qmarkdown-selection-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-selection-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-selection-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-selection-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-selection COMMAND qmarkdown-selection-test)
+add_test(NAME qmarkdown-selection-fractional COMMAND qmarkdown-selection-test)
+set_tests_properties(qmarkdown-selection PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+set_tests_properties(qmarkdown-selection-fractional PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_SCALE_FACTOR=1.25;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
