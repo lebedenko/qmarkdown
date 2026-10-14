@@ -14,6 +14,22 @@ Module {
         prototype: "QObject"
         exports: ["QMarkdown.Private/ViewState 1.0"]
         exportMetaObjectRevisions: [256]
+        Property { name: "selectionEnabled"; type: "bool"; notify: "selectionEnabledChanged" }
+        Property { name: "selectedText"; type: "QString"; notify: "selectionChanged"; isReadonly: true }
+        Property { name: "selectionStart"; type: "int"; notify: "selectionChanged"; isReadonly: true }
+        Property { name: "selectionEnd"; type: "int"; notify: "selectionChanged"; isReadonly: true }
+        Signal { name: "presentationReset" }
+        Signal { name: "selectionChanged" }
+        Signal { name: "selectionEnabledChanged" }
+        Signal { name: "copyRequested"; Parameter { name: "text"; type: "QString" } }
+        Method { name: "selectAll" }
+        Method { name: "clearSelection" }
+        Method { name: "requestCopy" }
+        Method { name: "registerSelectionItem"; Parameter { name: "item"; type: "QQuickItem"; isPointer: true } Parameter { name: "kind"; type: "int" } }
+        Method { name: "unregisterSelectionItem"; Parameter { name: "item"; type: "QQuickItem"; isPointer: true } }
+        Method { name: "beginSelection"; type: "bool"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } Parameter { name: "extend"; type: "bool" } }
+        Method { name: "extendSelection"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } }
+        Method { name: "selectionLink"; type: "QVariant"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } }
         Method { name: "boldFont"; type: "QFont"; Parameter { name: "font"; type: "QFont" } }
         Property { name: "baseUrl"; type: "QUrl"; notify: "baseUrlChanged" }
         Property { name: "resourcePolicy"; type: "MarkdownResourcePolicy"; isPointer: true; notify: "resourcePolicyChanged" }
@@ -42,6 +58,11 @@ Module {
         prototype: "QQuickPaintedItem"
         exports: ["QMarkdown.Private/FormattedText 1.0"]
         exportMetaObjectRevisions: [256]
+        Signal { name: "selectionChanged" }
+        Property { name: "selectionStart"; type: "int"; notify: "selectionChanged" }
+        Property { name: "selectionEnd"; type: "int"; notify: "selectionChanged" }
+        Property { name: "selectionColor"; type: "QColor"; notify: "selectionChanged" }
+        Method { name: "cursorAt"; type: "int"; Parameter { name: "x"; type: "double" } Parameter { name: "y"; type: "double" } }
         Property { name: "horizontalAlignment"; type: "int"; notify: "horizontalAlignmentChanged" }
         Signal { name: "horizontalAlignmentChanged" }
         Property { name: "text"; type: "QString"; notify: "textChanged" }

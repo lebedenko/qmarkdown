@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-14",
+  "packageVersion": "1.7.0",
+  "qmlVersion": "1.7",
+  "approval": "Explicit user approval of requirements, design and tasks on 2026-10-14",
+  "localMatrices": {
+    "minimum": {
+      "qt": "6.8.0",
+      "artifactDirectory": "build-ci-040-minimum-complete",
+      "status": "passed",
+      "exitCode": 0,
+      "verificationSeconds": 203.949,
+      "coverage": "shared/static 16-test suites, strict 652-example CommonMark checks, QML lint, relocated linked/plugin-only/static installed consumers, version compatibility, private symbol checks and benchmark smoke"
+    },
+    "development": {
+      "qt": "6.12.0",
+      "artifactDirectory": "build-ci-040-development-complete",
+      "status": "passed",
+      "exitCode": 0,
+      "verificationSeconds": 219.762,
+      "coverage": "shared/static 16-test suites, strict 652-example CommonMark checks, QML lint, relocated linked/plugin-only/static installed consumers, version compatibility, private symbol checks and benchmark smoke"
+    }
+  },
+  "finalLifecycleFix": "After the complete matrices, added cancellation of pending link taps on presentation reset and prevented image highlighting for an empty selection; focused selection and fractional tests pass on host Qt 6.12.0 and SDK Qt 6.8.0. Final-head hosted packaging checks remain the delivery gate."
+}

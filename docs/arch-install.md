@@ -1,5 +1,9 @@
 # Arch Linux release package
 
+QMarkdown 1.7.0 / QML 1.7 can be built locally using the distribution commands below.
+Publication is a separate delivery action; the following download commands describe
+the existing 1.6.0 release.
+
 The released [QMarkdown 1.6.0](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0)
 provides `qmarkdown-1.6.0-1-x86_64.pkg.tar.zst` with a SHA-256 companion.
 Pacman enforces Qt lower bounds matching the package's build version. Qt and
@@ -28,7 +32,7 @@ From a development checkout with Python 3, Docker and daemon access:
 
 ```sh
 python3 scripts/build-source-archive.py --source-commit HEAD --work-dir /tmp/qmarkdown-source
-python3 scripts/build-arch-package.py --source-archive /tmp/qmarkdown-source/qmarkdown-1.6.0.tar.gz --work-dir /tmp/qmarkdown-arch
+python3 scripts/build-arch-package.py --source-archive /tmp/qmarkdown-source/qmarkdown-1.7.0.tar.gz --work-dir /tmp/qmarkdown-arch
 ```
 
 Use new output directories and substitute the version being built. The source

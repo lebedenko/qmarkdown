@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.0 — 2026-10-14
+
+- Add opt-in document-wide desktop selection with dragging, Shift-click, Select All, Copy and Escape.
+- Expose normalized UTF-16 selection offsets and deterministic plain-text copy requests; hosts own clipboard and scrolling.
+- Add translucent selection styling, grapheme-aware native highlights and playground selection controls.
+- Preserve selection through resource/layout changes and clear it on source/effective parser changes or disabling.
+
 ## 1.6.0 — 2026-10-13
 
 - Add independent default-off tables and tag-filter controls plus aggregate GFM enablement that preserves individual values.
