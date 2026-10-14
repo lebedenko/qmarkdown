@@ -47,12 +47,16 @@ class ArchRecipeTest(unittest.TestCase):
                 '/usr/lib/qt6/qml/QMarkdown/MarkdownView.qml',
                 '/usr/lib/qt6/qml/QMarkdown/Private/qmldir',
                 '/usr/lib/qt6/qml/QMarkdown/Private/private.qmltypes',
+                '/usr/lib/qt6/qml/QMarkdown/private/Layout.js',
                 '/usr/lib/cmake/QMarkdown/QMarkdownConfig.cmake',
                 '/usr/share/licenses/qmarkdown/cmark/COPYING'):
             self.assertTrue(verify_arch.allowed_payload(Path(name)), name)
         for name in ('/usr/bin/test', '/usr/lib/libQt6Core.so',
                 '/usr/lib/tests/test', '/usr/share/qmarkdown/installed.json',
-                '/usr/lib/qt6/qml/QMarkdown/Private/test', '/usr/lib/libQMarkdown.a'):
+                '/usr/lib/qt6/qml/QMarkdown/Private/test', '/usr/lib/libQMarkdown.a',
+                '/usr/lib/qt6/qml/QMarkdown/private/test.qml',
+                '/usr/lib/qt6/qml/QMarkdown/private/test.js',
+                '/usr/lib/qt6/qml/QMarkdown/private/document.h'):
             self.assertFalse(verify_arch.allowed_payload(Path(name)), name)
 
     def test_invalid_inputs_are_rejected_before_shell_execution(self):

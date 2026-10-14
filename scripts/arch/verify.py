@@ -23,6 +23,7 @@ def allowed_payload(path):
             (path.name.startswith('libQMarkdownPlugin.so') or path.suffix == '.qml'))
         or (path.parent in (module, module / 'Private')
             and (path.name == 'qmldir' or path.suffix == '.qmltypes'))
+        or path == module / 'private' / 'Layout.js'
         or (path.parent == Path('/usr/lib/cmake/QMarkdown') and path.suffix == '.cmake')
         or str(path).startswith('/usr/share/licenses/qmarkdown/'))
 
