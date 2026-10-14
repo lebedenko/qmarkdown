@@ -125,6 +125,7 @@ int main(int argc, char **argv) {
         for (int size : sizes) {
             const auto source = workload(size, false);
             const auto parsed = parse(source);
+            const auto presented = projectDocument(parsed);
             measurements.append(measure("parse-mixed", size, 0, [&] {
                 QElapsedTimer timer; timer.start(); auto blocks = parse(source);
                 require(!blocks.isEmpty(), "Empty parse"); return Result{timer.nsecsElapsed()/1e6};
@@ -132,7 +133,7 @@ int main(int argc, char **argv) {
             BlockModel model; int modelResets = 0;
             QObject::connect(&model, &QAbstractItemModel::modelReset, &app, [&] { ++modelResets; });
             measurements.append(measure("replace-mixed", size, 0, [&] {
-                modelResets = 0; QElapsedTimer timer; timer.start(); model.replace(parsed);
+                modelResets = 0; QElapsedTimer timer; timer.start(); model.replace(presented.blocks);
                 return Result{timer.nsecsElapsed()/1e6, 0, modelResets};
             }));
             measurements.append(measure("layout-mixed", size, 0, [&] {
@@ -146,11 +147,11 @@ int main(int argc, char **argv) {
             QElapsedTimer timer; timer.start(); auto blocks = parse(dense);
             require(!blocks.isEmpty(), "Empty dense parse"); return Result{timer.nsecsElapsed()/1e6};
         }));
-        const auto denseParsed = parse(dense);
+        const auto denseParsed = projectDocument(parse(dense));
         BlockModel denseModel; int denseResets = 0;
         QObject::connect(&denseModel, &QAbstractItemModel::modelReset, &app, [&] { ++denseResets; });
         measurements.append(measure("replace-dense", dense.size(), 0, [&] {
-            denseResets = 0; QElapsedTimer timer; timer.start(); denseModel.replace(denseParsed);
+            denseResets = 0; QElapsedTimer timer; timer.start(); denseModel.replace(denseParsed.blocks);
             return Result{timer.nsecsElapsed()/1e6, 0, denseResets};
         }));
         measurements.append(measure("layout-dense", dense.size(), 0, [&] {
@@ -167,6 +168,7 @@ int main(int argc, char **argv) {
             QString source;
             for (int i = 0; i < count; ++i) source += "![](" + QUrl::fromLocalFile(directory.filePath(QString::number(i)+".png")).toString() + ")\n\n";
             const auto parsed = parse(source);
+            const auto presented = projectDocument(parsed);
             measurements.append(measure("sequential-local-images", source.toUtf8().size(), count, [&] {
                 state->setMarkdown(""); QCoreApplication::processEvents();
                 ResourceController controller; auto gate = std::make_shared<Gate>(); Release cleanup{gate};
@@ -176,11 +178,11 @@ int main(int argc, char **argv) {
                     return decodeImage(std::move(bytes));
                 });
                 QObject::connect(&controller, &ResourceController::changed, &app, [&] {
-                    static_cast<BlockModel *>(state->blocks())->replace(projectImages(parsed, controller.images(), {}));
+                    static_cast<BlockModel *>(state->blocks())->replace(projectImages(presented.blocks, controller.images(), {}));
                 });
                 resets = 0; QElapsedTimer timer; timer.start();
                 state->setMarkdown(source); settle(view);
-                controller.restart(parsed, {}, &policy);
+                controller.restart(parsed, {}, policy);
                 for (int i = 1; i <= count; ++i) {
                     until([&] { return gate->entered.load() == i; });
                     gate->release.release();

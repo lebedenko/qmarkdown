@@ -14,6 +14,8 @@ Module {
         prototype: "QObject"
         exports: ["QMarkdown.Private/ViewState 1.0"]
         exportMetaObjectRevisions: [256]
+        Enum { name: "RenderKind"; values: { "PlainText": 0, "FormattedText": 1, "CodeBlock": 2, "ThematicBreak": 3, "List": 4, "Quote": 5, "ListItem": 6, "HtmlBlock": 7, "Image": 8, "Segments": 9, "Table": 10, "SelectedText": 11, "SelectedCode": 12, "SelectedHtml": 13 } }
+        Enum { name: "SelectionItemKind"; values: { "TextSelection": 0, "ImageSelection": 1, "TableCellSelection": 2, "ActionSelection": 3 } }
         Property { name: "selectionEnabled"; type: "bool"; notify: "selectionEnabledChanged" }
         Property { name: "selectedText"; type: "QString"; notify: "selectionChanged"; isReadonly: true }
         Property { name: "selectionStart"; type: "int"; notify: "selectionChanged"; isReadonly: true }

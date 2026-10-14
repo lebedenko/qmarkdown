@@ -1,6 +1,7 @@
 #pragma once
 #include <QObject>
 #include <QUrl>
+#include <QList>
 #include <QtQml/qqmlregistration.h>
 
 class MarkdownResourcePolicy : public QObject

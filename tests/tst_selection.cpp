@@ -1,6 +1,7 @@
 #include "private/document.h"
 #include "private/formattedtext.h"
 #include "private/resourcecontroller.h"
+#include "private/presentation.h"
 #include "private/viewstate.h"
 #include "markdownstyle.h"
 #include <QGuiApplication>
@@ -60,8 +61,8 @@ private slots:
     void projection() {
         QFETCH(QString, source); QFETCH(QString, expected);
         auto blocks = QMarkdownPrivate::parse(source, {true, true, true, true, true});
-        QCOMPARE(QMarkdownPrivate::projectText(blocks), expected);
-        auto check = [&](auto &&self, const QVector<QMarkdownPrivate::Block> &values) -> void {
+        QCOMPARE(QMarkdownPrivate::projectDocument(blocks).text, expected);
+        auto check = [&](auto &&self, const QVector<QMarkdownPrivate::PresentationBlock> &values) -> void {
             for (const auto &block : values) {
                 QVERIFY(block.selectionOffset >= 0);
                 QVERIFY(block.selectionOffset + block.selectionLength <= expected.size());
@@ -69,13 +70,13 @@ private slots:
                 self(self, block.children);
             }
         };
-        check(check, blocks);
+        check(check, QMarkdownPrivate::projectDocument(blocks).blocks);
     }
     void resourceRanges() {
         auto blocks = QMarkdownPrivate::parse("before ![alt](shape.png) after");
-        QCOMPARE(QMarkdownPrivate::projectText(blocks), "before alt after");
+        QCOMPARE(QMarkdownPrivate::projectDocument(blocks).text, "before alt after");
         QImage image(10, 10, QImage::Format_ARGB32); image.fill(Qt::red);
-        const auto projected = QMarkdownPrivate::projectImages(blocks, {{QUrl("file:///shape.png"), image}}, QUrl("file:///"));
+        const auto projected = QMarkdownPrivate::projectImages(QMarkdownPrivate::projectDocument(blocks).blocks, {{QUrl("file:///shape.png"), image}}, QUrl("file:///"));
         QCOMPARE(projected[0].children.size(), 3);
         QCOMPARE(projected[0].children[0].selectionOffset, 0);
         QCOMPARE(projected[0].children[0].selectionLength, 7);

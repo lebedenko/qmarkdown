@@ -14,66 +14,68 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || index.row() < 0 || index.row() >= m_blocks.size()) return {};
     const auto &block = m_blocks[index.row()];
-    if (role == Qt::UserRole + 17) {
-        const int kind = data(index, Qt::UserRole + 4).toInt();
-        return kind == 0 ? 11 : kind == 2 ? 12 : kind == 7 ? 13 : kind;
+    if (role == SelectionKindRole) {
+        const int kind = data(index, RenderKindRole).toInt();
+        return kind == ViewState::PlainText ? ViewState::SelectedText
+            : kind == ViewState::CodeBlock ? ViewState::SelectedCode
+            : kind == ViewState::HtmlBlock ? ViewState::SelectedHtml : kind;
     }
-    if (role == Qt::UserRole + 15) return block.selectionOffset;
-    if (role == Qt::UserRole + 16) return block.selectionLength;
-    if (role == Qt::UserRole + 14) {
+    if (role == SelectionOffsetRole) return block.selectionOffset;
+    if (role == SelectionLengthRole) return block.selectionLength;
+    if (role == CodeSpansRole) {
         QVariantList codes;
         for (const auto &code : block.codes)
             codes.append(QVariantMap{{"start", code.start}, {"length", code.length}});
         return codes;
     }
-    if (role == Qt::UserRole + 13) return block.tableAlignment;
-    if (role == Qt::UserRole + 12) return static_cast<int>(block.taskState);
-    if (role == Qt::UserRole + 9) return block.image;
-    if (role == Qt::UserRole + 10) return block.imageLink;
-    if (role == Qt::UserRole + 11) return block.imageLinked;
-    if (role == Qt::UserRole) return block.text;
-    if (role == Qt::UserRole + 1) return block.level;
-    if (role == Qt::UserRole + 2) return (!block.ranges.isEmpty() || !block.links.isEmpty());
-    if (role == Qt::UserRole + 3) {
+    if (role == TableAlignmentRole) return block.tableAlignment;
+    if (role == TaskStateRole) return static_cast<int>(block.taskState);
+    if (role == ImageDataRole) return block.image;
+    if (role == ImageLinkRole) return block.imageLink;
+    if (role == ImageLinkedRole) return block.imageLinked;
+    if (role == BlockTextRole) return block.text;
+    if (role == HeadingLevelRole) return block.level;
+    if (role == FormattedRole) return (!block.ranges.isEmpty() || !block.links.isEmpty());
+    if (role == FormatRangesRole) {
         QVariantList ranges;
         for (const auto &range : block.ranges)
             ranges.append(QVariantMap{{"start", range.start}, {"length", range.length}, {"flags", range.flags}});
         return ranges;
     }
-    if (role == Qt::UserRole + 8) {
+    if (role == LinkSpansRole) {
         QVariantList links;
         for (const auto &link : block.links)
             links.append(QVariantMap{{"start", link.start}, {"length", link.length}, {"destination", link.destination}});
         return links;
     }
-    if (role == Qt::UserRole + 5) return QVariant::fromValue(static_cast<QAbstractItemModel *>(m_children[index.row()]));
-    if (role == Qt::UserRole + 6) return block.tight;
-    if (role == Qt::UserRole + 7) {
+    if (role == ChildBlocksRole) return QVariant::fromValue(static_cast<QAbstractItemModel *>(m_children[index.row()]));
+    if (role == TightListRole) return block.tight;
+    if (role == MarkersRole) {
         QStringList markers;
         for (qsizetype i = 0; i < block.children.size(); ++i)
             markers.append(block.ordered ? QString::number(qint64(block.start) + i) + block.delimiter : QString::fromUtf8("•"));
         return markers;
     }
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::Table) return 10;
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::Image) return 8;
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::Segments) return 9;
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::List) return 4;
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::Quote) return 5;
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::ListItem) return 6;
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::HtmlBlock) return 7;
-    if (role == Qt::UserRole + 4 && block.kind == QMarkdownPrivate::BlockKind::ThematicBreak) return 3;
-    if (role == Qt::UserRole + 4) return block.kind == QMarkdownPrivate::BlockKind::CodeBlock ? 2 : (block.ranges.isEmpty() && block.links.isEmpty() ? 0 : 1);
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Table) return ViewState::Table;
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Image) return ViewState::Image;
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Segments) return ViewState::Segments;
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::List) return ViewState::List;
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Quote) return ViewState::Quote;
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::ListItem) return ViewState::ListItem;
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::HtmlBlock) return ViewState::HtmlBlock;
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::ThematicBreak) return ViewState::ThematicBreak;
+    if (role == RenderKindRole) return block.kind == QMarkdownPrivate::PresentationKind::CodeBlock ? ViewState::CodeBlock : (block.ranges.isEmpty() && block.links.isEmpty() ? ViewState::PlainText : ViewState::FormattedText);
     return {};
 }
 QHash<int, QByteArray> BlockModel::roleNames() const
 {
-    return {{Qt::UserRole, "blockText"}, {Qt::UserRole + 1, "headingLevel"},
-            {Qt::UserRole + 2, "formatted"}, {Qt::UserRole + 3, "formatRanges"}, {Qt::UserRole + 4, "renderKind"}, {Qt::UserRole + 5, "childBlocks"},
-            {Qt::UserRole + 6, "tightList"}, {Qt::UserRole + 7, "markers"}, {Qt::UserRole + 8, "linkSpans"}, {Qt::UserRole + 9, "imageData"},
-            {Qt::UserRole + 10, "imageLink"}, {Qt::UserRole + 11, "imageLinked"},
-            {Qt::UserRole + 12, "taskState"}, {Qt::UserRole + 13, "tableAlignment"}, {Qt::UserRole + 14, "codeSpans"}, {Qt::UserRole + 15, "selectionOffset"}, {Qt::UserRole + 16, "selectionLength"}, {Qt::UserRole + 17, "selectionKind"}};
+    return {{BlockTextRole, "blockText"}, {HeadingLevelRole, "headingLevel"},
+            {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
+            {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
+            {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
+            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}};
 }
-void BlockModel::replace(QVector<QMarkdownPrivate::Block> blocks)
+void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 {
     beginResetModel();
     qDeleteAll(m_children);
@@ -81,17 +83,17 @@ void BlockModel::replace(QVector<QMarkdownPrivate::Block> blocks)
     m_blocks = std::move(blocks);
     for (const auto &block : m_blocks) {
         BlockModel *child = nullptr;
-        if (block.kind == QMarkdownPrivate::BlockKind::Segments
-            || block.kind == QMarkdownPrivate::BlockKind::List
-            || block.kind == QMarkdownPrivate::BlockKind::ListItem
-            || block.kind == QMarkdownPrivate::BlockKind::Quote
-            || block.kind == QMarkdownPrivate::BlockKind::Table
-            || block.kind == QMarkdownPrivate::BlockKind::TableRow
-            || block.kind == QMarkdownPrivate::BlockKind::TableCell) {
+        if (block.kind == QMarkdownPrivate::PresentationKind::Segments
+            || block.kind == QMarkdownPrivate::PresentationKind::List
+            || block.kind == QMarkdownPrivate::PresentationKind::ListItem
+            || block.kind == QMarkdownPrivate::PresentationKind::Quote
+            || block.kind == QMarkdownPrivate::PresentationKind::Table
+            || block.kind == QMarkdownPrivate::PresentationKind::TableRow
+            || block.kind == QMarkdownPrivate::PresentationKind::TableCell) {
             child = new BlockModel(this);
-            if (block.kind == QMarkdownPrivate::BlockKind::TableCell && block.children.isEmpty()) {
+            if (block.kind == QMarkdownPrivate::PresentationKind::TableCell && block.children.isEmpty()) {
                 auto content = block;
-                content.kind = QMarkdownPrivate::BlockKind::Paragraph;
+                content.kind = QMarkdownPrivate::PresentationKind::Paragraph;
                 child->replace({std::move(content)});
             } else child->replace(block.children);
         }
@@ -105,7 +107,7 @@ ViewState::ViewState(QObject *parent)
     connect(&m_blocks, &QAbstractItemModel::modelAboutToBeReset, this, &ViewState::presentationReset);
     m_policyChanged = connect(m_policy, &MarkdownResourcePolicy::changed, this, &ViewState::reloadResources);
     connect(&m_resources, &ResourceController::changed, this, [this] {
-        m_blocks.replace(QMarkdownPrivate::projectImages(m_sourceBlocks, m_resources.images(), m_baseUrl));
+        m_blocks.replace(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
     });
 }
 void ViewState::setBaseUrl(const QUrl &value) {
@@ -126,8 +128,8 @@ void ViewState::resetResourcePolicy() {
     m_defaultPolicy.restoreDefaults(); setResourcePolicy(&m_defaultPolicy);
 }
 void ViewState::reloadResources() {
-    m_resources.restart(m_sourceBlocks, m_baseUrl, m_policy);
-    m_blocks.replace(m_sourceBlocks);
+    m_resources.restart(m_sourceBlocks, m_baseUrl, *m_policy);
+    m_blocks.replace(m_presentationBlocks);
 }
 void ViewState::reparse()
 {
@@ -139,7 +141,9 @@ void ViewState::reparse()
     if (flags(options) != flags(m_parsedOptions)) clearSelection();
     m_parsedOptions = options;
     m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, options);
-    m_projection = QMarkdownPrivate::projectText(m_sourceBlocks);
+    auto presentation = QMarkdownPrivate::projectDocument(m_sourceBlocks);
+    m_projection = std::move(presentation.text);
+    m_presentationBlocks = std::move(presentation.blocks);
     reloadResources();
 }
 void ViewState::setMarkdown(const QString &value)
@@ -211,7 +215,7 @@ void ViewState::resetStyle()
 namespace {
 void registerPrivateTypes()
 {
-    qmlRegisterType<FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
+    qmlRegisterType<::FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
     qmlRegisterType<ImageItem>("QMarkdown.Private", 1, 0, "ImageItem");
     qmlRegisterType<ViewState>("QMarkdown.Private", 1, 0, "ViewState");
 }
@@ -224,7 +228,7 @@ void ViewState::setSelectionEnabled(bool value)
     if (!value) clearSelection();
     m_selectionEnabled = value;
     emit selectionEnabledChanged();
-    m_blocks.replace(QMarkdownPrivate::projectImages(m_sourceBlocks, m_resources.images(), m_baseUrl));
+    m_blocks.replace(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
 }
 void ViewState::setSelection(int anchor, int active)
 {
@@ -262,7 +266,7 @@ void ViewState::unregisterSelectionItem(QQuickItem *item)
 bool ViewState::selectionExcluded(QQuickItem *view, QPointF point) const
 {
     for (const auto &entry : m_selectionItems)
-        if (entry.item && entry.kind == 3 && entry.item->isVisible()
+        if (entry.item && entry.kind == ActionSelection && entry.item->isVisible()
             && entry.item->contains(entry.item->mapFromItem(view, point))) return true;
     return false;
 }
@@ -270,14 +274,14 @@ QQuickItem *ViewState::selectionItemAt(QQuickItem *view, QPointF point) const
 {
     QQuickItem *cell = nullptr;
     for (const auto &entry : m_selectionItems)
-        if (entry.item && entry.kind == 2 && entry.item->isVisible()
+        if (entry.item && entry.kind == TableCellSelection && entry.item->isVisible()
             && entry.item->contains(entry.item->mapFromItem(view, point))) { cell = entry.item; break; }
     QQuickItem *nearest = nullptr;
     qreal distance = std::numeric_limits<qreal>::max();
     int offset = std::numeric_limits<int>::max();
     for (const auto &entry : m_selectionItems) {
         auto *item = entry.item.data();
-        if (!item || entry.kind > 1 || !item->isVisible() || item->width() <= 0) continue;
+        if (!item || (entry.kind != TextSelection && entry.kind != ImageSelection) || !item->isVisible() || item->width() <= 0) continue;
         if (cell && item != cell && !cell->isAncestorOf(item)) continue;
         const auto p = item->mapFromItem(view, point);
         const qreal dx = qMax(qreal(0), qMax(-p.x(), p.x() - item->width()));
@@ -296,7 +300,7 @@ int ViewState::selectionPosition(QQuickItem *view, QPointF point) const
     if (!item) return 0;
     const auto p = item->mapFromItem(view, point);
     const int offset = item->property("projectionOffset").toInt();
-    if (auto *text = qobject_cast<FormattedText *>(item)) {
+    if (auto *text = qobject_cast<::FormattedText *>(item)) {
         if (p.y() >= item->height()) return offset + item->property("projectionLength").toInt();
         return offset + text->cursorAt(p.x(), p.y());
     }
@@ -322,7 +326,7 @@ QVariant ViewState::selectionLink(QQuickItem *view, QPointF point) const
     if (!item) return {};
     const auto p = item->mapFromItem(view, point);
     if (!item->contains(p)) return {};
-    if (auto *text = qobject_cast<FormattedText *>(item)) {
+    if (auto *text = qobject_cast<::FormattedText *>(item)) {
         const int link = text->linkAt(p.x(), p.y());
         return link >= 0 ? QVariant(text->linkDestination(link)) : QVariant();
     }

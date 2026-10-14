@@ -1,5 +1,7 @@
 # Code-block actions (1.2)
 
+See the [public API reference](api.md) for the complete supported contract.
+
 Import `QMarkdown 1.2` and assign `MarkdownView.codeBlockActions` to a Component whose root is an Item. It must declare `required property string codeText` and `required property var requestCopy`. Call `requestCopy()` to emit `codeBlockCopyRequested(string text)` on that view. The default is null.
 
 ```qml
@@ -35,4 +37,4 @@ The header is above the code, inside the existing surface padding. The library c
 
 Component or block replacement destroys old instances and invalidates their callbacks. Zero view width removes blocks; restoring positive width creates fresh headers. Callbacks retained after removal or view destruction perform no request. Delegate creation errors produce diagnostics and leave ordinary code rendering usable. Components must retain a valid creation context for their instances, as required by Qt.
 
-Package 1.2.0 accepts compatible 1.0/1.1/1.2 CMake requests and EXACT 1.2.0. EXACT 1.0.0/1.1.0 requests require their historical packages. Existing QML 1.0/1.1 consumers remain supported. See [release notes](release-notes-1.2.0.md) and [integration verification](../specs/032-v1.2-integration/verification.md). [Iteration 033](../specs/033-stable-v1.2-release/verification.md) records completed stable publication and downloaded-asset acceptance. Document-wide selection, inline-code actions, language labels, highlighting and generic renderer extensions remain deferred.
+Package 1.2.0 accepts compatible 1.0/1.1/1.2 CMake requests and EXACT 1.2.0. EXACT 1.0.0/1.1.0 requests require their historical packages. Existing QML 1.0/1.1 consumers remain supported. See [release notes](release-notes-1.2.0.md) and [integration verification](../specs/032-v1.2-integration/verification.md). [Iteration 033](../specs/033-stable-v1.2-release/verification.md) records completed stable publication and downloaded-asset acceptance. Document-wide desktop selection and host-controlled copying are available in 1.7; see the [selection guide](selection.md). Inline-code actions, language labels, highlighting and generic renderer extensions remain deferred.

@@ -1,6 +1,6 @@
 #pragma once
 #include "../markdownstyle.h"
-#include "document.h"
+#include "presentation.h"
 #include "resourcecontroller.h"
 #include <QAbstractListModel>
 #include <QPointer>
@@ -10,13 +10,33 @@ class BlockModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
+    enum Role {
+        BlockTextRole = Qt::UserRole + 0,
+        HeadingLevelRole = Qt::UserRole + 1,
+        FormattedRole = Qt::UserRole + 2,
+        FormatRangesRole = Qt::UserRole + 3,
+        RenderKindRole = Qt::UserRole + 4,
+        ChildBlocksRole = Qt::UserRole + 5,
+        TightListRole = Qt::UserRole + 6,
+        MarkersRole = Qt::UserRole + 7,
+        LinkSpansRole = Qt::UserRole + 8,
+        ImageDataRole = Qt::UserRole + 9,
+        ImageLinkRole = Qt::UserRole + 10,
+        ImageLinkedRole = Qt::UserRole + 11,
+        TaskStateRole = Qt::UserRole + 12,
+        TableAlignmentRole = Qt::UserRole + 13,
+        CodeSpansRole = Qt::UserRole + 14,
+        SelectionOffsetRole = Qt::UserRole + 15,
+        SelectionLengthRole = Qt::UserRole + 16,
+        SelectionKindRole = Qt::UserRole + 17
+    };
     using QAbstractListModel::QAbstractListModel;
     int rowCount(const QModelIndex &parent = {}) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
-    void replace(QVector<QMarkdownPrivate::Block> blocks);
+    void replace(QVector<QMarkdownPrivate::PresentationBlock> blocks);
 private:
-    QVector<QMarkdownPrivate::Block> m_blocks;
+    QVector<QMarkdownPrivate::PresentationBlock> m_blocks;
     QVector<BlockModel *> m_children;
 };
 
@@ -40,6 +60,10 @@ class ViewState : public QObject
     Q_PROPERTY(MarkdownResourcePolicy *resourcePolicy READ resourcePolicy WRITE setResourcePolicy RESET resetResourcePolicy NOTIFY resourcePolicyChanged FINAL)
     Q_PROPERTY(QAbstractItemModel *blocks READ blocks CONSTANT FINAL)
 public:
+    enum RenderKind { PlainText = 0, FormattedText = 1, CodeBlock = 2, ThematicBreak = 3, List = 4, Quote = 5, ListItem = 6, HtmlBlock = 7, Image = 8, Segments = 9, Table = 10, SelectedText = 11, SelectedCode = 12, SelectedHtml = 13 };
+    Q_ENUM(RenderKind)
+    enum SelectionItemKind { TextSelection = 0, ImageSelection = 1, TableCellSelection = 2, ActionSelection = 3 };
+    Q_ENUM(SelectionItemKind)
     explicit ViewState(QObject *parent = nullptr);
     bool selectionEnabled() const { return m_selectionEnabled; }
     void setSelectionEnabled(bool value);
@@ -109,6 +133,7 @@ private:
     void reparse();
     QUrl m_baseUrl;
     QVector<QMarkdownPrivate::Block> m_sourceBlocks;
+    QVector<QMarkdownPrivate::PresentationBlock> m_presentationBlocks;
     MarkdownResourcePolicy m_defaultPolicy;
     QPointer<MarkdownResourcePolicy> m_policy;
     QMetaObject::Connection m_policyDestroyed, m_policyChanged;

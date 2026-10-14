@@ -72,3 +72,9 @@ third_party/cmark/src/utf8.h
 third_party/cmark/src/xml.c
 third_party/cmark/symbols.h
 docs/source-install.md
+src/QMarkdown/private/presentation.h
+src/QMarkdown/private/presentation.cpp
+src/QMarkdown/private/CodeSurface.qml
+src/QMarkdown/private/CodeActionHost.qml
+src/QMarkdown/private/TableBlock.qml
+src/QMarkdown/private/Layout.js

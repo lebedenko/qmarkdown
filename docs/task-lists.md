@@ -1,5 +1,7 @@
 # Opt-in task lists
 
+See the [public API reference](api.md) for the complete supported contract.
+
 Read-only task-list indicators were introduced in the 1.3.0 / QML 1.3 source candidate and remain available in the current 1.5.0 / QML 1.5 candidate. Published 1.2.0 packages do not include this feature.
 
 ```qml

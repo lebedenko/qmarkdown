@@ -1,5 +1,7 @@
 # Opt-in GFM extended autolinks
 
+See the [public API reference](api.md) for the complete supported contract.
+
 The unpublished 1.5.0 / QML 1.5 source candidate adds selected extended-autolink support. Published 1.2.0 packages do not include this feature.
 
 ```qml

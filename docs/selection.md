@@ -1,5 +1,7 @@
 # Document selection and copy
 
+See the [public API reference](api.md) for the complete supported contract.
+
 QMarkdown 1.7.0 / QML 1.7 supports opt-in desktop selection across native blocks.
 
 ```qml

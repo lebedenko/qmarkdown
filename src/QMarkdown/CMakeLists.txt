@@ -3,6 +3,13 @@ if(BUILD_SHARED_LIBS)
 else()
     set(qmarkdown_library_type STATIC)
 endif()
+set_source_files_properties(private/CodeSurface.qml PROPERTIES
+    QT_QML_INTERNAL_TYPE TRUE QT_RESOURCE_ALIAS CodeSurface.qml)
+set_source_files_properties(private/CodeActionHost.qml PROPERTIES
+    QT_QML_INTERNAL_TYPE TRUE QT_RESOURCE_ALIAS CodeActionHost.qml)
+set_source_files_properties(private/TableBlock.qml PROPERTIES
+    QT_QML_INTERNAL_TYPE TRUE QT_RESOURCE_ALIAS TableBlock.qml)
+set_source_files_properties(private/Layout.js PROPERTIES QT_QML_SKIP_QMLDIR_ENTRY TRUE)
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
@@ -12,8 +19,8 @@ qt_add_qml_module(QMarkdown
     RESOURCE_PREFIX /qt/qml
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml/QMarkdown"
     OUTPUT_TARGETS qmarkdown_auxiliary_targets
-    QML_FILES MarkdownView.qml
-    SOURCES private/decodescheduler.h private/decodescheduler.cpp markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
+    QML_FILES MarkdownView.qml private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/Layout.js
+    SOURCES private/presentation.h private/presentation.cpp private/decodescheduler.h private/decodescheduler.cpp markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
         private/document.h private/document.cpp private/viewstate.h private/viewstate.cpp
         private/inline.h private/inlineadapter.h private/inline.cpp private/formattedtext.h private/formattedtext.cpp private/formatintervals.h private/formatintervals.cpp
 )
@@ -64,3 +71,7 @@ configure_file(private/private.qmltypes "${CMAKE_BINARY_DIR}/qml/QMarkdown/Priva
 install(FILES MarkdownView.qml DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown")
 install(FILES private/qmldir private/private.qmltypes
     DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown/Private")
+
+install(FILES private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml
+    DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown")
+install(FILES private/Layout.js DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown/private")

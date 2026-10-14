@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.qmlmodels
 import QMarkdown.Private
+import "private/Layout.js" as Layout
 
 Item {
     id: root
@@ -95,12 +96,6 @@ Item {
     implicitWidth: 0
     implicitHeight: contentHeight
 
-    function metric(value: real): real {
-        return Number.isFinite(value) ? Math.max(0, value) : 0
-    }
-    function headingStyle(style: var, level: int): var {
-        return level > 0 ? style.headings["h" + level] : null
-    }
     component SelectableText: FormattedText {
         id: selectable
         property int projectionOffset: 0
@@ -108,7 +103,7 @@ Item {
         selectionStart: root.selectionEnabled ? Math.max(0, root.selectionStart - projectionOffset) : 0
         selectionEnd: root.selectionEnabled ? Math.max(0, root.selectionEnd - projectionOffset) : 0
         implicitHeight: logicalHeight
-        Component.onCompleted: viewState.registerSelectionItem(selectable, 0)
+        Component.onCompleted: viewState.registerSelectionItem(selectable, ViewState.TextSelection)
         Component.onDestruction: viewState.unregisterSelectionItem(selectable)
     }
     component HeadingSeparator: Rectangle {
@@ -116,67 +111,12 @@ Item {
         property bool suppressed: false
         readonly property bool enabledDecoration: !suppressed && headingStyle !== null
             && headingStyle.separatorVisible
-        readonly property real decorationSpacing: enabledDecoration ? root.metric(headingStyle.separatorSpacing) : 0
-        height: enabledDecoration ? root.metric(headingStyle.separatorThickness) : 0
+        readonly property real decorationSpacing: enabledDecoration ? Layout.metric(headingStyle.separatorSpacing) : 0
+        height: enabledDecoration ? Layout.metric(headingStyle.separatorThickness) : 0
         color: headingStyle !== null ? headingStyle.separatorColor : "transparent"
         objectName: "headingSeparator"
     }
 
-    component CodeActionHost: Item {
-        id: actionHost
-        required property string codeText
-        property Component actions: root.codeBlockActions
-        property Item actionItem: null
-        property var token: null
-        property bool ready: false
-        height: actionItem ? root.metric(actionItem.implicitHeight) : 0
-
-        function clearAction() {
-            if (token) token.active = false
-            token = null
-            if (actionItem) {
-                actionItem.visible = false
-                actionItem.destroy()
-                actionItem = null
-            }
-        }
-        function rebuild() {
-            clearAction()
-            if (!ready || !actions) return
-            const validity = { active: true }
-            token = validity
-            const text = codeText
-            const source = root.markdown
-            const component = actions
-            const created = actions.createObject(actionHost, {
-                codeText: text,
-                requestCopy: function() {
-                    if (validity.active && root.width > 0 && root.markdown === source
-                        && root.codeBlockActions === component)
-                        root.codeBlockCopyRequested(text)
-                }
-            })
-            const item = created as Item
-            if (!item) {
-                validity.active = false
-                if (created) created.destroy()
-                console.warn("QMarkdown: codeBlockActions must create an Item with codeText and requestCopy properties")
-                return
-            }
-            // A host may replace the component synchronously during creation.
-            if (!validity.active) {
-                item.destroy()
-                return
-            }
-            actionItem = item
-            item.width = Qt.binding(function() { return actionHost.width })
-            item.height = Qt.binding(function() { return actionHost.height })
-        }
-        onActionsChanged: rebuild()
-        onCodeTextChanged: rebuild()
-        Component.onCompleted: { viewState.registerSelectionItem(actionHost, 3); ready = true; rebuild() }
-        Component.onDestruction: { viewState.unregisterSelectionItem(actionHost); clearAction() }
-    }
 
     ViewState {
         id: viewState
@@ -186,14 +126,14 @@ Item {
     Loader {
         id: blocks
         width: Math.max(0, root.width)
-        sourceComponent: sequenceComponent
+        sourceComponent: recursiveSequence
         onLoaded: {
             const loaded = item as BlockSequence
             loaded.model = Qt.binding(function() { return root.width > 0 ? viewState.blocks : null })
         }
     }
     Component {
-        id: sequenceComponent
+        id: recursiveSequence
         BlockSequence {}
     }
     component BlockSequence: Column {
@@ -212,82 +152,16 @@ Item {
             delegate: DelegateChooser {
                 role: root.selectionEnabled ? "selectionKind" : "renderKind"
                 DelegateChoice {
-                    roleValue: 10
-                    delegate: Column {
-                        id: table
-                        objectName: "markdownTable"
-                        required property var childBlocks
+                    roleValue: ViewState.Table
+                    delegate: TableBlock {
                         width: sequence.width
-                        spacing: 0
-                        Repeater {
-                            model: table.childBlocks
-                            delegate: Item {
-                                id: tableRow
-                                objectName: "tableRow"
-                                required property int index
-                                required property var childBlocks
-                                readonly property bool header: index === 0
-                                width: table.width
-                                height: {
-                                    let tallest = 0
-                                    for (let i = 0; i < cells.count; ++i) {
-                                        const cell = cells.itemAt(i)
-                                        if (cell) tallest = Math.max(tallest, cell.implicitHeight)
-                                    }
-                                    return tallest
-                                }
-                                Repeater {
-                                    id: cells
-                                    model: tableRow.childBlocks
-                                    delegate: Rectangle {
-                                        id: tableCell
-                                        objectName: "tableCell"
-                                        required property int index
-                                        required property var childBlocks
-                                        required property int tableAlignment
-                                        Component.onCompleted: viewState.registerSelectionItem(tableCell, 2)
-                                        Component.onDestruction: viewState.unregisterSelectionItem(tableCell)
-                                        width: cells.count > 0 ? tableRow.width / cells.count : 0
-                                        x: index * width
-                                        height: tableRow.height
-                                        readonly property font cellFont: tableRow.header ? viewState.boldFont(sequence.style.bodyFont) : sequence.style.bodyFont
-                                        readonly property real edge: Math.min(root.metric(sequence.style.table.borderWidth), width / 2)
-                                        readonly property real padX: Math.min(root.metric(sequence.style.table.horizontalPadding), Math.max(0, (width - 1 - 2 * edge) / 2))
-                                        readonly property real padY: root.metric(sequence.style.table.verticalPadding)
-                                        implicitHeight: Math.max(cellMetrics.height, cellContents.item ? (cellContents.item as Item).height : 0) + 2 * (padY + edge)
-                                        color: tableRow.header ? sequence.style.table.headerBackground : sequence.style.table.bodyBackground
-                                        border.color: sequence.style.table.borderColor
-                                        border.width: edge
-                                        FontMetrics { id: cellMetrics; font: tableCell.cellFont }
-                                        Loader {
-                                            id: cellContents
-                                            x: tableCell.edge + tableCell.padX
-                                            y: tableCell.edge + tableCell.padY
-                                            width: Math.max(0, tableCell.width - 2 * x)
-                                            sourceComponent: sequenceComponent
-                                            onLoaded: {
-                                                const loaded = item as BlockSequence
-                                                loaded.model = Qt.binding(function() { return tableCell.childBlocks })
-                                                loaded.style = Qt.binding(function() { return sequence.style })
-                                                loaded.bodyFont = Qt.binding(function() { return tableCell.cellFont })
-                                                loaded.bodyColor = Qt.binding(function() {
-                                                    return tableRow.header ? sequence.style.table.headerForeground : sequence.style.bodyColor
-                                                })
-                                                loaded.textAlignment = Qt.binding(function() {
-                                                    return tableCell.tableAlignment === 2 ? Qt.AlignHCenter
-                                                        : tableCell.tableAlignment === 3 ? Qt.AlignRight : Qt.AlignLeft
-                                                })
-                                                loaded.gap = 0
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        style: sequence.style
+                        coordinator: viewState
+                        sequenceComponent: recursiveSequence
                     }
                 }
                 DelegateChoice {
-                    roleValue: 9
+                    roleValue: ViewState.Segments
                     delegate: Item {
                         id: segments
                         required property var childBlocks
@@ -297,7 +171,7 @@ Item {
                         Loader {
                             id: segmentRows
                             width: segments.width
-                            sourceComponent: sequenceComponent
+                            sourceComponent: recursiveSequence
                             onLoaded: {
                                 const loaded = item as BlockSequence
                                 loaded.model = Qt.binding(function() { return segments.childBlocks })
@@ -313,13 +187,13 @@ Item {
                             id: segmentRule
                             width: segments.width
                             y: segmentRows.height + decorationSpacing
-                            headingStyle: root.headingStyle(sequence.style, segments.headingLevel)
+                            headingStyle: Layout.headingStyle(sequence.style, segments.headingLevel)
                             suppressed: sequence.suppressHeadingSeparators
                         }
                     }
                 }
                 DelegateChoice {
-                    roleValue: 8
+                    roleValue: ViewState.Image
                     delegate: Item {
                         id: imageRow
                         required property var imageData
@@ -336,7 +210,7 @@ Item {
                             property int projectionLength: imageRow.selectionLength
                             property bool imageLinked: imageRow.imageLinked
                             property string imageLink: imageRow.imageLink
-                            Component.onCompleted: viewState.registerSelectionItem(imagePaint, 1)
+                            Component.onCompleted: viewState.registerSelectionItem(imagePaint, ViewState.ImageSelection)
                             Component.onDestruction: viewState.unregisterSelectionItem(imagePaint)
                             Rectangle {
                                 anchors.fill: parent
@@ -366,7 +240,7 @@ Item {
                     }
                 }
                 DelegateChoice {
-                    roleValue: 4
+                    roleValue: ViewState.List
                     delegate: Column {
                         id: list
                         required property var childBlocks
@@ -459,7 +333,7 @@ Item {
                                     objectName: "listItemContent"
                                     x: row.contentInset
                                     width: Math.max(0, row.width - x)
-                                    sourceComponent: sequenceComponent
+                                    sourceComponent: recursiveSequence
                                     onLoaded: {
                                         const loaded = item as BlockSequence
                                         loaded.model = Qt.binding(function() { return row.childBlocks })
@@ -472,7 +346,7 @@ Item {
                     }
                 }
                 DelegateChoice {
-                    roleValue: 5
+                    roleValue: ViewState.Quote
                     delegate: Item {
                         id: quote
                         required property var childBlocks
@@ -492,7 +366,7 @@ Item {
                             id: quoteLoader
                             x: quote.inset
                             width: Math.max(0, quote.width - x)
-                            sourceComponent: sequenceComponent
+                            sourceComponent: recursiveSequence
                             onLoaded: {
                                 const loaded = item as BlockSequence
                                 loaded.model = Qt.binding(function() { return quote.childBlocks })
@@ -502,7 +376,7 @@ Item {
                     }
                 }
                 DelegateChoice {
-                    roleValue: 7
+                    roleValue: ViewState.HtmlBlock
                     delegate: Text {
                         required property string blockText
                         width: sequence.width
@@ -514,7 +388,7 @@ Item {
                     }
                 }
                 DelegateChoice {
-                    roleValue: 13
+                    roleValue: ViewState.SelectedHtml
                     delegate: Item {
                         id: htmlBlock
                         required property string blockText
@@ -542,7 +416,7 @@ Item {
                     }
                 }
                 DelegateChoice {
-                    roleValue: 3
+                    roleValue: ViewState.ThematicBreak
                     delegate: Rectangle {
                         width: sequence.width
                         height: Number.isFinite(sequence.style.thematicBreakThickness)
@@ -551,92 +425,41 @@ Item {
                     }
                 }
                 DelegateChoice {
-                    roleValue: 2
-                    delegate: Rectangle {
-                        id: codeSurface
-                        required property string blockText
-                        width: sequence.width
-                        readonly property real padX: Math.min(root.metric(sequence.style.codeBlock.horizontalPadding),
-                            Math.max(0, (width - 1) / 2))
-                        readonly property real padY: root.metric(sequence.style.codeBlock.verticalPadding)
-                        height: codeActions.height + codeBlock.height + 2 * padY
-                        color: sequence.style.codeBlock.backgroundColor
-                        border.color: sequence.style.codeBlock.borderColor
-                        border.width: root.metric(sequence.style.codeBlock.borderWidth)
-                        radius: root.metric(sequence.style.codeBlock.cornerRadius)
-                        objectName: "codeSurface"
-                        CodeActionHost {
-                            id: codeActions
-                            x: codeSurface.padX
-                            y: codeSurface.padY
-                            width: Math.max(1, codeSurface.width - 2 * codeSurface.padX)
-                            codeText: codeSurface.blockText
-                        }
-                        Text {
-                            id: codeBlock
-                            x: codeSurface.padX
-                            y: codeSurface.padY + codeActions.height
-                            width: Math.max(1, codeSurface.width - 2 * codeSurface.padX)
-                            text: codeSurface.blockText.endsWith("\n") ? codeSurface.blockText.slice(0, -1) : codeSurface.blockText
-                            textFormat: Text.PlainText
-                            wrapMode: Text.Wrap
-                            horizontalAlignment: sequence.textAlignment
-                            elide: Text.ElideNone
-                            font: sequence.style.codeBlockFont
-                            color: sequence.style.codeBlockColor
-                            height: text.length === 0 ? codeMetrics.height : implicitHeight
-                            FontMetrics { id: codeMetrics; font: codeBlock.font }
-                        }
-                    }
-                }
-                DelegateChoice {
-                    roleValue: 12
-                    delegate: Rectangle {
-                        id: selectedCodeSurface
+                    roleValue: ViewState.CodeBlock
+                    delegate: CodeSurface {
                         required property string blockText
                         required property int selectionOffset
                         required property int selectionLength
                         width: sequence.width
-                        readonly property real padX: Math.min(root.metric(sequence.style.codeBlock.horizontalPadding),
-                            Math.max(0, (width - 1) / 2))
-                        readonly property real padY: root.metric(sequence.style.codeBlock.verticalPadding)
-                        height: selectedCodeActions.height + selectedCodeBlock.height + 2 * padY
-                        color: sequence.style.codeBlock.backgroundColor
-                        border.color: sequence.style.codeBlock.borderColor
-                        border.width: root.metric(sequence.style.codeBlock.borderWidth)
-                        radius: root.metric(sequence.style.codeBlock.cornerRadius)
-                        objectName: "codeSurface"
-                        CodeActionHost {
-                            id: selectedCodeActions
-                            x: selectedCodeSurface.padX
-                            y: selectedCodeSurface.padY
-                            width: Math.max(1, selectedCodeSurface.width - 2 * selectedCodeSurface.padX)
-                            codeText: selectedCodeSurface.blockText
-                        }
-                        Loader {
-                            id: selectedCodeBlock
-                            x: selectedCodeSurface.padX
-                            y: selectedCodeSurface.padY + selectedCodeActions.height
-                            width: Math.max(1, selectedCodeSurface.width - 2 * selectedCodeSurface.padX)
-                            sourceComponent: selectedCode
-                        }
-                        Component {
-                            id: selectedCode
-                            SelectableText {
-                                text: selectedCodeSurface.blockText.endsWith("\n") ? selectedCodeSurface.blockText.slice(0, -1) : selectedCodeSurface.blockText
-                                layoutWidth: selectedCodeBlock.width
-                                projectionOffset: selectedCodeSurface.selectionOffset
-                                projectionLength: selectedCodeSurface.selectionLength
-                                horizontalAlignment: sequence.textAlignment
-                                font: sequence.style.codeBlockFont
-                                color: sequence.style.codeBlockColor
-                                selectionColor: sequence.style.selectionBackgroundColor
-                            }
-                        }
+                        codeText: blockText
+                        style: sequence.style
+                        coordinator: viewState
+                        view: root
+                        selected: false
+                        projectionOffset: selectionOffset
+                        projectionLength: selectionLength
+                        textAlignment: sequence.textAlignment
                     }
                 }
                 DelegateChoice {
-                    roleValue: 0
+                    roleValue: ViewState.SelectedCode
+                    delegate: CodeSurface {
+                        required property string blockText
+                        required property int selectionOffset
+                        required property int selectionLength
+                        width: sequence.width
+                        codeText: blockText
+                        style: sequence.style
+                        coordinator: viewState
+                        view: root
+                        selected: true
+                        projectionOffset: selectionOffset
+                        projectionLength: selectionLength
+                        textAlignment: sequence.textAlignment
+                    }
+                }
+                DelegateChoice {
+                    roleValue: ViewState.PlainText
                     delegate: Text {
                         id: blockItem
                         required property string blockText
@@ -665,14 +488,14 @@ Item {
                             id: plainRule
                             width: blockItem.width
                             y: blockItem.textHeight + decorationSpacing
-                            headingStyle: root.headingStyle(sequence.style, blockItem.headingLevel)
+                            headingStyle: Layout.headingStyle(sequence.style, blockItem.headingLevel)
                             suppressed: sequence.suppressHeadingSeparators
                         }
                         FontMetrics { id: metrics; font: blockItem.font }
                     }
                 }
                 DelegateChoice {
-                    roleValue: 11
+                    roleValue: ViewState.SelectedText
                     delegate: Item {
                         id: plainBlock
                         required property string blockText
@@ -688,21 +511,21 @@ Item {
                             projectionOffset: plainBlock.selectionOffset
                             projectionLength: plainBlock.selectionLength
                             horizontalAlignment: sequence.textAlignment
-                            font: plainBlock.headingLevel > 0 ? root.headingStyle(sequence.style, plainBlock.headingLevel).font : sequence.bodyFont
-                            color: plainBlock.headingLevel > 0 ? root.headingStyle(sequence.style, plainBlock.headingLevel).color : sequence.bodyColor
+                            font: plainBlock.headingLevel > 0 ? Layout.headingStyle(sequence.style, plainBlock.headingLevel).font : sequence.bodyFont
+                            color: plainBlock.headingLevel > 0 ? Layout.headingStyle(sequence.style, plainBlock.headingLevel).color : sequence.bodyColor
                             selectionColor: sequence.style.selectionBackgroundColor
                         }
                         HeadingSeparator {
                             id: selectedRule
                             width: plainBlock.width
                             y: selectedText.logicalHeight + decorationSpacing
-                            headingStyle: root.headingStyle(sequence.style, plainBlock.headingLevel)
+                            headingStyle: Layout.headingStyle(sequence.style, plainBlock.headingLevel)
                             suppressed: sequence.suppressHeadingSeparators
                         }
                     }
                 }
                 DelegateChoice {
-                    roleValue: 1
+                    roleValue: ViewState.FormattedText
                     delegate: Item {
                         id: formattedBlock
                         required property string blockText
@@ -718,7 +541,7 @@ Item {
                             id: formattedRule
                             width: formattedBlock.width
                             y: painted.logicalHeight + decorationSpacing
-                            headingStyle: root.headingStyle(sequence.style, formattedBlock.headingLevel)
+                            headingStyle: Layout.headingStyle(sequence.style, formattedBlock.headingLevel)
                             suppressed: sequence.suppressHeadingSeparators
                         }
                         SelectableText {

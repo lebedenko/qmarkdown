@@ -1,5 +1,7 @@
 # GFM extensions in QMarkdown 1.7
 
+See the [public API reference](api.md) for the complete supported contract.
+
 Package 1.7.0 / QML 1.7 supports all five GFM extensions on the existing CommonMark 0.31.2 core. Inline code reserves 4/2 logical pixels of horizontal/vertical padding in every preset. This is selected extension support, not a claim of exact GFM 0.29-gfm conformance or GitHub's additional sanitization behavior.
 
 ```qml

@@ -101,15 +101,15 @@ private slots:
             for (int bit=0; bit<6; ++bit) QVERIFY(state.setProperty(properties[bit], bool(mask & (1 << bit))));
             state.setMarkdown(source);
             auto *model = state.blocks();
-            auto children = [](QAbstractItemModel *m, int row) { return m->data(m->index(row,0),Qt::UserRole+5).value<QAbstractItemModel *>(); };
+            auto children = [](QAbstractItemModel *m, int row) { return m->data(m->index(row,0),BlockModel::ChildBlocksRole).value<QAbstractItemModel *>(); };
             const bool aggregate = mask & 32;
             auto *items = children(model,0); QVERIFY(items);
-            QCOMPARE(items->data(items->index(0,0),Qt::UserRole+12).toInt(), (aggregate || (mask & 1)) ? 2 : 0);
-            auto ranges=model->data(model->index(1,0),Qt::UserRole+3).toList();
+            QCOMPARE(items->data(items->index(0,0),BlockModel::TaskStateRole).toInt(), (aggregate || (mask & 1)) ? 2 : 0);
+            auto ranges=model->data(model->index(1,0),BlockModel::FormatRangesRole).toList();
             QCOMPARE(!ranges.isEmpty(), aggregate || bool(mask & 2));
-            auto links=model->data(model->index(1,0),Qt::UserRole+8).toList();
+            auto links=model->data(model->index(1,0),BlockModel::LinkSpansRole).toList();
             QCOMPARE(!links.isEmpty(), aggregate || bool(mask & 4));
-            QCOMPARE(model->data(model->index(2,0),Qt::UserRole+4).toInt() == 10, aggregate || bool(mask & 8));
+            QCOMPARE(model->data(model->index(2,0),BlockModel::RenderKindRole).toInt() == ViewState::Table, aggregate || bool(mask & 8));
             // Property names and signals are checked independently of parser flags.
             QSignalSpy markdownChanges(&state,&ViewState::markdownChanged);
             QSignalSpy tasks(&state,&ViewState::taskListsEnabledChanged), strike(&state,&ViewState::strikethroughEnabledChanged);
@@ -121,7 +121,7 @@ private slots:
             state.setGfmEnabled(!aggregate); QCOMPARE(gfm.size(),1); QCOMPARE(resets.size(),1);
             for(int bit=0;bit<5;++bit) QCOMPARE(state.property(properties[bit]).toBool(),bool(mask & (1 << bit)));
             state.setGfmEnabled(aggregate); QCOMPARE(gfm.size(),2); QCOMPARE(resets.size(),2);
-            QCOMPARE(model->data(model->index(2,0),Qt::UserRole+4).toInt()==10, aggregate || bool(mask & 8));
+            QCOMPARE(model->data(model->index(2,0),BlockModel::RenderKindRole).toInt()==ViewState::Table, aggregate || bool(mask & 8));
             QCOMPARE(tasks.size()+strike.size()+autolinks.size()+tables.size()+tags.size(),0);
             QCOMPARE(state.markdown(),source); QCOMPARE(markdownChanges.size(),0);
             // Changing a masked individual property still follows the rebuild contract.
@@ -129,7 +129,7 @@ private slots:
             state.setTablesEnabled(!(mask & 8)); QCOMPARE(tables.size(),1); QCOMPARE(resets.size(),1); QCOMPARE(gfm.size(),0);
             state.setTagFilterEnabled(!(mask & 16)); QCOMPARE(tags.size(),1); QCOMPARE(resets.size(),2);
             state.setMarkdown("replacement"); QCOMPARE(markdownChanges.size(),1); QCOMPARE(model->rowCount(),1);
-            QCOMPARE(model->data(model->index(0,0),Qt::UserRole).toString(),"replacement");
+            QCOMPARE(model->data(model->index(0,0),BlockModel::BlockTextRole).toString(),"replacement");
         }
     }
     void playgroundGfmControls()
@@ -681,7 +681,7 @@ Item {
             QCOMPARE(action->parentItem()->y(), 7.0);
             auto *surface = action->parentItem()->parentItem();
             auto *code = texts(surface)[0];
-            QCOMPARE(code->y(), 27.0);
+            QCOMPARE(code->mapToItem(surface, QPointF()).y(), 27.0);
             QCOMPARE(surface->height(), code->height() + 34);
             QVERIFY(QMetaObject::invokeMethod(action, "activate"));
             QCOMPARE(requests.size(), i + 1);
@@ -706,7 +706,8 @@ Item {
                                std::numeric_limits<double>::quiet_NaN()}) {
             action->setImplicitHeight(invalid);
             QTRY_COMPARE(action->height(), 0.0);
-            QCOMPARE(texts(action->parentItem()->parentItem())[0]->y(), 7.0);
+            auto *surface = action->parentItem()->parentItem();
+            QCOMPARE(texts(surface)[0]->mapToItem(surface, QPointF()).y(), 7.0);
         }
         stale = action->property("requestCopy").value<QJSValue>();
         view->setWidth(0); QTRY_COMPARE(content(view), 0);
@@ -2580,7 +2581,7 @@ MarkdownView {
         QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, QPoint(30, 10));
         QCOMPARE(activation.count(), 0);
         QCOMPARE(factory.requests, 0);
-        for (const char *type : {"ViewState", "BlockModel", "ModuleAnchor", "FormattedText"}) {
+        for (const char *type : {"ViewState", "BlockModel", "ModuleAnchor", "FormattedText", "CodeSurface", "CodeActionHost", "TableBlock"}) {
             QQmlComponent hidden(&engine);
             hidden.setData(QByteArray("import QMarkdown\n") + type + " {}", {});
             QVERIFY(hidden.isError());

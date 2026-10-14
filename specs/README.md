@@ -1,5 +1,11 @@
 # Specifications
 
+Feature 041: [library maintainability requirements](041-library-maintainability/requirements.md),
+approved on 2026-10-14; implemented and verified. See [design](041-library-maintainability/design.md),
+[mapped tasks](041-library-maintainability/tasks.md) and
+[verification plan](041-library-maintainability/verification.md).
+Addresses the project review while preserving package 1.7.0 / QML 1.7 behavior.
+
 Feature 040: [document-wide selection requirements](040-document-selection/requirements.md),
 **approved on 2026-10-14**. See [design](040-document-selection/design.md),
 [mapped tasks](040-document-selection/tasks.md) and [planned/actual verification](040-document-selection/verification.md).

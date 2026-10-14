@@ -1,4 +1,7 @@
 #include "resourcecontroller.h"
+#include "decodescheduler.h"
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include <QBuffer>
 #include <QDir>
 #include <QFile>
@@ -95,59 +98,6 @@ QImage decodeImage(QByteArray bytes)
     image.setDevicePixelRatio(1);
     return image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
 }
-namespace {
-Block textSlice(const Block &block, int start, int end) {
-    Block result{block.kind, {}};
-    result.level = block.level;
-    result.selectionOffset = block.selectionOffset + start;
-    result.selectionLength = end - start;
-    result.text = block.text.mid(start, end - start);
-    for (const auto &range : block.ranges) {
-        const int a = qMax(start, range.start), b = qMin(end, range.start + range.length);
-        if (a < b) result.ranges.append({a - start, b - a, range.flags});
-    }
-    for (const auto &code : block.codes) {
-        const int a = qMax(start, code.start), b = qMin(end, code.start + code.length);
-        if (a < b) result.codes.append({a - start, b - a});
-    }
-    for (const auto &link : block.links) {
-        const int a = qMax(start, link.start), b = qMin(end, link.start + link.length);
-        if (a < b) result.links.append({a - start, b - a, link.destination});
-    }
-    return result;
-}
-}
-QVector<Block> projectImages(const QVector<Block> &blocks, const QHash<QUrl, QImage> &images, const QUrl &base)
-{
-    QVector<Block> result;
-    for (auto block : blocks) {
-        block.children = projectImages(block.children, images, base);
-        QVector<Block> segments;
-        int start = 0;
-        for (const auto &span : block.images) {
-            const auto key = base.resolved(QUrl(span.destination)).adjusted(QUrl::RemoveFragment);
-            if (!images.contains(key)) continue;
-            if (span.start > start) segments.append(textSlice(block, start, span.start));
-            Block image{BlockKind::Image, {}};
-            image.selectionOffset = block.selectionOffset + span.start;
-            image.selectionLength = span.length;
-            image.image = images.value(key); image.imageLink = span.enclosingLink; image.imageLinked = span.linked;
-            segments.append(std::move(image));
-            start = span.start + span.length;
-        }
-        if (!segments.isEmpty()) {
-            if (start < block.text.size()) segments.append(textSlice(block, start, block.text.size()));
-            if (block.kind != BlockKind::TableCell) block.kind = BlockKind::Segments;
-            for (auto &segment : segments)
-                if (segment.kind == BlockKind::TableCell) segment.kind = BlockKind::Paragraph;
-            block.children = std::move(segments);
-            block.images.clear(); block.text.clear(); block.ranges.clear(); block.links.clear();
-            block.inlines.clear(); block.codes.clear();
-        }
-        result.append(std::move(block));
-    }
-    return result;
-}
 }
 
 ResourceController::ResourceController(QObject *parent) : QObject(parent), m_network(new QNetworkAccessManager(this)), m_policy(this)
@@ -169,6 +119,7 @@ ResourceController::ResourceController(QObject *parent) : QObject(parent), m_net
 }
 ResourceController::~ResourceController() { cancel(); }
 void ResourceController::setNetworkManager(QNetworkAccessManager *manager) {
+    if (!manager || manager == m_network) return;
     cancel(); delete m_network; m_network = manager; manager->setParent(this);
     manager->setCookieJar(new EmptyCookies(manager));
 }
@@ -185,10 +136,10 @@ void ResourceController::cancel()
     // Detached workers retain only their copied input and shared job state.
     m_decoding = false;
 }
-void ResourceController::restart(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base, MarkdownResourcePolicy *policy)
+void ResourceController::restart(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base, const MarkdownResourcePolicy &policy)
 {
     cancel();
-    m_policy.setAllowedFileRoots(policy->allowedFileRoots()); m_policy.setAllowedHttpsOrigins(policy->allowedHttpsOrigins()); m_policy.setAllowQrc(policy->allowQrc());
+    m_policy.setAllowedFileRoots(policy.allowedFileRoots()); m_policy.setAllowedHttpsOrigins(policy.allowedHttpsOrigins()); m_policy.setAllowQrc(policy.allowQrc());
     QSet<QUrl> seen;
     std::function<void(const QVector<QMarkdownPrivate::Block> &)> collect = [&](const auto &items) {
         for (const auto &block : items) {
