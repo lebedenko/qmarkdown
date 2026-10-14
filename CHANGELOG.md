@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.0 — 2026-10-14
+
+- Add host QML custom fenced-block renderers with source fallback during selection.
+- Add double-click Unicode word/whitespace/grapheme selection and triple-click paragraph, table-cell and logical-line selection, with whole-unit dragging.
+- Delay selection-enabled desktop mouse link activation using platform repeated-click settings; repeated clicks, dragging and Shift-click suppress it.
+- Add host-owned selection edge scrolling through selectionViewport and selectionScrollRequested, including playground integration.
+- Enforce complete current release documentation before distribution and publication; preserve 1.x compatibility and existing dependencies.
+
 ## 1.7.0 — 2026-10-14
 
 - Add opt-in document-wide desktop selection with dragging, Shift-click, Select All, Copy and Escape.

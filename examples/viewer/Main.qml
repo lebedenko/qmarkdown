@@ -206,6 +206,12 @@ ApplicationWindow {
                         ScrollBar.vertical: ScrollBar {}
                         MarkdownView {
                             selectionEnabled: selectionToggle.checked
+                            selectionViewport: previewScroll
+                            onSelectionScrollRequested: function(deltaY) {
+                                previewScroll.contentY = Math.max(0, Math.min(
+                                    Math.max(0, previewScroll.contentHeight - previewScroll.height),
+                                    previewScroll.contentY + deltaY))
+                            }
                             fencedBlockRenderers: rendererToggle.checked ? { preview: nativePreview } : ({})
                             onCopyRequested: function(text) { clipboard.copyText(text); selectionCopy.copied = true; selectionFeedback.restart() }
                             resourcePolicy: MarkdownResourcePolicy { allowQrc: true }

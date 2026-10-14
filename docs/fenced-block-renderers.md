@@ -1,12 +1,12 @@
 # Custom fenced-block renderers
 
-QMarkdown 1.7.0 / QML 1.7 lets hosts replace fenced code content with native QML
+QMarkdown 1.8.0 / QML 1.8 lets hosts replace fenced code content with native QML
 Items. The surrounding code surface, padding, style and codeBlockActions header
 remain library-owned. No renderer engines or extra dependencies are bundled.
 
 ```qml
 import QtQuick
-import QMarkdown 1.7
+import QMarkdown 1.8
 
 MarkdownView {
     width: 320

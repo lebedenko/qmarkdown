@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.7.0 / QML 1.7 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.8.0 / QML 1.8 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.7` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.8` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -23,7 +23,7 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 | `baseUrl` | url / empty | 1.0 | Explicit base for relative image URLs; no inferred working/component directory. |
 | `resourcePolicy` | MarkdownResourcePolicy / view-owned deny-all policy | 1.0 | Shared host policies are borrowed. |
 | `contentHeight` | readonly real / 0 | 1.0 | Settled document height; zero at nonpositive width. Layout settles through Qt polish. |
-| `fencedBlockRenderers` | var / empty map | 1.7 | Language-to-Component map; replace whole map to update; contract below. |
+| `fencedBlockRenderers` | var / empty map | 1.8 | Language-to-Component map; replace whole map to update; contract below. |
 | `codeBlockActions` | Component / null | 1.2 | Per-code-block host action Item; contract below. |
 | `taskListsEnabled` | bool / false | 1.3 | Enables task markers. |
 | `strikethroughEnabled` | bool / false | 1.4 | Enables strikethrough. |
@@ -31,6 +31,7 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 | `tablesEnabled` | bool / false | 1.6 | Enables native tables. |
 | `tagFilterEnabled` | bool / false | 1.6 | Retains filtered semantic HTML privately; displayed HTML remains literal. |
 | `gfmEnabled` | bool / false | 1.6 | Effective extension flags are `gfmEnabled || individualEnabled`; individual values are retained. |
+| `selectionViewport` | Item / null | 1.8 | Host visible viewport for desktop selection edge scrolling; null disables requests. |
 | `selectionEnabled` | bool / false | 1.7 | Enables desktop document selection; disabling clears it. |
 | `selectedText` | readonly string / empty | 1.7 | Selected substring of the plain-text projection. |
 | `selectionStart`, `selectionEnd` | readonly int / 0 | 1.7 | Normalized UTF-16 projection offsets, start ≤ end; not Markdown source offsets. |
@@ -49,6 +50,7 @@ changes, resource updates, layout changes and style changes retain selection.
 | --- | --- | --- |
 | `linkActivated(string destination)` | 1.0 | Validate, resolve and navigate; the parser-decoded destination is unchanged, including empty strings and custom schemes. |
 | `codeBlockCopyRequested(string text)` | 1.2 | Copy exact parser-produced code, including trailing newlines; fences/info strings are excluded. |
+| `selectionScrollRequested(real deltaY)` | 1.8 | Host scroll request in logical pixels, positive downward; host clamps. |
 | `copyRequested(string text)` | 1.7 | Copy the selected plain text. |
 
 The view never opens links or writes the clipboard. A codeBlockActions Component
@@ -161,7 +163,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.7 CONFIG REQUIRED)
+find_package(QMarkdown 1.8 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 

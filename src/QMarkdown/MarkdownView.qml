@@ -7,6 +7,8 @@ import "private/Layout.js" as Layout
 Item {
     id: root
     signal copyRequested(string text)
+    property alias selectionViewport: viewState.selectionViewport
+    signal selectionScrollRequested(real deltaY)
     property alias selectionEnabled: viewState.selectionEnabled
     readonly property string selectedText: viewState.selectedText
     readonly property int selectionStart: viewState.selectionStart
@@ -61,7 +63,7 @@ Item {
         onTapped: function(eventPoint, button) {
             if (selectionGesture.blocked || selectionGesture.dragged || selectionGesture.shift) return
             const link = viewState.selectionLink(root, eventPoint.position)
-            if (link !== null && link !== undefined && link === selectionGesture.pressedLink) root.linkActivated(link)
+            if (link !== null && link !== undefined && link === selectionGesture.pressedLink) viewState.finishSelectionTap(root, eventPoint.position)
         }
     }
     DragHandler {
@@ -74,10 +76,16 @@ Item {
         onActiveChanged: {
             if (active) {
                 selectionGesture.dragged = true
-                viewState.extendSelection(root, centroid.position)
-            }
+                viewState.dragSelection(root, centroid.position)
+            } else viewState.endSelectionDrag()
         }
-        onCentroidChanged: if (active) viewState.extendSelection(root, centroid.position)
+        onCanceled: viewState.cancelSelectionGesture()
+        onCentroidChanged: if (active) viewState.dragSelection(root, centroid.position)
+    }
+    Connections {
+        target: viewState
+        function onSelectionScrollRequested(deltaY) { root.selectionScrollRequested(deltaY) }
+        function onSelectionLinkActivated(destination) { root.linkActivated(destination) }
     }
     signal linkActivated(string destination)
     signal codeBlockCopyRequested(string text)
