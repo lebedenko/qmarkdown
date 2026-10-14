@@ -215,6 +215,14 @@ private slots:
         QCOMPARE(preview->property("selectedText").toString(), "one two three\n\nfour five");
         QTest::keyClick(window, Qt::Key_Escape);
         QVERIFY(preview->property("selectedText").toString().isEmpty());
+        // Blank space below the final block is still part of the preview pane.
+        QTest::keyClick(window, Qt::Key_A, Qt::ControlModifier);
+        auto *scroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(scroll);
+        const auto blank = scroll->mapToScene(QPointF(40, scroll->height() - 20)).toPoint();
+        QVERIFY(blank.y() > position(text[1], 4).y());
+        click(blank);
+        QVERIFY(preview->property("selectedText").toString().isEmpty());
+        QCOMPARE(preview->property("selectionStart").toInt(), 24);
         // A reverse drag retains the same ordered document range.
         mouse(QEvent::MouseButtonPress, end);
         mouse(QEvent::MouseMove, start);

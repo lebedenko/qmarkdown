@@ -115,3 +115,27 @@ host clipboard ownership change was needed.
 - Strict release documentation validation passed. Final-head hosted check status
   is maintained on PR #25, without a follow-up evidence-only commit.
 - Merge, tagging and publication remain outside this repair.
+
+### Blank preview-space follow-up
+
+The user completed the remaining physical checks and reported that all passed
+except ordinary-click collapse below the rendered document. Focus transfer,
+editor-owned shortcuts, whole-unit dragging, edge scrolling/Escape, link
+suppression and code-action copying were confirmed. Clicking within the document
+cleared selection, but blank viewport space below it did not.
+
+- Added a full-playground regression that selects all, clicks near the bottom of
+  a viewport taller than its document, and checks collapse at the document end.
+  Both Mouse and TouchPad/Finger rows failed before the follow-up fix.
+- The playground now sets preview height to the greater of viewport and document
+  content height. This includes blank space in the existing selection hit area
+  while retaining document content height for scrolling; library APIs are unchanged.
+- Both regression rows now pass. Focused full-playground checks and host CTest
+  `view`, `selection`, `selection-fractional` passed (3/3); host QML lint passed.
+  The repaired demo was rebuilt and reopened for the remaining physical recheck.
+- Both complete follow-up matrices passed (exit 0): Qt 6.8.0 in
+  `build-ci-selection-blank-minimum` and Qt 6.12.0 in
+  `build-ci-selection-blank-development`. Each passed shared/static CTest (17/17
+  per variant), QML lint, packaging/installed consumers and benchmark smoke.
+  Strict release documentation validation and whitespace checks passed again.
+  Final-head hosted outcomes remain on PR #25.

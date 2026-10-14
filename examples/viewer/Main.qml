@@ -217,6 +217,8 @@ ApplicationWindow {
                             resourcePolicy: MarkdownResourcePolicy { allowQrc: true }
                             id: preview
                             objectName: "preview"
+                            // Keep blank viewport space inside the selection hit area.
+                            height: Math.max(previewScroll.height, contentHeight)
                             width: window.previewWidth > 0 ? Math.min(previewScroll.width, window.previewWidth) : previewScroll.width
                             x: (previewScroll.width - width) / 2
                             markdown: editor.text
