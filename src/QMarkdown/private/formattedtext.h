@@ -10,6 +10,9 @@ class FormattedText : public QQuickPaintedItem
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(int selectionStart READ selectionStart WRITE setSelectionStart NOTIFY selectionChanged FINAL)
+    Q_PROPERTY(int selectionEnd READ selectionEnd WRITE setSelectionEnd NOTIFY selectionChanged FINAL)
+    Q_PROPERTY(QColor selectionColor READ selectionColor WRITE setSelectionColor NOTIFY selectionChanged FINAL)
     Q_PROPERTY(int horizontalAlignment READ horizontalAlignment WRITE setHorizontalAlignment NOTIFY horizontalAlignmentChanged FINAL)
     Q_PROPERTY(QVariantList codeSpans READ codeSpans WRITE setCodeSpans NOTIFY codeSpansChanged FINAL)
     Q_PROPERTY(qreal codeHorizontalPadding READ codeHorizontalPadding WRITE setCodeHorizontalPadding NOTIFY codeHorizontalPaddingChanged FINAL)
@@ -29,6 +32,14 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
     explicit FormattedText(QQuickItem *parent = nullptr);
+    int selectionStart() const { return m_selectionStart; }
+    int selectionEnd() const { return m_selectionEnd; }
+    QColor selectionColor() const { return m_selectionColor; }
+    void setSelectionStart(int value);
+    void setSelectionEnd(int value);
+    void setSelectionColor(const QColor &value);
+    Q_INVOKABLE int cursorAt(qreal x, qreal y) const;
+    QVector<QRectF> selectionRectangles() const;
     int horizontalAlignment() const { return m_alignment; }
     void setHorizontalAlignment(int value);
     QVariantList codeSpans() const { return m_codes; }
@@ -68,6 +79,7 @@ public:
     Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void selectionChanged();
     void codeSpansChanged();
     void codeHorizontalPaddingChanged();
     void codeVerticalPaddingChanged();
@@ -89,6 +101,12 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    struct CursorCell { int start, end; QRectF rect; bool reversed; };
+    QVector<CursorCell> m_cursorCells;
+    struct CursorLine { int start; qreal top, bottom; };
+    QVector<CursorLine> m_cursorLines;
+    int m_selectionStart = 0, m_selectionEnd = 0;
+    QColor m_selectionColor;
     void observeWindow(QQuickWindow *window);
     void observeScreen(QQuickWindow *window);
     QMetaObject::Connection m_windowScreenConnection, m_screenDpiConnection;

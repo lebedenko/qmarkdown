@@ -1,16 +1,14 @@
 # Install QMarkdown
 
-QMarkdown 1.6.0 / QML 1.6 is released. Build from its source tag or use its
-[Arch package](arch-install.md). Existing Ubuntu binaries retain their
-[historical installation instructions](ubuntu-install-historical.md).
+QMarkdown 1.7.0 / QML 1.7 builds from source or as a local [Arch package](arch-install.md).
+Publication is a separate delivery action. Existing 1.6.0 downloads and Ubuntu
+binaries retain their [historical installation instructions](ubuntu-install-historical.md).
 
 ## Source build
 
-For the existing release, obtain the source checkout at tag `v1.6.0`:
+From the checkout containing Feature 040, build the current source:
 
 ```sh
-git clone --branch v1.6.0 --depth 1 https://github.com/lebedenko/qmarkdown.git
-cd qmarkdown
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DQMARKDOWN_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX="$HOME/.local"
 cmake --build build --parallel 2
 cmake --install build

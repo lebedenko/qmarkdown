@@ -1,6 +1,6 @@
 # Project overview
 
-Current release: **1.6.0 / QML 1.6**, released on 2026-10-13 UTC, with all five independent default-off GFM extensions, aggregate enablement, native tables and layout-aware inline-code padding. Exact GFM 0.29-gfm conformance is not claimed. Historical verification and approvals remain in [iteration 038](038-gfm-completion-inline-code-padding/verification.md).
+Current package: **1.7.0 / QML 1.7**, with opt-in document-wide desktop selection and readable plain-text copy requests. Hosts retain clipboard and scrolling ownership. See [Feature 040](040-document-selection/requirements.md); publication is separately authorized. Historical 1.6.0 publication and verification remain below.
 
 ## Current published status
 
@@ -12,7 +12,7 @@ The evidence contracts remain separate: [iteration 017](017-complete-semantic-ev
 
 Documented public QML behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes remain private; no C++ headers are installed and no public C++ ABI is promised. Package 1.6.0 accepts compatible 1.0–1.6 requests and EXACT 1.6.0; exact earlier versions require historical packages.
 
-Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Document-wide selection/copy, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
+Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Touch selection handles, edge autoscrolling, rich-text copying, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
 ## Accepted project direction

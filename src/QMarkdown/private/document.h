@@ -29,6 +29,8 @@ struct Block {
     int tableAlignment = 0;
     QString filteredHtml;
     QVector<CodeSpan> codes;
+    int selectionOffset = 0;
+    int selectionLength = 0;
 };
 struct ParseOptions {
     bool taskLists = false;
@@ -38,6 +40,7 @@ struct ParseOptions {
     bool tagFilter = false;
 };
 QVector<Block> parse(QString source, ParseOptions options = {});
+QString projectText(QVector<Block> &blocks);
 // Compatibility helper for existing private fixtures; production uses ParseOptions.
 inline QVector<Block> parse(QString source, bool tasks, bool strike = false, bool autolinks = false)
 { return parse(std::move(source), ParseOptions{tasks, strike, autolinks}); }

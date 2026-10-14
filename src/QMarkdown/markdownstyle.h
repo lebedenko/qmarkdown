@@ -227,6 +227,7 @@ class MarkdownStyle : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
+    Q_PROPERTY(QColor selectionBackgroundColor READ selectionBackgroundColor WRITE setSelectionBackgroundColor RESET resetSelectionBackgroundColor NOTIFY selectionBackgroundColorChanged REVISION(1, 7) FINAL)
     Q_PROPERTY(QColor linkColor READ linkColor WRITE setLinkColor NOTIFY linkColorChanged FINAL)
     Q_PROPERTY(bool linkUnderline READ linkUnderline WRITE setLinkUnderline NOTIFY linkUnderlineChanged FINAL)
     Q_PROPERTY(QColor thematicBreakColor READ thematicBreakColor WRITE setThematicBreakColor NOTIFY thematicBreakColorChanged FINAL)
@@ -270,6 +271,9 @@ public:
     InlineCodeStyle *inlineCode() const { return m_inlineCode; }
     TableStyle *table() const { return m_table; }
     CodeBlockStyle *codeBlock() const { return m_codeBlock; }
+    QColor selectionBackgroundColor() const { return value("selectionBackgroundColor").value<QColor>(); }
+    void setSelectionBackgroundColor(const QColor &value);
+    void resetSelectionBackgroundColor();
     QColor linkColor() const { return value("linkColor").value<QColor>(); }
     void setLinkColor(const QColor &value);
     bool linkUnderline() const { return value("linkUnderline").value<bool>(); }
@@ -324,6 +328,7 @@ public:
     void setQuoteRuleThickness(qreal value);
 signals:
     void presetChanged();
+    void selectionBackgroundColorChanged();
     void linkColorChanged();
     void linkUnderlineChanged();
     void thematicBreakColorChanged();

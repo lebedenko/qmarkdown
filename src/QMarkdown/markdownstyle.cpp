@@ -108,6 +108,8 @@ HeadingStyles::HeadingStyles(MarkdownStyle *style) : QObject(style)
     m_h6 = new HeadingStyle(style, "h6.");
 }
 
+void MarkdownStyle::setSelectionBackgroundColor(const QColor &value) { setValue("selectionBackgroundColor", QVariant::fromValue(value)); }
+void MarkdownStyle::resetSelectionBackgroundColor() { resetValue("selectionBackgroundColor"); }
 void MarkdownStyle::setLinkColor(const QColor &value) { setValue("linkColor", QVariant::fromValue(value)); }
 void MarkdownStyle::setLinkUnderline(bool value) { setValue("linkUnderline", QVariant::fromValue(value)); }
 void MarkdownStyle::setThematicBreakColor(const QColor &value) { setValue("thematicBreakColor", QVariant::fromValue(value)); }
@@ -148,7 +150,7 @@ MarkdownStyle::MarkdownStyle(QObject *parent) : QObject(parent)
     QFont inlineFont;
     inlineFont.setFamily(code.family());
     m_defaults = {{"bodyFont", body}, {"bodyColor", QColor("#202020")},
-                  {"linkColor", QColor("#0066cc")}, {"linkUnderline", true},
+                  {"selectionBackgroundColor", QColor("#603b82f6")}, {"linkColor", QColor("#0066cc")}, {"linkUnderline", true},
                   {"thematicBreakColor", QColor("#202020")}, {"thematicBreakThickness", 1.0},
                   {"blockSpacing", 8.0}, {"listIndent", 24.0}, {"quoteIndent", 16.0},
                   {"quoteRuleColor", QColor("#808080")}, {"quoteRuleThickness", 2.0},
@@ -197,6 +199,7 @@ void MarkdownStyle::setValue(const QString &key, const QVariant &value, bool exp
         equal = equal || (std::isnan(current.toDouble()) && std::isnan(value.toDouble()));
     if (equal) return;
     m_values.insert(key, value);
+    if (key == "selectionBackgroundColor") emit selectionBackgroundColorChanged();
     if (key == "linkColor") emit linkColorChanged();
     if (key == "linkUnderline") emit linkUnderlineChanged();
     if (key == "thematicBreakColor") emit thematicBreakColorChanged();
@@ -274,6 +277,7 @@ void MarkdownStyle::applyPreset()
     if (m_preset != Legacy) {
         const QColor text(dark ? "#e6e6e6" : "#202020");
         const QColor rule(dark ? "#454b54" : "#d0d7de");
+        values["selectionBackgroundColor"] = QColor(dark ? "#7078a9ef" : "#603b82f6");
         values["bodyColor"] = text;
         values["codeBlock.color"] = text;
         values["linkColor"] = QColor(dark ? "#8db9f2" : "#0066cc");

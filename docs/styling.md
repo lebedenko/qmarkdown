@@ -20,7 +20,7 @@ Grouped objects are permanent and owned by their MarkdownStyle. They cannot be r
 | --- | --- |
 | `headings.h1` through `headings.h6` | `font`, `color`, `separatorVisible`, `separatorColor`, `separatorThickness`, `separatorSpacing` |
 | `inlineCode` | `font`, `foreground`, `backgroundColor`, `cornerRadius` |
-| `table` (QML 1.6 candidate) | `headerForeground`, `headerBackground`, `bodyBackground`, `borderColor`, `borderWidth`, `horizontalPadding`, `verticalPadding` |
+| `table` (QML 1.6) | `headerForeground`, `headerBackground`, `bodyBackground`, `borderColor`, `borderWidth`, `horizontalPadding`, `verticalPadding` |
 | `codeBlock` | `font`, `color`, `backgroundColor`, `borderColor`, `borderWidth`, `cornerRadius`, `horizontalPadding`, `verticalPadding` |
 
 Existing `h1Font`/`h1Color` through `h6Font`/`h6Color`, `inlineCodeFont`, `codeBlockFont`, and `codeBlockColor` are aliases for the corresponding grouped values. Both paths notify when the effective value changes. Bind through only one spelling of each aliased property; competing bindings on both spellings can overwrite one another.
@@ -42,4 +42,6 @@ Heading separators appear once after the complete heading, including headings sp
 
 The playground's Neutral/Reset controls restore Legacy and host theme bindings; Alternate starts from that baseline and adds host overrides. The host theme controls use explicit bindings. Selecting a library preset preserves those host overrides; use “Reset overrides to selected preset” to preview the preset palette. The host preview surface remains independent of the preset.
 
-The unpublished 1.6 source candidate adds [table styling](gfm.md): inherited header foreground, bold headers, transparent surfaces/borders, zero border width, and 4/2 logical-pixel cell padding in every preset. Inline-code padding uses Qt paragraph shaping with cached geometry for painting and hit testing. This intentionally changes default wrapping and line height in 1.6. Negative/nonfinite padding renders as zero; grouped style values follow existing override/reset conventions. At widths smaller than an indivisible shaped glyph plus its padding, that fragment may overhang.
+QML 1.6 adds [table styling](gfm.md): inherited header foreground, bold headers, transparent surfaces/borders, zero border width, and 4/2 logical-pixel cell padding in every preset. Inline-code padding uses Qt paragraph shaping with cached geometry for painting and hit testing. This intentionally changes default wrapping and line height in 1.6. Negative/nonfinite padding renders as zero; grouped style values follow existing override/reset conventions. At widths smaller than an indivisible shaped glyph plus its padding, that fragment may overhang.
+
+QML 1.7 adds `selectionBackgroundColor`, default `#603b82f6` (light/Legacy) or `#7078a9ef` (dark presets). It uses the same explicit override and `resetOverrides()` conventions and supports property reset. Highlights preserve text foregrounds and layout. See [document selection](selection.md).

@@ -2178,17 +2178,8 @@ MarkdownView {
         auto *surface = window->findChild<QObject *>("previewBackground"); QVERIFY(surface);
         auto *label = window->findChild<QObject *>("previewLabel"); QVERIFY(label);
         editor->setProperty("text", "# H1\n## H2\n### H3\n#### H4\n##### H5\n###### H6\n\nBody\n\n*Emphasis* and `code`\n\n```\nfenced\n```\n");
-        const auto documentTexts = [preview] {
-            auto result = texts(preview);
-            result.removeIf([preview](QQuickItem *text) {
-                for (auto *parent = text->parentItem(); parent && parent != preview; parent = parent->parentItem())
-                    if (parent->objectName() == "copyButton") return true;
-                return false;
-            });
-            return result;
-        };
-        QTRY_COMPARE(documentTexts().size(), 8);
-        QTRY_COMPARE(painted(preview).size(), 1);
+        const auto documentTexts = [preview] { return painted(preview); };
+        QTRY_COMPARE(documentTexts().size(), 9);
         for (const bool dark : {false, true}) {
             QVERIFY(setPalette(dark));
             const QColor expected(dark ? "#eeeeee" : "#202020");
@@ -2196,7 +2187,7 @@ MarkdownView {
             QTRY_COMPARE(label->property("color").value<QColor>(), expected);
             for (const auto &role : roles) QTRY_COMPARE(color(role), expected);
             for (auto *text : documentTexts()) QTRY_COMPARE(text->property("color").value<QColor>(), expected);
-            QTRY_COMPARE(painted(preview)[0]->color(), expected);
+            QTRY_COMPARE(painted(preview)[7]->color(), expected);
         }
         panel->setProperty("selectedRole", 0);
         QVariant accepted;
@@ -2209,7 +2200,7 @@ MarkdownView {
         QVERIFY(setPalette(true));
         QTRY_COMPARE(color("body"), QColor("#123456"));
         for (const auto &role : roles.mid(1)) QTRY_COMPARE(color(role), QColor("#eeeeee"));
-        QTRY_COMPARE(painted(preview)[0]->color(), QColor("#123456"));
+        QTRY_COMPARE(painted(preview)[7]->color(), QColor("#123456"));
         panel->setProperty("selectedRole", 7);
         QVERIFY(QMetaObject::invokeMethod(panel, "editFont", Q_ARG(QVariant, "pixelSize"), Q_ARG(QVariant, 25)));
         style->setProperty("blockSpacing", 30);
@@ -2445,8 +2436,8 @@ MarkdownView {
         QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
         QTRY_COMPARE(content(preview), initial);
         editor->setProperty("text", "# Edited\n\nLive preview");
-        QTRY_COMPARE(texts(preview).size(), 2);
-        QTRY_COMPARE(texts(preview)[1]->property("text").toString(), QString("Live preview"));
+        QTRY_COMPARE(painted(preview).size(), 2);
+        QTRY_COMPARE(painted(preview)[1]->property("text").toString(), QString("Live preview"));
         QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
         QTRY_COMPARE(content(preview), initial);
         window->setWidth(800);
