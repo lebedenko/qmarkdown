@@ -33,10 +33,22 @@ CI never silently chooses the latest Qt.
 ## Release delivery
 
 Finalize package/QML versions, release notes, changelog date and current-version
-documentation together in one release PR. Current release descriptions must
+documentation together in one release PR, including complete release summaries,
+compatibility guidance, download URLs, asset names and installation commands.
+Mark each current summary with `<!-- current-release:start -->` and
+`<!-- current-release:end -->`; headings and command blocks inside are all checked.
+Keep historical approvals and verification outside those boundaries. Separate
+changes added after the release tag under an explicit development heading.
+Current release descriptions must
 contain no candidate, preparation or pending-publication wording. Describe the
 release behavior; do not prewrite successful verification claims. Record actual
-checks separately from planned checks. The final PR's successful full Qt matrix
+checks separately from planned checks.
+Run `python3 scripts/check-docs.py --release` in the verified release PR.
+The workflow repeats this before distribution creation and the publisher repeats
+it before any tag or release writes. Failure reports the document and reason and
+stops publication. Ordinary validation permits a development package newer than
+the published summary. No automatic follow-up documentation commit is needed.
+The final PR's successful full Qt matrix
 is the complete release verification gate.
 
 After authorized squash merge, manually dispatch `release.yml` with the merged

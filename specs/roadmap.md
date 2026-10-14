@@ -1,18 +1,24 @@
 # Staged roadmap
 
-Current local package: **1.7.0 / QML 1.7**. All five independent opt-in GFM extensions
-(task lists, strikethrough, extended autolinks, tables and tag filtering) are implemented
-on CommonMark 0.31.2; exact GFM 0.29-gfm conformance is not claimed.
-[Feature 040](040-document-selection/verification.md) implements opt-in document-wide
-desktop selection and host-owned plain-text copy requests.
-[Feature 041](041-library-maintainability/verification.md) is implemented and locally
-verified. Protected delivery of those features is recorded by merged
-[PR 19](https://github.com/lebedenko/qmarkdown/pull/19) and
-[PR 20](https://github.com/lebedenko/qmarkdown/pull/20); their verification documents
-retain the original local-stage records. Publication requires separate authorization. Published package **1.6.0 / QML 1.6** and its historical evidence remain
-in [Feature 038](038-gfm-completion-inline-code-padding/verification.md).
+## Current release
 
-## Current published status
+<!-- current-release:start -->
+Published package **1.7.0 / QML 1.7** is available in the [1.7.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.7.0).
+It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
+native tables, inline-code padding, opt-in document-wide desktop selection and
+host-owned plain-text copy requests. Exact GFM 0.29-gfm conformance is not claimed.
+See the [release notes](../docs/release-notes-1.7.0.md) and
+[installation instructions](../docs/release-install.md).
+
+Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
+targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
+compatible throughout 1.x. Package 1.7.0 accepts compatible 1.0–1.7 requests and
+EXACT 1.7.0; exact earlier versions require historical packages. Native classes
+and QMarkdown.Private remain private; no public C++ ABI is promised.
+Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
+<!-- current-release:end -->
+
+## Historical 1.6.0 status
 
 Package **1.6.0 / QML 1.6** is [released](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0) on **2026-10-13 UTC**. Optional code-block actions retain host-owned clipboard handling. Styling includes opt-in Polished/Minimal light/dark presets; Legacy remains the default. Inline-code padding defaults to 4/2 logical pixels in every preset; zero metrics restore previous spacing. Hosts own visual identity, scrolling, navigation and resource authorization.
 
@@ -33,9 +39,9 @@ These stages preserve the brief's direction. The table separates completed found
 | First vertical slice | [001 static text](001-static-text/requirements.md): paragraphs, H1–H6, native block layout, styling, replacement updates. Approved on 2026-10-07 and implemented; see its verification record. |
 | CommonMark core coverage (completed) | Complete CommonMark 0.31.2 semantics: ATX and Setext headings, paragraphs, emphasis/strong emphasis, inline code, fenced and indented code, inline and reference links, images, ordered/unordered and nested lists, block quotes, thematic breaks, escapes/entities, autolinks, hard/soft breaks, and raw HTML recognition. Include whitespace, line handling, delimiter rules, and precedence. Features 009/010 specify host navigation and resource policies; Feature 017 completes semantic evidence. |
 | Selected GFM syntax (implemented) | Task lists, strikethrough and extended autolinks have independent opt-in slices and separate extension checks on the newer CommonMark core; tables and tag filtering are released in 1.6.0; no full GFM conformance claim. |
-| Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Publication requires separate authorization. Touch selection handles, automatic edge scrolling, double/triple-click selection, full caret navigation and rich-text copying remain deferred. |
+| Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Selection is included in the 1.7.0 downloads. Touch selection handles, automatic edge scrolling, double/triple-click selection, full caret navigation and rich-text copying remain deferred. |
 | Streaming | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
-| Renderer extensions | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Bundled syntax highlighting, Mermaid and math remain deferred. Footnotes and other richer syntax require separate specifications. |
+| Renderer extensions | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers after the 1.7.0 tag; these are absent from 1.7.0 downloads. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Bundled syntax highlighting, Mermaid and math remain deferred. Footnotes and other richer syntax require separate specifications. |
 | v1.0 conformance gate (completed) | All pinned CommonMark 0.31.2 official examples pass semantic checks, with native renderer verification and documented resource/HTML behavior. Record reproducible commands and actual counts. Streaming and optional extensions are not gates. |
 
 The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Iteration 021 records historical local candidate readiness; iterations 023/027 record completed 1.0.0/1.1.0 publication separately.

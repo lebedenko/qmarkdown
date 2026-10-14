@@ -13,11 +13,18 @@ assets = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(assets)
 
 
+spec = importlib.util.spec_from_file_location('check_docs', SOURCE / 'scripts/check-docs.py')
+docs = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(docs)
+
+
 def publish(repository, number, directory):
     stage = 'eligibility'
     try:
         approved = eligibility(repository, number)
         tag, commit, version = approved['tag'], approved['commit'], approved['version']
+        stage = 'documentation validation'
+        docs.validate(SOURCE, release=True)
         stage = 'artifact validation'
         local = assets.select_assets(directory, version)
         notes = SOURCE / f'docs/release-notes-{version}.md'

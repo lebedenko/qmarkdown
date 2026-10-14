@@ -44,7 +44,7 @@ jobs:
               print(f'{key}={value}')
           PYCODE
           echo "matrix=$(python3 scripts/ci-toolchain/qt_versions.py --matrix)" >> "$GITHUB_OUTPUT"
-          python3 scripts/check-docs.py
+          python3 scripts/check-docs.py --release
       - name: Build exact-commit source distribution
         run: python3 scripts/build-source-archive.py --source-commit HEAD --work-dir release-assets
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

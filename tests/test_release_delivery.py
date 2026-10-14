@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from release_docs_fixture import write_docs
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -131,16 +133,70 @@ class DocumentationTest(unittest.TestCase):
     def test_current_docs_pass_with_historical_candidates_retained(self):
         docs.validate(ROOT)
 
+    def test_release_docs_pass_and_historical_records_remain_allowed(self):
+        docs.validate(ROOT, release=True)
+
+    def test_invalid_complete_current_sections_are_rejected(self):
+        cases = (
+            ('README.md', '\n## Downloads\nPublished package 1.5.0 / QML 1.5 is current.'),
+            ('docs/release-install.md', '\nsha256sum -c qmarkdown-1.5.0.tar.gz.sha256'),
+            ('docs/arch-install.md', '\nqmarkdown-1.6.0-2-x86_64.pkg.tar.zst'),
+            ('docs/arch-install.md', '\nimport QMarkdown 1.5'),
+            ('docs/arch-install.md', '\nfind_package(QMarkdown 1.5 CONFIG REQUIRED)'),
+            ('README.md', '\nPublication requires separate authorization.'),
+            ('README.md', '\nPublication requires separate\nauthorization.'),
+            ('README.md', '\nPublication is a separate delivery action.'),
+            ('docs/release-install.md', '\nFuture release assets are qmarkdown-X.Y.Z.tar.gz.'),
+            ('docs/release-install.md', '\nDownloads will be available after publication.'),
+            ('README.md', '\nhttps://github.com/lebedenko/qmarkdown/releases/tag/v1.5.0'),
+            ('README.md', '\nhttps://github.com/other/project/releases/tag/v1.6.0'),
+            ('README.md', '\nCurrent package 1.6.0 / QML 1.5'),
+            ('specs/overview.md', '\nPackage 1.6.0 accepts compatible 1.0–1.5 requests.'),
+            ('README.md', '\nPublished 1.5.0 is available.'),
+        )
+        for name, bad in cases:
+            with self.subTest(name=name, bad=bad), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                write_docs(root)
+                path = root / name
+                path.write_text(path.read_text().replace(docs.END, bad + '\n' + docs.END))
+                with self.assertRaisesRegex(ValueError, name):
+                    docs.validate(root, release=True)
+
     def test_stale_current_release_wording_is_rejected(self):
+        for wording in ('release candidate', 'release preparation', 'pending-publication', 'unpublished'):
+            with self.subTest(wording=wording), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                write_docs(root)
+                path = root / 'README.md'
+                path.write_text(path.read_text().replace(docs.END, wording + '\n' + docs.END))
+                with self.assertRaisesRegex(ValueError, 'Stale'):
+                    docs.validate(root)
+
+    def test_development_can_advance_but_release_requires_published_version(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            (root / 'CMakeLists.txt').write_text('project(QMarkdown VERSION 1.6.0)')
-            (root / 'src/QMarkdown').mkdir(parents=True)
-            (root / 'src/QMarkdown/CMakeLists.txt').write_text('VERSION 1.6')
-            for wording in ('release candidate', 'release preparation', 'pending-publication', 'unpublished'):
-                (root / 'README.md').write_text('1.6.0 ' + wording)
-                with self.subTest(wording=wording), self.assertRaisesRegex(ValueError, 'Stale'):
-                    docs.validate(root)
+            write_docs(root)
+            (root / 'CMakeLists.txt').write_text('project(QMarkdown VERSION 1.7.0)')
+            (root / 'src/QMarkdown/CMakeLists.txt').write_text('VERSION 1.7')
+            notes = root / 'docs/release-notes-1.7.0.md'
+            notes.write_text((root / 'docs/release-notes-1.6.0.md').read_text().replace('1.6.0', '1.7.0').replace('QML 1.6', 'QML 1.7'))
+            changelog = root / 'CHANGELOG.md'
+            changelog.write_text(changelog.read_text().replace('## 1.6.0', '## 1.7.0', 1))
+            path = root / 'README.md'
+            path.write_text(path.read_text() + '\n## Development after the release tag\nUnpublished custom renderers; publication requires authorization.\n')
+            docs.validate(root)
+            with self.assertRaisesRegex(ValueError, 'README.md'):
+                docs.validate(root, release=True)
+
+    def test_missing_boundaries_fail_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_docs(root)
+            path = root / 'README.md'
+            path.write_text(path.read_text().replace(docs.END, ''))
+            with self.assertRaisesRegex(ValueError, 'boundaries.*README.md'):
+                docs.validate(root, release=True)
 
     def test_only_prose_changes_get_lightweight_jobs(self):
         self.assertFalse(scope.full_verification(['README.md', 'docs/gfm.md', 'specs/039/verification.md']))

@@ -1,29 +1,28 @@
 # Specifications
 
-Feature 041: [library maintainability requirements](041-library-maintainability/requirements.md),
-approved on 2026-10-14; implemented and locally verified. See [design](041-library-maintainability/design.md),
-[mapped tasks](041-library-maintainability/tasks.md) and
-[planned/actual verification](041-library-maintainability/verification.md).
-Addresses the project review while preserving package 1.7.0 / QML 1.7 behavior.
+## Current release
 
-Feature 040: [document-wide selection requirements](040-document-selection/requirements.md),
-**approved on 2026-10-14; implemented and locally verified**. See [design](040-document-selection/design.md),
-[mapped tasks](040-document-selection/tasks.md) and [planned/actual verification](040-document-selection/verification.md).
-Targets package 1.7.0 / QML 1.7; implementation and protected squash delivery are authorized; publication is excluded.
+<!-- current-release:start -->
+Published package **1.7.0 / QML 1.7** is available in the [1.7.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.7.0).
+It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
+native tables, inline-code padding, opt-in document-wide desktop selection and
+host-owned plain-text copy requests. Exact GFM 0.29-gfm conformance is not claimed.
+See the [release notes](../docs/release-notes-1.7.0.md) and
+[installation instructions](../docs/release-install.md).
 
-Current local package: **1.7.0 / QML 1.7**. All five independent opt-in GFM extensions
-(task lists, strikethrough, extended autolinks, tables and tag filtering) are implemented
-on CommonMark 0.31.2; exact GFM 0.29-gfm conformance is not claimed.
-[Feature 040](040-document-selection/verification.md) implements opt-in document-wide
-desktop selection and host-owned plain-text copy requests.
-[Feature 041](041-library-maintainability/verification.md) is implemented and locally
-verified. Protected delivery of those features is recorded by merged
-[PR 19](https://github.com/lebedenko/qmarkdown/pull/19) and
-[PR 20](https://github.com/lebedenko/qmarkdown/pull/20); their verification documents
-retain the original local-stage records. Publication requires separate authorization. Published package **1.6.0 / QML 1.6** and its historical evidence remain
-in [Feature 038](038-gfm-completion-inline-code-padding/verification.md).
+Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
+targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
+compatible throughout 1.x. Package 1.7.0 accepts compatible 1.0–1.7 requests and
+EXACT 1.7.0; exact earlier versions require historical packages. Native classes
+and QMarkdown.Private remain private; no public C++ ABI is promised.
+Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
+<!-- current-release:end -->
 
-Current workflow change: [039: simplified CI and release delivery](039-simplified-delivery/requirements.md), approved through the supplied implementation plan on 2026-10-13. Historical records below retain their original scope.
+## Development after the 1.7.0 tag
+
+[043: release documentation gate](043-release-documentation-gate/requirements.md) was approved through the supplied implementation plan on 2026-10-14. See [design](043-release-documentation-gate/design.md), [tasks](043-release-documentation-gate/tasks.md) and [verification](043-release-documentation-gate/verification.md).
+
+Custom fenced-block renderers are absent from the 1.7.0 downloads.
 
 Feature 042: [custom fenced-block renderer requirements](042-custom-fenced-block-renderers/requirements.md),
 **approved on 2026-10-14**. See [design](042-custom-fenced-block-renderers/design.md),
@@ -34,7 +33,22 @@ Host QML renderer dispatch is implemented and locally verified on both configure
 Qt targets; protected delivery is recorded separately. Package 1.7.0 / QML 1.7 is retained; tagging and publication
 are outside this change.
 
-The [development workflow](../docs/development-workflow.md) is authoritative for current delivery procedures and supersedes historical procedures below. Historical approvals and verification records remain intact. Integration, evidence recording, and publication are delivery tasks; they do not automatically require separate numbered initiatives.
+The [development workflow](../docs/development-workflow.md) governs current delivery.
+
+## Historical records
+
+Current workflow change: [039: simplified CI and release delivery](039-simplified-delivery/requirements.md), approved through the supplied implementation plan on 2026-10-13. Historical records below retain their original scope.
+
+Feature 041: [library maintainability requirements](041-library-maintainability/requirements.md),
+approved on 2026-10-14; implemented and locally verified. See [design](041-library-maintainability/design.md),
+[mapped tasks](041-library-maintainability/tasks.md) and
+[planned/actual verification](041-library-maintainability/verification.md).
+Addresses the project review while preserving package 1.7.0 / QML 1.7 behavior.
+
+Feature 040: [document-wide selection requirements](040-document-selection/requirements.md),
+**approved on 2026-10-14; implemented and locally verified**. See [design](040-document-selection/design.md),
+[mapped tasks](040-document-selection/tasks.md) and [planned/actual verification](040-document-selection/verification.md).
+Targets package 1.7.0 / QML 1.7; implementation and protected squash delivery are authorized; publication is excluded.
 
 Feature 021: [1.0 release candidate requirements](021-v1-release-candidate/requirements.md), **approved on 2026-10-09; implemented and locally verified**. See [design](021-v1-release-candidate/design.md), [mapped tasks](021-v1-release-candidate/tasks.md) and [planned/actual verification](021-v1-release-candidate/verification.md). Prepares Linux amd64 package 1.0.0 / QML 1.0, a private long-fence correction, compatibility policy and verified local candidate artifacts; actual candidate gates are recorded separately; no release publication is authorized.
 
