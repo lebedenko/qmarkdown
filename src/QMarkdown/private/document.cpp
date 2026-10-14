@@ -2,13 +2,10 @@
 #include "inlineadapter.h"
 #include "../../../third_party/cmark/symbols.h"
 #include <cmark.h>
+#include <memory>
 
 namespace QMarkdownPrivate {
 namespace {
-struct NodeOwner {
-    cmark_node *node;
-    ~NodeOwner() { if (node) cmark_node_free(node); }
-};
 QVector<Block> adaptBlocks(cmark_node *node, bool tagFilter)
 {
     QVector<Block> blocks;
@@ -74,72 +71,12 @@ QVector<Block> parse(QString source, ParseOptions options)
     source.replace(u'\r', u'\n');
     source.replace(QChar(0), QChar(0xfffd));
     const auto input = source.toUtf8();
-    NodeOwner document{cmark_parse_document(input.constData(), input.size(),
+    std::unique_ptr<cmark_node, decltype(&cmark_node_free)> document{cmark_parse_document(input.constData(), input.size(),
         (options.taskLists ? CMARK_OPT_QMARKDOWN_TASK_LISTS : 0)
         | (options.strikethrough ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0)
         | (options.extendedAutolinks ? CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS : 0)
-        | (options.tables ? CMARK_OPT_QMARKDOWN_TABLES : 0))};
-    return document.node ? adaptBlocks(cmark_node_first_child(document.node), options.tagFilter) : QVector<Block>{};
-}
-namespace {
-class TextProjection
-{
-public:
-    QString text;
-    void boundary(int lines) {
-        int trailing = 0;
-        for (int i = int(text.size()) - 1; i >= 0 && text[i] == u'\n'; --i) ++trailing;
-        text += QString(qMax(0, lines - trailing), u'\n');
-    }
-    void sequence(QVector<Block> &blocks, int depth) {
-        for (int i = 0; i < blocks.size(); ++i) {
-            if (i) boundary(2);
-            block(blocks[i], depth);
-        }
-    }
-    void block(Block &value, int depth) {
-        value.selectionOffset = int(text.size());
-        if (value.kind == BlockKind::List) {
-            for (int i = 0; i < value.children.size(); ++i) {
-                if (i) boundary(1);
-                auto &item = value.children[i];
-                item.selectionOffset = int(text.size());
-                text += QString(depth * 2, u' ');
-                text += value.ordered ? QString::number(qint64(value.start) + i) + value.delimiter : QString::fromUtf8("•");
-                text += u' ';
-                if (item.taskState != TaskState::Ordinary)
-                    text += item.taskState == TaskState::Checked ? "[x] " : "[ ] ";
-                for (int j = 0; j < item.children.size(); ++j) {
-                    if (j) boundary(item.children[j].kind == BlockKind::List ? 1 : 2);
-                    block(item.children[j], depth + 1);
-                }
-                item.selectionLength = int(text.size()) - item.selectionOffset;
-            }
-        } else if (value.kind == BlockKind::Table) {
-            for (int row = 0; row < value.children.size(); ++row) {
-                if (row) text += u'\n';
-                auto &r = value.children[row];
-                r.selectionOffset = int(text.size());
-                for (int cell = 0; cell < r.children.size(); ++cell) {
-                    if (cell) text += u'\t';
-                    block(r.children[cell], depth);
-                }
-                r.selectionLength = int(text.size()) - r.selectionOffset;
-            }
-        } else if (!value.children.isEmpty()) {
-            sequence(value.children, depth);
-        } else {
-            text += value.text;
-        }
-        value.selectionLength = int(text.size()) - value.selectionOffset;
-    }
-};
-}
-QString projectText(QVector<Block> &blocks)
-{
-    TextProjection projection;
-    projection.sequence(blocks, 0);
-    return projection.text;
+        | (options.tables ? CMARK_OPT_QMARKDOWN_TABLES : 0)), &cmark_node_free};
+    return document.get() ? adaptBlocks(cmark_node_first_child(document.get()), options.tagFilter) : QVector<Block>{};
 }
 
 }

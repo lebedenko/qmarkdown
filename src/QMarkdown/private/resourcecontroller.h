@@ -1,21 +1,25 @@
 #pragma once
 #include "../markdownresourcepolicy.h"
 #include "document.h"
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include "decodescheduler.h"
+#include <memory>
+#include <utility>
+#include <QImage>
 #include <QTimer>
 #include <QElapsedTimer>
 #include <QHash>
 #include <QPointer>
-#include <QFutureWatcher>
 #include <functional>
 
+class QNetworkAccessManager;
+class QNetworkReply;
+template<typename T> class QFutureWatcher;
+
 namespace QMarkdownPrivate {
+class DecodeScheduler;
+struct DecodeJob;
 // Private helpers also used by deterministic fixtures.
 QUrl authorizedResource(const QUrl &url, const MarkdownResourcePolicy &policy);
 QImage decodeImage(QByteArray bytes);
-QVector<Block> projectImages(const QVector<Block> &blocks, const QHash<QUrl, QImage> &images, const QUrl &base);
 }
 
 class ResourceController : public QObject
@@ -24,14 +28,15 @@ class ResourceController : public QObject
 public:
     explicit ResourceController(QObject *parent = nullptr);
     ~ResourceController() override;
-    void restart(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base, MarkdownResourcePolicy *policy);
+    void restart(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base, const MarkdownResourcePolicy &policy);
     bool idle() const { return m_next == m_loads.size() && !m_decoding; }
     const QHash<QUrl, QImage> &images() const { return m_images; }
     // Private fixture seam; each worker copies its decoder independently of controller lifetime.
     using Decoder = std::function<QImage(QByteArray)>;
     void setDecoder(Decoder decoder) { m_decode = std::move(decoder); }
     void setAdmissionTimeout(int milliseconds) { m_admissionTimeout = milliseconds; }
-    // Tests inject an isolated manager; production always owns its own manager.
+    // Test seam: transfers ownership of a heap-allocated manager to this controller.
+    // Null and same-manager assignments are ignored. Production owns its manager.
     void setNetworkManager(QNetworkAccessManager *manager);
 signals:
     void changed();

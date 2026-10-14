@@ -383,9 +383,11 @@ private slots:
         }
         QCOMPARE(visibleRules, 5);
         auto *literal = textItem(view, "  literal *x*  "); QVERIFY(literal);
-        QCOMPARE(literal->x(), 12.0); QCOMPARE(literal->y(), 12.0);
+        auto *codeSurface = named(view, "codeSurface")[0];
+        QVERIFY(codeSurface->isAncestorOf(literal));
+        QCOMPARE(literal->mapToItem(codeSurface, QPointF()), QPointF(12, 12));
         QCOMPARE(literal->width(), 96.0);
-        QCOMPARE(literal->parentItem()->height(), literal->height() + 24);
+        QCOMPARE(codeSurface->height(), literal->height() + 24);
         for (auto *surface : named(view, "codeSurface")) {
             QCOMPARE(surface->property("color").value<QColor>(), QColor("#eff1f3"));
             QCOMPARE(surface->property("radius").toDouble(), 6.0);
@@ -395,8 +397,8 @@ private slots:
         style->codeBlock()->setCornerRadius(std::numeric_limits<qreal>::quiet_NaN());
         style->headings()->h1()->setSeparatorThickness(std::numeric_limits<qreal>::infinity());
         style->headings()->h1()->setSeparatorSpacing(-4);
-        QTRY_COMPARE(literal->x(), 0.0); QTRY_COMPARE(literal->y(), 0.0);
-        QCOMPARE(literal->parentItem()->property("radius").toDouble(), 0.0);
+        QTRY_COMPARE(literal->mapToItem(codeSurface, QPointF()), QPointF());
+        QCOMPARE(codeSurface->property("radius").toDouble(), 0.0);
         view->setWidth(0.5); style->codeBlock()->setHorizontalPadding(100);
         QTRY_VERIFY(literal->width() >= 1.0);
         QVERIFY(std::isfinite(view->property("contentHeight").toDouble()));

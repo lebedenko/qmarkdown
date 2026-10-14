@@ -1,5 +1,7 @@
 # qt-markdown
 
+See the [public API reference](docs/api.md) for the complete supported contract.
+
 A standalone Qt/QML Markdown rendering library independent of any other project. The library owns Markdown semantics and rendering behavior; applications supply typography and colors. Markdown source feeds a private parser, document model, and native Qt Quick block components, without document-level HTML, QTextDocument, or WebEngine rendering.
 
 **Status:** QMarkdown 1.7.0 / QML 1.7 adds opt-in document-wide desktop selection and plain-text copy requests. Hosts retain clipboard and scrolling ownership. It also supports the five default-off GFM extensions, native tables and layout-aware inline-code padding. See the [selection guide](docs/selection.md) and [GFM guide](docs/gfm.md). Publication is a separate delivery action; existing [1.6.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.6.0) remain available.
@@ -12,7 +14,7 @@ Throughout 1.x, documented public QML properties, signals and CMake integration 
 
 Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: The 1.7.0 package accepts compatible 1.0–1.7 requests and exact 1.7.0, and rejects exact earlier releases, 0.7, 1.8 and 2.0. See [CHANGELOG](CHANGELOG.md). See [1.7.0 release notes](docs/release-notes-1.7.0.md) for these changes. [1.6.0 release notes](docs/release-notes-1.6.0.md) retain the historical release. [1.5.0 release notes](docs/release-notes-1.5.0.md) describe the published Ubuntu and Arch packages; [1.2.0 release notes](docs/release-notes-1.2.0.md) describe historical downloads. Historical [1.1.0 release notes](docs/release-notes-1.1.0.md) remain available.
 
-Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Other selected GFM syntax, streaming, document-wide selection/copy, renderer extensions, further performance optimization and broader platform support remain deferred.
+Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, renderer extensions, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
 
 ## Build and check
 
