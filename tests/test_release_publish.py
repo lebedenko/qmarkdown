@@ -11,6 +11,8 @@ import unittest
 from unittest.mock import patch
 import zipfile
 
+from release_docs_fixture import write_docs
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts/release'))
 spec = importlib.util.spec_from_file_location('publish', ROOT / 'scripts/release/publish.py')
@@ -25,9 +27,7 @@ class PublishTest(unittest.TestCase):
         self.root = Path(self.temp.name) / 'assets'
         self.root.mkdir()
         self.source_root = Path(self.temp.name) / 'checkout'
-        (self.source_root / 'docs').mkdir(parents=True)
-        (self.source_root / 'CMakeLists.txt').write_text('project(QMarkdown VERSION 1.6.0)')
-        (self.source_root / 'docs/release-notes-1.6.0.md').write_text('Final release behavior')
+        write_docs(self.source_root)
         self.commit = 'a' * 40
         self.head = 'b' * 40
         self.tree = 'c' * 40
@@ -104,6 +104,15 @@ class PublishTest(unittest.TestCase):
     def invoke(self):
         with patch.object(sys.modules['eligibility'], 'SOURCE', self.source_root), patch.object(publish, 'SOURCE', self.source_root), patch.object(subprocess, 'check_output', side_effect=self.read), patch.object(subprocess, 'run', side_effect=self.write):
             publish.publish('owner/repo', 42, self.root)
+
+    def test_invalid_documentation_causes_zero_remote_writes(self):
+        path = self.source_root / 'docs/arch-install.md'
+        path.write_text(path.read_text().replace('qmarkdown-1.6.0-1-', 'qmarkdown-1.5.0-1-'))
+        with self.assertRaisesRegex(SystemExit, 'documentation validation.*docs/arch-install.md'):
+            self.invoke()
+        self.assertEqual(self.writes, [])
+        self.assertIsNone(self.tag)
+        self.assertIsNone(self.release)
 
     def test_tags_uploads_draft_then_publishes_and_verifies_hashes(self):
         self.invoke()
