@@ -16,6 +16,7 @@ struct Block {
     QVector<LinkSpan> links;
     QVector<ImageSpan> images;
     QString infoString;
+    bool codeFenced = false;
     QVector<Block> children;
     bool ordered = false;
     int start = 1;

@@ -76,6 +76,8 @@ QVector<PresentationBlock> present(const QVector<Block> &blocks)
         case BlockKind::TableCell: block.kind = PresentationKind::TableCell; break;
         }
         block.text = source.text;
+        block.infoString = source.infoString;
+        block.codeFenced = source.codeFenced;
         block.level = source.level;
         block.ranges = source.ranges;
         block.links = source.links;

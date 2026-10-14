@@ -24,6 +24,7 @@ Module {
         Signal { name: "selectionChanged" }
         Signal { name: "selectionEnabledChanged" }
         Signal { name: "copyRequested"; Parameter { name: "text"; type: "QString" } }
+        Method { name: "validFencedRenderer"; type: "bool"; Parameter { name: "object"; type: "QObject"; isPointer: true } }
         Method { name: "selectAll" }
         Method { name: "clearSelection" }
         Method { name: "requestCopy" }

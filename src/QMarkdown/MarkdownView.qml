@@ -82,6 +82,7 @@ Item {
     signal linkActivated(string destination)
     signal codeBlockCopyRequested(string text)
     property Component codeBlockActions: null
+    property var fencedBlockRenderers: ({})
     property alias baseUrl: viewState.baseUrl
     property alias resourcePolicy: viewState.resourcePolicy
     property alias markdown: viewState.markdown
@@ -427,6 +428,10 @@ Item {
                 DelegateChoice {
                     roleValue: ViewState.CodeBlock
                     delegate: CodeSurface {
+                        required property string codeInfo
+                        required property bool codeFenced
+                        infoString: codeInfo
+                        fenced: codeFenced
                         required property string blockText
                         required property int selectionOffset
                         required property int selectionLength
@@ -444,6 +449,10 @@ Item {
                 DelegateChoice {
                     roleValue: ViewState.SelectedCode
                     delegate: CodeSurface {
+                        required property string codeInfo
+                        required property bool codeFenced
+                        infoString: codeInfo
+                        fenced: codeFenced
                         required property string blockText
                         required property int selectionOffset
                         required property int selectionLength

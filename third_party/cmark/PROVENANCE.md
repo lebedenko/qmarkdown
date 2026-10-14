@@ -34,3 +34,10 @@ Locally authored routines in src/inlines.c implement selected [GFM 0.29-gfm sect
 ## Local opt-in tables (iteration 038)
 
 Locally authored changes in `src/blocks.c` recognize GFM header/delimiter pairs within the CommonMark block/container lifecycle, split escaped pipes before normal inline parsing, retain column alignment and normalize missing/excess body cells. `src/cmark.h`, `src/node.h` and `src/node.c` add private table/row/cell kinds and alignment metadata/getter; `symbols.h` prefixes the new getter. The option defaults off. Syntax is based on [GFM 0.29-gfm §4.10](https://github.github.com/gfm/#tables-extension-), with attributed offline examples and independent expectations in tests/gfm. No cmark-gfm implementation is copied. Upstream version, acquisition checksum, notices, hidden symbols and installed-header privacy remain unchanged. Tag filtering is retained separately in the QMarkdown owned semantic adapter; production still uses no HTML renderer. Exact full GFM conformance is not claimed.
+
+## Private fence-origin getter (Feature 042)
+
+`src/cmark.h`, `src/node.c` and `symbols.h` expose/prefix a private getter for the
+existing code-block fenced flag. The adapter preserves this distinction without
+reading internal parser structures. No parsing behavior, upstream version/checksum,
+notices, installed headers or public C++ APIs change.

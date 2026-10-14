@@ -126,3 +126,14 @@ set_tests_properties(qmarkdown-selection PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
 set_tests_properties(qmarkdown-selection-fractional PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_SCALE_FACTOR=1.25;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-renderers-test tst_renderers.cpp)
+target_include_directories(qmarkdown-renderers-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-renderers-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-renderers-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-renderers-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-renderers COMMAND qmarkdown-renderers-test)
+set_tests_properties(qmarkdown-renderers PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

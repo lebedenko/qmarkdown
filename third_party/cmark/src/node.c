@@ -513,6 +513,10 @@ const char *cmark_node_get_fence_info(cmark_node *node) {
   }
 }
 
+int cmark_node_get_code_fenced(cmark_node *node) {
+  return node && node->type == CMARK_NODE_CODE_BLOCK && node->as.code.fenced;
+}
+
 int cmark_node_set_fence_info(cmark_node *node, const char *info) {
   if (node == NULL) {
     return 0;

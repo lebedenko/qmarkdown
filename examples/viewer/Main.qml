@@ -28,6 +28,31 @@ ApplicationWindow {
     function resetStyle() { stylePanel.resetStyle() }
     onSampleIndexChanged: loadSample()
     Samples { id: samples }
+    Component {
+        id: nativePreview
+        Rectangle {
+            id: customPreview
+            objectName: "nativeFencePreview"
+            required property string codeText
+            required property string infoString
+            required property string language
+            required property var markdownStyle
+            color: markdownStyle.codeBlock.backgroundColor
+            implicitHeight: previewText.implicitHeight + 16
+            Text {
+                id: previewText
+                x: 8
+                y: 8
+                width: Math.max(0, customPreview.width - 16)
+                text: "Native preview: " + customPreview.codeText
+                textFormat: Text.PlainText
+                wrapMode: Text.Wrap
+                color: customPreview.markdownStyle.codeBlockColor
+                font: customPreview.markdownStyle.codeBlockFont
+            }
+        }
+    }
+
     Clipboard { id: clipboard }
     MarkdownStyle {
         id: hostStyle
@@ -69,6 +94,8 @@ ApplicationWindow {
         Flow {
             Layout.fillWidth: true
             spacing: 8
+            CheckBox { id: rendererToggle; text: "Custom fences"; objectName: "rendererToggle" }
+            CheckBox { id: selectionToggle; text: "Document selection"; checked: true; objectName: "selectionToggle" }
             CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
             CheckBox { id: tablesToggle; text: "GFM tables"; objectName: "tablesToggle" }
             CheckBox { id: tagFilterToggle; text: "GFM tag filter"; objectName: "tagFilterToggle" }
@@ -178,7 +205,8 @@ ApplicationWindow {
                         contentHeight: preview.contentHeight
                         ScrollBar.vertical: ScrollBar {}
                         MarkdownView {
-                            selectionEnabled: true
+                            selectionEnabled: selectionToggle.checked
+                            fencedBlockRenderers: rendererToggle.checked ? { preview: nativePreview } : ({})
                             onCopyRequested: function(text) { clipboard.copyText(text); selectionCopy.copied = true; selectionFeedback.restart() }
                             resourcePolicy: MarkdownResourcePolicy { allowQrc: true }
                             id: preview

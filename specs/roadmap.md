@@ -1,6 +1,16 @@
 # Staged roadmap
 
-Current package: **1.7.0 / QML 1.7**, with opt-in document-wide desktop selection and readable plain-text copy requests. Hosts retain clipboard and scrolling ownership. See [Feature 040](040-document-selection/requirements.md); publication is separately authorized. Historical 1.6.0 publication and verification remain below.
+Current local package: **1.7.0 / QML 1.7**. All five independent opt-in GFM extensions
+(task lists, strikethrough, extended autolinks, tables and tag filtering) are implemented
+on CommonMark 0.31.2; exact GFM 0.29-gfm conformance is not claimed.
+[Feature 040](040-document-selection/verification.md) implements opt-in document-wide
+desktop selection and host-owned plain-text copy requests.
+[Feature 041](041-library-maintainability/verification.md) is implemented and locally
+verified. Protected delivery of those features is recorded by merged
+[PR 19](https://github.com/lebedenko/qmarkdown/pull/19) and
+[PR 20](https://github.com/lebedenko/qmarkdown/pull/20); their verification documents
+retain the original local-stage records. Publication requires separate authorization. Published package **1.6.0 / QML 1.6** and its historical evidence remain
+in [Feature 038](038-gfm-completion-inline-code-padding/verification.md).
 
 ## Current published status
 
@@ -12,7 +22,7 @@ The evidence contracts remain separate: [iteration 017](017-complete-semantic-ev
 
 Documented public QML behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes remain private; no C++ headers are installed and no public C++ ABI is promised. Package 1.6.0 accepts compatible 1.0–1.6 requests and EXACT 1.6.0; exact earlier versions require historical packages.
 
-Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Touch selection handles, edge autoscrolling, rich-text copying, other selected GFM syntax, streaming, highlighting, renderer extensions, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
+Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Touch selection handles, edge autoscrolling, rich-text copying, streaming, highlighting, bundled renderer engines, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
 These stages preserve the brief's direction. The table separates completed foundations from deferred capabilities; it does not schedule future releases. Each feature needs its own requirements, design, tasks, and approval. The [standards reference](standards.md) defines the pinned target and future conformance evidence.
@@ -22,10 +32,10 @@ These stages preserve the brief's direction. The table separates completed found
 | Buildable scaffold | [002 project scaffold](002-project-scaffold/requirements.md): import-only Qt/QML module, shared/static packaging, and smoke checks; scaffold foundation completed. |
 | First vertical slice | [001 static text](001-static-text/requirements.md): paragraphs, H1–H6, native block layout, styling, replacement updates. Approved on 2026-10-07 and implemented; see its verification record. |
 | CommonMark core coverage (completed) | Complete CommonMark 0.31.2 semantics: ATX and Setext headings, paragraphs, emphasis/strong emphasis, inline code, fenced and indented code, inline and reference links, images, ordered/unordered and nested lists, block quotes, thematic breaks, escapes/entities, autolinks, hard/soft breaks, and raw HTML recognition. Include whitespace, line handling, delimiter rules, and precedence. Features 009/010 specify host navigation and resource policies; Feature 017 completes semantic evidence. |
-| Selected GFM syntax | Task lists, strikethrough and extended autolinks have independent opt-in slices and separate extension checks on the newer CommonMark core; tables and tag filtering are released in 1.6.0; no full GFM conformance claim. |
+| Selected GFM syntax (implemented) | Task lists, strikethrough and extended autolinks have independent opt-in slices and separate extension checks on the newer CommonMark core; tables and tag filtering are released in 1.6.0; no full GFM conformance claim. |
 | Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Publication requires separate authorization. Touch selection handles, automatic edge scrolling, double/triple-click selection, full caret navigation and rich-text copying remain deferred. |
 | Streaming | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
-| Renderer extensions | Syntax highlighting, extension renderer API, Mermaid, math, and custom fenced-block renderers, subject to dependency and policy decisions. Footnotes and other richer syntax require separate specifications. |
+| Renderer extensions | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Bundled syntax highlighting, Mermaid and math remain deferred. Footnotes and other richer syntax require separate specifications. |
 | v1.0 conformance gate (completed) | All pinned CommonMark 0.31.2 official examples pass semantic checks, with native renderer verification and documented resource/HTML behavior. Record reproducible commands and actual counts. Streaming and optional extensions are not gates. |
 
 The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Iteration 021 records historical local candidate readiness; iterations 023/027 record completed 1.0.0/1.1.0 publication separately.
