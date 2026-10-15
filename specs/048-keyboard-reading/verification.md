@@ -148,3 +148,70 @@ including local-link checks; `git diff --check` passed. Host synchronization wit
 `/usr/bin/qmake6` confirmed 6.12.0 and made no configuration change. Existing
 1.10 download URLs, four asset names and 1.x compatibility guidance were reviewed.
 The UTC clock reports 2026-10-15, matching the finalized changelog date.
+
+## Publication recovery and tooling repair — 2026-10-15 UTC
+
+The supplied “Recover QMarkdown 1.10.0 and harden publication” plan explicitly
+approved recovery, the requirements/design/task extension, one tooling fix PR,
+and squash merge after its final-head configured CI passes. This is an extension
+of feature 048 delivery; historical implementation exclusions above remain intact.
+
+### Actual recovery
+
+- Rechecked main and v1.10.0 at `efb2d35fbbbffbe7b45c7d11031072f753b4706d`.
+  [PR #32](https://github.com/lebedenko/qmarkdown/pull/32) was merged; its
+  [final-head gate](https://github.com/lebedenko/qmarkdown/actions/runs/38808154865)
+  passed. Downloaded gate.json matched final head `ef9c22d`, tree
+  `76c6f5059bce149658fe7824733f7605f86ad945`, package 1.10.0 and Qt 6.8.0/6.12.0.
+- Source builds on both targets and focused Arch checks had passed. Retained
+  distribution artifacts `12008740987` and `12008078577` were unexpired and were
+  downloaded before retry; their source/Arch checksum companions matched.
+  Draft `414298986` was stable, unpublished and empty. UTC October 15 matched
+  the changelog before publication.
+- Retried only failed job `116684585978` in
+  [run 38810903894](https://github.com/lebedenko/qmarkdown/actions/runs/38810903894).
+  [Publication retry job](https://github.com/lebedenko/qmarkdown/actions/runs/38810903894/job/116694751062)
+  succeeded using the same retained artifact IDs. The overall run succeeded.
+- Release ID `414298986` became published at `2026-10-15T22:02:01Z` and was returned
+  by the latest-release endpoint, with prerelease=false and exactly four assets.
+  [QMarkdown 1.10.0](https://github.com/lebedenko/qmarkdown/releases/tag/v1.10.0)
+  preserves the original tag, commit and distribution bytes. Independently
+  downloaded all four assets and compared SHA-256 against retained artifacts:
+
+| Asset | SHA-256 | Result |
+| --- | --- | --- |
+| qmarkdown-1.10.0.tar.gz | `578f46218d2ee839d27f1360636e5c7a0b24bb235773a3d70dc38be9346a6cc6` | Match |
+| qmarkdown-1.10.0.tar.gz.sha256 | `f1fba47275d7f399580bbc5b99ab86104bc6832e6511d51208da9e1968789a50` | Match |
+| qmarkdown-1.10.0-1-x86_64.pkg.tar.zst | `a75126ee60fe5c135875e1ed99a11ef201db297f3672301c9c7abe3ebd5341fc` | Match |
+| qmarkdown-1.10.0-1-x86_64.pkg.tar.zst.sha256 | `f345fa29db61835e0292d4b595708f680e9d0d71db5599d9ac346991b78ad3c0` | Match |
+
+### Tooling verification
+
+The delayed-draft-listing regression reproduced the original failure before the
+fix: publication stopped at asset upload because tag rediscovery found no release.
+The repaired publisher retains the creation response's numeric ID, and that
+regression passes without another release-list request after creation.
+
+Actual local checks:
+
+- Upload tests: 22 passed. Cover paginated exact discovery, duplicate/missing
+  matches, invalid IDs, changed identity/prerelease, identical bytes, partial
+  uploads, stale asset lists, uncertain upload responses, mismatched bytes,
+  unexpected/duplicate assets, permanent HTTP errors, transient HTTP/network
+  failures, transport timeout and bounded discovery/refresh/upload exhaustion.
+  Fake write boundaries reject any attempt to overwrite an existing name.
+- Publication tests: 15 passed. Cover delayed draft visibility, uncertain creation
+  with no second POST, delayed publication and uncertain PATCH with no repeated
+  publication write, retry exhaustion, duplicate matches, existing draft and
+  published-release recovery, moved main, differing tags/bytes and invalid docs.
+- Release-delivery tests: 16 passed. Existing eligibility and deterministic source
+  distribution contracts remain intact.
+- Ordinary and strict release documentation validation and `git diff --check`
+  passed. Host Qt synchronization confirmed 6.12.0 without configuration changes.
+
+The tests use a fake GitHub service and patched sleeps; no new release or asset
+was created to exercise the repaired tooling. Runtime, versions, dependencies,
+workflow entrypoints/permissions and artifact flow are unchanged. Final-head
+configured Qt CI remains required before the authorized tooling PR squash merge;
+its actual hosted results remain in the PR checks and Actions logs, without an
+evidence-only follow-up PR.
