@@ -26,8 +26,9 @@ QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
-Controls style. Private QML responsibilities are refactored without a new public
-C++ surface.
+Controls style. Keyboard traversal defaults off; accessible links remain available
+without keyboard opt-in. Task indicators remain read-only. Private QML
+responsibilities are refactored without a new public C++ surface.
 <!-- current-release:end -->
 
 ## 1.10 keyboard reading
@@ -37,16 +38,16 @@ C++ surface.
 and [verification](048-keyboard-reading/verification.md) specify keyboard link
 traversal, focus presentation and per-link accessibility. Requirements, design and
 tasks were approved on 2026-10-15. Implementation and local verification on both
-configured Qt shared/static targets are complete. See the [roadmap](roadmap.md) for the distinction
-between released 1.9 and 1.10 development work.
+configured Qt shared/static targets are complete. Release documentation and authorized delivery are tracked within feature 048;
+see the [roadmap](roadmap.md) for delivered capabilities and unscheduled work.
 
-## Implemented development task-indicator presentation
+## 1.10 task-indicator presentation
 
-[047 requirements](047-task-indicator-presentation/requirements.md), [design](047-task-indicator-presentation/design.md), [tasks](047-task-indicator-presentation/tasks.md), and [actual verification](047-task-indicator-presentation/verification.md). Approved through the supplied implementation plan on 2026-10-15. Development package 1.10.0 / QML 1.10 supersedes feature 035’s presentation contract only.
+[047 requirements](047-task-indicator-presentation/requirements.md), [design](047-task-indicator-presentation/design.md), [tasks](047-task-indicator-presentation/tasks.md), and [actual verification](047-task-indicator-presentation/verification.md). Approved through the supplied implementation plan on 2026-10-15. Package 1.10.0 / QML 1.10 supersedes feature 035’s presentation contract only.
 
 
 
-## Implemented development QML boundary refactor
+## 1.10 QML boundary refactor
 
 [046: requirements](046-qml-boundaries/requirements.md),
 [design](046-qml-boundaries/design.md), [tasks](046-qml-boundaries/tasks.md)
