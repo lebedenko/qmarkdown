@@ -8,6 +8,8 @@
 #include <QElapsedTimer>
 #include <QTimer>
 
+class SelectionRegistration;
+
 class BlockModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -32,7 +34,8 @@ public:
         SelectionLengthRole = Qt::UserRole + 16,
         SelectionKindRole = Qt::UserRole + 17,
         CodeInfoRole = Qt::UserRole + 18,
-        CodeFencedRole = Qt::UserRole + 19
+        CodeFencedRole = Qt::UserRole + 19,
+        CodeLanguageRole = Qt::UserRole + 20
     };
     using QAbstractListModel::QAbstractListModel;
     int rowCount(const QModelIndex &parent = {}) const override;
@@ -53,7 +56,7 @@ class ViewState : public QObject
     Q_PROPERTY(bool searchCaseSensitive READ searchCaseSensitive WRITE setSearchCaseSensitive NOTIFY searchCaseSensitiveChanged FINAL)
     Q_PROPERTY(int searchResultCount READ searchResultCount NOTIFY searchChanged FINAL)
     Q_PROPERTY(int currentSearchResult READ currentSearchResult NOTIFY searchChanged FINAL)
-    Q_PROPERTY(QVariantList searchMatches READ searchMatches NOTIFY searchChanged FINAL)
+    Q_PROPERTY(uint searchRevision READ searchRevision NOTIFY searchChanged FINAL)
     Q_PROPERTY(QVariantList headings READ headings NOTIFY headingsChanged FINAL)
     Q_PROPERTY(QQuickItem *navigationView READ navigationView WRITE setNavigationView NOTIFY navigationViewChanged FINAL)
     Q_PROPERTY(QQuickItem *selectionViewport READ selectionViewport WRITE setSelectionViewport NOTIFY selectionViewportChanged FINAL)
@@ -81,7 +84,8 @@ public:
     void setSearchCaseSensitive(bool value);
     int searchResultCount() const { return m_matches.size(); }
     int currentSearchResult() const { return m_currentMatch; }
-    QVariantList searchMatches() const;
+    uint searchRevision() const { return m_searchRevision; }
+    Q_INVOKABLE QVariantList searchRangesFor(int offset, int length) const;
     QVariantList headings() const { return m_headings; }
     QQuickItem *navigationView() const { return m_navigationView; }
     void setNavigationView(QQuickItem *view);
@@ -110,8 +114,8 @@ public:
     Q_INVOKABLE void selectAll();
     Q_INVOKABLE void clearSelection();
     Q_INVOKABLE void requestCopy();
-    Q_INVOKABLE void registerSelectionItem(QQuickItem *item, int kind);
-    Q_INVOKABLE void unregisterSelectionItem(QQuickItem *item);
+    void registerSelectionItem(SelectionRegistration *registration);
+    void unregisterSelectionItem(SelectionRegistration *registration);
     Q_INVOKABLE bool beginSelection(QQuickItem *view, QPointF point, bool extend);
     Q_INVOKABLE void extendSelection(QQuickItem *view, QPointF point);
     Q_INVOKABLE QVariant selectionLink(QQuickItem *view, QPointF point) const;
@@ -176,6 +180,7 @@ private:
     QString m_searchQuery;
     bool m_sourceChanged = false;
     bool m_searchActive = false, m_searchCaseSensitive = false;
+    uint m_searchRevision = 0; // Zero is reserved for the pristine search state.
     int m_currentMatch = -1;
     int m_targetStart = -1, m_targetLength = 0;
     bool m_targetSearch = false, m_navigationQueued = false;
@@ -194,7 +199,14 @@ private:
     bool m_dragging = false, m_shiftClick = false, m_gestureActive = false;
     void scrollSelection();
     void observeSelectionWindow(QQuickItem *view);
-    struct SelectionItem { QPointer<QQuickItem> item; int kind; };
+    struct SelectionItem {
+        SelectionRegistration *registration;
+        QPointer<QQuickItem> item;
+        int kind, offset, length;
+        QString imageLink;
+        bool imageLinked;
+    };
+    const SelectionItem *selectionMetadata(QQuickItem *item) const;
     QVector<SelectionItem> m_selectionItems;
     QQuickItem *selectionItemAt(QQuickItem *view, QPointF point) const;
     int selectionPosition(QQuickItem *view, QPointF point) const;

@@ -5,10 +5,12 @@ import "private/Layout.js" as Layout
 
 Item {
     id: actionHost
-    required property var view
+    required property string sourceIdentity
+    required property bool viewportAvailable
+    signal copyRequested(string text)
     required property ViewState coordinator
     required property string codeText
-    property Component actions: actionHost.view.codeBlockActions
+    required property Component actions
     property Item actionItem: null
     property var token: null
     property bool ready: false
@@ -29,14 +31,14 @@ Item {
         const validity = { active: true }
         token = validity
         const text = codeText
-        const source = actionHost.view.markdown
+        const source = actionHost.sourceIdentity
         const component = actions
         const created = actions.createObject(actionHost, {
             codeText: text,
             requestCopy: function() {
-                if (validity.active && actionHost.view.width > 0 && actionHost.view.markdown === source
-                    && actionHost.view.codeBlockActions === component)
-                    actionHost.view.codeBlockCopyRequested(text)
+                if (validity.active && actionHost.viewportAvailable && actionHost.sourceIdentity === source
+                    && actionHost.actions === component)
+                    actionHost.copyRequested(text)
             }
         })
         const item = created as Item
@@ -57,6 +59,12 @@ Item {
     }
     onActionsChanged: rebuild()
     onCodeTextChanged: rebuild()
-    Component.onCompleted: { actionHost.coordinator.registerSelectionItem(actionHost, ViewState.ActionSelection); ready = true; rebuild() }
-    Component.onDestruction: { actionHost.coordinator.unregisterSelectionItem(actionHost); clearAction() }
+    onSourceIdentityChanged: rebuild()
+    SelectionRegistration {
+        coordinator: actionHost.coordinator
+        item: actionHost
+        kind: ViewState.ActionSelection
+    }
+    Component.onCompleted: { ready = true; rebuild() }
+    Component.onDestruction: { clearAction() }
 }

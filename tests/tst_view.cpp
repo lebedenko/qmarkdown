@@ -91,6 +91,12 @@ class ViewTest : public QObject
         }
         return result;
     }
+    // Locate block geometry without depending on text wrappers or Loader depth.
+    static QQuickItem *block(QQuickItem *item) {
+        while (item->parentItem() && item->parentItem()->objectName() != "blockSequence")
+            item = item->parentItem();
+        return item;
+    }
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
@@ -1773,25 +1779,25 @@ MarkdownView {
         QTRY_VERIFY(find("9)") && find("10)") && find("first") && find("second"));
         QTRY_VERIFY(content(view) > 0);
         auto *first = find("first"); auto *second = find("second");
-        auto *row1 = first->parentItem()->parentItem()->parentItem();
-        auto *row2 = second->parentItem()->parentItem()->parentItem();
+        auto *row1 = block(first)->parentItem()->parentItem()->parentItem();
+        auto *row2 = block(second)->parentItem()->parentItem()->parentItem();
         QTRY_COMPARE(row2->y(), row1->height());
         QCOMPARE(find("9)")->y(), 0.0);
-        QCOMPARE(first->parentItem()->parentItem()->x(), qMax(24.0, QFontMetricsF(style->property("bodyFont").value<QFont>()).horizontalAdvance("10)") + 8));
+        QCOMPARE(block(first)->parentItem()->parentItem()->x(), qMax(24.0, QFontMetricsF(style->property("bodyFont").value<QFont>()).horizontalAdvance("10)") + 8));
         const auto bodyFont = style->property("bodyFont").value<QFont>();
         auto largerFont = bodyFont; largerFont.setPixelSize(40);
         style->setProperty("bodyFont", largerFont);
-        QTRY_COMPARE(first->parentItem()->parentItem()->x(), QFontMetricsF(largerFont).horizontalAdvance("10)") + 8);
+        QTRY_COMPARE(block(first)->parentItem()->parentItem()->x(), QFontMetricsF(largerFont).horizontalAdvance("10)") + 8);
         style->setProperty("bodyFont", bodyFont);
         view->setProperty("markdown", "- first\n\n- second");
         QTRY_VERIFY(find("first") && find("second"));
         first = find("first"); second = find("second");
-        row1 = first->parentItem()->parentItem()->parentItem(); row2 = second->parentItem()->parentItem()->parentItem();
+        row1 = block(first)->parentItem()->parentItem()->parentItem(); row2 = block(second)->parentItem()->parentItem()->parentItem();
         QTRY_COMPARE(row2->y(), row1->height() + 8);
         view->setProperty("markdown", "- outer\n  - nestedA\n\n  - nestedB\n- end");
         QTRY_VERIFY(find("nestedA") && find("nestedB"));
         first = find("nestedA"); second = find("nestedB");
-        row1 = first->parentItem()->parentItem()->parentItem(); row2 = second->parentItem()->parentItem()->parentItem();
+        row1 = block(first)->parentItem()->parentItem()->parentItem(); row2 = block(second)->parentItem()->parentItem()->parentItem();
         QTRY_COMPARE(row2->y(), row1->height() + 8);
         view->setProperty("markdown", "> quoted\n>\n> another");
         QTRY_VERIFY(find("quoted") && find("another"));
@@ -1799,22 +1805,22 @@ MarkdownView {
         auto *rule = named(view, "quoteRule")[0];
         QTRY_COMPARE(rule->width(), 2.0);
         QTRY_COMPARE(rule->height(), content(view));
-        QTRY_COMPARE(find("another")->y(), find("quoted")->height() + 8);
-        QCOMPARE(find("quoted")->parentItem()->parentItem()->x(), 16.0);
+        QTRY_COMPARE(block(find("another"))->y(), find("quoted")->height() + 8);
+        QCOMPARE(block(find("quoted"))->parentItem()->parentItem()->x(), 16.0);
         QSignalSpy indent(style, SIGNAL(quoteIndentChanged()));
         QSignalSpy thickness(style, SIGNAL(quoteRuleThicknessChanged()));
         QSignalSpy listIndent(style, SIGNAL(listIndentChanged()));
         QSignalSpy color(style, SIGNAL(quoteRuleColorChanged()));
         style->setProperty("quoteIndent", 32); style->setProperty("quoteIndent", 32);
         QCOMPARE(indent.count(), 1);
-        QTRY_COMPARE(find("quoted")->parentItem()->parentItem()->x(), 32.0);
+        QTRY_COMPARE(block(find("quoted"))->parentItem()->parentItem()->x(), 32.0);
         style->setProperty("quoteRuleThickness", 4); style->setProperty("quoteRuleColor", QColor("#abcdef"));
         QCOMPARE(thickness.count(), 1); QCOMPARE(color.count(), 1);
         QTRY_COMPARE(rule->width(), 4.0); QCOMPARE(rule->property("color").value<QColor>(), QColor("#abcdef"));
         const auto nan = std::numeric_limits<double>::quiet_NaN();
         style->setProperty("quoteIndent", nan); style->setProperty("quoteIndent", nan);
         QCOMPARE(indent.count(), 2);
-        QTRY_COMPARE(find("quoted")->parentItem()->parentItem()->x(), 16.0);
+        QTRY_COMPARE(block(find("quoted"))->parentItem()->parentItem()->x(), 16.0);
         style->setProperty("quoteRuleThickness", -2); QTRY_COMPARE(rule->width(), 0.0);
         style->setProperty("quoteRuleThickness", std::numeric_limits<double>::infinity()); QTRY_COMPARE(rule->width(), 2.0);
         view->setWidth(1); QTRY_COMPARE(find("quoted")->width(), 1.0);
@@ -1848,14 +1854,14 @@ MarkdownView {
         other->setProperty("markdown", "> other");
         view->setProperty("style", QVariant::fromValue(shared.get()));
         other->setProperty("style", QVariant::fromValue(shared.get()));
-        QTRY_COMPARE(find("first")->parentItem()->parentItem()->x(), 48.0);
+        QTRY_COMPARE(block(find("first"))->parentItem()->parentItem()->x(), 48.0);
         QTRY_COMPARE(named(other, "quoteRule").size(), 1);
         QTRY_COMPARE(named(other, "quoteRule")[0]->width(), 5.0);
         shared->setProperty("quoteRuleThickness", 7);
         QTRY_COMPARE(named(view, "quoteRule")[0]->width(), 7.0);
         QTRY_COMPARE(named(other, "quoteRule")[0]->width(), 7.0);
         QVERIFY(QQmlProperty(view, "style", &engine).reset());
-        QTRY_COMPARE(find("first")->parentItem()->parentItem()->x(), 16.0);
+        QTRY_COMPARE(block(find("first"))->parentItem()->parentItem()->x(), 16.0);
         QTRY_COMPARE(named(view, "quoteRule")[0]->width(), 2.0);
         shared.reset(); QTRY_COMPARE(named(other, "quoteRule")[0]->width(), 2.0);
         QCOMPARE(other->property("style").value<QObject *>()->property("listIndent").toDouble(), 24.0);
@@ -1882,7 +1888,7 @@ MarkdownView {
         QQuickWindow window; host->setParentItem(window.contentItem()); window.resize(600, 600); window.show();
         QTRY_COMPARE(texts(a).size(), 3); QTRY_COMPARE(painted(a).size(), 1);
         QTRY_VERIFY(content(a) > 0);
-        const auto children = texts(a)[0]->parentItem()->childItems();
+        const auto children = block(texts(a)[0])->parentItem()->childItems();
         // Column also owns the Repeater; the six block delegates precede it.
         QList<QQuickItem *> blocks;
         for (auto *child : children) if (child->width() == a->width()) blocks.append(child);
@@ -2165,9 +2171,9 @@ MarkdownView {
         QTRY_COMPARE(texts(view).size(), 1);
         auto *empty = texts(view)[0];
         QTRY_COMPARE(empty->height(), QFontMetricsF(empty->property("font").value<QFont>()).height());
-        QTRY_COMPARE(body->parentItem()->y(), heading->logicalHeight() + 8);
-        QTRY_COMPARE(empty->y(), body->parentItem()->y() + body->logicalHeight() + 8);
-        QTRY_COMPARE(content(view), empty->y() + empty->height());
+        QTRY_COMPARE(block(body)->y(), heading->logicalHeight() + 8);
+        QTRY_COMPARE(block(empty)->y(), block(body)->y() + body->logicalHeight() + 8);
+        QTRY_COMPARE(content(view), block(empty)->y() + empty->height());
         QFont heavy = body->font(); heavy.setWeight(QFont::Black);
         auto *effectiveStyle = view->property("style").value<QObject *>();
         effectiveStyle->setProperty("bodyFont", heavy);
@@ -2190,7 +2196,7 @@ MarkdownView {
         style->setProperty("bodyColor", QColor(Qt::transparent));
         QTRY_COMPARE(body->color(), QColor(Qt::transparent));
         style->setProperty("blockSpacing", -1);
-        QTRY_COMPARE(body->parentItem()->y(), heading->logicalHeight());
+        QTRY_COMPARE(block(body)->y(), heading->logicalHeight());
         QVERIFY(QQmlProperty(view, "style", &engine).reset());
         QTRY_COMPARE(content(view), wide);
         view->setWidth(1);
@@ -2317,9 +2323,9 @@ MarkdownView {
         QTRY_COMPARE(texts(view).size(), 3);
         auto items = texts(view);
         QTRY_COMPARE(items[2]->height(), QFontMetricsF(items[2]->property("font").value<QFont>()).height());
-        QTRY_COMPARE(items[1]->y(), items[0]->height() + 8);
-        QTRY_COMPARE(items[2]->y(), items[1]->y() + items[1]->height() + 8);
-        QTRY_COMPARE(content(view), items[2]->y() + items[2]->height());
+        QTRY_COMPARE(block(items[1])->y(), items[0]->height() + 8);
+        QTRY_COMPARE(block(items[2])->y(), block(items[1])->y() + items[1]->height() + 8);
+        QTRY_COMPARE(content(view), block(items[2])->y() + items[2]->height());
         QCOMPARE(view->implicitWidth(), 0.0);
         QCOMPARE(view->implicitHeight(), content(view));
         const double wide = content(view);
@@ -2382,9 +2388,9 @@ MarkdownView {
         QCOMPARE(shared->property("h1Font").value<QFont>().pixelSize(), 32);
         shared->setProperty("bodyColor", QColor(Qt::transparent));
         QTRY_COMPARE(texts(a)[1]->property("color").value<QColor>(), QColor(Qt::transparent));
-        shared->setProperty("blockSpacing", -5); QTRY_COMPARE(texts(a)[1]->y(), texts(a)[0]->height());
+        shared->setProperty("blockSpacing", -5); QTRY_COMPARE(block(texts(a)[1])->y(), texts(a)[0]->height());
         shared->setProperty("blockSpacing", std::numeric_limits<double>::infinity());
-        QTRY_COMPARE(texts(a)[1]->y(), texts(a)[0]->height()+8);
+        QTRY_COMPARE(block(texts(a)[1])->y(), texts(a)[0]->height()+8);
         a->setProperty("style", QVariant::fromValue(other)); QTRY_COMPARE(content(a), initial);
         shared->setProperty("blockSpacing", 90); QTRY_COMPARE(content(a), initial);
         delete other; QTRY_COMPARE(content(a), initial);
@@ -2397,7 +2403,7 @@ MarkdownView {
         defaults->setProperty("blockSpacing", 70); QTRY_VERIFY(content(a) > initial);
         QVERIFY(QMetaObject::invokeMethod(host, "resetUndefined")); QTRY_COMPARE(content(a), initial);
         shared->setProperty("blockSpacing", std::numeric_limits<double>::quiet_NaN());
-        QTRY_COMPARE(texts(b)[1]->y(), texts(b)[0]->height() + 8);
+        QTRY_COMPARE(block(texts(b)[1])->y(), texts(b)[0]->height() + 8);
         QCOMPARE(texts(a)[0]->property("text").toString(), QString("title"));
     }
 #ifdef QMARKDOWN_VIEWER_SOURCE
@@ -2805,6 +2811,22 @@ MarkdownView {
         }
     }
 #endif
+    void tableRejectsIncompatibleSequence() {
+        QQmlEngine engine;
+        ViewState state; state.setTablesEnabled(true); state.setMarkdown("| head |\n| --- |");
+        QQmlComponent incompatible(&engine);
+        incompatible.setData("import QtQuick\nItem {}", {});
+        QVERIFY2(incompatible.isReady(), qPrintable(incompatible.errorString()));
+        QQmlComponent table(&engine, QUrl("qrc:/qt/qml/QMarkdown/TableBlock.qml"));
+        QVERIFY2(table.isReady(), qPrintable(table.errorString()));
+        QTest::ignoreMessage(QtWarningMsg, "QMarkdown: TableBlock sequenceComponent must create a BlockSequence");
+        std::unique_ptr<QObject> object(table.createWithInitialProperties({
+            {"style", QVariant::fromValue(state.style())}, {"coordinator", QVariant::fromValue(&state)},
+            {"sequenceComponent", QVariant::fromValue(&incompatible)}, {"width", 200},
+            {"childBlocks", state.blocks()->data(state.blocks()->index(0, 0), BlockModel::ChildBlocksRole)}}));
+        QVERIFY2(object, qPrintable(table.errorString()));
+        QTRY_VERIFY(qobject_cast<QQuickItem *>(object.get())->height() > 0);
+    }
     void plainTextAndPrivateApi()
     {
         RequestFactory factory;
@@ -2836,7 +2858,7 @@ MarkdownView {
         QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, QPoint(30, 10));
         QCOMPARE(activation.count(), 0);
         QCOMPARE(factory.requests, 0);
-        for (const char *type : {"ViewState", "BlockModel", "ModuleAnchor", "FormattedText", "CodeSurface", "CodeActionHost", "TableBlock"}) {
+        for (const char *type : {"ViewState", "BlockModel", "ModuleAnchor", "FormattedText", "CodeSurface", "CodeActionHost", "TableBlock", "BlockSequence", "TextBlock", "SelectableText", "ImageBlock", "ListBlock", "HeadingSeparator", "SelectionRegistration"}) {
             QQmlComponent hidden(&engine);
             hidden.setData(QByteArray("import QMarkdown\n") + type + " {}", {});
             QVERIFY(hidden.isError());
