@@ -54,3 +54,25 @@ downloaded-asset SHA-256 verification. This extends the historical implementatio
 approval above without changing runtime scope, package 1.10.0 or QML 1.10.
 Follow the [development workflow](../../docs/development-workflow.md); stop on a
 failed stage and preserve existing tags and published bytes.
+
+## Approved publication recovery and tooling repair
+
+The supplied “Recover QMarkdown 1.10.0 and harden publication” plan authorizes
+recovery first, followed by one tooling fix PR and squash merge after final-head
+configured CI passes. Preserve v1.10.0, commit efb2d35 and checked distribution
+bytes. No runtime, public API, package/QML version, dependency or workflow-entrypoint
+changes are included.
+
+- P1: Retry only the failed publication job after checking unchanged main/tag,
+  final PR gate, retained artifacts, existing draft and the UTC changelog date.
+  Stop release writes if recovery fails or the date differs.
+- P2: Create drafts through REST and retain the numeric ID. Discover existing
+  releases by paginated exact-tag match, rejecting duplicates. Use that ID and
+  its upload URL throughout upload, publication and verification.
+- P3: Validate ID, tag and stable state on every refresh. Retry delayed visibility
+  and transient read failures six times with 1, 2, 4, 8 and 16 second delays and
+  cache revalidation. Identity changes, unexpected assets and differing bytes
+  fail immediately. Keep eligibility checks before writes and publication.
+- P4: After uncertain uploads, refresh and compare existing bytes before retrying;
+  never overwrite assets or blindly retry draft creation. Completion requires
+  refreshed published state and all four downloaded SHA-256 comparisons.

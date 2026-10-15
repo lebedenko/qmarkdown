@@ -36,28 +36,33 @@ def publish(repository, number, directory):
             subprocess.run(['gh', 'api', f'repos/{repository}/git/refs', '-X', 'POST',
                             '-f', f'ref=refs/tags/{tag}', '-f', f'sha={commit}'], check=True)
         stage = 'draft release creation'
-        # Listing avoids interpreting transient API failures as a missing release.
-        releases = json.loads(assets.gh('api', '--paginate', '--slurp', f'repos/{repository}/releases?per_page=100'))
-        matching = [release for page in releases for release in page if release['tag_name'] == tag]
-        if not matching:
-            subprocess.run(['gh', 'release', 'create', tag, '--repo', repository,
-                            '--verify-tag', '--draft', '--title', f'QMarkdown {version}',
-                            '--notes-file', str(notes)], check=True)
+        release_id = assets.find_release(repository, tag)
+        if release_id is None:
+            # Do not repeat this POST if the response is uncertain: a draft may exist.
+            created = json.loads(assets.gh(
+                'api', '-X', 'POST', '-f', f'tag_name={tag}', '-f', f'target_commitish={commit}',
+                '-f', f'name=QMarkdown {version}', '-F', f'body=@{notes}',
+                '-F', 'draft=true', '-F', 'prerelease=false', f'repos/{repository}/releases'))
+            release_id = assets.validate_identity(created, tag)
+            if not created['draft']:
+                raise ValueError('Created release is not a draft')
         stage = 'asset upload'
-        assets.upload(repository, tag, local)
+        release = assets.upload(repository, tag, local, release_id=release_id)
         stage = 'final eligibility'
         if eligibility(repository, number) != approved:
             raise ValueError('Release verification changed during distribution checks')
         stage = 'stable/latest publication'
-        release = assets.release_assets(repository, tag)
         if release['draft']:
-            subprocess.run(['gh', 'release', 'edit', tag, '--repo', repository,
-                            '--draft=false', '--latest'], check=True)
+            try:
+                assets.gh('api', '-X', 'PATCH', '-F', 'draft=false', '-f', 'make_latest=true',
+                          f'repos/{repository}/releases/{release_id}')
+            except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
+                if not assets.transient(error):
+                    raise
+                # The PATCH may have succeeded; resolve through reads, never repeat it.
         stage = 'published download SHA-256 verification'
-        published = assets.release_assets(repository, tag)
-        if published['draft']:
-            raise ValueError('Release is still a draft')
-        assets.compare_existing(repository, published, local, require_all=True)
+        assets.release_assets(repository, tag, release_id, local,
+                              required=[path.name for path in local], published=True)
         print(f'PASS: published {tag}; all four downloaded SHA-256 values match')
     except (ValueError, OSError, subprocess.SubprocessError) as error:
         raise SystemExit(f'Release stopped at {stage}: {error}. Explicit repair is required for published differences.') from error

@@ -33,3 +33,15 @@ downloaded-asset SHA-256 verification. This extends the historical implementatio
 approval above without changing runtime scope, package 1.10.0 or QML 1.10.
 Follow the [development workflow](../../docs/development-workflow.md); stop on a
 failed stage and preserve existing tags and published bytes.
+
+## Approved recovery and tooling tasks
+
+The supplied recovery plan authorizes these tasks and one tooling fix PR, including
+squash merge after the final-head configured checks pass.
+
+| Task | Requirements | Work and acceptance checks |
+| --- | --- | --- |
+| P1 | P1 | Recheck release preconditions, retry only publication, verify stable/latest and all four retained-versus-downloaded hashes; stop on failure. |
+| P2 | P2–P4 | Retain REST release ID, use ID/upload-URL operations, add bounded refresh/reconciliation without changing eligibility or workflow flow. |
+| P3 | P2–P4 | Regress delayed draft/assets/publication visibility, transient failures/exhaustion, duplicates, changed identity, partial/identical/mismatched uploads, moved main and existing-release recovery. Assert no duplicate creation or overwrites. |
+| P4 | P1–P4 | Record actual recovery and focused checks, run release-delivery and ordinary/strict docs plus whitespace checks; open one fix PR, require final-head configured CI and squash merge. |
