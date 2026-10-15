@@ -128,3 +128,23 @@ runtime APIs remain opt-in except accessible Link nodes. Native focus and
 accessibility were exercised through Qt interfaces on Linux offscreen windows;
 no external screen-reader session or additional platform run is claimed.
 No merge, tag, release or downloaded-asset acceptance was performed.
+
+## Authorized 1.10.0 delivery
+
+The supplied release plan authorizes documentation updates and publication.
+Historical results and exclusions above describe the earlier implementation run.
+
+Planned checks: ordinary and strict release documentation validation, local links,
+whitespace, and host Qt synchronization (selected SDK 6.12.0). Require both
+packaging jobs and retained full release-gate artifact at the release PR final
+head before squash merge. Dispatch release.yml with that merged PR while main
+remains at its merge commit. Require source distribution builds on both Qt
+targets, focused Arch checks, four stable/latest assets and downloaded hashes
+matching the checked artifacts. Actual CI/publication results belong in Actions
+logs; no evidence-only follow-up PR is planned.
+
+Actual local documentation checks: ordinary and strict release validation passed,
+including local-link checks; `git diff --check` passed. Host synchronization with
+`/usr/bin/qmake6` confirmed 6.12.0 and made no configuration change. Existing
+1.10 download URLs, four asset names and 1.x compatibility guidance were reviewed.
+The UTC clock reports 2026-10-15, matching the finalized changelog date.

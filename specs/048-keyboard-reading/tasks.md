@@ -23,3 +23,13 @@ publication remain separately authorized. Unchecked tasks are not yet complete.
 - [x] T7
 
 Merge, tagging and publication remain separately authorized.
+
+## Release delivery authorization
+
+The supplied “Update documentation and publish QMarkdown 1.10.0” plan explicitly
+authorizes documentation reconciliation, one release PR, squash merge, workflow
+dispatch, tagging and stable/latest publication with four source/Arch assets and
+downloaded-asset SHA-256 verification. This extends the historical implementation
+approval above without changing runtime scope, package 1.10.0 or QML 1.10.
+Follow the [development workflow](../../docs/development-workflow.md); stop on a
+failed stage and preserve existing tags and published bytes.
