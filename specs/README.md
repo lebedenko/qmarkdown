@@ -3,37 +3,54 @@
 ## Current release
 
 <!-- current-release:start -->
-Package **1.9.0 / QML 1.9**. Release assets: [1.9.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.9.0).
+Package **1.10.0 / QML 1.10**. Release assets: [1.10.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.10.0).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
 host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
 selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.9.0.md) and
+See the [release notes](../docs/release-notes-1.10.0.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.9.0 accepts compatible 1.0–1.9 requests and
-EXACT 1.9.0; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.10.0 accepts compatible 1.0–1.10 requests and
+EXACT 1.10.0; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
 
 Reading tools include literal Find with independent highlights, a recursive heading
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](../docs/reading-navigation.md).
+
+QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
+Link per logical link, including text/image splits. Tab exits through the host
+focus chain; Enter activates through host-owned link handling. Replaceable task
+indicators include a rounded fallback; the playground demonstrates the active
+Controls style. Private QML responsibilities are refactored without a new public
+C++ surface.
 <!-- current-release:end -->
 
-## Development: task-indicator presentation
+## 1.10 keyboard reading
+
+[048 requirements](048-keyboard-reading/requirements.md),
+[design](048-keyboard-reading/design.md), [mapped tasks](048-keyboard-reading/tasks.md)
+and [verification](048-keyboard-reading/verification.md) specify keyboard link
+traversal, focus presentation and per-link accessibility. Requirements, design and
+tasks were approved on 2026-10-15. Implementation and local verification on both
+configured Qt shared/static targets are complete. See the [roadmap](roadmap.md) for the distinction
+between released 1.9 and 1.10 development work.
+
+## Implemented development task-indicator presentation
 
 [047 requirements](047-task-indicator-presentation/requirements.md), [design](047-task-indicator-presentation/design.md), [tasks](047-task-indicator-presentation/tasks.md), and [actual verification](047-task-indicator-presentation/verification.md). Approved through the supplied implementation plan on 2026-10-15. Development package 1.10.0 / QML 1.10 supersedes feature 035’s presentation contract only.
 
 
 
-## Pending QML boundary refactor
+## Implemented development QML boundary refactor
 
 [046: requirements](046-qml-boundaries/requirements.md),
 [design](046-qml-boundaries/design.md), [tasks](046-qml-boundaries/tasks.md)
-and [verification](046-qml-boundaries/verification.md) prepare the behavior-preserving
+and [verification](046-qml-boundaries/verification.md) record the behavior-preserving
 QML responsibility and private contract refactor. Requirements, design and tasks were approved on 2026-10-15. The refactor is
 implemented and locally verified on both configured Qt shared/static targets.
 

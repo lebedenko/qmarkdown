@@ -1,6 +1,6 @@
 # Public API reference
 
-Development QMarkdown 1.10.0 / QML 1.10 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.10.0 / QML 1.10 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
@@ -18,6 +18,8 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 
 | Property | Type / default | Since | Contract |
 | --- | --- | --- | --- |
+| `keyboardNavigationEnabled` | bool / false | 1.10 | Tab/Shift+Tab traverse drawable logical links without wrapping; hosts retain boundary focus traversal. |
+| `keyboardFocusColor` | color / bound to style.linkColor | 1.10 | Two-logical-pixel outline around active link fragments, without layout changes. |
 | `taskIndicator` | Component / null | 1.10 | Decorative Item with live `checked` and `markdownStyle` inputs; preferred dimensions and fallback follow the [task indicator contract](task-lists.md#host-presentation-110). |
 | `searchActive` | bool / false | 1.9 | Enables Find and searchable fenced source. |
 | `searchQuery` | string / empty | 1.9 | Non-overlapping literal query over decoded document text. |

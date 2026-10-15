@@ -14,6 +14,7 @@ Item {
 
     required property var imageData
     required property string imageLink
+    required property int imageLinkId
     required property bool imageLinked
     required property int selectionOffset
     required property int selectionLength
@@ -31,6 +32,7 @@ Item {
             kind: ViewState.ImageSelection
             offset: imageRow.selectionOffset
             length: imageRow.selectionLength
+            imageLinkId: imageRow.imageLinkId
             imageLink: imageRow.imageLink
             imageLinked: imageRow.imageLinked
         }
@@ -52,6 +54,16 @@ Item {
             color: matches.some(function (match) {
                 return match.current
             }) ? imageRow.currentSearchHighlightColor : imageRow.searchHighlightColor
+        }
+        Rectangle {
+            objectName: "markdownImageFocus"
+            anchors.fill: parent
+            z: 2
+            color: "transparent"
+            border.width: 2
+            border.color: imageRow.coordinator.linkController.color
+            visible: imageRow.imageLinkId >= 0
+                && imageRow.imageLinkId === imageRow.coordinator.linkController.focusedId
         }
         image: imageRow.imageData
         width: Math.min(imageRow.width, imagePaint.naturalWidth)

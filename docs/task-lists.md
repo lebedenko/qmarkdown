@@ -2,7 +2,7 @@
 
 See the [public API reference](api.md) for the complete supported contract.
 
-Read-only task lists are available since QML 1.3. Development package 1.10.0 / QML 1.10 adds replaceable indicators.
+Read-only task lists are available since QML 1.3. Package 1.10.0 / QML 1.10 adds replaceable indicators.
 
 ```qml
 import QMarkdown 1.3

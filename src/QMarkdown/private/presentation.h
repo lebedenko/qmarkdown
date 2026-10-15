@@ -15,10 +15,12 @@ struct PresentationBlock {
     int level = 0;
     QVector<InlineRange> ranges;
     QVector<LinkSpan> links;
+    QVector<LinkSpan> logicalLinks;
     QVector<ImageSpan> images;
     QImage image;
     QString imageLink;
     bool imageLinked = false;
+    int imageLinkId = -1;
     QVector<PresentationBlock> children;
     bool ordered = false;
     int start = 1;

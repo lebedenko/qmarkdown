@@ -89,3 +89,5 @@ src/QMarkdown/private/selectionregistration.cpp
 src/QMarkdown/private/TaskIndicatorHost.qml
 src/QMarkdown/private/taskindicatoritem.h
 src/QMarkdown/private/taskindicatoritem.cpp
+src/QMarkdown/private/linkcontroller.h
+src/QMarkdown/private/linkcontroller.cpp
