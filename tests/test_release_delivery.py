@@ -1,5 +1,6 @@
 """Offline distribution and release-gate regressions; never publish a release."""
 import importlib.util
+import re
 from pathlib import Path
 import subprocess
 import tarfile
@@ -26,6 +27,20 @@ scope = module('scope', 'scripts/ci-toolchain/check-scope.py')
 
 
 class SourceArchiveTest(unittest.TestCase):
+    def test_arch_upload_patterns_exclude_namcap_logs(self):
+        workflow = (ROOT / '.github/workflows/release.yml').read_text()
+        configuration = workflow.split('name: arch-distribution\n', 1)[1].split('if-no-files-found:', 1)[0]
+        patterns = re.findall(r'\$\{\{ runner\.temp \}\}/qmarkdown-arch/(\S+)', configuration)
+        self.assertTrue(patterns)
+        package = 'qmarkdown-1.8.0-1-x86_64.pkg.tar.zst'
+        expected = {package, package + '.sha256'}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in (*expected, package + '.namcap.log'):
+                (root / name).write_text('fixture')
+            selected = {path.name for pattern in patterns for path in root.glob(pattern)}
+        self.assertEqual(selected, expected)
+
     def test_archive_is_deterministic_library_only_with_licenses(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
