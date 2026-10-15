@@ -73,6 +73,8 @@ class PublishTest(unittest.TestCase):
         elif endpoint == 'releases?per_page=100':
             response = [[self.release] if self.release else []]
         elif endpoint == 'releases/tags/v1.6.0':
+            raise subprocess.CalledProcessError(1, command)
+        elif endpoint == 'releases/123':
             response = {**self.release, 'assets': [{'id': name, 'name': name} for name in self.remote]}
         elif endpoint.startswith('releases/assets/'):
             if self.corrupt_published and not self.release['draft']:
@@ -87,7 +89,7 @@ class PublishTest(unittest.TestCase):
         if command[1:3] == ['api', 'repos/owner/repo/git/refs']:
             self.tag = self.commit
         elif command[1:3] == ['release', 'create']:
-            self.release = {'tag_name': 'v1.6.0', 'draft': True, 'prerelease': False}
+            self.release = {'id': 123, 'tag_name': 'v1.6.0', 'draft': True, 'prerelease': False}
         elif command[1:3] == ['release', 'upload']:
             for name in command[6:]:
                 path = Path(name)
@@ -146,7 +148,7 @@ class PublishTest(unittest.TestCase):
 
     def test_differing_existing_assets_never_get_overwritten(self):
         self.tag = self.commit
-        self.release = {'tag_name': 'v1.6.0', 'draft': False, 'prerelease': False}
+        self.release = {'id': 123, 'tag_name': 'v1.6.0', 'draft': False, 'prerelease': False}
         self.remote = {'qmarkdown-1.6.0.tar.gz': b'different'}
         with self.assertRaisesRegex(SystemExit, 'asset upload'):
             self.invoke()
@@ -161,7 +163,7 @@ class PublishTest(unittest.TestCase):
 
     def test_existing_identical_published_release_can_be_hash_verified(self):
         self.tag = self.commit
-        self.release = {'tag_name': 'v1.6.0', 'draft': False, 'prerelease': False}
+        self.release = {'id': 123, 'tag_name': 'v1.6.0', 'draft': False, 'prerelease': False}
         self.remote = {path.name: path.read_bytes() for path in self.root.iterdir()}
         self.invoke()
         self.assertEqual(self.writes, [])
