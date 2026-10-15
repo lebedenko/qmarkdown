@@ -1,9 +1,13 @@
 # Changelog
 
-### Development — 1.10.0 / QML 1.10
+## 1.10.0 — 2026-10-15
 
-- Add host-owned decorative task indicators, a rounded painted fallback and layout for preferred dimensions.
-- Demonstrate the active Qt Quick Controls checkbox appearance in the viewer, with a fallback toggle.
+- Add opt-in Tab/Shift+Tab traversal of native logical links, boundary exit through host focus, and Enter/Return activation.
+- Add visible link focus with keyboardFocusColor and host-owned navigation geometry requests.
+- Expose one accessible Link per logical link, including links split across text and loaded images, with decoded names and host-owned activation.
+- Add host-owned decorative task indicators, a rounded painted fallback and layout for preferred dimensions; demonstrate the active Controls appearance in the viewer.
+- Refactor private QML responsibilities and typed registration while preserving public behavior, historical imports and 1.x CMake compatibility.
+- Retain static document updates; streaming, highlighting and bundled Mermaid/math engines remain deferred.
 
 ## 1.9.0 — 2026-10-15
 

@@ -16,6 +16,8 @@ FormattedText {
     currentSearchHighlightColor: currentHighlightColor
     selectionStart: coordinator.selectionEnabled ? Math.max(0, coordinator.selectionStart - projectionOffset) : 0
     selectionEnd: coordinator.selectionEnabled ? Math.max(0, coordinator.selectionEnd - projectionOffset) : 0
+    focusedLink: coordinator.linkController.focusedId
+    focusColor: coordinator.linkController.color
     implicitHeight: logicalHeight
     SelectionRegistration {
         coordinator: selectable.coordinator

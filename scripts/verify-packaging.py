@@ -164,6 +164,13 @@ for variant in ("shared", "static"):
             "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", reading_build, "--parallel", "2")
         run(reading_build / executable, env=environment)
+        keyboard_build = work / f"keyboard-{variant}-{link}"
+        run("cmake", "-S", consumer_source, "-B", keyboard_build,
+            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
+            "-DQMARKDOWN_KEYBOARD_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.10.0",
+            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
+        run("cmake", "--build", keyboard_build, "--parallel", "2")
+        run(keyboard_build / executable, env=environment)
     if variant == "shared":
         plugin_consumer = work / "consumer-shared-plugin"
         run("cmake", "-S", consumer_source, "-B", plugin_consumer,

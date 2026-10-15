@@ -55,7 +55,7 @@ QVector<InlineNode> retain(cmark_node *node, bool tagFilter)
     return result;
 }
 void project(const QVector<InlineNode> &nodes, InlineContent &output, int flags = 0,
-             bool inImage = false, const QString &enclosingLink = {}, bool linked = false)
+             bool inImage = false, const QString &enclosingLink = {}, bool linked = false, int enclosingIdentity = -1)
 {
     for (const auto &node : nodes) {
         switch (node.kind) {
@@ -66,22 +66,23 @@ void project(const QVector<InlineNode> &nodes, InlineContent &output, int flags 
             append(output, node.literal, flags | Code); break;
         case InlineKind::SoftBreak: append(output, QStringLiteral(" "), flags); break;
         case InlineKind::HardBreak: append(output, QStringLiteral("\n"), flags); break;
-        case InlineKind::Emphasis: project(node.children, output, flags | Emphasis, inImage, enclosingLink, linked); break;
-        case InlineKind::Strikethrough: project(node.children, output, flags | Strikethrough, inImage, enclosingLink, linked); break;
-        case InlineKind::Strong: project(node.children, output, flags | Strong, inImage, enclosingLink, linked); break;
+        case InlineKind::Emphasis: project(node.children, output, flags | Emphasis, inImage, enclosingLink, linked, enclosingIdentity); break;
+        case InlineKind::Strikethrough: project(node.children, output, flags | Strikethrough, inImage, enclosingLink, linked, enclosingIdentity); break;
+        case InlineKind::Strong: project(node.children, output, flags | Strong, inImage, enclosingLink, linked, enclosingIdentity); break;
         case InlineKind::Link: {
             const int start = output.text.size();
+            const int identity = inImage ? enclosingIdentity : output.nextLinkIdentity++;
             project(node.children, output, flags, inImage,
-                    inImage ? enclosingLink : node.destination, !inImage || linked);
+                    inImage ? enclosingLink : node.destination, !inImage || linked, identity);
             if (!inImage && output.text.size() > start)
-                output.links.append({start, int(output.text.size()) - start, node.destination});
+                output.links.append({start, int(output.text.size()) - start, node.destination, identity});
             break;
         }
         case InlineKind::Image: {
             const int start = output.text.size();
             project(node.children, output, flags, true);
             if (!inImage) output.images.append({start, int(output.text.size()) - start,
-                node.destination, node.title, enclosingLink, linked});
+                node.destination, node.title, enclosingLink, linked, enclosingIdentity});
             break;
         }
         }

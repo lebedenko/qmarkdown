@@ -489,6 +489,17 @@ void FormattedText::paint(QPainter *painter)
             painter->drawLine(decoration.line.translated(run.origin));
         }
     }
+    if (m_focusedLink >= 0) {
+        painter->setPen(QPen(m_focusColor, 2));
+        painter->setBrush(Qt::NoBrush);
+        for (const auto &value : m_links) {
+            const auto link = value.toMap();
+            if (link.value("logicalId", -1).toInt() != m_focusedLink) continue;
+            const int start = link.value("start").toInt();
+            for (const auto &rect : rangeRectangles(start, start + link.value("length").toInt()))
+                painter->drawRect(rect.adjusted(1, 1, -1, -1));
+        }
+    }
     painter->restore();
 }
 
@@ -567,13 +578,20 @@ QVector<QRectF> FormattedText::rangeRectangles(int start, int end) const
 {
     QVector<QRectF> result;
     if (!m_layout || start >= end) return result;
+    QVector<QRectF> cells;
     for (const auto &cell : m_cursorCells)
-        if (cell.start < end && cell.end > start) {
-            if (!result.isEmpty() && result.last().top() == cell.rect.top()
-                && cell.rect.left() <= result.last().right() + .01)
-                result.last() = result.last().united(cell.rect);
-            else result.append(cell.rect);
-        }
+        if (cell.start < end && cell.end > start) cells.append(cell.rect);
+    // Logical source order can run backwards or jump across other text in bidi
+    // lines. Merge only adjacent visual cells, retaining disjoint link fragments.
+    std::sort(cells.begin(), cells.end(), [](const auto &a, const auto &b) {
+        return a.top() == b.top() ? a.left() < b.left() : a.top() < b.top();
+    });
+    for (const auto &rect : cells) {
+        if (!result.isEmpty() && result.last().top() == rect.top()
+            && rect.left() <= result.last().right() + .01)
+            result.last() = result.last().united(rect);
+        else result.append(rect);
+    }
     return result;
 }
 int FormattedText::cursorAt(qreal x, qreal y) const

@@ -171,3 +171,16 @@ if(QMARKDOWN_BUILD_EXAMPLES)
         endforeach()
     endforeach()
 endif()
+
+qt_add_executable(qmarkdown-keyboard-test tst_keyboard.cpp)
+target_include_directories(qmarkdown-keyboard-test PRIVATE ../src/QMarkdown)
+target_compile_definitions(qmarkdown-keyboard-test PRIVATE
+    QMARKDOWN_KEYBOARD_CAPTURE="${CMAKE_CURRENT_BINARY_DIR}/keyboard-focus.png")
+target_link_libraries(qmarkdown-keyboard-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-keyboard-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-keyboard-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-keyboard COMMAND qmarkdown-keyboard-test)
+set_tests_properties(qmarkdown-keyboard PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

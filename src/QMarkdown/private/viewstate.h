@@ -1,6 +1,7 @@
 #pragma once
 #include "../markdownstyle.h"
 #include "presentation.h"
+#include "linkcontroller.h"
 #include "resourcecontroller.h"
 #include <QAbstractListModel>
 #include <QPointer>
@@ -35,7 +36,8 @@ public:
         SelectionKindRole = Qt::UserRole + 17,
         CodeInfoRole = Qt::UserRole + 18,
         CodeFencedRole = Qt::UserRole + 19,
-        CodeLanguageRole = Qt::UserRole + 20
+        CodeLanguageRole = Qt::UserRole + 20,
+        ImageLinkIdRole = Qt::UserRole + 21
     };
     using QAbstractListModel::QAbstractListModel;
     int rowCount(const QModelIndex &parent = {}) const override;
@@ -51,6 +53,7 @@ class ViewState : public QObject
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(LinkController *linkController READ linkController CONSTANT FINAL)
     Q_PROPERTY(bool searchActive READ searchActive WRITE setSearchActive NOTIFY searchActiveChanged FINAL)
     Q_PROPERTY(QString searchQuery READ searchQuery WRITE setSearchQuery NOTIFY searchQueryChanged FINAL)
     Q_PROPERTY(bool searchCaseSensitive READ searchCaseSensitive WRITE setSearchCaseSensitive NOTIFY searchCaseSensitiveChanged FINAL)
@@ -76,6 +79,7 @@ class ViewState : public QObject
     Q_PROPERTY(MarkdownResourcePolicy *resourcePolicy READ resourcePolicy WRITE setResourcePolicy RESET resetResourcePolicy NOTIFY resourcePolicyChanged FINAL)
     Q_PROPERTY(QAbstractItemModel *blocks READ blocks CONSTANT FINAL)
 public:
+    LinkController *linkController() const { return m_linkController; }
     bool searchActive() const { return m_searchActive; }
     void setSearchActive(bool value);
     QString searchQuery() const { return m_searchQuery; }
@@ -170,6 +174,8 @@ signals:
     void extendedAutolinksEnabledChanged();
     void styleChanged();
 private:
+    friend class LinkController;
+    LinkController *m_linkController;
     void rebuildSearch();
     void rebuildHeadings();
     bool advanceSearch(int direction);

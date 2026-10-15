@@ -261,6 +261,7 @@ ApplicationWindow {
                         contentHeight: preview.contentHeight
                         ScrollBar.vertical: ScrollBar {}
                         MarkdownView {
+                            keyboardNavigationEnabled: true
                             selectionEnabled: selectionToggle.checked
                             selectionViewport: previewScroll
                             onNavigationRequested: function(target) {
