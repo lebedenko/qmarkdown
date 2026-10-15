@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.8.0 / QML 1.8 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.9.0 / QML 1.9 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.8` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.9` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -18,6 +18,13 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 
 | Property | Type / default | Since | Contract |
 | --- | --- | --- | --- |
+| `searchActive` | bool / false | 1.9 | Enables Find and searchable fenced source. |
+| `searchQuery` | string / empty | 1.9 | Non-overlapping literal query over decoded document text. |
+| `searchCaseSensitive` | bool / false | 1.9 | Unicode case comparison mode. |
+| `searchResultCount` | readonly int / 0 | 1.9 | Zero while inactive or query empty. |
+| `currentSearchResult` | readonly int / -1 | 1.9 | Zero-based current result, -1 when absent. |
+| `searchHighlightColor`, `currentSearchHighlightColor` | color / #70ffff00, #b0ff9900 | 1.9 | Independent background highlights beneath selection. |
+| `headings` | readonly var / empty array | 1.9 | Document-order snapshots of level, title and fragmentId. |
 | `markdown` | string / empty | 1.0 | Full source replacement; equal assignments do nothing. |
 | `style` | MarkdownStyle / view-owned Legacy style | 1.0 | Shared host styles are borrowed; see lifecycle below. |
 | `baseUrl` | url / empty | 1.0 | Explicit base for relative image URLs; no inferred working/component directory. |
@@ -42,12 +49,16 @@ changes, resource updates, layout changes and style changes retain selection.
 
 | Method | Since | Behavior |
 | --- | --- | --- |
+| `searchNext()`, `searchPrevious()` | 1.9 | Return bool; advance with wrapping and request geometry. |
+| `navigateToHeading(index)` | 1.9 | Return bool; request outline entry geometry by zero-based index. |
+| `navigateToFragment(fragment)` | 1.9 | Return bool; decode a local #fragment once and resolve its exact generated ID. |
 | `selectAll()` | 1.7 | Selects the complete projection when enabled. |
 | `clearSelection()` | 1.7 | Clears selection and resets both endpoints to zero. |
 | `requestCopy()` | 1.7 | Emits copyRequested only when enabled and selection is nonempty. |
 
 | Signal | Since | Host responsibility |
 | --- | --- | --- |
+| `navigationRequested(rect target)` | 1.9 | Host scrolls/clamps to the target in view coordinates, including refreshed geometry. |
 | `linkActivated(string destination)` | 1.0 | Validate, resolve and navigate; the parser-decoded destination is unchanged, including empty strings and custom schemes. |
 | `codeBlockCopyRequested(string text)` | 1.2 | Copy exact parser-produced code, including trailing newlines; fences/info strings are excluded. |
 | `selectionScrollRequested(real deltaY)` | 1.8 | Host scroll request in logical pixels, positive downward; host clamps. |
@@ -67,7 +78,7 @@ the decoded info string, case-sensitively. Indented/empty/unmatched blocks remai
 ordinary code. Hosts declare required string `codeText`, `infoString`, `language`
 and required `markdownStyle`; the library supplies them at construction, assigns
 width and reserves finite nonnegative implicitHeight. Existing surface/actions
-remain. Selection enabled always displays selectable source; copy payloads retain
+remain. Selection or Find enabled always displays searchable source; copy payloads retain
 source. Null/invalid entries and creation failures fall back with diagnostics.
 Instances follow document/component/selection lifetime; width/style changes update
 them. Components are trusted host code. See [renderer contract and example](fenced-block-renderers.md).
@@ -163,7 +174,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.8 CONFIG REQUIRED)
+find_package(QMarkdown 1.9 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
@@ -180,3 +191,6 @@ BUILD_SHARED_LIBS (ON), BUILD_TESTING (OFF), QMARKDOWN_BUILD_EXAMPLES (OFF),
 QMARKDOWN_BUILD_BENCHMARKS (OFF, requires tests), and QMARKDOWN_QML_INSTALL_DIR
 (default `${CMAKE_INSTALL_LIBDIR}/qt6/qml`). See [installation](release-install.md)
 and [source build](source-install.md). Hosts own Qt runtime deployment.
+
+[Reading and navigation](reading-navigation.md) defines Find lifecycle, heading IDs,
+fragment decoding and deferred host navigation requests.

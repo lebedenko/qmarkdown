@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.0 — 2026-10-15
+
+- Add literal document Find with case modes, independent highlights and wrapping result navigation.
+- Add a recursive heading outline and explicit once-decoded fragment resolution with collision-safe IDs.
+- Expose refreshed navigation rectangles for host-owned scrolling and searchable fenced source during Find.
+- Demonstrate Find shortcuts, an outline and local links in the playground; retain 1.x compatibility.
+
 ## 1.8.0 — 2026-10-14
 
 - Add host QML custom fenced-block renderers with source fallback during selection.

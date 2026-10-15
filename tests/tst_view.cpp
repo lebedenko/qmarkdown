@@ -135,6 +135,39 @@ private slots:
             QCOMPARE(model->data(model->index(0,0),BlockModel::BlockTextRole).toString(),"replacement");
         }
     }
+    void playgroundReadingControls()
+    {
+#ifdef QMARKDOWN_VIEWER_SOURCE
+        QQmlEngine engine; QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window); window->show();
+        QVERIFY(QTest::qWaitForWindowExposed(window)); window->requestActivate(); QTRY_VERIFY(window->isActive());
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        auto *query = window->findChild<QQuickItem *>("findQuery"); QVERIFY(query);
+        auto *scroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(scroll);
+        auto *editor = window->findChild<QQuickItem *>("editor"); QVERIFY(editor);
+        auto *outline = window->findChild<QQuickItem *>("outlineToggle"); QVERIFY(outline);
+        editor->setProperty("text", "# Top\n\n" + QString("long paragraph needle ").repeated(120) + "\n\n## Bottom\n\nneedle");
+        QTRY_VERIFY(content(preview) > scroll->height());
+        editor->forceActiveFocus();
+        QTest::keyClick(window, Qt::Key_F, Qt::ControlModifier);
+        QTRY_VERIFY(preview->property("searchActive").toBool()); QTRY_VERIFY(query->hasActiveFocus());
+        query->setProperty("text", "needle");
+        QTRY_COMPARE(preview->property("searchResultCount").toInt(), 121);
+        QTest::keyClick(window, Qt::Key_Return); QCOMPARE(preview->property("currentSearchResult").toInt(), 1);
+        QTest::keyClick(window, Qt::Key_Return, Qt::ShiftModifier); QCOMPARE(preview->property("currentSearchResult").toInt(), 0);
+        outline->setProperty("checked", true); QTRY_VERIFY(outline->property("checked").toBool());
+        QVERIFY(QMetaObject::invokeMethod(preview, "linkActivated", Q_ARG(QString, "#bottom")));
+        QTRY_VERIFY(scroll->property("contentY").toDouble() > 0);
+        QVERIFY(scroll->property("contentY").toDouble() <= qMax(0.0, scroll->property("contentHeight").toDouble() - scroll->height()));
+        auto *destination = window->findChild<QObject *>("lastDestination"); QVERIFY(destination);
+        QCOMPARE(destination->property("text").toString(), "Local heading: #bottom");
+        QVERIFY(QMetaObject::invokeMethod(preview, "linkActivated", Q_ARG(QString, "https://example.invalid")));
+        QCOMPARE(destination->property("text").toString(), "Last activated: https://example.invalid");
+        QTest::keyClick(window, Qt::Key_Escape); QTRY_VERIFY(!preview->property("searchActive").toBool());
+        outline->setProperty("checked", false);
+#endif
+    }
     void playgroundRendererControls()
     {
 #ifdef QMARKDOWN_VIEWER_SOURCE
@@ -2492,7 +2525,7 @@ MarkdownView {
         auto *destinationLabel = window->findChild<QObject *>("lastDestination"); QVERIFY(destinationLabel);
         QTest::mouseClick(window, Qt::LeftButton, Qt::NoModifier,
                           linkedHeading->mapToScene(QPointF(8-linkedHeading->x(), 12-linkedHeading->y())).toPoint());
-        QTRY_COMPARE(destinationLabel->property("text").toString(), "Last activated: #heading");
+        QTRY_COMPARE(destinationLabel->property("text").toString(), "Missing heading: #heading");
         QCOMPARE(destinationLabel->property("textFormat").toInt(), 0);
         QVERIFY(QQmlProperty::write(window, "palette.link", QColor("#2299bb")));
         QTRY_COMPARE(color("link"), QColor("#2299bb"));

@@ -67,3 +67,6 @@ Enable Custom fences and disable Document selection to view it; re-enable select
 to inspect source. Bundled highlighting, Mermaid, math, inline extensions and public
 C++ APIs remain deferred. See the [API reference](api.md) and
 [Feature 042](../specs/042-custom-fenced-block-renderers/requirements.md).
+
+Since QML 1.9, active Find also replaces custom visuals with searchable source.
+Eligible visuals return after Find closes if document selection is disabled.

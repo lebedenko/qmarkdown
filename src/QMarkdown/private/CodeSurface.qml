@@ -23,7 +23,7 @@ Rectangle {
     }
     readonly property var rendererEntry: {
         const map = view.fencedBlockRenderers
-        return !selected && fenced && language.length > 0 && map
+        return !selected && !view.searchActive && fenced && language.length > 0 && map
             && Object.prototype.hasOwnProperty.call(map, language) ? map[language] : undefined
     }
     property Item rendererItem: null
@@ -40,7 +40,7 @@ Rectangle {
     }
     function rebuildRenderer() {
         clearRenderer()
-        if (!ready || selected || !fenced || rendererEntry === undefined) return
+        if (!ready || selected || view.searchActive || !fenced || rendererEntry === undefined) return
         const component = rendererEntry as Component
         if (!component || component.status !== Component.Ready) {
             console.warn("QMarkdown: fenced renderer '" + language + "': invalid or unready Component; using code")
@@ -107,7 +107,7 @@ Rectangle {
         x: surface.padX
         y: surface.padY + actions.height
         width: Math.max(1, surface.width - 2 * surface.padX)
-        sourceComponent: surface.rendererItem ? null : surface.selected ? selectedText : plainText
+        sourceComponent: surface.rendererItem ? null : surface.selected || surface.view.searchActive ? selectedText : plainText
     }
     Component {
         id: plainText
@@ -134,8 +134,11 @@ Rectangle {
             horizontalAlignment: surface.textAlignment
             font: surface.style.codeBlockFont
             color: surface.style.codeBlockColor
-            selectionStart: Math.max(0, surface.coordinator.selectionStart - projectionOffset)
-            selectionEnd: Math.max(0, surface.coordinator.selectionEnd - projectionOffset)
+            selectionStart: surface.coordinator.selectionEnabled ? Math.max(0, surface.coordinator.selectionStart - projectionOffset) : 0
+            selectionEnd: surface.coordinator.selectionEnabled ? Math.max(0, surface.coordinator.selectionEnd - projectionOffset) : 0
+            searchRanges: surface.view.searchRangesFor(projectionOffset)
+            searchHighlightColor: surface.view.searchHighlightColor
+            currentSearchHighlightColor: surface.view.currentSearchHighlightColor
             selectionColor: surface.style.selectionBackgroundColor
             implicitHeight: logicalHeight
             Component.onCompleted: surface.coordinator.registerSelectionItem(leaf, ViewState.TextSelection)

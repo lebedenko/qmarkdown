@@ -3,21 +3,33 @@
 ## Current release
 
 <!-- current-release:start -->
-Published package **1.8.0 / QML 1.8** is available in the [1.8.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.8.0).
+Package **1.9.0 / QML 1.9**. Release assets: [1.9.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.9.0).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
 host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
 selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.8.0.md) and
+See the [release notes](../docs/release-notes-1.9.0.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.8.0 accepts compatible 1.0–1.8 requests and
-EXACT 1.8.0; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.9.0 accepts compatible 1.0–1.9 requests and
+EXACT 1.9.0; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
+
+Reading tools include literal Find with independent highlights, a recursive heading
+outline and explicit fragment navigation. Hosts own controls and scrolling. See
+the [reader guide](../docs/reading-navigation.md).
 <!-- current-release:end -->
+
+## 1.9 reading and navigation
+
+[045: requirements](045-reading-navigation/requirements.md),
+[design](045-reading-navigation/design.md), [tasks](045-reading-navigation/tasks.md)
+and [verification](045-reading-navigation/verification.md) record the reader toolkit
+approved on 2026-10-15, implemented and locally verified on both configured Qt
+targets. Merge, tagging and publication require separate authorization.
 
 ## 1.8 implementation and historical feature records
 
