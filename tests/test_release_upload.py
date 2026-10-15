@@ -30,7 +30,11 @@ class UploadTest(unittest.TestCase):
     def gh(self, *args):
         endpoint = args[-1]
         if '/releases/tags/' in endpoint:
-            return json.dumps({'draft': self.draft, 'prerelease': False,
+            raise subprocess.CalledProcessError(1, args)
+        if endpoint.endswith('/releases?per_page=100'):
+            return json.dumps([[{'tag_name': 'v1.6.0', 'id': 123}]]).encode()
+        if endpoint.endswith('/releases/123'):
+            return json.dumps({'id': 123, 'tag_name': 'v1.6.0', 'draft': self.draft, 'prerelease': False,
                                'assets': [{'name': name, 'id': name} for name in self.remote]}).encode()
         return self.remote[endpoint.split('/assets/')[1]]
 
@@ -39,6 +43,54 @@ class UploadTest(unittest.TestCase):
             path = Path(path)
             self.remote[path.name] = path.read_bytes()
         self.assertNotIn('--clobber', command)
+
+    def test_paginated_exact_match_refreshes_draft_and_published_state(self):
+        for draft in (True, False):
+            self.draft = draft
+
+            def paginated(*args):
+                if args[-1].endswith('/releases?per_page=100'):
+                    self.assertEqual(args[:3], ('api', '--paginate', '--slurp'))
+                    return json.dumps([[{'tag_name': 'v1.6.0-extra', 'id': 999}],
+                                       [{'tag_name': 'v1.6.0', 'id': 123}]]).encode()
+                return self.gh(*args)
+
+            with patch.object(upload, 'gh', side_effect=paginated):
+                release = upload.release_assets('owner/repo', 'v1.6.0')
+            self.assertEqual(release['draft'], draft)
+            self.assertEqual(len(release['assets']), 4)
+
+    def test_missing_and_ambiguous_matches_stop_before_id_lookup(self):
+        for pages in ([[]], [[{'tag_name': 'v1.6.0', 'id': 1}],
+                              [{'tag_name': 'v1.6.0', 'id': 2}]]):
+            with patch.object(upload, 'gh', return_value=json.dumps(pages)) as gh:
+                with self.assertRaisesRegex(ValueError, 'exactly one'):
+                    upload.release_assets('owner/repo', 'v1.6.0')
+                self.assertEqual(gh.call_count, 1)
+
+    def test_listing_and_id_api_errors_stop_without_upload(self):
+        for failed in ('/releases?per_page=100', '/releases/123'):
+            def failure(*args):
+                if args[-1].endswith(failed):
+                    raise subprocess.CalledProcessError(1, args)
+                return self.gh(*args)
+
+            with patch.object(upload, 'gh', side_effect=failure), patch.object(upload.subprocess, 'run') as run:
+                with self.assertRaises(subprocess.CalledProcessError):
+                    upload.upload('owner/repo', 'v1.6.0', self.local)
+                run.assert_not_called()
+
+    def test_refreshed_prerelease_or_changed_identity_is_rejected(self):
+        for change in ({'prerelease': True}, {'tag_name': 'other'}, {'id': 456}):
+            def changed(*args):
+                data = self.gh(*args)
+                if args[-1].endswith('/releases/123'):
+                    return json.dumps({**json.loads(data), **change}).encode()
+                return data
+
+            with patch.object(upload, 'gh', side_effect=changed):
+                with self.assertRaises(ValueError):
+                    upload.release_assets('owner/repo', 'v1.6.0')
 
     def test_identical_assets_are_accepted_without_upload(self):
         with patch.object(upload, 'gh', side_effect=self.gh), patch.object(upload.subprocess, 'run') as run:
