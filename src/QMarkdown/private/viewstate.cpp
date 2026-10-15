@@ -7,6 +7,7 @@
 #include <QQuickWindow>
 #include <QStyleHints>
 #include <QTextBoundaryFinder>
+#include <QSet>
 #include <limits>
 #include <tuple>
 #include <QtQml/qqml.h>
@@ -163,7 +164,9 @@ void ViewState::reparse()
         m_gfmEnabled || m_extendedAutolinksEnabled, m_gfmEnabled || m_tablesEnabled,
         m_gfmEnabled || m_tagFilterEnabled};
     auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter); };
+    const bool semanticChange = flags(options) != flags(m_parsedOptions) || m_sourceChanged;
     if (flags(options) != flags(m_parsedOptions)) clearSelection();
+    m_sourceChanged = false;
     m_parsedOptions = options;
     m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, options);
     auto presentation = QMarkdownPrivate::projectDocument(m_sourceBlocks);
@@ -181,6 +184,11 @@ void ViewState::reparse()
     collect(collect, presentation.blocks);
     m_projection = std::move(presentation.text);
     m_presentationBlocks = std::move(presentation.blocks);
+    if (semanticChange) {
+        m_targetStart = -1;
+        rebuildHeadings();
+        rebuildSearch();
+    }
     reloadResources();
 }
 void ViewState::setMarkdown(const QString &value)
@@ -188,6 +196,7 @@ void ViewState::setMarkdown(const QString &value)
     if (m_markdown == value) return;
     clearSelection();
     m_markdown = value;
+    m_sourceChanged = true;
     reparse();
     emit markdownChanged();
 }
@@ -307,12 +316,24 @@ void ViewState::requestCopy()
 }
 void ViewState::registerSelectionItem(QQuickItem *item, int kind)
 {
-    if (!m_selectionEnabled || !item) return;
+    if (!item) return;
     unregisterSelectionItem(item);
     m_selectionItems.append({item, kind});
+    connect(item, &QQuickItem::xChanged, this, &ViewState::refreshNavigation);
+    connect(item, &QQuickItem::yChanged, this, &ViewState::refreshNavigation);
+    connect(item, &QQuickItem::widthChanged, this, &ViewState::refreshNavigation);
+    connect(item, &QQuickItem::heightChanged, this, &ViewState::refreshNavigation);
+    if (auto *text = qobject_cast<::FormattedText *>(item))
+        connect(text, &::FormattedText::layoutChanged, this, &ViewState::refreshNavigation);
+    for (auto *parent = item->parentItem(); parent && parent != m_navigationView; parent = parent->parentItem()) {
+        connect(parent, &QQuickItem::xChanged, this, &ViewState::refreshNavigation, Qt::UniqueConnection);
+        connect(parent, &QQuickItem::yChanged, this, &ViewState::refreshNavigation, Qt::UniqueConnection);
+    }
+    refreshNavigation();
 }
 void ViewState::unregisterSelectionItem(QQuickItem *item)
 {
+    if (item) disconnect(item, nullptr, this, nullptr);
     m_selectionItems.removeIf([item](const auto &entry) { return !entry.item || entry.item == item; });
 }
 bool ViewState::selectionExcluded(QQuickItem *view, QPointF point) const
@@ -539,4 +560,174 @@ QVariant ViewState::selectionLink(QQuickItem *view, QPointF point) const
         return link >= 0 ? QVariant(text->linkDestination(link)) : QVariant();
     }
     return item->property("imageLinked").toBool() ? item->property("imageLink") : QVariant();
+}
+
+void ViewState::setSearchActive(bool value)
+{
+    if (m_searchActive == value) return;
+    m_searchActive = value;
+    emit searchActiveChanged();
+    rebuildSearch();
+}
+void ViewState::setSearchQuery(const QString &value)
+{
+    if (m_searchQuery == value) return;
+    m_searchQuery = value;
+    emit searchQueryChanged();
+    rebuildSearch();
+}
+void ViewState::setSearchCaseSensitive(bool value)
+{
+    if (m_searchCaseSensitive == value) return;
+    m_searchCaseSensitive = value;
+    emit searchCaseSensitiveChanged();
+    rebuildSearch();
+}
+QVariantList ViewState::searchMatches() const
+{
+    QVariantList result;
+    for (int i = 0; i < m_matches.size(); ++i)
+        result.append(QVariantMap{{"start", m_matches[i].start}, {"length", m_matches[i].length}, {"current", i == m_currentMatch}});
+    return result;
+}
+void ViewState::rebuildSearch()
+{
+    if (m_targetSearch) m_targetStart = -1;
+    m_matches.clear();
+    if (m_searchActive && !m_searchQuery.isEmpty()) {
+        const auto mode = m_searchCaseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive;
+        int start = 0;
+        while ((start = m_projection.indexOf(m_searchQuery, start, mode)) >= 0) {
+            m_matches.append({start, int(m_searchQuery.size())});
+            start += int(m_searchQuery.size());
+        }
+    }
+    m_currentMatch = m_matches.isEmpty() ? -1 : 0;
+    emit searchChanged();
+    if (m_currentMatch >= 0) {
+        m_targetSearch = true;
+        m_targetStart = m_matches[0].start;
+        m_targetLength = m_matches[0].length;
+        m_lastTarget = {};
+        refreshNavigation();
+    }
+}
+bool ViewState::advanceSearch(int direction)
+{
+    if (m_matches.isEmpty()) return false;
+    m_currentMatch = (m_currentMatch + direction + m_matches.size()) % m_matches.size();
+    m_targetStart = m_matches[m_currentMatch].start;
+    m_targetLength = m_matches[m_currentMatch].length;
+    m_targetSearch = true;
+    m_lastTarget = {};
+    emit searchChanged();
+    refreshNavigation();
+    return true;
+}
+bool ViewState::searchNext() { return advanceSearch(1); }
+bool ViewState::searchPrevious() { return advanceSearch(-1); }
+
+void ViewState::rebuildHeadings()
+{
+    m_headings.clear(); m_headingRanges.clear();
+    QSet<QString> used;
+    auto collect = [this, &used](auto &&self, const auto &blocks) -> void {
+        for (const auto &block : blocks) {
+            if (block.kind == QMarkdownPrivate::PresentationKind::Heading) {
+                QString base;
+                bool space = false;
+                for (char32_t ch : block.text.toLower().toUcs4()) {
+                    const auto category = QChar::category(ch);
+                    if (category >= QChar::Punctuation_Connector && category <= QChar::Punctuation_Other) continue;
+                    if (QChar::isSpace(ch)) { space = !base.isEmpty(); continue; }
+                    if (space) base += u'-';
+                    space = false;
+                    base += QString::fromUcs4(&ch, 1);
+                }
+                if (base.isEmpty()) base = QStringLiteral("section");
+                QString id = base;
+                for (int suffix = 1; used.contains(id); ++suffix) id = base + u'-' + QString::number(suffix);
+                used.insert(id);
+                m_headings.append(QVariantMap{{"level", block.level}, {"title", block.text}, {"fragmentId", id}});
+                m_headingRanges.append({block.selectionOffset, block.selectionLength});
+            }
+            self(self, block.children);
+        }
+    };
+    collect(collect, m_presentationBlocks);
+    emit headingsChanged();
+}
+bool ViewState::navigateToHeading(int index)
+{
+    m_targetStart = -1;
+    if (index < 0 || index >= m_headingRanges.size()) return false;
+    m_targetSearch = false;
+    m_targetStart = m_headingRanges[index].start;
+    m_targetLength = m_headingRanges[index].length;
+    m_lastTarget = {};
+    refreshNavigation();
+    return true;
+}
+bool ViewState::navigateToFragment(const QString &fragment)
+{
+    m_targetStart = -1;
+    if (!fragment.startsWith(u'#')) return false;
+    const auto id = QUrl::fromPercentEncoding(fragment.mid(1).toUtf8());
+    if (id.isEmpty()) return false;
+    for (int i = 0; i < m_headings.size(); ++i)
+        if (m_headings[i].toMap().value("fragmentId").toString() == id) return navigateToHeading(i);
+    return false;
+}
+void ViewState::setNavigationView(QQuickItem *view)
+{
+    if (m_navigationView == view) return;
+    m_navigationView = view;
+    emit navigationViewChanged();
+    refreshNavigation();
+}
+void ViewState::refreshNavigation()
+{
+    if (m_navigationQueued || m_targetStart < 0) return;
+    m_navigationQueued = true;
+    QTimer::singleShot(0, this, [this] {
+        m_navigationQueued = false;
+        emitNavigation();
+    });
+}
+void ViewState::emitNavigation()
+{
+    if (!m_navigationView || m_navigationView->width() <= 0 || m_targetStart < 0) return;
+    // Resolve pending native text and positioner polish before mapping geometry.
+    auto polish = [](auto &&self, QQuickItem *item) -> void {
+        item->ensurePolished();
+        const auto children = item->childItems();
+        for (auto *child : children) self(self, child);
+        item->ensurePolished();
+    };
+    polish(polish, m_navigationView);
+    QRectF target, nearest;
+    int distance = std::numeric_limits<int>::max();
+    for (const auto &entry : m_selectionItems) {
+        auto *item = entry.item.data();
+        if (!item || !item->isVisible() || item->width() <= 0
+            || (entry.kind != TextSelection && entry.kind != ImageSelection)) continue;
+        const int offset = item->property("projectionOffset").toInt();
+        const int length = item->property("projectionLength").toInt();
+        const auto bounds = item->mapRectToItem(m_navigationView, item->boundingRect());
+        const int d = qMax(0, qMax(offset - m_targetStart, m_targetStart - offset - length));
+        if (d < distance) { distance = d; nearest = bounds; }
+        if (offset > m_targetStart + m_targetLength || offset + length < m_targetStart) continue;
+        if (m_targetLength > 0 && (offset >= m_targetStart + m_targetLength || offset + length <= m_targetStart)) continue;
+        if (auto *text = qobject_cast<::FormattedText *>(item)) {
+            for (const auto &rect : text->rangeRectangles(m_targetStart - offset, m_targetStart + m_targetLength - offset)) {
+                const auto mapped = item->mapRectToItem(m_navigationView, rect.translated(text->paintOffset()));
+                target = target.isNull() ? mapped : target.united(mapped);
+            }
+        } else target = target.isNull() ? bounds : target.united(bounds);
+    }
+    if (target.isNull()) target = nearest;
+    if (!target.isEmpty() && target != m_lastTarget) {
+        m_lastTarget = target;
+        emit navigationRequested(target);
+    }
 }

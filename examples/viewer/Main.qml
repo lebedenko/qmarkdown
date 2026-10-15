@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown 1.7
+import QMarkdown 1.9
 import QMarkdownViewer.Tools
 
 ApplicationWindow {
@@ -27,6 +27,9 @@ ApplicationWindow {
     function switchStyle() { stylePanel.applyPreset(true) }
     function resetStyle() { stylePanel.resetStyle() }
     onSampleIndexChanged: loadSample()
+    function openFind() { preview.searchActive = true; findQuery.forceActiveFocus(); findQuery.selectAll() }
+    Shortcut { sequence: "Ctrl+F"; onActivated: window.openFind() }
+    Shortcut { sequence: "Escape"; enabled: preview.searchActive; onActivated: { preview.searchActive = false; preview.forceActiveFocus() } }
     Samples { id: samples }
     Component {
         id: nativePreview
@@ -94,6 +97,8 @@ ApplicationWindow {
         Flow {
             Layout.fillWidth: true
             spacing: 8
+            Button { text: "Find"; onClicked: window.openFind() }
+            CheckBox { id: outlineToggle; text: "Heading outline"; objectName: "outlineToggle" }
             CheckBox { id: rendererToggle; text: "Custom fences"; objectName: "rendererToggle" }
             CheckBox { id: selectionToggle; text: "Document selection"; checked: true; objectName: "selectionToggle" }
             CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
@@ -103,6 +108,52 @@ ApplicationWindow {
             CheckBox { id: autolinkToggle; text: "GFM extended autolinks"; objectName: "autolinkToggle" }
             CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
             CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
+        }
+        RowLayout {
+            visible: preview.searchActive
+            Layout.fillWidth: true
+            TextField {
+                id: findQuery
+                objectName: "findQuery"
+                Layout.fillWidth: true
+                placeholderText: "Find in document"
+                onTextChanged: preview.searchQuery = text
+                Keys.onReturnPressed: function(event) {
+                    if (event.modifiers & Qt.ShiftModifier) preview.searchPrevious()
+                    else preview.searchNext()
+                }
+                Keys.onEnterPressed: function(event) {
+                    if (event.modifiers & Qt.ShiftModifier) preview.searchPrevious()
+                    else preview.searchNext()
+                }
+            }
+            CheckBox { text: "Match case"; onToggled: preview.searchCaseSensitive = checked }
+            Label { objectName: "findCount"; text: (preview.currentSearchResult + 1) + " / " + preview.searchResultCount }
+            Button { text: "Previous"; enabled: preview.searchResultCount > 0; onClicked: preview.searchPrevious() }
+            Button { text: "Next"; enabled: preview.searchResultCount > 0; onClicked: preview.searchNext() }
+            Button { text: "Close Find"; onClicked: { preview.searchActive = false; preview.forceActiveFocus() } }
+        }
+        ScrollView {
+            visible: outlineToggle.checked
+            Layout.fillWidth: true
+            Layout.preferredHeight: Math.min(outlineItems.implicitHeight, 150)
+            contentWidth: availableWidth
+            clip: true
+            Column {
+                id: outlineItems
+                width: parent.width
+                Repeater {
+                    model: preview.headings
+                    delegate: Button {
+                        required property var modelData
+                        required property int index
+                        width: outlineItems.width
+                        text: "  ".repeat(modelData.level - 1) + modelData.title
+                        flat: true
+                        onClicked: preview.navigateToHeading(index)
+                    }
+                }
+            }
         }
         ScrollView {
             id: styleScroll
@@ -207,6 +258,11 @@ ApplicationWindow {
                         MarkdownView {
                             selectionEnabled: selectionToggle.checked
                             selectionViewport: previewScroll
+                            onNavigationRequested: function(target) {
+                                const mapped = preview.mapToItem(previewScroll.contentItem, target.x, target.y)
+                                previewScroll.contentY = Math.max(0, Math.min(
+                                    Math.max(0, previewScroll.contentHeight - previewScroll.height), mapped.y))
+                            }
                             onSelectionScrollRequested: function(deltaY) {
                                 previewScroll.contentY = Math.max(0, Math.min(
                                     Math.max(0, previewScroll.contentHeight - previewScroll.height),
@@ -246,7 +302,12 @@ ApplicationWindow {
                                 Timer { id: feedback; interval: 1500; onTriggered: actions.copied = false }
                             }
                             onCodeBlockCopyRequested: function(text) { clipboard.copyText(text) }
-                            onLinkActivated: function(destination) { window.lastDestination = "Last activated: " + destination }
+                            onLinkActivated: function(destination) {
+                                if (destination.startsWith("#")) {
+                                    const found = preview.navigateToFragment(destination)
+                                    window.lastDestination = (found ? "Local heading: " : "Missing heading: ") + destination
+                                } else window.lastDestination = "Last activated: " + destination
+                            }
                         }
                     }
                 }

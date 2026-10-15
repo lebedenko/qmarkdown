@@ -380,6 +380,15 @@ void FormattedText::paint(QPainter *painter)
     painter->setBrush(m_codeBackground);
     for (const auto &rect : m_codeRects)
         painter->drawRoundedRect(rect, m_codeCornerRadius, m_codeCornerRadius);
+    for (bool current : {false, true}) {
+        painter->setBrush(current ? m_currentSearchColor : m_searchColor);
+        for (const auto &value : m_searchRanges) {
+            const auto range = value.toMap();
+            if (range.value("current").toBool() != current) continue;
+            const int start = range.value("start").toInt();
+            for (const auto &rect : rangeRectangles(start, start + range.value("length").toInt())) painter->drawRect(rect);
+        }
+    }
     painter->setBrush(m_selectionColor);
     for (const auto &rect : selectionRectangles()) painter->drawRect(rect);
     painter->restore();
@@ -459,10 +468,14 @@ void FormattedText::setSelectionColor(const QColor &value)
 }
 QVector<QRectF> FormattedText::selectionRectangles() const
 {
+    return rangeRectangles(m_selectionStart, m_selectionEnd);
+}
+QVector<QRectF> FormattedText::rangeRectangles(int start, int end) const
+{
     QVector<QRectF> result;
-    if (!m_layout || m_selectionStart >= m_selectionEnd) return result;
+    if (!m_layout || start >= end) return result;
     for (const auto &cell : m_cursorCells)
-        if (cell.start < m_selectionEnd && cell.end > m_selectionStart) {
+        if (cell.start < end && cell.end > start) {
             if (!result.isEmpty() && result.last().top() == cell.rect.top()
                 && cell.rect.left() <= result.last().right() + .01)
                 result.last() = result.last().united(cell.rect);
@@ -507,4 +520,20 @@ int FormattedText::characterAt(qreal x, qreal y) const
     for (const auto &cell : m_cursorCells)
         if (cell.rect.contains(point)) return cell.start;
     return cursorAt(x, y);
+}
+
+void FormattedText::setSearchRanges(const QVariantList &value)
+{
+    if (m_searchRanges == value) return;
+    m_searchRanges = value; emit searchPaintingChanged(); update();
+}
+void FormattedText::setSearchHighlightColor(const QColor &value)
+{
+    if (m_searchColor == value) return;
+    m_searchColor = value; emit searchPaintingChanged(); update();
+}
+void FormattedText::setCurrentSearchHighlightColor(const QColor &value)
+{
+    if (m_currentSearchColor == value) return;
+    m_currentSearchColor = value; emit searchPaintingChanged(); update();
 }

@@ -137,3 +137,14 @@ endif()
 add_test(NAME qmarkdown-renderers COMMAND qmarkdown-renderers-test)
 set_tests_properties(qmarkdown-renderers PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-reading-test tst_reading.cpp)
+target_include_directories(qmarkdown-reading-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-reading-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-reading-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-reading-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-reading COMMAND qmarkdown-reading-test)
+set_tests_properties(qmarkdown-reading PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

@@ -10,6 +10,9 @@ class FormattedText : public QQuickPaintedItem
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(QVariantList searchRanges READ searchRanges WRITE setSearchRanges NOTIFY searchPaintingChanged FINAL)
+    Q_PROPERTY(QColor searchHighlightColor READ searchHighlightColor WRITE setSearchHighlightColor NOTIFY searchPaintingChanged FINAL)
+    Q_PROPERTY(QColor currentSearchHighlightColor READ currentSearchHighlightColor WRITE setCurrentSearchHighlightColor NOTIFY searchPaintingChanged FINAL)
     Q_PROPERTY(int selectionStart READ selectionStart WRITE setSelectionStart NOTIFY selectionChanged FINAL)
     Q_PROPERTY(int selectionEnd READ selectionEnd WRITE setSelectionEnd NOTIFY selectionChanged FINAL)
     Q_PROPERTY(QColor selectionColor READ selectionColor WRITE setSelectionColor NOTIFY selectionChanged FINAL)
@@ -32,6 +35,14 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
     explicit FormattedText(QQuickItem *parent = nullptr);
+    QVariantList searchRanges() const { return m_searchRanges; }
+    void setSearchRanges(const QVariantList &value);
+    QColor searchHighlightColor() const { return m_searchColor; }
+    QColor currentSearchHighlightColor() const { return m_currentSearchColor; }
+    void setSearchHighlightColor(const QColor &value);
+    void setCurrentSearchHighlightColor(const QColor &value);
+    QVector<QRectF> rangeRectangles(int start, int end) const;
+    QPointF paintOffset() const { return m_paintOffset; }
     int selectionStart() const { return m_selectionStart; }
     int selectionEnd() const { return m_selectionEnd; }
     QColor selectionColor() const { return m_selectionColor; }
@@ -80,6 +91,7 @@ public:
     Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void searchPaintingChanged();
     void selectionChanged();
     void codeSpansChanged();
     void codeHorizontalPaddingChanged();
@@ -102,6 +114,8 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    QVariantList m_searchRanges;
+    QColor m_searchColor = QColor("#70ffff00"), m_currentSearchColor = QColor("#b0ff9900");
     struct CursorCell { int start, end; QRectF rect; bool reversed; };
     QVector<CursorCell> m_cursorCells;
     struct CursorLine { int start; qreal top, bottom; };
