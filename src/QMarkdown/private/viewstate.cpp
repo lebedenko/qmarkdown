@@ -2,6 +2,7 @@
 #include "selectionregistration.h"
 #include "formattedtext.h"
 #include "imageitem.h"
+#include "taskindicatoritem.h"
 #include <QCoreApplication>
 #include <QMetaProperty>
 #include <QGuiApplication>
@@ -265,6 +266,9 @@ namespace {
 void registerPrivateTypes()
 {
     qmlRegisterType<::FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
+    registerTaskIndicatorAccessibility();
+    qmlRegisterType<TaskIndicatorHostItem>("QMarkdown.Private", 1, 0, "TaskIndicatorHostItem");
+    qmlRegisterType<TaskIndicatorItem>("QMarkdown.Private", 1, 0, "TaskIndicatorItem");
     qmlRegisterType<ImageItem>("QMarkdown.Private", 1, 0, "ImageItem");
     qmlRegisterType<SelectionRegistration>("QMarkdown.Private", 1, 0, "SelectionRegistration");
     qmlRegisterType<ViewState>("QMarkdown.Private", 1, 0, "ViewState");

@@ -22,6 +22,12 @@ outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](docs/reading-navigation.md).
 <!-- current-release:end -->
 
+## Development: 1.10.0 / QML 1.10
+
+Adds replaceable [task indicators](docs/task-lists.md#host-presentation-110), a rounded painted fallback, and an initially enabled **Host-styled task indicators** viewer toggle using the active Controls style. Earlier imports remain supported. This development change does not publish a release.
+
+
+
 ## Build and check
 
 See the [development workflow](docs/development-workflow.md) for feature approval, PRs, proportionate verification, and release delivery. It supersedes historical delivery procedures while preserving their approvals and recorded results.
@@ -83,7 +89,7 @@ Fonts support logical pixels (`pixelSize`) and points (`pointSize` in QML, `setP
 
 Qt's QML font getters synthesize the other unit. Its subproperty setters also prefer an already explicit pixel size when both units are set, and may warn when changing a point font to pixels. Use whole-font assignments to select a different unit, or C++ `QFont::setPointSizeF`/`setPixelSize` on a copy to preserve all fields. For fractional QML edits, set `pointSize` on a point-based role (for example `style.bodyFont.pointSize = 12.5`). The playground handles both transitions through a local native helper without changing the library API.
 
-Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Package/import versions are 1.9.0/1.9; existing 1.0 imports retain Legacy defaults. See [Feature 008](specs/008-font-units/requirements.md).
+Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Development package/import versions are 1.10.0/1.10; existing 1.0 imports retain Legacy defaults. See [Feature 008](specs/008-font-units/requirements.md).
 
 Links display formatted labels; images retain formatted descriptions until an authorized PNG/JPEG is ready; autolinks display text. Links activate only by reporting destinations to the host; image resources are denied by default. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser retains complete opening fence lengths; shorter matching fences remain code content, including openers longer than 255 characters. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
 

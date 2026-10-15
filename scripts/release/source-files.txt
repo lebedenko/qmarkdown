@@ -86,3 +86,6 @@ src/QMarkdown/private/ListBlock.qml
 src/QMarkdown/private/HeadingSeparator.qml
 src/QMarkdown/private/selectionregistration.h
 src/QMarkdown/private/selectionregistration.cpp
+src/QMarkdown/private/TaskIndicatorHost.qml
+src/QMarkdown/private/taskindicatoritem.h
+src/QMarkdown/private/taskindicatoritem.cpp

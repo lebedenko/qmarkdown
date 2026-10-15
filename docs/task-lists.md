@@ -2,7 +2,7 @@
 
 See the [public API reference](api.md) for the complete supported contract.
 
-Read-only task-list indicators were introduced in the 1.3.0 / QML 1.3 source candidate and remain available in the current 1.5.0 / QML 1.5 candidate. Published 1.2.0 packages do not include this feature.
+Read-only task lists are available since QML 1.3. Development package 1.10.0 / QML 1.10 adds replaceable indicators.
 
 ```qml
 import QMarkdown 1.3
@@ -24,4 +24,37 @@ Indicators appear alongside existing bullets or numbers, so ordered numbering is
 
 The native indicator exposes checkbox role and checked state through Qt accessibility, with a read-only description. It accepts no pointer, keyboard or accessibility toggle action and does not edit the source. Hosts can update a task by replacing `markdown`. There is no task-toggle signal or clipboard operation.
 
-The playground has a **GFM task lists** toggle and sample. Task-list syntax follows [GFM 0.29-gfm section 5.3](https://github.github.com/gfm/#task-list-items-extension-) on the existing CommonMark 0.31.2 block core. Strikethrough and [extended autolinks](extended-autolinks.md) have independent default-off switches in the current candidate. Tables and GFM HTML filtering remain deferred. This selected extension is not full GFM conformance. The default CommonMark corpus and extension tests are separate evidence; see [iteration 035](../specs/035-gfm-task-lists/verification.md).
+The playground has a **GFM task lists** toggle and sample. **Host-styled task indicators** is initially enabled and uses the active Qt Quick Controls checkbox appearance; turn it off to compare the library fallback. The viewer keeps its backing checkbox hidden, enabled and unfocusable and presents its public indicator separately. Its palette follows the viewer.
+
+## Host presentation (1.10)
+
+`MarkdownView.taskIndicator` defaults to null, selecting the library artwork: a transparent rounded outline and continuous antialiased checkmark in `style.bodyColor`. Its square preferred size is `max(16, round(body line height × 0.85))` logical pixels.
+
+```qml
+import QtQuick
+import QMarkdown 1.10
+
+MarkdownView {
+    width: 480
+    taskListsEnabled: true
+    markdown: "- [x] Completed"
+    taskIndicator: Component {
+        Rectangle {
+            required property bool checked
+            required property MarkdownStyle markdownStyle
+            implicitWidth: 20
+            implicitHeight: 20
+            color: checked ? markdownStyle.bodyColor : "transparent"
+            border.color: markdownStyle.bodyColor
+            radius: 4
+            Accessible.ignored: true
+        }
+    }
+}
+```
+
+The component must create an Item with the two required properties above. The library supplies live bindings, including style replacement. Supply `implicitWidth` and `implicitHeight`; the library owns actual geometry. Each invalid, nonfinite or nonpositive preferred dimension falls back to the default size. Artwork keeps its natural dimensions, with an eight-pixel content gap; the indicator and first text line are centered within their taller height. Taller indicators increase row height. Narrow views clip artwork while reserving at least one content pixel.
+
+Custom components are trusted application code and **must be decorative**: no focus, pointer handlers, toggle actions or accessibility nodes, including in descendants. The containing library item owns the single read-only checkbox accessibility node. A Controls checkbox itself is therefore not a suitable component root; see the viewer’s [decorative adapter](../examples/viewer/TaskIndicator.qml).
+
+Replacement destroys old instances. Creation failures or non-Item roots produce a diagnostic and show the fallback. Changing appearance does not reparse Markdown, change task state or reset document selection. Qt Quick Controls is a viewer/host dependency only.
