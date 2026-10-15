@@ -10,6 +10,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import zipfile
+from urllib.parse import parse_qs, urlsplit
 
 from release_docs_fixture import write_docs
 
@@ -37,6 +38,12 @@ class PublishTest(unittest.TestCase):
         self.writes = []
         self.corrupt_published = False
         self.move_after_upload = False
+        self.hide_created_release = False
+        self.refresh_errors = []
+        self.publication_delay = 0
+        self.fail_create = False
+        self.fail_publish = False
+        self.duplicate_release = False
         self.main = self.commit
         for name, data in (('qmarkdown-1.6.0.tar.gz', b'library source'),
                            ('qmarkdown-1.6.0-1-x86_64.pkg.tar.zst', b'arch package')):
@@ -52,6 +59,8 @@ class PublishTest(unittest.TestCase):
     def read(self, command, **kwargs):
         if command[0] == 'git':
             return self.commit + '\n'
+        if '-X' in command:
+            return self.write(command, **kwargs)
         endpoint = command[-1].removeprefix('repos/owner/repo/')
         if endpoint == 'pulls/42':
             response = {'number': 42, 'merged': True, 'base': {'ref': 'main'},
@@ -71,11 +80,18 @@ class PublishTest(unittest.TestCase):
         elif endpoint.startswith('git/matching-refs/tags/'):
             response = [] if self.tag is None else [{'ref': 'refs/tags/v1.6.0', 'object': {'type': 'commit', 'sha': self.tag}}]
         elif endpoint == 'releases?per_page=100':
-            response = [[self.release] if self.release else []]
+            response = [[self.release] if self.release and not self.hide_created_release else []]
+            if self.duplicate_release:
+                response.append([dict(self.release, id=456)])
         elif endpoint == 'releases/tags/v1.6.0':
             raise subprocess.CalledProcessError(1, command)
         elif endpoint == 'releases/123':
+            if self.refresh_errors:
+                raise self.refresh_errors.pop(0)
             response = {**self.release, 'assets': [{'id': name, 'name': name} for name in self.remote]}
+            if not self.release['draft'] and self.publication_delay:
+                self.publication_delay -= 1
+                response['draft'] = True
         elif endpoint.startswith('releases/assets/'):
             if self.corrupt_published and not self.release['draft']:
                 return b'corrupted download'
@@ -88,23 +104,35 @@ class PublishTest(unittest.TestCase):
         self.writes.append(command)
         if command[1:3] == ['api', 'repos/owner/repo/git/refs']:
             self.tag = self.commit
-        elif command[1:3] == ['release', 'create']:
-            self.release = {'id': 123, 'tag_name': 'v1.6.0', 'draft': True, 'prerelease': False}
-        elif command[1:3] == ['release', 'upload']:
-            for name in command[6:]:
-                path = Path(name)
-                self.remote[path.name] = path.read_bytes()
+        elif command[-1] == 'repos/owner/repo/releases':
+            self.assertIn('draft=true', command)
+            self.assertIn('prerelease=false', command)
+            self.assertIsNone(self.release, 'Never create a duplicate release')
+            self.release = {'id': 123, 'tag_name': 'v1.6.0', 'draft': True, 'prerelease': False,
+                            'upload_url': 'https://uploads.github.com/repos/owner/repo/releases/123/assets{?name,label}'}
+            if self.fail_create:
+                raise subprocess.CalledProcessError(1, command, stderr=b'connection reset')
+            return json.dumps(self.release).encode()
+        elif command[-1].startswith('https://uploads.github.com/'):
+            path = Path(command[command.index('--input') + 1])
+            name = parse_qs(urlsplit(command[-1]).query)['name'][0]
+            self.assertEqual(name, path.name)
+            self.assertNotIn(name, self.remote, 'Never overwrite an asset')
+            self.remote[name] = path.read_bytes()
             if self.move_after_upload:
                 self.main = 'moved'
-        elif command[1:3] == ['release', 'edit']:
-            self.assertIn('--latest', command)
+        elif command[-1] == 'repos/owner/repo/releases/123':
+            self.assertIn('make_latest=true', command)
+            self.assertIn('draft=false', command)
             self.release['draft'] = False
+            if self.fail_publish:
+                raise subprocess.CalledProcessError(1, command, stderr=b'HTTP 502')
         else:
             raise AssertionError(command)
-        return subprocess.CompletedProcess(command, 0)
+        return b'{}'
 
     def invoke(self):
-        with patch.object(sys.modules['eligibility'], 'SOURCE', self.source_root), patch.object(publish, 'SOURCE', self.source_root), patch.object(subprocess, 'check_output', side_effect=self.read), patch.object(subprocess, 'run', side_effect=self.write):
+        with patch.object(sys.modules['eligibility'], 'SOURCE', self.source_root), patch.object(publish, 'SOURCE', self.source_root), patch.object(subprocess, 'check_output', side_effect=self.read), patch.object(subprocess, 'run', side_effect=self.write), patch.object(publish.assets.time, 'sleep'):
             publish.publish('owner/repo', 42, self.root)
 
     def test_invalid_documentation_causes_zero_remote_writes(self):
@@ -121,7 +149,15 @@ class PublishTest(unittest.TestCase):
         self.assertEqual(self.tag, self.commit)
         self.assertFalse(self.release['draft'])
         self.assertEqual(set(self.remote), {path.name for path in self.root.iterdir()})
-        self.assertEqual([command[2] for command in self.writes[1:]], ['create', 'upload', 'edit'])
+        self.assertEqual(len(self.writes), 7)  # tag, draft, four assets, publication
+        self.assertEqual(sum(command[-1] == 'repos/owner/repo/releases' for command in self.writes), 1)
+        self.assertFalse(any(command[1] == 'release' for command in self.writes))
+
+    def test_new_draft_need_not_be_visible_in_release_listing(self):
+        self.hide_created_release = True
+        self.invoke()
+        self.assertFalse(self.release['draft'])
+        self.assertEqual(len(self.remote), 4)
 
     def test_missing_artifacts_fail_before_tag_or_release_writes(self):
         (self.root / 'qmarkdown-1.6.0.tar.gz').unlink()
@@ -159,7 +195,7 @@ class PublishTest(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, 'final eligibility'):
             self.invoke()
         self.assertTrue(self.release['draft'])
-        self.assertFalse(any(command[1:3] == ['release', 'edit'] for command in self.writes))
+        self.assertFalse(any('PATCH' in command for command in self.writes))
 
     def test_existing_identical_published_release_can_be_hash_verified(self):
         self.tag = self.commit
@@ -167,6 +203,54 @@ class PublishTest(unittest.TestCase):
         self.remote = {path.name: path.read_bytes() for path in self.root.iterdir()}
         self.invoke()
         self.assertEqual(self.writes, [])
+
+
+
+    def test_delayed_id_visibility_and_transient_reads_recover(self):
+        self.hide_created_release = True
+        self.refresh_errors = [subprocess.CalledProcessError(1, 'gh', stderr=message)
+                               for message in (b'HTTP 404', b'HTTP 503', b'connection reset')]
+        self.invoke()
+        self.assertFalse(self.release['draft'])
+        self.assertEqual(sum(command[-1] == 'repos/owner/repo/releases' for command in self.writes), 1)
+
+    def test_uncertain_draft_creation_is_never_repeated(self):
+        self.fail_create = True
+        with self.assertRaisesRegex(SystemExit, 'draft release creation'):
+            self.invoke()
+        self.assertTrue(self.release['draft'])
+        self.assertEqual(len(self.writes), 2)
+        self.assertEqual(self.remote, {})
+
+    def test_delayed_publication_and_uncertain_patch_are_reconciled(self):
+        self.publication_delay = 3
+        self.fail_publish = True
+        self.invoke()
+        self.assertFalse(self.release['draft'])
+        self.assertEqual(sum('PATCH' in command for command in self.writes), 1)
+
+    def test_publication_visibility_exhaustion_never_repeats_writes(self):
+        self.publication_delay = 6
+        with self.assertRaisesRegex(SystemExit, 'published download.*still a draft'):
+            self.invoke()
+        self.assertEqual(sum('PATCH' in command for command in self.writes), 1)
+
+    def test_duplicate_existing_releases_stop_without_writes(self):
+        self.tag = self.commit
+        self.release = {'id': 123, 'tag_name': 'v1.6.0', 'draft': True, 'prerelease': False}
+        self.duplicate_release = True
+        with self.assertRaisesRegex(SystemExit, 'draft release creation.*at most one'):
+            self.invoke()
+        self.assertEqual(self.writes, [])
+
+    def test_existing_draft_recovery_does_not_create_another_release(self):
+        self.tag = self.commit
+        self.release = {'id': 123, 'tag_name': 'v1.6.0', 'draft': True, 'prerelease': False,
+                        'upload_url': 'https://uploads.github.com/repos/owner/repo/releases/123/assets{?name,label}'}
+        self.remote = {path.name: path.read_bytes() for path in sorted(self.root.iterdir())[:2]}
+        self.invoke()
+        self.assertFalse(self.release['draft'])
+        self.assertEqual(len(self.writes), 3)  # two missing assets, publication
 
 
 if __name__ == '__main__':

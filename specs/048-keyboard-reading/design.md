@@ -98,3 +98,26 @@ downloaded-asset SHA-256 verification. This extends the historical implementatio
 approval above without changing runtime scope, package 1.10.0 or QML 1.10.
 Follow the [development workflow](../../docs/development-workflow.md); stop on a
 failed stage and preserve existing tags and published bytes.
+
+## Approved publication repair design
+
+The supplied recovery plan approves this tooling-only extension after successful
+recovery. Keep workflow permissions, entrypoints and artifact flow unchanged.
+Use the existing Python/gh boundary: REST draft creation returns the authoritative
+numeric ID; paginated exact-tag discovery is only for existing releases. POST
+individual assets to the returned upload URL; PATCH publication by ID with
+`draft=false` and `make_latest=true`. Never use tag-based release CLI writes.
+
+Centralize six-attempt read/visibility refreshes with cache revalidation and
+1/2/4/8/16-second backoff. Validate identity and prerelease state before comparing
+all visible asset bytes. Missing expected state can retry; changed identity,
+extra/duplicate asset names and hash differences cannot. Retry transient HTTP
+failures and network errors, but reject permanent HTTP errors. Do not retry draft
+creation after an uncertain response, avoiding duplicate releases.
+
+Upload one missing asset at a time without overwrite. After success, wait for its
+verified visibility; after uncertain failure, exhaust bounded refreshes before a
+bounded upload retry, accepting only identical visible bytes. A published release
+cannot receive missing assets. Recheck eligibility immediately before publication;
+a failed publication request is reconciled by reads, never a blind write retry.
+Verify published state and all four downloaded hashes before reporting completion.
