@@ -679,7 +679,25 @@ private slots:
         QVERIFY(painted(preview)[0]->layout()->formats()[0].format.font().strikeOut());
         const auto screenshot = qEnvironmentVariable("QMARKDOWN_STRIKE_SCREENSHOT");
         if (!screenshot.isEmpty()) {
-            QImage image; QTRY_VERIFY(!(image = window->grabWindow()).isNull()); QVERIFY(image.save(screenshot));
+            QImage initial; QTRY_VERIFY(!(initial = window->grabWindow()).isNull()); QVERIFY(initial.save(screenshot));
+            // Exercise the actual editable playground at both wrapping widths
+            // and with the all-GFM switch off/on. Captures are opt-in evidence.
+            auto *editor = window->findChild<QQuickItem *>("editor"); QVERIFY(editor);
+            auto *gfm = window->findChild<QQuickItem *>("gfmToggle"); QVERIFY(gfm);
+            editor->setProperty("text", source.toString()
+                + "\n\nInline `code` followed by [linked text](target)."
+                  "\n\n~~first~~ intervening ~~second~~ after `code`.");
+            window->setHeight(1000);
+            toggle->setProperty("checked", false);
+            for (bool enabled : {false, true}) for (int width : {900, 1500}) {
+                gfm->setProperty("checked", enabled); window->setWidth(width);
+                QTRY_COMPARE(preview->property("gfmEnabled").toBool(), enabled);
+                QTest::qWait(100);
+                QImage image; QTRY_VERIFY(!(image = window->grabWindow()).isNull());
+                QVERIFY(image.save(screenshot + QString("-%1-%2.png").arg(enabled).arg(width)));
+            }
+            gfm->setProperty("checked", false);
+            editor->setProperty("text", source);
         }
         toggle->setProperty("checked", false); QTRY_VERIFY(!preview->property("strikethroughEnabled").toBool());
         QCOMPARE(preview->property("markdown"), source);

@@ -2,6 +2,7 @@
 #include <QQuickPaintedItem>
 #include <QTextLayout>
 #include <QGlyphRun>
+#include <QLineF>
 #include <QVariantList>
 #include <QtQml/qqmlregistration.h>
 #include <memory>
@@ -128,9 +129,10 @@ private:
     QString m_text;
     QVariantList m_ranges, m_links, m_codes;
     qreal m_codeHorizontalPadding = 4, m_codeVerticalPadding = 2;
-    struct PaintedRun { QGlyphRun glyphs; QColor color; };
+    struct Decoration { QLineF line; qreal thickness; };
+    struct PaintedRun { QGlyphRun glyphs; QColor color; QPointF origin; QVector<Decoration> decorations; };
     struct HitRegion { QRectF rect; int link; };
-    QVector<PaintedRun> m_paddedRuns;
+    QVector<PaintedRun> m_paintedRuns;
     QVector<HitRegion> m_hitRegions;
     bool m_padded = false;
     QColor m_linkColor = QColor("#0066cc");

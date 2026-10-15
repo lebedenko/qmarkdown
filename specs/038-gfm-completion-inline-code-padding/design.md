@@ -51,3 +51,18 @@ Preparation uses source maps linear in UTF-16 length and sorting per visual line
 ## Release delivery authorization — 2026-10-13
 
 The supplied release plan explicitly authorizes D1–D3: commit the feature on a branch, open one PR, squash merge after required packaging checks and resolved review threads, run the release workflow against the exact merged commit, tag v1.6.0, publish stable/latest Linux x86_64 Ubuntu/Arch packages, independently accept downloaded packages and attach compact evidence. Preserve existing releases, assets and protections. No evidence-only PR or automatic post-release upkeep commit. Earlier pending-authorization statements retain their historical scope; actual delivery results will be attached to the release.
+
+## Strikeout continuity correction — approved 2026-10-15
+
+The user's supplied “Close strikeout gaps around inline code” implementation plan
+approves this bounded correction and its tests. Retain padding boundaries and their
+bordering source cells in visual order on each prepared line. After caching shaped
+fragments, connect native strikeout endpoints only when both bordering cells have
+actual shaped-run strikeout (including inherited font strikeout). Interpolate across
+the gutter when native font heights differ; retain glyph decoration positions.
+Use the adjacent code fragment's existing color and thickness, splitting adjacent
+code connections at their shared padding boundary. Cache connectors with decoration
+geometry and include pen extents in raster bounds. Never bridge unrelated fragments,
+undecorated neighbors or line breaks. Isolated struck code and strikeout beginning or
+ending on code retain their text endpoints. Underline, overline, layout, selection,
+link geometry, parser, public API, dependencies and version remain unchanged.

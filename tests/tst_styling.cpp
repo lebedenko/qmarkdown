@@ -1,6 +1,7 @@
 #include "markdownstyle.h"
 #include "private/formattedtext.h"
 #include "private/inline.h"
+#include "private/document.h"
 #include <QGuiApplication>
 #include <QQuickWindow>
 #include <QQmlEngine>
@@ -36,6 +37,428 @@ class StylingTest : public QObject
         return nullptr;
     }
 private slots:
+    void decorationPlacement_data()
+    {
+        QTest::addColumn<bool>("strike");
+        QTest::addColumn<bool>("gfm");
+        QTest::addColumn<int>("alignment");
+        QTest::addColumn<int>("width");
+        QTest::addColumn<qreal>("padding");
+        QTest::addColumn<bool>("bidi");
+        QTest::addColumn<qreal>("scale");
+        QTest::addColumn<qreal>("scaleX");
+        QTest::addColumn<bool>("pointSize");
+        for (bool strike : {false, true}) {
+            for (bool gfm : {false, true}) {
+                if (strike && !gfm) continue;
+                for (int alignment : {int(Qt::AlignLeft), int(Qt::AlignHCenter), int(Qt::AlignRight)})
+                    for (int width : {180, 800})
+                        for (qreal padding : {0., 4.})
+                            for (bool bidi : {false, true})
+                                for (bool pointSize : {false, true})
+                                for (const auto scales : {QPointF(1, 1), QPointF(1.25, 1.25), QPointF(1.5, 1.5), QPointF(2, 2),
+                                                         QPointF(1.250814, 1.25), QPointF(1001. / 800, 376. / 300)})
+                                    QTest::newRow(qPrintable(QString("%1-%2-%3-%4-%5-%6-%7-%8")
+                                        .arg(strike).arg(alignment).arg(width).arg(padding).arg(bidi).arg(gfm).arg(scales.x()).arg(pointSize)))
+                                        << strike << gfm << alignment << width << padding << bidi << scales.y() << scales.x() << pointSize;
+            }
+        }
+    }
+    void decorationPlacement()
+    {
+        QFETCH(bool, strike); QFETCH(bool, gfm); QFETCH(int, alignment); QFETCH(int, width);
+        QFETCH(qreal, padding); QFETCH(bool, bidi); QFETCH(qreal, scale); QFETCH(qreal, scaleX); QFETCH(bool, pointSize);
+        FormattedText item;
+        QFont font("DejaVu Sans"), codeFont("DejaVu Sans Mono");
+        if (pointSize) { font.setPointSizeF(17.5); codeFont.setPointSizeF(15.5); }
+        else { font.setPixelSize(24); codeFont.setPixelSize(20); }
+        item.setFont(font); item.setCodeFont(codeFont);
+        QString source = bidi ? QString::fromUtf8("prefix `code` אבגד **bold** *italic* `code` [link](target) remaining")
+                              : QString("prefix `code` text **bold** *italic* `code` [link](target) remaining");
+        if (strike) source = "~~" + source + "~~";
+        const auto blocks = QMarkdownPrivate::parse(source, QMarkdownPrivate::ParseOptions{gfm, gfm, gfm, gfm, gfm});
+        QCOMPARE(blocks.size(), 1);
+        const auto &block = blocks.first();
+        const QString text = block.text;
+        item.setText(text); item.setLayoutWidth(width); item.setHorizontalAlignment(alignment);
+        item.setCodeHorizontalPadding(padding); item.setCodeVerticalPadding(padding ? 2 : 0);
+        QVariantList ranges, codes, links;
+        for (const auto &range : block.ranges)
+            ranges.append(QVariantMap{{"start", range.start}, {"length", range.length},
+                {"flags", range.flags & ~QMarkdownPrivate::Strikethrough}});
+        for (const auto &code : block.codes)
+            codes.append(QVariantMap{{"start", code.start}, {"length", code.length}});
+        for (const auto &link : block.links)
+            links.append(QVariantMap{{"start", link.start}, {"length", link.length}, {"destination", link.destination}});
+        QCOMPARE(links.size(), 1);
+        const int link = block.links.first().start;
+        const int linkLength = block.links.first().length;
+        item.setCodeSpans(codes); item.setLinkSpans(links);
+        item.setLinkUnderline(false);
+        item.setFormatRanges(ranges); item.ensurePolished();
+        auto raster = [&] {
+            QImage image(qCeil(850 * scale), qCeil(300 * scale), QImage::Format_ARGB32_Premultiplied);
+            image.setDevicePixelRatio(scale); image.fill(Qt::transparent);
+            QPainter painter(&image);
+            painter.scale(scaleX / scale, 1);
+            item.paint(&painter);
+            return image;
+        };
+        const QImage plain = raster();
+        if (strike) {
+            ranges.append(QVariantMap{{"start", 0}, {"length", text.size()}, {"flags", QMarkdownPrivate::Strikethrough}});
+            item.setFormatRanges(ranges);
+        } else item.setLinkUnderline(true);
+        item.ensurePolished();
+        const QImage decorated = raster();
+        const int start = strike ? 0 : link, end = strike ? text.size() : link + linkLength;
+        QVector<QRectF> expected = item.rangeRectangles(start, end);
+        if (padding == 0) {
+            // Wrapped bidi trailing spaces can have native glyph advances past
+            // the cursor cells clamped to the assigned line width.
+            expected.clear();
+            for (int i = 0; i < item.layout()->lineCount(); ++i) {
+                const auto line = item.layout()->lineAt(i);
+                const int from = qMax(start, line.textStart());
+                const int length = qMin(end, line.textStart() + line.textLength()) - from;
+                if (length <= 0) continue;
+                for (const auto &run : line.glyphRuns(from, length)) {
+                    const auto positions = run.positions();
+                    const auto advances = run.rawFont().advancesForGlyphIndexes(run.glyphIndexes());
+                    for (int glyph = 0; glyph < positions.size(); ++glyph)
+                        expected.append(QRectF(positions[glyph].x(), line.y(), advances[glyph].x(), line.height()));
+                }
+            }
+        }
+        if (strike) {
+            // Cursor rectangles can be disjoint at bidi boundaries. Strikeout
+            // also crosses the intervening visual advance on the same line.
+            QVector<QRectF> lines;
+            for (const auto &rect : expected) {
+                bool merged = false;
+                for (auto &line : lines) if (qAbs(line.center().y() - rect.center().y()) < 2) {
+                    line = line.united(rect); merged = true; break;
+                }
+                if (!merged) lines.append(rect);
+            }
+            expected = lines;
+        }
+        // Bands come from the shaped fallback font metrics and baseline, not
+        // the renderer's cached decoration geometry or whole character cells.
+        QVector<QRectF> bands;
+        for (int i = 0; i < item.layout()->lineCount(); ++i) {
+            const auto line = item.layout()->lineAt(i);
+            for (const auto &run : line.glyphRuns()) {
+                if (run.positions().isEmpty()) continue;
+                const auto raw = run.rawFont();
+                const qreal y = run.positions().first().y()
+                    + (strike ? -raw.ascent() / 3 : raw.underlinePosition());
+                const qreal half = raw.lineThickness() / 2 + 1 / scale;
+                bands.append(QRectF(0, y - half, 2000, 2 * half));
+            }
+        }
+        QVector<QPair<QLineF, qreal>> gutterPaths;
+        if (strike && padding > 0) {
+            QHash<int, QPointF> metrics; // native strikeout y and pen thickness
+            for (int i = 0; i < item.layout()->lineCount(); ++i)
+                for (const auto &run : item.layout()->lineAt(i).glyphRuns(-1, -1,
+                         QTextLayout::RetrieveGlyphPositions | QTextLayout::RetrieveStringIndexes)) {
+                    for (int glyph = 0; glyph < run.stringIndexes().size(); ++glyph)
+                        metrics.insert(int(run.stringIndexes()[glyph]),
+                            QPointF(run.positions()[glyph].y() - run.rawFont().ascent() / 3, run.rawFont().lineThickness()));
+                }
+            for (const auto &code : block.codes)
+                for (const auto &rect : item.rangeRectangles(code.start, code.start + code.length))
+                    for (bool left : {true, false}) {
+                        const qreal edge = left ? rect.left() : rect.right();
+                        int codeSource = -1, neighbor = -1;
+                        for (int pos = 0; pos < text.size(); ++pos) {
+                            if (!metrics.contains(pos)) continue;
+                            for (const auto &cell : item.rangeRectangles(pos, pos + 1)) {
+                                if (qAbs(cell.center().y() - rect.center().y()) >= .01) continue;
+                                const bool inCode = pos >= code.start && pos < code.start + code.length;
+                                if (inCode && qAbs((left ? cell.left() : cell.right()) - edge) < .01) codeSource = pos;
+                                if (!inCode && qAbs((left ? cell.right() : cell.left()) - edge) < .01) neighbor = pos;
+                            }
+                        }
+                        if (codeSource < 0 || neighbor < 0) continue;
+                        gutterPaths.append({QLineF(edge, metrics[neighbor].x(),
+                            edge + (left ? padding : -padding), metrics[codeSource].x()), metrics[codeSource].y()});
+                    }
+        }
+        int differences = 0;
+        for (int y = 0; y < plain.height(); ++y) for (int x = 0; x < plain.width(); ++x) {
+            if (qAbs(plain.pixelColor(x, y).alpha() - decorated.pixelColor(x, y).alpha()) < 20) continue;
+            ++differences;
+            bool inside = false;
+            for (const auto &rect : expected)
+                if (rect.adjusted(-2, -2, 2, 2).contains(QPointF((x + .5) / scaleX, (y + .5) / scale) - item.paintOffset())) inside = true;
+            bool inBand = false;
+            for (const auto &band : bands)
+                if (band.contains(QPointF((x + .5) / scaleX, (y + .5) / scale) - item.paintOffset())) inBand = true;
+            const QPointF point = QPointF((x + .5) / scaleX, (y + .5) / scale) - item.paintOffset();
+            for (const auto &path : gutterPaths) {
+                const auto line = path.first;
+                const qreal t = (point.x() - line.x1()) / line.dx();
+                if (t >= 0 && t <= 1 && qAbs(point.y() - line.pointAt(t).y()) <= path.second / 2 + 1 / scale)
+                    inBand = true;
+            }
+            QVERIFY2(inBand, qPrintable(QString("Decoration outside metric band at pixel %1,%2").arg(x).arg(y)));
+            QVERIFY2(inside, qPrintable(QString("Decoration outside range at pixel %1,%2").arg(x).arg(y)));
+        }
+        QVERIFY(differences > 20);
+        // Each non-space character must receive decoration, including every
+        // styled portion and wrapped/bidirectional continuation.
+        for (int pos = start; pos < end; ++pos) {
+            if (text[pos].isSpace()) continue;
+            const auto cells = item.rangeRectangles(pos, pos + 1);
+            if (cells.isEmpty()) continue; // Qt may expose no cell at a bidi boundary.
+            int changed = 0;
+            for (const auto &rect : cells) {
+                const auto logical = rect.translated(item.paintOffset());
+                const QRect pixels = QRectF(QPointF(logical.left() * scaleX, logical.top() * scale),
+                    QSizeF(logical.width() * scaleX, logical.height() * scale))
+                    .toAlignedRect().intersected(plain.rect());
+                for (int y = pixels.top(); y <= pixels.bottom(); ++y)
+                    for (int x = pixels.left(); x <= pixels.right(); ++x)
+                        if (qAbs(plain.pixelColor(x, y).alpha() - decorated.pixelColor(x, y).alpha()) >= 20) ++changed;
+            }
+            QVERIFY2(changed > 0, qPrintable(QString("Missing decoration at character %1").arg(pos)));
+        }
+        if (strike && padding > 0) {
+            QSet<int> shapedSources;
+            for (int i = 0; i < item.layout()->lineCount(); ++i)
+                for (const auto &run : item.layout()->lineAt(i).glyphRuns(-1, -1, QTextLayout::RetrieveStringIndexes))
+                    for (auto source : run.stringIndexes()) shapedSources.insert(int(source));
+            for (const auto &code : block.codes) {
+                for (const auto &rect : item.rangeRectangles(code.start, code.start + code.length)) {
+                    for (bool left : {true, false}) {
+                        const qreal edge = left ? rect.left() : rect.right();
+                        bool neighbor = false;
+                        for (int pos = 0; pos < text.size(); ++pos) {
+                            // Qt omits trailing whitespace glyphs at some wraps;
+                            // those cells have no existing strikeout endpoint.
+                            if (!shapedSources.contains(pos) || (pos >= code.start && pos < code.start + code.length)) continue;
+                            for (const auto &cell : item.rangeRectangles(pos, pos + 1))
+                                if (qAbs(cell.center().y() - rect.center().y()) < .01
+                                    && qAbs((left ? cell.right() : cell.left()) - edge) < .01) neighbor = true;
+                        }
+                        if (!neighbor) continue; // Outer line padding has no adjacent struck text.
+                        const qreal inner = edge + (left ? padding : -padding);
+                        for (int x = qCeil((qMin(edge, inner) + item.paintOffset().x()) * scaleX + 1);
+                             x < (qMax(edge, inner) + item.paintOffset().x()) * scaleX - 1; ++x) {
+                            int covered = 0;
+                            for (int y = qMax(0, qFloor((rect.top() + item.paintOffset().y()) * scale));
+                                 y < qMin(plain.height(), qCeil((rect.bottom() + item.paintOffset().y()) * scale)); ++y)
+                                if (qAbs(plain.pixelColor(x, y).alpha() - decorated.pixelColor(x, y).alpha()) >= 20) ++covered;
+                            QVERIFY2(covered > 0, left ? "Missing wrapped/bidi left gutter" : "Missing wrapped/bidi right gutter");
+                        }
+                    }
+                }
+            }
+        }
+        item.setLinkUnderline(false);
+        if (strike) { ranges.removeLast(); item.setFormatRanges(ranges); }
+        item.ensurePolished();
+        QCOMPARE(raster(), plain);
+    }
+    void strikeoutGutters_data()
+    {
+        QTest::addColumn<qreal>("padding");
+        QTest::addColumn<QPointF>("scale");
+        QTest::addColumn<int>("mode");
+        for (qreal padding : {0., 4., 12.})
+            for (auto scale : {QPointF(1, 1), QPointF(1.25, 1.25), QPointF(1.5, 1.5),
+                               QPointF(2, 2), QPointF(1.250814, 1.25)})
+                for (int mode = 0; mode < 7; ++mode)
+                    QTest::newRow(qPrintable(QString("%1-%2-%3").arg(padding).arg(scale.x()).arg(mode)))
+                        << padding << scale << mode;
+    }
+    void strikeoutGutters()
+    {
+        QFETCH(qreal, padding); QFETCH(QPointF, scale); QFETCH(int, mode);
+        FormattedText item;
+        QFont body("DejaVu Sans"), code("DejaVu Sans Mono");
+        body.setPixelSize(28); code.setPixelSize(18);
+        item.setFont(body); item.setCodeFont(code);
+        item.setText("body CODE tail"); item.setLayoutWidth(600);
+        item.setCodeHorizontalPadding(padding); item.setCodeVerticalPadding(2);
+        item.setCodeSpans({QVariantMap{{"start", 5}, {"length", 4}}});
+        QVariantList ranges{QVariantMap{{"start", 5}, {"length", 4}, {"flags", QMarkdownPrivate::Code}}};
+        item.setFormatRanges(ranges); item.ensurePolished();
+        auto raster = [&] {
+            QImage image(qCeil(650 * scale.x()), qCeil(100 * scale.y()), QImage::Format_ARGB32_Premultiplied);
+            image.fill(Qt::transparent);
+            QPainter painter(&image); painter.scale(scale.x(), scale.y()); item.paint(&painter);
+            return image;
+        };
+        const auto plain = raster();
+        // Continuous, isolated, beginning/ending on code, separated spans,
+        // inherited strikeout, and linked code with its own decoration color.
+        const int start = mode == 1 || mode == 2 ? 5 : 0;
+        const int end = mode == 1 || mode == 3 ? 9 : 14;
+        if (mode == 5) { body.setStrikeOut(true); item.setFont(body); }
+        else {
+            ranges.append(QVariantMap{{"start", start}, {"length", end - start}, {"flags", QMarkdownPrivate::Strikethrough}});
+            if (mode == 4) ranges = {ranges.first(),
+                QVariantMap{{"start", 0}, {"length", 4}, {"flags", QMarkdownPrivate::Strikethrough}},
+                QVariantMap{{"start", 5}, {"length", 4}, {"flags", QMarkdownPrivate::Code | QMarkdownPrivate::Strikethrough}},
+                QVariantMap{{"start", 10}, {"length", 4}, {"flags", QMarkdownPrivate::Strikethrough}}};
+            item.setFormatRanges(ranges);
+        }
+        if (mode == 6) {
+            item.setLinkSpans({QVariantMap{{"start", 5}, {"length", 4}, {"destination", "target"}}});
+            item.setLinkUnderline(false);
+        }
+        item.ensurePolished();
+        const auto decorated = raster();
+        const auto rects = item.rangeRectangles(5, 9); QCOMPARE(rects.size(), 1);
+        const QRectF rect = rects.first();
+        const auto line = item.layout()->lineAt(0);
+        const qreal baseline = line.y() + line.ascent();
+        const qreal bodyY = baseline - QRawFont::fromFont(body).ascent() / 3;
+        const qreal codeY = baseline - QRawFont::fromFont(code).ascent() / 3;
+        for (bool left : {true, false}) {
+            const bool connected = mode == 0 || mode == 5 || mode == 6
+                || (left ? mode == 3 : mode == 2);
+            const qreal outer = left ? rect.left() : rect.right();
+            const qreal inner = outer + (left ? padding : -padding);
+            // Inspect every physical column strictly inside each padding gutter.
+            for (int x = qCeil((qMin(inner, outer) + item.paintOffset().x()) * scale.x() + 1);
+                 x < (qMax(inner, outer) + item.paintOffset().x()) * scale.x() - 1; ++x) {
+                const qreal logicalX = (x + .5) / scale.x() - item.paintOffset().x();
+                const qreal t = (logicalX - outer) / (inner - outer);
+                const qreal expectedY = bodyY + t * (codeY - bodyY);
+                int coverage = 0;
+                for (int y = 0; y < decorated.height(); ++y) {
+                    if (qAbs(decorated.pixelColor(x, y).alpha() - plain.pixelColor(x, y).alpha()) < 20) continue;
+                    const qreal logicalY = (y + .5) / scale.y() - item.paintOffset().y();
+                    QVERIFY2(connected, "Strikeout extended into an unconnected outer gutter");
+                    QVERIFY2(qAbs(logicalY - expectedY) < 1.5 / scale.y() + 1,
+                             "Gutter strikeout left its interpolated native-metric path");
+                    if (mode == 6) QVERIFY(decorated.pixelColor(x, y).blue() > decorated.pixelColor(x, y).red());
+                    ++coverage;
+                }
+                if (connected) QVERIFY2(coverage > 0, left ? "Missing left gutter strikeout" : "Missing right gutter strikeout");
+            }
+        }
+    }
+    void adjacentCodeStrikeout()
+    {
+        for (auto scale : {QPointF(1, 1), QPointF(1.25, 1.25), QPointF(1.5, 1.5),
+                           QPointF(2, 2), QPointF(1.250814, 1.25)}) {
+            FormattedText item;
+            QFont font("DejaVu Sans Mono"); font.setPixelSize(24);
+            item.setFont(font); item.setCodeFont(font);
+            item.setText("CODECODE"); item.setLayoutWidth(400);
+            item.setCodeHorizontalPadding(12); item.setCodeForeground(Qt::red);
+            item.setCodeSpans({QVariantMap{{"start", 0}, {"length", 4}},
+                               QVariantMap{{"start", 4}, {"length", 4}}});
+            item.setLinkSpans({QVariantMap{{"start", 4}, {"length", 4}, {"destination", "target"}}});
+            item.setLinkUnderline(false); item.setLinkColor(Qt::blue);
+            item.setFormatRanges({QVariantMap{{"start", 0}, {"length", 8},
+                {"flags", QMarkdownPrivate::Code | QMarkdownPrivate::Strikethrough}}});
+            item.ensurePolished();
+            QImage image(qCeil(450 * scale.x()), qCeil(80 * scale.y()), QImage::Format_ARGB32_Premultiplied);
+            image.fill(Qt::transparent);
+            { QPainter painter(&image); painter.scale(scale.x(), scale.y()); item.paint(&painter); }
+            const auto left = item.rangeRectangles(0, 4).first();
+            const auto right = item.rangeRectangles(4, 8).first();
+            const qreal boundary = left.right();
+            QVERIFY(qAbs(boundary - right.left()) < .01);
+            const auto line = item.layout()->lineAt(0);
+            const qreal y = line.y() + line.ascent() - QRawFont::fromFont(font).ascent() / 3;
+            for (int px = qCeil((boundary - 12 + item.paintOffset().x()) * scale.x() + 1);
+                 px < (boundary + 12 + item.paintOffset().x()) * scale.x() - 1; ++px) {
+                int covered = 0;
+                for (int py = qFloor((y - 2 + item.paintOffset().y()) * scale.y());
+                     py <= qCeil((y + 2 + item.paintOffset().y()) * scale.y()); ++py) {
+                    const auto color = image.pixelColor(px, py);
+                    if (color.alpha() < 20) continue;
+                    const qreal x = (px + .5) / scale.x() - item.paintOffset().x();
+                    if (x < boundary - 1 / scale.x()) QVERIFY(color.red() > color.blue());
+                    if (x > boundary + 1 / scale.x()) QVERIFY(color.blue() > color.red());
+                    ++covered;
+                }
+                QVERIFY2(covered > 0, "Missing strikeout between adjacent code fragments");
+            }
+        }
+    }
+    void separatedDecorationEndpoints_data()
+    {
+        QTest::addColumn<int>("decoration");
+        for (int decoration = 0; decoration < 4; ++decoration)
+            QTest::newRow(qPrintable(QString::number(decoration))) << decoration;
+    }
+    void separatedDecorationEndpoints()
+    {
+        QFETCH(int, decoration);
+        FormattedText item;
+        QFont font("DejaVu Sans"); font.setPixelSize(24);
+        item.setFont(font); item.setCodeFont(font);
+        item.setText("code first intervening second tail");
+        item.setLayoutWidth(800);
+        const QVariantList plainRanges{QVariantMap{{"start", 0}, {"length", 4}, {"flags", QMarkdownPrivate::Code}}};
+        item.setFormatRanges(plainRanges); item.ensurePolished();
+        const qreal sx = 1.250814, sy = 1.25;
+        auto raster = [&] {
+            QImage image(1100, 100, QImage::Format_ARGB32_Premultiplied);
+            image.fill(Qt::transparent);
+            QPainter painter(&image); painter.scale(sx, sy); item.paint(&painter);
+            return image;
+        };
+        const auto plain = raster();
+        // Identical font/color/shift can be merged by Qt into one glyph run.
+        // Effective interval boundaries must still keep the two lines apart.
+        const int first = 5, second = 23;
+        if (decoration == 0) {
+            auto ranges = plainRanges;
+            for (int start : {first, second})
+                ranges.append(QVariantMap{{"start", start}, {"length", start == first ? 5 : 6},
+                    {"flags", QMarkdownPrivate::Strikethrough}});
+            item.setFormatRanges(ranges);
+        } else {
+            // Underline and overline inherited from a body font also cross the
+            // code boundary. Test their native endpoints over the whole line.
+            font.setUnderline(decoration == 1 || decoration == 3); font.setOverline(decoration == 2);
+            item.setFont(font); item.setCodeFont(font);
+            if (decoration == 3) {
+                item.setLinkSpans({QVariantMap{{"start", 10}, {"length", 13}, {"destination", "target"}}});
+                item.setLinkColor(Qt::black); item.setLinkUnderline(false);
+            }
+        }
+        item.ensurePolished();
+        const auto decorated = raster();
+        const auto line = item.layout()->lineAt(0);
+        const auto raw = line.glyphRuns().first().rawFont();
+        const qreal baseline = line.position().y() + line.ascent();
+        const qreal y = baseline + (decoration == 0 ? -raw.ascent() / 3
+            : decoration == 1 || decoration == 3 ? raw.underlinePosition() : -raw.ascent());
+        QVector<QRectF> bands;
+        const auto positions = decoration == 0 ? QList<int>{first, second}
+            : decoration == 3 ? QList<int>{0, second} : QList<int>{0};
+        for (int start : positions) {
+            const int length = decoration == 0 ? (start == first ? 5 : 6)
+                : decoration == 3 ? (start == 0 ? 10 : item.text().size() - second) : item.text().size();
+            // Native shaped cursor advances plus the known two code gutters
+            // provide an oracle independent of the renderer's cached fragments.
+            const qreal left = line.cursorToX(start) + item.codeHorizontalPadding() * (start == 0 ? 1 : 2);
+            const qreal right = line.cursorToX(start + length) + 2 * item.codeHorizontalPadding();
+            bands.append(QRectF(left, y - raw.lineThickness() / 2,
+                right - left, raw.lineThickness()).translated(item.paintOffset()));
+        }
+        int differences = 0;
+        for (int py = 0; py < plain.height(); ++py) for (int px = 0; px < plain.width(); ++px) {
+            if (qAbs(plain.pixelColor(px, py).alpha() - decorated.pixelColor(px, py).alpha()) < 20) continue;
+            ++differences;
+            bool inside = false;
+            for (const auto &band : bands)
+                if (band.adjusted(-1 / sx, -1 / sy, 1 / sx, 1 / sy)
+                    .contains(QPointF((px + .5) / sx, (py + .5) / sy))) inside = true;
+            QVERIFY2(inside, qPrintable(QString("Decoration outside advance/metric bounds at %1,%2").arg(px).arg(py)));
+        }
+        QVERIFY(differences > 20);
+    }
     void paddingPreparationMeasurements()
     {
         QString text; QVariantList codes, ranges;
