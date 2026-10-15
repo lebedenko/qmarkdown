@@ -85,6 +85,8 @@ if(QMARKDOWN_BUILD_BENCHMARKS)
     target_compile_definitions(qmarkdown-inline-benchmark PRIVATE
         QMARKDOWN_BUILD_TYPE="$<IF:$<BOOL:$<CONFIG>>,$<CONFIG>,unspecified>"
         QMARKDOWN_COMPILER="${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+    qt_add_executable(qmarkdown-search-benchmark searchbenchmark.cpp)
+    target_link_libraries(qmarkdown-search-benchmark PRIVATE QMarkdown::QMarkdown)
     qt_add_executable(qmarkdown-benchmark benchmark.cpp)
     target_include_directories(qmarkdown-benchmark PRIVATE ../src/QMarkdown)
     target_link_libraries(qmarkdown-benchmark PRIVATE QMarkdown::QMarkdown Qt6::Test)
@@ -92,6 +94,8 @@ if(QMARKDOWN_BUILD_BENCHMARKS)
         QMARKDOWN_BUILD_TYPE="$<IF:$<BOOL:$<CONFIG>>,$<CONFIG>,unspecified>"
         QMARKDOWN_COMPILER="${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
     if(NOT BUILD_SHARED_LIBS)
+        target_link_libraries(qmarkdown-search-benchmark PRIVATE QMarkdown::QMarkdownPlugin)
+        target_compile_definitions(qmarkdown-search-benchmark PRIVATE QMARKDOWN_STATIC)
         target_link_libraries(qmarkdown-benchmark PRIVATE QMarkdown::QMarkdownPlugin)
         target_compile_definitions(qmarkdown-benchmark PRIVATE QMARKDOWN_STATIC)
     endif()

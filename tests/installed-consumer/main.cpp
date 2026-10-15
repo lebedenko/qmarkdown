@@ -106,7 +106,10 @@ int main(int argc, char *argv[])
     if (!heading || heading->property("font").value<QFont>() != style->property("h1Font").value<QFont>()
         || indented->property("font").value<QFont>().pixelSize() != 32) return 13;
     QQuickItem *rule = nullptr;
-    for (auto *child : heading->parentItem()->childItems())
+    auto *headingBlock = heading;
+    while (headingBlock->parentItem() && headingBlock->parentItem()->objectName() != "blockSequence")
+        headingBlock = headingBlock->parentItem();
+    for (auto *child : headingBlock->parentItem()->childItems())
         if (child->metaObject()->indexOfProperty("color") >= 0
             && child->metaObject()->indexOfProperty("text") < 0
             && child->objectName() != "codeSurface") rule = child;

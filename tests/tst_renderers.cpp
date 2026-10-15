@@ -106,6 +106,14 @@ void RendererTest::originAndProjection()
     const auto projected = projectDocument(blocks);
     const auto &presented = projected.blocks[2].children[0].children[0].children[0];
     QVERIFY(presented.codeFenced); QCOMPARE(presented.infoString, code.infoString); QCOMPARE(presented.text, code.text);
+    QCOMPARE(presented.language, "preview");
+    for (const auto &info : {QString::fromUtf8("\xEF\xBB\xBF\xC2\xA0preview\xE2\x80\xA8options"),
+                            QString("\tpreview extra"), QString("preview")}) {
+        Block block{}; block.kind = BlockKind::CodeBlock; block.infoString = info;
+        QCOMPARE(projectDocument({block}).blocks[0].language, "preview");
+    }
+    Block whitespace{}; whitespace.kind = BlockKind::CodeBlock; whitespace.infoString = " \t\n";
+    QVERIFY(projectDocument({whitespace}).blocks[0].language.isEmpty());
 }
 
 void RendererTest::matching_data()

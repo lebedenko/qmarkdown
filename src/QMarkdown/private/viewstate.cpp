@@ -1,4 +1,5 @@
 #include "viewstate.h"
+#include "selectionregistration.h"
 #include "formattedtext.h"
 #include "imageitem.h"
 #include <QCoreApplication>
@@ -8,6 +9,7 @@
 #include <QStyleHints>
 #include <QTextBoundaryFinder>
 #include <QSet>
+#include <algorithm>
 #include <limits>
 #include <tuple>
 #include <QtQml/qqml.h>
@@ -35,6 +37,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     }
     if (role == CodeInfoRole) return block.infoString;
     if (role == CodeFencedRole) return block.codeFenced;
+    if (role == CodeLanguageRole) return block.language;
     if (role == SelectionOffsetRole) return block.selectionOffset;
     if (role == SelectionLengthRole) return block.selectionLength;
     if (role == CodeSpansRole) {
@@ -88,7 +91,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
             {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
             {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
             {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
-            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}};
+            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 {
@@ -263,6 +266,7 @@ void registerPrivateTypes()
 {
     qmlRegisterType<::FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
     qmlRegisterType<ImageItem>("QMarkdown.Private", 1, 0, "ImageItem");
+    qmlRegisterType<SelectionRegistration>("QMarkdown.Private", 1, 0, "SelectionRegistration");
     qmlRegisterType<ViewState>("QMarkdown.Private", 1, 0, "ViewState");
 }
 }
@@ -314,11 +318,13 @@ void ViewState::requestCopy()
 {
     if (m_selectionEnabled && selectionStart() != selectionEnd()) emit copyRequested(selectedText());
 }
-void ViewState::registerSelectionItem(QQuickItem *item, int kind)
+void ViewState::registerSelectionItem(SelectionRegistration *registration)
 {
+    unregisterSelectionItem(registration);
+    auto *item = registration->item();
     if (!item) return;
-    unregisterSelectionItem(item);
-    m_selectionItems.append({item, kind});
+    m_selectionItems.append({registration, item, registration->kind(), registration->offset(),
+        registration->length(), registration->imageLink(), registration->imageLinked()});
     connect(item, &QQuickItem::xChanged, this, &ViewState::refreshNavigation);
     connect(item, &QQuickItem::yChanged, this, &ViewState::refreshNavigation);
     connect(item, &QQuickItem::widthChanged, this, &ViewState::refreshNavigation);
@@ -331,10 +337,17 @@ void ViewState::registerSelectionItem(QQuickItem *item, int kind)
     }
     refreshNavigation();
 }
-void ViewState::unregisterSelectionItem(QQuickItem *item)
+void ViewState::unregisterSelectionItem(SelectionRegistration *registration)
 {
-    if (item) disconnect(item, nullptr, this, nullptr);
-    m_selectionItems.removeIf([item](const auto &entry) { return !entry.item || entry.item == item; });
+    for (const auto &entry : m_selectionItems)
+        if (entry.registration == registration && entry.item) disconnect(entry.item, nullptr, this, nullptr);
+    m_selectionItems.removeIf([registration](const auto &entry) { return entry.registration == registration || !entry.item; });
+    refreshNavigation();
+}
+const ViewState::SelectionItem *ViewState::selectionMetadata(QQuickItem *item) const
+{
+    for (const auto &entry : m_selectionItems) if (entry.item == item) return &entry;
+    return nullptr;
 }
 bool ViewState::selectionExcluded(QQuickItem *view, QPointF point) const
 {
@@ -360,7 +373,7 @@ QQuickItem *ViewState::selectionItemAt(QQuickItem *view, QPointF point) const
         const qreal dx = qMax(qreal(0), qMax(-p.x(), p.x() - item->width()));
         const qreal dy = qMax(qreal(0), qMax(-p.y(), p.y() - item->height()));
         const qreal d = dx * dx + dy * dy;
-        const int start = item->property("projectionOffset").toInt();
+        const int start = entry.offset;
         if (d < distance || (d == distance && start < offset)) {
             nearest = item; distance = d; offset = start;
         }
@@ -372,13 +385,13 @@ int ViewState::selectionPosition(QQuickItem *view, QPointF point) const
     auto *item = selectionItemAt(view, point);
     if (!item) return 0;
     const auto p = item->mapFromItem(view, point);
-    const int offset = item->property("projectionOffset").toInt();
+    const int offset = selectionMetadata(item)->offset;
     if (auto *text = qobject_cast<::FormattedText *>(item)) {
-        if (p.y() >= item->height()) return offset + item->property("projectionLength").toInt();
+        if (p.y() >= item->height()) return offset + selectionMetadata(item)->length;
         return offset + text->cursorAt(p.x(), p.y());
     }
     return offset + ((p.y() >= item->height() || (p.y() >= 0 && p.x() >= item->width() / 2))
-        ? item->property("projectionLength").toInt() : 0);
+        ? selectionMetadata(item)->length : 0);
 }
 bool ViewState::beginSelection(QQuickItem *view, QPointF point, bool extend)
 {
@@ -429,8 +442,8 @@ QPair<int, int> ViewState::selectionUnitAt(QQuickItem *view, QPointF point, int 
 {
     auto *item = selectionItemAt(view, point);
     if (!item) return {0, 0};
-    const int offset = item->property("projectionOffset").toInt();
-    const int length = item->property("projectionLength").toInt();
+    const int offset = selectionMetadata(item)->offset;
+    const int length = selectionMetadata(item)->length;
     int position = offset;
     if (auto *text = qobject_cast<::FormattedText *>(item)) {
         const auto local = item->mapFromItem(view, point);
@@ -559,7 +572,7 @@ QVariant ViewState::selectionLink(QQuickItem *view, QPointF point) const
         const int link = text->linkAt(p.x(), p.y());
         return link >= 0 ? QVariant(text->linkDestination(link)) : QVariant();
     }
-    return item->property("imageLinked").toBool() ? item->property("imageLink") : QVariant();
+    return selectionMetadata(item)->imageLinked ? QVariant(selectionMetadata(item)->imageLink) : QVariant();
 }
 
 void ViewState::setSearchActive(bool value)
@@ -583,11 +596,19 @@ void ViewState::setSearchCaseSensitive(bool value)
     emit searchCaseSensitiveChanged();
     rebuildSearch();
 }
-QVariantList ViewState::searchMatches() const
+QVariantList ViewState::searchRangesFor(int offset, int length) const
 {
     QVariantList result;
-    for (int i = 0; i < m_matches.size(); ++i)
-        result.append(QVariantMap{{"start", m_matches[i].start}, {"length", m_matches[i].length}, {"current", i == m_currentMatch}});
+    if (length <= 0) return result;
+    const qint64 end = qint64(offset) + length;
+    auto it = std::lower_bound(m_matches.cbegin(), m_matches.cend(), qint64(offset),
+        [](const ReaderRange &range, qint64 start) { return qint64(range.start) + range.length <= start; });
+    for (; it != m_matches.cend() && it->start < end; ++it) {
+        const qint64 start = qMax(qint64(offset), qint64(it->start));
+        const qint64 clippedEnd = qMin(end, qint64(it->start) + it->length);
+        result.append(QVariantMap{{"start", int(start - offset)}, {"length", int(clippedEnd - start)},
+            {"current", it - m_matches.cbegin() == m_currentMatch}});
+    }
     return result;
 }
 void ViewState::rebuildSearch()
@@ -603,6 +624,7 @@ void ViewState::rebuildSearch()
         }
     }
     m_currentMatch = m_matches.isEmpty() ? -1 : 0;
+    if (++m_searchRevision == 0) ++m_searchRevision;
     emit searchChanged();
     if (m_currentMatch >= 0) {
         m_targetSearch = true;
@@ -620,6 +642,7 @@ bool ViewState::advanceSearch(int direction)
     m_targetLength = m_matches[m_currentMatch].length;
     m_targetSearch = true;
     m_lastTarget = {};
+    if (++m_searchRevision == 0) ++m_searchRevision;
     emit searchChanged();
     refreshNavigation();
     return true;
@@ -711,8 +734,8 @@ void ViewState::emitNavigation()
         auto *item = entry.item.data();
         if (!item || !item->isVisible() || item->width() <= 0
             || (entry.kind != TextSelection && entry.kind != ImageSelection)) continue;
-        const int offset = item->property("projectionOffset").toInt();
-        const int length = item->property("projectionLength").toInt();
+        const int offset = entry.offset;
+        const int length = entry.length;
         const auto bounds = item->mapRectToItem(m_navigationView, item->boundingRect());
         const int d = qMax(0, qMax(offset - m_targetStart, m_targetStart - offset - length));
         if (d < distance) { distance = d; nearest = bounds; }

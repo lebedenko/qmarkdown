@@ -10,6 +10,7 @@ struct PresentationBlock {
     PresentationKind kind;
     QString text;
     QString infoString;
+    QString language;
     bool codeFenced = false;
     int level = 0;
     QVector<InlineRange> ranges;
