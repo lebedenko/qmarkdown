@@ -23,6 +23,14 @@ outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](../docs/reading-navigation.md).
 <!-- current-release:end -->
 
+## Pending QML boundary refactor
+
+[046: requirements](046-qml-boundaries/requirements.md),
+[design](046-qml-boundaries/design.md), [tasks](046-qml-boundaries/tasks.md)
+and [verification](046-qml-boundaries/verification.md) prepare the behavior-preserving
+QML responsibility and private contract refactor. Requirements, design and tasks were approved on 2026-10-15. The refactor is
+implemented and locally verified on both configured Qt shared/static targets.
+
 ## 1.9 reading and navigation
 
 [045: requirements](045-reading-navigation/requirements.md),

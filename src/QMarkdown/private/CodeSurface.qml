@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QMarkdown
 import QMarkdown.Private
 import "private/Layout.js" as Layout
 
@@ -8,22 +9,26 @@ Rectangle {
     required property string codeText
     required property string infoString
     required property bool fenced
-    required property var style
+    required property MarkdownStyle style
     required property ViewState coordinator
-    required property var view
+    required property Component actions
+    required property var rendererRegistry
+    required property string sourceIdentity
+    required property bool viewportAvailable
+    required property bool searchActive
+    required property color searchHighlightColor
+    required property color currentSearchHighlightColor
+    required property string language
+    signal copyRequested(string text)
     required property bool selected
     required property int projectionOffset
     required property int projectionLength
     property int textAlignment: Qt.AlignLeft
     readonly property real padX: Math.min(Layout.metric(style.codeBlock.horizontalPadding), Math.max(0, (width - 1) / 2))
     readonly property real padY: Layout.metric(style.codeBlock.verticalPadding)
-    readonly property string language: {
-        const match = /^\s*(\S+)/.exec(infoString)
-        return match ? match[1] : ""
-    }
     readonly property var rendererEntry: {
-        const map = view.fencedBlockRenderers
-        return !selected && !view.searchActive && fenced && language.length > 0 && map
+        const map = surface.rendererRegistry
+        return !selected && !surface.searchActive && fenced && language.length > 0 && map
             && Object.prototype.hasOwnProperty.call(map, language) ? map[language] : undefined
     }
     property Item rendererItem: null
@@ -40,7 +45,7 @@ Rectangle {
     }
     function rebuildRenderer() {
         clearRenderer()
-        if (!ready || selected || view.searchActive || !fenced || rendererEntry === undefined) return
+        if (!ready || selected || surface.searchActive || !fenced || rendererEntry === undefined) return
         const component = rendererEntry as Component
         if (!component || component.status !== Component.Ready) {
             console.warn("QMarkdown: fenced renderer '" + language + "': invalid or unready Component; using code")
@@ -86,7 +91,7 @@ Rectangle {
     Component.onCompleted: { ready = true; rebuildRenderer() }
     Component.onDestruction: clearRenderer()
     readonly property string displayText: codeText.endsWith("\n") ? codeText.slice(0, -1) : codeText
-    height: actions.height + (rendererItem ? Layout.metric(rendererItem.implicitHeight) : contents.height) + 2 * padY
+    height: actionHost.height + (rendererItem ? Layout.metric(rendererItem.implicitHeight) : contents.height) + 2 * padY
     color: style.codeBlock.backgroundColor
     border.color: style.codeBlock.borderColor
     border.width: Layout.metric(style.codeBlock.borderWidth)
@@ -94,20 +99,23 @@ Rectangle {
     objectName: "codeSurface"
 
     CodeActionHost {
-        id: actions
+        id: actionHost
         x: surface.padX
         y: surface.padY
         width: Math.max(1, surface.width - 2 * surface.padX)
         codeText: surface.codeText
-        view: surface.view
+        actions: surface.actions
+        sourceIdentity: surface.sourceIdentity
+        viewportAvailable: surface.viewportAvailable
+        onCopyRequested: function(text) { surface.copyRequested(text) }
         coordinator: surface.coordinator
     }
     Loader {
         id: contents
         x: surface.padX
-        y: surface.padY + actions.height
+        y: surface.padY + actionHost.height
         width: Math.max(1, surface.width - 2 * surface.padX)
-        sourceComponent: surface.rendererItem ? null : surface.selected || surface.view.searchActive ? selectedText : plainText
+        sourceComponent: surface.rendererItem ? null : surface.selected || surface.searchActive ? selectedText : plainText
     }
     Component {
         id: plainText
@@ -125,24 +133,20 @@ Rectangle {
     }
     Component {
         id: selectedText
-        FormattedText {
+        SelectableText {
+            coordinator: surface.coordinator
+            highlightColor: surface.searchHighlightColor
+            currentHighlightColor: surface.currentSearchHighlightColor
             id: leaf
-            property int projectionOffset: surface.projectionOffset
-            property int projectionLength: surface.projectionLength
+            projectionOffset: surface.projectionOffset
+            projectionLength: surface.projectionLength
             text: surface.displayText
             layoutWidth: contents.width
             horizontalAlignment: surface.textAlignment
             font: surface.style.codeBlockFont
             color: surface.style.codeBlockColor
-            selectionStart: surface.coordinator.selectionEnabled ? Math.max(0, surface.coordinator.selectionStart - projectionOffset) : 0
-            selectionEnd: surface.coordinator.selectionEnabled ? Math.max(0, surface.coordinator.selectionEnd - projectionOffset) : 0
-            searchRanges: surface.view.searchRangesFor(projectionOffset)
-            searchHighlightColor: surface.view.searchHighlightColor
-            currentSearchHighlightColor: surface.view.currentSearchHighlightColor
             selectionColor: surface.style.selectionBackgroundColor
             implicitHeight: logicalHeight
-            Component.onCompleted: surface.coordinator.registerSelectionItem(leaf, ViewState.TextSelection)
-            Component.onDestruction: surface.coordinator.unregisterSelectionItem(leaf)
         }
     }
 }

@@ -49,6 +49,13 @@ for variant in ("shared", "static"):
         run("python3", source / "scripts/verify-cmark-symbols.py", build)
     run("cmake", "--install", build)
     prefix.rename(relocated)
+    module_payload = relocated / qml_dir / "QMarkdown"
+    for name in ("MarkdownView.qml", "BlockSequence.qml", "TextBlock.qml", "SelectableText.qml",
+                 "ImageBlock.qml", "ListBlock.qml", "HeadingSeparator.qml", "CodeSurface.qml",
+                 "CodeActionHost.qml", "TableBlock.qml", "private/Layout.js",
+                 "Private/qmldir", "Private/private.qmltypes"):
+        if not (module_payload / name).is_file():
+            raise RuntimeError(f"Missing installed QML payload: {name}")
     for metadata in (relocated / "lib/cmake/QMarkdown").glob("*.cmake"):
         text = metadata.read_text()
         for forbidden in (str(source), str(build), str(prefix), "qmarkdown_cmark", "third_party/cmark"):

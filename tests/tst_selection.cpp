@@ -3,6 +3,7 @@
 #include "private/resourcecontroller.h"
 #include "private/presentation.h"
 #include "private/viewstate.h"
+#include "private/selectionregistration.h"
 #include "markdownstyle.h"
 #include <QGuiApplication>
 #include <QSignalSpy>
@@ -46,6 +47,75 @@ class SelectionTest : public QObject
         return result;
     }
 private slots:
+    void registrationLifecycle() {
+        ViewState first, second;
+        first.setMarkdown("abcdef"); first.setSelectionEnabled(true);
+        second.setMarkdown("abcdef"); second.setSelectionEnabled(true);
+        QQuickItem view;
+        auto image = std::make_unique<QQuickItem>(&view);
+        image->setWidth(100); image->setHeight(30);
+        auto registration = std::make_unique<SelectionRegistration>();
+        registration->setCoordinator(&first); registration->setItem(image.get());
+        registration->setKind(ViewState::ImageSelection);
+        registration->setOffset(1); registration->setLength(3);
+        registration->setImageLink("first"); registration->setImageLinked(true);
+        QVERIFY(!first.selectionLink(&view, {10, 10}).isValid());
+        registration->componentComplete();
+        QCOMPARE(first.selectionLink(&view, {10, 10}).toString(), "first");
+        QVERIFY(first.beginSelection(&view, {0, 10}, false));
+        first.extendSelection(&view, {99, 10});
+        QCOMPARE(first.selectedText(), "bcd");
+        registration->setOffset(2); registration->setLength(2);
+        registration->setImageLink("updated");
+        QVERIFY(first.beginSelection(&view, {0, 10}, false));
+        first.extendSelection(&view, {99, 10});
+        QCOMPARE(first.selectedText(), "cd");
+        QCOMPARE(first.selectionLink(&view, {10, 10}).toString(), "updated");
+        registration->setImageLinked(false);
+        QVERIFY(!first.selectionLink(&view, {10, 10}).isValid());
+        registration->setImageLinked(true);
+        registration->setCoordinator(&second);
+        QVERIFY(!first.selectionLink(&view, {10, 10}).isValid());
+        QCOMPARE(second.selectionLink(&view, {10, 10}).toString(), "updated");
+        QQuickItem replacement(&view); replacement.setX(200);
+        replacement.setWidth(100); replacement.setHeight(30);
+        registration->setItem(&replacement);
+        QVERIFY(!second.selectionLink(&view, {10, 10}).isValid());
+        QCOMPARE(second.selectionLink(&view, {210, 10}).toString(), "updated");
+        registration.reset();
+        QVERIFY(!second.selectionLink(&view, {210, 10}).isValid());
+        SelectionRegistration lifetime;
+        lifetime.setCoordinator(&first); lifetime.setItem(image.get());
+        lifetime.componentComplete(); image.reset();
+        QVERIFY(!lifetime.item());
+        auto temporary = std::make_unique<ViewState>();
+        lifetime.setCoordinator(temporary.get()); lifetime.setItem(&replacement);
+        temporary.reset(); QVERIFY(!lifetime.coordinator());
+    }
+    void exclusionRegistrations() {
+        ViewState state; state.setSelectionEnabled(true); state.setMarkdown("abcdef");
+        QQuickItem view, cell(&view), image(&view), action(&view);
+        cell.setWidth(100); cell.setHeight(30);
+        image.setX(100); image.setWidth(100); image.setHeight(30);
+        action.setWidth(20); action.setHeight(20);
+        SelectionRegistration cellRegistration, imageRegistration, actionRegistration;
+        cellRegistration.setCoordinator(&state); cellRegistration.setItem(&cell);
+        cellRegistration.setKind(ViewState::TableCellSelection); cellRegistration.componentComplete();
+        imageRegistration.setCoordinator(&state); imageRegistration.setItem(&image);
+        imageRegistration.setKind(ViewState::ImageSelection);
+        imageRegistration.setOffset(2); imageRegistration.setLength(3); imageRegistration.componentComplete();
+        actionRegistration.setCoordinator(&state); actionRegistration.setItem(&action);
+        actionRegistration.setKind(ViewState::ActionSelection); actionRegistration.componentComplete();
+        QVERIFY(!state.beginSelection(&view, {10, 10}, false));
+        QVERIFY(state.beginSelection(&view, {50, 10}, false));
+        QCOMPARE(state.selectionStart(), 0); // Empty cell cannot select a neighboring cell's text.
+        actionRegistration.setItem(nullptr);
+        QVERIFY(state.beginSelection(&view, {10, 10}, false));
+        cellRegistration.setItem(nullptr);
+        QVERIFY(state.beginSelection(&view, {150, 10}, false));
+        QCOMPARE(state.selectionStart(), 5);
+    }
+
     void repeatedSelection_data() {
         QTest::addColumn<QString>("source");
         QTest::addColumn<int>("leaf"); QTest::addColumn<int>("offset");

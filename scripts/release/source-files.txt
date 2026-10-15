@@ -78,3 +78,11 @@ src/QMarkdown/private/CodeSurface.qml
 src/QMarkdown/private/CodeActionHost.qml
 src/QMarkdown/private/TableBlock.qml
 src/QMarkdown/private/Layout.js
+src/QMarkdown/private/BlockSequence.qml
+src/QMarkdown/private/TextBlock.qml
+src/QMarkdown/private/SelectableText.qml
+src/QMarkdown/private/ImageBlock.qml
+src/QMarkdown/private/ListBlock.qml
+src/QMarkdown/private/HeadingSeparator.qml
+src/QMarkdown/private/selectionregistration.h
+src/QMarkdown/private/selectionregistration.cpp

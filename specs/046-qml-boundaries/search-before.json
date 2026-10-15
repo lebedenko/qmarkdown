@@ -1,0 +1,35 @@
+{
+    "build_abi": "x86_64-little_endian-lp64",
+    "compiler": "16.2.1 20260810",
+    "next_actions_per_sample": 3,
+    "platform": "Arch Linux",
+    "qt": "6.12.0",
+    "results": [
+        {
+            "activation_median_ms": 9.160438,
+            "blocks": 25,
+            "matches": 25,
+            "next_result_median_ms": 9.707521666666667
+        },
+        {
+            "activation_median_ms": 23.215912,
+            "blocks": 25,
+            "matches": 100,
+            "next_result_median_ms": 23.621144333333334
+        },
+        {
+            "activation_median_ms": 93.045273,
+            "blocks": 100,
+            "matches": 100,
+            "next_result_median_ms": 93.44755466666666
+        },
+        {
+            "activation_median_ms": 303.650549,
+            "blocks": 100,
+            "matches": 400,
+            "next_result_median_ms": 310.842764
+        }
+    ],
+    "samples": 3,
+    "warmups": 1
+}

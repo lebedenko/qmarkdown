@@ -1,12 +1,13 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QMarkdown
 import QMarkdown.Private
 import "private/Layout.js" as Layout
 
 Column {
     id: table
     objectName: "markdownTable"
-    required property var style
+    required property MarkdownStyle style
     required property ViewState coordinator
     required property Component sequenceComponent
     required property var childBlocks
@@ -37,8 +38,11 @@ Column {
                     required property int index
                     required property var childBlocks
                     required property int tableAlignment
-                    Component.onCompleted: table.coordinator.registerSelectionItem(tableCell, ViewState.TableCellSelection)
-                    Component.onDestruction: table.coordinator.unregisterSelectionItem(tableCell)
+                    SelectionRegistration {
+                        coordinator: table.coordinator
+                        item: tableCell
+                        kind: ViewState.TableCellSelection
+                    }
                     width: cells.count > 0 ? tableRow.width / cells.count : 0
                     x: index * width
                     height: tableRow.height
@@ -57,9 +61,12 @@ Column {
                         y: tableCell.edge + tableCell.padY
                         width: Math.max(0, tableCell.width - 2 * x)
                         sourceComponent: table.sequenceComponent
-                        property var sequenceItem: item
                         onLoaded: {
-                            const loaded = sequenceItem
+                            const loaded = item as BlockSequence
+                            if (!loaded) {
+                                console.warn("QMarkdown: TableBlock sequenceComponent must create a BlockSequence")
+                                return
+                            }
                             loaded.model = Qt.binding(function() { return tableCell.childBlocks })
                             loaded.style = Qt.binding(function() { return table.style })
                             loaded.bodyFont = Qt.binding(function() { return tableCell.cellFont })

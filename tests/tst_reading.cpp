@@ -1,4 +1,5 @@
 #include "private/formattedtext.h"
+#include "private/viewstate.h"
 #include "markdownresourcepolicy.h"
 #include <QTemporaryDir>
 #include <QPainter>
@@ -14,6 +15,7 @@
 #include <QtQml/QQmlExtensionPlugin>
 #include <QtTest/QTest>
 #include <memory>
+#include <limits>
 #ifdef QMARKDOWN_STATIC
 Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
 #endif
@@ -68,6 +70,56 @@ MarkdownView {
         return result;
     }
 private slots:
+    void plainTextSearchModeTransitions() {
+        QQmlEngine engine; auto view = create(engine); QVERIFY(view);
+        view->setProperty("markdown", "plain needle\n\n<div>needle</div>\n");
+        view->setProperty("searchQuery", "needle");
+        auto highlights = [&] {
+            int count = 0;
+            for (auto *item : items(view.get()))
+                if (auto *text = qobject_cast<FormattedText *>(item); text && !text->searchRanges().isEmpty()) ++count;
+            return count;
+        };
+        QCOMPARE(highlights(), 0);
+        view->setProperty("searchActive", true);
+        QTRY_COMPARE(highlights(), 2);
+        view->setProperty("searchActive", false);
+        QTRY_COMPARE(highlights(), 0);
+        view->setProperty("selectionEnabled", true);
+        view->setProperty("searchActive", true);
+        QTRY_COMPARE(highlights(), 2);
+        view->setProperty("selectionEnabled", false);
+        QTRY_COMPARE(highlights(), 2);
+    }
+    void boundedSearchRanges() {
+        ViewState state;
+        state.setMarkdown(QString::fromUtf8("😀needle needle\n\nlast"));
+        state.setSearchQuery("needle"); state.setSearchActive(true);
+        auto range = [](int start, int length, bool current) {
+            return QVariant(QVariantMap{{"start", start}, {"length", length}, {"current", current}});
+        };
+        QCOMPARE(state.searchRangesFor(0, 2), QVariantList{}); // UTF-16 emoji ends at match start.
+        QCOMPARE(state.searchRangesFor(8, 1), QVariantList{}); // Match end excluded.
+        QCOMPARE(state.searchRangesFor(3, 3), QVariantList{range(0, 3, true)});
+        QCOMPARE(state.searchRangesFor(7, 3), (QVariantList{range(0, 1, true), range(2, 1, false)}));
+        QVERIFY(state.searchRangesFor(0, 0).isEmpty());
+        QVERIFY(state.searchRangesFor(0, -1).isEmpty());
+        QVERIFY(state.searchRangesFor(std::numeric_limits<int>::max(), 10).isEmpty());
+        const auto revision = state.searchRevision();
+        QVERIFY(state.searchNext());
+        QCOMPARE(state.searchResultCount(), 2);
+        QVERIFY(state.searchRevision() != revision);
+        QCOMPARE(state.searchRangesFor(9, 6), QVariantList{range(0, 6, true)});
+        QCOMPARE(state.searchRangesFor(2, 6), QVariantList{range(0, 6, false)});
+        state.setSearchQuery("needle\n\nlast");
+        QCOMPARE(state.searchRangesFor(9, 6), QVariantList{range(0, 6, true)});
+        QCOMPARE(state.searchRangesFor(17, 4), QVariantList{range(0, 4, true)});
+        state.setMarkdown("![needle](missing.png)");
+        state.setSearchQuery("eed");
+        QCOMPARE(state.searchRangesFor(0, 6), QVariantList{range(1, 3, true)});
+        state.setSearchActive(false);
+        QVERIFY(state.searchRangesFor(0, 6).isEmpty());
+    }
     void literalSearchAndSelection() {
         QQmlEngine engine; auto view = create(engine); QVERIFY(view);
         view->setProperty("markdown", QString::fromUtf8("# CAFÉ\n\nCafé **café** `café`\n\n```\ncafé\n```\n\n![café](missing.png)\n\n| café |\n| --- |\n| café |"));

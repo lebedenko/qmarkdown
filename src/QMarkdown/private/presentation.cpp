@@ -2,6 +2,18 @@
 
 namespace QMarkdownPrivate {
 namespace {
+QString fenceLanguage(const QString &info)
+{
+    // ECMAScript whitespace: Qt's Unicode spaces, plus BOM, excluding NEL.
+    const auto space = [](QChar ch) {
+        return ch == QChar(0xfeff) || (ch.isSpace() && ch != QChar(0x0085));
+    };
+    qsizetype start = 0;
+    while (start < info.size() && space(info[start])) ++start;
+    qsizetype end = start;
+    while (end < info.size() && !space(info[end])) ++end;
+    return info.mid(start, end - start);
+}
 class TextProjection
 {
 public:
@@ -77,6 +89,7 @@ QVector<PresentationBlock> present(const QVector<Block> &blocks)
         }
         block.text = source.text;
         block.infoString = source.infoString;
+        if (source.kind == BlockKind::CodeBlock) block.language = fenceLanguage(source.infoString);
         block.codeFenced = source.codeFenced;
         block.level = source.level;
         block.ranges = source.ranges;

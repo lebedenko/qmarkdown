@@ -40,6 +40,11 @@ def verify(archive, qt, work):
     for name in ('LICENSE', 'cmark/COPYING', 'cmark/PROVENANCE.md'):
         if not (prefix / 'share/licenses/QMarkdown' / name).is_file():
             raise ValueError(f'Missing installed license: {name}')
+    for name in ('BlockSequence.qml', 'TextBlock.qml', 'SelectableText.qml',
+                 'ImageBlock.qml', 'ListBlock.qml', 'HeadingSeparator.qml',
+                 'CodeSurface.qml', 'CodeActionHost.qml', 'TableBlock.qml'):
+        if not list(prefix.rglob(name)):
+            raise ValueError(f'Missing installed private QML component: {name}')
     cache = (build / 'CMakeCache.txt').read_text()
     if 'BUILD_TESTING:BOOL=OFF' not in cache or 'QMARKDOWN_BUILD_EXAMPLES:BOOL=OFF' not in cache:
         raise ValueError('Source archive must default to library-only')

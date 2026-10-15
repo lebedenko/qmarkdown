@@ -1,6 +1,22 @@
 import QtQuick.tooling 1.2
 Module {
     Component {
+        name: "SelectionRegistration"
+        prototype: "QObject"
+        exports: ["QMarkdown.Private/SelectionRegistration 1.0"]
+        exportMetaObjectRevisions: [256]
+        Property { name: "coordinator"; type: "ViewState"; isPointer: true; notify: "coordinatorChanged" }
+        Property { name: "item"; type: "QQuickItem"; isPointer: true; notify: "itemChanged" }
+        Property { name: "kind"; type: "ViewState::SelectionItemKind"; notify: "metadataChanged" }
+        Property { name: "offset"; type: "int"; notify: "metadataChanged" }
+        Property { name: "length"; type: "int"; notify: "metadataChanged" }
+        Property { name: "imageLink"; type: "QString"; notify: "metadataChanged" }
+        Property { name: "imageLinked"; type: "bool"; notify: "metadataChanged" }
+        Signal { name: "coordinatorChanged" }
+        Signal { name: "itemChanged" }
+        Signal { name: "metadataChanged" }
+    }
+    Component {
         name: "ImageItem"
         prototype: "QQuickPaintedItem"
         exports: ["QMarkdown.Private/ImageItem 1.0"]
@@ -21,7 +37,7 @@ Module {
         Property { name: "searchCaseSensitive"; type: "bool"; notify: "searchCaseSensitiveChanged" }
         Property { name: "searchResultCount"; type: "int"; notify: "searchChanged"; isReadonly: true }
         Property { name: "currentSearchResult"; type: "int"; notify: "searchChanged"; isReadonly: true }
-        Property { name: "searchMatches"; type: "QVariantList"; notify: "searchChanged"; isReadonly: true }
+        Property { name: "searchRevision"; type: "uint"; notify: "searchChanged"; isReadonly: true }
         Property { name: "headings"; type: "QVariantList"; notify: "headingsChanged"; isReadonly: true }
         Signal { name: "searchActiveChanged" }
         Signal { name: "searchQueryChanged" }
@@ -31,6 +47,7 @@ Module {
         Signal { name: "navigationViewChanged" }
         Property { name: "navigationView"; type: "QQuickItem"; isPointer: true; notify: "navigationViewChanged" }
         Signal { name: "navigationRequested"; Parameter { name: "target"; type: "QRectF" } }
+        Method { name: "searchRangesFor"; type: "QVariantList"; Parameter { name: "offset"; type: "int" } Parameter { name: "length"; type: "int" } }
         Method { name: "searchNext"; type: "bool" }
         Method { name: "searchPrevious"; type: "bool" }
         Method { name: "navigateToHeading"; type: "bool"; Parameter { name: "index"; type: "int" } }
@@ -56,8 +73,6 @@ Module {
         Method { name: "selectAll" }
         Method { name: "clearSelection" }
         Method { name: "requestCopy" }
-        Method { name: "registerSelectionItem"; Parameter { name: "item"; type: "QQuickItem"; isPointer: true } Parameter { name: "kind"; type: "int" } }
-        Method { name: "unregisterSelectionItem"; Parameter { name: "item"; type: "QQuickItem"; isPointer: true } }
         Method { name: "beginSelection"; type: "bool"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } Parameter { name: "extend"; type: "bool" } }
         Method { name: "extendSelection"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } }
         Method { name: "selectionLink"; type: "QVariant"; Parameter { name: "view"; type: "QQuickItem"; isPointer: true } Parameter { name: "point"; type: "QPointF" } }
