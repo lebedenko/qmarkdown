@@ -6,6 +6,26 @@ import "private/Layout.js" as Layout
 
 Item {
     id: root
+    property alias searchActive: viewState.searchActive
+    property alias searchQuery: viewState.searchQuery
+    property alias searchCaseSensitive: viewState.searchCaseSensitive
+    readonly property int searchResultCount: viewState.searchResultCount
+    readonly property int currentSearchResult: viewState.currentSearchResult
+    readonly property var headings: viewState.headings
+    property color searchHighlightColor: "#70ffff00"
+    property color currentSearchHighlightColor: "#b0ff9900"
+    signal navigationRequested(rect target)
+    function searchNext() { return viewState.searchNext() }
+    function searchPrevious() { return viewState.searchPrevious() }
+    function navigateToHeading(index: int): bool { return viewState.navigateToHeading(index) }
+    function navigateToFragment(fragment: string): bool { return viewState.navigateToFragment(fragment) }
+    function searchRangesFor(offset: int): list<var> {
+        return viewState.searchMatches.map(function(match) {
+            return { start: match.start - offset, length: match.length, current: match.current }
+        })
+    }
+    onWidthChanged: viewState.refreshNavigation()
+    onContentHeightChanged: viewState.refreshNavigation()
     signal copyRequested(string text)
     property alias selectionViewport: viewState.selectionViewport
     signal selectionScrollRequested(real deltaY)
@@ -85,6 +105,7 @@ Item {
     }
     Connections {
         target: viewState
+        function onNavigationRequested(target) { root.navigationRequested(target) }
         function onSelectionScrollRequested(deltaY) { root.selectionScrollRequested(deltaY) }
         function onSelectionLinkActivated(destination) { root.linkActivated(destination) }
     }
@@ -110,6 +131,9 @@ Item {
         id: selectable
         property int projectionOffset: 0
         property int projectionLength: 0
+        searchRanges: root.searchRangesFor(projectionOffset)
+        searchHighlightColor: root.searchHighlightColor
+        currentSearchHighlightColor: root.currentSearchHighlightColor
         selectionStart: root.selectionEnabled ? Math.max(0, root.selectionStart - projectionOffset) : 0
         selectionEnd: root.selectionEnabled ? Math.max(0, root.selectionEnd - projectionOffset) : 0
         implicitHeight: logicalHeight
@@ -130,6 +154,7 @@ Item {
 
     ViewState {
         id: viewState
+        navigationView: root
         onCopyRequested: function(text) { root.copyRequested(text) }
         onPresentationReset: selectionGesture.pressedLink = null
     }
@@ -160,7 +185,7 @@ Item {
         Repeater {
             model: sequence.width > 0 ? sequence.model : null
             delegate: DelegateChooser {
-                role: root.selectionEnabled ? "selectionKind" : "renderKind"
+                role: root.selectionEnabled || root.searchActive ? "selectionKind" : "renderKind"
                 DelegateChoice {
                     roleValue: ViewState.Table
                     delegate: TableBlock {
@@ -224,10 +249,20 @@ Item {
                             Component.onDestruction: viewState.unregisterSelectionItem(imagePaint)
                             Rectangle {
                                 anchors.fill: parent
+                                z: 1
                                 color: sequence.style.selectionBackgroundColor
                                 visible: root.selectionEnabled && root.selectionStart < root.selectionEnd
                                     && imageRow.selectionLength > 0 && root.selectionStart < imageRow.selectionOffset + imageRow.selectionLength
                                     && root.selectionEnd > imageRow.selectionOffset
+                            }
+                            Rectangle {
+                                anchors.fill: parent
+                                property var matches: root.searchRangesFor(imageRow.selectionOffset).filter(function(match) {
+                                    return match.start < imageRow.selectionLength && match.start + match.length > 0
+                                })
+                                visible: matches.length > 0
+                                color: matches.some(function(match) { return match.current })
+                                    ? root.currentSearchHighlightColor : root.searchHighlightColor
                             }
                             image: imageRow.imageData
                             width: Math.min(imageRow.width, imagePaint.naturalWidth)
@@ -480,6 +515,12 @@ Item {
                     roleValue: ViewState.PlainText
                     delegate: Text {
                         id: blockItem
+                        required property int selectionOffset
+                        required property int selectionLength
+                        property int projectionOffset: selectionOffset
+                        property int projectionLength: selectionLength
+                        Component.onCompleted: viewState.registerSelectionItem(blockItem, ViewState.TextSelection)
+                        Component.onDestruction: viewState.unregisterSelectionItem(blockItem)
                         required property string blockText
                         required property int headingLevel
                         width: sequence.width

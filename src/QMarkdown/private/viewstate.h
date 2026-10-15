@@ -48,6 +48,14 @@ class ViewState : public QObject
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(bool searchActive READ searchActive WRITE setSearchActive NOTIFY searchActiveChanged FINAL)
+    Q_PROPERTY(QString searchQuery READ searchQuery WRITE setSearchQuery NOTIFY searchQueryChanged FINAL)
+    Q_PROPERTY(bool searchCaseSensitive READ searchCaseSensitive WRITE setSearchCaseSensitive NOTIFY searchCaseSensitiveChanged FINAL)
+    Q_PROPERTY(int searchResultCount READ searchResultCount NOTIFY searchChanged FINAL)
+    Q_PROPERTY(int currentSearchResult READ currentSearchResult NOTIFY searchChanged FINAL)
+    Q_PROPERTY(QVariantList searchMatches READ searchMatches NOTIFY searchChanged FINAL)
+    Q_PROPERTY(QVariantList headings READ headings NOTIFY headingsChanged FINAL)
+    Q_PROPERTY(QQuickItem *navigationView READ navigationView WRITE setNavigationView NOTIFY navigationViewChanged FINAL)
     Q_PROPERTY(QQuickItem *selectionViewport READ selectionViewport WRITE setSelectionViewport NOTIFY selectionViewportChanged FINAL)
     Q_PROPERTY(bool selectionEnabled READ selectionEnabled WRITE setSelectionEnabled NOTIFY selectionEnabledChanged FINAL)
     Q_PROPERTY(QString selectedText READ selectedText NOTIFY selectionChanged FINAL)
@@ -65,6 +73,23 @@ class ViewState : public QObject
     Q_PROPERTY(MarkdownResourcePolicy *resourcePolicy READ resourcePolicy WRITE setResourcePolicy RESET resetResourcePolicy NOTIFY resourcePolicyChanged FINAL)
     Q_PROPERTY(QAbstractItemModel *blocks READ blocks CONSTANT FINAL)
 public:
+    bool searchActive() const { return m_searchActive; }
+    void setSearchActive(bool value);
+    QString searchQuery() const { return m_searchQuery; }
+    void setSearchQuery(const QString &value);
+    bool searchCaseSensitive() const { return m_searchCaseSensitive; }
+    void setSearchCaseSensitive(bool value);
+    int searchResultCount() const { return m_matches.size(); }
+    int currentSearchResult() const { return m_currentMatch; }
+    QVariantList searchMatches() const;
+    QVariantList headings() const { return m_headings; }
+    QQuickItem *navigationView() const { return m_navigationView; }
+    void setNavigationView(QQuickItem *view);
+    Q_INVOKABLE bool searchNext();
+    Q_INVOKABLE bool searchPrevious();
+    Q_INVOKABLE bool navigateToHeading(int index);
+    Q_INVOKABLE bool navigateToFragment(const QString &fragment);
+    Q_INVOKABLE void refreshNavigation();
     enum RenderKind { PlainText = 0, FormattedText = 1, CodeBlock = 2, ThematicBreak = 3, List = 4, Quote = 5, ListItem = 6, HtmlBlock = 7, Image = 8, Segments = 9, Table = 10, SelectedText = 11, SelectedCode = 12, SelectedHtml = 13 };
     Q_ENUM(RenderKind)
     enum SelectionItemKind { TextSelection = 0, ImageSelection = 1, TableCellSelection = 2, ActionSelection = 3 };
@@ -116,6 +141,13 @@ public:
     void resetStyle();
     QAbstractItemModel *blocks() { return &m_blocks; }
 signals:
+    void searchActiveChanged();
+    void searchQueryChanged();
+    void searchCaseSensitiveChanged();
+    void searchChanged();
+    void headingsChanged();
+    void navigationViewChanged();
+    void navigationRequested(QRectF target);
     void selectionViewportChanged();
     void selectionScrollRequested(qreal deltaY);
     void selectionLinkActivated(const QString &destination);
@@ -134,6 +166,21 @@ signals:
     void extendedAutolinksEnabledChanged();
     void styleChanged();
 private:
+    void rebuildSearch();
+    void rebuildHeadings();
+    bool advanceSearch(int direction);
+    void emitNavigation();
+    struct ReaderRange { int start, length; };
+    QVector<ReaderRange> m_matches, m_headingRanges;
+    QVariantList m_headings;
+    QString m_searchQuery;
+    bool m_sourceChanged = false;
+    bool m_searchActive = false, m_searchCaseSensitive = false;
+    int m_currentMatch = -1;
+    int m_targetStart = -1, m_targetLength = 0;
+    bool m_targetSearch = false, m_navigationQueued = false;
+    QRectF m_lastTarget;
+    QPointer<QQuickItem> m_navigationView;
     struct SelectionUnit { int start, end; bool lines; };
     QVector<SelectionUnit> m_selectionUnits;
     QPair<int, int> selectionUnitAt(QQuickItem *view, QPointF point, int granularity) const;
