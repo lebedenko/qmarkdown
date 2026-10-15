@@ -1,0 +1,46 @@
+# Requirements — keyboard reading and link accessibility
+
+Status: **approved on 2026-10-15** by the user response “approved”.
+Approval covers this specification, design, tasks, implementation and verification. Target: package 1.10.0 / QML 1.10.
+
+## Scope
+
+- R1: Add `MarkdownView.keyboardNavigationEnabled`, default false, and enable it
+  in the playground. Plain Tab and Shift+Tab visit drawable native document links
+  in document order, entering from either direction. Traversal never wraps; at
+  boundaries and in documents without links, normal host Qt focus traversal
+  continues. Other modifiers retain existing host/selection behavior.
+- R2: Enter/Return on a focused link emits `linkActivated(destination)` once per
+  key press, ignoring auto-repeat. Traversal never activates links or changes
+  selection. Pointer handling, selection shortcuts and Find remain available.
+  Hosts own destination handling, including fragment resolution.
+- R3: Add `keyboardFocusColor`, bound by default to `style.linkColor`. Show a
+  two-logical-pixel outline around every visible fragment of the active link,
+  without changing layout. Losing active focus hides the outline. Request
+  visibility through existing `navigationRequested(rect target)` in view-local
+  coordinates; hosts retain scrolling ownership.
+- R4: One logical link is one traversal stop, including links split across text
+  and loaded images. Distinct links with identical destinations remain distinct.
+  Cover headings, recursive lists/quotes, table cells, autolinks and linked images.
+  Links inside image descriptions are inert. Links without drawable text or image
+  geometry have no focus stop. Host action controls retain normal focus order;
+  custom renderer internals retain host-owned behavior.
+- R5: Expose one accessible Link node per drawable logical link regardless of
+  keyboard opt-in. Provide decoded text/image-description name, destination,
+  global geometry, focused state and activation action. Use destination as name
+  when the decoded label is empty. Accessible activation emits the same host link
+  signal. Disabling keyboard navigation removes Tab stops, not accessible links.
+- R6: Preserve identity across resizing, style changes and image loading. Source
+  and effective parser-option changes invalidate old targets and callbacks.
+  Disabling navigation clears keyboard link focus. Replacement or destruction
+  while focused must not activate stale destinations or leave dangling objects.
+- R7: Preserve historical QML imports and compatible 1.x CMake requests. Deliver
+  implementation, tests, playground examples, API/reader documentation and actual
+  verification in one focused PR. Prepare complete 1.10 release notes,
+  compatibility guidance and current summaries through the documentation gate.
+  Preserve historical evidence and distinguish released 1.9 from development work.
+
+Streaming, highlighting, Mermaid/math engines, footnotes, caret navigation, touch
+selection handles and further platforms are excluded. Features 046 and 047 are
+already implemented development work, not new implementation tasks here. Merge,
+tagging and publication require separate authorization.

@@ -36,6 +36,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
             : kind == ViewState::CodeBlock ? ViewState::SelectedCode
             : kind == ViewState::HtmlBlock ? ViewState::SelectedHtml : kind;
     }
+    if (role == ImageLinkIdRole) return block.imageLinkId;
     if (role == CodeInfoRole) return block.infoString;
     if (role == CodeFencedRole) return block.codeFenced;
     if (role == CodeLanguageRole) return block.language;
@@ -64,7 +65,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == LinkSpansRole) {
         QVariantList links;
         for (const auto &link : block.links)
-            links.append(QVariantMap{{"start", link.start}, {"length", link.length}, {"destination", link.destination}});
+            links.append(QVariantMap{{"start", link.start}, {"length", link.length}, {"destination", link.destination}, {"logicalId", link.logicalId}});
         return links;
     }
     if (role == ChildBlocksRole) return QVariant::fromValue(static_cast<QAbstractItemModel *>(m_children[index.row()]));
@@ -92,7 +93,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
             {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
             {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
             {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
-            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}};
+            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 {
@@ -121,7 +122,7 @@ void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
     endResetModel();
 }
 ViewState::ViewState(QObject *parent)
-    : QObject(parent), m_defaultPolicy(this), m_policy(&m_defaultPolicy), m_resources(this), m_blocks(this), m_default(this), m_style(&m_default)
+    : QObject(parent), m_linkController(new LinkController(this)), m_defaultPolicy(this), m_policy(&m_defaultPolicy), m_resources(this), m_blocks(this), m_default(this), m_style(&m_default)
 {
     m_linkTimer.setSingleShot(true);
     connect(&m_linkTimer, &QTimer::timeout, this, [this] {
@@ -133,6 +134,7 @@ ViewState::ViewState(QObject *parent)
     connect(&m_scrollTimer, &QTimer::timeout, this, &ViewState::scrollSelection);
     connect(&m_blocks, &QAbstractItemModel::modelAboutToBeReset, this, [this] {
         m_linkTimer.stop(); m_pressedLink = {}; m_clickElapsed.invalidate();
+        m_linkController->detach();
         emit presentationReset();
     });
     m_policyChanged = connect(m_policy, &MarkdownResourcePolicy::changed, this, &ViewState::reloadResources);
@@ -189,6 +191,7 @@ void ViewState::reparse()
     m_projection = std::move(presentation.text);
     m_presentationBlocks = std::move(presentation.blocks);
     if (semanticChange) {
+        m_linkController->invalidate();
         m_targetStart = -1;
         rebuildHeadings();
         rebuildSearch();
@@ -267,6 +270,8 @@ void registerPrivateTypes()
 {
     qmlRegisterType<::FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
     registerTaskIndicatorAccessibility();
+    registerLinkAccessibility();
+    qmlRegisterType<LinkTargetItem>("QMarkdown.Private", 1, 0, "LinkTargetItem");
     qmlRegisterType<TaskIndicatorHostItem>("QMarkdown.Private", 1, 0, "TaskIndicatorHostItem");
     qmlRegisterType<TaskIndicatorItem>("QMarkdown.Private", 1, 0, "TaskIndicatorItem");
     qmlRegisterType<ImageItem>("QMarkdown.Private", 1, 0, "ImageItem");
@@ -714,6 +719,7 @@ void ViewState::setNavigationView(QQuickItem *view)
 }
 void ViewState::refreshNavigation()
 {
+    m_linkController->refresh();
     if (m_navigationQueued || m_targetStart < 0) return;
     m_navigationQueued = true;
     QTimer::singleShot(0, this, [this] {

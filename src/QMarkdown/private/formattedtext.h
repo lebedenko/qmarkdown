@@ -11,6 +11,8 @@ class FormattedText : public QQuickPaintedItem
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(int focusedLink READ focusedLink WRITE setFocusedLink NOTIFY focusPaintingChanged FINAL)
+    Q_PROPERTY(QColor focusColor READ focusColor WRITE setFocusColor NOTIFY focusPaintingChanged FINAL)
     Q_PROPERTY(QVariantList searchRanges READ searchRanges WRITE setSearchRanges NOTIFY searchPaintingChanged FINAL)
     Q_PROPERTY(QColor searchHighlightColor READ searchHighlightColor WRITE setSearchHighlightColor NOTIFY searchPaintingChanged FINAL)
     Q_PROPERTY(QColor currentSearchHighlightColor READ currentSearchHighlightColor WRITE setCurrentSearchHighlightColor NOTIFY searchPaintingChanged FINAL)
@@ -36,6 +38,16 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
     explicit FormattedText(QQuickItem *parent = nullptr);
+    int focusedLink() const { return m_focusedLink; }
+    QColor focusColor() const { return m_focusColor; }
+    void setFocusedLink(int value) {
+        if (m_focusedLink == value) return;
+        m_focusedLink = value; update(); emit focusPaintingChanged();
+    }
+    void setFocusColor(const QColor &value) {
+        if (m_focusColor == value) return;
+        m_focusColor = value; update(); emit focusPaintingChanged();
+    }
     QVariantList searchRanges() const { return m_searchRanges; }
     void setSearchRanges(const QVariantList &value);
     QColor searchHighlightColor() const { return m_searchColor; }
@@ -92,6 +104,7 @@ public:
     Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void focusPaintingChanged();
     void searchPaintingChanged();
     void selectionChanged();
     void codeSpansChanged();
@@ -115,6 +128,8 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    int m_focusedLink = -1;
+    QColor m_focusColor;
     QVariantList m_searchRanges;
     QColor m_searchColor = QColor("#70ffff00"), m_currentSearchColor = QColor("#b0ff9900");
     struct CursorCell { int start, end; QRectF rect; bool reversed; };

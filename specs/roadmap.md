@@ -3,24 +3,31 @@
 ## Current release
 
 <!-- current-release:start -->
-Package **1.9.0 / QML 1.9**. Release assets: [1.9.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.9.0).
+Package **1.10.0 / QML 1.10**. Release assets: [1.10.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.10.0).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
 host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
 selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.9.0.md) and
+See the [release notes](../docs/release-notes-1.10.0.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.9.0 accepts compatible 1.0–1.9 requests and
-EXACT 1.9.0; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.10.0 accepts compatible 1.0–1.10 requests and
+EXACT 1.10.0; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
 
 Reading tools include literal Find with independent highlights, a recursive heading
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](../docs/reading-navigation.md).
+
+QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
+Link per logical link, including text/image splits. Tab exits through the host
+focus chain; Enter activates through host-owned link handling. Replaceable task
+indicators include a rounded fallback; the playground demonstrates the active
+Controls style. Private QML responsibilities are refactored without a new public
+C++ surface.
 <!-- current-release:end -->
 
 ## Historical 1.6.0 status
@@ -51,12 +58,26 @@ These stages preserve the brief's direction. The table separates completed found
 
 The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Iteration 021 records historical local candidate readiness; iterations 023/027 record completed 1.0.0/1.1.0 publication separately.
 
-## Current implementation iteration
+## Development work for 1.10
 
-[044: 1.8 desktop reading improvements](044-v1.8-release/requirements.md) delivers custom fenced-block renderers, repeated-click desktop selection
-and host-owned selection edge autoscrolling, with the release documentation gate. Requirements, design and tasks are approved for implementation and verification;
-tagging and publication require separate authorization.
-Streaming remains a subsequent feature requiring its own bounded design and approval.
+Released **1.9.0 / QML 1.9** remains the published baseline; see its
+[release notes](../docs/release-notes-1.9.0.md). The current summary above describes
+1.10 content; publication remains separately authorized.
+[046 QML boundaries](046-qml-boundaries/verification.md) and
+[047 task-indicator presentation](047-task-indicator-presentation/verification.md)
+are implemented and locally verified development work. The development package is
+1.10.0 / QML 1.10; these records do not claim 1.10 publication.
+
+Feature 048 adds opt-in keyboard link traversal, visible link focus and per-link
+accessibility through [048 requirements](048-keyboard-reading/requirements.md),
+[design](048-keyboard-reading/design.md), [tasks](048-keyboard-reading/tasks.md) and
+[verification](048-keyboard-reading/verification.md). Feature 048 requirements,
+design and tasks were approved on 2026-10-15; implementation and local verification
+on both configured Qt shared/static targets are complete. Release documentation and delivery
+belong to that meaningful change; merge, tagging and publication need separate
+authorization. Streaming is excluded. Highlighting, Mermaid/math engines,
+footnotes, caret navigation, touch selection handles and further platforms remain
+deferred.
 
 ## Historical implementation stages
 

@@ -4,6 +4,18 @@ import QMarkdown.Private
 
 Item {
     id: root
+    property bool keyboardNavigationEnabled: false
+    Binding {
+        target: viewState.linkController
+        property: "enabled"
+        value: root.keyboardNavigationEnabled
+    }
+    property color keyboardFocusColor: style.linkColor
+    Binding {
+        target: viewState.linkController
+        property: "color"
+        value: root.keyboardFocusColor
+    }
     property alias searchActive: viewState.searchActive
     property alias searchQuery: viewState.searchQuery
     property alias searchCaseSensitive: viewState.searchCaseSensitive
@@ -37,7 +49,7 @@ Item {
         property var pressedLink: null
     }
     Keys.onPressed: function(event) {
-        if (!root.selectionEnabled || !root.activeFocus) return
+        if (!root.selectionEnabled || (!root.activeFocus && !viewState.linkController.hasLinkFocus())) return
         if (event.matches(StandardKey.SelectAll)) root.selectAll()
         else if (event.matches(StandardKey.Copy)) root.requestCopy()
         else if (event.key === Qt.Key_Escape) root.clearSelection()

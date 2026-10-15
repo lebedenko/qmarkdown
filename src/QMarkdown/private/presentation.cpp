@@ -1,4 +1,5 @@
 #include "presentation.h"
+#include <QMap>
 
 namespace QMarkdownPrivate {
 namespace {
@@ -112,6 +113,31 @@ Presentation projectDocument(const QVector<Block> &blocks)
 {
     Presentation result;
     result.blocks = present(blocks);
+    int nextId = 0;
+    auto identify = [&](auto &&self, auto &values) -> void {
+        for (auto &value : values) {
+            QMap<int, LinkSpan> catalog;
+            for (const auto &link : value.links) catalog.insert(link.logicalId, link);
+            // Empty image descriptions deliberately have no formatting span.
+            // Keep their enclosing identity in the separate logical catalog.
+            for (const auto &image : value.images)
+                if (image.linked && !catalog.contains(image.logicalId))
+                    catalog.insert(image.logicalId, {image.start, 0, image.enclosingLink, image.logicalId});
+            QMap<int, int> identities;
+            for (auto link : catalog) {
+                const int id = nextId++;
+                identities.insert(link.logicalId, id);
+                link.logicalId = id;
+                link.label = value.text.mid(link.start, link.length);
+                value.logicalLinks.append(link);
+            }
+            for (auto &link : value.links) link.logicalId = identities.value(link.logicalId, -1);
+            for (auto &image : value.images)
+                if (image.linked) image.logicalId = identities.value(image.logicalId, -1);
+            self(self, value.children);
+        }
+    };
+    identify(identify, result.blocks);
     TextProjection projection;
     projection.sequence(result.blocks, 0);
     result.text = std::move(projection.text);
@@ -134,7 +160,7 @@ PresentationBlock textSlice(const PresentationBlock &block, int start, int end) 
     }
     for (const auto &link : block.links) {
         const int a = qMax(start, link.start), b = qMin(end, link.start + link.length);
-        if (a < b) result.links.append({a - start, b - a, link.destination});
+        if (a < b) result.links.append({a - start, b - a, link.destination, link.logicalId, link.label});
     }
     return result;
 }
@@ -153,6 +179,7 @@ QVector<PresentationBlock> projectImages(const QVector<PresentationBlock> &block
             PresentationBlock image{PresentationKind::Image, {}};
             image.selectionOffset = block.selectionOffset + span.start;
             image.selectionLength = span.length;
+            image.imageLinkId = span.logicalId;
             image.image = images.value(key); image.imageLink = span.enclosingLink; image.imageLinked = span.linked;
             segments.append(std::move(image));
             start = span.start + span.length;

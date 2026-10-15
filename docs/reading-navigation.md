@@ -1,7 +1,40 @@
 # Reading and navigation
 
-QMarkdown 1.9.0 / QML 1.9 provides reader state and geometry. Hosts own controls,
-focus, keyboard shortcuts, scrolling and link policy. No public C++ API is added.
+QMarkdown 1.10.0 / QML 1.10 provides reader state and geometry. Hosts own controls,
+application shortcuts, scrolling and link policy. No public C++ API is added.
+
+## Keyboard links and accessibility
+
+`keyboardNavigationEnabled` defaults false. Enable it to let plain Tab and
+Shift+Tab enter and traverse drawable native links in document order. Traversal
+does not wrap: boundaries continue through the host Qt focus chain. Host action
+controls and custom renderer controls keep their own focus behavior. Enter/Return
+activates the focused link once per nonrepeated press through
+`linkActivated(destination)`. Hosts decide navigation and fragment resolution.
+Traversal does not change selection or activate links; selection shortcuts and
+Find remain available.
+
+`keyboardFocusColor` defaults to a live binding to `style.linkColor`. Each visible
+fragment of the active link receives a two-logical-pixel outline without layout
+padding. Focus acquisition and changed focused geometry request visibility through
+`navigationRequested(rect target)`; the host owns scrolling and clipping.
+
+One logical link spanning text and loaded image rows remains one stop. Separate
+links sharing a destination remain separate. Native headings, nested lists and
+quotes, table cells and autolinks participate. Links inside image descriptions are
+inert; descriptions contribute to the enclosing link's decoded name. Links with
+no drawable text or image geometry do not participate.
+
+Each drawable logical link exposes an accessible Link with decoded name,
+destination, screen geometry, focused state and a press action, even when keyboard
+navigation is disabled. Empty names fall back to the destination. Accessible
+activation uses the same host signal. Disabling keyboard navigation clears link
+focus and removes its Tab stops while preserving accessible activation.
+
+Resizing, style changes and image loading preserve logical identities. Source or
+effective parser-option replacement invalidates old targets and activation
+callbacks. Streaming and caret navigation remain deferred. The playground enables
+keyboard links and includes a Keyboard links sample.
 
 ## Find
 
@@ -68,6 +101,7 @@ Flickable {
     MarkdownView {
         id: reader
         width: scroll.width
+        keyboardNavigationEnabled: true
         markdown: "# Installation\n\n[Jump](#installation)"
         onNavigationRequested: function(target) {
             const point = reader.mapToItem(scroll.contentItem, target.x, target.y)

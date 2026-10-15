@@ -17,6 +17,8 @@ struct LinkSpan {
     int start = 0;
     int length = 0;
     QString destination;
+    int logicalId = -1;
+    QString label;
 };
 struct ImageSpan {
     int start = 0;
@@ -25,6 +27,7 @@ struct ImageSpan {
     QString title;
     QString enclosingLink;
     bool linked = false;
+    int logicalId = -1;
 };
 enum class InlineKind { Text, Code, Emphasis, Strong, SoftBreak, HardBreak, Link, Image, Html, Strikethrough };
 // Owned source semantics; presentation spans deliberately retain effective styles.
@@ -43,6 +46,7 @@ struct InlineContent {
     QVector<ImageSpan> images;
     QVector<InlineNode> nodes;
     QVector<CodeSpan> codes;
+    int nextLinkIdentity = 0;
 };
 QString filterRawHtml(const QString &literal);
 InlineContent parseInline(const QString &source);

@@ -65,3 +65,9 @@ void SelectionRegistration::setImageLinked(bool value)
     if (m_imageLinked == value) return;
     m_imageLinked = value; update(); emit metadataChanged();
 }
+
+void SelectionRegistration::setImageLinkId(int value)
+{
+    if (m_imageLinkId == value) return;
+    m_imageLinkId = value; update(); emit metadataChanged();
+}
