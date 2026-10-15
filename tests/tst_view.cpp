@@ -679,13 +679,138 @@ private slots:
         QVERIFY(painted(preview)[0]->layout()->formats()[0].format.font().strikeOut());
         const auto screenshot = qEnvironmentVariable("QMARKDOWN_STRIKE_SCREENSHOT");
         if (!screenshot.isEmpty()) {
-            QImage image; QTRY_VERIFY(!(image = window->grabWindow()).isNull()); QVERIFY(image.save(screenshot));
+            QImage initial; QTRY_VERIFY(!(initial = window->grabWindow()).isNull()); QVERIFY(initial.save(screenshot));
+            // Exercise the actual editable playground at both wrapping widths
+            // and with the all-GFM switch off/on. Captures are opt-in evidence.
+            auto *editor = window->findChild<QQuickItem *>("editor"); QVERIFY(editor);
+            auto *gfm = window->findChild<QQuickItem *>("gfmToggle"); QVERIFY(gfm);
+            editor->setProperty("text", source.toString()
+                + "\n\nInline `code` followed by [linked text](target)."
+                  "\n\n~~first~~ intervening ~~second~~ after `code`.");
+            window->setHeight(1000);
+            toggle->setProperty("checked", false);
+            for (bool enabled : {false, true}) for (int width : {900, 1500}) {
+                gfm->setProperty("checked", enabled); window->setWidth(width);
+                QTRY_COMPARE(preview->property("gfmEnabled").toBool(), enabled);
+                QTest::qWait(100);
+                QImage image; QTRY_VERIFY(!(image = window->grabWindow()).isNull());
+                QVERIFY(image.save(screenshot + QString("-%1-%2.png").arg(enabled).arg(width)));
+            }
+            gfm->setProperty("checked", false);
+            editor->setProperty("text", source);
         }
         toggle->setProperty("checked", false); QTRY_VERIFY(!preview->property("strikethroughEnabled").toBool());
         QCOMPARE(preview->property("markdown"), source);
 #else
         QSKIP("Playground is not built in this configuration");
 #endif
+    }
+
+    void customTaskIndicators()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+import QtQuick
+import QMarkdown 1.10
+MarkdownView {
+    id: view
+    width: 300
+    taskListsEnabled: true
+    selectionEnabled: true
+    markdown: "- [x] Done\n- Ordinary\n- [ ] Pending\n  - [x] Nested"
+    property int mode: 0
+    property real preferredWidth: 40
+    property real preferredHeight: 60
+    taskIndicator: mode === 0 ? custom : mode === 1 ? invalid : mode === 2 ? missing : mode === 3 ? replacement : null
+    Component {
+        id: custom
+        Rectangle {
+            objectName: "customTask"
+            required property bool checked
+            required property MarkdownStyle markdownStyle
+            implicitWidth: view.preferredWidth
+            implicitHeight: view.preferredHeight
+            color: markdownStyle.bodyColor
+            Accessible.ignored: true
+        }
+    }
+    Component {
+        id: invalid
+        QtObject { required property bool checked; required property MarkdownStyle markdownStyle }
+    }
+    Component {
+        id: missing
+        Item { required property bool checked; required property MarkdownStyle markdownStyle; required property int missingValue }
+    }
+    Component {
+        id: replacement
+        Item {
+            required property bool checked
+            required property MarkdownStyle markdownStyle
+            Component.onCompleted: view.taskIndicator = custom
+        }
+    }
+}
+)", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        auto *state = view->findChild<ViewState *>(); QVERIFY(state);
+        QQuickWindow window; window.resize(400, 500); view->setParentItem(window.contentItem()); window.show();
+        QTRY_COMPARE(named(view, "customTask").size(), 3);
+        QSignalSpy resets(state->blocks(), &QAbstractItemModel::modelReset);
+        const auto source = state->markdown();
+        QVERIFY(QMetaObject::invokeMethod(view, "selectAll"));
+        const auto selected = view->property("selectedText");
+        QVERIFY(!selected.toString().isEmpty());
+        auto items = named(view, "customTask");
+        QCOMPARE(items[0]->width(), 40); QCOMPARE(items[0]->height(), 60);
+        QVERIFY(items[0]->property("checked").toBool()); QVERIFY(!items[1]->property("checked").toBool());
+        const auto hosts = named(view, "taskIndicator"); QCOMPARE(hosts.size(), 3);
+        auto *row = hosts[0]->parentItem()->parentItem();
+        QVERIFY(row->height() >= 60);
+        auto *access = QAccessible::queryAccessibleInterface(hosts[0]); QVERIFY(access);
+        QVERIFY(access->state().readOnly); QVERIFY(access->state().checked);
+        QVERIFY(!access->actionInterface());
+        auto *touch = QTest::createTouchDevice();
+        const auto point = hosts[0]->mapToScene(QPointF(10, 10)).toPoint();
+        QTest::touchEvent(&window, touch).press(0, point, &window);
+        QTest::touchEvent(&window, touch).release(0, point, &window);
+        QCOMPARE(state->markdown(), source); QVERIFY(items[0]->property("checked").toBool());
+        state->style()->setBodyColor(Qt::green);
+        QTRY_COMPARE(items[0]->property("color").value<QColor>(), QColor(Qt::green));
+        view->setProperty("preferredWidth", -1); view->setProperty("preferredHeight", 0);
+        QTRY_COMPARE(items[0]->width(), qMax(16.0, qRound(QFontMetricsF(state->style()->bodyFont()).height() * .85) * 1.0));
+        QTRY_COMPARE(items[0]->height(), items[0]->width());
+        view->setProperty("preferredWidth", std::numeric_limits<double>::quiet_NaN());
+        view->setProperty("preferredHeight", std::numeric_limits<double>::infinity());
+        QTRY_COMPARE(items[0]->height(), items[0]->width());
+        QQmlComponent newStyleComponent(&engine);
+        newStyleComponent.setData("import QMarkdown 1.10\nMarkdownStyle { bodyColor: 'blue' }", {});
+        std::unique_ptr<QObject> newStyle(newStyleComponent.create()); QVERIFY(newStyle);
+        QVERIFY(view->setProperty("style", QVariant::fromValue(newStyle.get())));
+        QTRY_COMPARE(items[0]->property("color").value<QColor>(), QColor(Qt::blue));
+        QPointer<QQuickItem> old = items[0];
+        for (int i = 0; i < 3; ++i)
+            QTest::ignoreMessage(QtWarningMsg, "QMarkdown: taskIndicator must create an Item with checked and markdownStyle properties");
+        view->setProperty("mode", 1);
+        QTRY_VERIFY(old.isNull());
+        QTRY_COMPARE(named(view, "customTask").size(), 0);
+        for (auto *box : named(view, "taskBox")) QVERIFY(box->isVisible());
+        for (int i = 0; i < 3; ++i) {
+            QTest::ignoreMessage(QtWarningMsg, QRegularExpression(".*Required property missingValue was not initialized"));
+            QTest::ignoreMessage(QtWarningMsg, "QMarkdown: taskIndicator must create an Item with checked and markdownStyle properties");
+        }
+        view->setProperty("mode", 2);
+        QTRY_COMPARE(named(view, "taskBox").size(), 3);
+        QCoreApplication::processEvents();
+        for (auto *box : named(view, "taskBox")) QVERIFY(box->isVisible());
+        view->setProperty("mode", 3);
+        QTRY_COMPARE(named(view, "customTask").size(), 3);
+        QVERIFY(view->setProperty("taskIndicator", QVariant::fromValue<QQmlComponent *>(nullptr)));
+        QTRY_COMPARE(named(view, "customTask").size(), 0);
+        QCOMPARE(resets.size(), 0); QCOMPARE(state->markdown(), source);
+        QCOMPARE(view->property("selectedText"), selected);
     }
 
     void taskListsToggleAndLayout()
@@ -747,13 +872,13 @@ private slots:
         QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
             label->mapToScene(QPointF(linkX, linkY)).toPoint());
         QCOMPARE(links.size(), 1); QCOMPARE(links[0][0].toString(), "task:link");
-        QVERIFY(indicators.last()->parentItem()->height() >= QFontMetricsF(state->style()->bodyFont()).height());
+        QVERIFY(indicators.last()->parentItem()->parentItem()->height() >= QFontMetricsF(state->style()->bodyFont()).height());
         const auto size = indicator->height();
         QFont font = state->style()->bodyFont(); font.setPixelSize(24); state->style()->setBodyFont(font);
         state->style()->setBodyColor(Qt::red);
         QTRY_VERIFY(indicator->height() > size);
         const auto boxes = named(view, "taskBox"); QVERIFY(!boxes.isEmpty());
-        QCOMPARE(QQmlProperty::read(boxes[0], "border.color").value<QColor>(), QColor(Qt::red));
+        QCOMPARE(QQmlProperty::read(boxes[0], "color").value<QColor>(), QColor(Qt::red));
         const int resetCount = resets.size();
         view->setProperty("taskListsEnabled", true);
         QCOMPARE(resets.size(), resetCount); QCOMPARE(optionChanges.size(), 1);
@@ -809,7 +934,7 @@ MarkdownView {
         QCOMPARE(resets.size(), 0); QCOMPARE(named(view, "markdownImage").size(), 1);
         view->setProperty("taskListsEnabled", false);
         QTRY_COMPARE(named(view, "markdownImage").size(), 1);
-        QVERIFY(!named(view, "taskIndicator")[0]->isVisible());
+        QVERIFY(named(view, "taskIndicator").isEmpty());
         view->setProperty("taskListsEnabled", true);
         QTRY_COMPARE(named(view, "markdownImage").size(), 1);
         QCOMPARE(named(view, "taskIndicator")[0]->property("checked").toBool(), true);

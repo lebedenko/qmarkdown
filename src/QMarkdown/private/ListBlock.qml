@@ -5,6 +5,7 @@ import QMarkdown
 Column {
     id: list
     required property MarkdownStyle style
+    required property Component taskIndicator
     required property Component sequenceComponent
 
     required property var childBlocks
@@ -35,12 +36,14 @@ Column {
             required property var childBlocks
             required property int taskState
             width: list.width
-            readonly property real taskSize: markerMetrics.height * 0.7
-            readonly property real contentInset: Math.min(Math.max(0, width - 1), list.gutter + (taskState > 0 ? taskSize + 8
+            readonly property real taskSize: Math.max(16, Math.round(markerMetrics.height * 0.85))
+            readonly property real contentInset: Math.min(Math.max(0, width - 1), list.gutter + (taskState > 0 ? indicatorLoader.preferredWidth + 8
                 : 0))
-            height: Math.max(markerMetrics.height, itemLoader.item ? (itemLoader.item as Item).height : 0)
+            readonly property real firstLineHeight: Math.max(markerMetrics.height, indicatorLoader.preferredHeight)
+            height: Math.max(firstLineHeight, itemLoader.y + (itemLoader.item ? (itemLoader.item as Item).height : 0))
             Text {
                 objectName: "listMarker"
+                y: (row.firstLineHeight - markerMetrics.height) / 2
                 text: list.markers[row.index]
                 width: Math.max(0, list.gutter - 8)
                 horizontalAlignment: Text.AlignRight
@@ -48,57 +51,28 @@ Column {
                 color: list.style.bodyColor
                 textFormat: Text.PlainText
             }
-            Item {
-                id: taskIndicator
-                objectName: "taskIndicator"
-                visible: row.taskState > 0
-                readonly property bool checked: row.taskState === 2
+            Loader {
+                id: indicatorLoader
+                active: row.taskState > 0
                 x: list.gutter
-                y: (markerMetrics.height - height) / 2
-                width: Math.min(row.taskSize, Math.max(0, row.contentInset - x))
-                height: row.taskSize
-                clip: true
-                Accessible.role: Accessible.CheckBox
-                Accessible.name: checked ? qsTr("Completed task") : qsTr("Incomplete task")
-                Accessible.description: qsTr("Read-only Markdown task")
-                Accessible.checkable: true
-                Accessible.checked: checked
-                Accessible.focusable: false
-                Accessible.readOnly: true
-                Accessible.ignored: !visible
-                Rectangle {
-                    objectName: "taskBox"
-                    width: row.taskSize
-                    height: row.taskSize
-                    color: "transparent"
-                    border.width: 1
-                    border.color: list.style.bodyColor
-                    radius: 2
-                    Rectangle {
-                        visible: taskIndicator.checked
-                        x: parent.width * 0.22
-                        y: parent.height * 0.5
-                        width: parent.width * 0.3
-                        height: Math.max(1, parent.height * 0.1)
-                        color: list.style.bodyColor
-                        rotation: 45
-                        transformOrigin: Item.Left
-                    }
-                    Rectangle {
-                        visible: taskIndicator.checked
-                        x: parent.width * 0.43
-                        y: parent.height * 0.71
-                        width: parent.width * 0.5
-                        height: Math.max(1, parent.height * 0.1)
-                        color: list.style.bodyColor
-                        rotation: -50
-                        transformOrigin: Item.Left
+                y: (row.firstLineHeight - preferredHeight) / 2
+                width: Math.min(preferredWidth, Math.max(0, row.contentInset - x))
+                height: preferredHeight
+                readonly property real preferredWidth: item ? (item as Item).implicitWidth : 0
+                readonly property real preferredHeight: item ? (item as Item).implicitHeight : 0
+                sourceComponent: Component {
+                    TaskIndicatorHost {
+                        taskState: row.taskState
+                        markdownStyle: list.style
+                        indicator: list.taskIndicator
+                        defaultSize: row.taskSize
                     }
                 }
             }
             Loader {
                 id: itemLoader
                 objectName: "listItemContent"
+                y: (row.firstLineHeight - markerMetrics.height) / 2
                 x: row.contentInset
                 width: Math.max(0, row.width - x)
                 sourceComponent: list.sequenceComponent

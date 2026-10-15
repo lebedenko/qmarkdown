@@ -41,5 +41,15 @@ int main(int argc, char **argv)
         || !items[2]->property("checked").toBool()) return 7;
     view->setProperty("taskListsEnabled", false);
     if (!QTest::qWaitFor([&] { return indicators(view).isEmpty(); })) return 8;
-    return view->property("markdown") == source ? 0 : 9;
+    if (view->property("markdown") != source) return 9;
+    QQmlComponent custom(&engine);
+    custom.setData("import QtQuick\nimport QMarkdown 1.10\nMarkdownView { width: 180; taskListsEnabled: true; markdown: '- [x] Done'; taskIndicator: Component { Item { required property bool checked; required property MarkdownStyle markdownStyle; implicitWidth: 35; implicitHeight: 45 } } }", {});
+    if (!custom.isReady()) { qWarning() << custom.errorString(); return 10; }
+    std::unique_ptr<QObject> customObject(custom.create());
+    auto *customView = qobject_cast<QQuickItem *>(customObject.get());
+    if (!customView) return 11;
+    customView->setParentItem(window.contentItem());
+    if (!QTest::qWaitFor([&] { return indicators(customView).size() == 1; })) return 12;
+    auto *indicator = indicators(customView)[0];
+    return QTest::qWaitFor([&] { return indicator->width() == 35 && indicator->height() == 45; }) ? 0 : 13;
 }

@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown 1.9
+import QMarkdown 1.10
 import QMarkdownViewer.Tools
 
 ApplicationWindow {
@@ -13,6 +13,10 @@ ApplicationWindow {
     minimumHeight: 600
     visible: true
     title: "QMarkdown playground"
+    Component {
+        id: hostTaskIndicator
+        TaskIndicator { hostPalette: window.palette }
+    }
     property string lastDestination: "No link activated"
     property int sampleIndex: 0
     property int previewWidth: 0
@@ -107,6 +111,7 @@ ApplicationWindow {
             CheckBox { id: gfmToggle; text: "All GFM"; objectName: "gfmToggle" }
             CheckBox { id: autolinkToggle; text: "GFM extended autolinks"; objectName: "autolinkToggle" }
             CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
+            CheckBox { id: hostTaskToggle; text: "Host-styled task indicators"; checked: true; objectName: "hostTaskToggle" }
             CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
         }
         RowLayout {
@@ -282,6 +287,7 @@ ApplicationWindow {
                             tagFilterEnabled: tagFilterToggle.checked
                             gfmEnabled: gfmToggle.checked
                             taskListsEnabled: taskToggle.checked
+                            taskIndicator: hostTaskToggle.checked ? hostTaskIndicator : null
                             extendedAutolinksEnabled: autolinkToggle.checked
                             strikethroughEnabled: strikeToggle.checked
                             style: hostStyle

@@ -152,3 +152,22 @@ endif()
 add_test(NAME qmarkdown-reading COMMAND qmarkdown-reading-test)
 set_tests_properties(qmarkdown-reading PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+if(QMARKDOWN_BUILD_EXAMPLES)
+    qt_add_executable(qmarkdown-task-presentation-test tst_taskpresentation.cpp)
+    target_link_libraries(qmarkdown-task-presentation-test PRIVATE QMarkdown::QMarkdown Qt6::Test Qt6::QuickControls2)
+    target_compile_definitions(qmarkdown-task-presentation-test PRIVATE
+        QMARKDOWN_TASK_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/qml/TaskIndicators.qml"
+        QMARKDOWN_TASK_CAPTURES="${CMAKE_CURRENT_BINARY_DIR}/task-presentation")
+    if(NOT BUILD_SHARED_LIBS)
+        target_link_libraries(qmarkdown-task-presentation-test PRIVATE QMarkdown::QMarkdownPlugin)
+        target_compile_definitions(qmarkdown-task-presentation-test PRIVATE QMARKDOWN_STATIC)
+    endif()
+    foreach(style Fusion Basic Material)
+        foreach(scale 1 1.25 2)
+            add_test(NAME qmarkdown-tasks-${style}-${scale} COMMAND qmarkdown-task-presentation-test)
+            set_tests_properties(qmarkdown-tasks-${style}-${scale} PROPERTIES
+                ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml;QT_QUICK_CONTROLS_STYLE=${style};QT_SCALE_FACTOR=${scale}")
+        endforeach()
+    endforeach()
+endif()
