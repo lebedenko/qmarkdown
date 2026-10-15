@@ -38,7 +38,15 @@ def select_assets(directory, version=None):
 
 
 def release_assets(repository, tag):
-    release = json.loads(gh('api', f'repos/{repository}/releases/tags/{tag}'))
+    # Tag lookup does not reliably expose drafts; listing includes them.
+    pages = json.loads(gh('api', '--paginate', '--slurp',
+                          f'repos/{repository}/releases?per_page=100'))
+    matching = [release for page in pages for release in page if release['tag_name'] == tag]
+    if len(matching) != 1:
+        raise ValueError(f'Expected exactly one release for {tag}; found {len(matching)}')
+    release = json.loads(gh('api', f'repos/{repository}/releases/{matching[0]["id"]}'))
+    if release['id'] != matching[0]['id'] or release['tag_name'] != tag:
+        raise ValueError('Release identity changed during lookup')
     if release['prerelease']:
         raise ValueError('Prerelease publication is not supported')
     return release
