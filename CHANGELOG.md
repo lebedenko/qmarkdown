@@ -1,5 +1,10 @@
 # Changelog
 
+### Development — 1.10.0 / QML 1.10
+
+- Add host-owned decorative task indicators, a rounded painted fallback and layout for preferred dimensions.
+- Demonstrate the active Qt Quick Controls checkbox appearance in the viewer, with a fallback toggle.
+
 ## 1.9.0 — 2026-10-15
 
 - Add literal document Find with case modes, independent highlights and wrapping result navigation.

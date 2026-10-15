@@ -11,7 +11,7 @@ qt_add_executable(qmarkdown-viewer main.cpp)
 qt_add_qml_module(qmarkdown-viewer
     URI QMarkdownViewer
     RESOURCE_PREFIX /qt/qml
-    QML_FILES Main.qml Samples.qml StylePanel.qml
+    QML_FILES Main.qml Samples.qml StylePanel.qml TaskIndicator.qml
     IMPORT_PATH "${CMAKE_BINARY_DIR}/qml")
 target_link_libraries(qmarkdown-viewer PRIVATE QMarkdown::QMarkdown Qt6::QuickControls2 qmarkdown-font-editor)
 if(NOT BUILD_SHARED_LIBS)

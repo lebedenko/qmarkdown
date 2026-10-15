@@ -42,7 +42,7 @@ def verify(archive, qt, work):
             raise ValueError(f'Missing installed license: {name}')
     for name in ('BlockSequence.qml', 'TextBlock.qml', 'SelectableText.qml',
                  'ImageBlock.qml', 'ListBlock.qml', 'HeadingSeparator.qml',
-                 'CodeSurface.qml', 'CodeActionHost.qml', 'TableBlock.qml'):
+                 'CodeSurface.qml', 'TaskIndicatorHost.qml', 'CodeActionHost.qml', 'TableBlock.qml'):
         if not list(prefix.rglob(name)):
             raise ValueError(f'Missing installed private QML component: {name}')
     cache = (build / 'CMakeCache.txt').read_text()

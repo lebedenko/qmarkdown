@@ -1,6 +1,22 @@
 import QtQuick.tooling 1.2
 Module {
     Component {
+        name: "TaskIndicatorHostItem"
+        prototype: "QQuickItem"
+        exports: ["QMarkdown.Private/TaskIndicatorHostItem 1.0"]
+        exportMetaObjectRevisions: [256]
+    }
+    Component {
+        name: "TaskIndicatorItem"
+        prototype: "QQuickPaintedItem"
+        exports: ["QMarkdown.Private/TaskIndicatorItem 1.0"]
+        exportMetaObjectRevisions: [256]
+        Property { name: "checked"; type: "bool"; notify: "checkedChanged" }
+        Property { name: "color"; type: "QColor"; notify: "colorChanged" }
+        Signal { name: "checkedChanged" }
+        Signal { name: "colorChanged" }
+    }
+    Component {
         name: "SelectionRegistration"
         prototype: "QObject"
         exports: ["QMarkdown.Private/SelectionRegistration 1.0"]

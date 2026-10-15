@@ -104,6 +104,7 @@ Item {
     }
     signal linkActivated(string destination)
     signal codeBlockCopyRequested(string text)
+    property Component taskIndicator: null
     property Component codeBlockActions: null
     property var fencedBlockRenderers: ({})
     property alias baseUrl: viewState.baseUrl
@@ -141,6 +142,7 @@ Item {
             sequenceComponent: recursiveSequence
             coordinator: viewState
             style: viewState.style
+            taskIndicator: root.taskIndicator
             codeBlockActions: root.codeBlockActions
             fencedBlockRenderers: root.fencedBlockRenderers
             sourceIdentity: root.markdown

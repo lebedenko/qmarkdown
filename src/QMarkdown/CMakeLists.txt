@@ -22,10 +22,12 @@ set_source_files_properties(private/CodeActionHost.qml PROPERTIES
 set_source_files_properties(private/TableBlock.qml PROPERTIES
     QT_QML_INTERNAL_TYPE TRUE QT_RESOURCE_ALIAS TableBlock.qml)
 set_source_files_properties(private/Layout.js PROPERTIES QT_QML_SKIP_QMLDIR_ENTRY TRUE)
+set_source_files_properties(private/TaskIndicatorHost.qml PROPERTIES
+    QT_QML_INTERNAL_TYPE TRUE QT_RESOURCE_ALIAS TaskIndicatorHost.qml)
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
-    VERSION 1.9
+    VERSION 1.10
     PLUGIN_TARGET QMarkdownPlugin
     CLASS_NAME QMarkdownPlugin
     RESOURCE_PREFIX /qt/qml
@@ -34,8 +36,8 @@ qt_add_qml_module(QMarkdown
     QML_FILES MarkdownView.qml
         private/BlockSequence.qml private/TextBlock.qml private/SelectableText.qml
         private/ImageBlock.qml private/ListBlock.qml private/HeadingSeparator.qml
-        private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/Layout.js
-    SOURCES private/selectionregistration.h private/selectionregistration.cpp
+        private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/TaskIndicatorHost.qml private/Layout.js
+    SOURCES private/taskindicatoritem.cpp private/taskindicatoritem.h private/selectionregistration.h private/selectionregistration.cpp
         private/presentation.h private/presentation.cpp private/decodescheduler.h private/decodescheduler.cpp markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
         private/document.h private/document.cpp private/viewstate.h private/viewstate.cpp
         private/inline.h private/inlineadapter.h private/inline.cpp private/formattedtext.h private/formattedtext.cpp private/formatintervals.h private/formatintervals.cpp
@@ -90,6 +92,6 @@ install(FILES private/qmldir private/private.qmltypes
 
 install(FILES private/BlockSequence.qml private/TextBlock.qml private/SelectableText.qml
     private/ImageBlock.qml private/ListBlock.qml private/HeadingSeparator.qml
-    private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml
+    private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/TaskIndicatorHost.qml
     DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown")
 install(FILES private/Layout.js DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown/private")

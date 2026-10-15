@@ -9,6 +9,7 @@ Column {
     id: sequence
     objectName: "blockSequence"
     required property ViewState coordinator
+    required property Component taskIndicator
     required property Component codeBlockActions
     required property var fencedBlockRenderers
     required property string sourceIdentity
@@ -103,6 +104,7 @@ Column {
             DelegateChoice {
                 roleValue: ViewState.List
                 delegate: ListBlock {
+                    taskIndicator: sequence.taskIndicator
                     width: sequence.width
                     style: sequence.style
                     sequenceComponent: sequence.sequenceComponent

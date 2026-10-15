@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.9.0 / QML 1.9 is a Qt Quick rendering library. Its supported surface is
+Development QMarkdown 1.10.0 / QML 1.10 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.9` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.10` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -18,6 +18,7 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 
 | Property | Type / default | Since | Contract |
 | --- | --- | --- | --- |
+| `taskIndicator` | Component / null | 1.10 | Decorative Item with live `checked` and `markdownStyle` inputs; preferred dimensions and fallback follow the [task indicator contract](task-lists.md#host-presentation-110). |
 | `searchActive` | bool / false | 1.9 | Enables Find and searchable fenced source. |
 | `searchQuery` | string / empty | 1.9 | Non-overlapping literal query over decoded document text. |
 | `searchCaseSensitive` | bool / false | 1.9 | Unicode case comparison mode. |
@@ -174,7 +175,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.9 CONFIG REQUIRED)
+find_package(QMarkdown 1.10 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 

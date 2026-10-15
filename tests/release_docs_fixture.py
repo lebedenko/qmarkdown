@@ -8,7 +8,8 @@ CURRENT = ('README.md', 'specs/README.md', 'specs/overview.md', 'specs/roadmap.m
 
 
 def write_docs(root, version='1.6.0'):
-    current = re.search(r'project\(QMarkdown VERSION (\d+\.\d+\.\d+)', (ROOT / 'CMakeLists.txt').read_text())[1]
+    summary = (ROOT / 'README.md').read_text().split('<!-- current-release:start -->', 1)[1]
+    current = re.search(r'QMarkdown (\d+\.\d+\.\d+)', summary)[1]
     qml = current.rsplit('.', 1)[0]
     files = (*CURRENT, 'CHANGELOG.md', f'docs/release-notes-{current}.md')
     for name in files:

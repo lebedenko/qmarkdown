@@ -149,7 +149,10 @@ class DocumentationTest(unittest.TestCase):
         docs.validate(ROOT)
 
     def test_release_docs_pass_and_historical_records_remain_allowed(self):
-        docs.validate(ROOT, release=True)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_docs(root)
+            docs.validate(root, release=True)
 
     def test_invalid_complete_current_sections_are_rejected(self):
         cases = (
@@ -194,10 +197,6 @@ class DocumentationTest(unittest.TestCase):
             write_docs(root)
             (root / 'CMakeLists.txt').write_text('project(QMarkdown VERSION 1.7.0)')
             (root / 'src/QMarkdown/CMakeLists.txt').write_text('VERSION 1.7')
-            notes = root / 'docs/release-notes-1.7.0.md'
-            notes.write_text((root / 'docs/release-notes-1.6.0.md').read_text().replace('1.6.0', '1.7.0').replace('QML 1.6', 'QML 1.7'))
-            changelog = root / 'CHANGELOG.md'
-            changelog.write_text(changelog.read_text().replace('## 1.6.0', '## 1.7.0', 1))
             path = root / 'README.md'
             path.write_text(path.read_text() + '\n## Development after the release tag\nUnpublished custom renderers; publication requires authorization.\n')
             docs.validate(root)

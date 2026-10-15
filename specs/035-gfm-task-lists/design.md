@@ -21,3 +21,5 @@ The additive candidate is package 1.3.0 / QML 1.3, preserving 1.0/1.1/1.2 import
 Before implementation, reconcile the actual integration baseline: iteration 034's local verification still lists hosted completion as pending. Preserve current user edits and historical evidence. Follow [development workflow](../../docs/development-workflow.md): one feature PR with its evidence, required minimum/development checks and squash merge by default. Commit, push, merge, tag and release actions require their own existing or explicit authorization. Publication is not implied by approval to implement.
 
 Baseline reconciliation on 2026-10-13: local main is `8f1a5f3`, the merge of iteration 034's PR #13. The pending statement in the historical preparation record is not treated as current integration status. Existing user edits to AGENTS.md, README.md, specs/README.md and the new development-workflow document were preserved.
+
+Presentation is superseded by approved [feature 047](../047-task-indicator-presentation/design.md). Historical approval and parsing semantics above are retained.

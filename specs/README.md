@@ -23,6 +23,12 @@ outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](../docs/reading-navigation.md).
 <!-- current-release:end -->
 
+## Development: task-indicator presentation
+
+[047 requirements](047-task-indicator-presentation/requirements.md), [design](047-task-indicator-presentation/design.md), [tasks](047-task-indicator-presentation/tasks.md), and [actual verification](047-task-indicator-presentation/verification.md). Approved through the supplied implementation plan on 2026-10-15. Development package 1.10.0 / QML 1.10 supersedes feature 035’s presentation contract only.
+
+
+
 ## Pending QML boundary refactor
 
 [046: requirements](046-qml-boundaries/requirements.md),

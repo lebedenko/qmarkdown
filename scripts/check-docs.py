@@ -81,12 +81,12 @@ def validate(root=ROOT, release=False):
     expected = version if release else published[1]
     if tuple(map(int, expected.split('.'))) > tuple(map(int, version.split('.'))):
         raise ValueError('README.md: Published summary is newer than the package')
-    for name in (*CURRENT, f'docs/release-notes-{version}.md'):
+    for name in (*CURRENT, f'docs/release-notes-{expected}.md'):
         content = (root / name).read_text()
         validate_current(current_section(content, name), name,
-                         version if name == f'docs/release-notes-{version}.md' else expected)
+                         expected)
     section = (root / 'CHANGELOG.md').read_text().split('\n## ', 2)[1]
-    if not re.match(re.escape(version) + r' — \d{4}-\d{2}-\d{2}\n', section):
+    if not re.match(re.escape(expected) + r' — \d{4}-\d{2}-\d{2}\n', section):
         raise ValueError('Current changelog must have a finalized release date')
     if re.search(r'\b(candidate|preparation|pending)\b', section, re.I):
         raise ValueError('Stale current changelog wording')

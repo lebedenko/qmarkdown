@@ -80,3 +80,218 @@ Delivery remains D1–D3. No commit, push, PR, merge, tag or publication occurre
 ## Release delivery authorization — 2026-10-13
 
 The supplied release plan explicitly authorizes D1–D3: commit the feature on a branch, open one PR, squash merge after required packaging checks and resolved review threads, run the release workflow against the exact merged commit, tag v1.6.0, publish stable/latest Linux x86_64 Ubuntu/Arch packages, independently accept downloaded packages and attach compact evidence. Preserve existing releases, assets and protections. No evidence-only PR or automatic post-release upkeep commit. Earlier pending-authorization statements retain their historical scope; actual delivery results will be attached to the release.
+
+## Inline decoration positioning correction — 2026-10-15
+
+Historical first correction: the results below describe the earlier device-coordinate
+implementation. Its offscreen captures and broad character-cell pixel checks did
+not establish native Wayland acceptance. The follow-up below records the reproduced
+native failure, replacement and stronger verification.
+
+The user's implementation plan authorizes this routine correction within approved
+inline rendering behavior. No public API, parser, dependency or version changes.
+The padded glyph path now partitions at color/padding-shift boundaries, stores a
+visual horizontal origin per fragment, and makes glyph positions relative to that
+origin. Painting applies the raster offset through the painter transform, then
+normalizes the padded glyph draw to device coordinates so the raster engine does not apply
+the transform to native decorations twice. Raw font size follows the device scale;
+Qt still draws the original decoration flags with its native metrics. Bounds
+include translated glyph ink and native decoration extents. Native decoration
+flags, fonts, colors and glyph ordering remain intact.
+
+Actual regression evidence:
+
+- Before the fix, the initial 48-row raster regression failed 30 cases, reproducing
+  misplaced decorations missed by the earlier font-flag assertions.
+- The final parser-backed regression has 144 rows: link underline with GFM off/on,
+  mixed bold/italic/code/link strikeout, wrapping, multiple code spans, left/center/
+  right alignment, bidirectional text, zero/default padding, and disabling the
+  decoration again, at actual image device pixel ratios 1 and 1.5. All passed on
+  host Qt 6.12.0. Images compare alpha differences with a 20/255 threshold and two-pixel placement tolerance rather than screenshot
+  goldens. At bidi boundaries Qt may expose an empty cursor cell; these are omitted
+  from per-character assertions, while line-level placement is still checked.
+- Removing only device-coordinate normalization made the final regression fail
+  36 cases; restoring it passed all 144 rows. The final runtime/test inputs match
+  both configured CI source snapshots byte for byte.
+- The final host styling, fractional styling, view, selection and fractional
+  selection CTest checks passed (5/5).
+- The opt-in `playgroundStrikethrough` capture path passed. All four actual
+  playground captures were visually inspected at window widths 900/1500 with All
+  GFM off/on, at both 1× and 1.5×. Underlines follow linked text after inline code;
+  enabled strikeout
+  follows bold, italic, code, link and remaining text, including continuation lines.
+  A 1.5× capture exposed double transformation in the initial fix;
+  device-coordinate normalization corrected it, and fractional raster cases now
+  guard against it. Captures are retained locally in `build-shared/inline-decoration-captures/`.
+
+Full configured verification passed for the final runtime/test inputs:
+
+| Qt target | Shared CTest | Static CTest | Installed consumers / packaging | Benchmark smoke | Local evidence |
+| --- | --- | --- | --- | --- | --- |
+| Minimum 6.8.0 | 18/18 passed | 18/18 passed | Passed | Passed | `build-ci-decoration-minimum-device-final/` |
+| Development 6.12.0 | 18/18 passed | 18/18 passed | Passed | Passed | `build-ci-decoration-development-device-final/` |
+
+Commands were `python3 scripts/run-ci.py --qt-role minimum` and
+`python3 scripts/run-ci.py --qt-role development`, with the evidence directories
+above supplied through `--artifact-dir`. Both returned exit 0. These results
+supersede the earlier local runs, which preceded the scale correction. Initial
+sandboxed Docker attempts could not access its socket; escalated runs completed.
+`python3 scripts/check-docs.py` and `git diff --check` also passed.
+
+Local build/log artifacts are ignored. No commit, PR, merge or publication was
+performed for this correction.
+
+## Native Wayland decoration correction — 2026-10-15
+
+The user's follow-up implementation plan explicitly authorizes this correction and
+its regression/native-window verification. No public API, parser, dependency or
+version changes are included.
+
+The earlier build reproduced the reported screenshot in a native Wayland window.
+The debugger measured horizontal scale approximately `1.250814` and vertical scale
+`1.25`: Qt Quick independently rounds texture dimensions, so the equal-scale guard
+skipped device-coordinate normalization. The historical pixel oracle also accepted
+decorations anywhere inside character cells, including incorrect vertical positions.
+The earlier successful matrices remain actual results for their original inputs,
+with these coverage limitations; they do not establish acceptance of this fix.
+
+The replacement caches explicit underline, strikeout and overline lines with each
+painted fragment, using shaped glyph advances, raw-font line thickness, flat caps,
+and baseline offsets `+underlinePosition()`, `-ascent()/3` and `-ascent()`. It retains
+the painter transform and shaped glyph positions; only the glyph copy supplied to
+`drawGlyphRun()` has its decoration flags suppressed. Bounds include pen thickness.
+Fragments split at effective format intervals (including separate unformatted gaps),
+color and padding shifts, so decorations cannot bridge intervening undecorated text.
+The same cache handles zero padding: stricter tests exposed the same scaling problem
+in the previous `QTextLayout::draw()` fallback. Layout, wrapping, cursor/selection
+and link geometry keep their existing calculation paths.
+
+Actual regression evidence:
+
+- Before replacing the renderer, the first strengthened 432-row image regression
+  failed 204 rows on the previous implementation (`/tmp/decoration-before.log`).
+- Final regression coverage comprises 864 parser-backed placement rows and four
+  endpoint rows. Scales include uniform 1, 1.25, 1.5 and 2, the measured unequal
+  transform, and another independently rounded texture-scale pair. Coverage includes
+  different body/code fonts, point/pixel sizes, wrapping, all three alignments, bidi,
+  GFM off/on, mixed styles, zero/default padding, and disabling decorations again.
+  Decoration-only alpha differences must lie inside narrow native-metric vertical
+  bands. Separate endpoint checks use native shaped advances, reject lines through
+  the gap between strikeout spans, and cover inherited underline/overline plus a link
+  with underline explicitly disabled. The alpha threshold remains 20/255; metric
+  bands allow one physical pixel of rasterization tolerance.
+- Initial container runs exposed 12 failures in the cursor-cell endpoint oracle:
+  wrapped bidi spaces can have native glyph advances beyond clamped cursor cells.
+  The zero-padding endpoint oracle now uses those native glyph advances. Those
+  failed runs are retained in `build-ci-decoration-native-{minimum,development}-final/`.
+- Final host styling, fractional styling, view, selection and fractional selection
+  checks passed (5/5), including all 868 image regression rows. Log:
+  `build-shared/inline-decoration-native-captures/decoration-focused-final.log`.
+  `python3 scripts/check-docs.py` and `git diff --check` passed.
+
+Native acceptance uses the real playground through `QT_QPA_PLATFORM=wayland`, not
+an offscreen backend. The opt-in capture now includes the complete GFM strikethrough
+sample (heading, delimiters, mixed-style paragraph, tasks, nested item, image fallback
+and escapes), plus a link after code and separated strikeout spans. Native windows
+are captured at logical widths 900 and 1500, height 1000, with All GFM off/on. Final
+captures are `/tmp/qmarkdown-native-decoration-final.png-{0,1}-{900,1500}.png`;
+the native desktop produced 1.25-scale images. All four final captures were visually
+inspected: underline sits below the linked text after code, strikeout follows the
+heading and mixed-font paragraph through wrapping, and separated strikeout spans
+leave intervening text clear. GFM-off captures retain literal delimiters. Copies of
+all final captures and the native test log are retained locally under
+`build-shared/inline-decoration-native-captures/`. The native playground test passed
+with no skipped checks.
+
+
+Final configured verification completed successfully:
+
+| Qt target | Shared CTest | Static CTest | Installed consumers / packaging | Benchmark smoke | Local evidence |
+| --- | --- | --- | --- | --- | --- |
+| Minimum 6.8.0 | 18/18 passed | 18/18 passed | Passed | Passed | `build-ci-decoration-native-minimum-verified/` |
+| Development 6.12.0 | 18/18 passed | 18/18 passed | Passed | Passed | `build-ci-decoration-native-development-verified/` |
+
+Commands were `python3 scripts/run-ci.py --qt-role minimum` and
+`python3 scripts/run-ci.py --qt-role development`, with the directories above
+passed through `--artifact-dir`. Both returned exit 0. Renderer/header and both test
+files match the retained source snapshots byte for byte. Evidence prose was updated
+after completion; documentation and whitespace checks passed again. Initial
+sandboxed runs could not access the Docker socket; the authorized escalated runs
+completed. Logs, captures and build artifacts remain local and ignored.
+
+No commit, PR, merge or publication is performed by this correction.
+
+## Strikeout padding continuity — 2026-10-15
+
+Scope: the user supplied and approved the “Close strikeout gaps around inline code”
+plan. This adds only private strikeout connectors across recorded visual padding
+boundaries. It preserves native glyph decoration heights, interpolates between them,
+uses code-owned color/thickness, and splits adjacent code connections at the shared
+padding boundary. Eligibility comes from actual shaped strikeout flags, including
+inherited font strikeout. Isolated and beginning/ending code spans retain text-based
+endpoints. Underline, overline, layout, wrapping, selection, link geometry, parser,
+public API, dependencies and version are unchanged by this correction.
+
+Actual focused verification:
+
+- Built with `cmake --build build-shared --parallel 2` (host Qt 6.12.0).
+- Disabled only the connector loop and rebuilt to demonstrate the regression:
+  `strikeoutGutters` failed 50 of 105 data rows. Restored connectors and rebuilt.
+  Before-fix log: `/tmp/strikeout-before.log`.
+- `QT_QPA_PLATFORM=offscreen build-shared/tests/qmarkdown-styling-test
+  strikeoutGutters adjacentCodeStrikeout decorationPlacement
+  separatedDecorationEndpoints`: 974 test cases passed (976 including lifecycle),
+  zero failures/skips. Coverage includes both gutters at zero/default/12px padding,
+  different body/code heights, inherited strikeout, isolated/beginning/ending code,
+  undecorated neighbors, separated strikeout, linked blue connectors and adjacent
+  red/blue code connectors. Uniform scales 1, 1.25, 1.5 and 2 and the previously
+  failing unequal transform are checked against narrow interpolated native paths.
+  The existing 864 placement rows additionally check every interior gutter column
+  across alignment, wrapping, bidi and point/pixel fonts. Qt can omit trailing
+  whitespace glyphs at line ends; these have no existing strikeout endpoint and
+  are excluded from the gutter-coverage oracle.
+- `ctest --test-dir build-shared --output-on-failure -R
+  'qmarkdown-(styling|view|selection)'`: 5/5 passed, including fractional styling
+  and selection checks. Logs and captures are retained in the ignored local
+  `build-shared/strikeout-gutter-captures/` directory.
+- `QT_QPA_PLATFORM=wayland
+  QMARKDOWN_STRIKE_SCREENSHOT=/tmp/qmarkdown-strikeout-gutters.png
+  build-shared/tests/qmarkdown-view-test playgroundStrikethrough`: passed, no skips.
+  Visually inspected all four complete native playground captures at logical
+  widths 900/1500 and height 1000 with All GFM off/on (native desktop scale 1.25).
+  GFM-on views show continuous strikeout around code in the mixed-style paragraph,
+  blue strikeout on links, correct wrapping and clear intervening text between
+  separated spans. GFM-off views preserve literal delimiters. Captures are named
+  `/tmp/qmarkdown-strikeout-gutters.png-{0,1}-{900,1500}.png` and copied to the local
+  directory above.
+- `python3 scripts/check-docs.py` and `git diff --check` passed.
+- `python3 scripts/ci-toolchain/qt_versions.py --sync-host /usr/bin/qmake6` confirmed
+  configured development Qt 6.12.0 without changing toolchain inputs.
+
+Configured matrix results are recorded below after completion. Initial sandboxed
+runs could not access the Docker socket; authorized escalated runs use separate
+`build-ci-strikeout-gutters-{minimum,development}-verified/` evidence directories.
+
+The first escalated matrices (`*-verified/`) stopped at shared styling: 12 placement
+rows per target rejected diagonal connector pixels at scale 2 because the old
+horizontal-band oracle did not include the interpolation between font heights.
+The revised oracle independently derives narrow gutter paths from shaped source
+indexes/font metrics and selection cell edges; horizontal glyph bands retain their
+original tolerance. Host placement checks passed again (864 cases, zero failures).
+Final matrix attempts use `build-ci-strikeout-gutters-{minimum,development}-final/`.
+
+Final configured verification completed successfully:
+
+| Qt target | Shared CTest | Static CTest | Installed consumers / packaging | Benchmark smoke | Local evidence |
+| --- | --- | --- | --- | --- | --- |
+| Minimum 6.8.0 | 18/18 passed | 18/18 passed | Passed | Passed | `build-ci-strikeout-gutters-minimum-final/` |
+| Development 6.12.0 | 18/18 passed | 18/18 passed | Passed | Passed | `build-ci-strikeout-gutters-development-final/` |
+
+Commands were `python3 scripts/run-ci.py --qt-role minimum` and
+`python3 scripts/run-ci.py --qt-role development`, with the respective directories
+above supplied as `--artifact-dir`. Both returned exit 0. These runs also passed
+QML lint and the unchanged CommonMark gate. Renderer/header and styling/view test
+files match both retained source snapshots byte for byte. Only evidence prose and
+task completion were updated afterward; documentation and whitespace checks passed
+again. Existing uncommitted decoration-rendering work was preserved. This correction
+performs no commit, PR, merge, release or publication.

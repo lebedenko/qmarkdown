@@ -128,7 +128,7 @@ void FormattedText::updatePolish()
     m_codeRects.clear();
     m_cursorCells.clear();
     m_cursorLines.clear();
-    m_paddedRuns.clear();
+    m_paintedRuns.clear();
     m_hitRegions.clear();
     m_padded = false;
     m_logicalHeight = 0;
@@ -169,7 +169,19 @@ void FormattedText::updatePolish()
             }
             formats.append({start, length, format});
         }
-        QVector<int> codes(m_text.size(), -1), links(m_text.size(), -1);
+        QVector<int> codes(m_text.size(), -1), links(m_text.size(), -1), formatIdentities(m_text.size(), -1);
+        int formatEnd = 0, formatIdentity = 0;
+        for (const auto &interval : intervals) {
+            for (int pos = formatEnd; pos < interval.start; ++pos)
+                formatIdentities[pos] = formatIdentity;
+            ++formatIdentity;
+            formatEnd = interval.start + interval.length;
+            for (int pos = interval.start; pos < formatEnd; ++pos)
+                formatIdentities[pos] = formatIdentity;
+            ++formatIdentity;
+        }
+        for (int pos = formatEnd; pos < m_text.size(); ++pos)
+            formatIdentities[pos] = formatIdentity;
         auto mapSpan = [&](const QVariantMap &span, QVector<int> &map, int identity) {
             const qint64 start = span.value("start").toLongLong();
             const qint64 length = span.value("length").toLongLong();
@@ -223,6 +235,104 @@ void FormattedText::updatePolish()
             return cells[i].code >= 0 && (i == 0 || cells[i - 1].code != cells[i].code
                 || cells[i].rect.left() > cells[i - 1].rect.right() + .01);
         };
+        struct Gutter { int left, right; qreal boundary; };
+        auto cacheLine = [&](QTextLine line, const QVector<qreal> &shifts, qreal align,
+                             const QVector<Gutter> &gutters = {}) {
+            struct Strike { int fragment = -1; QLineF line; qreal thickness = 0; };
+            QHash<int, Strike> strikes;
+            // Retrieve each shaped line once, then partition glyphs by paint
+            // format, color and padding shift. Qt retains fallback fonts and decoration flags.
+            const auto runs = line.glyphRuns(-1, -1, QTextLayout::RetrieveGlyphIndexes
+                | QTextLayout::RetrieveGlyphPositions | QTextLayout::RetrieveStringIndexes);
+            for (const auto &run : runs) {
+                const auto positions = run.positions(); const auto indexes = run.stringIndexes();
+                const auto glyphs = run.glyphIndexes();
+                QList<quint32> paintedGlyphs;
+                auto paintedIndexes = indexes; paintedIndexes.clear();
+                QList<QPointF> paintedPositions;
+                QColor color;
+                qreal fragmentShift = 0;
+                int fragmentFormat = -1;
+                auto flush = [&] {
+                    if (paintedGlyphs.isEmpty()) return;
+                    auto painted = run;
+                    painted.setGlyphIndexes(paintedGlyphs);
+                    // Keep the shaped glyph coordinates and painter transform;
+                    // decorations use logical font metrics in the same space.
+                    qreal left = paintedPositions.first().x();
+                    for (const auto &position : paintedPositions) left = qMin(left, position.x());
+                    const QPointF origin(left, 0);
+                    for (auto &position : paintedPositions) position -= origin;
+                    painted.setPositions(paintedPositions);
+                    painted.setStringIndexes(paintedIndexes);
+                    QRectF ink;
+                    for (int i = 0; i < paintedGlyphs.size(); ++i)
+                        ink = ink.united(run.rawFont().boundingRect(paintedGlyphs[i]).translated(paintedPositions[i]));
+                    QVector<Decoration> decorations;
+                    if (run.underline() || run.strikeOut() || run.overline()) {
+                        const auto font = run.rawFont();
+                        const auto advances = font.advancesForGlyphIndexes(paintedGlyphs);
+                        qreal right = 0;
+                        for (int i = 0; i < paintedGlyphs.size(); ++i)
+                            right = qMax(right, paintedPositions[i].x() + advances[i].x());
+                        const qreal baseline = paintedPositions.first().y();
+                        const qreal thickness = font.lineThickness();
+                        auto includeDecoration = [&](qreal y) {
+                            decorations.append({QLineF(0, y, right, y), thickness});
+                            ink = ink.united(QRectF(0, y - thickness / 2, right, thickness));
+                        };
+                        if (run.underline()) includeDecoration(baseline + font.underlinePosition());
+                        if (run.strikeOut()) {
+                            includeDecoration(baseline - font.ascent() / 3);
+                            const Strike strike{int(m_paintedRuns.size()),
+                                decorations.last().line.translated(origin), thickness};
+                            for (auto source : paintedIndexes) {
+                                while (source > quint32(line.textStart()) && !m_layout->isValidCursorPosition(source)) --source;
+                                strikes.insert(int(source), strike);
+                            }
+                        }
+                        if (run.overline()) includeDecoration(baseline - font.ascent());
+                    }
+                    painted.setBoundingRect(ink);
+                    m_paintedRuns.append({painted, color, origin, decorations});
+                    paintedGlyphs.clear(); paintedPositions.clear(); paintedIndexes.clear();
+                };
+                for (int i = 0; i < positions.size(); ++i) {
+                    int source = int(indexes[i]);
+                    while (source > line.textStart() && !m_layout->isValidCursorPosition(source)) --source;
+                    const QColor foreground = links[source] >= 0 ? m_linkColor
+                        : codes[source] >= 0 && m_codeForeground.isValid() ? m_codeForeground : m_color;
+                    const qreal glyphShift = shifts[source - line.textStart()];
+                    if (foreground != color || glyphShift != fragmentShift || formatIdentities[source] != fragmentFormat) {
+                        flush(); color = foreground; fragmentShift = glyphShift; fragmentFormat = formatIdentities[source];
+                    }
+                    auto position = positions[i];
+                    position.rx() += shifts[source - line.textStart()] + align;
+                    paintedGlyphs.append(glyphs[i]); paintedPositions.append(position); paintedIndexes.append(indexes[i]);
+                }
+                flush();
+            }
+            for (const auto &gutter : gutters) {
+                if (!strikes.contains(gutter.left) || !strikes.contains(gutter.right)) continue;
+                const auto left = strikes.value(gutter.left), right = strikes.value(gutter.right);
+                const QLineF connector(left.line.p2(), right.line.p1());
+                if (connector.dx() <= 0) continue;
+                auto append = [&](const Strike &style, QPointF from, QPointF to) {
+                    auto &fragment = m_paintedRuns[style.fragment];
+                    const QLineF segment(from - fragment.origin, to - fragment.origin);
+                    fragment.decorations.append({segment, style.thickness});
+                    const qreal half = style.thickness / 2;
+                    fragment.glyphs.setBoundingRect(fragment.glyphs.boundingRect().united(
+                        QRectF(segment.p1(), segment.p2()).normalized().adjusted(-half, -half, half, half)));
+                };
+                if (codes[gutter.left] >= 0 && codes[gutter.right] >= 0) {
+                    const QPointF boundary = connector.pointAt(qBound(qreal(0),
+                        (gutter.boundary - connector.x1()) / connector.dx(), qreal(1)));
+                    append(left, connector.p1(), boundary);
+                    append(right, boundary, connector.p2());
+                } else append(codes[gutter.left] >= 0 ? left : right, connector.p1(), connector.p2());
+            }
+        };
         m_layout->beginLayout();
         while (true) {
             auto line = m_layout->createLine();
@@ -234,6 +344,7 @@ void FormattedText::updatePolish()
                     m_cursorCells.append({cell.source, m_layout->nextCursorPosition(cell.source), cell.rect, cell.reversed});
                 }
                 m_cursorLines.append({line.textStart(), line.y(), line.y() + line.height()});
+                cacheLine(line, QVector<qreal>(line.textLength(), 0), 0);
                 m_logicalHeight += line.height();
                 continue;
             }
@@ -283,42 +394,15 @@ void FormattedText::updatePolish()
                 const int pos = cells[i].source;
                 m_cursorCells.append({pos, m_layout->nextCursorPosition(pos), region.rect, cells[i].reversed});
             }
-            // Retrieve each shaped line once, then partition glyphs by paint
-            // color. Qt retains fallback fonts and decoration flags in each run.
-            const auto runs = line.glyphRuns(-1, -1, QTextLayout::RetrieveGlyphIndexes
-                | QTextLayout::RetrieveGlyphPositions | QTextLayout::RetrieveStringIndexes);
-            for (const auto &run : runs) {
-                const auto positions = run.positions(); const auto indexes = run.stringIndexes();
-                const auto glyphs = run.glyphIndexes();
-                QList<quint32> paintedGlyphs;
-                auto paintedIndexes = indexes; paintedIndexes.clear();
-                QList<QPointF> paintedPositions;
-                QColor color;
-                auto flush = [&] {
-                    if (paintedGlyphs.isEmpty()) return;
-                    auto painted = run;
-                    painted.setGlyphIndexes(paintedGlyphs);
-                    painted.setPositions(paintedPositions);
-                    painted.setStringIndexes(paintedIndexes);
-                    QRectF ink;
-                    for (int i = 0; i < paintedGlyphs.size(); ++i)
-                        ink = ink.united(run.rawFont().boundingRect(paintedGlyphs[i]).translated(paintedPositions[i]));
-                    painted.setBoundingRect(ink);
-                    m_paddedRuns.append({painted, color});
-                    paintedGlyphs.clear(); paintedPositions.clear(); paintedIndexes.clear();
-                };
-                for (int i = 0; i < positions.size(); ++i) {
-                    int source = int(indexes[i]);
-                    while (source > line.textStart() && !m_layout->isValidCursorPosition(source)) --source;
-                    const QColor foreground = links[source] >= 0 ? m_linkColor
-                        : codes[source] >= 0 && m_codeForeground.isValid() ? m_codeForeground : m_color;
-                    if (foreground != color) { flush(); color = foreground; }
-                    auto position = positions[i];
-                    position.rx() += shifts[source - line.textStart()] + align;
-                    paintedGlyphs.append(glyphs[i]); paintedPositions.append(position); paintedIndexes.append(indexes[i]);
-                }
-                flush();
+            QVector<Gutter> gutters;
+            for (int i = 1; i < cells.size(); ++i) {
+                const auto &left = cells[i - 1], &right = cells[i];
+                if (right.shift > left.shift && qAbs(right.rect.left() - left.rect.right()) < .01)
+                    gutters.append({left.source, right.source,
+                        left.rect.right() + left.shift + align
+                            + (left.code >= 0 ? m_codeHorizontalPadding : 0)});
             }
+            cacheLine(line, shifts, align, gutters);
             m_cursorLines.append({line.textStart(), line.y() - vertical, line.y() + line.height() + vertical});
             m_logicalHeight += line.height() + 2 * vertical;
         }
@@ -355,10 +439,8 @@ void FormattedText::updatePolish()
         // Raster bounds include ink overhang; wrapping and parent geometry retain
         // the host's logical width and native line height.
         QRectF bounds(0, 0, m_layoutWidth, m_logicalHeight);
-        if (m_padded) {
-            for (const auto &run : m_paddedRuns) bounds = bounds.united(run.glyphs.boundingRect());
-            for (const auto &rect : m_codeRects) bounds = bounds.united(rect);
-        } else for (const auto &run : m_layout->glyphRuns()) bounds = bounds.united(run.boundingRect());
+        for (const auto &run : m_paintedRuns) bounds = bounds.united(run.glyphs.boundingRect().translated(run.origin));
+        for (const auto &rect : m_codeRects) bounds = bounds.united(rect);
         const qreal left = std::floor(bounds.left()) - 1;
         const qreal top = std::floor(bounds.top()) - 1;
         m_paintOffset = QPointF(-left, -top);
@@ -391,12 +473,23 @@ void FormattedText::paint(QPainter *painter)
     }
     painter->setBrush(m_selectionColor);
     for (const auto &rect : selectionRectangles()) painter->drawRect(rect);
-    painter->restore();
     painter->setPen(m_color);
-    if (m_padded) for (const auto &run : m_paddedRuns) {
+    for (const auto &run : m_paintedRuns) {
         painter->setPen(run.color);
-        painter->drawGlyphRun(m_paintOffset, run.glyphs);
-    } else m_layout->draw(painter, m_paintOffset);
+        auto glyphs = run.glyphs;
+        // Qt's raster glyph path derives decorations from pretransformed
+        // positions. Paint them explicitly to avoid applying scale twice,
+        // including independently rounded Qt Quick texture dimensions.
+        glyphs.setUnderline(false);
+        glyphs.setStrikeOut(false);
+        glyphs.setOverline(false);
+        painter->drawGlyphRun(run.origin, glyphs);
+        for (const auto &decoration : run.decorations) {
+            painter->setPen(QPen(run.color, decoration.thickness, Qt::SolidLine, Qt::FlatCap));
+            painter->drawLine(decoration.line.translated(run.origin));
+        }
+    }
+    painter->restore();
 }
 
 void FormattedText::setLinkSpans(const QVariantList &value)

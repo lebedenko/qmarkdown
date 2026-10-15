@@ -23,3 +23,17 @@ T2–T4 completed and verified on host Qt 6.12.0. T6 compatibility, installed co
 ## Release delivery authorization — 2026-10-13
 
 The supplied release plan explicitly authorizes D1–D3: commit the feature on a branch, open one PR, squash merge after required packaging checks and resolved review threads, run the release workflow against the exact merged commit, tag v1.6.0, publish stable/latest Linux x86_64 Ubuntu/Arch packages, independently accept downloaded packages and attach compact evidence. Preserve existing releases, assets and protections. No evidence-only PR or automatic post-release upkeep commit. Earlier pending-authorization statements retain their historical scope; actual delivery results will be attached to the release.
+
+## Strikeout continuity correction — user plan approved 2026-10-15
+
+- [x] Retain visual padding boundaries and bordering source cells; connect effective
+  shaped strikeout endpoints with interpolated heights and code-owned styling.
+- [x] Include cached connector pen extents in raster bounds without changing layout.
+- [x] Add image regressions for both gutters, native font heights, inherited strikeout,
+  linked colors, adjacent code styling and unconnected endpoints; strengthen existing
+  wrapped/aligned/bidi image checks with per-column gutter coverage.
+- [x] Run focused decoration, styling/view/selection, both configured Qt shared/static
+  matrices and native Wayland wide/wrapping GFM off/on acceptance; record actual results.
+
+Approval covers implementation and verification of the supplied plan, with no public
+API, parser, dependency or version changes. It does not request publication.
