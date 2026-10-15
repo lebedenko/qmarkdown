@@ -132,7 +132,9 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: arch-distribution
-          path: ${{ runner.temp }}/qmarkdown-arch/*.pkg.tar.zst*
+          path: |
+            ${{ runner.temp }}/qmarkdown-arch/*.pkg.tar.zst
+            ${{ runner.temp }}/qmarkdown-arch/*.pkg.tar.zst.sha256
           if-no-files-found: error
   publish:
     needs: [eligible, source-check, arch]

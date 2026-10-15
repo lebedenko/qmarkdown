@@ -1,5 +1,25 @@
 # Verification — 1.8 desktop reading improvements
 
+## Release artifact selection repair — 2026-10-15
+
+The user approved the artifact-selection repair, one repair PR, fresh required
+full Qt CI, squash merge and publication of existing 1.8.0 using that merged PR.
+Existing metadata and release notes remain authoritative; no version/API change.
+
+- Publication [run 38697428521](https://github.com/lebedenko/qmarkdown/actions/runs/38697428521)
+  passed distribution checks but stopped at artifact validation before tag/release
+  writes: the Arch wildcard also selected the package's `.namcap.log`.
+- Added a regression that reads the workflow's configured Arch upload patterns
+  and selects from a temporary package/checksum/namcap-log directory. It failed
+  before the repair because the log was included.
+- Replaced the broad wildcard with explicit package and checksum patterns. The
+  publisher's strict four-file validation remains unchanged.
+- Local checks passed: focused selection regression; all 34 offline release
+  tests; 5 Arch packaging tests; strict release documentation/local links; and
+  `git diff --check`. Host Qt sync confirmed configured development Qt 6.12.0.
+- Final hosted verification and publication results are recorded on the repair
+  PR and Actions run, avoiding an evidence-only commit that invalidates its head.
+
 Status: **implementation and local verification complete**. Final-head hosted
 verification is recorded in the associated feature PR.
 
