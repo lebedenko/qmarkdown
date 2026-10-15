@@ -25,8 +25,9 @@ QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
-Controls style. Private QML responsibilities are refactored without a new public
-C++ surface.
+Controls style. Keyboard traversal defaults off; accessible links remain available
+without keyboard opt-in. Task indicators remain read-only. Private QML
+responsibilities are refactored without a new public C++ surface.
 <!-- current-release:end -->
 
 ## Build and check

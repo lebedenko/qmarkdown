@@ -44,3 +44,13 @@ Streaming, highlighting, Mermaid/math engines, footnotes, caret navigation, touc
 selection handles and further platforms are excluded. Features 046 and 047 are
 already implemented development work, not new implementation tasks here. Merge,
 tagging and publication require separate authorization.
+
+## Release delivery authorization
+
+The supplied “Update documentation and publish QMarkdown 1.10.0” plan explicitly
+authorizes documentation reconciliation, one release PR, squash merge, workflow
+dispatch, tagging and stable/latest publication with four source/Arch assets and
+downloaded-asset SHA-256 verification. This extends the historical implementation
+approval above without changing runtime scope, package 1.10.0 or QML 1.10.
+Follow the [development workflow](../../docs/development-workflow.md); stop on a
+failed stage and preserve existing tags and published bytes.

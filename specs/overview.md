@@ -26,8 +26,9 @@ QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
-Controls style. Private QML responsibilities are refactored without a new public
-C++ surface.
+Controls style. Keyboard traversal defaults off; accessible links remain available
+without keyboard opt-in. Task indicators remain read-only. Private QML
+responsibilities are refactored without a new public C++ surface.
 <!-- current-release:end -->
 
 ## Historical 1.6.0 status
@@ -60,8 +61,8 @@ Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a
 - Bundled renderer engines: highlighting, Mermaid and math remain deferred.
 
 [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14,
-implements host-provided fenced-block QML Components after the 1.7.0 tag.
-These renderers are absent from the 1.7.0 downloads.
+implements host-provided fenced-block QML Components delivered in 1.8 and
+retained in 1.10. Historical 1.7.0 downloads exclude these renderers.
 Selection enabled displays source; copying retains source. See the
 [renderer guide](../docs/fenced-block-renderers.md) and separate
 [verification/delivery record](042-custom-fenced-block-renderers/verification.md).

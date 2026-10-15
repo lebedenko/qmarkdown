@@ -88,3 +88,13 @@ release-preparation step, update all current-release markers, 1.10 notes/changel
 compatibility/download/install guidance together and run the strict release gate.
 Do not prewrite successful verification or publication evidence. Keep release
 preparation in the same meaningful change; no merge/tag/publish action is granted.
+
+## Release delivery authorization
+
+The supplied “Update documentation and publish QMarkdown 1.10.0” plan explicitly
+authorizes documentation reconciliation, one release PR, squash merge, workflow
+dispatch, tagging and stable/latest publication with four source/Arch assets and
+downloaded-asset SHA-256 verification. This extends the historical implementation
+approval above without changing runtime scope, package 1.10.0 or QML 1.10.
+Follow the [development workflow](../../docs/development-workflow.md); stop on a
+failed stage and preserve existing tags and published bytes.

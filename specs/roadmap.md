@@ -26,8 +26,9 @@ QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
-Controls style. Private QML responsibilities are refactored without a new public
-C++ surface.
+Controls style. Keyboard traversal defaults off; accessible links remain available
+without keyboard opt-in. Task indicators remain read-only. Private QML
+responsibilities are refactored without a new public C++ surface.
 <!-- current-release:end -->
 
 ## Historical 1.6.0 status
@@ -50,34 +51,34 @@ These stages preserve the brief's direction. The table separates completed found
 | Buildable scaffold | [002 project scaffold](002-project-scaffold/requirements.md): import-only Qt/QML module, shared/static packaging, and smoke checks; scaffold foundation completed. |
 | First vertical slice | [001 static text](001-static-text/requirements.md): paragraphs, H1–H6, native block layout, styling, replacement updates. Approved on 2026-10-07 and implemented; see its verification record. |
 | CommonMark core coverage (completed) | Complete CommonMark 0.31.2 semantics: ATX and Setext headings, paragraphs, emphasis/strong emphasis, inline code, fenced and indented code, inline and reference links, images, ordered/unordered and nested lists, block quotes, thematic breaks, escapes/entities, autolinks, hard/soft breaks, and raw HTML recognition. Include whitespace, line handling, delimiter rules, and precedence. Features 009/010 specify host navigation and resource policies; Feature 017 completes semantic evidence. |
-| Selected GFM syntax (implemented) | Task lists, strikethrough and extended autolinks have independent opt-in slices and separate extension checks on the newer CommonMark core; tables and tag filtering are released in 1.6.0; no full GFM conformance claim. |
-| Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Selection is included in the 1.7.0 downloads. Iteration 044 adds double/triple-click selection and host-owned vertical edge scrolling in 1.8. Touch handles, horizontal autoscrolling, caret navigation and rich-text copying remain deferred. |
-| Streaming | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
-| Renderer extensions | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers after the 1.7.0 tag; these are absent from 1.7.0 downloads. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Bundled syntax highlighting, Mermaid and math remain deferred. Footnotes and other richer syntax require separate specifications. |
+| Selected GFM syntax (implemented) | Task lists, strikethrough and extended autolinks have independent opt-in slices and separate extension checks on the newer CommonMark core; tables and tag filtering were delivered in 1.6.0; no full GFM conformance claim. |
+| Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Selection is retained in current downloads. Iteration 044 adds double/triple-click selection and host-owned vertical edge scrolling in 1.8. Touch handles, horizontal autoscrolling, caret navigation and rich-text copying remain deferred. |
+| Reading tools (delivered) | Literal Find, independent highlights, heading outline and fragment navigation in 1.9; opt-in keyboard link traversal, visible focus and per-link accessibility in 1.10. Hosts own controls, scrolling and destination policy. |
+| Streaming (deferred, unscheduled) | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
+| Renderer extensions (partly delivered) | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers delivered in 1.8; historical 1.7.0 downloads exclude them. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Bundled syntax highlighting, Mermaid and math remain deferred. Footnotes and other richer syntax require separate specifications. |
 | v1.0 conformance gate (completed) | All pinned CommonMark 0.31.2 official examples pass semantic checks, with native renderer verification and documented resource/HTML behavior. Record reproducible commands and actual counts. Streaming and optional extensions are not gates. |
 
 The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Iteration 021 records historical local candidate readiness; iterations 023/027 record completed 1.0.0/1.1.0 publication separately.
 
-## Development work for 1.10
+## Delivered reading tools and 1.10 scope
 
-Released **1.9.0 / QML 1.9** remains the published baseline; see its
-[release notes](../docs/release-notes-1.9.0.md). The current summary above describes
-1.10 content; publication remains separately authorized.
-[046 QML boundaries](046-qml-boundaries/verification.md) and
-[047 task-indicator presentation](047-task-indicator-presentation/verification.md)
-are implemented and locally verified development work. The development package is
-1.10.0 / QML 1.10; these records do not claim 1.10 publication.
+Literal Find, independent highlights, heading outline and explicit fragment
+navigation were delivered in 1.9. Keyboard link traversal, visible focus,
+per-link accessibility, replaceable task indicators and the private QML boundary
+refactor form the 1.10 scope. See [046](046-qml-boundaries/verification.md),
+[047](047-task-indicator-presentation/verification.md) and
+[048](048-keyboard-reading/verification.md) for actual implementation checks.
 
-Feature 048 adds opt-in keyboard link traversal, visible link focus and per-link
-accessibility through [048 requirements](048-keyboard-reading/requirements.md),
-[design](048-keyboard-reading/design.md), [tasks](048-keyboard-reading/tasks.md) and
-[verification](048-keyboard-reading/verification.md). Feature 048 requirements,
-design and tasks were approved on 2026-10-15; implementation and local verification
-on both configured Qt shared/static targets are complete. Release documentation and delivery
-belong to that meaningful change; merge, tagging and publication need separate
-authorization. Streaming is excluded. Highlighting, Mermaid/math engines,
-footnotes, caret navigation, touch selection handles and further platforms remain
-deferred.
+Feature 048 requirements, design and tasks were approved on 2026-10-15.
+The supplied release plan separately authorizes documentation reconciliation,
+one release PR, squash merge and workflow publication of 1.10.0, including
+downloaded-asset hash verification. Actual delivery results remain in Actions;
+this roadmap does not assert publication success.
+
+Streaming, highlighting, Mermaid/math engines, footnotes, caret navigation,
+touch selection handles, horizontal autoscrolling, rich-text copy and further
+platforms remain deferred and unscheduled. Future work requires separate scope,
+design and approval; no new feature commitment is introduced here.
 
 ## Historical implementation stages
 

@@ -26,6 +26,11 @@ toggle. See the [task presentation contract](task-lists.md#host-presentation-110
 The private QML responsibility refactor preserves public behavior and keeps
 application styling, resource policy, controls and navigation host-owned.
 
+Existing reading tools include literal Find with independent highlights, a recursive
+heading outline and explicit fragment navigation. Document-wide desktop selection,
+plain-text copy requests, repeated-click selection, host-owned selection edge
+autoscrolling and custom fenced-block renderers remain available.
+
 Keyboard traversal defaults off; accessible links do not require it. Existing
 hosts can keep their current keyboard behavior. Historical QML 1.0–1.9 imports,
 unversioned imports and compatible CMake 1.0–1.10 requests remain supported.
