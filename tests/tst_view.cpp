@@ -2784,7 +2784,7 @@ MarkdownView {
         QCOMPARE(QGuiApplication::clipboard()->text(), QString::fromUtf8("  literal 😀\n\n"));
         QVERIFY(!QGuiApplication::clipboard()->mimeData()->hasHtml());
         QCOMPARE(button->property("text").toString(), QString("Copied"));
-        QTRY_COMPARE(button->property("text").toString(), QString("Copy"));
+        QTRY_COMPARE(button->property("text").toString(), QString());
         const QPoint point = button->mapToScene(QPointF(button->width() / 2, button->height() / 2)).toPoint();
         QTest::mouseClick(window, Qt::LeftButton, Qt::NoModifier, point);
         QTRY_COMPARE(requests.size(), 2);

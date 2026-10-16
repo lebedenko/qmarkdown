@@ -43,5 +43,49 @@ MarkdownView {
     }
     QMetaObject::invokeMethod(view.get(), "selectAll");
     if (!view->property("selectedText").toString().contains("const int n = 42;")) return 4;
+    QQmlComponent codeBlocks(&engine);
+    codeBlocks.setData(R"(
+import QtQuick
+import QMarkdown 1.12
+MarkdownView {
+    width: 160
+    codeBlockWrapEnabled: false
+    codeBlockLineNumbersVisible: true
+    codeBlockHeightLimitEnabled: true
+    codeBlockViewportHeight: 100
+    codeBlockMinimumLines: 1
+    codeBlockMaximumLines: 2
+    style: MarkdownStyle { codeBlock.lineNumberColor: "#123456" }
+    markdown: "```CPP extra\nconst int value = 42;\nsecond line\nthird line\n```"
+    codeBlockActions: Item {
+        required property string codeText
+        required property var requestCopy
+        required property string language
+        required property string languageId
+        required property string languageName
+        required property string infoString
+        required property bool fenced
+        Component.onCompleted: {
+            if (language !== "CPP" || languageId !== "cpp" || languageName !== "C++" || !fenced)
+                throw new Error("Invalid installed header metadata")
+        }
+    }
+}
+)", {});
+    std::unique_ptr<QQuickItem> codeView(qobject_cast<QQuickItem *>(codeBlocks.create()));
+    if (!codeView) { qCritical() << codeBlocks.errorString(); return 6; }
+    std::function<QQuickItem *(QQuickItem *)> numbered = [&](QQuickItem *item) -> QQuickItem * {
+        if (item->property("sourceLines").toList().size() == 3) return item;
+        for (auto *child : item->childItems()) if (auto *found = numbered(child)) return found;
+        return nullptr;
+    };
+    QCoreApplication::processEvents();
+    // Source delegates can be polished without a rendered frame.
+    std::function<void(QQuickItem *)> polish = [&](QQuickItem *item) {
+        item->ensurePolished();
+        for (auto *child : item->childItems()) polish(child);
+    };
+    polish(codeView.get());
+    if (!numbered(codeView.get())) return 7;
     return 0;
 }

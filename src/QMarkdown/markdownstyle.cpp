@@ -48,6 +48,13 @@ void InlineCodeStyle::resetCornerRadius() { m_style->reset(MarkdownStyle::Proper
 
 CodeBlockStyle::CodeBlockStyle(MarkdownStyle *style)
     : QObject(style), m_style(style) {}
+QColor CodeBlockStyle::lineNumberColor() const {
+    auto value = m_style->m_values.codeBlock.lineNumberColor;
+    if (!value.isValid()) { value = color(); value.setAlphaF(value.alphaF() * 0.6); }
+    return value;
+}
+void CodeBlockStyle::setLineNumberColor(const QColor &value) { m_style->update(MarkdownStyle::Property::CodeBlockLineNumberColor, m_style->m_values.codeBlock.lineNumberColor, value); }
+void CodeBlockStyle::resetLineNumberColor() { m_style->reset(MarkdownStyle::Property::CodeBlockLineNumberColor); }
 QFont CodeBlockStyle::font() const { return m_style->m_values.codeBlock.font; }
 void CodeBlockStyle::setFont(const QFont &value) { m_style->update(MarkdownStyle::Property::CodeBlockFont, m_style->m_values.codeBlock.font, value); }
 void CodeBlockStyle::resetFont() { m_style->reset(MarkdownStyle::Property::CodeBlockFont); }
@@ -385,7 +392,11 @@ void MarkdownStyle::notify(Property property)
         emit m_codeBlock->fontChanged();
         emit codeBlockFontChanged();
         break;
+    case Property::CodeBlockLineNumberColor:
+        emit m_codeBlock->lineNumberColorChanged();
+        break;
     case Property::CodeBlockColor:
+        if (!m_values.codeBlock.lineNumberColor.isValid()) emit m_codeBlock->lineNumberColorChanged();
         emit m_codeBlock->colorChanged();
         emit codeBlockColorChanged();
         break;
@@ -608,6 +619,8 @@ void MarkdownStyle::applyPreset()
         update(Property::InlineCodeVerticalPadding, m_values.inlineCode.verticalPadding, values.inlineCode.verticalPadding, false);
     if (!m_overrides.test(static_cast<size_t>(Property::CodeBlockFont)))
         update(Property::CodeBlockFont, m_values.codeBlock.font, values.codeBlock.font, false);
+    if (!m_overrides.test(static_cast<size_t>(Property::CodeBlockLineNumberColor)))
+        update(Property::CodeBlockLineNumberColor, m_values.codeBlock.lineNumberColor, values.codeBlock.lineNumberColor, false);
     if (!m_overrides.test(static_cast<size_t>(Property::CodeBlockColor)))
         update(Property::CodeBlockColor, m_values.codeBlock.color, values.codeBlock.color, false);
     if (!m_overrides.test(static_cast<size_t>(Property::CodeBlockBackgroundColor)))

@@ -4,6 +4,10 @@
 #include "imageitem.h"
 #include "taskindicatoritem.h"
 #include <QCoreApplication>
+#include <QEvent>
+#include <QQmlComponent>
+#include <QQmlEngine>
+#include <QQmlContext>
 #include <QMetaProperty>
 #include <QGuiApplication>
 #include <QQuickWindow>
@@ -202,6 +206,7 @@ void ViewState::setMarkdown(const QString &value)
 {
     if (m_markdown == value) return;
     clearSelection();
+    m_plainCodeLayout.reset(); m_plainCodeInput.clear();
     m_markdown = value;
     m_sourceChanged = true;
     reparse();
@@ -282,6 +287,116 @@ void registerPrivateTypes()
 }
 Q_COREAPP_STARTUP_FUNCTION(registerPrivateTypes)
 
+void ViewState::registerSourceViewport(QQuickItem *item)
+{
+    if (item) item->installEventFilter(this);
+}
+bool ViewState::eventFilter(QObject *watched, QEvent *event)
+{
+    // CodeSurface's WheelHandler owns source wheel movement. Native Flickable
+    // otherwise consumes phased pixel events even at its boundary, preventing
+    // the outer reader from receiving the unconsumed event.
+    if (event->type() == QEvent::Wheel && watched->property("codeSourceViewport").toBool()) {
+        event->ignore();
+        return true;
+    }
+    return QObject::eventFilter(watched, event);
+}
+
+QVariantMap ViewState::plainCodeGeometry(const QVariantMap &input)
+{
+    QVariantMap key = input;
+    key.remove("point"); key.remove("position");
+    if (!m_plainCodeLayout || key != m_plainCodeInput) {
+        m_plainCodeInput = key;
+        QString source = key.value("text").toString();
+        source.replace(u'\n', QChar::LineSeparator);
+        auto font = key.value("font").value<QFont>();
+        if (font.pointSizeF() > 0) font.setPointSizeF(qRound(font.pointSizeF() * 2) / qreal(2));
+        m_plainCodeLayout = std::make_unique<QTextLayout>(source, font.resolve(QGuiApplication::font()));
+        QTextOption option;
+        option.setWrapMode(key.value("wrap").toBool() ? QTextOption::WrapAtWordBoundaryOrAnywhere : QTextOption::NoWrap);
+        option.setAlignment(Qt::Alignment(key.value("alignment").toInt()));
+        m_plainCodeLayout->setTextOption(option);
+        m_plainCodeLayout->beginLayout();
+        qreal y = 0;
+        while (true) {
+            auto line = m_plainCodeLayout->createLine();
+            if (!line.isValid()) break;
+            line.setLineWidth(qMax(qreal(1), key.value("width").toReal()));
+            line.setPosition({0, y}); y += line.height();
+        }
+        m_plainCodeLayout->endLayout();
+    }
+    int position = input.value("position").toInt();
+    if (input.contains("point")) {
+        const auto point = input.value("point").toPointF();
+        for (int i = 0; i < m_plainCodeLayout->lineCount(); ++i) {
+            const auto line = m_plainCodeLayout->lineAt(i);
+            if (point.y() < line.y() + line.height() || i + 1 == m_plainCodeLayout->lineCount()) {
+                position = line.xToCursor(point.x()); break;
+            }
+        }
+    }
+    auto line = m_plainCodeLayout->lineForTextPosition(position);
+    const QRectF rect = line.isValid() ? QRectF(line.cursorToX(position), line.y(), 1, line.height()) : QRectF();
+    return {{"position", position}, {"rect", rect}};
+}
+
+QObject *ViewState::createHostComponent(QQmlComponent *component, QQuickItem *parent, const QVariantMap &properties) const
+{
+    if (!component || !component->isReady() || !parent) return nullptr;
+    QObject *object = component->beginCreate(component->creationContext() ? component->creationContext() : qmlContext(parent));
+    if (!object) return nullptr;
+    QQmlEngine::setObjectOwnership(object, QQmlEngine::JavaScriptOwnership);
+    object->setParent(parent);
+    if (auto *item = qobject_cast<QQuickItem *>(object)) item->setParentItem(parent);
+    QVariantMap initial;
+    for (auto it = properties.cbegin(); it != properties.cend(); ++it) {
+        const int index = object->metaObject()->indexOfProperty(it.key().toUtf8());
+        if (index >= 0 && object->metaObject()->property(index).isWritable()) initial.insert(it.key(), it.value());
+    }
+    component->setInitialProperties(object, initial);
+    QPointer<QObject> guard(object);
+    component->completeCreate();
+    if (!guard) return nullptr;
+    if (component->isError()) {
+        for (const auto &error : component->errors()) qWarning().noquote() << error.toString();
+        delete object; return nullptr;
+    }
+    return object;
+}
+
+QVariantMap ViewState::codeLanguageMetadata(const QString &language) const
+{
+    struct Language { const char *id; const char *name; };
+    static const QHash<QString, Language> aliases = {
+        {"c", {"c", "C"}}, {"h", {"c", "C"}},
+        {"cpp", {"cpp", "C++"}}, {"c++", {"cpp", "C++"}}, {"cc", {"cpp", "C++"}},
+        {"cxx", {"cpp", "C++"}}, {"hpp", {"cpp", "C++"}}, {"hxx", {"cpp", "C++"}},
+        {"js", {"javascript", "JavaScript"}}, {"javascript", {"javascript", "JavaScript"}},
+        {"jsx", {"jsx", "JavaScript React (JSX)"}},
+        {"ts", {"typescript", "TypeScript"}}, {"typescript", {"typescript", "TypeScript"}},
+        {"tsx", {"tsx", "TypeScript React (TSX)"}},
+        {"py", {"python", "Python"}}, {"python", {"python", "Python"}},
+        {"qml", {"qml", "QML"}}, {"sh", {"bash", "Bash"}}, {"bash", {"bash", "Bash"}},
+        {"shell", {"bash", "Bash"}}, {"json", {"json", "JSON"}}
+    };
+    const auto it = aliases.constFind(language.toLower());
+    return {{"languageId", it == aliases.cend() ? language : QString::fromLatin1(it->id)},
+            {"languageName", it == aliases.cend() ? language : QString::fromLatin1(it->name)}};
+}
+
+bool ViewState::validCodeScrollBar(QObject *object) const
+{
+    if (!qobject_cast<QQuickItem *>(object)) return false;
+    for (const char *name : {"orientation", "position", "size", "active", "requestPosition"}) {
+        const int index = object->metaObject()->indexOfProperty(name);
+        if (index < 0 || !object->metaObject()->property(index).isWritable()) return false;
+    }
+    return true;
+}
+
 bool ViewState::validFencedRenderer(QObject *object) const
 {
     if (!qobject_cast<QQuickItem *>(object)) return false;
@@ -342,6 +457,7 @@ void ViewState::registerSelectionItem(SelectionRegistration *registration)
     if (auto *text = qobject_cast<::FormattedText *>(item))
         connect(text, &::FormattedText::layoutChanged, this, &ViewState::refreshNavigation);
     for (auto *parent = item->parentItem(); parent && parent != m_navigationView; parent = parent->parentItem()) {
+        if (parent->parentItem() && parent->parentItem()->property("codeSourceViewport").toBool()) continue;
         connect(parent, &QQuickItem::xChanged, this, &ViewState::refreshNavigation, Qt::UniqueConnection);
         connect(parent, &QQuickItem::yChanged, this, &ViewState::refreshNavigation, Qt::UniqueConnection);
     }
@@ -379,9 +495,13 @@ QQuickItem *ViewState::selectionItemAt(QQuickItem *view, QPointF point) const
         auto *item = entry.item.data();
         if (!item || (entry.kind != TextSelection && entry.kind != ImageSelection) || !item->isVisible() || item->width() <= 0) continue;
         if (cell && item != cell && !cell->isAncestorOf(item)) continue;
-        const auto p = item->mapFromItem(view, point);
-        const qreal dx = qMax(qreal(0), qMax(-p.x(), p.x() - item->width()));
-        const qreal dy = qMax(qreal(0), qMax(-p.y(), p.y() - item->height()));
+        QRectF visible = item->mapRectToItem(view, item->boundingRect());
+        for (auto *parent = item->parentItem(); parent; parent = parent->parentItem())
+            if (parent->clip()) visible = visible.intersected(parent->mapRectToItem(view, parent->boundingRect()));
+        if (visible.isEmpty()) continue;
+        const auto p = point - visible.topLeft();
+        const qreal dx = qMax(qreal(0), qMax(-p.x(), p.x() - visible.width()));
+        const qreal dy = qMax(qreal(0), qMax(-p.y(), p.y() - visible.height()));
         const qreal d = dx * dx + dy * dy;
         const int start = entry.offset;
         if (d < distance || (d == distance && start < offset)) {
@@ -394,7 +514,14 @@ int ViewState::selectionPosition(QQuickItem *view, QPointF point) const
 {
     auto *item = selectionItemAt(view, point);
     if (!item) return 0;
-    const auto p = item->mapFromItem(view, point);
+    auto p = item->mapFromItem(view, point);
+    QRectF visible = item->boundingRect();
+    for (auto *parent = item->parentItem(); parent; parent = parent->parentItem())
+        if (parent->clip()) visible = visible.intersected(parent->mapRectToItem(item, parent->boundingRect()));
+    if (!visible.isEmpty()) {
+        p.setX(qBound(visible.left(), p.x(), visible.right()));
+        p.setY(qBound(visible.top(), p.y(), visible.bottom()));
+    }
     const int offset = selectionMetadata(item)->offset;
     if (auto *text = qobject_cast<::FormattedText *>(item)) {
         if (p.y() >= item->height()) return offset + selectionMetadata(item)->length;
@@ -525,7 +652,7 @@ void ViewState::dragSelection(QQuickItem *view, QPointF point)
     m_dragView = view;
     m_pointerScene = view->mapToScene(point);
     extendSelection(view, point);
-    if (m_selectionViewport && !m_scrollTimer.isActive()) {
+    if (!m_scrollTimer.isActive()) {
         m_scrollElapsed.start(); m_scrollTimer.start();
     }
 }
@@ -554,21 +681,48 @@ void ViewState::setSelectionViewport(QQuickItem *item)
 }
 void ViewState::scrollSelection()
 {
-    if (!m_selectionEnabled || !m_dragView || !m_selectionViewport
-        || !m_dragView->window() || m_selectionViewport->window() != m_dragView->window()) {
+    if (!m_selectionEnabled || !m_dragView || !m_dragView->window()
+        || (m_selectionViewport && m_selectionViewport->window() != m_dragView->window())) {
         endSelectionDrag(); return;
     }
     const qreal elapsed = qMin(selectionMaximumTick, m_scrollElapsed.restart()) / 1000.0;
-    const qreal y = m_selectionViewport->mapFromScene(m_pointerScene).y();
-    const qreal height = m_selectionViewport->height();
+    // A source viewport consumes edge movement before the outer reader.
+    bool internalVertical = false;
+    qreal boundaryDelta = 0;
+    if (auto *item = selectionItemAt(m_dragView, m_dragView->mapFromScene(m_pointerScene))) {
+        for (auto *parent = item->parentItem(); parent; parent = parent->parentItem()) {
+            if (!parent->property("codeSourceViewport").toBool()) continue;
+            const auto point = parent->mapFromScene(m_pointerScene);
+            auto scrollAxis = [&](const char *offset, const char *extent, qreal coordinate, qreal span) {
+                const qreal before = parent->property(offset).toReal();
+                const qreal near = coordinate, far = span - coordinate;
+                if (span <= 0 || qMin(near, far) >= selectionEdgeDistance || near == far) return false;
+                const qreal speed = (near < far ? -1 : 1) * selectionMaximumSpeed * qBound(qreal(0),
+                    (selectionEdgeDistance - qMin(near, far)) / selectionEdgeDistance, qreal(1));
+                const qreal after = qBound(qreal(0), before + speed * elapsed,
+                    qMax(qreal(0), parent->property(extent).toReal() - span));
+                parent->setProperty(offset, after);
+                if (QByteArray(offset) == "contentY" && after == before) boundaryDelta = speed * elapsed;
+                return after != before;
+            };
+            scrollAxis("contentX", "contentWidth", point.x(), parent->width());
+            internalVertical = scrollAxis("contentY", "contentHeight", point.y(), parent->height());
+            break;
+        }
+    }
+    const qreal y = m_selectionViewport ? m_selectionViewport->mapFromScene(m_pointerScene).y() : 0;
+    const qreal height = m_selectionViewport ? m_selectionViewport->height() : 0;
     const qreal top = y, bottom = height - y;
     qreal speed = 0;
     if (height > 0 && qMin(top, bottom) < selectionEdgeDistance && top != bottom)
         speed = (top < bottom ? -1 : 1) * selectionMaximumSpeed * qBound(qreal(0),
             (selectionEdgeDistance - qMin(top, bottom)) / selectionEdgeDistance, qreal(1));
-    if (speed != 0) emit selectionScrollRequested(speed * elapsed);
+    if (!internalVertical && m_selectionViewport) {
+        const qreal delta = boundaryDelta != 0 ? boundaryDelta : speed * elapsed;
+        if (delta != 0) emit selectionScrollRequested(delta);
+    }
     // Hosts may synchronously remove the viewport or replace the source.
-    if (m_dragView && m_selectionViewport)
+    if (m_dragView)
         extendSelection(m_dragView, m_dragView->mapFromScene(m_pointerScene));
 }
 QVariant ViewState::selectionLink(QQuickItem *view, QPointF point) const
@@ -638,6 +792,7 @@ void ViewState::rebuildSearch()
     emit searchChanged();
     if (m_currentMatch >= 0) {
         m_targetSearch = true;
+        m_revealSource = true;
         m_targetStart = m_matches[0].start;
         m_targetLength = m_matches[0].length;
         m_lastTarget = {};
@@ -648,6 +803,7 @@ bool ViewState::advanceSearch(int direction)
 {
     if (m_matches.isEmpty()) return false;
     m_currentMatch = (m_currentMatch + direction + m_matches.size()) % m_matches.size();
+    m_revealSource = true;
     m_targetStart = m_matches[m_currentMatch].start;
     m_targetLength = m_matches[m_currentMatch].length;
     m_targetSearch = true;
@@ -739,6 +895,8 @@ void ViewState::emitNavigation()
         item->ensurePolished();
     };
     polish(polish, m_navigationView);
+    const bool reveal = m_revealSource;
+
     QRectF target, nearest;
     int distance = std::numeric_limits<int>::max();
     for (const auto &entry : m_selectionItems) {
@@ -754,13 +912,22 @@ void ViewState::emitNavigation()
         if (m_targetLength > 0 && (offset >= m_targetStart + m_targetLength || offset + length <= m_targetStart)) continue;
         if (auto *text = qobject_cast<::FormattedText *>(item)) {
             for (const auto &rect : text->rangeRectangles(m_targetStart - offset, m_targetStart + m_targetLength - offset)) {
-                const auto mapped = item->mapRectToItem(m_navigationView, rect.translated(text->paintOffset()));
+                const auto painted = rect.translated(text->paintOffset());
+                if (reveal) for (auto *parent = item->parentItem(); parent; parent = parent->parentItem()) {
+                    if (!parent->property("codeSourceViewport").toBool()) continue;
+                    const auto local = item->mapRectToItem(parent, painted);
+                    const QRectF source(local.translated(parent->property("contentX").toReal(), parent->property("contentY").toReal()));
+                    QMetaObject::invokeMethod(parent, "revealSource", Q_ARG(QRectF, source));
+                    break;
+                }
+                const auto mapped = item->mapRectToItem(m_navigationView, painted);
                 target = target.isNull() ? mapped : target.united(mapped);
             }
         } else target = target.isNull() ? bounds : target.united(bounds);
     }
     if (target.isNull()) target = nearest;
     if (!target.isEmpty() && target != m_lastTarget) {
+        m_revealSource = false;
         m_lastTarget = target;
         emit navigationRequested(target);
     }

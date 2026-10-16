@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.0 — 2026-10-16
+
+- Add optional language metadata to host-owned code headers with compatible filtered initialization.
+- Add view-wide code wrapping, measured horizontal overflow, bounded source height and internal source scrolling.
+- Add host scrollbar components with a minimal Qt Quick fallback and internal Find/selection reveal.
+- Add decorative source-line numbers aligned to native source baselines and resettable line-number color.
+- Demonstrate language badges, accessible copy feedback and code layout controls in the playground.
+
 ## 1.11.0 — 2026-10-16
 
 - Add opt-in fenced-code syntax highlighting through optional private KSyntaxHighlighting >=6.10.0; source builds default OFF and Arch packages enable it.
