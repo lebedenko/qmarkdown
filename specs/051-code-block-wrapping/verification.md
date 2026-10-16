@@ -33,3 +33,9 @@ The subsequent typography and phased-wheel review has focused coverage, includin
 - Arch package/lifecycle verification of that archive passed metadata, dependency, payload, ownership, namcap, consumer and removal checks (`build-arch-112-reviewed`). Checks ran once per archive candidate; downloaded release consumers were not rerun and no evidence was uploaded as release assets.
 - `python3 scripts/check-docs.py --release` and `git diff --check` passed.
 - The release PR must still pass both final-head packaging jobs and produce its retained release gate. These final-input jobs repeat the complete exact Qt matrix; candidate matrix results above do not replace that gate. Merge, tagging and publication remain separately authorized actions.
+
+## PR verification and Qt 6.8 input fixture
+
+Release [PR #35](https://github.com/lebedenko/qmarkdown/pull/35) contains this change. The first final-head run, 38917243005, exposed a fixture issue in the phased-touchpad row on Qt 6.8: its native delivery agent suppresses pixel-only compatibility ScrollUpdate events after an accepted event. The high-resolution fixture now supplies both pixel and angle deltas, with a touchpad device, ScrollBegin and monotonic event timestamps. Production library inputs are unchanged from 089dc30.
+
+The corrected fixture passed **33/33 code-block cases** against the existing extracted/installed Qt 6.8.0 backend-OFF package (`build-touchpad-112-minimum`, `/tmp/touchpad-112-minimum-fixture-fixed.log`). This isolates the correction from library changes. Final-head packaging and release-gate results are tracked in PR #35's verification section and GitHub checks; they remain required before merge. No 1.12 merge/tag/publication action is authorized by these records.

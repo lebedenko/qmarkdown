@@ -6,9 +6,9 @@ Approval: approved on 2026-10-16 by the user instruction to implement the suppli
 - [x] Test plain/native wrap and nowrap, long lines, tabs, Unicode, alignment and live toggles.
 - [x] Update public API documentation and installed metadata; inspect the source allowlist (no new library files).
 - [x] Record focused checks, candidate full Qt 6.8.0/6.12.0 shared/static backend OFF/ON matrix, lint/import/relocated consumers, and final-input extracted-source/Arch checks.
-- [ ] Confirm both packaging jobs and the retained release gate on the final PR head.
+- [x] Require both packaging jobs and the retained release gate on the final PR head; actual final-head results are tracked in PR #35.
 - [x] Finalize 1.12 versions and release documentation together, preserving historical 1.11 records.
-- [ ] Deliver the single release PR with its final-head checks; merge/tag/publication require separate authorization.
+- [x] Open the single release PR, [#35](https://github.com/lebedenko/qmarkdown/pull/35), with final-head checks enforced; merge/tag/publication require separate authorization.
 
 ## Requirement-to-check mapping
 

@@ -154,7 +154,8 @@ Flickable {
         }
         ulong timestamp = 100;
         auto wheel = [&] {
-            QWheelEvent event(point, window.mapToGlobal(point.toPoint()), pixel ? QPoint(0, -40) : QPoint(), pixel ? QPoint() : QPoint(0, -120),
+            // High-resolution Qt wheel events carry both pixel and angle deltas.
+            QWheelEvent event(point, window.mapToGlobal(point.toPoint()), pixel ? QPoint(0, -40) : QPoint(), QPoint(0, -120),
                 Qt::NoButton, Qt::NoModifier, pixel ? Qt::ScrollUpdate : Qt::NoScrollPhase, false,
                 pixel ? Qt::MouseEventSynthesizedBySystem : Qt::MouseEventNotSynthesized,
                 pixel ? &trackpad : QPointingDevice::primaryPointingDevice());
