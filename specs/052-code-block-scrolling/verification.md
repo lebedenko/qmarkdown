@@ -47,3 +47,7 @@ The corrected fixture passed **33/33 code-block cases** against the existing ext
 - Refreshed archive: `build-dist-112-font-final/qmarkdown-1.12.0.tar.gz`. All four extracted source build/install checks passed (`build-source-112-font-final-6.8.0`, `build-source-112-font-final-6.12.0`). The Qt 6.8 backend-OFF installed package also passed **34/34 code-block cases**, including live font resizing and wheel/trackpad handoff.
 - Refreshed Arch metadata, dependency, payload, ownership, namcap, consumer and removal checks passed (`build-arch-112-font-final`).
 - The final PR head repeats packaging and release-gate verification after this evidence update. Its result is retained in GitHub checks and PR #35's verification section; that final-head gate remains mandatory before merge.
+
+## Plain-source DPI cache invalidation
+
+The cached plain-source anchor layout now includes the renderer's effective line height in its input key. This invalidates geometry after a DPI metric change even when the QFont value is unchanged. The focused code-block suite and QML lint passed; all 34 code-block cases also passed at offscreen scale factors 1.25 and 2. The final archive is refreshed for this private QML input change.

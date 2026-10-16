@@ -373,7 +373,7 @@ Rectangle {
             readonly property real sourceHeight: height
             readonly property real sourceWidth: contentWidth
             function geometry(point, position) {
-                const input = {text: text, font: font, width: width, wrap: surface.wrapEnabled, alignment: surface.textAlignment}
+                const input = {text: text, font: font, width: width, wrap: surface.wrapEnabled, alignment: surface.textAlignment, lineHeight: surface.lineHeight}
                 if (point !== null) input.point = point
                 else input.position = position
                 return surface.coordinator.plainCodeGeometry(input)
