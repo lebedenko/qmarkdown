@@ -91,3 +91,8 @@ src/QMarkdown/private/taskindicatoritem.h
 src/QMarkdown/private/taskindicatoritem.cpp
 src/QMarkdown/private/linkcontroller.h
 src/QMarkdown/private/linkcontroller.cpp
+src/QMarkdown/syntaxtheme.h
+src/QMarkdown/syntaxtheme.cpp
+src/QMarkdown/private/syntaxhighlighter.h
+src/QMarkdown/private/syntaxhighlighter.cpp
+src/QMarkdown/private/syntaxbackend.cpp

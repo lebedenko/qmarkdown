@@ -5,7 +5,7 @@ pkgdesc='Native Qt Quick Markdown rendering library'
 arch=('x86_64')
 url='https://github.com/lebedenko/qmarkdown'
 license=('MIT')
-depends=('glibc' 'gcc-libs' 'qt6-base>=@QT_VERSION@' 'qt6-declarative>=@QT_VERSION@')
+depends=('glibc' 'gcc-libs' 'qt6-base>=@QT_VERSION@' 'qt6-declarative>=@QT_VERSION@' 'syntax-highlighting>=6.10.0')
 makedepends=('cmake' 'ninja')
 options=('!debug')
 source=('qmarkdown-@VERSION@.tar.gz')
@@ -14,7 +14,7 @@ sha256sums=('@SHA256@')
 build() {
     cmake -S "$srcdir/qmarkdown-$pkgver" -B "$srcdir/build" -G Ninja \
         -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF \
-        -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=OFF \
+        -DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING=ON -DQMARKDOWN_BUILD_EXAMPLES=OFF -DQMARKDOWN_BUILD_BENCHMARKS=OFF \
         -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib \
         -DQMARKDOWN_QML_INSTALL_DIR=lib/qt6/qml -DCMAKE_SKIP_INSTALL_RPATH=ON
     cmake --build "$srcdir/build" --parallel 2

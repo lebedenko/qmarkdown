@@ -5,7 +5,7 @@ See the [public API reference](docs/api.md) for the complete supported contract.
 A standalone Qt/QML Markdown rendering library independent of any other project. The library owns Markdown semantics and rendering behavior; applications supply typography and colors. Markdown source feeds a private parser, document model, and native Qt Quick block components, without document-level HTML, QTextDocument, or WebEngine rendering.
 
 <!-- current-release:start -->
-**Status:** QMarkdown 1.10.0 / QML 1.10 adds opt-in keyboard link traversal, visible focus, per-link accessibility and replaceable task indicators. It includes literal Find, a heading outline and explicit fragment navigation. It retains custom fenced-block renderers, repeated-click selection and host-owned selection edge autoscrolling. Hosts own clipboard and scrolling. It retains five opt-in GFM extensions, native tables and inline-code padding. See the [selection guide](docs/selection.md), [renderer guide](docs/fenced-block-renderers.md), and [1.10.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.10.0).
+**Status:** QMarkdown 1.11.0 / QML 1.11 adds optional fenced-code syntax highlighting and independent token palettes. It retains opt-in keyboard link traversal, visible focus, per-link accessibility and replaceable task indicators. It includes literal Find, a heading outline and explicit fragment navigation. It retains custom fenced-block renderers, repeated-click selection and host-owned selection edge autoscrolling. Hosts own clipboard and scrolling. It retains five opt-in GFM extensions, native tables and inline-code padding. See the [selection guide](docs/selection.md), [renderer guide](docs/fenced-block-renderers.md), and [1.11.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.11.0).
 
 ## 1.x compatibility
 
@@ -13,21 +13,26 @@ Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Configured
 
 Throughout 1.x, documented public QML properties, signals and CMake integration remain backward compatible. Version 1.6 intentionally changes default inline-code wrapping and line height through 4/2 padding; set both padding metrics to zero for historical spacing. Native implementation classes and QMarkdown.Private are private. No C++ headers are installed and no public C++ ABI compatibility is promised. Build consumers against a compatible Qt/toolchain; see [source-build and Arch installation](docs/release-install.md). Existing Ubuntu releases retain their [historical instructions](docs/ubuntu-install-historical.md).
 
-Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: The 1.10.0 package accepts compatible 1.0–1.10 requests and exact 1.10.0, and rejects exact earlier releases, 0.7, 1.11 and 2.0. See [CHANGELOG](CHANGELOG.md). See [1.10.0 release notes](docs/release-notes-1.10.0.md) for these changes. [1.6.0 release notes](docs/release-notes-1.6.0.md) retain the historical release. [1.5.0 release notes](docs/release-notes-1.5.0.md) describe the published Ubuntu and Arch packages; [1.2.0 release notes](docs/release-notes-1.2.0.md) describe historical downloads. Historical [1.1.0 release notes](docs/release-notes-1.1.0.md) remain available.
+Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: The 1.11.0 package accepts compatible 1.0–1.11 requests and exact 1.11.0, and rejects exact earlier releases, 0.7, 1.12 and 2.0. See [CHANGELOG](CHANGELOG.md). See [1.11.0 release notes](docs/release-notes-1.11.0.md) for these changes. [1.6.0 release notes](docs/release-notes-1.6.0.md) retain the historical release. [1.5.0 release notes](docs/release-notes-1.5.0.md) describe the published Ubuntu and Arch packages; [1.2.0 release notes](docs/release-notes-1.2.0.md) describe historical downloads. Historical [1.1.0 release notes](docs/release-notes-1.1.0.md) remain available.
 
-Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, bundled highlighting/Mermaid/math, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
+Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, bundled Mermaid/math, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
 
 Reading tools include literal Find with independent highlights, a recursive heading
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](docs/reading-navigation.md).
 
-QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
+QML 1.11 retains opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
 Controls style. Keyboard traversal defaults off; accessible links remain available
 without keyboard opt-in. Task indicators remain read-only. Private QML
 responsibilities are refactored without a new public C++ surface.
+
+Optional fenced-code syntax highlighting uses a private KSyntaxHighlighting backend.
+It defaults off per view; source builds default the dependency off, while Arch
+enables it and requires `syntax-highlighting>=6.10.0`. Hosts control a separate
+Light/Dark token palette. See the [syntax guide](docs/syntax-highlighting.md).
 <!-- current-release:end -->
 
 ## Build and check
@@ -91,7 +96,7 @@ Fonts support logical pixels (`pixelSize`) and points (`pointSize` in QML, `setP
 
 Qt's QML font getters synthesize the other unit. Its subproperty setters also prefer an already explicit pixel size when both units are set, and may warn when changing a point font to pixels. Use whole-font assignments to select a different unit, or C++ `QFont::setPointSizeF`/`setPixelSize` on a copy to preserve all fields. For fractional QML edits, set `pointSize` on a point-based role (for example `style.bodyFont.pointSize = 12.5`). The playground handles both transitions through a local native helper without changing the library API.
 
-Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Package/import versions are 1.10.0/1.10; existing 1.0 imports retain Legacy defaults. See [Feature 008](specs/008-font-units/requirements.md).
+Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Package/import versions are 1.11.0/1.11; existing 1.0 imports retain Legacy defaults. See [Feature 008](specs/008-font-units/requirements.md).
 
 Links display formatted labels; images retain formatted descriptions until an authorized PNG/JPEG is ready; autolinks display text. Links activate only by reporting destinations to the host; image resources are denied by default. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser retains complete opening fence lengths; shorter matching fences remain code content, including openers longer than 255 characters. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
 

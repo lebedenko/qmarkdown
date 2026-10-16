@@ -1,6 +1,20 @@
 import QtQuick.tooling 1.2
 Module {
     Component {
+        name: "QMarkdownPrivate::SyntaxRequest"
+        prototype: "QObject"
+        exports: ["QMarkdown.Private/SyntaxRequest 1.0"]
+        exportMetaObjectRevisions: [256]
+        Property { name: "source"; type: "QString"; notify: "inputChanged" }
+        Property { name: "language"; type: "QString"; notify: "inputChanged" }
+        Property { name: "enabled"; type: "bool"; notify: "inputChanged" }
+        Property { name: "theme"; type: "SyntaxTheme"; isPointer: true; notify: "themeChanged" }
+        Property { name: "ranges"; type: "QVariantList"; isReadonly: true; notify: "rangesChanged" }
+        Signal { name: "inputChanged" }
+        Signal { name: "themeChanged" }
+        Signal { name: "rangesChanged" }
+    }
+    Component {
         name: "LinkTargetItem"
         prototype: "QQuickItem"
         exports: ["QMarkdown.Private/LinkTargetItem 1.0"]
@@ -63,6 +77,11 @@ Module {
     }
     Component {
         name: "ViewState"
+        Property { name: "syntaxHighlightingEnabled"; type: "bool"; notify: "syntaxHighlightingEnabledChanged" }
+        Property { name: "syntaxHighlightingAvailable"; type: "bool"; isReadonly: true }
+        Property { name: "syntaxTheme"; type: "SyntaxTheme"; isPointer: true; notify: "syntaxThemeChanged" }
+        Signal { name: "syntaxHighlightingEnabledChanged" }
+        Signal { name: "syntaxThemeChanged" }
         prototype: "QObject"
         exports: ["QMarkdown.Private/ViewState 1.0"]
         exportMetaObjectRevisions: [256]
@@ -138,6 +157,8 @@ Module {
     }
     Component {
         name: "FormattedText"
+        Property { name: "foregroundRanges"; type: "QVariantList"; notify: "foregroundRangesChanged" }
+        Signal { name: "foregroundRangesChanged" }
         Property { name: "focusedLink"; type: "int"; notify: "focusPaintingChanged" }
         Property { name: "focusColor"; type: "QColor"; notify: "focusPaintingChanged" }
         Signal { name: "focusPaintingChanged" }

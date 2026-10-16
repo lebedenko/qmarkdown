@@ -110,12 +110,19 @@ Rectangle {
         onCopyRequested: function(text) { surface.copyRequested(text) }
         coordinator: surface.coordinator
     }
+    SyntaxRequest {
+        id: syntaxRequest
+        source: surface.codeText
+        language: surface.language
+        enabled: surface.fenced && surface.coordinator.syntaxHighlightingEnabled && !surface.rendererItem
+        theme: surface.coordinator.syntaxTheme
+    }
     Loader {
         id: contents
         x: surface.padX
         y: surface.padY + actionHost.height
         width: Math.max(1, surface.width - 2 * surface.padX)
-        sourceComponent: surface.rendererItem ? null : surface.selected || surface.searchActive ? selectedText : plainText
+        sourceComponent: surface.rendererItem ? null : surface.selected || surface.searchActive || syntaxRequest.ranges.length > 0 ? selectedText : plainText
     }
     Component {
         id: plainText
@@ -141,6 +148,7 @@ Rectangle {
             projectionOffset: surface.projectionOffset
             projectionLength: surface.projectionLength
             text: surface.displayText
+            foregroundRanges: syntaxRequest.ranges
             layoutWidth: contents.width
             horizontalAlignment: surface.textAlignment
             font: surface.style.codeBlockFont

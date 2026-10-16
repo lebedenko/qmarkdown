@@ -4,6 +4,9 @@ import QMarkdown.Private
 
 Item {
     id: root
+    property alias syntaxHighlightingEnabled: viewState.syntaxHighlightingEnabled
+    readonly property bool syntaxHighlightingAvailable: viewState.syntaxHighlightingAvailable
+    property alias syntaxTheme: viewState.syntaxTheme
     property bool keyboardNavigationEnabled: false
     Binding {
         target: viewState.linkController

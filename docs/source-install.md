@@ -18,9 +18,9 @@ The archive builds only the library. Tests, benchmarks and the example viewer
 are available in the development repository. Use `-DBUILD_SHARED_LIBS=OFF` for
 a static library. No public C++ headers or ABI are provided.
 
-CMake consumers use `find_package(QMarkdown 1.9 CONFIG REQUIRED)` and link
+CMake consumers use `find_package(QMarkdown 1.11 CONFIG REQUIRED)` and link
 `QMarkdown::QMarkdown`. Static consumers also link `QMarkdown::QMarkdownPlugin`.
-Set `CMAKE_PREFIX_PATH` to your installation prefix. Import `QMarkdown 1.7` in QML.
+Set `CMAKE_PREFIX_PATH` to your installation prefix. Import `QMarkdown 1.11` in QML.
 The default QML installation directory is `lib/qt6/qml` (GNUInstallDirs may choose
 another library directory). Add that directory under your prefix to
 `QML_IMPORT_PATH` if your Qt installation does not search it. The platform linker
@@ -30,3 +30,10 @@ must also find the installed shared libraries. A relative
 Licenses install under `share/licenses/QMarkdown`. CMake does not track file
 ownership or provide uninstall; use a dedicated prefix or your system package
 manager for managed installation and removal.
+
+Optional syntax highlighting requires KF6SyntaxHighlighting >=6.10.0 and
+`-DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING=ON`. It defaults OFF; disabled builds do not
+search for KDE. Enabled static consumers need the dependency CMake package.
+KSyntaxHighlighting remains external with its own SPDX license notices and syntax
+resources; no definitions are bundled in QMarkdown. See the upstream
+[6.10.0 sources](https://invent.kde.org/frameworks/syntax-highlighting/-/tree/v6.10.0).

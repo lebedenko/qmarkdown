@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.10.0 / QML 1.10 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.11.0 / QML 1.11 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.10` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.11` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -18,6 +18,9 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 
 | Property | Type / default | Since | Contract |
 | --- | --- | --- | --- |
+| `syntaxHighlightingEnabled` | bool / false | 1.11 | Opt-in fenced-code highlighting; see the [syntax guide](syntax-highlighting.md). |
+| `syntaxHighlightingAvailable` | readonly bool | 1.11 | Compiled backend availability. |
+| `syntaxTheme` | SyntaxTheme / view-owned Light | 1.11 | Replaceable palette; null or external destruction restores default. |
 | `keyboardNavigationEnabled` | bool / false | 1.10 | Tab/Shift+Tab traverse drawable logical links without wrapping; hosts retain boundary focus traversal. |
 | `keyboardFocusColor` | color / bound to style.linkColor | 1.10 | Two-logical-pixel outline around active link fragments, without layout changes. |
 | `taskIndicator` | Component / null | 1.10 | Decorative Item with live `checked` and `markdownStyle` inputs; preferred dimensions and fallback follow the [task indicator contract](task-lists.md#host-presentation-110). |
@@ -177,7 +180,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.10 CONFIG REQUIRED)
+find_package(QMarkdown 1.11 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
@@ -197,3 +200,9 @@ and [source build](source-install.md). Hosts own Qt runtime deployment.
 
 [Reading and navigation](reading-navigation.md) defines Find lifecycle, heading IDs,
 fragment decoding and deferred host navigation requests.
+
+`SyntaxTheme` (since 1.11) provides Light/Dark presets and resettable keyword,
+type, function, variable, builtIn, string, number, comment, preprocessor, operator,
+constant and error color properties. Explicit overrides survive preset changes;
+live edits recolor existing source without tokenization. See the
+[palette and fallback contract](syntax-highlighting.md).

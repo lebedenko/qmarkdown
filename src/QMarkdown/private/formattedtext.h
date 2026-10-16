@@ -11,6 +11,7 @@ class FormattedText : public QQuickPaintedItem
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(QVariantList foregroundRanges READ foregroundRanges WRITE setForegroundRanges NOTIFY foregroundRangesChanged FINAL)
     Q_PROPERTY(int focusedLink READ focusedLink WRITE setFocusedLink NOTIFY focusPaintingChanged FINAL)
     Q_PROPERTY(QColor focusColor READ focusColor WRITE setFocusColor NOTIFY focusPaintingChanged FINAL)
     Q_PROPERTY(QVariantList searchRanges READ searchRanges WRITE setSearchRanges NOTIFY searchPaintingChanged FINAL)
@@ -38,6 +39,11 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
     explicit FormattedText(QQuickItem *parent = nullptr);
+    QVariantList foregroundRanges() const { return m_foregroundRanges; }
+    void setForegroundRanges(const QVariantList &value) {
+        if (m_foregroundRanges == value) return;
+        m_foregroundRanges = value; polish(); emit foregroundRangesChanged();
+    }
     int focusedLink() const { return m_focusedLink; }
     QColor focusColor() const { return m_focusColor; }
     void setFocusedLink(int value) {
@@ -104,6 +110,7 @@ public:
     Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void foregroundRangesChanged();
     void focusPaintingChanged();
     void searchPaintingChanged();
     void selectionChanged();
@@ -128,6 +135,7 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    QVariantList m_foregroundRanges;
     int m_focusedLink = -1;
     QColor m_focusColor;
     QVariantList m_searchRanges;
