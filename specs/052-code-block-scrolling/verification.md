@@ -51,3 +51,11 @@ The corrected fixture passed **33/33 code-block cases** against the existing ext
 ## Plain-source DPI cache invalidation
 
 The cached plain-source anchor layout now includes the renderer's effective line height in its input key. This invalidates geometry after a DPI metric change even when the QFont value is unchanged. The focused code-block suite and QML lint passed; all 34 code-block cases also passed at offscreen scale factors 1.25 and 2. The final archive is refreshed for this private QML input change.
+
+## DPI-corrected archive — commit 2104bee
+
+- [Run 38924915443](https://github.com/lebedenko/qmarkdown/actions/runs/38924915443) passed both packaging jobs and the retained release gate on font-corrected head afc87d0, including the live-font gutter regression.
+- The final private plain-source cache key adds effective line height (2104bee); the focused code-block suite, QML lint and all 34 code-block cases at 1.25× and 2× offscreen scaling passed.
+- `build-dist-112-dpi-final/qmarkdown-1.12.0.tar.gz` passed all four extracted source builds/installs on Qt 6.8.0/6.12.0 with backend OFF/ON (`build-source-112-dpi-final-*`).
+- The same archive passed Arch metadata/dependency/payload/ownership, namcap, consumer and pacman removal checks (`build-arch-112-dpi-final`).
+- PR #35's GitHub checks and verification section retain the subsequent exact final-head packaging/gate result. No 1.12 merge, tag or publication has been performed.
