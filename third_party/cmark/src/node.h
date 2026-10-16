@@ -75,6 +75,7 @@ struct cmark_node {
   int end_column;
   uint16_t type;
   uint16_t flags;
+  bool qmarkdown_math_closed;
   int qmarkdown_table_columns;
   unsigned char qmarkdown_table_alignment;
 

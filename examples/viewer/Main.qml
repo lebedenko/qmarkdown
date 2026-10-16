@@ -103,6 +103,7 @@ ApplicationWindow {
             spacing: 8
             Button { text: "Find"; onClicked: window.openFind() }
             CheckBox { id: outlineToggle; text: "Heading outline"; objectName: "outlineToggle" }
+            CheckBox { id: mathToggle; text: "Native math"; objectName: "mathToggle" }
             CheckBox { id: rendererToggle; text: "Custom fences"; objectName: "rendererToggle" }
             CheckBox { id: selectionToggle; text: "Document selection"; checked: true; objectName: "selectionToggle" }
             CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
@@ -268,6 +269,7 @@ ApplicationWindow {
                             codeBlockHeightRatio: stylePanel.codeRatio / 100
                             codeBlockMinimumLines: stylePanel.codeMinimum
                             codeBlockMaximumLines: stylePanel.codeMaximum
+                            mathEnabled: mathToggle.checked
                             syntaxHighlightingEnabled: stylePanel.syntaxEnabled
                             syntaxTheme: SyntaxTheme { preset: stylePanel.syntaxDark ? SyntaxTheme.Dark : SyntaxTheme.Light }
                             keyboardNavigationEnabled: true

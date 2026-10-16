@@ -29,6 +29,14 @@ FormattedText::FormattedText(QQuickItem *parent) : QQuickPaintedItem(parent)
     connect(this, &QQuickItem::windowChanged, this, &FormattedText::observeWindow);
     observeWindow(window());
 }
+FormattedText::~FormattedText()
+{
+    // QQuickItem detaches from its window in its base destructor, after the
+    // derived slot is no longer callable (and before QObject disconnects it).
+    disconnect(this, &QQuickItem::windowChanged, this, &FormattedText::observeWindow);
+    disconnect(m_windowScreenConnection);
+    disconnect(m_screenDpiConnection);
+}
 void FormattedText::observeWindow(QQuickWindow *window)
 {
     disconnect(m_windowScreenConnection);

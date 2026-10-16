@@ -8,6 +8,7 @@ Rectangle {
     id: surface
     required property string codeText
     required property string infoString
+    property bool standaloneMath: false
     required property bool fenced
     required property MarkdownStyle style
     required property ViewState coordinator
@@ -24,8 +25,8 @@ Rectangle {
     required property int projectionOffset
     required property int projectionLength
     property int textAlignment: Qt.AlignLeft
-    readonly property real padX: Math.min(Layout.metric(style.codeBlock.horizontalPadding), Math.max(0, (width - 1) / 2))
-    readonly property real padY: Layout.metric(style.codeBlock.verticalPadding)
+    readonly property real padX: Math.min(standaloneMath ? 0 : Layout.metric(style.codeBlock.horizontalPadding), Math.max(0, (width - 1) / 2))
+    readonly property real padY: standaloneMath ? 0 : Layout.metric(style.codeBlock.verticalPadding)
     readonly property var rendererEntry: {
         const map = surface.rendererRegistry
         return !selected && !surface.searchActive && fenced && language.length > 0 && map
@@ -95,8 +96,9 @@ Rectangle {
     Component.onCompleted: { ready = true; rebuildRenderer() }
     Component.onDestruction: clearRenderer()
     readonly property string displayText: codeText.endsWith("\n") ? codeText.slice(0, -1) : codeText
-    readonly property bool wrapEnabled: coordinator.codeBlockWrapEnabled
-    readonly property bool numbersVisible: coordinator.codeBlockLineNumbersVisible && !rendererItem
+    readonly property bool mathVisible: formula.ready && formula.enabled
+    readonly property bool wrapEnabled: !mathVisible && coordinator.codeBlockWrapEnabled
+    readonly property bool numbersVisible: !standaloneMath && !mathVisible && coordinator.codeBlockLineNumbersVisible && !rendererItem
     readonly property real gutterWidth: {
         // advanceWidth() is invokable: track font and DPI metrics explicitly.
         if (!numbersVisible || metrics.height <= 0 || metrics.font.pixelSize === 0) return 0
@@ -107,8 +109,8 @@ Rectangle {
         return Math.ceil(widest) + 16
     }
     readonly property var sourceItem: contents.item
-    readonly property real naturalHeight: surface.sourceItem ? surface.sourceItem.sourceHeight : 0
-    readonly property real naturalWidth: surface.sourceItem ? surface.sourceItem.sourceWidth : 0
+    readonly property real naturalHeight: mathVisible ? formula.implicitHeight : surface.sourceItem ? surface.sourceItem.sourceHeight : 0
+    readonly property real naturalWidth: mathVisible ? formula.implicitWidth : surface.sourceItem ? surface.sourceItem.sourceWidth : 0
     readonly property real lineHeight: Math.max(1, surface.sourceItem ? surface.sourceItem.sourceLineHeight : metrics.height)
     readonly property real minimumLines: Math.max(1, coordinator.codeBlockMinimumLines)
     readonly property real maximumLines: Math.max(minimumLines, coordinator.codeBlockMaximumLines)
@@ -119,7 +121,7 @@ Rectangle {
             ? viewport * (Number.isFinite(ratio) && ratio > 0 ? ratio : 0.5) : maximumLines * lineHeight
         return Math.max(minimumLines * lineHeight, Math.min(maximumLines * lineHeight, desired))
     }
-    readonly property bool verticalOverflow: coordinator.codeBlockHeightLimitEnabled && naturalHeight > heightLimit
+    readonly property bool verticalOverflow: !mathVisible && coordinator.codeBlockHeightLimitEnabled && naturalHeight > heightLimit
     readonly property bool horizontalOverflow: !wrapEnabled && naturalWidth > viewport.width
     property int firstSourcePosition: 0
     property real firstSourceOffset: 0
@@ -160,9 +162,9 @@ Rectangle {
     onWrapEnabledChanged: restorePosition()
     height: actionHost.height + (rendererItem ? Layout.metric(rendererItem.implicitHeight) : viewport.height + (horizontalOverflow ? 10 : 0)) + 2 * padY
     FontMetrics { id: metrics; font: surface.style.codeBlockFont }
-    color: style.codeBlock.backgroundColor
+    color: standaloneMath ? "transparent" : style.codeBlock.backgroundColor
     border.color: style.codeBlock.borderColor
-    border.width: Layout.metric(style.codeBlock.borderWidth)
+    border.width: standaloneMath ? 0 : Layout.metric(style.codeBlock.borderWidth)
     radius: Layout.metric(style.codeBlock.cornerRadius)
     objectName: "codeSurface"
 
@@ -175,7 +177,7 @@ Rectangle {
         infoString: surface.infoString
         fenced: surface.fenced
         codeText: surface.codeText
-        actions: surface.actions
+        actions: surface.standaloneMath ? null : surface.actions
         sourceIdentity: surface.sourceIdentity
         viewportAvailable: surface.viewportAvailable
         onCopyRequested: function(text) { surface.copyRequested(text) }
@@ -185,7 +187,7 @@ Rectangle {
         id: syntaxRequest
         source: surface.codeText
         language: surface.language
-        enabled: surface.fenced && surface.coordinator.syntaxHighlightingEnabled && !surface.rendererItem
+        enabled: surface.fenced && !surface.mathVisible && surface.coordinator.syntaxHighlightingEnabled && !surface.rendererItem
         theme: surface.coordinator.syntaxTheme
     }
     Item {
@@ -202,9 +204,23 @@ Rectangle {
         x: surface.padX + surface.gutterWidth
         y: surface.padY + actionHost.height
         width: Math.max(1, surface.width - 2 * surface.padX - surface.gutterWidth - (surface.verticalOverflow ? 10 : 0))
-        height: surface.rendererItem ? 0 : Math.max(0, surface.coordinator.codeBlockHeightLimitEnabled ? Math.min(surface.naturalHeight, surface.heightLimit) : surface.naturalHeight)
+        height: surface.rendererItem ? 0 : Math.max(0, !surface.mathVisible && surface.coordinator.codeBlockHeightLimitEnabled ? Math.min(surface.naturalHeight, surface.heightLimit) : surface.naturalHeight)
         contentWidth: surface.wrapEnabled ? width : Math.max(width, surface.naturalWidth)
         contentHeight: surface.naturalHeight
+        MathItem {
+            id: formula
+            objectName: "mathFormula"
+            source: surface.codeText
+            color: surface.style.math.color
+            textSize: (surface.style.bodyFont.pixelSize > 0 ? surface.style.bodyFont.pixelSize
+                : surface.style.bodyFont.pointSize * Screen.logicalPixelDensity * 25.4 / 72) * surface.style.math.scale
+            enabled: surface.coordinator.mathEnabled && !surface.selected && !surface.searchActive
+                && (surface.standaloneMath || (surface.fenced && surface.language === "math" && surface.rendererEntry === undefined))
+            visible: surface.mathVisible
+            x: Math.max(0, (viewport.width - implicitWidth) / 2)
+            width: implicitWidth; height: implicitHeight
+        }
+
         clip: true
         boundsBehavior: Flickable.StopAtBounds
         interactive: !surface.selected
@@ -238,7 +254,7 @@ Rectangle {
         Loader {
             id: contents
             width: surface.wrapEnabled ? viewport.width : Math.max(viewport.width, surface.naturalWidth)
-            sourceComponent: surface.rendererItem ? null : surface.selected || surface.searchActive || surface.numbersVisible || syntaxRequest.ranges.length > 0 ? selectedText : plainText
+            sourceComponent: surface.rendererItem || surface.mathVisible ? null : surface.selected || surface.searchActive || surface.numbersVisible || syntaxRequest.ranges.length > 0 ? selectedText : plainText
         }
     }
     Item {

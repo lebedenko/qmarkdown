@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.0 — 2026-10-16
+
+- Add opt-in native fenced and standalone display math with a bundled private MicroTeX backend.
+- Add math availability, inherited color and body-relative scale; preserve host renderer precedence.
+- Center formulas at natural size, scroll horizontal overflow and retain literal TeX for selection, copying and Find.
+- Restrict the engine dialect and resource access; bound asynchronous work and cached painter recordings.
+
 ## 1.12.0 — 2026-10-16
 
 - Add optional language metadata to host-owned code headers with compatible filtered initialization.

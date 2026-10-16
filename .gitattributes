@@ -1,0 +1,4 @@
+# Keep upstream source and license bytes intact, including their whitespace.
+third_party/microtex/src/** -whitespace
+third_party/microtex/res/** -whitespace
+third_party/tinyxml2/** -whitespace

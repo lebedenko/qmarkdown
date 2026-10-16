@@ -129,6 +129,8 @@ Item {
     signal codeBlockCopyRequested(string text)
     property Component taskIndicator: null
     property Component codeBlockActions: null
+    property alias mathEnabled: viewState.mathEnabled
+    readonly property bool mathAvailable: viewState.mathAvailable
     property var fencedBlockRenderers: ({})
     property alias baseUrl: viewState.baseUrl
     property alias resourcePolicy: viewState.resourcePolicy

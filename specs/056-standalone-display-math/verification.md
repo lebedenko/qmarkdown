@@ -1,0 +1,67 @@
+# Verification — Standalone display math
+
+Approval: requirements, design and tasks approved by the user response “approved” on 2026-10-16. Dependency audit and verification remain implementation tasks; no success is implied. One cohesive 1.13.0 / QML 1.13 release PR is planned; merge, tagging and publication require separate authorization.
+
+## Planned checks
+
+See the requirement-to-check map in [tasks](tasks.md). Run narrow fixtures first, then the relevant exact Qt 6.8.0/6.12.0 shared/static matrix, QML lint/imports, relocated installs, extracted-source builds and Arch packaging. Math ON/OFF both require coverage. Feature 055 additionally requires representative native Wayland acceptance and captures at 100%, 125%, 150% and 200%, including sharpness regressions. Required final-head packaging jobs remain the delivery gate.
+
+## Actual results — 2026-10-16
+
+- Requirements, design and tasks were approved by the user response “approved”.
+- Host Debug shared suite passed **23/23**, including **652/652** CommonMark
+  semantic passes (zero losses, limits or uncheckable cases). Focused math tests
+  also passed in static and backend-OFF configurations.
+- Both pinned Qt **6.8.0** and **6.12.0** complete candidate matrices passed:
+  shared/static, syntax highlighting OFF/ON, **32/32** CTest tests per variant,
+  QML lint/import compatibility, installed and relocated consumers (including
+  native math through linked and plugin-only consumers), license payloads and
+  benchmark smoke. Separate math-OFF tests passed on both SDKs.
+  Retained directories: `build-ci-math-minimum-final` and
+  `build-ci-math-development-final`. Qt 6.8 lint retains its existing QFont/QColor
+  metadata warning pattern; the lint targets pass. Host Qt 6.12 lint passes.
+- Focused `tst_math.cpp` coverage includes nested/container delimiters, blank
+  lines, protected/unmatched syntax, all 32 GFM flag combinations, literal source
+  projection/copy/Find, nine formula families, invalid/malformed/over-limit input,
+  resource removal in a child process, pending replacement/destruction, style
+  inheritance/reset, custom precedence, narrow overflow and wheel/trackpad handoff.
+- Representative formula captures passed ink/sharpness checks at **100%, 125%,
+  150% and 200%**. Inspected 100% and 125% captures show complete fractions,
+  radicals, sums, integrals, matrices and aligned equations. Native Wayland at
+  125% passed capture, wheel/trackpad handoff and source-mode transitions; its
+  captured output was visually inspected. Local images remain in `/tmp` and are
+  not release assets.
+- Strict release documentation/local-link validation and repository whitespace
+  checks passed. Upstream vendor whitespace is preserved by `.gitattributes`.
+
+## Corrected attempts
+
+Earlier candidates exposed extra hidden text in traversal, missing glyphs during
+QPicture tiny-font replay, partial acceptance of missing arguments, an existing
+FormattedText window-detachment destructor assertion in Debug, and release
+consumer fixtures requesting exact 1.12.0. These were corrected before the final
+candidate matrices. The failed attempts remain under `build-math` logs and
+`build-ci-math-*-full`; their results are not completion evidence. The sandbox-only
+initial CI attempt could not access Docker; the authorized Docker runs succeeded.
+
+## Remaining delivery verification
+
+Extracted-source and Arch checks, and the final PR-head required packaging jobs,
+are recorded below when complete. Merge, tagging and publication are not
+performed or authorized by these records.
+
+## Final source and Arch distribution checks
+
+- Archive: `build-dist-math-final/qmarkdown-1.13.0.tar.gz`; SHA-256
+  `2c8223bb046449fbae340171dd58072977dab693bae22b07aa40c50f26b91f3b`. Its explicit 292-file payload excludes unused Greek/Cyrillic
+  alphabet resources and upstream sample sources.
+- Extracted source build/install with highlighting ON passed on Qt 6.8.0 and
+  6.12.0 (`build-dist-math-final/extracted-minimum` and
+  `build-dist-math-final/extracted-development`). The full candidate matrix above
+  covers both highlighting modes and shared/static installed/relocated consumers.
+- Arch package from that same archive passed metadata, dependency, license/resource
+  payload, namcap, ownership, linked/plugin-only native math consumers, integrity
+  and pacman removal checks (`build-arch-math-final`). No system package was
+  replaced; lifecycle checks ran in disposable containers.
+- Final PR-head required packaging jobs remain mandatory. No merge, tag or
+  publication has been performed.

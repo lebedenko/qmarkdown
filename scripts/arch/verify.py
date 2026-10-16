@@ -61,7 +61,9 @@ def main():
     files = [path for path in paths if not path.is_dir() or path.is_symlink()]
     required = [Path('/usr/lib/libQMarkdown.so'), Path('/usr/lib/qt6/qml/QMarkdown/libQMarkdownPlugin.so'),
                 Path('/usr/lib/cmake/QMarkdown/QMarkdownConfig.cmake'),
-                Path('/usr/share/licenses/qmarkdown/LICENSE'), Path('/usr/share/licenses/qmarkdown/cmark/COPYING')]
+                Path('/usr/share/licenses/qmarkdown/LICENSE'), Path('/usr/share/licenses/qmarkdown/cmark/COPYING'),
+                Path('/usr/share/licenses/qmarkdown/microtex/LICENSE'), Path('/usr/share/licenses/qmarkdown/microtex/fonts/OFL.txt'),
+                Path('/usr/share/licenses/qmarkdown/microtex/PROVENANCE.md'), Path('/usr/share/licenses/qmarkdown/tinyxml2/LICENSE.txt')]
     if not all(path in files for path in required):
         raise RuntimeError('Incomplete package payload')
     for path in files:
@@ -90,6 +92,13 @@ def main():
             if 'not found' in output('ldd', path):
                 raise RuntimeError(f'Unresolved dependencies: {path}')
     for link in ('ON', 'OFF'):
+        math_build = Path('/work') / f'math-{link}'
+        run('cmake', '-S', '/tools/installed-consumer', '-B', math_build,
+            '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
+            '-DQMARKDOWN_MATH_CONSUMER=ON', '-DQMARKDOWN_EXPECT_MATH=1', f'-DQMARKDOWN_REQUEST_VERSION={version}',
+            '-DQMARKDOWN_REQUEST_EXACT=ON')
+        run('cmake', '--build', math_build, '--parallel', '2')
+        run(math_build / 'qmarkdown-consumer')
         syntax_build = Path('/work') / f'syntax-{link}'
         run('cmake', '-S', '/tools/installed-consumer', '-B', syntax_build,
             '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',

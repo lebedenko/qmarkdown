@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.12.0 / QML 1.12 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.13.0 / QML 1.13 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.12` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.13` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -104,7 +104,7 @@ MarkdownStyle is a shareable QObject. Typography snapshots application defaults 
 construction: body uses the application font with Normal weight; code blocks use
 that font with the system fixed-font family; inline code specifies only that family
 and inherits other font attributes. Heading fonts use body size multipliers
-2, 1.75, 1.5, 1.25, 1.125, 1 with Bold weight. Fonts support point or pixel sizes;
+2, 1.75, 1.5, 1.25, 1.135, 1 with Bold weight. Fonts support point or pixel sizes;
 all geometric metrics use logical pixels.
 
 | Property | Legacy default | Since |
@@ -180,7 +180,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.12 CONFIG REQUIRED)
+find_package(QMarkdown 1.13 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
@@ -214,3 +214,14 @@ source-line numbers, bounded source height, internal scrollbars and extended
 language-aware `codeBlockActions` contract. Defaults preserve wrapping and natural
 height; line numbers and height limiting default off. Headers and clipboard writes
 remain host-owned.
+
+## Native block math (1.13)
+
+`MarkdownView.mathEnabled` defaults to false. Read-only `mathAvailable` reports
+compiled backend availability. Exact first info token `math` selects native fenced
+rendering after host renderers. Standalone `$$` delimiter lines are parsed only
+when enabled. Selection enabled or active Find shows literal TeX body text.
+`MarkdownStyle.math.color` inherits `bodyColor`; reset restores inheritance.
+`math.scale` defaults to 1.0 relative to resolved body text size; nonpositive or
+nonfinite values reset to 1. Bundled mathematical fonts are independent of the
+host body family. See the [dialect and limits](math.md).

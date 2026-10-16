@@ -36,7 +36,7 @@ def build_archive(source, work, commit=None):
     for name in names:
         path = Path(name)
         if (path.is_absolute() or '..' in path.parts or
-                not (name in required or name.startswith(('src/QMarkdown/', 'cmake/', 'third_party/cmark/')))):
+                not (name in required or name.startswith(('src/QMarkdown/', 'cmake/', 'third_party/cmark/', 'third_party/microtex/', 'third_party/tinyxml2/')))):
             raise ValueError(f'Forbidden source allowlist entry: {name}')
         if not commit and (source / name).is_symlink():
             raise ValueError(f'Symlink in source allowlist: {name}')

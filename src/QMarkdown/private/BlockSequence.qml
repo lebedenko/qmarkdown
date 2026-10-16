@@ -208,6 +208,8 @@ Column {
                     required property string codeLanguage
                     language: codeLanguage
                     required property string codeInfo
+                    required property bool displayMath
+                    standaloneMath: displayMath
                     required property bool codeFenced
                     infoString: codeInfo
                     fenced: codeFenced

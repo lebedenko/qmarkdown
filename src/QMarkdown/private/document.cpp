@@ -29,6 +29,10 @@ QVector<Block> adaptBlocks(cmark_node *node, bool tagFilter)
             block.infoString = QString::fromUtf8(cmark_node_get_fence_info(node));
             block.codeFenced = cmark_node_get_code_fenced(node);
             break;
+        case CMARK_NODE_QMARKDOWN_MATH:
+            block.kind = BlockKind::MathBlock;
+            block.text = QString::fromUtf8(cmark_node_get_literal(node));
+            break;
         case CMARK_NODE_HTML_BLOCK:
             block.kind = BlockKind::HtmlBlock;
             block.text = QString::fromUtf8(cmark_node_get_literal(node));
@@ -76,7 +80,8 @@ QVector<Block> parse(QString source, ParseOptions options)
         (options.taskLists ? CMARK_OPT_QMARKDOWN_TASK_LISTS : 0)
         | (options.strikethrough ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0)
         | (options.extendedAutolinks ? CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS : 0)
-        | (options.tables ? CMARK_OPT_QMARKDOWN_TABLES : 0)), &cmark_node_free};
+        | (options.tables ? CMARK_OPT_QMARKDOWN_TABLES : 0)
+        | (options.math ? CMARK_OPT_QMARKDOWN_MATH : 0)), &cmark_node_free};
     return document.get() ? adaptBlocks(cmark_node_first_child(document.get()), options.tagFilter) : QVector<Block>{};
 }
 
