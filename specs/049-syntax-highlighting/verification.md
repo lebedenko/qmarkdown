@@ -12,7 +12,46 @@ Merge, tagging and publication are not authorized by this implementation task.
 
 ## Configured matrix and delivery
 
-In progress: exact Qt 6.8.0 and 6.12.0 shared/static backend OFF/ON, examples/lint, relocated consumers and historical imports. Distribution/Arch and final-head PR checks have not yet completed.
+The local working-snapshot matrix passed all eight 30-test suites and all eight
+QML lint runs, with examples enabled:
+
+| Qt | Shared OFF | Static OFF | Shared ON | Static ON |
+| --- | --- | --- | --- | --- |
+| 6.8.0 | 30/30 | 30/30 | 30/30 | 30/30 |
+| 6.12.0 | 30/30 | 30/30 | 30/30 | 30/30 |
+
+Relocated consumers passed for both linkage modes and both backend states on each
+SDK, including historical imports and compatible/exact package requests. Disabled
+build caches contained no KDE discovery; shared consumers configured with KDE
+package discovery explicitly disabled. Enabled static consumers resolved the
+private transitive dependency. Both SDKs completed benchmark smoke. The final committed-source matrix is reported
+through [PR #34 checks](https://github.com/lebedenko/qmarkdown/pull/34/checks).
+Local matrix artifacts are retained in ignored `build-ci-049-minimum-complete`
+and `build-ci-049-development-complete` directories.
+
+Final review added a post-normalization budget check and avoided allocating a
+foreground map when no syntax ranges exist. The affected host view, styling,
+selection and syntax suites passed 7/7 (67.34 seconds). The explicit build-mode
+availability assertion then passed the syntax-view suite (1/1). The final PR
+matrix repeats the full configured verification for these committed changes.
+
+The final deterministic source archive passed extracted build/install checks with
+backend OFF and ON on both SDKs (four builds), in
+`build-source-check-049-final-{6.8.0,6.12.0}`. Source SHA-256:
+`fc0a9bc938374acdbe1308edb3c915639d1665e0e0a960023b9ec25139b60dbb`.
+
+Arch package checks passed against that archive: dependency lower bounds including
+`syntax-highlighting>=6.10.0`, payload/ownership, namcap, linked/plugin-only
+consumers, explicit enabled-highlighting availability and token ranges, and
+pacman install/upgrade/removal. Final package SHA-256:
+`61bf9f81632f8acdfc0cff6c6c189780f995591829c3be2f918f00ee266db635`.
+Artifacts/logs are in ignored `build-arch-049-availability`; these bytes have not
+been published. Source and package inventories contain no vendored KDE definitions.
+
+Strict release docs, whitespace checks and host Qt synchronization (already
+6.12.0) passed. One release PR contains implementation, specifications, tests,
+documentation and packaging. Final-head CI status lives on that PR; no merge,
+tagging, release dispatch or publication is part of this authorization.
 
 The first configured runs exposed an example import pinned to 1.10; it was corrected to 1.11. KDE 6.10's indexer also conflicts with Qt 6.12's new `_sv` literal. CI guards and records a local indexer-only literal rename by original/modified file hashes; runtime library code and syntax resources remain pinned upstream. Initial failed runs are retained under ignored build-ci-049-* directories and do not count as passing evidence.
 

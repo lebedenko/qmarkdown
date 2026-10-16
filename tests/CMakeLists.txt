@@ -200,6 +200,8 @@ set_tests_properties(qmarkdown-syntax PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=of
 
 qt_add_executable(qmarkdown-syntax-view-test tst_syntaxview.cpp)
 target_include_directories(qmarkdown-syntax-view-test PRIVATE ../src/QMarkdown)
+target_compile_definitions(qmarkdown-syntax-view-test PRIVATE
+    QMARKDOWN_EXPECT_SYNTAX=$<BOOL:${QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING}>)
 target_link_libraries(qmarkdown-syntax-view-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
 if(NOT BUILD_SHARED_LIBS)
     target_link_libraries(qmarkdown-syntax-view-test PRIVATE QMarkdown::QMarkdownPlugin)

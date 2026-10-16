@@ -9,3 +9,10 @@ Approval: approved on 2026-10-16 through the user instruction to implement the s
 | T3 | R3, R4 | Native color integration; test pixels, wrapping/alignment/empty code, custom precedence, selection/Find and exact copy. |
 | T4 | R7 | CI dependency provisioning, source inventory, static discovery, Arch and installed consumers; verify matrix and packaging. |
 | T5 | R8 | Playground/docs/release 1.11; strict docs, advisory performance, actual evidence and one final-head verified PR. |
+
+T1–T4 implementation and local verification are complete; actual results and
+review fixes are recorded in [verification.md](verification.md). T5 release
+versions, documentation, advisory measurements, distribution checks and one
+[release PR](https://github.com/lebedenko/qmarkdown/pull/34) are prepared together.
+The final committed-source required checks are attached to that PR. Merge, tagging
+and publication require separate authorization.

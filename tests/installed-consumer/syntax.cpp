@@ -27,6 +27,9 @@ MarkdownView {
     std::unique_ptr<QQuickItem> view(qobject_cast<QQuickItem *>(component.create()));
     if (!view) { qCritical() << component.errorString(); return 1; }
     if (!view->property("syntaxHighlightingEnabled").toBool() || !view->property("syntaxTheme").value<QObject *>()) return 2;
+#ifdef QMARKDOWN_EXPECT_SYNTAX
+    if (view->property("syntaxHighlightingAvailable").toBool() != bool(QMARKDOWN_EXPECT_SYNTAX)) return 5;
+#endif
     // Traverse visual delegates, which are not necessarily QObject children.
     std::function<bool(QQuickItem *)> colored = [&](QQuickItem *item) {
         if (!item->property("foregroundRanges").toList().isEmpty()) return true;

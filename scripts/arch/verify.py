@@ -93,7 +93,7 @@ def main():
         syntax_build = Path('/work') / f'syntax-{link}'
         run('cmake', '-S', '/tools/installed-consumer', '-B', syntax_build,
             '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
-            '-DQMARKDOWN_SYNTAX_CONSUMER=ON', f'-DQMARKDOWN_REQUEST_VERSION={version}',
+            '-DQMARKDOWN_SYNTAX_CONSUMER=ON', '-DQMARKDOWN_EXPECT_SYNTAX=1', f'-DQMARKDOWN_REQUEST_VERSION={version}',
             '-DQMARKDOWN_REQUEST_EXACT=ON')
         run('cmake', '--build', syntax_build, '--parallel', '2')
         run(syntax_build / 'qmarkdown-consumer')

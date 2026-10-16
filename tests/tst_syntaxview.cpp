@@ -35,6 +35,7 @@ private slots:
         c.setData("import QtQuick; import QMarkdown 1.11; MarkdownView {}", {});
         std::unique_ptr<QObject> view(c.create()); QVERIFY2(view, qPrintable(c.errorString()));
         QCOMPARE(view->property("syntaxHighlightingEnabled").toBool(), false);
+        QCOMPARE(view->property("syntaxHighlightingAvailable").toBool(), bool(QMARKDOWN_EXPECT_SYNTAX));
         QVERIFY(view->property("syntaxTheme").value<QObject *>());
     }
     void colorsThemeAndSource() {

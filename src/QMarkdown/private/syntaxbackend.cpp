@@ -115,6 +115,7 @@ public:
             if ((span.start > 0 && source[span.start].isLowSurrogate() && source[span.start - 1].isHighSurrogate())
                 || (end < source.size() && source[end].isLowSurrogate() && source[end - 1].isHighSurrogate())) return {};
         }
+        if (stopped()) return {};
         return std::move(m_spans);
     }
 };

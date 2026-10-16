@@ -181,6 +181,7 @@ for variant in ("shared", "static"):
         run("cmake", "-S", consumer_source, "-B", syntax_build,
             *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
             "-DQMARKDOWN_SYNTAX_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.11.0",
+            f"-DQMARKDOWN_EXPECT_SYNTAX={1 if args.syntax_highlighting == 'ON' else 0}",
             "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", syntax_build, "--parallel", "2")
         run(syntax_build / executable, env=environment)
