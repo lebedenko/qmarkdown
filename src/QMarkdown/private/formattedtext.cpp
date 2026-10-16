@@ -24,6 +24,8 @@ QFont layoutFont(QFont font)
 FormattedText::FormattedText(QQuickItem *parent) : QQuickPaintedItem(parent)
 {
     setAntialiasing(true);
+    // Filtering an already rasterized text surface introduces extra softness.
+    setSmooth(false);
     connect(this, &QQuickItem::windowChanged, this, &FormattedText::observeWindow);
     observeWindow(window());
 }

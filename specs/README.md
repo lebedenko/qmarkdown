@@ -236,3 +236,12 @@ Features [050 headers](050-language-aware-headers/requirements.md),
 approved 2026-10-16 plan in one release change. Each directory retains requirements,
 design, mapped tasks and actual verification separately. Merge, tagging and
 publication of 1.12 require separate authorization.
+
+## 054 — Text rendering sharpness
+
+Approved on 2026-10-16 through the supplied implementation plan.
+[Requirements](054-text-rendering-sharpness/requirements.md),
+[design](054-text-rendering-sharpness/design.md),
+[mapped tasks](054-text-rendering-sharpness/tasks.md), and
+[actual verification](054-text-rendering-sharpness/verification.md).
+Bounded texture-sampling correction; no system-package replacement or release publication.
