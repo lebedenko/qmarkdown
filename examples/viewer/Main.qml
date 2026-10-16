@@ -261,6 +261,13 @@ ApplicationWindow {
                         contentHeight: preview.contentHeight
                         ScrollBar.vertical: ScrollBar {}
                         MarkdownView {
+                            codeBlockWrapEnabled: stylePanel.codeWrap
+                            codeBlockLineNumbersVisible: stylePanel.codeNumbers
+                            codeBlockHeightLimitEnabled: stylePanel.codeLimit
+                            codeBlockViewportHeight: previewScroll.height
+                            codeBlockHeightRatio: stylePanel.codeRatio / 100
+                            codeBlockMinimumLines: stylePanel.codeMinimum
+                            codeBlockMaximumLines: stylePanel.codeMaximum
                             syntaxHighlightingEnabled: stylePanel.syntaxEnabled
                             syntaxTheme: SyntaxTheme { preset: stylePanel.syntaxDark ? SyntaxTheme.Dark : SyntaxTheme.Light }
                             keyboardNavigationEnabled: true
@@ -298,13 +305,27 @@ ApplicationWindow {
                                 id: actions
                                 required property string codeText
                                 required property var requestCopy
+                                required property string languageId
+                                required property string languageName
                                 property bool copied: false
                                 implicitHeight: copyButton.implicitHeight + 8
+                                Row {
+                                    spacing: 6
+                                    anchors.verticalCenter: copyButton.verticalCenter
+                                    Image {
+                                        width: 24; height: 24
+                                        source: "icons/" + (["c", "cpp", "javascript", "jsx", "typescript", "tsx", "python", "qml", "bash", "json"].indexOf(actions.languageId) >= 0 ? actions.languageId : "code") + ".svg"
+                                    }
+                                    Label { text: actions.languageName || "Code"; anchors.verticalCenter: parent.verticalCenter }
+                                }
                                 Button {
                                     id: copyButton
                                     objectName: "copyButton"
-                                    width: Math.min(implicitWidth, actions.width)
-                                    text: actions.copied ? "Copied" : "Copy"
+                                    anchors.right: parent.right
+                                    icon.source: Qt.resolvedUrl("icons/copy.svg")
+                                    text: actions.copied ? "Copied" : ""
+                                    ToolTip.visible: hovered
+                                    ToolTip.text: actions.copied ? "Copied" : "Copy code"
                                     Accessible.name: "Copy code block"
                                     onClicked: { actions.requestCopy(); actions.copied = true; feedback.restart() }
                                 }

@@ -210,3 +210,14 @@ endif()
 add_test(NAME qmarkdown-syntax-view COMMAND qmarkdown-syntax-view-test)
 set_tests_properties(qmarkdown-syntax-view PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-codeblocks-test tst_codeblocks.cpp)
+target_include_directories(qmarkdown-codeblocks-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-codeblocks-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-codeblocks-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-codeblocks-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-codeblocks COMMAND qmarkdown-codeblocks-test)
+set_tests_properties(qmarkdown-codeblocks PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

@@ -12,6 +12,7 @@ qt_add_qml_module(qmarkdown-viewer
     URI QMarkdownViewer
     RESOURCE_PREFIX /qt/qml
     QML_FILES Main.qml Samples.qml StylePanel.qml TaskIndicator.qml
+    RESOURCES icons/bash.svg icons/c.svg icons/code.svg icons/copy.svg icons/cpp.svg icons/javascript.svg icons/json.svg icons/jsx.svg icons/python.svg icons/qml.svg icons/tsx.svg icons/typescript.svg
     IMPORT_PATH "${CMAKE_BINARY_DIR}/qml")
 target_link_libraries(qmarkdown-viewer PRIVATE QMarkdown::QMarkdown Qt6::QuickControls2 qmarkdown-font-editor)
 if(NOT BUILD_SHARED_LIBS)

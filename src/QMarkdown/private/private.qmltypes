@@ -77,6 +77,18 @@ Module {
     }
     Component {
         name: "ViewState"
+        Method { name: "plainCodeGeometry"; type: "QVariantMap"; Parameter { name: "input"; type: "QVariantMap" } }
+        Property { name: "codeBlockScrollBar"; type: "QQmlComponent"; isPointer: true; notify: "codeBlockSettingsChanged" }
+        Property { name: "codeBlockMaximumLines"; type: "int"; notify: "codeBlockSettingsChanged" }
+        Property { name: "codeBlockMinimumLines"; type: "int"; notify: "codeBlockSettingsChanged" }
+        Property { name: "codeBlockHeightRatio"; type: "double"; notify: "codeBlockSettingsChanged" }
+        Property { name: "codeBlockViewportHeight"; type: "double"; notify: "codeBlockSettingsChanged" }
+        Property { name: "codeBlockHeightLimitEnabled"; type: "bool"; notify: "codeBlockSettingsChanged" }
+        Property { name: "codeBlockLineNumbersVisible"; type: "bool"; notify: "codeBlockSettingsChanged" }
+        Property { name: "codeBlockWrapEnabled"; type: "bool"; notify: "codeBlockSettingsChanged" }
+        Method { name: "createHostComponent"; type: "QObject"; isPointer: true; Parameter { name: "component"; type: "QQmlComponent"; isPointer: true } Parameter { name: "parent"; type: "QQuickItem"; isPointer: true } Parameter { name: "properties"; type: "QVariantMap" } }
+        Method { name: "codeLanguageMetadata"; type: "QVariantMap"; Parameter { name: "language"; type: "QString" } }
+        Signal { name: "codeBlockSettingsChanged" }
         Property { name: "syntaxHighlightingEnabled"; type: "bool"; notify: "syntaxHighlightingEnabledChanged" }
         Property { name: "syntaxHighlightingAvailable"; type: "bool"; isReadonly: true }
         Property { name: "syntaxTheme"; type: "SyntaxTheme"; isPointer: true; notify: "syntaxThemeChanged" }
@@ -125,6 +137,7 @@ Module {
         Signal { name: "selectionChanged" }
         Signal { name: "selectionEnabledChanged" }
         Signal { name: "copyRequested"; Parameter { name: "text"; type: "QString" } }
+        Method { name: "validCodeScrollBar"; type: "bool"; Parameter { name: "object"; type: "QObject"; isPointer: true } }
         Method { name: "validFencedRenderer"; type: "bool"; Parameter { name: "object"; type: "QObject"; isPointer: true } }
         Method { name: "selectAll" }
         Method { name: "clearSelection" }
@@ -157,6 +170,11 @@ Module {
     }
     Component {
         name: "FormattedText"
+        Property { name: "wrapEnabled"; type: "bool"; notify: "wrapEnabledChanged" }
+        Signal { name: "wrapEnabledChanged" }
+        Property { name: "logicalWidth"; type: "double"; isReadonly: true; notify: "layoutChanged" }
+        Property { name: "sourceLines"; type: "QVariantList"; isReadonly: true; notify: "layoutChanged" }
+        Method { name: "sourceRectangleAt"; type: "QRectF"; Parameter { name: "position"; type: "int" } }
         Property { name: "foregroundRanges"; type: "QVariantList"; notify: "foregroundRangesChanged" }
         Signal { name: "foregroundRangesChanged" }
         Property { name: "focusedLink"; type: "int"; notify: "focusPaintingChanged" }
