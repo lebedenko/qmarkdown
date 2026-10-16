@@ -87,3 +87,15 @@ performed or authorized by these records.
   checks and verification section rather than prewritten here. CI additionally
   checks math-OFF with shared and static linkage on both SDKs. No release PR merge,
   tagging or publication has been performed.
+
+## Hosted image-selection fixture correction — 2026-10-17
+
+The preceding PR run 38970204291 failed `SelectionTest::tableAndImageLifecycle`
+in the development static build: resource completion created the image before
+its containing layout polished the image position, so the fixture clicked the
+preceding paragraph. The fixture now completes a window frame before capturing
+hit-test coordinates. This changes tests only. It passed 25 repetitions on the
+host and 25 against each previously verified Qt 6.8.0/6.12.0 static package
+(`/tmp/qmarkdown-selection-frame-minimum.log`, `-development.log`). Production
+archive bytes and source/Arch verification above remain unchanged. Final required
+PR-head packaging results are retained in PR #36 after this fixture update.
