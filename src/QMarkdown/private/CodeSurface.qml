@@ -97,10 +97,18 @@ Rectangle {
     readonly property string displayText: codeText.endsWith("\n") ? codeText.slice(0, -1) : codeText
     readonly property bool wrapEnabled: coordinator.codeBlockWrapEnabled
     readonly property bool numbersVisible: coordinator.codeBlockLineNumbersVisible && !rendererItem
-    readonly property real gutterWidth: numbersVisible ? Math.ceil(metrics.advanceWidth(String(Math.max(1, displayText.split("\n").length)))) + 16 : 0
-    readonly property real naturalHeight: contents.item ? contents.item.sourceHeight : 0
-    readonly property real naturalWidth: contents.item ? contents.item.sourceWidth : 0
-    readonly property real lineHeight: Math.max(1, metrics.height)
+    readonly property real gutterWidth: {
+        if (!numbersVisible) return 0
+        const count = Math.max(1, displayText.split("\n").length)
+        let widest = 0
+        for (let number = 1; number <= count; ++number)
+            widest = Math.max(widest, metrics.advanceWidth(String(number)))
+        return Math.ceil(widest) + 16
+    }
+    readonly property var sourceItem: contents.item
+    readonly property real naturalHeight: surface.sourceItem ? surface.sourceItem.sourceHeight : 0
+    readonly property real naturalWidth: surface.sourceItem ? surface.sourceItem.sourceWidth : 0
+    readonly property real lineHeight: Math.max(1, surface.sourceItem ? surface.sourceItem.sourceLineHeight : metrics.height)
     readonly property real minimumLines: Math.max(1, coordinator.codeBlockMinimumLines)
     readonly property real maximumLines: Math.max(minimumLines, coordinator.codeBlockMaximumLines)
     readonly property real heightLimit: {
@@ -118,13 +126,13 @@ Rectangle {
     property bool restoring: false
     property bool restoreQueued: false
     function rememberPosition() {
-        if (restoring || restoreQueued || !contents.item) return
+        if (restoring || restoreQueued || !surface.sourceItem) return
         if (viewport.contentX === 0 && viewport.contentY === 0) {
             firstSourcePosition = 0; firstSourceOffset = 0; firstSourceOffsetX = 0
             return
         }
-        firstSourcePosition = contents.item.sourcePosition(viewport.contentX, viewport.contentY)
-        const rect = contents.item.sourceRectangle(firstSourcePosition)
+        firstSourcePosition = surface.sourceItem.sourcePosition(viewport.contentX, viewport.contentY)
+        const rect = surface.sourceItem.sourceRectangle(firstSourcePosition)
         firstSourceOffset = viewport.contentY - rect.y
         firstSourceOffsetX = viewport.contentX - rect.x
     }
@@ -140,9 +148,9 @@ Rectangle {
                 surface.restoring = false
                 return
             }
-            if (contents.item) viewport.contentY = Math.max(0, Math.min(viewport.contentHeight - viewport.height,
-                contents.item.sourceRectangle(surface.firstSourcePosition).y + surface.firstSourceOffset))
-            viewport.contentX = surface.wrapEnabled || !contents.item ? 0 : Math.max(0, Math.min(contents.item.sourceRectangle(surface.firstSourcePosition).x + surface.firstSourceOffsetX, viewport.contentWidth - viewport.width))
+            if (surface.sourceItem) viewport.contentY = Math.max(0, Math.min(viewport.contentHeight - viewport.height,
+                surface.sourceItem.sourceRectangle(surface.firstSourcePosition).y + surface.firstSourceOffset))
+            viewport.contentX = surface.wrapEnabled || !surface.sourceItem ? 0 : Math.max(0, Math.min(surface.sourceItem.sourceRectangle(surface.firstSourcePosition).x + surface.firstSourceOffsetX, viewport.contentWidth - viewport.width))
             surface.restoring = false
         })
     }
@@ -189,6 +197,7 @@ Rectangle {
         id: viewport
         objectName: "codeViewport"
         property bool codeSourceViewport: true
+        Component.onCompleted: surface.coordinator.registerSourceViewport(viewport)
         x: surface.padX + surface.gutterWidth
         y: surface.padY + actionHost.height
         width: Math.max(1, surface.width - 2 * surface.padX - surface.gutterWidth - (surface.verticalOverflow ? 10 : 0))
@@ -241,7 +250,7 @@ Rectangle {
         visible: surface.numbersVisible
         clip: true
         Repeater {
-            model: surface.numbersVisible && contents.item ? contents.item.visibleSourceLines : []
+            model: surface.numbersVisible && surface.sourceItem ? surface.sourceItem.visibleSourceLines : []
             delegate: Text {
                 required property var modelData
                 text: modelData.number
@@ -258,6 +267,8 @@ Rectangle {
     }
     WheelHandler {
         target: null
+        blocking: false
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
         onWheel: function(event) {
             const dx = event.pixelDelta.x !== 0 ? -event.pixelDelta.x : -event.angleDelta.x / 120 * surface.lineHeight * 3
             const dy = event.pixelDelta.y !== 0 ? -event.pixelDelta.y : -event.angleDelta.y / 120 * surface.lineHeight * 3
@@ -357,6 +368,7 @@ Rectangle {
             id: plainLeaf
             text: surface.displayText
             textFormat: Text.PlainText
+            readonly property real sourceLineHeight: text.length > 0 && lineCount > 0 ? implicitHeight / lineCount : metrics.height
             readonly property real sourceHeight: height
             readonly property real sourceWidth: contentWidth
             function geometry(point, position) {
@@ -387,6 +399,7 @@ Rectangle {
             text: surface.displayText
             foregroundRanges: syntaxRequest.ranges
             wrapEnabled: surface.wrapEnabled
+            readonly property real sourceLineHeight: sourceLines.length ? sourceLines[0].height : metrics.height
             readonly property real sourceHeight: logicalHeight
             readonly property real sourceWidth: logicalWidth
             readonly property var visibleSourceLines: sourceLines.filter(function(line) { return line.top + line.height >= viewport.contentY && line.top <= viewport.contentY + viewport.height })

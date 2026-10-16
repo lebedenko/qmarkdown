@@ -165,6 +165,7 @@ public:
     int selectionStart() const { return qMin(m_anchor, m_active); }
     int selectionEnd() const { return qMax(m_anchor, m_active); }
     QString selectedText() const { return m_projection.mid(selectionStart(), selectionEnd() - selectionStart()); }
+    Q_INVOKABLE void registerSourceViewport(QQuickItem *item);
     Q_INVOKABLE QVariantMap plainCodeGeometry(const QVariantMap &input);
     Q_INVOKABLE QObject *createHostComponent(QQmlComponent *component, QQuickItem *parent, const QVariantMap &properties) const;
     Q_INVOKABLE QVariantMap codeLanguageMetadata(const QString &language) const;
@@ -231,6 +232,8 @@ signals:
     void strikethroughEnabledChanged();
     void extendedAutolinksEnabledChanged();
     void styleChanged();
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 private:
     bool m_codeBlockWrapEnabled = true;
     bool m_codeBlockLineNumbersVisible = false;

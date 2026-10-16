@@ -7,3 +7,11 @@ Approval: approved on 2026-10-16 by the user instruction to implement the suppli
 - [x] Update public API documentation and installed metadata; inspect the source allowlist (no new library files).
 - [ ] Record focused verification, full Qt 6.8.0/6.12.0 shared/static backend OFF/ON matrix, lint, imports, relocated consumers, extracted source and Arch checks.
 - [ ] Finalize 1.12 release documentation together; open one release PR and pass final-head packaging and release gate. Preserve published 1.11 summaries during development.
+
+## Requirement-to-check mapping
+
+| Requirement | Implementation/check |
+|---|---|
+| R050.1 | metadataAndCopy; backend OFF/ON consumers |
+| R050.2 | defaultsAndLegacyHeader; existing action/renderer creation and replacement tests |
+| R050.3 | viewerCopy; metadataAndCopy; existing exact action-copy tests |

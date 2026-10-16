@@ -4,6 +4,7 @@
 #include "imageitem.h"
 #include "taskindicatoritem.h"
 #include <QCoreApplication>
+#include <QEvent>
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QQmlContext>
@@ -285,6 +286,22 @@ void registerPrivateTypes()
 }
 }
 Q_COREAPP_STARTUP_FUNCTION(registerPrivateTypes)
+
+void ViewState::registerSourceViewport(QQuickItem *item)
+{
+    if (item) item->installEventFilter(this);
+}
+bool ViewState::eventFilter(QObject *watched, QEvent *event)
+{
+    // CodeSurface's WheelHandler owns source wheel movement. Native Flickable
+    // otherwise consumes phased pixel events even at its boundary, preventing
+    // the outer reader from receiving the unconsumed event.
+    if (event->type() == QEvent::Wheel && watched->property("codeSourceViewport").toBool()) {
+        event->ignore();
+        return true;
+    }
+    return QObject::eventFilter(watched, event);
+}
 
 QVariantMap ViewState::plainCodeGeometry(const QVariantMap &input)
 {

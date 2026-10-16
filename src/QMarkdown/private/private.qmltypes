@@ -77,6 +77,7 @@ Module {
     }
     Component {
         name: "ViewState"
+        Method { name: "registerSourceViewport"; Parameter { name: "item"; type: "QQuickItem"; isPointer: true } }
         Method { name: "plainCodeGeometry"; type: "QVariantMap"; Parameter { name: "input"; type: "QVariantMap" } }
         Property { name: "codeBlockScrollBar"; type: "QQmlComponent"; isPointer: true; notify: "codeBlockSettingsChanged" }
         Property { name: "codeBlockMaximumLines"; type: "int"; notify: "codeBlockSettingsChanged" }

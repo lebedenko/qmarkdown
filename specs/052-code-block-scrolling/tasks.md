@@ -7,3 +7,13 @@ Approval: approved on 2026-10-16 by the user instruction to implement the suppli
 - [x] Update public API documentation and installed metadata; inspect the source allowlist (no new library files).
 - [ ] Record focused verification, full Qt 6.8.0/6.12.0 shared/static backend OFF/ON matrix, lint, imports, relocated consumers, extracted source and Arch checks.
 - [ ] Finalize 1.12 release documentation together; open one release PR and pass final-head packaging and release gate. Preserve published 1.11 summaries during development.
+
+## Requirement-to-check mapping
+
+| Requirement | Implementation/check |
+|---|---|
+| R052.1 | scrollbarsAndShortBlocks; wrappingHeightGutterAndFind tiny-viewport check |
+| R052.2 | scrollbarsAndShortBlocks; callback-token lifetime review |
+| R052.3 | wheelBoundaryHandoff wheel/trackpad rows; existing selection suites; internal edge-scroll review |
+| R052.4 | plainSourceScrolling; wrappingHeightGutterAndFind |
+| R052.5 | wrappingHeightGutterAndFind; metadataAndCopy; existing cross-block selection tests |

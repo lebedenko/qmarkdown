@@ -8,10 +8,19 @@ Approval: approved on 2026-10-16 by the user instruction to implement the suppli
 - Host SDK synchronization selected Qt 6.12.0 without changing configured targets.
 - Local shared backend-ON build passed. `ctest --test-dir build-shared --output-on-failure`: **31/31 passed**, 93.54 seconds.
 - Focused coverage: `lineGeometry` across 1/9/10/99/100 lines, wrap and highlighting modes, native baseline and color reset checks.
-- QML lint target passed. Dynamic Loader interface warnings are tooling limitations; the import-only example retains its existing unused-import informational message.
+- QML lint target passed on the initial implementation. The final dynamic Loader interface is explicitly represented as a variant; lint will be checked again on the final inputs.
 - Strict release documentation and local links passed using `python3 scripts/check-docs.py --release`; `git diff --check` passed.
 - Earlier failing attempts exposed and corrected component ownership, missing-required diagnostics, source geometry, icon resource resolution and selection/panning priority. Their logs remain in local build directories; they are not release assets.
 
-## Pending delivery verification
+## Delivery verification status
 
-Exact Qt 6.8.0 and 6.12.0 shared/static backend OFF/ON verification is running in retained snapshot directories `build-ci-112-minimum-final` and `build-ci-112-development-final`. Extracted source, Arch distribution checks and final PR gates have not yet completed. No successful result is claimed for these checks.
+The retained Qt 6.8.0 and Qt 6.12.0 candidate matrices passed shared/static builds, highlighting OFF/ON, tests, lint, historical imports, relocated consumers and benchmark smoke (`build-ci-112-minimum-verified`, `build-ci-112-development-verified`). Earlier `*-complete` runs stopped on missing-required diagnostics/empty-block geometry; earlier `*-final` runs stopped on the installed-consumer fixture. Those failures were corrected and preserved.
+
+The subsequent typography and phased-wheel review has focused coverage, including a passing wheel/trackpad boundary test. Final-input full verification and refreshed distribution checks are pending. Final-head PR packaging checks and the retained release gate remain required; no merge or 1.12 publication is authorized.
+
+## Distribution checks on implementation commit b46a7c6
+
+- Extracted source builds/install passed on Qt 6.8.0 and Qt 6.12.0 with highlighting OFF and ON (`build-source-112-6.8.0`, `build-source-112-6.12.0`).
+- Arch metadata, payload, namcap, consumers and pacman lifecycle passed (`build-arch-112`).
+- A later focused review tightened proportional-number width, effective line-height caps and wheel boundary propagation. The final source archive and distribution checks will be refreshed for those runtime changes.
+- The relocated consumer fixture now constructs its code style using a `MarkdownStyle` object; its focused relocated-package check passed (`build-consumer-112`).

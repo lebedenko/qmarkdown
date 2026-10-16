@@ -55,7 +55,7 @@ MarkdownView {
     codeBlockViewportHeight: 100
     codeBlockMinimumLines: 1
     codeBlockMaximumLines: 2
-    style.codeBlock.lineNumberColor: "#123456"
+    style: MarkdownStyle { codeBlock.lineNumberColor: "#123456" }
     markdown: "```CPP extra\nconst int value = 42;\nsecond line\nthird line\n```"
     codeBlockActions: Item {
         required property string codeText

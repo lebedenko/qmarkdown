@@ -7,6 +7,7 @@
 #include <QFontMetricsF>
 #include <QMetaProperty>
 #include <QWheelEvent>
+#include <QPointingDevice>
 #include <QtTest/QTest>
 #include <QtQml/QQmlExtensionPlugin>
 #include <memory>
@@ -116,6 +117,83 @@ private slots:
         QVERIFY(property.reset(codeStyle));
         QCOMPARE(codeStyle->property("lineNumberColor").value<QColor>(), QColor(20, 30, 40, 60));
     }
+    void wheelBoundaryHandoff_data() {
+        QTest::addColumn<bool>("pixel");
+        QTest::newRow("wheel") << false;
+        QTest::newRow("trackpad") << true;
+    }
+    void wheelBoundaryHandoff() {
+        QFETCH(bool, pixel);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+import QtQuick
+import QMarkdown
+Flickable {
+    width: 240; height: 300; contentWidth: width; contentHeight: 1500
+    MarkdownView {
+        objectName: "reader"; width: 240
+        codeBlockHeightLimitEnabled: true; codeBlockMinimumLines: 1; codeBlockMaximumLines: 2
+        markdown: "```\n" + "long source line\n".repeat(40) + "```"
+    }
+}
+)", {});
+        std::unique_ptr<QQuickItem> outer(qobject_cast<QQuickItem *>(component.create()));
+        QVERIFY2(outer, qPrintable(component.errorString()));
+        QQuickWindow window; window.resize(240, 300); outer->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
+        auto *viewport = named(outer.get(), "codeViewport"); QVERIFY(viewport);
+        QTRY_VERIFY(viewport->height() > 0); QCoreApplication::processEvents();
+        const auto point = viewport->mapToScene(QPointF(20, viewport->height() / 2));
+        QPointingDevice trackpad("test touchpad", 42, QInputDevice::DeviceType::TouchPad,
+            QPointingDevice::PointerType::Finger, QInputDevice::Capability::Position | QInputDevice::Capability::Scroll, 1, 0);
+        if (pixel) {
+            QWheelEvent begin(point, window.mapToGlobal(point.toPoint()), QPoint(), QPoint(),
+                Qt::NoButton, Qt::NoModifier, Qt::ScrollBegin, false, Qt::MouseEventSynthesizedBySystem, &trackpad);
+            begin.setTimestamp(100);
+            QCoreApplication::sendEvent(&window, &begin);
+        }
+        ulong timestamp = 100;
+        auto wheel = [&] {
+            QWheelEvent event(point, window.mapToGlobal(point.toPoint()), pixel ? QPoint(0, -40) : QPoint(), pixel ? QPoint() : QPoint(0, -120),
+                Qt::NoButton, Qt::NoModifier, pixel ? Qt::ScrollUpdate : Qt::NoScrollPhase, false,
+                pixel ? Qt::MouseEventSynthesizedBySystem : Qt::MouseEventNotSynthesized,
+                pixel ? &trackpad : QPointingDevice::primaryPointingDevice());
+            timestamp += 16;
+            event.setTimestamp(timestamp);
+            QCoreApplication::sendEvent(&window, &event);
+        };
+        wheel();
+        QTRY_VERIFY(viewport->property("contentY").toReal() > 0);
+        QCOMPARE(outer->property("contentY").toReal(), 0.0);
+        viewport->setProperty("contentY", viewport->property("contentHeight").toReal() - viewport->height());
+        wheel();
+        if (pixel) { wheel(); wheel(); }
+        QTRY_VERIFY(outer->property("contentY").toReal() > 0);
+    }
+    void plainSourceScrolling() {
+        QQmlEngine engine; auto view = create(engine); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(240, 600); window.show();
+        QString source; for (int i = 0; i < 20; ++i) source += QString(80, 'x') + "\n";
+        view->setProperty("codeBlockWrapEnabled", false);
+        view->setProperty("codeBlockHeightLimitEnabled", true);
+        view->setProperty("codeBlockMinimumLines", 1);
+        view->setProperty("codeBlockMaximumLines", 3);
+        view->setProperty("markdown", "```\n" + source + "```");
+        auto *viewport = named(view.get(), "codeViewport"); QVERIFY(viewport);
+        QTRY_VERIFY(viewport->property("contentWidth").toReal() > viewport->width());
+        QVERIFY(!native(view.get()));
+        QTRY_VERIFY(viewport->height() > 0);
+        QCoreApplication::processEvents();
+        viewport->setProperty("contentY", viewport->height() * 2);
+        QCoreApplication::processEvents();
+        const auto before = viewport->property("contentY").toReal(); QVERIFY(before > 0);
+        view->setProperty("codeBlockWrapEnabled", true);
+        QTRY_VERIFY(viewport->property("contentY").toReal() > before);
+        QCOMPARE(viewport->property("contentX").toReal(), 0.0);
+        QVERIFY(!native(view.get()));
+        view->setProperty("codeBlockWrapEnabled", false);
+        QTRY_VERIFY(qAbs(viewport->property("contentY").toReal() - before) < 1);
+    }
     void scrollbarsAndShortBlocks() {
         QQmlEngine engine; auto view = create(engine); QVERIFY(view);
         QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(240, 600); window.show();
@@ -161,6 +239,11 @@ private slots:
         auto *viewport = named(view.get(), "codeViewport"); QVERIFY(viewport);
         QTRY_COMPARE(viewport->height(), 250.0);
         QCOMPARE(viewport->property("contentY").toReal(), 0.0);
+        view->setProperty("codeBlockViewportHeight", 1);
+        const auto effectiveLineHeight = text->sourceLines()[0].toMap().value("height").toReal();
+        QTRY_COMPARE(viewport->height(), effectiveLineHeight);
+        view->setProperty("codeBlockViewportHeight", 500);
+        QTRY_COMPARE(viewport->height(), 250.0);
         const auto natural = text->logicalHeight();
         view->setProperty("codeBlockWrapEnabled", true);
         QTRY_VERIFY(text->logicalHeight() > natural);

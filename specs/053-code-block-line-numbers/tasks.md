@@ -7,3 +7,11 @@ Approval: approved on 2026-10-16 by the user instruction to implement the suppli
 - [x] Update public API documentation and installed metadata; inspect the source allowlist (no new library files).
 - [ ] Record focused verification, full Qt 6.8.0/6.12.0 shared/static backend OFF/ON matrix, lint, imports, relocated consumers, extracted source and Arch checks.
 - [ ] Finalize 1.12 release documentation together; open one release PR and pass final-head packaging and release gate. Preserve published 1.11 summaries during development.
+
+## Requirement-to-check mapping
+
+| Requirement | Implementation/check |
+|---|---|
+| R053.1 | lineGeometry at 1/9/10/99/100 lines with wrap/highlighting combinations |
+| R053.2 | wrappingHeightGutterAndFind; wheelBoundaryHandoff; accessibility/exclusion review |
+| R053.3 | lineGeometry color/baseline tests; gutter-width loop and independent SyntaxRequest review |
