@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.21)
-project(QMarkdown VERSION 1.10.0 LANGUAGES C CXX)
+project(QMarkdown VERSION 1.11.0 LANGUAGES C CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(QMARKDOWN_BUILD_EXAMPLES "Build examples" OFF)
 option(QMARKDOWN_BUILD_BENCHMARKS "Build standalone advisory benchmarks (requires tests)" OFF)
+option(QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING "Enable private syntax highlighting backend" OFF)
+if(QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
+    find_package(KF6SyntaxHighlighting 6.10 REQUIRED)
+endif()
 option(BUILD_TESTING "Build tests" OFF)
 set(QMARKDOWN_QML_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt6/qml" CACHE STRING
     "QML import directory, relative to the installation prefix or absolute")

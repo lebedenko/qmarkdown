@@ -3,5 +3,8 @@
 set_and_check(QMarkdown_QML_IMPORT_PATH "@PACKAGE_QMARKDOWN_QML_INSTALL_DIR@")
 include(CMakeFindDependencyMacro)
 find_dependency(Qt6 6.8 COMPONENTS Core Gui Qml Quick Network)
+if(@QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING@ AND NOT @BUILD_SHARED_LIBS@)
+    find_dependency(KF6SyntaxHighlighting 6.10)
+endif()
 include("${CMAKE_CURRENT_LIST_DIR}/QMarkdownTargets.cmake")
 check_required_components(QMarkdown)

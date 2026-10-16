@@ -7,6 +7,12 @@ import QMarkdownViewer.Tools
 
 ColumnLayout {
     id: panel
+    property alias syntaxEnabled: syntaxToggle.checked
+    property alias syntaxDark: syntaxDarkToggle.checked
+    RowLayout {
+        CheckBox { id: syntaxToggle; text: "Syntax colors"; objectName: "syntaxToggle" }
+        CheckBox { id: syntaxDarkToggle; text: "Dark syntax palette"; objectName: "syntaxDarkToggle" }
+    }
     required property MarkdownStyle targetStyle
     required property color defaultLinkColor
     required property color defaultTextColor

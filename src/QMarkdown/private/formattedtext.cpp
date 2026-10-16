@@ -212,6 +212,18 @@ void FormattedText::updatePolish()
             }
             formats = split;
         }
+        QVector<QColor> tokenColors(m_text.size());
+        for (const auto &value : m_foregroundRanges) {
+            const auto range = value.toMap();
+            const qint64 start = range.value("start").toLongLong();
+            const qint64 length = range.value("length").toLongLong();
+            const QColor color = range.value("color").value<QColor>();
+            if (start < 0 || length <= 0 || start >= m_text.size() || !color.isValid()) continue;
+            const int end = int(start + qMin(length, qint64(m_text.size()) - start));
+            QTextCharFormat format; format.setForeground(color);
+            formats.append({int(start), end - int(start), format});
+            for (int pos = int(start); pos < end; ++pos) tokenColors[pos] = color;
+        }
         m_layout->setFormats(formats);
         struct Cell { int source, code; QRectF rect; qreal shift = 0; bool reversed = false; };
         auto cellsFor = [&](QTextLine line) {
@@ -301,6 +313,7 @@ void FormattedText::updatePolish()
                     int source = int(indexes[i]);
                     while (source > line.textStart() && !m_layout->isValidCursorPosition(source)) --source;
                     const QColor foreground = links[source] >= 0 ? m_linkColor
+                        : tokenColors[source].isValid() ? tokenColors[source]
                         : codes[source] >= 0 && m_codeForeground.isValid() ? m_codeForeground : m_color;
                     const qreal glyphShift = shifts[source - line.textStart()];
                     if (foreground != color || glyphShift != fragmentShift || formatIdentities[source] != fragmentFormat) {

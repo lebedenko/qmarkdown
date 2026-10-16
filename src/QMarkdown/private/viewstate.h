@@ -1,5 +1,6 @@
 #pragma once
 #include "../markdownstyle.h"
+#include "syntaxhighlighter.h"
 #include "presentation.h"
 #include "linkcontroller.h"
 #include "resourcecontroller.h"
@@ -53,6 +54,9 @@ class ViewState : public QObject
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(bool syntaxHighlightingEnabled READ syntaxHighlightingEnabled WRITE setSyntaxHighlightingEnabled NOTIFY syntaxHighlightingEnabledChanged FINAL)
+    Q_PROPERTY(bool syntaxHighlightingAvailable READ syntaxHighlightingAvailable CONSTANT FINAL)
+    Q_PROPERTY(SyntaxTheme *syntaxTheme READ syntaxTheme WRITE setSyntaxTheme NOTIFY syntaxThemeChanged FINAL)
     Q_PROPERTY(LinkController *linkController READ linkController CONSTANT FINAL)
     Q_PROPERTY(bool searchActive READ searchActive WRITE setSearchActive NOTIFY searchActiveChanged FINAL)
     Q_PROPERTY(QString searchQuery READ searchQuery WRITE setSearchQuery NOTIFY searchQueryChanged FINAL)
@@ -79,6 +83,20 @@ class ViewState : public QObject
     Q_PROPERTY(MarkdownResourcePolicy *resourcePolicy READ resourcePolicy WRITE setResourcePolicy RESET resetResourcePolicy NOTIFY resourcePolicyChanged FINAL)
     Q_PROPERTY(QAbstractItemModel *blocks READ blocks CONSTANT FINAL)
 public:
+    bool syntaxHighlightingEnabled() const { return m_syntaxEnabled; }
+    void setSyntaxHighlightingEnabled(bool value) {
+        if (m_syntaxEnabled == value) return;
+        m_syntaxEnabled = value; emit syntaxHighlightingEnabledChanged();
+    }
+    bool syntaxHighlightingAvailable() const { return QMarkdownPrivate::syntaxHighlightingAvailable(); }
+    SyntaxTheme *syntaxTheme() { if (!m_defaultSyntaxTheme) m_defaultSyntaxTheme = new SyntaxTheme(this); return m_syntaxTheme ? m_syntaxTheme.data() : m_defaultSyntaxTheme; }
+    void setSyntaxTheme(SyntaxTheme *value) {
+        if (m_syntaxTheme == value) return;
+        disconnect(m_syntaxThemeDestroyed);
+        m_syntaxTheme = value;
+        if (value) m_syntaxThemeDestroyed = connect(value, &QObject::destroyed, this, [this] { m_syntaxTheme = nullptr; emit syntaxThemeChanged(); });
+        emit syntaxThemeChanged();
+    }
     LinkController *linkController() const { return m_linkController; }
     bool searchActive() const { return m_searchActive; }
     void setSearchActive(bool value);
@@ -149,6 +167,8 @@ public:
     void resetStyle();
     QAbstractItemModel *blocks() { return &m_blocks; }
 signals:
+    void syntaxHighlightingEnabledChanged();
+    void syntaxThemeChanged();
     void searchActiveChanged();
     void searchQueryChanged();
     void searchCaseSensitiveChanged();
@@ -174,6 +194,10 @@ signals:
     void extendedAutolinksEnabledChanged();
     void styleChanged();
 private:
+    bool m_syntaxEnabled = false;
+    SyntaxTheme *m_defaultSyntaxTheme = nullptr;
+    QPointer<SyntaxTheme> m_syntaxTheme;
+    QMetaObject::Connection m_syntaxThemeDestroyed;
     friend class LinkController;
     LinkController *m_linkController;
     void rebuildSearch();

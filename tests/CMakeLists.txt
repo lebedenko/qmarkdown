@@ -184,3 +184,27 @@ endif()
 add_test(NAME qmarkdown-keyboard COMMAND qmarkdown-keyboard-test)
 set_tests_properties(qmarkdown-keyboard PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-syntax-test tst_syntax.cpp
+    ../src/QMarkdown/private/syntaxbackend.cpp
+    ../src/QMarkdown/private/syntaxhighlighter.cpp ../src/QMarkdown/syntaxtheme.cpp)
+target_include_directories(qmarkdown-syntax-test PRIVATE ../src/QMarkdown)
+target_compile_definitions(qmarkdown-syntax-test PRIVATE QMARKDOWN_SYNTAX_TESTING)
+target_link_libraries(qmarkdown-syntax-test PRIVATE Qt6::Test Qt6::Gui Qt6::Qml)
+if(QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
+    target_link_libraries(qmarkdown-syntax-test PRIVATE KF6::SyntaxHighlighting)
+    target_compile_definitions(qmarkdown-syntax-test PRIVATE QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
+endif()
+add_test(NAME qmarkdown-syntax COMMAND qmarkdown-syntax-test)
+set_tests_properties(qmarkdown-syntax PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+
+qt_add_executable(qmarkdown-syntax-view-test tst_syntaxview.cpp)
+target_include_directories(qmarkdown-syntax-view-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-syntax-view-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-syntax-view-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-syntax-view-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-syntax-view COMMAND qmarkdown-syntax-view-test)
+set_tests_properties(qmarkdown-syntax-view PROPERTIES
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

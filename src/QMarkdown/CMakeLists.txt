@@ -27,7 +27,7 @@ set_source_files_properties(private/TaskIndicatorHost.qml PROPERTIES
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
-    VERSION 1.10
+    VERSION 1.11
     PLUGIN_TARGET QMarkdownPlugin
     CLASS_NAME QMarkdownPlugin
     RESOURCE_PREFIX /qt/qml
@@ -37,7 +37,8 @@ qt_add_qml_module(QMarkdown
         private/BlockSequence.qml private/TextBlock.qml private/SelectableText.qml
         private/ImageBlock.qml private/ListBlock.qml private/HeadingSeparator.qml
         private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/TaskIndicatorHost.qml private/Layout.js
-    SOURCES private/linkcontroller.h private/linkcontroller.cpp private/taskindicatoritem.cpp private/taskindicatoritem.h private/selectionregistration.h private/selectionregistration.cpp
+    SOURCES syntaxtheme.h syntaxtheme.cpp private/syntaxhighlighter.h private/syntaxhighlighter.cpp private/syntaxbackend.cpp
+        private/linkcontroller.h private/linkcontroller.cpp private/taskindicatoritem.cpp private/taskindicatoritem.h private/selectionregistration.h private/selectionregistration.cpp
         private/presentation.h private/presentation.cpp private/decodescheduler.h private/decodescheduler.cpp markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
         private/document.h private/document.cpp private/viewstate.h private/viewstate.cpp
         private/inline.h private/inlineadapter.h private/inline.cpp private/formattedtext.h private/formattedtext.cpp private/formatintervals.h private/formatintervals.cpp
@@ -47,6 +48,10 @@ target_sources(QMarkdown PRIVATE $<TARGET_OBJECTS:qmarkdown_cmark>)
 target_include_directories(QMarkdown PRIVATE "${PROJECT_SOURCE_DIR}/third_party/cmark/src")
 add_library(QMarkdown::QMarkdown ALIAS QMarkdown)
 target_link_libraries(QMarkdown PUBLIC Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::Network)
+if(QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
+    target_link_libraries(QMarkdown PRIVATE KF6::SyntaxHighlighting)
+    target_compile_definitions(QMarkdown PRIVATE QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
+endif()
 set_target_properties(QMarkdown PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION 1)
 
 install(TARGETS QMarkdown ${qmarkdown_auxiliary_targets}

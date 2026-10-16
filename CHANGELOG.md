@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.0 — 2026-10-16
+
+- Add opt-in fenced-code syntax highlighting through optional private KSyntaxHighlighting >=6.10.0; source builds default OFF and Arch packages enable it.
+- Add backend availability and replaceable Light/Dark SyntaxTheme palettes with resettable colors and live overrides independent of Markdown styling.
+- Tokenize asynchronously on one application worker with cancellation, deduplication, bounded semantic caching and whole-block resource limits.
+- Preserve custom renderer precedence, searchable/selectable source, exact copy payloads and native code layout.
+- Add syntax controls/samples and extend shared/static packaging to backend OFF/ON with pinned KDE/ECM 6.10.0.
+
 ## 1.10.0 — 2026-10-15
 
 - Add opt-in Tab/Shift+Tab traversal of native logical links, boundary exit through host focus, and Enter/Return activation.

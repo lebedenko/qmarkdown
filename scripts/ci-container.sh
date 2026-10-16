@@ -31,7 +31,11 @@ cd /artifacts
     findmnt -n -o OPTIONS /source
     findmnt -n -o OPTIONS /artifacts/source
 } > tool-versions.txt
-python3 /source/scripts/verify-packaging.py --qt-root "$QT_ROOT_DIR" --work-dir /artifacts/packaging
+for backend in OFF ON; do
+    python3 /source/scripts/verify-packaging.py --qt-root "$QT_ROOT_DIR" \
+        --kde-prefix /opt/kde-6.10.0 --syntax-highlighting "$backend" \
+        --work-dir "/artifacts/packaging-$backend"
+done
 cmake -S /source -B /artifacts/benchmarks \
     -DQt6_DIR="$QT_ROOT_DIR/lib/cmake/Qt6" -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR" \
     -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -DQMARKDOWN_BUILD_EXAMPLES=OFF \

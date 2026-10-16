@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown 1.10
+import QMarkdown 1.11
 import QMarkdownViewer.Tools
 
 ApplicationWindow {
@@ -261,6 +261,8 @@ ApplicationWindow {
                         contentHeight: preview.contentHeight
                         ScrollBar.vertical: ScrollBar {}
                         MarkdownView {
+                            syntaxHighlightingEnabled: stylePanel.syntaxEnabled
+                            syntaxTheme: SyntaxTheme { preset: stylePanel.syntaxDark ? SyntaxTheme.Dark : SyntaxTheme.Light }
                             keyboardNavigationEnabled: true
                             selectionEnabled: selectionToggle.checked
                             selectionViewport: previewScroll

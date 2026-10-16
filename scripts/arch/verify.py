@@ -41,6 +41,8 @@ def main():
     qt = re.search(r'depend = qt6-base>=(\d+\.\d+\.\d+)\n', metadata)
     if not qt or f'depend = qt6-declarative>={qt[1]}\n' not in metadata:
         raise RuntimeError('Missing Qt build-version lower bounds')
+    if 'depend = syntax-highlighting>=6.10.0\n' not in metadata:
+        raise RuntimeError('Missing syntax-highlighting dependency')
     for dependency in ('glibc', 'gcc-libs'):
         if f'depend = {dependency}\n' not in metadata:
             raise RuntimeError(f'Missing dependency: {dependency}')
@@ -87,6 +89,14 @@ def main():
                 raise RuntimeError('Wrong ELF architecture')
             if 'not found' in output('ldd', path):
                 raise RuntimeError(f'Unresolved dependencies: {path}')
+    for link in ('ON', 'OFF'):
+        syntax_build = Path('/work') / f'syntax-{link}'
+        run('cmake', '-S', '/tools/installed-consumer', '-B', syntax_build,
+            '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
+            '-DQMARKDOWN_SYNTAX_CONSUMER=ON', f'-DQMARKDOWN_REQUEST_VERSION={version}',
+            '-DQMARKDOWN_REQUEST_EXACT=ON')
+        run('cmake', '--build', syntax_build, '--parallel', '2')
+        run(syntax_build / 'qmarkdown-consumer')
     integrity = output('pacman', '-Qkk', 'qmarkdown')
     print(integrity)
     if '0 altered files' not in integrity:

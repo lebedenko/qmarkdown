@@ -6,7 +6,7 @@ import subprocess
 import tarfile
 
 
-def verify(archive, qt, work):
+def verify(archive, qt, work, backend="OFF", kde_prefix=None):
     if work.exists() and any(work.iterdir()):
         raise ValueError('Distribution check directory must be empty')
     work.mkdir(parents=True, exist_ok=True)
@@ -27,7 +27,8 @@ def verify(archive, qt, work):
     build, prefix = work / 'build', work / 'install'
     commands = [
         ['cmake', '-S', extracted, '-B', build, '-DCMAKE_BUILD_TYPE=Release',
-         f'-DCMAKE_PREFIX_PATH={qt}', f'-DQt6_DIR={qt}/lib/cmake/Qt6',
+         f'-DCMAKE_PREFIX_PATH={qt};{kde_prefix or qt}',
+         f'-DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING={backend}', f'-DQt6_DIR={qt}/lib/cmake/Qt6',
          f'-DCMAKE_INSTALL_PREFIX={prefix}', '-DCMAKE_INSTALL_LIBDIR=lib'],
         ['cmake', '--build', build, '--parallel', '2'],
         ['cmake', '--install', build],
@@ -58,8 +59,10 @@ def main():
     parser.add_argument('--archive', type=Path, required=True)
     parser.add_argument('--qt-root', type=Path, required=True)
     parser.add_argument('--work-dir', type=Path, required=True)
+    parser.add_argument('--syntax-highlighting', choices=('OFF', 'ON'), default='OFF')
+    parser.add_argument('--kde-prefix', type=Path)
     args = parser.parse_args()
-    verify(args.archive.resolve(), args.qt_root.resolve(), args.work_dir.resolve())
+    verify(args.archive.resolve(), args.qt_root.resolve(), args.work_dir.resolve(), args.syntax_highlighting, args.kde_prefix)
 
 
 if __name__ == '__main__':

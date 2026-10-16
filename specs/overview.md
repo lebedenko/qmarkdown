@@ -3,18 +3,18 @@
 ## Current release
 
 <!-- current-release:start -->
-Package **1.10.0 / QML 1.10**. Release assets: [1.10.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.10.0).
+Package **1.11.0 / QML 1.11**. Release assets: [1.11.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.11.0).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
 host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
 selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.10.0.md) and
+See the [release notes](../docs/release-notes-1.11.0.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.10.0 accepts compatible 1.0–1.10 requests and
-EXACT 1.10.0; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.11.0 accepts compatible 1.0–1.11 requests and
+EXACT 1.11.0; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
 
@@ -22,13 +22,18 @@ Reading tools include literal Find with independent highlights, a recursive head
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](../docs/reading-navigation.md).
 
-QML 1.10 adds opt-in keyboard link traversal, visible focus and one accessible
+QML 1.11 retains opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
 Controls style. Keyboard traversal defaults off; accessible links remain available
 without keyboard opt-in. Task indicators remain read-only. Private QML
 responsibilities are refactored without a new public C++ surface.
+
+Optional fenced-code syntax highlighting uses a private KSyntaxHighlighting backend.
+It defaults off per view; source builds default the dependency off, while Arch
+enables it and requires `syntax-highlighting>=6.10.0`. Hosts control a separate
+Light/Dark token palette. See the [syntax guide](../docs/syntax-highlighting.md).
 <!-- current-release:end -->
 
 ## Historical 1.6.0 status
@@ -58,7 +63,7 @@ Full CommonMark parsing conformance, initially pinned to CommonMark 0.31.2, is a
 
 - Resource policies: Feature 010 implements opt-in PNG/JPEG access and Feature 009 reports link destinations to hosts. SVG, additional formats and richer raw HTML behavior require later policy/design approval. Feature 001’s no-resource/no-link slice remains historical.
 - Streaming: shared semantics for static and appended input, with incremental parsing/rendering considered in its own feature.
-- Bundled renderer engines: highlighting, Mermaid and math remain deferred.
+- Optional fenced-code highlighting is available in 1.11; bundled Mermaid and math engines remain deferred.
 
 [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14,
 implements host-provided fenced-block QML Components delivered in 1.8 and
