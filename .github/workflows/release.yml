@@ -110,8 +110,11 @@ jobs:
             --mount "type=bind,src=$GITHUB_WORKSPACE,dst=/source,readonly" \
             --mount "type=bind,src=$RUNNER_TEMP/source-check,dst=/checks" \
             --env CI_QT_VERSION="$CI_QT_VERSION" --env VERSION="$VERSION" "$IMAGE_TAG" bash -euc '
-              python3 /source/scripts/verify-source-archive.py --archive "/source/release-assets/qmarkdown-$VERSION.tar.gz" \
-                --qt-root "/opt/Qt/$CI_QT_VERSION/gcc_64" --work-dir /checks/results
+              for backend in OFF ON; do
+                python3 /source/scripts/verify-source-archive.py --archive "/source/release-assets/qmarkdown-$VERSION.tar.gz" \
+                  --qt-root "/opt/Qt/$CI_QT_VERSION/gcc_64" --kde-prefix /opt/kde-6.10.0 \
+                  --syntax-highlighting "$backend" --work-dir "/checks/results-$backend"
+              done
             '
   arch:
     needs: eligible

@@ -4,3 +4,5 @@ RUN bash /opt/provision/common.sh
 COPY qt.sh qt_versions.py qt-versions.json /opt/provision/
 ARG CI_QT_VERSION
 RUN bash /opt/provision/qt.sh
+COPY kde.sh /opt/provision/kde.sh
+RUN bash /opt/provision/kde.sh

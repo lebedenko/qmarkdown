@@ -268,6 +268,7 @@ void ViewState::resetStyle()
 namespace {
 void registerPrivateTypes()
 {
+    qmlRegisterType<QMarkdownPrivate::SyntaxRequest>("QMarkdown.Private", 1, 0, "SyntaxRequest");
     qmlRegisterType<::FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
     registerTaskIndicatorAccessibility();
     registerLinkAccessibility();

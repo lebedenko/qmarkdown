@@ -103,9 +103,9 @@ jobs:
             ${{ runner.temp }}/qmarkdown-ci/*.json
             ${{ runner.temp }}/qmarkdown-ci/*.txt
             ${{ runner.temp }}/qmarkdown-ci/os-release
-            ${{ runner.temp }}/qmarkdown-ci/packaging/**/Testing/Temporary/*.log
-            ${{ runner.temp }}/qmarkdown-ci/packaging/**/commonmark-report.json
-            ${{ runner.temp }}/qmarkdown-ci/packaging/**/CMakeConfigureLog.yaml
+            ${{ runner.temp }}/qmarkdown-ci/packaging-*/**/Testing/Temporary/*.log
+            ${{ runner.temp }}/qmarkdown-ci/packaging-*/**/commonmark-report.json
+            ${{ runner.temp }}/qmarkdown-ci/packaging-*/**/CMakeConfigureLog.yaml
             ${{ runner.temp }}/qmarkdown-ci/benchmarks/benchmark.json
           retention-days: 14
   release-gate:

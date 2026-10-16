@@ -4,9 +4,9 @@ set -euo pipefail
 mode=$1
 pacman -Syu --noconfirm
 if [[ $mode == build ]]; then
-    pacman -S --needed --noconfirm base-devel cmake ninja git python noto-fonts qt6-base qt6-declarative
+    pacman -S --needed --noconfirm base-devel cmake ninja git python noto-fonts qt6-base qt6-declarative syntax-highlighting
 else
-    pacman -S --needed --noconfirm base-devel cmake ninja git python namcap noto-fonts qt6-base qt6-declarative
+    pacman -S --needed --noconfirm base-devel cmake ninja git python namcap noto-fonts qt6-base qt6-declarative syntax-highlighting
 fi
 retain_build_evidence() {
     local status=$?

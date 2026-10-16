@@ -20,9 +20,9 @@ private slots:
         QTest::addColumn<QByteArray>("version");
         QTest::addColumn<QByteArray>("type");
         QTest::addColumn<bool>("accepted");
-        for (const QByteArray &version : {QByteArray("1.0"), QByteArray("1.1"), QByteArray("1.2"), QByteArray("1.3"), QByteArray("1.4"), QByteArray("1.5"), QByteArray("1.6"), QByteArray("1.7"), QByteArray("1.8"), QByteArray("1.9"), QByteArray("1.10"), QByteArray("1.11"), QByteArray(""), QByteArray("0.7")}) {
+        for (const QByteArray &version : {QByteArray("1.0"), QByteArray("1.1"), QByteArray("1.2"), QByteArray("1.3"), QByteArray("1.4"), QByteArray("1.5"), QByteArray("1.6"), QByteArray("1.7"), QByteArray("1.8"), QByteArray("1.9"), QByteArray("1.10"), QByteArray("1.11"), QByteArray("1.12"), QByteArray(""), QByteArray("0.7")}) {
             for (const QByteArray &type : {QByteArray("MarkdownView"), QByteArray("MarkdownStyle"), QByteArray("MarkdownResourcePolicy")}) {
-                QTest::newRow((version + "-" + type).constData()) << version << type << (version != "0.7" && version != "1.11");
+                QTest::newRow((version + "-" + type).constData()) << version << type << (version != "0.7" && version != "1.12");
             }
         }
     }

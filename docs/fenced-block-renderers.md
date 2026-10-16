@@ -64,7 +64,7 @@ uses the ordinary source projection. The view never writes the clipboard.
 
 The playground's Custom fenced renderers sample uses native QtQuick Items only.
 Enable Custom fences and disable Document selection to view it; re-enable selection
-to inspect source. Bundled highlighting, Mermaid, math, inline extensions and public
+to inspect source. Optional library-owned [syntax highlighting](syntax-highlighting.md) is available since 1.11. Mermaid, math, inline extensions and public
 C++ APIs remain deferred. See the [API reference](api.md) and
 [Feature 042](../specs/042-custom-fenced-block-renderers/requirements.md).
 

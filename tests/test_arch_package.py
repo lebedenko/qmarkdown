@@ -31,7 +31,7 @@ class ArchRecipeTest(unittest.TestCase):
                 'source "$1"; printf "%s\\n" "$pkgname-$pkgver-$pkgrel-${arch[0]}" "${depends[@]}" "${sha256sums[@]}" "${options[@]}"',
                 'recipe', str(path)], text=True).splitlines()
         self.assertEqual(result, ['qmarkdown-2.3.4-2-x86_64', 'glibc', 'gcc-libs',
-            'qt6-base>=6.12.1', 'qt6-declarative>=6.12.1', 'a' * 64, '!debug'])
+            'qt6-base>=6.12.1', 'qt6-declarative>=6.12.1', 'syntax-highlighting>=6.10.0', 'a' * 64, '!debug'])
         self.assertIn('-DCMAKE_SKIP_INSTALL_RPATH=ON', rendered)
         self.assertNotIn('@VERSION@', rendered)
 
@@ -39,6 +39,7 @@ class ArchRecipeTest(unittest.TestCase):
         rendered = arch.recipe((ROOT / 'scripts/arch/PKGBUILD.in').read_text(), '2.3.4', '1', '6.12.0', 'a' * 64)
         self.assertIn("source=('qmarkdown-2.3.4.tar.gz')", rendered)
         self.assertIn('-DBUILD_TESTING=OFF', rendered)
+        self.assertIn('-DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING=ON', rendered)
         self.assertNotIn('check()', rendered)
         self.assertNotIn('ctest', rendered)
 
