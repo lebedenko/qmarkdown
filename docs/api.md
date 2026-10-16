@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.11.0 / QML 1.11 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.12.0 / QML 1.12 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.11` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.12` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -180,7 +180,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.11 CONFIG REQUIRED)
+find_package(QMarkdown 1.12 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
@@ -206,3 +206,11 @@ type, function, variable, builtIn, string, number, comment, preprocessor, operat
 constant and error color properties. Explicit overrides survive preset changes;
 live edits recolor existing source without tokenization. See the
 [palette and fallback contract](syntax-highlighting.md).
+
+## Code-block source layout
+
+See [code-block usability](code-blocks.md) for the view-wide wrapping, optional
+source-line numbers, bounded source height, internal scrollbars and extended
+language-aware `codeBlockActions` contract. Defaults preserve wrapping and natural
+height; line numbers and height limiting default off. Headers and clipboard writes
+remain host-owned.

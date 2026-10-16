@@ -7,6 +7,25 @@ import QMarkdownViewer.Tools
 
 ColumnLayout {
     id: panel
+    property alias codeWrap: wrapToggle.checked
+    property alias codeNumbers: numbersToggle.checked
+    property alias codeLimit: limitToggle.checked
+    property alias codeRatio: ratioControl.value
+    property alias codeMinimum: minimumControl.value
+    property alias codeMaximum: maximumControl.value
+    RowLayout {
+        CheckBox { id: wrapToggle; text: "Wrap code" }
+        CheckBox { id: numbersToggle; text: "Line numbers"; checked: true }
+        CheckBox { id: limitToggle; text: "Limit code height"; checked: true }
+    }
+    RowLayout {
+        Label { text: "Viewport %" }
+        SpinBox { id: ratioControl; from: 1; to: 100; value: 50; editable: true }
+        Label { text: "Min lines" }
+        SpinBox { id: minimumControl; from: 1; to: 100; value: 8; editable: true }
+        Label { text: "Max lines" }
+        SpinBox { id: maximumControl; from: 1; to: 1000; value: 30; editable: true }
+    }
     property alias syntaxEnabled: syntaxToggle.checked
     property alias syntaxDark: syntaxDarkToggle.checked
     RowLayout {

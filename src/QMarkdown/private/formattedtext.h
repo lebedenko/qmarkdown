@@ -36,8 +36,15 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(qreal codeCornerRadius READ codeCornerRadius WRITE setCodeCornerRadius NOTIFY codeCornerRadiusChanged FINAL)
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged FINAL)
     Q_PROPERTY(qreal layoutWidth READ layoutWidth WRITE setLayoutWidth NOTIFY layoutWidthChanged FINAL)
+    Q_PROPERTY(bool wrapEnabled READ wrapEnabled WRITE setWrapEnabled NOTIFY wrapEnabledChanged FINAL)
+    Q_PROPERTY(qreal logicalWidth READ logicalWidth NOTIFY layoutChanged FINAL)
+    Q_PROPERTY(QVariantList sourceLines READ sourceLines NOTIFY layoutChanged FINAL)
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
+    bool wrapEnabled() const { return m_wrapEnabled; }
+    void setWrapEnabled(bool value) { if (m_wrapEnabled == value) return; m_wrapEnabled = value; emit wrapEnabledChanged(); polish(); }
+    qreal logicalWidth() const { return m_logicalWidth; }
+    QVariantList sourceLines() const { return m_sourceLines; }
     explicit FormattedText(QQuickItem *parent = nullptr);
     QVariantList foregroundRanges() const { return m_foregroundRanges; }
     void setForegroundRanges(const QVariantList &value) {
@@ -68,6 +75,7 @@ public:
     void setSelectionStart(int value);
     void setSelectionEnd(int value);
     void setSelectionColor(const QColor &value);
+    Q_INVOKABLE QRectF sourceRectangleAt(int position) const;
     Q_INVOKABLE int cursorAt(qreal x, qreal y) const;
     int characterAt(qreal x, qreal y) const;
     QVector<QRectF> selectionRectangles() const;
@@ -110,6 +118,7 @@ public:
     Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void wrapEnabledChanged();
     void foregroundRangesChanged();
     void focusPaintingChanged();
     void searchPaintingChanged();
@@ -135,6 +144,9 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    bool m_wrapEnabled = true;
+    qreal m_logicalWidth = 0;
+    QVariantList m_sourceLines;
     QVariantList m_foregroundRanges;
     int m_focusedLink = -1;
     QColor m_focusColor;

@@ -4,6 +4,14 @@ import QMarkdown.Private
 
 Item {
     id: root
+    property alias codeBlockWrapEnabled: viewState.codeBlockWrapEnabled
+    property alias codeBlockLineNumbersVisible: viewState.codeBlockLineNumbersVisible
+    property alias codeBlockHeightLimitEnabled: viewState.codeBlockHeightLimitEnabled
+    property alias codeBlockViewportHeight: viewState.codeBlockViewportHeight
+    property alias codeBlockHeightRatio: viewState.codeBlockHeightRatio
+    property alias codeBlockMinimumLines: viewState.codeBlockMinimumLines
+    property alias codeBlockMaximumLines: viewState.codeBlockMaximumLines
+    property alias codeBlockScrollBar: viewState.codeBlockScrollBar
     property alias syntaxHighlightingEnabled: viewState.syntaxHighlightingEnabled
     readonly property bool syntaxHighlightingAvailable: viewState.syntaxHighlightingAvailable
     property alias syntaxTheme: viewState.syntaxTheme

@@ -9,6 +9,9 @@ Item {
     required property bool viewportAvailable
     signal copyRequested(string text)
     required property ViewState coordinator
+    required property string language
+    required property string infoString
+    required property bool fenced
     required property string codeText
     required property Component actions
     property Item actionItem: null
@@ -33,7 +36,13 @@ Item {
         const text = codeText
         const source = actionHost.sourceIdentity
         const component = actions
-        const created = actions.createObject(actionHost, {
+        const metadata = coordinator.codeLanguageMetadata(fenced ? language : "")
+        const created = coordinator.createHostComponent(actions, actionHost, {
+            language: fenced ? language : "",
+            languageId: metadata.languageId,
+            languageName: metadata.languageName,
+            infoString: infoString,
+            fenced: fenced,
             codeText: text,
             requestCopy: function() {
                 if (validity.active && actionHost.viewportAvailable && actionHost.sourceIdentity === source
@@ -59,6 +68,9 @@ Item {
     }
     onActionsChanged: rebuild()
     onCodeTextChanged: rebuild()
+    onLanguageChanged: rebuild()
+    onInfoStringChanged: rebuild()
+    onFencedChanged: rebuild()
     onSourceIdentityChanged: rebuild()
     SelectionRegistration {
         coordinator: actionHost.coordinator

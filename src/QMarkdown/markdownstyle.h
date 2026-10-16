@@ -98,6 +98,7 @@ class CodeBlockStyle : public QObject
     Q_OBJECT
     QML_ANONYMOUS
     QML_ADDED_IN_VERSION(1, 1)
+    Q_PROPERTY(QColor lineNumberColor READ lineNumberColor WRITE setLineNumberColor RESET resetLineNumberColor NOTIFY lineNumberColorChanged FINAL)
     Q_PROPERTY(QFont font READ font WRITE setFont RESET resetFont NOTIFY fontChanged FINAL)
     Q_PROPERTY(QColor color READ color WRITE setColor RESET resetColor NOTIFY colorChanged FINAL)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor RESET resetBackgroundColor NOTIFY backgroundColorChanged FINAL)
@@ -107,6 +108,9 @@ class CodeBlockStyle : public QObject
     Q_PROPERTY(qreal horizontalPadding READ horizontalPadding WRITE setHorizontalPadding RESET resetHorizontalPadding NOTIFY horizontalPaddingChanged FINAL)
     Q_PROPERTY(qreal verticalPadding READ verticalPadding WRITE setVerticalPadding RESET resetVerticalPadding NOTIFY verticalPaddingChanged FINAL)
 public:
+    QColor lineNumberColor() const;
+    void setLineNumberColor(const QColor &value);
+    void resetLineNumberColor();
     explicit CodeBlockStyle(MarkdownStyle *style);
     QFont font() const;
     void setFont(const QFont &value);
@@ -133,6 +137,7 @@ public:
     void setVerticalPadding(qreal value);
     void resetVerticalPadding();
 signals:
+    void lineNumberColorChanged();
     void fontChanged();
     void colorChanged();
     void backgroundColorChanged();
@@ -382,6 +387,7 @@ private:
         qreal cornerRadius{};
         qreal horizontalPadding{};
         qreal verticalPadding{};
+        QColor lineNumberColor{};
     };
     struct TableValues {
         QColor headerForeground{};
@@ -467,6 +473,7 @@ private:
         InlineCodeVerticalPadding,
         CodeBlockFont,
         CodeBlockColor,
+        CodeBlockLineNumberColor,
         CodeBlockBackgroundColor,
         CodeBlockBorderColor,
         CodeBlockBorderWidth,

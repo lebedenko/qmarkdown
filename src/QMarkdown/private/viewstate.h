@@ -9,8 +9,11 @@
 #include <QQuickItem>
 #include <QElapsedTimer>
 #include <QTimer>
+#include <QTextLayout>
+#include <QQmlComponent>
 
 class SelectionRegistration;
+class QQmlComponent;
 
 class BlockModel : public QAbstractListModel
 {
@@ -54,6 +57,14 @@ class ViewState : public QObject
 {
     Q_OBJECT
     QML_ANONYMOUS
+    Q_PROPERTY(bool codeBlockWrapEnabled READ codeBlockWrapEnabled WRITE setCodeBlockWrapEnabled NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(bool codeBlockLineNumbersVisible READ codeBlockLineNumbersVisible WRITE setCodeBlockLineNumbersVisible NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(bool codeBlockHeightLimitEnabled READ codeBlockHeightLimitEnabled WRITE setCodeBlockHeightLimitEnabled NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(qreal codeBlockViewportHeight READ codeBlockViewportHeight WRITE setCodeBlockViewportHeight NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(qreal codeBlockHeightRatio READ codeBlockHeightRatio WRITE setCodeBlockHeightRatio NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(int codeBlockMinimumLines READ codeBlockMinimumLines WRITE setCodeBlockMinimumLines NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(int codeBlockMaximumLines READ codeBlockMaximumLines WRITE setCodeBlockMaximumLines NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(QQmlComponent * codeBlockScrollBar READ codeBlockScrollBar WRITE setCodeBlockScrollBar NOTIFY codeBlockSettingsChanged FINAL)
     Q_PROPERTY(bool syntaxHighlightingEnabled READ syntaxHighlightingEnabled WRITE setSyntaxHighlightingEnabled NOTIFY syntaxHighlightingEnabledChanged FINAL)
     Q_PROPERTY(bool syntaxHighlightingAvailable READ syntaxHighlightingAvailable CONSTANT FINAL)
     Q_PROPERTY(SyntaxTheme *syntaxTheme READ syntaxTheme WRITE setSyntaxTheme NOTIFY syntaxThemeChanged FINAL)
@@ -83,6 +94,28 @@ class ViewState : public QObject
     Q_PROPERTY(MarkdownResourcePolicy *resourcePolicy READ resourcePolicy WRITE setResourcePolicy RESET resetResourcePolicy NOTIFY resourcePolicyChanged FINAL)
     Q_PROPERTY(QAbstractItemModel *blocks READ blocks CONSTANT FINAL)
 public:
+    bool codeBlockWrapEnabled() const { return m_codeBlockWrapEnabled; }
+    void setCodeBlockWrapEnabled(bool value) { if (m_codeBlockWrapEnabled == value) return; m_codeBlockWrapEnabled = value; emit codeBlockSettingsChanged(); }
+    bool codeBlockLineNumbersVisible() const { return m_codeBlockLineNumbersVisible; }
+    void setCodeBlockLineNumbersVisible(bool value) { if (m_codeBlockLineNumbersVisible == value) return; m_codeBlockLineNumbersVisible = value; emit codeBlockSettingsChanged(); }
+    bool codeBlockHeightLimitEnabled() const { return m_codeBlockHeightLimitEnabled; }
+    void setCodeBlockHeightLimitEnabled(bool value) { if (m_codeBlockHeightLimitEnabled == value) return; m_codeBlockHeightLimitEnabled = value; emit codeBlockSettingsChanged(); }
+    qreal codeBlockViewportHeight() const { return m_codeBlockViewportHeight; }
+    void setCodeBlockViewportHeight(qreal value) { if (m_codeBlockViewportHeight == value) return; m_codeBlockViewportHeight = value; emit codeBlockSettingsChanged(); }
+    qreal codeBlockHeightRatio() const { return m_codeBlockHeightRatio; }
+    void setCodeBlockHeightRatio(qreal value) { if (m_codeBlockHeightRatio == value) return; m_codeBlockHeightRatio = value; emit codeBlockSettingsChanged(); }
+    int codeBlockMinimumLines() const { return m_codeBlockMinimumLines; }
+    void setCodeBlockMinimumLines(int value) { if (m_codeBlockMinimumLines == value) return; m_codeBlockMinimumLines = value; emit codeBlockSettingsChanged(); }
+    int codeBlockMaximumLines() const { return m_codeBlockMaximumLines; }
+    void setCodeBlockMaximumLines(int value) { if (m_codeBlockMaximumLines == value) return; m_codeBlockMaximumLines = value; emit codeBlockSettingsChanged(); }
+    QQmlComponent *codeBlockScrollBar() const { return m_codeBlockScrollBar; }
+    void setCodeBlockScrollBar(QQmlComponent *value) {
+        if (m_codeBlockScrollBar == value) return;
+        disconnect(m_codeScrollBarDestroyed);
+        m_codeBlockScrollBar = value;
+        if (value) m_codeScrollBarDestroyed = connect(value, &QObject::destroyed, this, [this] { m_codeBlockScrollBar = nullptr; emit codeBlockSettingsChanged(); });
+        emit codeBlockSettingsChanged();
+    }
     bool syntaxHighlightingEnabled() const { return m_syntaxEnabled; }
     void setSyntaxHighlightingEnabled(bool value) {
         if (m_syntaxEnabled == value) return;
@@ -132,6 +165,11 @@ public:
     int selectionStart() const { return qMin(m_anchor, m_active); }
     int selectionEnd() const { return qMax(m_anchor, m_active); }
     QString selectedText() const { return m_projection.mid(selectionStart(), selectionEnd() - selectionStart()); }
+    Q_INVOKABLE void registerSourceViewport(QQuickItem *item);
+    Q_INVOKABLE QVariantMap plainCodeGeometry(const QVariantMap &input);
+    Q_INVOKABLE QObject *createHostComponent(QQmlComponent *component, QQuickItem *parent, const QVariantMap &properties) const;
+    Q_INVOKABLE QVariantMap codeLanguageMetadata(const QString &language) const;
+    Q_INVOKABLE bool validCodeScrollBar(QObject *object) const;
     Q_INVOKABLE bool validFencedRenderer(QObject *object) const;
     Q_INVOKABLE void selectAll();
     Q_INVOKABLE void clearSelection();
@@ -167,6 +205,7 @@ public:
     void resetStyle();
     QAbstractItemModel *blocks() { return &m_blocks; }
 signals:
+    void codeBlockSettingsChanged();
     void syntaxHighlightingEnabledChanged();
     void syntaxThemeChanged();
     void searchActiveChanged();
@@ -193,7 +232,21 @@ signals:
     void strikethroughEnabledChanged();
     void extendedAutolinksEnabledChanged();
     void styleChanged();
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 private:
+    bool m_codeBlockWrapEnabled = true;
+    bool m_codeBlockLineNumbersVisible = false;
+    bool m_codeBlockHeightLimitEnabled = false;
+    qreal m_codeBlockViewportHeight = 0;
+    qreal m_codeBlockHeightRatio = 0.5;
+    int m_codeBlockMinimumLines = 8;
+    int m_codeBlockMaximumLines = 30;
+    QPointer<QQmlComponent> m_codeBlockScrollBar = nullptr;
+    QVariantMap m_plainCodeInput;
+    std::unique_ptr<QTextLayout> m_plainCodeLayout;
+    QMetaObject::Connection m_codeScrollBarDestroyed;
+    bool m_revealSource = false;
     bool m_syntaxEnabled = false;
     SyntaxTheme *m_defaultSyntaxTheme = nullptr;
     QPointer<SyntaxTheme> m_syntaxTheme;

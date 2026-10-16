@@ -132,6 +132,8 @@ void FormattedText::updatePolish()
     m_hitRegions.clear();
     m_padded = false;
     m_logicalHeight = 0;
+    m_logicalWidth = 0;
+    m_sourceLines.clear();
     m_paintOffset = {};
     if (m_layoutWidth > 0) {
         QString layoutText = m_text;
@@ -141,7 +143,7 @@ void FormattedText::updatePolish()
         m_layout = std::make_unique<QTextLayout>(layoutText, m_layoutFont);
         m_layout->setCacheEnabled(true);
         QTextOption option;
-        option.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
+        option.setWrapMode(m_wrapEnabled ? QTextOption::WrapAtWordBoundaryOrAnywhere : QTextOption::NoWrap);
         m_padded = (m_codeHorizontalPadding > 0 || m_codeVerticalPadding > 0)
             && std::any_of(m_ranges.cbegin(), m_ranges.cend(), [](const QVariant &range) {
                 return range.toMap().value("flags").toInt() & QMarkdownPrivate::Code;
@@ -448,10 +450,23 @@ void FormattedText::updatePolish()
                 else m_codeRects.append(cell);
             }
         }
+        int sourceStart = 0, number = 1;
+        for (int i = 0; i < m_layout->lineCount(); ++i) {
+            const auto line = m_layout->lineAt(i);
+            m_logicalWidth = qMax(m_logicalWidth, line.naturalTextWidth());
+            if (line.textStart() == sourceStart) {
+                m_sourceLines.append(QVariantMap{{"number", number++}, {"start", sourceStart},
+                    {"baseline", line.y() + line.ascent()}, {"top", line.y()}, {"height", line.height()}});
+                const int newline = m_text.indexOf(u'\n', sourceStart);
+                sourceStart = newline < 0 ? m_text.size() + 1 : newline + 1;
+            }
+        }
+        if (m_sourceLines.isEmpty()) m_sourceLines.append(QVariantMap{{"number", 1}, {"start", 0},
+            {"baseline", QFontMetricsF(m_layoutFont).ascent()}, {"top", 0}, {"height", QFontMetricsF(m_layoutFont).height()}});
         if (m_text.isEmpty()) m_logicalHeight = QFontMetricsF(m_layoutFont).height();
         // Raster bounds include ink overhang; wrapping and parent geometry retain
         // the host's logical width and native line height.
-        QRectF bounds(0, 0, m_layoutWidth, m_logicalHeight);
+        QRectF bounds(0, 0, qMax(m_layoutWidth, m_logicalWidth), m_logicalHeight);
         for (const auto &run : m_paintedRuns) bounds = bounds.united(run.glyphs.boundingRect().translated(run.origin));
         for (const auto &rect : m_codeRects) bounds = bounds.united(rect);
         const qreal left = std::floor(bounds.left()) - 1;
@@ -660,4 +675,13 @@ void FormattedText::setCurrentSearchHighlightColor(const QColor &value)
 {
     if (m_currentSearchColor == value) return;
     m_currentSearchColor = value; emit searchPaintingChanged(); update();
+}
+
+QRectF FormattedText::sourceRectangleAt(int position) const
+{
+    if (!m_layout) return {};
+    position = qBound(0, position, int(m_text.size()));
+    auto line = m_layout->lineForTextPosition(position);
+    if (!line.isValid() && m_layout->lineCount()) line = m_layout->lineAt(m_layout->lineCount() - 1);
+    return line.isValid() ? QRectF(line.cursorToX(position), line.y(), 1, line.height()) : QRectF();
 }
