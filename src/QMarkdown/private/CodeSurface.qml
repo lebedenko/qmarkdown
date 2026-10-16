@@ -98,7 +98,8 @@ Rectangle {
     readonly property bool wrapEnabled: coordinator.codeBlockWrapEnabled
     readonly property bool numbersVisible: coordinator.codeBlockLineNumbersVisible && !rendererItem
     readonly property real gutterWidth: {
-        if (!numbersVisible) return 0
+        // advanceWidth() is invokable: track font and DPI metrics explicitly.
+        if (!numbersVisible || metrics.height <= 0 || metrics.font.pixelSize === 0) return 0
         const count = Math.max(1, displayText.split("\n").length)
         let widest = 0
         for (let number = 1; number <= count; ++number)

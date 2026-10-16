@@ -117,6 +117,20 @@ private slots:
         QVERIFY(property.reset(codeStyle));
         QCOMPARE(codeStyle->property("lineNumberColor").value<QColor>(), QColor(20, 30, 40, 60));
     }
+    void gutterTracksFontChanges() {
+        QQmlEngine engine; auto view = create(engine); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
+        view->setProperty("codeBlockLineNumbersVisible", true);
+        view->setProperty("markdown", "```\n" + QString("x\n").repeated(10) + "```");
+        auto *style = view->property("style").value<QObject *>(); QVERIFY(style);
+        auto font = style->property("codeBlockFont").value<QFont>();
+        font.setPixelSize(12); style->setProperty("codeBlockFont", font);
+        auto *surface = named(view.get(), "codeSurface"); QVERIFY(surface);
+        QTRY_VERIFY(surface->property("gutterWidth").toReal() > 16);
+        const auto before = surface->property("gutterWidth").toReal();
+        font.setPixelSize(28); style->setProperty("codeBlockFont", font);
+        QTRY_VERIFY(surface->property("gutterWidth").toReal() > before);
+    }
     void wheelBoundaryHandoff_data() {
         QTest::addColumn<bool>("pixel");
         QTest::newRow("wheel") << false;
