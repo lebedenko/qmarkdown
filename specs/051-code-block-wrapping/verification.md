@@ -24,3 +24,12 @@ The subsequent typography and phased-wheel review has focused coverage, includin
 - Arch metadata, payload, namcap, consumers and pacman lifecycle passed (`build-arch-112`).
 - A later focused review tightened proportional-number width, effective line-height caps and wheel boundary propagation. The final source archive and distribution checks will be refreshed for those runtime changes.
 - The relocated consumer fixture now constructs its code style using a `MarkdownStyle` object; its focused relocated-package check passed (`build-consumer-112`).
+
+## Final implementation inputs — commit 089dc30
+
+- Final host shared/backend-ON build passed; the complete CTest suite passed **31/31**, 92.17 seconds (`/tmp/full-112-final-inputs.log`). New code-block coverage includes ordinary wheel and phased touchpad boundary handoff, plain Text anchor preservation, native Find reveal/manual-scroll stability, tiny viewport caps, source-line baselines, both scrollbar axes and invalid-component fallback.
+- `all_qmllint` passed with no new warnings. The import-only example retains its existing unused-import informational message (`/tmp/lint-112-final-inputs.log`).
+- Deterministic source archive: `build-dist-112-reviewed/qmarkdown-1.12.0.tar.gz`, built from commit 089dc30. All four extracted source build/install checks passed: Qt 6.8.0 and 6.12.0, highlighting OFF and ON (`build-source-112-reviewed-6.8.0`, `build-source-112-reviewed-6.12.0`).
+- Arch package/lifecycle verification of that archive passed metadata, dependency, payload, ownership, namcap, consumer and removal checks (`build-arch-112-reviewed`). Checks ran once per archive candidate; downloaded release consumers were not rerun and no evidence was uploaded as release assets.
+- `python3 scripts/check-docs.py --release` and `git diff --check` passed.
+- The release PR must still pass both final-head packaging jobs and produce its retained release gate. These final-input jobs repeat the complete exact Qt matrix; candidate matrix results above do not replace that gate. Merge, tagging and publication remain separately authorized actions.

@@ -5,8 +5,10 @@ Approval: approved on 2026-10-16 by the user instruction to implement the suppli
 - [x] Implement requirements using the design.
 - [x] Test legacy and optional header properties, required initialization, aliases, unknown/empty metadata, lifetime and exact copy. Update playground header and resources.
 - [x] Update public API documentation and installed metadata; inspect the source allowlist (no new library files).
-- [ ] Record focused verification, full Qt 6.8.0/6.12.0 shared/static backend OFF/ON matrix, lint, imports, relocated consumers, extracted source and Arch checks.
-- [ ] Finalize 1.12 release documentation together; open one release PR and pass final-head packaging and release gate. Preserve published 1.11 summaries during development.
+- [x] Record focused checks, candidate full Qt 6.8.0/6.12.0 shared/static backend OFF/ON matrix, lint/import/relocated consumers, and final-input extracted-source/Arch checks.
+- [ ] Confirm both packaging jobs and the retained release gate on the final PR head.
+- [x] Finalize 1.12 versions and release documentation together, preserving historical 1.11 records.
+- [ ] Deliver the single release PR with its final-head checks; merge/tag/publication require separate authorization.
 
 ## Requirement-to-check mapping
 
