@@ -39,3 +39,11 @@ The subsequent typography and phased-wheel review has focused coverage, includin
 Release [PR #35](https://github.com/lebedenko/qmarkdown/pull/35) contains this change. The first final-head run, 38917243005, exposed a fixture issue in the phased-touchpad row on Qt 6.8: its native delivery agent suppresses pixel-only compatibility ScrollUpdate events after an accepted event. The high-resolution fixture now supplies both pixel and angle deltas, with a touchpad device, ScrollBegin and monotonic event timestamps. Production library inputs are unchanged from 089dc30.
 
 The corrected fixture passed **33/33 code-block cases** against the existing extracted/installed Qt 6.8.0 backend-OFF package (`build-touchpad-112-minimum`, `/tmp/touchpad-112-minimum-fixture-fixed.log`). This isolates the correction from library changes. Final-head packaging and release-gate results are tracked in PR #35's verification section and GitHub checks; they remain required before merge. No 1.12 merge/tag/publication action is authorized by these records.
+
+## Final font-corrected distribution — commit d5d3795
+
+- [PR run 38921182308](https://github.com/lebedenko/qmarkdown/actions/runs/38921182308) passed both exact Qt packaging jobs and the retained release gate on preceding head 53ec0e2. This includes the corrected phased-touchpad fixture across all shared/static backend OFF/ON configurations.
+- The final font-dependency change and its regression are in commit d5d3795. Focused host code-block tests and QML lint passed, with no new lint warnings.
+- Refreshed archive: `build-dist-112-font-final/qmarkdown-1.12.0.tar.gz`. All four extracted source build/install checks passed (`build-source-112-font-final-6.8.0`, `build-source-112-font-final-6.12.0`). The Qt 6.8 backend-OFF installed package also passed **34/34 code-block cases**, including live font resizing and wheel/trackpad handoff.
+- Refreshed Arch metadata, dependency, payload, ownership, namcap, consumer and removal checks passed (`build-arch-112-font-final`).
+- The final PR head repeats packaging and release-gate verification after this evidence update. Its result is retained in GitHub checks and PR #35's verification section; that final-head gate remains mandatory before merge.

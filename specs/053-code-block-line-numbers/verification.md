@@ -43,3 +43,11 @@ The corrected fixture passed **33/33 code-block cases** against the existing ext
 ## Live-font gutter regression
 
 A focused review found that calling the FontMetrics `advanceWidth()` invokable does not by itself establish a font-notification dependency. The gutter binding now reads its font and DPI metrics explicitly. `gutterTracksFontChanges` changes the code font from 12 px to 28 px and verifies that gutter width grows. The focused code-block suite and QML lint passed on Qt 6.12.0. The source distribution checks are refreshed for this QML input change; final-head CI includes the regression on both supported Qt SDKs.
+
+## Final font-corrected distribution — commit d5d3795
+
+- [PR run 38921182308](https://github.com/lebedenko/qmarkdown/actions/runs/38921182308) passed both exact Qt packaging jobs and the retained release gate on preceding head 53ec0e2. This includes the corrected phased-touchpad fixture across all shared/static backend OFF/ON configurations.
+- The final font-dependency change and its regression are in commit d5d3795. Focused host code-block tests and QML lint passed, with no new lint warnings.
+- Refreshed archive: `build-dist-112-font-final/qmarkdown-1.12.0.tar.gz`. All four extracted source build/install checks passed (`build-source-112-font-final-6.8.0`, `build-source-112-font-final-6.12.0`). The Qt 6.8 backend-OFF installed package also passed **34/34 code-block cases**, including live font resizing and wheel/trackpad handoff.
+- Refreshed Arch metadata, dependency, payload, ownership, namcap, consumer and removal checks passed (`build-arch-112-font-final`).
+- The final PR head repeats packaging and release-gate verification after this evidence update. Its result is retained in GitHub checks and PR #35's verification section; that final-head gate remains mandatory before merge.
