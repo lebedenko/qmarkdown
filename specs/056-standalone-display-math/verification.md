@@ -65,3 +65,25 @@ performed or authorized by these records.
   replaced; lifecycle checks ran in disposable containers.
 - Final PR-head required packaging jobs remain mandatory. No merge, tag or
   publication has been performed.
+
+## Post-review bounds and refreshed distribution — 2026-10-17
+
+- Recursive command/argument entry and inline layout methods now share the depth
+  guard. Logical painted area is capped at 4 megapixels before item texture
+  allocation. `recursiveAndPaintBudgets` verifies nested unbraced commands and
+  oversized matrices fall back, followed by successful rendering of a valid input.
+- Focused math tests and the full host Debug suite passed **23/23** after these
+  corrections (77.46 seconds, `/tmp/qmarkdown-math-budget-ctest.log`).
+- Refreshed archive: `build-dist-math-bounded/qmarkdown-1.13.0.tar.gz`, SHA-256
+  `d57b685e69dfb8e4dcaf7f8fcb5bfd514a5ac5d38fba886307f7f5634aec420c`. Both exact Qt extracted-source build/install checks passed
+  (`build-dist-math-bounded/extracted-minimum`, `extracted-development`).
+- The same archive passed the complete Arch metadata, dependency, license/resource
+  payload, ownership, namcap, math consumers, integrity and removal checks
+  (`build-arch-math-bounded`). This supersedes the preceding archive for delivery.
+- Release [PR #36](https://github.com/lebedenko/qmarkdown/pull/36) contains the
+  implementation and evidence. The earlier PR-head run is superseded by the
+  bounds correction; the final head must pass both required packaging jobs and
+  retain its release gate. Current final-head results are tracked in the PR's
+  checks and verification section rather than prewritten here. CI additionally
+  checks math-OFF with shared and static linkage on both SDKs. No release PR merge,
+  tagging or publication has been performed.

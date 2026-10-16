@@ -28,7 +28,7 @@ class Formula;
 /** An empty atom */
 class EmptyAtom : public Atom {
 public:
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     return sptrOf<StrutBox>(0.f, 0.f, 0.f, 0.f);
   }
 
@@ -44,7 +44,7 @@ public:
   PlaceholderAtom(float width, float height, float depth, float shift)
     : _width(width), _height(height), _depth(depth), _shift(shift) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     return sptrOf<StrutBox>(_width, _height, _depth, _shift);
   }
 
@@ -89,7 +89,7 @@ public:
 
   explicit SmashedAtom(const sptr<Atom>& a) : _atom(a), _h(true), _d(true) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     sptr<Box> b = _atom->createBox(env);
     if (_h) b->_height = 0;
     if (_d) b->_depth = 0;
@@ -216,7 +216,7 @@ public:
   explicit MiddleAtom(const sptr<Atom>& a)
     : _base(a), _box(new StrutBox(0, 0, 0, 0)) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     return _box;
   }
 
@@ -380,7 +380,7 @@ public:
     return _atom;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     return _atom->createBox(env);
   }
 

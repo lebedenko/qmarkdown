@@ -17,3 +17,7 @@ Additional Qt adapter changes: record glyph outlines at normalized 1000 px rathe
 than tiny-font drawText operations (avoids QPicture replay glyph loss and keeps
 font/DPI-independent logical geometry); bundled roman text font; strict parsing
 including missing required arguments; private namespace renaming for static linking.
+
+Depth guards also cover recursive command/argument parsing and inline atom layout
+methods, including nested unbraced commands. The library caps painted logical area
+at 4 megapixels before creating an item texture, in addition to per-axis limits.

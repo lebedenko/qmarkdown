@@ -36,12 +36,14 @@ for backend in OFF ON; do
         --kde-prefix /opt/kde-6.10.0 --syntax-highlighting "$backend" \
         --work-dir "/artifacts/packaging-$backend"
 done
-# Disabled math keeps the same QML contract and parser/source behavior.
-cmake -S /source -B /artifacts/math-off \
-    -DQt6_DIR="$QT_ROOT_DIR/lib/cmake/Qt6" -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR" \
-    -DQMARKDOWN_WITH_MATH=OFF -DBUILD_TESTING=ON
-cmake --build /artifacts/math-off --target qmarkdown-math-test QMarkdownPlugin --parallel 2
-ctest --test-dir /artifacts/math-off -R '^qmarkdown-math$' --output-on-failure
+# Disabled math keeps the same QML contract in both linkage variants.
+for linkage in ON OFF; do
+    cmake -S /source -B "/artifacts/math-off-$linkage" \
+        -DQt6_DIR="$QT_ROOT_DIR/lib/cmake/Qt6" -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR" \
+        -DQMARKDOWN_WITH_MATH=OFF -DBUILD_TESTING=ON -DBUILD_SHARED_LIBS="$linkage"
+    cmake --build "/artifacts/math-off-$linkage" --target qmarkdown-math-test QMarkdownPlugin --parallel 2
+    ctest --test-dir "/artifacts/math-off-$linkage" -R '^qmarkdown-math$' --output-on-failure
+done
 cmake -S /source -B /artifacts/benchmarks \
     -DQt6_DIR="$QT_ROOT_DIR/lib/cmake/Qt6" -DCMAKE_PREFIX_PATH="$QT_ROOT_DIR" \
     -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -DQMARKDOWN_BUILD_EXAMPLES=OFF \

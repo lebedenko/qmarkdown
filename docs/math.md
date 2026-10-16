@@ -68,7 +68,7 @@ reads are restricted to embedded assets; document input cannot choose a path.
 
 Limits are 16 KiB UTF-8 input, 64 parser/layout nesting levels, 4096 engine shared
 allocations and 100000 instrumented operations, 16384 logical pixels per axis,
-512 px effective text size, 64 queued/running subscriptions, 1 MiB per recording,
+4 megapixels of logical painted area, 512 px effective text size, 64 queued/running subscriptions, 1 MiB per recording,
 and 64 cached results within a 16 MiB byte budget. Queue saturation falls back to
 source; changing input or presentation can retry. Cache keys include source,
 resolved size and color. No failed or partial result is cached.

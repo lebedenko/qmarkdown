@@ -13,7 +13,7 @@ class CellSpecifier : public Atom {
 public:
   virtual void apply(WrapperBox& box) = 0;
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     return sptrOf<StrutBox>(0.f, 0.f, 0.f, 0.f);
   }
 };
@@ -163,7 +163,7 @@ public:
     return 0;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     if (_n == 0) return sptrOf<StrutBox>(0.f, 0.f, 0.f, 0.f);
 
     float drt = env.getTeXFont()->getDefaultRuleThickness(env.getStyle());
@@ -276,7 +276,7 @@ public:
     _j = c;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto b = _rows->createBox(env);
     b->_type = AtomType::multiRow;
     return b;

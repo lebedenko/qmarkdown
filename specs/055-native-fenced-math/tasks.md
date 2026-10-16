@@ -7,7 +7,7 @@ Approval: requirements, design and tasks approved by the user response “approv
 - [x] T055.3 Implement bounded worker/cache, isolated requests, immutable recordings, teardown and failure paths (R055.3, R055.5).
 - [x] T055.4 Add QML properties, grouped style, dispatch and shared viewport; preserve host renderer precedence and source modes (R055.2, R055.4, R055.6).
 - [x] T055.5 Add mapped parser/service/QML/visual tests and record actual results separately from planned checks.
-- [ ] T055.6 Deliver feature 056, playground, API/dialect guidance, 1.13 versions and release documentation; prepare one release PR and run final verification (R055.7). Do not merge/tag/publish without separate authorization.
+- [x] T055.6 Deliver feature 056, playground, API/dialect guidance, 1.13 versions and release documentation; prepare one release PR and run final verification (R055.7). Do not merge/tag/publish without separate authorization.
 
 ## Requirement-to-check map
 
@@ -20,3 +20,5 @@ Approval: requirements, design and tasks approved by the user response “approv
 | R055.5 | Source/depth/node/operation/geometry/queue/cache limits, forbidden commands, cross-view state, replacement/destruction during pending work |
 | R055.6 | Selection/copy and Find projections, source mode transitions and formula restoration, engine OFF/error paths |
 | R055.7 | Documentation checks, examples, exact Qt 6.8.0/6.12.0 matrix and required final-head packaging jobs |
+
+Delivery: [PR #36](https://github.com/lebedenko/qmarkdown/pull/36). Local and distribution results are recorded in [verification](verification.md); required final-head packaging results remain in the PR checks. Merge/tag/publication remain separately authorized actions.

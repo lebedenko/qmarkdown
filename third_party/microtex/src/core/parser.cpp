@@ -345,7 +345,7 @@ void TeXParser::insert(int beg, int end, const wstring& formula) {
   _insertion = true;
 }
 
-wstring TeXParser::getCommandWithArgs(const wstring& command) {
+wstring TeXParser::getCommandWithArgs(const wstring& command) { tex::QMarkdownDepth qmarkdownGuard;
   if (command == L"left") return getGroup(L"\\left", L"\\right");
 
   auto mac = MacroInfo::get(command);
@@ -413,7 +413,7 @@ wstring TeXParser::forwardBalancedGroup() {
   return sub;
 }
 
-void TeXParser::getOptsArgs(int argc, int opts, Args& args) {
+void TeXParser::getOptsArgs(int argc, int opts, Args& args) { tex::QMarkdownDepth qmarkdownGuard;
   // A maximum of 10 options can be passed to a command,
   // the value will be added at the tail of the args if found any,
   // the last (maximum to 12th) value is reserved for returned value
@@ -482,7 +482,7 @@ bool TeXParser::isValidName(const wstring& com) const {
   return isalpha(c);
 }
 
-sptr<Atom> TeXParser::processEscape() {
+sptr<Atom> TeXParser::processEscape() { tex::QMarkdownDepth qmarkdownGuard;
   _spos = _pos;
   const wstring command = getCommand();
 
@@ -599,7 +599,7 @@ sptr<Atom> TeXParser::getScripts(wchar_t first) {
   return sptrOf<ScriptsAtom>(atom, sub, sup);
 }
 
-sptr<Atom> TeXParser::getArgument() {
+sptr<Atom> TeXParser::getArgument() { tex::QMarkdownDepth qmarkdownGuard;
   skipWhiteSpace();
   wchar_t ch;
   if (_pos < _len) ch = _latex[_pos];

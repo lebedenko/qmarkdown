@@ -26,7 +26,7 @@ public:
   BigDelimiterAtom(const sptr<SymbolAtom>& delim, int size)
     : _delim(delim), _size(size) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto b = DelimiterFactory::create(*_delim, env, _size);
     auto* hb = new HBox();
     float h = b->_height;
@@ -50,7 +50,7 @@ public:
 
   explicit BoldAtom(const sptr<Atom>& base) : _base(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     if (_base != nullptr) {
       Environment& e = *(env.copy(env.getTeXFont()->copy()));
       e.getTeXFont()->setBold(true);
@@ -72,7 +72,7 @@ public:
 
   explicit CedillaAtom(const sptr<Atom>& base) : _base(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto b = _base->createBox(env);
     auto* vb = new VBox();
     vb->add(b);
@@ -104,7 +104,7 @@ public:
 /** An atom representing ddots */
 class DdtosAtom : public Atom {
 public:
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto ldots = Formula::get(L"ldots")->_root->createBox(env);
     float w = ldots->_width;
     auto dot = SymbolAtom::get("ldotp")->createBox(env);
@@ -149,7 +149,7 @@ public:
     _line = line;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto bbase = _base->createBox(env);
     float drt = env.getTeXFont()->getDefaultRuleThickness(env.getStyle());
     float space = INTERSPACE * SpaceAtom::getFactor(UnitType::em, env);
@@ -167,7 +167,7 @@ public:
 
   explicit DoubleFramedAtom(const sptr<Atom>& base) : FBoxAtom(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto bbase = _base->createBox(env);
     float drt = env.getTeXFont()->getDefaultRuleThickness(env.getStyle());
     float space = INTERSPACE * SpaceAtom::getFactor(UnitType::em, env);
@@ -185,7 +185,7 @@ public:
 
   explicit ShadowAtom(const sptr<Atom>& base) : FBoxAtom(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto x = FBoxAtom::createBox(env);
     auto box = std::dynamic_pointer_cast<FramedBox>(x);
     float t = env.getTeXFont()->getDefaultRuleThickness(env.getStyle()) * 4;
@@ -207,7 +207,7 @@ public:
 
   explicit OvalAtom(const sptr<Atom>& base) : FBoxAtom(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto x = FBoxAtom::createBox(env);
     auto box = std::dynamic_pointer_cast<FramedBox>(x);
     return sptrOf<OvalBox>(box, _multiplier, _diameter);
@@ -351,7 +351,7 @@ public:
 /** An atom representing id-dots */
 class IddotsAtom : public Atom {
 public:
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto ldots = Formula::get(L"ldots")->_root->createBox(env);
     float w = ldots->_width;
     auto dot = SymbolAtom::get("ldotp")->createBox(env);
@@ -387,7 +387,7 @@ public:
 
   explicit IJAtom(bool upper) : _upper(upper) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto* I = new CharBox(env.getTeXFont()->getChar(_upper ? 'I' : 'i', "mathnormal", env.getStyle()));
     auto* J = new CharBox(env.getTeXFont()->getChar(_upper ? 'J' : 'j', "mathnormal", env.getStyle()));
     auto* hb = new HBox(sptr<Box>(I));
@@ -409,7 +409,7 @@ public:
 
   explicit ItAtom(const sptr<Atom>& base) : _base(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     sptr<Box> box;
     if (_base != nullptr) {
       Environment& e = *(env.copy(env.getTeXFont()->copy()));
@@ -436,7 +436,7 @@ public:
 
   LapedAtom(const sptr<Atom>& a, wchar_t type) : _at(a), _type(type) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto b = _at->createBox(env);
     auto* vb = new VBox();
     vb->add(b);
@@ -471,7 +471,7 @@ public:
 
   explicit LCaronAtom(bool upper) : _upper(upper) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto* A = new CharBox(env.getTeXFont()->getChar("textapos", env.getStyle()));
     auto* L = new CharBox(env.getTeXFont()->getChar(_upper ? 'L' : 'l', "mathnormal", env.getStyle()));
     auto* hb = new HBox(sptr<Box>(L));
@@ -497,7 +497,7 @@ public:
   MonoScaleAtom(const sptr<Atom>& base, float factor)
     : ScaleAtom(base, factor, factor), _factor(factor) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     Environment& e = *(env.copy());
     float f = e.getScaleFactor();
     e.setScaleFactor(_factor);
@@ -519,7 +519,7 @@ public:
 
   explicit OgonekAtom(const sptr<Atom>& base) : _base(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto b = _base->createBox(env);
     auto* vb = new VBox();
     vb->add(b);
@@ -560,7 +560,7 @@ public:
     _type = AtomType::ordinary;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     float drt = env.getTeXFont()->getDefaultRuleThickness(env.getStyle());
     // cramp the style of the formula to be over-lined and create
     // vertical box
@@ -601,7 +601,7 @@ public:
 
   AtomType rightType() const override { return _base->rightType(); }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto base = _base->createBox(env);
     base->_shift = _ru == UnitType::none ? 0 : SpaceAtom::getSize(_ru, -_r, env);
 
@@ -629,7 +629,7 @@ public:
     _type = _base->_type;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     return sptrOf<ReflectBox>(_base->createBox(env));
   }
 
@@ -661,7 +661,7 @@ public:
 
   AtomType rightType() const override { return _base->rightType(); }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto bbox = _base->createBox(env);
     if (_wu == UnitType::none && _hu == UnitType::none) return bbox;
     float sx = 1.f, sy = 1.f;
@@ -741,7 +741,7 @@ public:
   RuleAtom(UnitType wu, float w, UnitType hu, float h, UnitType ru, float r)
     : _wu(wu), _hu(hu), _ru(ru), _w(w), _h(h), _r(r) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     float w = SpaceAtom::getFactor(_wu, env) * _w;
     float h = SpaceAtom::getFactor(_hu, env) * _h;
     float r = SpaceAtom::getFactor(_ru, env) * _r;
@@ -761,7 +761,7 @@ public:
 
   explicit SmallCapAtom(const sptr<Atom>& base) : _base(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     bool prev = env.getSmallCap();
     env.setSmallCap(true);
     auto box = _base->createBox(env);
@@ -782,7 +782,7 @@ public:
 
   explicit SsAtom(const sptr<Atom>& base) : _base(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     bool prev = env.getTeXFont()->isSs();
     env.getTeXFont()->setSs(true);
     auto box = _base->createBox(env);
@@ -801,7 +801,7 @@ private:
 public:
   explicit StrikeThroughAtom(const sptr<Atom>& a) : _at(a) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     TeXFont& tf = *(env.getTeXFont());
     TexStyle style = env.getStyle();
     float axis = tf.getAxisHeight(style);
@@ -837,7 +837,7 @@ public:
     _type = a->_type;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     TexStyle style = env.getStyle();
     env.setStyle(_style);
     auto box = _at->createBox(env);
@@ -851,7 +851,7 @@ public:
 /** An atom representing an t with a Caron */
 class TCaronAtom : public Atom {
 public:
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     Char a = env.getTeXFont()->getChar("textapos", env.getStyle());
     auto* A = new CharBox(a);
     Char t = env.getTeXFont()->getChar('t', "mathnormal", env.getStyle());
@@ -874,7 +874,7 @@ public:
 
   explicit TextCircledAtom(const sptr<Atom>& a) : _at(a) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto circle = SymbolAtom::get("bigcirc")->createBox(env);
     circle->_shift = -0.07f * SpaceAtom::getFactor(UnitType::ex, env);
     auto box = _at->createBox(env);
@@ -898,7 +898,7 @@ public:
 
   TextStyleAtom(const sptr<Atom>& a, std::string style) : _style(std::move(style)), _at(a) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     std::string prev = env.getTextStyle();
     env.setTextStyle(_style);
     auto box = _at->createBox(env);
@@ -919,7 +919,7 @@ public:
 
   explicit TStrokeAtom(bool u) : _upper(u) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     Char ch = env.getTeXFont()->getChar("bar", env.getStyle());
     float italic = ch.getItalic();
     Char t = env.getTeXFont()->getChar(_upper ? 'T' : 't', "mathnormal", env.getStyle());
@@ -954,7 +954,7 @@ public:
 
   explicit TtAtom(const sptr<Atom>& base) : _base(base) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     bool prev = env.getTeXFont()->isTt();
     env.getTeXFont()->setTt(true);
     auto box = _base->createBox(env);
@@ -977,7 +977,7 @@ public:
     _type = AtomType::ordinary;
   }
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     float drt = env.getTeXFont()->getDefaultRuleThickness(env.getStyle());
 
     // create formula box in same style
@@ -1048,7 +1048,7 @@ public:
 
   explicit VCenteredAtom(const sptr<Atom>& a) : _at(a) {}
 
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto b = _at->createBox(env);
 
     float total = b->_height + b->_depth;
@@ -1066,7 +1066,7 @@ public:
 /** An atom representing vertical-dots */
 class VdotsAtom : public Atom {
 public:
-  sptr<Box> createBox(Environment& env) override {
+  sptr<Box> createBox(Environment& env) override { tex::QMarkdownDepth qmarkdownGuard;
     auto dot = SymbolAtom::get("ldotp")->createBox(env);
     auto* vb = new VBox(dot, 0, Alignment::bottom);
     auto b = SpaceAtom(UnitType::mu, 0, 4, 0).createBox(env);

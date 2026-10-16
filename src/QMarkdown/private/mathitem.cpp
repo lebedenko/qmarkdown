@@ -109,7 +109,7 @@ std::shared_ptr<const MathRecording> render(MathService *scheduler, const QStrin
         tex::TeXRenderBuilder builder;
         std::unique_ptr<tex::TeXRender> result(builder.setStyle(tex::TexStyle::display).setTextSize(float(size)).setForeground(color.rgba()).build(formula));
         const QSizeF bounds(result->getWidth(), result->getHeight());
-        if (!std::isfinite(bounds.width()) || !std::isfinite(bounds.height()) || bounds.width() <= 0 || bounds.height() <= 0 || bounds.width() > 16384 || bounds.height() > 16384) return {};
+        if (!std::isfinite(bounds.width()) || !std::isfinite(bounds.height()) || bounds.width() <= 0 || bounds.height() <= 0 || bounds.width() > 16384 || bounds.height() > 16384 || bounds.width() * bounds.height() > 4 * 1024 * 1024) return {};
         auto recording = std::make_shared<MathRecording>();
         recording->size = bounds;
         QPainter painter(&recording->picture);

@@ -100,6 +100,25 @@ private slots:
         bounded.setSource(QString(6000, u'x')); bounded.setMathEnabled(true);
         QTRY_VERIFY(!bounded.pending()); QVERIFY(!bounded.ready());
     }
+    void recursiveAndPaintBudgets() {
+        if (!mathAvailable()) return;
+        MathItem recursive;
+        recursive.setSource(QStringLiteral("\\sqrt").repeated(500) + "x");
+        recursive.setMathEnabled(true);
+        QTRY_VERIFY(!recursive.pending()); QVERIFY(!recursive.ready());
+        MathItem painted;
+        painted.setTextSize(512);
+        QString matrix = "\\begin{matrix}";
+        for (int row = 0; row < 6; ++row) {
+            if (row) matrix += "\\\\";
+            matrix += QStringLiteral("x&").repeated(5) + "x";
+        }
+        matrix += "\\end{matrix}";
+        painted.setSource(matrix); painted.setMathEnabled(true);
+        QTRY_VERIFY(!painted.pending()); QVERIFY(!painted.ready());
+        MathItem following; following.setSource("x"); following.setMathEnabled(true);
+        QTRY_VERIFY(following.ready());
+    }
     void sourceProjectionAndExtensions() {
         for (int mask = 0; mask < 32; ++mask) {
             ParseOptions opts{bool(mask&1), bool(mask&2), bool(mask&4), bool(mask&8), bool(mask&16), true};

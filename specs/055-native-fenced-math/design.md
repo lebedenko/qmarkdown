@@ -33,7 +33,7 @@ trusted engine definitions, not document-defined commands.
 The private patches instrument shared allocations, parser entry/loops and atom
 layout entry/loops. Recordings use normalized glyph outlines because upstream
 QPicture drawText replay dropped glyphs. Budgets remain those proposed above,
-with a 1 MiB per-recording and 512 px effective text-size cap. These are operation
+with a 1 MiB per-recording, 4 megapixel painted-area and 512 px effective text-size cap. These are operation
 and geometry limits, not a hard wall-clock guarantee: Qt font/path operations,
 standard-library calls and trusted-resource initialization remain uninterruptible.
 Shutdown joins the active worker; no fixed maximum wait is claimed. See the
