@@ -2,6 +2,8 @@
 
 Approval: requirements, design and tasks approved by the user response “approved” on 2026-10-16. Dependency audit and verification remain implementation tasks; no success is implied. One cohesive 1.13.0 / QML 1.13 release PR is planned; merge, tagging and publication require separate authorization.
 
+Release delivery approval — 2026-10-17: the user authorized the release plan for PR #36, including documentation completion, fresh final-head Qt 6.8.0/6.12.0 CI and retained full gate, squash merge through normal protections, `release.yml` dispatch with `release_pr=36`, tagging `v1.13.0`, stable/latest publication and downloaded hash verification of exactly four assets. Retain package 1.13.0 / QML 1.13 and existing APIs; no runtime changes. Stop on failed gates, changed inputs or differing published bytes. Historical approvals and results below remain unchanged; this approval supersedes earlier statements that delivery still requires authorization.
+
 ## Planned checks
 
 See the requirement-to-check map in [tasks](tasks.md). Run narrow fixtures first, then the relevant exact Qt 6.8.0/6.12.0 shared/static matrix, QML lint/imports, relocated installs, extracted-source builds and Arch packaging. Math ON/OFF both require coverage. Feature 055 additionally requires representative native Wayland acceptance and captures at 100%, 125%, 150% and 200%, including sharpness regressions. Required final-head packaging jobs remain the delivery gate.
@@ -99,3 +101,7 @@ host and 25 against each previously verified Qt 6.8.0/6.12.0 static package
 (`/tmp/qmarkdown-selection-frame-minimum.log`, `-development.log`). Production
 archive bytes and source/Arch verification above remain unchanged. Final required
 PR-head packaging results are retained in PR #36 after this fixture update.
+
+## Release delivery preparation — 2026-10-17
+
+Host `qmake6 -query QT_VERSION` reports 6.12.0, matching the configured development target; minimum remains 6.8.0. `python3 scripts/check-docs.py --release` and `git diff --check` passed after the release date and delivery-scope updates. Fresh final-head CI, merge and publication results will remain in PR #36 and Actions; no success is implied here.

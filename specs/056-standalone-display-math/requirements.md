@@ -2,6 +2,8 @@
 
 Approval: requirements, design and tasks approved by the user response “approved” on 2026-10-16. Dependency audit and verification remain implementation tasks; no success is implied. One cohesive 1.13.0 / QML 1.13 release PR is planned; merge, tagging and publication require separate authorization.
 
+Release delivery approval — 2026-10-17: the user authorized the release plan for PR #36, including documentation completion, fresh final-head Qt 6.8.0/6.12.0 CI and retained full gate, squash merge through normal protections, `release.yml` dispatch with `release_pr=36`, tagging `v1.13.0`, stable/latest publication and downloaded hash verification of exactly four assets. Retain package 1.13.0 / QML 1.13 and existing APIs; no runtime changes. Stop on failed gates, changed inputs or differing published bytes. Historical approvals and results below remain unchanged; this approval supersedes earlier statements that delivery still requires authorization.
+
 R056.1: Extend the existing private block parser behind mathEnabled, without regex preprocessing. Opening/closing delimiter lines contain only `$$` and optional whitespace, with up to three indentation spaces relative to the current container. Support top-level, list and quote containers.
 
 R056.2: Require closure in the same container; unmatched delimiters remain ordinary Markdown. Do not interrupt an existing paragraph or recognize math in code/literal HTML. Preserve existing GFM interactions and all 652 default-disabled CommonMark semantic passes.

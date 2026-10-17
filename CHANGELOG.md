@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.13.0 — 2026-10-16
+## 1.13.0 — 2026-10-17
 
 - Add opt-in native fenced and standalone display math with a bundled private MicroTeX backend.
 - Add math availability, inherited color and body-relative scale; preserve host renderer precedence.

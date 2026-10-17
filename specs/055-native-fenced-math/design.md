@@ -2,6 +2,8 @@
 
 Approval: requirements, design and tasks approved by the user response “approved” on 2026-10-16. Dependency audit and verification remain implementation tasks; no success is implied. One cohesive 1.13.0 / QML 1.13 release PR is planned; merge, tagging and publication require separate authorization.
 
+Release delivery approval — 2026-10-17: the user authorized the release plan for PR #36, including documentation completion, fresh final-head Qt 6.8.0/6.12.0 CI and retained full gate, squash merge through normal protections, `release.yml` dispatch with `release_pr=36`, tagging `v1.13.0`, stable/latest publication and downloaded hash verification of exactly four assets. Retain package 1.13.0 / QML 1.13 and existing APIs; no runtime changes. Stop on failed gates, changed inputs or differing published bytes. Historical approvals and results below remain unchanged; this approval supersedes earlier statements that delivery still requires authorization.
+
 ## Existing integration points
 
 The private document adapter preserves code text, info string and fenced status. MarkdownView passes the renderer registry to BlockSequence and CodeSurface. CodeSurface owns host renderer creation, source modes, decorations and viewport behavior. Extend these boundaries rather than changing the public renderer contract. Keep native C++ types and the engine private.

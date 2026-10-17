@@ -2,6 +2,8 @@
 
 Approval: requirements, design and tasks approved by the user response “approved” on 2026-10-16. Dependency audit and verification remain implementation tasks; no success is implied. One cohesive 1.13.0 / QML 1.13 release PR is planned; merge, tagging and publication require separate authorization.
 
+Release delivery approval — 2026-10-17: the user authorized the release plan for PR #36, including documentation completion, fresh final-head Qt 6.8.0/6.12.0 CI and retained full gate, squash merge through normal protections, `release.yml` dispatch with `release_pr=36`, tagging `v1.13.0`, stable/latest publication and downloaded hash verification of exactly four assets. Retain package 1.13.0 / QML 1.13 and existing APIs; no runtime changes. Stop on failed gates, changed inputs or differing published bytes. Historical approvals and results below remain unchanged; this approval supersedes earlier statements that delivery still requires authorization.
+
 - [x] T055.1 Audit/pin upstream snapshot, licenses, fonts, XML dependencies, restricted command registry, resource access, mutable state and work-budget patch points; resolve design gates and obtain explicit approval of both feature specifications.
 - [x] T055.2 Vendor audited payload and repository-owned CMake/resource wrapper; implement ON/OFF packaging and private engine service (R055.1, R055.5).
 - [x] T055.3 Implement bounded worker/cache, isolated requests, immutable recordings, teardown and failure paths (R055.3, R055.5).
@@ -22,3 +24,11 @@ Approval: requirements, design and tasks approved by the user response “approv
 | R055.7 | Documentation checks, examples, exact Qt 6.8.0/6.12.0 matrix and required final-head packaging jobs |
 
 Delivery: [PR #36](https://github.com/lebedenko/qmarkdown/pull/36). Local and distribution results are recorded in [verification](verification.md); required final-head packaging results remain in the PR checks. Merge/tag/publication remain separately authorized actions.
+
+## Authorized release delivery
+
+- [x] Complete release documentation and pass local release-documentation/whitespace checks with host Qt 6.12.0.
+- [ ] Push PR #36 final head and require both packaging jobs plus the retained full release gate.
+- [ ] Squash merge and dispatch `release.yml` with `release_pr=36`; require unchanged verified tree/main.
+- [ ] Pass extracted-source checks on both Qt targets and Arch distribution checks, then tag and publish stable/latest with source/Arch archives and SHA-256 companions.
+- [ ] Require successful downloaded hashes for all four assets; keep execution results in Actions without an evidence-only PR or post-release documentation commit.

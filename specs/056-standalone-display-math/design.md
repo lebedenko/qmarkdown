@@ -2,6 +2,8 @@
 
 Approval: requirements, design and tasks approved by the user response “approved” on 2026-10-16. Dependency audit and verification remain implementation tasks; no success is implied. One cohesive 1.13.0 / QML 1.13 release PR is planned; merge, tagging and publication require separate authorization.
 
+Release delivery approval — 2026-10-17: the user authorized the release plan for PR #36, including documentation completion, fresh final-head Qt 6.8.0/6.12.0 CI and retained full gate, squash merge through normal protections, `release.yml` dispatch with `release_pr=36`, tagging `v1.13.0`, stable/latest publication and downloaded hash verification of exactly four assets. Retain package 1.13.0 / QML 1.13 and existing APIs; no runtime changes. Stop on failed gates, changed inputs or differing published bytes. Historical approvals and results below remain unchanged; this approval supersedes earlier statements that delivery still requires authorization.
+
 Extend the vendored private cmark block parser, its prefixed symbols/options and document adapter. Add a private display-math node/block kind without renumbering existing semantic fixture identifiers, and a ParseOptions flag driven by mathEnabled. Do not replace source with synthetic fences or scan a completed inline AST.
 
 At a block-start position with no open paragraph, inspect a delimiter using the
