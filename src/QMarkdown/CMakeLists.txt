@@ -27,7 +27,7 @@ set_source_files_properties(private/TaskIndicatorHost.qml PROPERTIES
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
-    VERSION 1.12
+    VERSION 1.13
     PLUGIN_TARGET QMarkdownPlugin
     CLASS_NAME QMarkdownPlugin
     RESOURCE_PREFIX /qt/qml
@@ -37,7 +37,7 @@ qt_add_qml_module(QMarkdown
         private/BlockSequence.qml private/TextBlock.qml private/SelectableText.qml
         private/ImageBlock.qml private/ListBlock.qml private/HeadingSeparator.qml
         private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/TaskIndicatorHost.qml private/Layout.js
-    SOURCES syntaxtheme.h syntaxtheme.cpp private/syntaxhighlighter.h private/syntaxhighlighter.cpp private/syntaxbackend.cpp
+    SOURCES private/mathitem.h private/mathitem.cpp syntaxtheme.h syntaxtheme.cpp private/syntaxhighlighter.h private/syntaxhighlighter.cpp private/syntaxbackend.cpp
         private/linkcontroller.h private/linkcontroller.cpp private/taskindicatoritem.cpp private/taskindicatoritem.h private/selectionregistration.h private/selectionregistration.cpp
         private/presentation.h private/presentation.cpp private/decodescheduler.h private/decodescheduler.cpp markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
         private/document.h private/document.cpp private/viewstate.h private/viewstate.cpp
@@ -100,3 +100,20 @@ install(FILES private/BlockSequence.qml private/TextBlock.qml private/Selectable
     private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/TaskIndicatorHost.qml
     DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown")
 install(FILES private/Layout.js DESTINATION "${QMARKDOWN_QML_INSTALL_DIR}/QMarkdown/private")
+
+if(QMARKDOWN_WITH_MATH)
+    target_sources(QMarkdown PRIVATE $<TARGET_OBJECTS:qmarkdown_microtex>)
+    target_include_directories(QMarkdown PRIVATE "${PROJECT_SOURCE_DIR}/third_party/microtex/src" "${PROJECT_SOURCE_DIR}/third_party/tinyxml2")
+    target_compile_definitions(QMarkdown PRIVATE QMARKDOWN_WITH_MATH BUILD_QT tex=qmarkdown_tex tinyxml2=qmarkdown_tinyxml2)
+    file(GLOB_RECURSE math_resources RELATIVE "${PROJECT_SOURCE_DIR}/third_party/microtex" "${PROJECT_SOURCE_DIR}/third_party/microtex/res/fonts/*")
+    list(TRANSFORM math_resources PREPEND "${PROJECT_SOURCE_DIR}/third_party/microtex/")
+    qt_add_resources(QMarkdown math_resources OUTPUT_TARGETS qmarkdown_math_resource_targets PREFIX "/qmarkdown-math" BASE "${PROJECT_SOURCE_DIR}/third_party/microtex" FILES ${math_resources})
+    if(qmarkdown_math_resource_targets)
+        install(TARGETS ${qmarkdown_math_resource_targets} EXPORT QMarkdownTargets
+            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            OBJECTS DESTINATION "${CMAKE_INSTALL_LIBDIR}/QMarkdown")
+    endif()
+endif()
+install(FILES "${PROJECT_SOURCE_DIR}/third_party/microtex/LICENSE" "${PROJECT_SOURCE_DIR}/third_party/microtex/PROVENANCE.md" DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QMarkdown/microtex")
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/third_party/microtex/res/fonts/licences/" DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QMarkdown/microtex/fonts")
+install(FILES "${PROJECT_SOURCE_DIR}/third_party/tinyxml2/LICENSE.txt" "${PROJECT_SOURCE_DIR}/third_party/tinyxml2/PROVENANCE.md" DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QMarkdown/tinyxml2")

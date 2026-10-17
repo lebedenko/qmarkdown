@@ -41,3 +41,8 @@ Locally authored changes in `src/blocks.c` recognize GFM header/delimiter pairs 
 existing code-block fenced flag. The adapter preserves this distinction without
 reading internal parser structures. No parsing behavior, upstream version/checksum,
 notices, installed headers or public C++ APIs change.
+
+QMarkdown 1.13 adds the private opt-in standalone display-math block option and
+literal node. It reuses container-aware fence parsing in two block passes, with a
+matched-opener line bitmap so unmatched delimiters retain ordinary Markdown.
+Default-disabled CommonMark behavior remains on the original single-pass path.

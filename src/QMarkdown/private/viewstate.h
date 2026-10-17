@@ -1,6 +1,7 @@
 #pragma once
 #include "../markdownstyle.h"
 #include "syntaxhighlighter.h"
+#include "mathitem.h"
 #include "presentation.h"
 #include "linkcontroller.h"
 #include "resourcecontroller.h"
@@ -41,7 +42,8 @@ public:
         CodeInfoRole = Qt::UserRole + 18,
         CodeFencedRole = Qt::UserRole + 19,
         CodeLanguageRole = Qt::UserRole + 20,
-        ImageLinkIdRole = Qt::UserRole + 21
+        ImageLinkIdRole = Qt::UserRole + 21,
+        DisplayMathRole = Qt::UserRole + 22
     };
     using QAbstractListModel::QAbstractListModel;
     int rowCount(const QModelIndex &parent = {}) const override;
@@ -65,6 +67,8 @@ class ViewState : public QObject
     Q_PROPERTY(int codeBlockMinimumLines READ codeBlockMinimumLines WRITE setCodeBlockMinimumLines NOTIFY codeBlockSettingsChanged FINAL)
     Q_PROPERTY(int codeBlockMaximumLines READ codeBlockMaximumLines WRITE setCodeBlockMaximumLines NOTIFY codeBlockSettingsChanged FINAL)
     Q_PROPERTY(QQmlComponent * codeBlockScrollBar READ codeBlockScrollBar WRITE setCodeBlockScrollBar NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(bool mathEnabled READ mathEnabled WRITE setMathEnabled NOTIFY mathEnabledChanged FINAL)
+    Q_PROPERTY(bool mathAvailable READ mathAvailable CONSTANT FINAL)
     Q_PROPERTY(bool syntaxHighlightingEnabled READ syntaxHighlightingEnabled WRITE setSyntaxHighlightingEnabled NOTIFY syntaxHighlightingEnabledChanged FINAL)
     Q_PROPERTY(bool syntaxHighlightingAvailable READ syntaxHighlightingAvailable CONSTANT FINAL)
     Q_PROPERTY(SyntaxTheme *syntaxTheme READ syntaxTheme WRITE setSyntaxTheme NOTIFY syntaxThemeChanged FINAL)
@@ -116,6 +120,9 @@ public:
         if (value) m_codeScrollBarDestroyed = connect(value, &QObject::destroyed, this, [this] { m_codeBlockScrollBar = nullptr; emit codeBlockSettingsChanged(); });
         emit codeBlockSettingsChanged();
     }
+    bool mathEnabled() const { return m_mathEnabled; }
+    bool mathAvailable() const { return QMarkdownPrivate::mathAvailable(); }
+    void setMathEnabled(bool value) { if (m_mathEnabled == value) return; m_mathEnabled = value; reparse(); emit mathEnabledChanged(); }
     bool syntaxHighlightingEnabled() const { return m_syntaxEnabled; }
     void setSyntaxHighlightingEnabled(bool value) {
         if (m_syntaxEnabled == value) return;
@@ -206,6 +213,7 @@ public:
     QAbstractItemModel *blocks() { return &m_blocks; }
 signals:
     void codeBlockSettingsChanged();
+    void mathEnabledChanged();
     void syntaxHighlightingEnabledChanged();
     void syntaxThemeChanged();
     void searchActiveChanged();
@@ -247,6 +255,7 @@ private:
     std::unique_ptr<QTextLayout> m_plainCodeLayout;
     QMetaObject::Connection m_codeScrollBarDestroyed;
     bool m_revealSource = false;
+    bool m_mathEnabled = false;
     bool m_syntaxEnabled = false;
     SyntaxTheme *m_defaultSyntaxTheme = nullptr;
     QPointer<SyntaxTheme> m_syntaxTheme;

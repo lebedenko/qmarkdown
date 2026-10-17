@@ -329,6 +329,11 @@ static cmark_node *finalize(cmark_parser *parser, cmark_node *b) {
     }
     b->len = node_content->size;
     b->data = cmark_strbuf_detach(node_content);
+    if (b->as.code.fence_char == '$' && b->qmarkdown_math_closed) {
+      b->mem->free(b->as.code.info);
+      b->as.code.info = NULL;
+      b->type = CMARK_NODE_QMARKDOWN_MATH;
+    }
     break;
 
   case CMARK_NODE_HEADING:
@@ -588,12 +593,28 @@ cmark_node *cmark_parse_file(FILE *f, int options) {
 
 cmark_node *cmark_parse_document(const char *buffer, size_t len, int options) {
   cmark_parser *parser = cmark_parser_new(options);
-  cmark_node *document;
-
   S_parser_feed(parser, (const unsigned char *)buffer, len, true);
-
+  cmark_node *document = cmark_parser_finish(parser);
+  cmark_parser_free(parser);
+  if (!(options & CMARK_OPT_QMARKDOWN_MATH)) return document;
+  size_t lines = 2;
+  for (size_t i = 0; i < len; ++i) if (buffer[i] == '\n' || buffer[i] == '\r') ++lines;
+  unsigned char *openers = (unsigned char *)calloc(lines, 1);
+  if (!openers) { cmark_node_free(document); return cmark_parse_document(buffer, len, options & ~CMARK_OPT_QMARKDOWN_MATH); }
+  cmark_iter *iter = cmark_iter_new(document);
+  while (cmark_iter_next(iter) != CMARK_EVENT_DONE) {
+    cmark_node *node = cmark_iter_get_node(iter);
+    if (node->type == CMARK_NODE_QMARKDOWN_MATH && (size_t)node->start_line < lines) openers[node->start_line] = 1;
+  }
+  cmark_iter_free(iter);
+  cmark_node_free(document);
+  parser = cmark_parser_new(options);
+  parser->qmarkdown_math_openers = openers;
+  parser->qmarkdown_math_lines = lines;
+  S_parser_feed(parser, (const unsigned char *)buffer, len, true);
   document = cmark_parser_finish(parser);
   cmark_parser_free(parser);
+  free(openers);
   return document;
 }
 
@@ -844,6 +865,16 @@ static bool parse_node_item_prefix(cmark_parser *parser, cmark_chunk *input,
   return res;
 }
 
+// Exactly two dollars with whitespace only after them; indentation is relative
+// to prefixes already consumed by the block parser, never source preprocessing.
+static bool qmarkdown_math_delimiter(cmark_parser *parser, cmark_chunk *input) {
+  bufsize_t i = parser->first_nonspace;
+  if (parser->indent > 3 || i + 2 > input->len || input->data[i] != '$' || input->data[i + 1] != '$') return false;
+  i += 2;
+  while (i < input->len && (S_is_space_or_tab(input->data[i]) || S_is_line_end_char(input->data[i]))) ++i;
+  return i == input->len;
+}
+
 static bool parse_code_block_prefix(cmark_parser *parser, cmark_chunk *input,
                                     cmark_node *container,
                                     bool *should_continue) {
@@ -863,12 +894,15 @@ static bool parse_code_block_prefix(cmark_parser *parser, cmark_chunk *input,
 
     if (parser->indent <= 3 && (peek_at(input, parser->first_nonspace) ==
                                 container->as.code.fence_char)) {
-      matched = scan_close_code_fence(input, parser->first_nonspace);
+      matched = container->as.code.fence_char == '$'
+          ? (qmarkdown_math_delimiter(parser, input) ? 2 : 0)
+          : scan_close_code_fence(input, parser->first_nonspace);
     }
 
     if (matched >= container->as.code.fence_length) {
       // closing fence - and since we're at
       // the end of a line, we can stop processing it:
+      if (container->as.code.fence_char == '$') container->qmarkdown_math_closed = true;
       *should_continue = false;
       S_advance_offset(parser, input, matched, false);
       parser->current = finalize(parser, container);
@@ -1056,6 +1090,17 @@ static void open_new_blocks(cmark_parser *parser, cmark_node **container,
       (*container)->as.heading.level = level;
       (*container)->as.heading.setext = false;
       (*container)->as.heading.internal_offset = matched;
+
+    } else if ((parser->options & CMARK_OPT_QMARKDOWN_MATH) && !maybe_lazy &&
+               cont_type != CMARK_NODE_PARAGRAPH && qmarkdown_math_delimiter(parser, input) &&
+               (!parser->qmarkdown_math_openers ||
+                ((size_t)parser->line_number < parser->qmarkdown_math_lines && parser->qmarkdown_math_openers[parser->line_number]))) {
+      *container = add_child(parser, *container, CMARK_NODE_CODE_BLOCK, parser->first_nonspace + 1);
+      (*container)->as.code.fenced = true;
+      (*container)->as.code.fence_char = '$';
+      (*container)->as.code.fence_length = 2;
+      (*container)->as.code.fence_offset = 0;
+      S_advance_offset(parser, input, input->len - parser->offset - 1, false);
 
     } else if (!indented && (matched = scan_open_code_fence(
                                  input, parser->first_nonspace))) {

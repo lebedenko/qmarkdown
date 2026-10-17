@@ -41,6 +41,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
             : kind == ViewState::HtmlBlock ? ViewState::SelectedHtml : kind;
     }
     if (role == ImageLinkIdRole) return block.imageLinkId;
+    if (role == DisplayMathRole) return block.displayMath;
     if (role == CodeInfoRole) return block.infoString;
     if (role == CodeFencedRole) return block.codeFenced;
     if (role == CodeLanguageRole) return block.language;
@@ -97,7 +98,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
             {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
             {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
             {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
-            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}};
+            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}, {DisplayMathRole, "displayMath"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 {
@@ -172,8 +173,8 @@ void ViewState::reparse()
     const QMarkdownPrivate::ParseOptions options{
         m_gfmEnabled || m_taskListsEnabled, m_gfmEnabled || m_strikethroughEnabled,
         m_gfmEnabled || m_extendedAutolinksEnabled, m_gfmEnabled || m_tablesEnabled,
-        m_gfmEnabled || m_tagFilterEnabled};
-    auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter); };
+        m_gfmEnabled || m_tagFilterEnabled, m_mathEnabled};
+    auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter, o.math); };
     const bool semanticChange = flags(options) != flags(m_parsedOptions) || m_sourceChanged;
     if (flags(options) != flags(m_parsedOptions)) clearSelection();
     m_sourceChanged = false;
@@ -273,6 +274,7 @@ void ViewState::resetStyle()
 namespace {
 void registerPrivateTypes()
 {
+    qmlRegisterType<QMarkdownPrivate::MathItem>("QMarkdown.Private", 1, 0, "MathItem");
     qmlRegisterType<QMarkdownPrivate::SyntaxRequest>("QMarkdown.Private", 1, 0, "SyntaxRequest");
     qmlRegisterType<::FormattedText>("QMarkdown.Private", 1, 0, "FormattedText");
     registerTaskIndicatorAccessibility();

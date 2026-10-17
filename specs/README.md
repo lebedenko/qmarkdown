@@ -3,18 +3,18 @@
 ## Current release
 
 <!-- current-release:start -->
-Package **1.12.0 / QML 1.12**. Release assets: [1.12.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.12.0).
+Package **1.13.0 / QML 1.13**. Release assets: [1.13.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.13.0).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
 host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
 selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.12.0.md) and
+See the [release notes](../docs/release-notes-1.13.0.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.12.0 accepts compatible 1.0–1.12 requests and
-EXACT 1.12.0; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.13.0 accepts compatible 1.0–1.13 requests and
+EXACT 1.13.0; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
 
@@ -22,7 +22,7 @@ Reading tools include literal Find with independent highlights, a recursive head
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](../docs/reading-navigation.md).
 
-QML 1.12 retains opt-in keyboard link traversal, visible focus and one accessible
+QML 1.13 retains opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
@@ -40,6 +40,10 @@ source viewports with internal scrolling and optional decorative source-line
 numbers. Defaults retain wrapped natural-height source with numbers off. Hosts
 own header composition, clipboard and scrollbar styling. See the
 [code-block guide](../docs/code-blocks.md).
+
+Native block math is opt-in per view, using a bundled private MicroTeX backend.
+It supports exact `math` fences and standalone dollar-delimited display blocks;
+selection/Find and failures show literal TeX source. See the [math guide](../docs/math.md).
 <!-- current-release:end -->
 
 ## 1.11 syntax highlighting
@@ -236,3 +240,21 @@ Features [050 headers](050-language-aware-headers/requirements.md),
 approved 2026-10-16 plan in one release change. Each directory retains requirements,
 design, mapped tasks and actual verification separately. Merge, tagging and
 publication of 1.12 require separate authorization.
+
+## 054 — Text rendering sharpness
+
+Approved on 2026-10-16 through the supplied implementation plan.
+[Requirements](054-text-rendering-sharpness/requirements.md),
+[design](054-text-rendering-sharpness/design.md),
+[mapped tasks](054-text-rendering-sharpness/tasks.md), and
+[actual verification](054-text-rendering-sharpness/verification.md).
+Bounded texture-sampling correction; no system-package replacement or release publication.
+
+## Approved 1.13 native block math
+
+Features [055 native fenced math](055-native-fenced-math/requirements.md) and
+[056 standalone display math](056-standalone-display-math/requirements.md) are
+approved for implementation on 2026-10-16. Each directory includes design, mapped tasks
+and verification records. Implementation, both Qt candidate matrices, native Wayland acceptance and
+distribution checks are complete; final PR-head gates remain required. The proposed delivery is one 1.13.0 / QML 1.13 release PR.
+Merge, tagging and publication require separate authorization.

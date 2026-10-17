@@ -1,6 +1,20 @@
 import QtQuick.tooling 1.2
 Module {
     Component {
+        name: "QMarkdownPrivate::MathItem"
+        prototype: "QQuickPaintedItem"
+        exports: ["QMarkdown.Private/MathItem 1.0"]
+        exportMetaObjectRevisions: [256]
+        Property { name: "source"; type: "QString"; notify: "inputChanged" }
+        Property { name: "color"; type: "QColor"; notify: "inputChanged" }
+        Property { name: "textSize"; type: "double"; notify: "inputChanged" }
+        Property { name: "enabled"; type: "bool"; notify: "inputChanged" }
+        Property { name: "ready"; type: "bool"; isReadonly: true; notify: "resultChanged" }
+        Signal { name: "inputChanged" }
+        Signal { name: "resultChanged" }
+    }
+
+    Component {
         name: "QMarkdownPrivate::SyntaxRequest"
         prototype: "QObject"
         exports: ["QMarkdown.Private/SyntaxRequest 1.0"]
@@ -77,6 +91,10 @@ Module {
     }
     Component {
         name: "ViewState"
+        Property { name: "mathEnabled"; type: "bool"; notify: "mathEnabledChanged" }
+        Property { name: "mathAvailable"; type: "bool"; isReadonly: true }
+        Signal { name: "mathEnabledChanged" }
+
         Method { name: "registerSourceViewport"; Parameter { name: "item"; type: "QQuickItem"; isPointer: true } }
         Method { name: "plainCodeGeometry"; type: "QVariantMap"; Parameter { name: "input"; type: "QVariantMap" } }
         Property { name: "codeBlockScrollBar"; type: "QQmlComponent"; isPointer: true; notify: "codeBlockSettingsChanged" }

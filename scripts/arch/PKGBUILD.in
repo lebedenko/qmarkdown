@@ -4,7 +4,7 @@ pkgrel=@PKGREL@
 pkgdesc='Native Qt Quick Markdown rendering library'
 arch=('x86_64')
 url='https://github.com/lebedenko/qmarkdown'
-license=('MIT')
+license=('MIT' 'OFL-1.1' 'Zlib' 'LicenseRef-Knuth' 'LicenseRef-dsrom')
 depends=('glibc' 'gcc-libs' 'qt6-base>=@QT_VERSION@' 'qt6-declarative>=@QT_VERSION@' 'syntax-highlighting>=6.10.0')
 makedepends=('cmake' 'ninja')
 options=('!debug')

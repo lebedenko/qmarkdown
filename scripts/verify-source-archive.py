@@ -38,7 +38,7 @@ def verify(archive, qt, work, backend="OFF", kde_prefix=None):
     for name in ('QMarkdownConfig.cmake', 'QMarkdownConfigVersion.cmake', 'QMarkdownTargets.cmake'):
         if not (prefix / 'lib/cmake/QMarkdown' / name).is_file():
             raise ValueError(f'Missing installed CMake metadata: {name}')
-    for name in ('LICENSE', 'cmark/COPYING', 'cmark/PROVENANCE.md'):
+    for name in ('LICENSE', 'cmark/COPYING', 'cmark/PROVENANCE.md', 'microtex/LICENSE', 'microtex/PROVENANCE.md', 'microtex/fonts/OFL.txt', 'tinyxml2/LICENSE.txt', 'tinyxml2/PROVENANCE.md'):
         if not (prefix / 'share/licenses/QMarkdown' / name).is_file():
             raise ValueError(f'Missing installed license: {name}')
     for name in ('BlockSequence.qml', 'TextBlock.qml', 'SelectableText.qml',

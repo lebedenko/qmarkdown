@@ -51,7 +51,9 @@ class SourceArchiveTest(unittest.TestCase):
                 names = archive.getnames()
                 prefix = 'qmarkdown-' + source.project_version((ROOT / 'CMakeLists.txt').read_text()) + '/'
                 for name in ('CMakeLists.txt', 'LICENSE', 'INSTALL.md', 'third_party/cmark/COPYING',
-                             'third_party/cmark/PROVENANCE.md', 'src/QMarkdown/CMakeLists.txt'):
+                             'third_party/cmark/PROVENANCE.md', 'src/QMarkdown/CMakeLists.txt',
+                             'third_party/microtex/LICENSE', 'third_party/microtex/PROVENANCE.md',
+                             'third_party/microtex/res/fonts/licences/OFL.txt', 'third_party/tinyxml2/LICENSE.txt'):
                     self.assertIn(prefix + name, names)
                 for name in ('LICENSE', 'third_party/cmark/COPYING', 'third_party/cmark/PROVENANCE.md'):
                     self.assertEqual(archive.extractfile(prefix + name).read(), (ROOT / name).read_bytes())
