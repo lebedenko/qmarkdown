@@ -37,6 +37,63 @@ class StylingTest : public QObject
         return nullptr;
     }
 private slots:
+    void selectableTextRetainsEdgeContrast()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+            import QtQuick
+            import QMarkdown
+            MarkdownView {
+                width: 600
+                selectionEnabled: false
+                markdown: "Ordinary text should stay crisp when selection is enabled."
+                style: MarkdownStyle {
+                    bodyFont.family: "DejaVu Sans"
+                    bodyFont.pixelSize: 20
+                    bodyColor: "black"
+                }
+            }
+        )", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; window.resize(640, 140); window.setColor(Qt::white);
+        view->setParentItem(window.contentItem());
+        // Both paths occupy the same physical pixels, including at 125% DPR.
+        view->setPosition(QPointF(16, 16)); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
+        const auto source = view->property("markdown").toString();
+        QTRY_VERIFY(textItem(view, source));
+        auto *plain = textItem(view, source);
+        QVERIFY(!qobject_cast<FormattedText *>(plain));
+        const auto font = plain->property("font").value<QFont>();
+        const auto reference = window.grabWindow(); QVERIFY(!reference.isNull());
+        view->setProperty("selectionEnabled", true);
+        QTRY_VERIFY(qobject_cast<FormattedText *>(textItem(view, source)));
+        auto *selectable = qobject_cast<FormattedText *>(textItem(view, source));
+        QTRY_VERIFY(selectable->logicalHeight() > 0);
+        QCOMPARE(selectable->font(), font);
+        const auto selected = window.grabWindow(); QVERIFY(!selected.isNull());
+        QCOMPARE(selected.size(), reference.size());
+        // Sum squared luminance gradients: additional texture filtering lowers
+        // glyph-edge contrast even when glyph geometry and ink remain similar.
+        const auto contrast = [](const QImage &image) {
+            double sum = 0;
+            for (int y = 1; y < image.height(); ++y)
+                for (int x = 1; x < image.width(); ++x) {
+                    const int value = qGray(image.pixel(x, y));
+                    const int dx = value - qGray(image.pixel(x - 1, y));
+                    const int dy = value - qGray(image.pixel(x, y - 1));
+                    sum += dx * dx + dy * dy;
+                }
+            return sum;
+        };
+        const double referenceContrast = contrast(reference);
+        QVERIFY(referenceContrast > 0);
+        const double ratio = contrast(selected) / referenceContrast;
+        qInfo("Selectable/reference edge contrast: %.3f", ratio);
+        QVERIFY2(ratio >= .8, qPrintable(QString("Edge contrast ratio %1 is below 0.8").arg(ratio)));
+    }
     void decorationPlacement_data()
     {
         QTest::addColumn<bool>("strike");
@@ -928,6 +985,57 @@ private slots:
         QVERIFY(backgroundPixels > 20);
         item.setCodeCornerRadius(std::numeric_limits<qreal>::infinity());
         QCOMPARE(item.codeCornerRadius(), 0.0);
+    }
+    void sharpnessPresentationFixtures()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+            import QtQuick
+            import QMarkdown
+            Flickable {
+                width: 600; height: 440; clip: true
+                contentHeight: document.height + 32
+                MarkdownView {
+                    id: document
+                    objectName: "sharpnessDocument"
+                    x: 16.3; y: 16.3; width: 560
+                    selectionEnabled: true
+                    tablesEnabled: true
+                    syntaxHighlightingEnabled: true
+                    style: MarkdownStyle { preset: MarkdownStyle.PolishedLight }
+                }
+            }
+        )", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *flick = qobject_cast<QQuickItem *>(object.get()); QVERIFY(flick);
+        auto *view = flick->findChild<QQuickItem *>("sharpnessDocument"); QVERIFY(view);
+        view->setProperty("markdown", "# Heading **bold** and *italic*\n\n"
+            "## Second heading with `code`\n\n"
+            "Body with **strong**, *emphasis*, `inline code` and [linked text](target).\n\n"
+            "| Column | Details |\n| --- | --- |\n| **Bold** | *Italic* and `code` |\n"
+            "| Link | [destination](target) |\n\n"
+            "```cpp\n// Highlighted code\nint main() {\n    const auto text = \"crisp edges\";\n    return 42;\n}\n```\n\n"
+            "### After scrolling\n\nMore **formatted** text and `inline code`.\n\n"
+            "Trailing paragraph.\n\nTrailing paragraph.\n\nTrailing paragraph.");
+        QQuickWindow window; window.resize(600, 440); window.setColor(Qt::white);
+        flick->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_VERIFY(view->height() > flick->height());
+        if (view->property("syntaxHighlightingAvailable").toBool()) {
+            const QString code = "// Highlighted code\nint main() {\n    const auto text = \"crisp edges\";\n    return 42;\n}";
+            QTRY_VERIFY(qobject_cast<FormattedText *>(textItem(view, code)));
+            auto *formatted = qobject_cast<FormattedText *>(textItem(view, code));
+            QTRY_VERIFY(!formatted->foregroundRanges().isEmpty());
+        }
+        const QString directory = QString(QMARKDOWN_PRESENTATION_DIR) + "/sharpness/"
+            + QGuiApplication::platformName() + "/" + qEnvironmentVariable("QT_SCALE_FACTOR", "native");
+        QVERIFY(QDir().mkpath(directory));
+        for (qreal offset : {0., 80.3, 160.6}) {
+            flick->setProperty("contentY", offset);
+            const auto image = window.grabWindow(); QVERIFY(!image.isNull());
+            QVERIFY(image.save(directory + QString("/scroll-%1.png").arg(offset)));
+        }
     }
     void presentationFixtures()
     {

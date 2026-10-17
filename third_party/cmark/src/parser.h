@@ -17,6 +17,8 @@ struct cmark_parser {
   struct cmark_reference_map *refmap;
   struct cmark_node *root;
   struct cmark_node *current;
+  const unsigned char *qmarkdown_math_openers;
+  size_t qmarkdown_math_lines;
   int line_number;
   bufsize_t offset;
   bufsize_t column;

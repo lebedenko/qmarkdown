@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(QMarkdown VERSION 1.12.0 LANGUAGES C CXX)
+project(QMarkdown VERSION 1.13.0 LANGUAGES C CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -10,6 +10,7 @@ option(QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING "Enable private syntax highlighting ba
 if(QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
     find_package(KF6SyntaxHighlighting 6.10 REQUIRED)
 endif()
+option(QMARKDOWN_WITH_MATH "Enable bundled private math renderer" ON)
 option(BUILD_TESTING "Build tests" OFF)
 set(QMARKDOWN_QML_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt6/qml" CACHE STRING
     "QML import directory, relative to the installation prefix or absolute")
@@ -22,6 +23,9 @@ set(CMAKE_AUTOMOC ON)
 qt_policy(SET QTP0001 NEW)
 
 add_subdirectory(third_party/cmark)
+if(QMARKDOWN_WITH_MATH)
+    add_subdirectory(third_party/microtex)
+endif()
 add_subdirectory(src/QMarkdown)
 
 configure_package_config_file(cmake/QMarkdownConfig.cmake.in

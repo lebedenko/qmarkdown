@@ -147,6 +147,7 @@ void MarkdownStyle::setQuoteRuleThickness(qreal value) { update(Property::QuoteR
 
 MarkdownStyle::MarkdownStyle(QObject *parent) : QObject(parent)
 {
+    m_math = new MathStyle(this);
     m_table = new TableStyle(this);
     m_headings = new HeadingStyles(this);
     m_inlineCode = new InlineCodeStyle(this);
@@ -459,6 +460,7 @@ void MarkdownStyle::reset(Property property)
 
 void MarkdownStyle::resetOverrides()
 {
+    m_math->resetColor(); m_math->resetScale();
     m_overrides.reset();
     applyPreset();
 }
@@ -650,3 +652,10 @@ void MarkdownStyle::applyPreset()
     if (!m_overrides.test(static_cast<size_t>(Property::TableVerticalPadding)))
         update(Property::TableVerticalPadding, m_values.table.verticalPadding, values.table.verticalPadding, false);
 }
+
+MathStyle::MathStyle(MarkdownStyle *style) : QObject(style), m_style(style) {
+    connect(style, &MarkdownStyle::bodyColorChanged, this, [this] { if (!m_color.isValid()) emit colorChanged(); });
+}
+QColor MathStyle::color() const { return m_color.isValid() ? m_color : m_style->bodyColor(); }
+void MathStyle::setColor(const QColor &v) { if (m_color != v) { m_color = v; emit colorChanged(); } }
+void MathStyle::setScale(qreal v) { v = std::isfinite(v) && v > 0 ? v : 1; if (m_scale != v) { m_scale = v; emit scaleChanged(); } }

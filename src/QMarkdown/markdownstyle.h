@@ -8,6 +8,29 @@
 
 class MarkdownStyle;
 
+class MathStyle : public QObject {
+    Q_OBJECT
+    QML_ANONYMOUS
+    QML_ADDED_IN_VERSION(1, 13)
+    Q_PROPERTY(QColor color READ color WRITE setColor RESET resetColor NOTIFY colorChanged FINAL)
+    Q_PROPERTY(qreal scale READ scale WRITE setScale RESET resetScale NOTIFY scaleChanged FINAL)
+public:
+    explicit MathStyle(MarkdownStyle *style);
+    QColor color() const;
+    void setColor(const QColor &value);
+    void resetColor() { setColor({}); }
+    qreal scale() const { return m_scale; }
+    void setScale(qreal value);
+    void resetScale() { setScale(1); }
+signals:
+    void colorChanged();
+    void scaleChanged();
+private:
+    MarkdownStyle *m_style;
+    QColor m_color;
+    qreal m_scale = 1;
+};
+
 class HeadingStyle : public QObject
 {
     Q_OBJECT
@@ -237,6 +260,7 @@ class MarkdownStyle : public QObject
     Q_PROPERTY(QFont codeBlockFont READ codeBlockFont WRITE setCodeBlockFont NOTIFY codeBlockFontChanged FINAL)
     Q_PROPERTY(QColor codeBlockColor READ codeBlockColor WRITE setCodeBlockColor NOTIFY codeBlockColorChanged FINAL)
     Q_PROPERTY(QFont inlineCodeFont READ inlineCodeFont WRITE setInlineCodeFont NOTIFY inlineCodeFontChanged FINAL)
+    Q_PROPERTY(MathStyle *math READ math CONSTANT FINAL)
     Q_PROPERTY(QFont bodyFont READ bodyFont WRITE setBodyFont NOTIFY bodyFontChanged FINAL)
     Q_PROPERTY(QColor bodyColor READ bodyColor WRITE setBodyColor NOTIFY bodyColorChanged FINAL)
     Q_PROPERTY(QFont h1Font READ h1Font WRITE setH1Font NOTIFY h1FontChanged FINAL)
@@ -272,6 +296,7 @@ public:
     HeadingStyles *headings() const { return m_headings; }
     InlineCodeStyle *inlineCode() const { return m_inlineCode; }
     TableStyle *table() const { return m_table; }
+    MathStyle *math() const { return m_math; }
     CodeBlockStyle *codeBlock() const { return m_codeBlock; }
     QColor selectionBackgroundColor() const { return m_values.selectionBackgroundColor; }
     void setSelectionBackgroundColor(const QColor &value);
@@ -501,6 +526,7 @@ private:
     Preset m_preset = Legacy;
     HeadingStyles *m_headings;
     InlineCodeStyle *m_inlineCode;
+    MathStyle *m_math;
     CodeBlockStyle *m_codeBlock;
     TableStyle *m_table;
 };

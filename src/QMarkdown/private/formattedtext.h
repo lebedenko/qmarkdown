@@ -46,6 +46,7 @@ public:
     qreal logicalWidth() const { return m_logicalWidth; }
     QVariantList sourceLines() const { return m_sourceLines; }
     explicit FormattedText(QQuickItem *parent = nullptr);
+    ~FormattedText() override;
     QVariantList foregroundRanges() const { return m_foregroundRanges; }
     void setForegroundRanges(const QVariantList &value) {
         if (m_foregroundRanges == value) return;

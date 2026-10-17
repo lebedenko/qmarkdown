@@ -550,6 +550,9 @@ Flickable {
         QCOMPARE(view->property("selectedText").toString(), "before alt after");
         auto *paint = named(view, "markdownImage")[0];
         QVERIFY(!paint->childItems().isEmpty()); QVERIFY(paint->childItems()[0]->isVisible());
+        // Resource completion creates the item before the containing Row/Column
+        // has polished its position. Hit-test coordinates need a completed frame.
+        QVERIFY(!window.grabWindow().isNull());
         const auto center = paint->mapToScene({paint->width() / 2, paint->height() / 2}).toPoint();
         QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, center);
         QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, center);

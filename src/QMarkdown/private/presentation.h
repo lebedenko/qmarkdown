@@ -12,6 +12,7 @@ struct PresentationBlock {
     QString infoString;
     QString language;
     bool codeFenced = false;
+    bool displayMath = false;
     int level = 0;
     QVector<InlineRange> ranges;
     QVector<LinkSpan> links;

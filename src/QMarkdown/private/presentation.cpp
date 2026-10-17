@@ -78,6 +78,7 @@ QVector<PresentationBlock> present(const QVector<Block> &blocks)
         switch (source.kind) {
         case BlockKind::Paragraph: block.kind = PresentationKind::Paragraph; break;
         case BlockKind::Heading: block.kind = PresentationKind::Heading; break;
+        case BlockKind::MathBlock: block.kind = PresentationKind::CodeBlock; block.displayMath = true; break;
         case BlockKind::CodeBlock: block.kind = PresentationKind::CodeBlock; break;
         case BlockKind::ThematicBreak: block.kind = PresentationKind::ThematicBreak; break;
         case BlockKind::List: block.kind = PresentationKind::List; break;
