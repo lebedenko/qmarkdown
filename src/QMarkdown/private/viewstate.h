@@ -158,7 +158,7 @@ public:
     Q_INVOKABLE void refreshNavigation();
     enum RenderKind { PlainText = 0, FormattedText = 1, CodeBlock = 2, ThematicBreak = 3, List = 4, Quote = 5, ListItem = 6, HtmlBlock = 7, Image = 8, Segments = 9, Table = 10, SelectedText = 11, SelectedCode = 12, SelectedHtml = 13 };
     Q_ENUM(RenderKind)
-    enum SelectionItemKind { TextSelection = 0, ImageSelection = 1, TableCellSelection = 2, ActionSelection = 3 };
+    enum SelectionItemKind { TextSelection = 0, ImageSelection = 1, TableCellSelection = 2, ActionSelection = 3, MathSelection = 4 };
     Q_ENUM(SelectionItemKind)
     explicit ViewState(QObject *parent = nullptr);
     QQuickItem *selectionViewport() const { return m_selectionViewport; }

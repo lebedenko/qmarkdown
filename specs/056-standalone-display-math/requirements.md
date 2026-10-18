@@ -13,3 +13,7 @@ R056.3: Preserve the TeX body without inline processing. Single dollars, same-li
 R056.4: Use feature 055's native renderer/viewport without code decorations. Fitting formulas center; wide formulas scroll horizontally at natural size. Selection enabled, active Find, backend absence/errors and limits show source. Search/plain-text copy use the body without delimiter lines. Toggle changes reparse the document and restore normal Markdown when disabled.
 
 R056.5: Deliver with feature 055 in the same 1.13.0 / QML 1.13 PR, including fixtures, examples, guidance and actual verification. No inline math or additional display delimiters.
+
+## Development supersession — 2026-10-18
+
+Feature [057](../057-atomic-math-selection/requirements.md) supersedes only the requirement to show source when selection is enabled: eligible native formulas remain rendered and select atomically. Find still shows source. Historical approval and verification records above are unchanged.

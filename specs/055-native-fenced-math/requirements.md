@@ -17,3 +17,7 @@ R055.5: Serialize engine work on one application-owned worker, register fonts on
 R055.6: Selection enabled or active Find shows source. Search/plain-text copy use the TeX body without fences. Restore formulas when source mode ends. Missing backend and rendering failure use that same source representation.
 
 R055.7: Deliver examples/toggles, API/dialect guidance, release documentation, license payloads and verification in one 1.13 release PR with feature 056. Mermaid, inline math, public highlighting providers and footnotes remain deferred.
+
+## Development supersession — 2026-10-18
+
+Feature [057](../057-atomic-math-selection/requirements.md) supersedes only the requirement to show source when selection is enabled: eligible native formulas remain rendered and select atomically. Find still shows source. Historical approval and verification records above are unchanged.
