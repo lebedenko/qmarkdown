@@ -495,7 +495,7 @@ QQuickItem *ViewState::selectionItemAt(QQuickItem *view, QPointF point) const
     int offset = std::numeric_limits<int>::max();
     for (const auto &entry : m_selectionItems) {
         auto *item = entry.item.data();
-        if (!item || (entry.kind != TextSelection && entry.kind != ImageSelection) || !item->isVisible() || item->width() <= 0) continue;
+        if (!item || (entry.kind != TextSelection && entry.kind != ImageSelection && entry.kind != MathSelection) || !item->isVisible() || item->width() <= 0) continue;
         if (cell && item != cell && !cell->isAncestorOf(item)) continue;
         QRectF visible = item->mapRectToItem(view, item->boundingRect());
         for (auto *parent = item->parentItem(); parent; parent = parent->parentItem())
@@ -583,6 +583,7 @@ QPair<int, int> ViewState::selectionUnitAt(QQuickItem *view, QPointF point, int 
     if (!item) return {0, 0};
     const int offset = selectionMetadata(item)->offset;
     const int length = selectionMetadata(item)->length;
+    if (selectionMetadata(item)->kind == MathSelection) return {offset, offset + length};
     int position = offset;
     if (auto *text = qobject_cast<::FormattedText *>(item)) {
         const auto local = item->mapFromItem(view, point);
@@ -904,7 +905,7 @@ void ViewState::emitNavigation()
     for (const auto &entry : m_selectionItems) {
         auto *item = entry.item.data();
         if (!item || !item->isVisible() || item->width() <= 0
-            || (entry.kind != TextSelection && entry.kind != ImageSelection)) continue;
+            || (entry.kind != TextSelection && entry.kind != ImageSelection && entry.kind != MathSelection)) continue;
         const int offset = entry.offset;
         const int length = entry.length;
         const auto bounds = item->mapRectToItem(m_navigationView, item->boundingRect());

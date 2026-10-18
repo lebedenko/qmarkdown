@@ -27,11 +27,12 @@ Rectangle {
     property int textAlignment: Qt.AlignLeft
     readonly property real padX: Math.min(standaloneMath ? 0 : Layout.metric(style.codeBlock.horizontalPadding), Math.max(0, (width - 1) / 2))
     readonly property real padY: standaloneMath ? 0 : Layout.metric(style.codeBlock.verticalPadding)
-    readonly property var rendererEntry: {
+    readonly property bool rendererRegistered: {
         const map = surface.rendererRegistry
-        return !selected && !surface.searchActive && fenced && language.length > 0 && map
-            && Object.prototype.hasOwnProperty.call(map, language) ? map[language] : undefined
+        return fenced && language.length > 0 && !!map
+            && Object.prototype.hasOwnProperty.call(map, language)
     }
+    readonly property var rendererEntry: rendererRegistered ? rendererRegistry[language] : undefined
     property Item rendererItem: null
     property var rendererToken: null
     property bool ready: false
@@ -87,6 +88,8 @@ Rectangle {
         function onPresentationReset() { surface.ready = false; surface.clearRenderer() }
     }
     onRendererEntryChanged: rebuildRenderer()
+    onSelectedChanged: rebuildRenderer()
+    onSearchActiveChanged: rebuildRenderer()
     onCodeTextChanged: {
         firstSourcePosition = 0; firstSourceOffset = 0; firstSourceOffsetX = 0
         viewport.contentX = 0; viewport.contentY = 0
@@ -214,11 +217,28 @@ Rectangle {
             color: surface.style.math.color
             textSize: (surface.style.bodyFont.pixelSize > 0 ? surface.style.bodyFont.pixelSize
                 : surface.style.bodyFont.pointSize * Screen.logicalPixelDensity * 25.4 / 72) * surface.style.math.scale
-            enabled: surface.coordinator.mathEnabled && !surface.selected && !surface.searchActive
-                && (surface.standaloneMath || (surface.fenced && surface.language === "math" && surface.rendererEntry === undefined))
+            enabled: surface.coordinator.mathEnabled && !surface.searchActive
+                && (surface.standaloneMath || (surface.fenced && surface.language === "math" && !surface.rendererRegistered))
             visible: surface.mathVisible
             x: Math.max(0, (viewport.width - implicitWidth) / 2)
             width: implicitWidth; height: implicitHeight
+            SelectionRegistration {
+                coordinator: surface.coordinator
+                item: surface.mathVisible ? formula : null
+                kind: ViewState.MathSelection
+                offset: surface.projectionOffset
+                length: surface.projectionLength
+            }
+            Rectangle {
+                objectName: "mathSelectionHighlight"
+                anchors.fill: parent
+                color: surface.style.selectionBackgroundColor
+                visible: surface.coordinator.selectionEnabled
+                    && surface.coordinator.selectionStart < surface.coordinator.selectionEnd
+                    && surface.projectionLength > 0
+                    && surface.coordinator.selectionStart < surface.projectionOffset + surface.projectionLength
+                    && surface.coordinator.selectionEnd > surface.projectionOffset
+            }
         }
 
         clip: true

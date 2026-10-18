@@ -61,7 +61,7 @@ content outside the visible area. The host performs the actual clipboard write.
 Null headers remain supported.
 
 Custom fenced visuals retain precedence and manage their own layout. These source
-settings and the gutter apply when selection or Find exposes ordinary source.
+settings and the gutter apply when Find or a rendering fallback exposes ordinary source.
 
 ## Host scrollbars
 

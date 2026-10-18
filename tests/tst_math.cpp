@@ -1,5 +1,7 @@
 #include "private/document.h"
 #include "private/mathitem.h"
+#include "private/formattedtext.h"
+#include "markdownstyle.h"
 #include "private/viewstate.h"
 #include <QQmlComponent>
 #include <QQmlEngine>
@@ -154,6 +156,15 @@ MarkdownView {
         QVERIFY2(view, qPrintable(component.errorString()));
         QTRY_COMPARE(formulas(view.get()).size(), 1);
         QVERIFY(!formulas(view.get())[0]->mathEnabled());
+        view->setProperty("selectionEnabled", true);
+        QVERIFY(!formulas(view.get())[0]->mathEnabled());
+        view->setProperty("searchActive", true);
+        QVERIFY(!formulas(view.get())[0]->mathEnabled());
+        view->setProperty("searchActive", false);
+        QVERIFY(!formulas(view.get())[0]->mathEnabled());
+        view->setProperty("selectionEnabled", false);
+        view->setProperty("fencedBlockRenderers", engine.evaluate("({math: undefined})").toVariant());
+        QVERIFY(!formulas(view.get())[0]->mathEnabled());
         view->setProperty("fencedBlockRenderers", QVariantMap{});
         if (!mathAvailable()) return;
         auto item = formulas(view.get())[0]; QTRY_VERIFY(item->ready());
@@ -263,6 +274,80 @@ Flickable {
         style.math()->setScale(std::numeric_limits<qreal>::quiet_NaN()); QCOMPARE(style.math()->scale(), 1.0);
         style.math()->setScale(2); style.resetOverrides(); QCOMPARE(style.math()->scale(), 1.0);
     }
+    void atomicSelection_data() {
+        QTest::addColumn<QString>("markdown");
+        QTest::newRow("fenced") << "```math\nx+y\nz+1\n```";
+        QTest::newRow("standalone") << "$$\nx+y\nz+1\n$$";
+        QTest::newRow("nested") << "> - $$\n>   x+y\n>   z+1\n>   $$";
+    }
+    void atomicSelection() {
+        if (!mathAvailable()) QSKIP("Math backend disabled");
+        QFETCH(QString, markdown);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+import QtQuick
+import QMarkdown
+MarkdownView { width: 300; mathEnabled: true; selectionEnabled: true; searchActive: true }
+)", QUrl());
+        QQuickWindow window; window.resize(320, 200);
+        std::unique_ptr<QQuickItem> view(qobject_cast<QQuickItem *>(component.create()));
+        QVERIFY2(view, qPrintable(component.errorString()));
+        view->setParentItem(window.contentItem());
+        view->setProperty("markdown", markdown);
+        window.show(); QTest::qWait(30);
+        auto *state = view->findChild<ViewState *>(); QVERIFY(state);
+        auto findText = [](auto &&self, QQuickItem *item) -> FormattedText * {
+            if (auto *text = qobject_cast<FormattedText *>(item)) return text;
+            for (auto *child : item->childItems()) if (auto *text = self(self, child)) return text;
+            return nullptr;
+        };
+        auto *text = findText(findText, view.get()); QVERIFY(text);
+        // Retain a partial source selection as Find closes and native work completes.
+        const auto start = text->mapToItem(view.get(), text->sourceRectangleAt(1).center());
+        const auto end = text->mapToItem(view.get(), text->sourceRectangleAt(3).center());
+        QVERIFY(state->beginSelection(view.get(), start, false));
+        state->extendSelection(view.get(), end);
+        const int first = state->selectionStart(), last = state->selectionEnd();
+        QVERIFY(last > first);
+        const auto payload = state->selectedText();
+        QCOMPARE(payload, QString("+y"));
+        view->setProperty("searchActive", false);
+        QTRY_COMPARE(formulas(view.get()).size(), 1);
+        auto *formula = formulas(view.get()).first(); QTRY_VERIFY(formula->ready());
+        QCOMPARE(state->selectionStart(), first); QCOMPARE(state->selectionEnd(), last);
+        QCOMPARE(state->selectedText(), payload);
+        auto *overlay = formula->findChild<QQuickItem *>("mathSelectionHighlight");
+        QVERIFY(overlay); QVERIFY(overlay->isVisible());
+        QCOMPARE(overlay->size(), formula->size());
+        QVERIFY(formula->parentItem()->parentItem()->clip());
+        QSignalSpy copied(state, &ViewState::copyRequested);
+        state->requestCopy(); QCOMPARE(copied.last().first().toString(), payload);
+        auto *viewport = formula->parentItem()->parentItem();
+        QCOMPARE(formula->x(), qMax(qreal(0), (viewport->width() - formula->width()) / 2));
+        const auto destination = qEnvironmentVariable("QMARKDOWN_MATH_SELECTION_CAPTURE");
+        if (!destination.isEmpty()) {
+            QTest::qWait(50);
+            QVERIFY(window.grabWindow().save(destination + "-centered-" + QTest::currentDataTag() + ".png"));
+        }
+        view->setWidth(80);
+        auto *style = qvariant_cast<MarkdownStyle *>(view->property("style")); QVERIFY(style);
+        style->math()->setScale(2);
+        QTRY_VERIFY(formula->ready());
+        QCOMPARE(state->selectedText(), payload);
+        state->selectAll();
+        QCOMPARE(state->selectedText(), markdown.startsWith(">")
+            ? QString("• x+y\nz+1\n") : QString("x+y\nz+1\n"));
+        QVERIFY(viewport->property("contentWidth").toReal() > viewport->width());
+        QVERIFY(viewport->setProperty("contentX", 10));
+        QCOMPARE(overlay->size(), formula->size());
+        if (!destination.isEmpty()) {
+            QTest::qWait(50);
+            QVERIFY(window.grabWindow().save(destination + "-" + QTest::currentDataTag() + ".png"));
+        }
+        state->clearSelection(); QVERIFY(!overlay->isVisible());
+        view->setProperty("markdown", "replacement");
+        QCOMPARE(state->selectedText(), QString());
+    }
     void qmlModes() {
         QQmlEngine engine; QQmlComponent component(&engine);
         component.setData(R"(
@@ -277,11 +362,13 @@ MarkdownView { width: 120; markdown: "```math\n\\frac{1}{2}\n```\n\n$$\nx^2\n$$"
         auto items = formulas(view.get());
         if (mathAvailable()) for (auto f : items) QTRY_VERIFY(f->ready());
         view->setProperty("selectionEnabled", true);
-        for (auto f : formulas(view.get())) QVERIFY(!f->ready());
+        if (mathAvailable()) for (auto f : formulas(view.get())) QTRY_VERIFY(f->ready());
         view->setProperty("selectionEnabled", false);
         if (mathAvailable()) for (auto f : formulas(view.get())) QTRY_VERIFY(f->ready());
         view->setProperty("searchActive", true);
         for (auto f : formulas(view.get())) QVERIFY(!f->ready());
+        view->setProperty("searchActive", false);
+        if (mathAvailable()) for (auto f : formulas(view.get())) QTRY_VERIFY(f->ready());
     }
 };
 QTEST_MAIN(MathTest)
