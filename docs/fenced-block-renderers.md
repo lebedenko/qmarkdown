@@ -57,7 +57,7 @@ Keep the Component's creation context alive. Nested lists and quotes use the sam
 contract. Custom Items are trusted application code with the application's existing
 capabilities; the library adds no engine, network access or resource permission.
 
-When `selectionEnabled` is true, the view shows ordinary selectable source for all
+When `selectionEnabled` is true, the view shows ordinary selectable source for host-rendered
 code blocks, including when no text is selected. Disable selection to show custom
 visuals again. Code actions continue to copy exact source, and document copying
 uses the ordinary source projection. The view never writes the clipboard.
@@ -70,3 +70,5 @@ C++ APIs remain deferred. See the [API reference](api.md) and
 
 Since QML 1.9, active Find also replaces custom visuals with searchable source.
 Eligible visuals return after Find closes if document selection is disabled.
+
+Development: native math remains rendered during selection. A registered `math` entry still takes precedence: selection or Find shows its source even while the custom renderer is inactive. Failed host renderers also keep source fallback.

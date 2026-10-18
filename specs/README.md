@@ -43,7 +43,7 @@ own header composition, clipboard and scrollbar styling. See the
 
 Native block math is opt-in per view, using a bundled private MicroTeX backend.
 It supports exact `math` fences and standalone dollar-delimited display blocks;
-selection/Find and failures show literal TeX source. See the [math guide](../docs/math.md).
+Find and failures show literal TeX source. Development feature 057 keeps rendered math atomic during selection. See the [math guide](../docs/math.md).
 <!-- current-release:end -->
 
 ## 1.11 syntax highlighting
@@ -258,3 +258,7 @@ approved for implementation on 2026-10-16. Each directory includes design, mappe
 and verification records. Implementation, both Qt candidate matrices, native Wayland acceptance and
 distribution checks are complete; final PR-head gates remain required. The proposed delivery is one 1.13.0 / QML 1.13 release PR.
 Merge, tagging and publication require separate authorization.
+
+## Approved development: atomic math selection
+
+[057 atomic math selection](057-atomic-math-selection/requirements.md) retains rendered formulas with selection enabled and source-mode Find. See its design, tasks and verification records.

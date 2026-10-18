@@ -40,10 +40,18 @@ unmatched delimiters stay ordinary Markdown. TeX body whitespace is preserved
 after container prefixes and the parser's newline normalization. Single dollars,
 same-line `$$…$$`, and backslash-bracket delimiters remain ordinary Markdown.
 
-Selection enabled or active Find shows literal body source for both forms. Plain
-text copying and search omit fences/dollar delimiter lines. Missing resources,
-backend OFF, invalid/unsupported syntax and work limits show that same source
-representation. Closing Find or disabling selection restores eligible formulas.
+During development, native formulas remain rendered with selection enabled. Each
+formula selects as one object: boundary clicks and Shift-click use its start/end;
+double- and triple-click select its complete TeX body, including the retained
+terminal newline. Dragging extends into surrounding text. Any nonempty overlap
+highlights the formula rectangle, clipped to its viewport.
+
+Active Find shows selectable literal body source. Closing Find restores eligible
+formulas without changing selection endpoints. A retained partial-source selection
+highlights the whole formula while copying only the exact selected substring.
+Plain text copying and search omit fences/dollar delimiter lines and preserve body
+whitespace and document separators. Missing resources, backend OFF, pending work,
+invalid syntax and rendering failures retain selectable source fallback.
 
 ## Tested dialect
 

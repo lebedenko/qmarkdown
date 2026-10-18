@@ -92,6 +92,36 @@ private slots:
         lifetime.setCoordinator(temporary.get()); lifetime.setItem(&replacement);
         temporary.reset(); QVERIFY(!lifetime.coordinator());
     }
+    void atomicMathGeometry() {
+        ViewState state;
+        state.setMathEnabled(true);
+        state.setMarkdown("$$\nx+y\nz+1\n$$");
+        state.setSelectionEnabled(true);
+        QQuickItem view, formula(&view);
+        formula.setWidth(100); formula.setHeight(40);
+        SelectionRegistration registration;
+        registration.setCoordinator(&state); registration.setItem(&formula);
+        registration.setKind(ViewState::MathSelection);
+        registration.setOffset(0); registration.setLength(8);
+        registration.componentComplete();
+        QVERIFY(!state.selectionLink(&view, {10, 10}).isValid());
+        QVERIFY(state.beginSelection(&view, {10, 10}, false));
+        QCOMPARE(state.selectionStart(), 0); QCOMPARE(state.selectionEnd(), 0);
+        state.extendSelection(&view, {90, 10});
+        QCOMPARE(state.selectedText(), QString("x+y\nz+1\n"));
+        state.clearSelection(); state.cancelSelectionGesture();
+        // A fresh coordinate starts a click series; both repeated granularities
+        // must include all lines and the retained terminal newline.
+        for (int click = 0; click < 3; ++click) {
+            QVERIFY(state.beginSelection(&view, {30, 30}, false));
+            if (click > 0) QCOMPARE(state.selectedText(), QString("x+y\nz+1\n"));
+        }
+        state.cancelSelectionGesture();
+        QVERIFY(state.beginSelection(&view, {90, 10}, false));
+        state.extendSelection(&view, {10, 10});
+        QCOMPARE(state.selectedText(), QString("x+y\nz+1\n"));
+    }
+
     void exclusionRegistrations() {
         ViewState state; state.setSelectionEnabled(true); state.setMarkdown("abcdef");
         QQuickItem view, cell(&view), image(&view), action(&view);

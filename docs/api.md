@@ -220,8 +220,13 @@ remain host-owned.
 `MarkdownView.mathEnabled` defaults to false. Read-only `mathAvailable` reports
 compiled backend availability. Exact first info token `math` selects native fenced
 rendering after host renderers. Standalone `$$` delimiter lines are parsed only
-when enabled. Selection enabled or active Find shows literal TeX body text.
+when enabled. Active Find shows literal TeX body text. During development,
+selection keeps eligible native formulas rendered as atomic objects.
 `MarkdownStyle.math.color` inherits `bodyColor`; reset restores inheritance.
 `math.scale` defaults to 1.0 relative to resolved body text size; nonpositive or
 nonfinite values reset to 1. Bundled mathematical fonts are independent of the
 host body family. See the [dialect and limits](math.md).
+
+## Development: atomic native math selection
+
+With selection enabled, eligible native formulas remain rendered and select as complete objects. Find shows TeX source and preserves exact selection endpoints when closed. Copy uses the existing body projection. Registered host `math` renderers retain source fallback during selection and Find. No public API changes.
