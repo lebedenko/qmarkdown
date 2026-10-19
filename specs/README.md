@@ -270,3 +270,7 @@ Merge, tagging and publication require separate authorization.
 [mapped tasks](058-scrolling-task-presentation/tasks.md) and
 [actual verification](058-scrolling-task-presentation/verification.md) track the
 approved nested-wheel fix and opt-in replacement task markers. Versions are unchanged.
+
+## Approved development: playground refresh
+
+[059 requirements](059-playground-readme-refresh/requirements.md), [design](059-playground-readme-refresh/design.md), [tasks](059-playground-readme-refresh/tasks.md), and [verification](059-playground-readme-refresh/verification.md) cover the local playground and README refresh.

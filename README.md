@@ -1,4 +1,4 @@
-# qt-markdown
+# QMarkdown
 
 See the [public API reference](docs/api.md) for the complete supported contract.
 
@@ -15,7 +15,7 @@ Throughout 1.x, documented public QML properties, signals and CMake integration 
 
 Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: The 1.13.0 package accepts compatible 1.0–1.13 requests and exact 1.13.0, and rejects exact earlier releases, 0.7, 1.14 and 2.0. See [CHANGELOG](CHANGELOG.md). See [1.13.0 release notes](docs/release-notes-1.13.0.md) for these changes. [1.6.0 release notes](docs/release-notes-1.6.0.md) retain the historical release. [1.5.0 release notes](docs/release-notes-1.5.0.md) describe the published Ubuntu and Arch packages; [1.2.0 release notes](docs/release-notes-1.2.0.md) describe historical downloads. Historical [1.1.0 release notes](docs/release-notes-1.1.0.md) remain available.
 
-Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, bundled Mermaid/math, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
+Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, bundled Mermaid, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
 
 Reading tools include literal Find with independent highlights, a recursive heading
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
@@ -40,6 +40,12 @@ numbers. Defaults retain wrapped natural-height source with numbers off. Hosts
 own header composition, clipboard and scrollbar styling. See the
 [code-block guide](docs/code-blocks.md).
 <!-- current-release:end -->
+
+The current development playground demonstrates unreleased nested scrolling fixes and task indicator presentation. Select **Nested code scrolling** for boundary, reversal, horizontal and Shift-wheel instructions. For **GFM task lists**, open Style controls and enable task lists to compare normal or 2× host artwork, replacement markers and the fallback (disable Host-styled task indicators). Sample selection preserves settings.
+
+Both demo commands start with selection, native math, all GFM, host task indicators replacing bullets, line numbers, bounded code height, Polished dark presentation, an H1 separator, underlined links, syntax colors and the dark syntax palette enabled. Normal-sized task artwork remains the default. Neutral/Reset remains available for the previous host-based presentation.
+
+Syntax controls report `syntaxHighlightingAvailable` and are disabled without the backend. Run `task demo-highlighted` to configure a separate `build-highlighted` with examples and `QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING=ON`; install KF6SyntaxHighlighting separately. Ordinary `task demo` is unchanged.
 
 ## Build and check
 
@@ -112,7 +118,7 @@ Launch the editable source/preview example:
 QML_IMPORT_PATH="$PWD/build-shared/qml" build-shared/examples/viewer/qmarkdown-viewer
 ```
 
-The playground offers eight bundled samples, live editing, independently scrollable panes with a draggable divider, Fit/240/480/720 preview widths, and collapsible role-based style controls with a px/pt selector, fractional point editing, and dedicated list/quote and thematic-break controls, Neutral/Alternate presets and reset. It starts with Overview; Reload sample restores the selected source and Clear empties it. Neutral and Reset restore application-based construction defaults; Alternate retains its explicit pixel sizes. Inline code displays the inherited body size until edited; selecting or reading it does not create an override, and heading code still inherits heading typography. Editing its size/unit creates an explicit override. All state stays in memory. Qt Quick Controls is required only when `QMARKDOWN_BUILD_EXAMPLES=ON`; library-only builds do not require it.
+The playground offers 19 bundled samples, live editing, independently scrollable panes with a draggable divider, Fit/240/480/720 preview widths, and collapsible role-based style controls with a px/pt selector, fractional point editing, and dedicated list/quote and thematic-break controls, Neutral/Alternate presets and reset. It starts with Overview; Reload sample restores the selected source and Clear empties it. Neutral and Reset restore application-based construction defaults; Alternate retains its explicit pixel sizes. Inline code displays the inherited body size until edited; selecting or reading it does not create an override, and heading code still inherits heading typography. Editing its size/unit creates an explicit override. All state stays in memory. Qt Quick Controls is required only when `QMARKDOWN_BUILD_EXAMPLES=ON`; library-only builds do not require it.
 
 The playground supplies theme-aware styling: the preview surface and Neutral text follow the application palette, and Alternate accents adapt to light/dark surfaces. Manual color edits persist across theme changes until Neutral or Reset restores live theme colors. The library's default colors remain unchanged; host applications own theming.
 
@@ -195,9 +201,9 @@ Run reproducible shared/static install and relocation checks with:
 python3 scripts/verify-packaging.py
 ```
 
-The script exercises 1.0, 1.1 styling and 1.2 code-action installed fixtures, builds both variants, runs tests and lint, installs into temporary prefixes, relocates them, checks CMake metadata for source/build paths, and builds/runs a copied [consumer fixture](tests/installed-consumer/CMakeLists.txt) using only the installed package. It also builds with tests/examples/benchmarks disabled, retains its temporary directory and prints its location for inspection. Use `--qt-root /path/to/Qt/6.x/gcc_64` to pin every CMake configuration to that SDK and `--work-dir /path/to/new-directory` to choose the artifact destination. Static checks use a custom relative QML destination and no QMarkdown import path.
+The script exercises installed public API consumer fixtures across supported import versions, builds both variants, runs tests and lint, installs into temporary prefixes, relocates them, checks CMake metadata for source/build paths, and builds/runs a copied [consumer fixture](tests/installed-consumer/CMakeLists.txt) using only the installed package. It also builds with tests/examples/benchmarks disabled, retains its temporary directory and prints its location for inspection. Use `--qt-root /path/to/Qt/6.x/gcc_64` to pin every CMake configuration to that SDK and `--work-dir /path/to/new-directory` to choose the artifact destination. Static checks use a custom relative QML destination and no QMarkdown import path.
 
-See [core leaf block verification](specs/006-core-leaf-blocks/verification.md), [fenced code verification](specs/004-fenced-code-blocks/verification.md), [inline formatting verification](specs/003-inline-formatting/verification.md), [standards and conformance](specs/standards.md), [rendering verification](specs/001-static-text/verification.md) and [scaffold verification](specs/002-project-scaffold/verification.md), [specifications](specs/README.md), [overview](specs/overview.md), [roadmap](specs/roadmap.md), and [project instructions](AGENTS.md). Authored library code is licensed under the [MIT license](LICENSE), attributed to qt-markdown contributors. The bundled cmark sources retain their own [notices](third_party/cmark/COPYING), also installed with the package. The documented public QML API and CMake integration are compatible throughout 1.x; private C++ implementation ABI is excluded.
+See [core leaf block verification](specs/006-core-leaf-blocks/verification.md), [fenced code verification](specs/004-fenced-code-blocks/verification.md), [inline formatting verification](specs/003-inline-formatting/verification.md), [standards and conformance](specs/standards.md), [rendering verification](specs/001-static-text/verification.md) and [scaffold verification](specs/002-project-scaffold/verification.md), [specifications](specs/README.md), [overview](specs/overview.md), [roadmap](specs/roadmap.md), and [project instructions](AGENTS.md). Authored library code is licensed under the [MIT license](LICENSE), with legal attribution recorded in LICENSE. The bundled cmark sources retain their own [notices](third_party/cmark/COPYING), also installed with the package. The documented public QML API and CMake integration are compatible throughout 1.x; private C++ implementation ABI is excluded.
 
 Container style defaults: `listIndent: 24`, `quoteIndent: 16`, `quoteRuleColor: "#808080"`, `quoteRuleThickness: 2`. All notify on changes and support shared styles and the established default-style reset/destruction lifecycle. See [Feature 007](specs/007-container-blocks/requirements.md) and its [verification](specs/007-container-blocks/verification.md).
 

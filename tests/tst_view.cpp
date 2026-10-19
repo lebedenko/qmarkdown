@@ -283,7 +283,7 @@ MarkdownView {
         auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
         auto *renderers = window->findChild<QQuickItem *>("rendererToggle"); QVERIFY(renderers);
         auto *selection = window->findChild<QQuickItem *>("selectionToggle"); QVERIFY(selection);
-        window->setProperty("sampleIndex", 14);
+        window->setProperty("sampleKey", "renderers");
         renderers->setProperty("checked", true);
         QTRY_VERIFY(content(preview) > 0); QVERIFY(named(preview, "nativeFencePreview").isEmpty());
         selection->setProperty("checked", false);
@@ -333,6 +333,8 @@ MarkdownView {
             if (type == QEvent::MouseButtonRelease) buttons = Qt::NoButton;
             QMouseEvent event(type, point, point, window->mapToGlobal(point), button, buttons, modifiers, &device);
             event.setTimestamp(timestamp += 20);
+            timestamp += 16;
+            event.setTimestamp(timestamp);
             QCoreApplication::sendEvent(window, &event);
         };
         auto click = [&](QPoint point, Qt::KeyboardModifiers modifiers = Qt::NoModifier) {
@@ -502,7 +504,8 @@ MarkdownView {
         auto *preview=window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
         auto *tables=window->findChild<QQuickItem *>("tablesToggle"); auto *tags=window->findChild<QQuickItem *>("tagFilterToggle");
         auto *gfm=window->findChild<QQuickItem *>("gfmToggle"); QVERIFY(tables); QVERIFY(tags); QVERIFY(gfm);
-        window->setProperty("sampleIndex",13); QTRY_VERIFY(content(preview)>0); const auto source=preview->property("markdown");
+        window->findChild<QObject *>("gfmToggle")->setProperty("checked", false);
+        window->setProperty("sampleKey", "tables"); QTRY_VERIFY(content(preview)>0); const auto source=preview->property("markdown");
         QVERIFY(named(preview,"markdownTable").isEmpty()); gfm->setProperty("checked",true);
         QTRY_COMPARE(named(preview,"markdownTable").size(),2); QVERIFY(!tables->property("checked").toBool());
         tables->setProperty("checked",true); tags->setProperty("checked",true); gfm->setProperty("checked",false);
@@ -683,7 +686,8 @@ MarkdownView {
         QVERIFY2(component.isReady(), qPrintable(component.errorString())); std::unique_ptr<QObject> object(component.create());
         auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
         auto *preview = window->findChild<QQuickItem *>("preview"); auto *toggle = window->findChild<QQuickItem *>("autolinkToggle"); QVERIFY(preview); QVERIFY(toggle);
-        window->setProperty("sampleIndex", 12); QTRY_VERIFY(content(preview) > 0);
+        window->findChild<QObject *>("gfmToggle")->setProperty("checked", false);
+        window->setProperty("sampleKey", "autolinks"); QTRY_VERIFY(content(preview) > 0);
         QVERIFY(!preview->property("extendedAutolinksEnabled").toBool()); const auto source = preview->property("markdown");
         toggle->setProperty("checked", true); QTRY_VERIFY(preview->property("extendedAutolinksEnabled").toBool());
         QTRY_VERIFY(!painted(preview).isEmpty()); QCOMPARE(painted(preview)[0]->linkDestination(0), "http://www.commonmark.org");
@@ -770,7 +774,8 @@ MarkdownView {
         std::unique_ptr<QObject> object(component.create()); auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
         auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
         auto *toggle = window->findChild<QQuickItem *>("strikeToggle"); QVERIFY(toggle);
-        window->setProperty("sampleIndex", 11); QTRY_VERIFY(content(preview) > 0);
+        window->findChild<QObject *>("gfmToggle")->setProperty("checked", false);
+        window->setProperty("sampleKey", "strike"); QTRY_VERIFY(content(preview) > 0);
         QVERIFY(!preview->property("strikethroughEnabled").toBool());
         const auto source = preview->property("markdown"); toggle->setProperty("checked", true);
         QTRY_VERIFY(preview->property("strikethroughEnabled").toBool());
@@ -1050,7 +1055,8 @@ MarkdownView {
         auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
         auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
         auto *toggle = window->findChild<QQuickItem *>("taskToggle"); QVERIFY(toggle);
-        window->setProperty("sampleIndex", 10);
+        window->findChild<QObject *>("gfmToggle")->setProperty("checked", false);
+        window->setProperty("sampleKey", "tasks");
         QTRY_VERIFY(content(preview) > 0);
         QVERIFY(!preview->property("taskListsEnabled").toBool());
         const auto source = preview->property("markdown");
@@ -1058,7 +1064,27 @@ MarkdownView {
         QTRY_VERIFY(preview->property("taskListsEnabled").toBool());
         QList<QQuickItem *> tasks;
         for (auto *item : named(preview, "taskIndicator")) if (item->isVisible()) tasks.append(item);
-        QCOMPARE(tasks.size(), 8);
+        QCOMPARE(tasks.size(), 14);
+        auto *large = window->findChild<QObject *>("largeTaskToggle"); QVERIFY(large);
+        QTRY_VERIFY(!named(preview, "viewerTaskControl").isEmpty());
+        auto controls = named(preview, "viewerTaskControl");
+        auto *adapter = controls.first()->parentItem(); QVERIFY(adapter);
+        const auto normalWidth = adapter->implicitWidth();
+        const auto normalHeight = adapter->implicitHeight();
+        large->setProperty("checked", true);
+        QTRY_COMPARE(adapter->implicitWidth(), normalWidth * 2);
+        QTRY_COMPARE(adapter->implicitHeight(), normalHeight * 2);
+        auto *artwork = controls.first()->property("indicator").value<QQuickItem *>(); QVERIFY(artwork);
+        QTRY_COMPARE(artwork->mapRectToItem(adapter, artwork->boundingRect()), adapter->boundingRect());
+        large->setProperty("checked", false);
+        QTRY_COMPARE(adapter->implicitWidth(), normalWidth);
+        QVERIFY(QMetaObject::invokeMethod(preview, "selectAll"));
+        const auto copied = preview->property("selectedText");
+        large->setProperty("checked", true);
+        QCOMPARE(preview->property("selectedText"), copied);
+        window->findChild<QObject *>("hostTaskToggle")->setProperty("checked", false);
+        QTRY_VERIFY(named(preview, "viewerTaskControl").isEmpty());
+        QCOMPARE(preview->property("selectedText"), copied);
         QCOMPARE(tasks[0]->property("checked").toBool(), true);
         QCOMPARE(preview->property("markdown"), source);
         const auto screenshot = qEnvironmentVariable("QMARKDOWN_TASKS_SCREENSHOT");
@@ -2639,6 +2665,7 @@ MarkdownView {
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
         auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
         auto *editor = window->findChild<QObject *>("editor"); QVERIFY(editor);
         auto *panel = window->findChild<QObject *>("stylePanel"); QVERIFY(panel);
@@ -2749,7 +2776,7 @@ MarkdownView {
         QCOMPARE(style->property("quoteIndent").toDouble(), 24.0);
         QCOMPARE(style->property("quoteRuleThickness").toDouble(), 3.0);
         QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
-        window->setProperty("sampleIndex", 8);
+        window->setProperty("sampleKey", "links");
         QTRY_VERIFY(!painted(preview).isEmpty());
         auto *linkedHeading = painted(preview)[0];
         QTRY_VERIFY(linkedHeading->logicalHeight() > 0);
@@ -2775,7 +2802,7 @@ MarkdownView {
         QTRY_COMPARE(color("link"), QColor("#2299bb")); QVERIFY(style->property("linkUnderline").toBool());
         if (qEnvironmentVariableIsSet("QMARKDOWN_CAPTURE_THEME")) {
             window->resize(1000, 1250);
-            window->setProperty("sampleIndex", 9);
+            window->setProperty("sampleKey", "images");
             window->findChild<QObject *>("styleToggle")->setProperty("checked", true);
             QVERIFY(QMetaObject::invokeMethod(window, "loadSample"));
             QTRY_COMPARE(named(preview, "markdownImage").size(), 2);
@@ -2803,6 +2830,7 @@ MarkdownView {
         std::unique_ptr<QObject> object(component.create());
         auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
         auto *panel = window->findChild<QObject *>("stylePanel"); QVERIFY(panel);
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
         auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
         auto *style = preview->property("style").value<MarkdownStyle *>(); QVERIFY(style);
         auto *units = window->findChild<QObject *>("unitSelector"); QVERIFY(units);
@@ -2907,9 +2935,19 @@ MarkdownView {
         QVERIFY2(component.isReady(), qPrintable(component.errorString()));
         std::unique_ptr<QObject> object(component.create());
         auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
         auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
         auto *editor = window->findChild<QObject *>("editor"); QVERIFY(editor);
         QTRY_VERIFY(content(preview) > 0);
+        auto *syntaxToggle = window->findChild<QObject *>("syntaxToggle"); QVERIFY(syntaxToggle);
+        auto *availability = window->findChild<QObject *>("syntaxAvailability"); QVERIFY(availability);
+        QCOMPARE(syntaxToggle->property("enabled").toBool(), preview->property("syntaxHighlightingAvailable").toBool());
+        QVERIFY(availability->property("text").toString().contains(
+            preview->property("syntaxHighlightingAvailable").toBool() ? "backend available" : "backend unavailable"));
+        auto *selector = window->findChild<QObject *>("sampleSelector"); QVERIFY(selector);
+        QCOMPARE(selector->property("count").toInt(), 19);
+        auto *largeTasks = window->findChild<QObject *>("largeTaskToggle"); QVERIFY(largeTasks);
+        QVERIFY(!largeTasks->property("checked").toBool());
         window->setHeight(600);
         QTRY_VERIFY(content(preview) > 0);
         window->setHeight(700);
@@ -2939,14 +2977,14 @@ MarkdownView {
         auto *style = preview->property("style").value<QObject *>(); QVERIFY(style);
         auto *sourceScroll = window->findChild<QQuickItem *>("sourceScroll"); QVERIFY(sourceScroll);
         auto *previewScroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(previewScroll);
-        for (int sample = 0; sample < 7; ++sample) {
-            window->setProperty("sampleIndex", sample);
+        for (const auto *sample : {"overview", "headings", "inline", "code", "unicode", "leaf", "containers", "links", "images", "tasks", "strike", "autolinks", "tables", "renderers", "reading", "keyboard", "syntax", "math", "scrolling"}) {
+            window->setProperty("sampleKey", sample);
             QTRY_COMPARE(editor->property("text"), window->property("sample"));
             QVERIFY(!editor->property("text").toString().isEmpty());
             QTRY_COMPARE(sourceScroll->property("contentY").toDouble(), 0.0);
             QTRY_COMPARE(previewScroll->property("contentY").toDouble(), 0.0);
         }
-        window->setProperty("sampleIndex", 4);
+        window->setProperty("sampleKey", "unicode");
         QTRY_VERIFY(content(preview) > previewScroll->height());
         const auto wideHeight = content(preview);
         window->setProperty("previewWidth", 240);
@@ -2980,7 +3018,7 @@ MarkdownView {
         QVERIFY(QMetaObject::invokeMethod(window, "resetStyle"));
         QCOMPARE(style->property("inlineCodeFont").value<QFont>().resolveMask(), inlineFont.resolveMask());
         QCOMPARE(preview->property("style").value<QObject *>(), style);
-        window->setProperty("sampleIndex", 0);
+        window->setProperty("sampleKey", "overview");
         window->resize(800, 600);
         auto *toggle = window->findChild<QObject *>("styleToggle"); QVERIFY(toggle);
         toggle->setProperty("checked", true);
@@ -3031,7 +3069,7 @@ MarkdownView {
             window->update();
             QTRY_VERIFY(!frames.isEmpty());
             QVERIFY(window->grabWindow().save(path + ".alternate.png"));
-            window->setProperty("sampleIndex", 3);
+            window->setProperty("sampleKey", "code");
             for (int preset = 0; preset < 2; ++preset) {
                 QVERIFY(QMetaObject::invokeMethod(panel, "applyPreset", Q_ARG(QVariant, bool(preset))));
                 QTest::qWait(100);

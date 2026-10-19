@@ -15,14 +15,19 @@ ApplicationWindow {
     title: "QMarkdown playground"
     Component {
         id: hostTaskIndicator
-        TaskIndicator { hostPalette: window.palette }
+        TaskIndicator { hostPalette: window.palette; artworkScale: stylePanel.largeTaskIndicators ? 2 : 1 }
     }
     property string lastDestination: "No link activated"
     property int sampleIndex: 0
     property int previewWidth: 0
-    readonly property string sample: samples.sources[sampleIndex]
+    property string sampleKey: "overview"
+    readonly property string sample: samples.entries[sampleIndex].source
+    onSampleKeyChanged: {
+        const index = samples.entries.findIndex(entry => entry.key === sampleKey)
+        if (index >= 0) sampleIndex = index
+    }
     function loadSample() {
-        editor.text = samples.sources[sampleIndex]
+        editor.text = samples.entries[sampleIndex].source
         editor.cursorPosition = 0
         sourceScroll.contentY = 0
         previewScroll.contentY = 0
@@ -64,6 +69,9 @@ ApplicationWindow {
     MarkdownStyle {
         id: hostStyle
         objectName: "hostStyle"
+        preset: MarkdownStyle.PolishedDark
+        headings.h1.separatorVisible: true
+        linkUnderline: true
         linkColor: window.palette.link
         bodyColor: window.palette.text
         h1Color: window.palette.text
@@ -84,9 +92,10 @@ ApplicationWindow {
             Label { text: "Sample" }
             ComboBox {
                 objectName: "sampleSelector"
-                model: samples.names
+                model: samples.entries
+                textRole: "title"
                 currentIndex: window.sampleIndex
-                onActivated: window.sampleIndex = currentIndex
+                onActivated: window.sampleKey = samples.entries[currentIndex].key
             }
             Button { text: "Reload sample"; objectName: "reloadButton"; onClicked: window.loadSample() }
             Button { text: "Clear"; objectName: "clearButton"; onClicked: window.clearSource() }
@@ -102,18 +111,8 @@ ApplicationWindow {
             Layout.fillWidth: true
             spacing: 8
             Button { text: "Find"; onClicked: window.openFind() }
-            CheckBox { id: outlineToggle; text: "Heading outline"; objectName: "outlineToggle" }
-            CheckBox { id: mathToggle; text: "Native math"; objectName: "mathToggle" }
-            CheckBox { id: rendererToggle; text: "Custom fences"; objectName: "rendererToggle" }
             CheckBox { id: selectionToggle; text: "Document selection"; checked: true; objectName: "selectionToggle" }
             CheckBox { id: styleToggle; text: "Style controls"; objectName: "styleToggle" }
-            CheckBox { id: tablesToggle; text: "GFM tables"; objectName: "tablesToggle" }
-            CheckBox { id: tagFilterToggle; text: "GFM tag filter"; objectName: "tagFilterToggle" }
-            CheckBox { id: gfmToggle; text: "All GFM"; objectName: "gfmToggle" }
-            CheckBox { id: autolinkToggle; text: "GFM extended autolinks"; objectName: "autolinkToggle" }
-            CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
-            CheckBox { id: hostTaskToggle; text: "Host-styled task indicators"; checked: true; objectName: "hostTaskToggle" }
-            CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
         }
         RowLayout {
             visible: preview.searchActive
@@ -165,23 +164,41 @@ ApplicationWindow {
             id: styleScroll
             visible: styleToggle.checked
             Layout.fillWidth: true
-            Layout.preferredHeight: Math.min(stylePanel.implicitHeight, 220)
+            Layout.preferredHeight: Math.min(styleContents.implicitHeight, 180)
             clip: true
             contentWidth: availableWidth
-            StylePanel {
-                id: stylePanel
-                objectName: "stylePanel"
+            Column {
+                id: styleContents
                 width: styleScroll.availableWidth
-                targetStyle: hostStyle
-                defaultLinkColor: window.palette.link
-                defaultTextColor: window.palette.text
-                previewBackgroundColor: window.palette.base
+                Flow {
+                    width: parent.width
+                    CheckBox { id: outlineToggle; text: "Heading outline"; objectName: "outlineToggle" }
+                    CheckBox { id: mathToggle; checked: true; text: "Native math"; objectName: "mathToggle" }
+                    CheckBox { id: rendererToggle; text: "Custom fences"; objectName: "rendererToggle" }
+                    CheckBox { id: tablesToggle; text: "GFM tables"; objectName: "tablesToggle" }
+                    CheckBox { id: tagFilterToggle; text: "GFM tag filter"; objectName: "tagFilterToggle" }
+                    CheckBox { id: gfmToggle; checked: true; text: "All GFM"; objectName: "gfmToggle" }
+                    CheckBox { id: autolinkToggle; text: "GFM extended autolinks"; objectName: "autolinkToggle" }
+                    CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
+                    CheckBox { id: hostTaskToggle; text: "Host-styled task indicators"; checked: true; objectName: "hostTaskToggle" }
+                    CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
+                }
+                StylePanel {
+                    id: stylePanel
+                    objectName: "stylePanel"
+                    width: styleScroll.availableWidth
+                    syntaxAvailable: preview.syntaxHighlightingAvailable
+                    targetStyle: hostStyle
+                    defaultLinkColor: window.palette.link
+                    defaultTextColor: window.palette.text
+                    previewBackgroundColor: window.palette.base
+                }
             }
         }
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: "Supports paragraphs, H1–H6, inline formatting, escapes/entities, code blocks, Setext headings, thematic breaks, lists and quotes. Links report destinations to the host; authorized PNG/JPEG images use native rows and HTML stays literal; all 652 pinned CommonMark semantic checks pass. Opt-in 1.1 presets retain host ownership and documented native presentation limits."
+            text: "Native Qt Quick preview. Hosts own styling, navigation and resources; HTML stays literal. Samples explain opt-in controls."
         }
         Label {
             objectName: "lastDestination"

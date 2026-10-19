@@ -27,6 +27,36 @@ class TaskPresentationTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void anchoredArtwork()
+    {
+        QTest::failOnWarning();
+        QQmlEngine engine;
+        QQmlComponent component(&engine, QUrl::fromLocalFile(QString(QMARKDOWN_TASK_FIXTURE)));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        QVERIFY(QTest::qWaitForWindowExposed(window));
+        auto *view = named(window->contentItem(), "hostView").value(0); QVERIFY(view);
+        QTRY_VERIFY(!named(view, "viewerTaskControl").isEmpty());
+        auto *control = named(view, "viewerTaskControl").first();
+        auto *adapter = control->parentItem(); QVERIFY(adapter);
+        // Reproduce a style that centers its artwork using a parent anchor.
+        QQmlComponent anchored(&engine);
+        anchored.setData("import QtQuick; Rectangle { implicitWidth: 16; implicitHeight: 16; anchors.verticalCenter: parent ? parent.verticalCenter : undefined; color: '#ff00ff' }", {});
+        auto *indicator = qobject_cast<QQuickItem *>(anchored.create());
+        QVERIFY2(indicator, qPrintable(anchored.errorString()));
+        indicator->setParent(control);
+        control->setProperty("indicator", QVariant::fromValue(indicator));
+        for (int scale : {1, 2, 1}) {
+            window->setProperty("artworkScale", scale);
+            QTRY_COMPARE(adapter->size(), QSizeF(16 * scale, 16 * scale));
+            QTRY_COMPARE(indicator->mapRectToItem(adapter, indicator->boundingRect()), adapter->boundingRect());
+            auto capture = adapter->grabToImage(); QVERIFY(capture);
+            QTRY_VERIFY(!capture->image().isNull());
+            const auto image = capture->image();
+            QCOMPARE(image.pixelColor(0, 0), QColor(Qt::magenta));
+            QCOMPARE(image.pixelColor(image.width() - 1, image.height() - 1), QColor(Qt::magenta));
+        }
+    }
     void styles()
     {
         QTest::failOnWarning();

@@ -7,6 +7,9 @@ import QMarkdownViewer.Tools
 
 ColumnLayout {
     id: panel
+    property bool syntaxAvailable: false
+    property alias largeTaskIndicators: largeTasks.checked
+    CheckBox { id: largeTasks; text: "Large host task indicators"; objectName: "largeTaskToggle" }
     property alias taskIndicatorsReplaceBullets: replaceTaskBullets.checked
     property alias codeWrap: wrapToggle.checked
     property alias codeNumbers: numbersToggle.checked
@@ -15,7 +18,7 @@ ColumnLayout {
     property alias codeMinimum: minimumControl.value
     property alias codeMaximum: maximumControl.value
     RowLayout {
-        CheckBox { id: replaceTaskBullets; text: "Task indicators replace bullets" }
+        CheckBox { id: replaceTaskBullets; checked: true; text: "Task indicators replace bullets" }
         CheckBox { id: wrapToggle; text: "Wrap code" }
         CheckBox { id: numbersToggle; text: "Line numbers"; checked: true }
         CheckBox { id: limitToggle; text: "Limit code height"; checked: true }
@@ -31,8 +34,14 @@ ColumnLayout {
     property alias syntaxEnabled: syntaxToggle.checked
     property alias syntaxDark: syntaxDarkToggle.checked
     RowLayout {
-        CheckBox { id: syntaxToggle; text: "Syntax colors"; objectName: "syntaxToggle" }
-        CheckBox { id: syntaxDarkToggle; text: "Dark syntax palette"; objectName: "syntaxDarkToggle" }
+        CheckBox { id: syntaxToggle; checked: true; enabled: panel.syntaxAvailable; text: "Syntax colors"; objectName: "syntaxToggle" }
+        CheckBox { id: syntaxDarkToggle; checked: true; enabled: panel.syntaxAvailable; text: "Dark syntax palette"; objectName: "syntaxDarkToggle" }
+    }
+    Label {
+        objectName: "syntaxAvailability"
+        Layout.fillWidth: true
+        wrapMode: Text.Wrap
+        text: panel.syntaxAvailable ? "Syntax backend available" : "Syntax backend unavailable. Use task demo-highlighted with KF6SyntaxHighlighting installed (QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING=ON)."
     }
     required property MarkdownStyle targetStyle
     required property color defaultLinkColor
