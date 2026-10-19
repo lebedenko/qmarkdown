@@ -1,6 +1,6 @@
 # 060 — Actual verification
 
-Implementation and verification in progress. Planned checks are in tasks.md; no planned result is claimed as passing.
+Implementation is complete. Planned checks are in tasks.md; actual completed checks are recorded below. Final hosted gates and the remaining local installed-static packaging run are tracked in the combined PR checks and description.
 
 ## Compatibility finding requiring a decision
 
@@ -30,3 +30,16 @@ limitation on 2026-10-19. No strict runtime gating success is claimed.
 Fresh minimum (6.8.0) and development (6.12.0) attempts, including unrestricted Docker access retries, both stopped before verification: image preparation exits 125 because the installed Docker CLI rejects `build --progress`. Evidence: `build-ci/6.8.0/20261019T131352Z-6dfdfemf` and `build-ci/6.12.0/20261019T131440Z-g7b166m7`; logs `/tmp/table-ci-min-escalated.log` and `/tmp/table-ci-dev-escalated.log`. Successful final-head hosted packaging checks remain required.
 
 Physical mouse/touchpad acceptance is unconfirmed in this headless session. Automated input and painted-output checks do not establish physical device acceptance.
+
+## Final implementation checks
+
+- Local packaging script's final shared build, complete CTest (32/32, 115.94 s), lint, package version requests, relocation and all shared installed-consumer variants passed. The script advanced to the static build; its remaining results will be recorded in the PR description alongside final-head hosted results, without changing the verified Git tree.
+- Additional one-pixel Grid bounds checks with a 1000-pixel requested border pass at scales 1 and 1.25, alongside style contracts and painted intersection checks (4/4 QtTest results at each scale).
+- Implementation code and documentation retain d11635a as an ancestor; no history rewrite, merge, tag or publication was performed.
+
+Evidence: `/tmp/table-approved-focused.log`, `/tmp/table-approved-static-suite.log`,
+`/tmp/table-packaging-final.log`, `/tmp/table-final-highlight-tests.log`,
+`/tmp/table-final-lint.log`, `/tmp/table-metrics1.log`, `/tmp/table-metrics125.log`.
+These local logs are ordinary execution evidence, not release artifacts. Required
+hosted checks are `packaging (minimum)` and `packaging (development)` on the PR's
+final head; an in-progress check is not a success claim.

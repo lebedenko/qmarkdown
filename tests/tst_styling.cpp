@@ -1155,11 +1155,16 @@ void StylingTest::tablePresentationGeometry()
             if (mode != MarkdownStyle::TableBorderNone)
                 QCOMPARE(named(view, "markdownTable").first()->height(), gridHeight);
         }
-        for (qreal width : {0.0, -1.0, std::numeric_limits<qreal>::infinity(), std::numeric_limits<qreal>::quiet_NaN()}) {
+        style->table()->setBorderMode(MarkdownStyle::TableBorderGrid);
+        for (qreal width : {1000.0, 0.0, -1.0, std::numeric_limits<qreal>::infinity(), std::numeric_limits<qreal>::quiet_NaN()}) {
             style->table()->setBorderWidth(width);
             view->setWidth(1);
             QCoreApplication::processEvents();
             for (auto *cell : cells) QVERIFY(std::isfinite(cell->height()) && cell->height() >= 0);
+            for (auto *line : named(view, "tableVerticalLine")) {
+                QVERIFY(line->x() >= 0 && line->height() >= 0);
+                QVERIFY(line->x() + line->width() <= 1.0);
+            }
         }
         view->setWidth(180);
         style->table()->setBorderWidth(2);

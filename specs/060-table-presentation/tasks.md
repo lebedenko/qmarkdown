@@ -10,3 +10,5 @@ Approved 2026-10-19 by explicit instruction to implement the supplied plan.
 6. Commit without rewriting d11635a and open one PR; require final-head minimum/development packaging checks. Do not merge, tag or publish.
 
 Follow-up approval on 2026-10-19: preserve the grouped API and document Qt’s lack of runtime revision enforcement for grouped members. Verify 1.14 metadata and retain an explicit expected-failure probe for older-import rejection. Strict runtime rejection is excluded from the approved compatibility contract.
+
+Implementation tasks 1–4 are complete. Completed local verification and exact-container limitations are recorded in verification.md. Remaining installed-static and final-head hosted packaging results are tracked in the combined PR; merge, tagging and publication remain excluded.
