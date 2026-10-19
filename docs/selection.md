@@ -114,6 +114,6 @@ window-space pointer updates selection as the host reveals content. Hosts clamp
 their scroll position. Release, cancellation, window deactivation, selection
 disablement, viewport removal/destruction and source replacement stop requests.
 
-## Development: rendered math
+## Rendered math (1.14)
 
 Native [math formulas](math.md) select atomically while rendered, including their retained terminal newline on double/triple-click. Find shows TeX source; closing it preserves exact endpoints. A partial source selection highlights the full formula but copies only its selected substring. Host fenced renderers continue showing source during selection or Find.

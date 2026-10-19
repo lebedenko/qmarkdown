@@ -2,7 +2,7 @@
 
 See the [public API reference](api.md) for the complete supported contract.
 
-Use `import QtQuick` and `import QMarkdown 1.1` for the new API. The published 1.2.0 package accepts compatible 1.0/1.1/1.2 CMake requests and EXACT 1.2.0; exact earlier versions require historical packages. Existing QML 1.0 consumers continue to work with Legacy defaults.
+Use `import QtQuick` and `import QMarkdown 1.14` for the current API. The published 1.14.0 package accepts compatible 1.0–1.14 CMake requests and EXACT 1.14.0; exact earlier versions require historical packages. Existing QML 1.0 consumers continue to work with Legacy defaults.
 
 `MarkdownStyle.preset` defaults to `MarkdownStyle.Legacy`. Additional presets are `PolishedLight`, `PolishedDark`, `MinimalLight`, and `MinimalDark`. These are fixed palettes, with no application-theme subscription or document background. The host owns backgrounds, scrolling, navigation, and resource authorization.
 
@@ -48,7 +48,7 @@ QML 1.6 adds [table styling](gfm.md): inherited header foreground, bold headers,
 
 QML 1.7 adds `selectionBackgroundColor`, default `#603b82f6` (light/Legacy) or `#7078a9ef` (dark presets). It uses the same explicit override and `resetOverrides()` conventions and supports property reset. Highlights preserve text foregrounds and layout. See [document selection](selection.md).
 
-## Development: table presentation (QML 1.14)
+## Table presentation (QML 1.14)
 
 Import `QMarkdown 1.14`. Set `style.table.borderMode` to
 `MarkdownStyle.TableBorderNone`, `TableBorderGrid` (default), `TableBorderRows`,

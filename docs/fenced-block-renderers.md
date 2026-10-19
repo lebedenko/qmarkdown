@@ -71,4 +71,4 @@ C++ APIs remain deferred. See the [API reference](api.md) and
 Since QML 1.9, active Find also replaces custom visuals with searchable source.
 Eligible visuals return after Find closes if document selection is disabled.
 
-Development: native math remains rendered during selection. A registered `math` entry still takes precedence: selection or Find shows its source even while the custom renderer is inactive. Failed host renderers also keep source fallback.
+Since 1.14, native math remains rendered during selection. A registered `math` entry still takes precedence: selection or Find shows its source even while the custom renderer is inactive. Failed host renderers also keep source fallback.

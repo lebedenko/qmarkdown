@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.13.0 / QML 1.13 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.14.0 / QML 1.14 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.13` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.14` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -23,7 +23,7 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 | `syntaxTheme` | SyntaxTheme / view-owned Light | 1.11 | Replaceable palette; null or external destruction restores default. |
 | `keyboardNavigationEnabled` | bool / false | 1.10 | Tab/Shift+Tab traverse drawable logical links without wrapping; hosts retain boundary focus traversal. |
 | `keyboardFocusColor` | color / bound to style.linkColor | 1.10 | Two-logical-pixel outline around active link fragments, without layout changes. |
-| `taskIndicatorsReplaceBullets` | bool / false | Unreleased | Places unordered task indicators in the marker lane; ordered tasks retain numbers and adjacent indicators. |
+| `taskIndicatorsReplaceBullets` | bool / false | 1.14 | Places unordered task indicators in the marker lane; ordered tasks retain numbers and adjacent indicators. |
 | `taskIndicator` | Component / null | 1.10 | Decorative Item with live `checked` and `markdownStyle` inputs; preferred dimensions and fallback follow the [task indicator contract](task-lists.md#host-presentation-110). |
 | `searchActive` | bool / false | 1.9 | Enables Find and searchable fenced source. |
 | `searchQuery` | string / empty | 1.9 | Non-overlapping literal query over decoded document text. |
@@ -136,7 +136,7 @@ the following members are writable and resettable:
 | `inlineCode` | `font` as above; `foreground`: invalid/inherited; `backgroundColor`: transparent; `cornerRadius`: 0 | 1.1 |
 | `inlineCode` | `horizontalPadding`: 4; `verticalPadding`: 2, in every preset | 1.6 |
 | `codeBlock` | `font`, `color` as above; `backgroundColor`, `borderColor`: transparent; `borderWidth`, `cornerRadius`, `horizontalPadding`, `verticalPadding`: 0 | 1.1 |
-| `table` | `headerForeground`: invalid/inherits bodyColor; `headerBackground`, `bodyBackground`, `borderColor`: transparent; `borderWidth`: 0; `horizontalPadding`: 4; `verticalPadding`: 2, in every preset | 1.6 |
+| `table` | `headerForeground`: invalid/inherits bodyColor; `headerBackground`, `bodyBackground`, `borderColor`: transparent; `borderWidth`: 0; `horizontalPadding`: 4; `verticalPadding`: 2, in every preset; `borderMode`: TableBorderGrid; `alternateRowBackground`: inherits bodyBackground | 1.6; new controls 1.14 |
 
 Flat heading/code font and color properties alias their grouped equivalents. Both
 spellings notify when the value changes; bind only one spelling for each value.
@@ -150,7 +150,7 @@ no individual RESET; use their grouped aliases where available or resetOverrides
 Resets preserve host bindings, which can later reapply values.
 
 Inline foreground inherits containing text when invalid; link color takes
-precedence for linked code. Invalid table header foreground inherits bodyColor.
+precedence for linked code. Invalid table header foreground inherits bodyColor. See [table presentation](styling.md#table-presentation-qml-114) for border modes, alternating backgrounds, reset behavior and Qt’s grouped-property revision limitation.
 Rendering sanitizes metrics; modern decoration/padding values clamp negative or
 nonfinite values to zero. Legacy spacing/indent/rule metrics retain their documented
 fallback defaults for nonfinite values. Stored style values remain the assigned
@@ -181,7 +181,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.13 CONFIG REQUIRED)
+find_package(QMarkdown 1.14 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
@@ -221,13 +221,13 @@ remain host-owned.
 `MarkdownView.mathEnabled` defaults to false. Read-only `mathAvailable` reports
 compiled backend availability. Exact first info token `math` selects native fenced
 rendering after host renderers. Standalone `$$` delimiter lines are parsed only
-when enabled. Active Find shows literal TeX body text. During development,
+when enabled. Active Find shows literal TeX body text. Since 1.14,
 selection keeps eligible native formulas rendered as atomic objects.
 `MarkdownStyle.math.color` inherits `bodyColor`; reset restores inheritance.
 `math.scale` defaults to 1.0 relative to resolved body text size; nonpositive or
 nonfinite values reset to 1. Bundled mathematical fonts are independent of the
 host body family. See the [dialect and limits](math.md).
 
-## Development: atomic native math selection
+## Atomic native math selection (1.14)
 
 With selection enabled, eligible native formulas remain rendered and select as complete objects. Find shows TeX source and preserves exact selection endpoints when closed. Copy uses the existing body projection. Registered host `math` renderers retain source fallback during selection and Find. No public API changes.

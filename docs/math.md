@@ -40,7 +40,7 @@ unmatched delimiters stay ordinary Markdown. TeX body whitespace is preserved
 after container prefixes and the parser's newline normalization. Single dollars,
 same-line `$$…$$`, and backslash-bracket delimiters remain ordinary Markdown.
 
-During development, native formulas remain rendered with selection enabled. Each
+Since 1.14, native formulas remain rendered with selection enabled. Each
 formula selects as one object: boundary clicks and Shift-click use its start/end;
 double- and triple-click select its complete TeX body, including the retained
 terminal newline. Dragging extends into surrounding text. Any nonempty overlap

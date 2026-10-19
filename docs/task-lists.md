@@ -59,7 +59,7 @@ Custom components are trusted application code and **must be decorative**: no fo
 
 Replacement destroys old instances. Creation failures or non-Item roots produce a diagnostic and show the fallback. Changing appearance does not reparse Markdown, change task state or reset document selection. Qt Quick Controls is a viewer/host dependency only.
 
-## Development: replacement markers (unreleased)
+## Replacement markers (1.14)
 
 Set `MarkdownView.taskIndicatorsReplaceBullets: true` to place unordered task
 indicators in the marker lane, without bullets or a second task gutter. The default
@@ -79,4 +79,4 @@ The playground's “Style controls” panel includes “Task indicators replace 
 to compare the layouts.
 
 
-In the unreleased development playground, open Style controls and enable GFM task lists. Large host task indicators doubles the existing Controls artwork and defaults off. Disable Host-styled task indicators for fallback comparison. The sample includes empty, wrapped, tight/loose, mixed, nested and ordered cases. Sample selection preserves settings.
+In the playground, open Style controls and enable GFM task lists. Large host task indicators doubles the existing Controls artwork and defaults off. Disable Host-styled task indicators for fallback comparison. The sample includes empty, wrapped, tight/loose, mixed, nested and ordered cases. Sample selection preserves settings.
