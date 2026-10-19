@@ -181,12 +181,20 @@ class TableStyle : public QObject
     Q_PROPERTY(QColor headerForeground READ headerForeground WRITE setHeaderForeground RESET resetHeaderForeground NOTIFY headerForegroundChanged FINAL)
     Q_PROPERTY(QColor headerBackground READ headerBackground WRITE setHeaderBackground RESET resetHeaderBackground NOTIFY headerBackgroundChanged FINAL)
     Q_PROPERTY(QColor bodyBackground READ bodyBackground WRITE setBodyBackground RESET resetBodyBackground NOTIFY bodyBackgroundChanged FINAL)
+    Q_PROPERTY(int borderMode READ borderMode WRITE setBorderMode RESET resetBorderMode NOTIFY borderModeChanged REVISION(1, 14) FINAL)
+    Q_PROPERTY(QColor alternateRowBackground READ alternateRowBackground WRITE setAlternateRowBackground RESET resetAlternateRowBackground NOTIFY alternateRowBackgroundChanged REVISION(1, 14) FINAL)
     Q_PROPERTY(QColor borderColor READ borderColor WRITE setBorderColor RESET resetBorderColor NOTIFY borderColorChanged FINAL)
     Q_PROPERTY(qreal borderWidth READ borderWidth WRITE setBorderWidth RESET resetBorderWidth NOTIFY borderWidthChanged FINAL)
     Q_PROPERTY(qreal horizontalPadding READ horizontalPadding WRITE setHorizontalPadding RESET resetHorizontalPadding NOTIFY horizontalPaddingChanged FINAL)
     Q_PROPERTY(qreal verticalPadding READ verticalPadding WRITE setVerticalPadding RESET resetVerticalPadding NOTIFY verticalPaddingChanged FINAL)
 public:
     explicit TableStyle(MarkdownStyle *style);
+    int borderMode() const;
+    void setBorderMode(int value);
+    void resetBorderMode();
+    QColor alternateRowBackground() const;
+    void setAlternateRowBackground(const QColor &value);
+    void resetAlternateRowBackground();
     QColor headerForeground() const;
     void setHeaderForeground(const QColor &value);
     void resetHeaderForeground();
@@ -212,6 +220,8 @@ signals:
     void headerForegroundChanged();
     void headerBackgroundChanged();
     void bodyBackgroundChanged();
+    Q_REVISION(1, 14) void borderModeChanged();
+    Q_REVISION(1, 14) void alternateRowBackgroundChanged();
     void borderColorChanged();
     void borderWidthChanged();
     void horizontalPaddingChanged();
@@ -286,6 +296,8 @@ class MarkdownStyle : public QObject
     Q_PROPERTY(CodeBlockStyle *codeBlock READ codeBlock CONSTANT REVISION(1, 1) FINAL)
     Q_PROPERTY(TableStyle *table READ table CONSTANT REVISION(1, 6) FINAL)
 public:
+    enum TableBorderMode { TableBorderNone, TableBorderGrid, TableBorderRows, TableBorderHeaderOnly };
+    Q_ENUM(TableBorderMode)
     enum Preset { Legacy, PolishedLight, PolishedDark, MinimalLight, MinimalDark };
     Q_ENUM(Preset)
     explicit MarkdownStyle(QObject *parent = nullptr);
@@ -415,6 +427,8 @@ private:
         QColor lineNumberColor{};
     };
     struct TableValues {
+        int borderMode = TableBorderGrid;
+        QColor alternateRowBackground{};
         QColor headerForeground{};
         QColor headerBackground{};
         QColor bodyBackground{};
@@ -508,6 +522,8 @@ private:
         TableHeaderForeground,
         TableHeaderBackground,
         TableBodyBackground,
+        TableBorderModeProperty,
+        TableAlternateRowBackground,
         TableBorderColor,
         TableBorderWidth,
         TableHorizontalPadding,

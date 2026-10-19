@@ -77,3 +77,6 @@ pixel remains. The indicator remains one read-only accessible checkbox.
 
 The playground's “Style controls” panel includes “Task indicators replace bullets”
 to compare the layouts.
+
+
+In the unreleased development playground, open Style controls and enable GFM task lists. Large host task indicators doubles the existing Controls artwork and defaults off. Disable Host-styled task indicators for fallback comparison. The sample includes empty, wrapped, tight/loose, mixed, nested and ordered cases. Sample selection preserves settings.

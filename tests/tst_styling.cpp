@@ -16,6 +16,7 @@
 #include <QtQml/QQmlExtensionPlugin>
 #include <memory>
 #include <limits>
+#include <cmath>
 #ifdef QMARKDOWN_STATIC
 Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
 #endif
@@ -644,6 +645,40 @@ private slots:
         QTRY_VERIFY(std::abs((item.codeRectangles().first().left() + item.codeRectangles().last().right()) / 2 - 200) < .1);
     }
 
+    void tablePresentationContracts()
+    {
+        MarkdownStyle style;
+        auto *table = style.table();
+        for (auto preset : {MarkdownStyle::Legacy, MarkdownStyle::PolishedLight, MarkdownStyle::PolishedDark,
+                            MarkdownStyle::MinimalLight, MarkdownStyle::MinimalDark}) {
+            style.setPreset(preset);
+            QCOMPARE(table->borderMode(), int(MarkdownStyle::TableBorderGrid));
+            QCOMPARE(table->alternateRowBackground(), table->bodyBackground());
+        }
+        QSignalSpy mode(table, &TableStyle::borderModeChanged);
+        QSignalSpy alternate(table, &TableStyle::alternateRowBackgroundChanged);
+        table->setBorderMode(MarkdownStyle::TableBorderRows);
+        table->setBorderMode(MarkdownStyle::TableBorderRows);
+        QCOMPARE(mode.size(), 1);
+        table->setBodyBackground(Qt::red);
+        QCOMPARE(table->alternateRowBackground(), QColor(Qt::red));
+        QCOMPARE(alternate.size(), 1);
+        table->setAlternateRowBackground(Qt::transparent);
+        table->setAlternateRowBackground(Qt::transparent);
+        QCOMPARE(alternate.size(), 2);
+        table->setBodyBackground(Qt::blue);
+        QCOMPARE(table->alternateRowBackground(), QColor(Qt::transparent));
+        style.setPreset(MarkdownStyle::Legacy);
+        QCOMPARE(table->borderMode(), int(MarkdownStyle::TableBorderRows));
+        table->resetAlternateRowBackground();
+        QCOMPARE(table->alternateRowBackground(), QColor(Qt::blue));
+        table->resetBorderMode();
+        QCOMPARE(table->borderMode(), int(MarkdownStyle::TableBorderGrid));
+        table->setAlternateRowBackground(Qt::green);
+        style.resetOverrides();
+        QCOMPARE(table->alternateRowBackground(), QColor(Qt::transparent));
+    }
+    void tablePresentationGeometry();
     void tableDefaultsOverridesAndReset()
     {
         MarkdownStyle style;
@@ -1074,5 +1109,94 @@ private slots:
         }
     }
 };
+void StylingTest::tablePresentationGeometry()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+            import QtQuick
+            import QMarkdown 1.14
+            MarkdownView {
+                width: 300
+                tablesEnabled: true
+                markdown: "| a | b |\n| --- | --- |\n| first | row |\n| second | row |\n| third | row |"
+                style: MarkdownStyle {
+                    table.borderWidth: 2
+                    table.borderColor: "#80800000"
+                    table.alternateRowBackground: "red"
+                }
+            }
+        )", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
+        QTRY_COMPARE(named(view, "tableCell").size(), 8);
+        auto *style = view->property("style").value<MarkdownStyle *>(); QVERIFY(style);
+        const auto cells = named(view, "tableCell");
+        QCOMPARE(cells[2]->property("color").value<QColor>(), QColor(Qt::transparent));
+        QCOMPARE(cells[4]->property("color").value<QColor>(), QColor(Qt::red));
+        window.resize(400, 300);
+        QTRY_VERIFY(named(view, "markdownTable").first()->height() > 0);
+        QTest::qWait(30);
+        const auto image = window.grabWindow(); QVERIFY(!image.isNull());
+        const auto firstRow = named(view, "tableRow").first();
+        const qreal scale = qreal(image.width()) / window.width();
+        const auto pixel = [&](QPointF point) {
+            point = firstRow->mapToScene(point) * scale;
+            return image.pixelColor(qFloor(point.x()), qFloor(point.y()));
+        };
+        // At a crossing, horizontal strips own the entire junction: no alpha buildup.
+        QCOMPARE(pixel(QPointF(150, 1)), pixel(QPointF(30, 1)));
+        QCOMPARE(pixel(QPointF(1, 10)), pixel(QPointF(150, 10)));
+        const qreal gridHeight = named(view, "markdownTable").first()->height();
+        for (int mode : {int(MarkdownStyle::TableBorderGrid), int(MarkdownStyle::TableBorderRows), int(MarkdownStyle::TableBorderHeaderOnly), int(MarkdownStyle::TableBorderNone)}) {
+            style->table()->setBorderMode(mode);
+            QTRY_COMPARE(named(view, "tableVerticalLine").size(), mode == MarkdownStyle::TableBorderGrid ? 12 : 0);
+            if (mode != MarkdownStyle::TableBorderNone)
+                QCOMPARE(named(view, "markdownTable").first()->height(), gridHeight);
+        }
+        style->table()->setBorderMode(MarkdownStyle::TableBorderGrid);
+        for (qreal width : {1000.0, 0.0, -1.0, std::numeric_limits<qreal>::infinity(), std::numeric_limits<qreal>::quiet_NaN()}) {
+            style->table()->setBorderWidth(width);
+            view->setWidth(1);
+            QCoreApplication::processEvents();
+            for (auto *cell : cells) QVERIFY(std::isfinite(cell->height()) && cell->height() >= 0);
+            for (auto *line : named(view, "tableVerticalLine")) {
+                QVERIFY(line->x() >= 0 && line->height() >= 0);
+                QVERIFY(line->x() + line->width() <= 1.0);
+            }
+        }
+        view->setWidth(180);
+        style->table()->setBorderWidth(2);
+        const QStringList fixtures = {
+            "| header only |\n| --- |",
+            "| one column |\n| --- |\n| long wrapped cell content long wrapped cell content |\n| second body |",
+            "| outer |\n| --- |\n| first |\n| second |\n\n> | nested |\n> | --- |\n> | first |\n> | second |"
+        };
+        for (const auto &source : fixtures) {
+            view->setProperty("markdown", source);
+            const int expectedTables = source.contains("nested") ? 2 : 1;
+            QTRY_COMPARE(named(view, "markdownTable").size(), expectedTables);
+            for (int mode : {0, 1, 2, 3}) {
+                style->table()->setBorderMode(mode);
+                for (const QColor color : {QColor(Qt::transparent), QColor(Qt::red)}) {
+                    style->table()->setAlternateRowBackground(color);
+                    QCoreApplication::processEvents();
+                    for (auto *tableItem : named(view, "markdownTable")) {
+                        const auto tableCells = named(tableItem, "tableCell");
+                        QVERIFY(!tableCells.isEmpty());
+                        if (tableCells.size() > 2)
+                            QCOMPARE(tableCells[2]->property("color").value<QColor>(), color);
+                        const auto rowItems = named(tableItem, "tableRow");
+                        const auto lastRow = rowItems.last();
+                        QCOMPARE(lastRow->property("bottomLine").toDouble(),
+                                 mode == 1 || (mode == 3 && rowItems.size() == 1) ? 2.0 : 0.0);
+                    }
+                }
+            }
+        }
+
+    }
+
 QTEST_MAIN(StylingTest)
 #include "tst_styling.moc"

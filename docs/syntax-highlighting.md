@@ -85,3 +85,6 @@ remain the pinned upstream versions.
 
 In the playground, open **Style controls** for Syntax colors and Dark syntax palette,
 then select the Syntax highlighting sample.
+
+
+Run `task demo-highlighted` for a separate backend-enabled playground build. KF6SyntaxHighlighting must already be installed; CMake reports a missing dependency normally. Style controls display availability and disable both syntax controls when unavailable. Sample selection never enables highlighting or changes the palette.

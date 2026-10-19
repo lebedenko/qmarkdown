@@ -12,7 +12,11 @@ Column {
     required property Component sequenceComponent
     required property var childBlocks
     spacing: 0
+    readonly property int mode: style.table.borderMode
+    readonly property real lineWidth: Math.min(Layout.metric(style.table.borderWidth), Math.max(0, width / Math.max(2, 2 * columnCount)))
+    readonly property int columnCount: childBlocks.length > 0 ? childBlocks[0].childBlocks.length : 0
     Repeater {
+        id: rows
         model: table.childBlocks
         delegate: Item {
             id: tableRow
@@ -29,6 +33,8 @@ Column {
                 }
                 return tallest
             }
+            readonly property real topLine: table.mode === MarkdownStyle.TableBorderGrid || (table.mode === MarkdownStyle.TableBorderRows && index > 0) ? table.lineWidth : 0
+            readonly property real bottomLine: (table.mode === MarkdownStyle.TableBorderGrid && index === rows.count - 1) || (table.mode === MarkdownStyle.TableBorderHeaderOnly && header) ? table.lineWidth : 0
             Repeater {
                 id: cells
                 model: tableRow.childBlocks
@@ -47,13 +53,11 @@ Column {
                     x: index * width
                     height: tableRow.height
                     readonly property font cellFont: tableRow.header ? table.coordinator.boldFont(table.style.bodyFont) : table.style.bodyFont
-                    readonly property real edge: Math.min(Layout.metric(table.style.table.borderWidth), width / 2)
+                    readonly property real edge: table.mode === MarkdownStyle.TableBorderNone ? 0 : table.lineWidth
                     readonly property real padX: Math.min(Layout.metric(table.style.table.horizontalPadding), Math.max(0, (width - 1 - 2 * edge) / 2))
                     readonly property real padY: Layout.metric(table.style.table.verticalPadding)
                     implicitHeight: Math.max(cellMetrics.height, cellContents.item ? (cellContents.item as Item).height : 0) + 2 * (padY + edge)
-                    color: tableRow.header ? table.style.table.headerBackground : table.style.table.bodyBackground
-                    border.color: table.style.table.borderColor
-                    border.width: edge
+                    color: tableRow.header ? table.style.table.headerBackground : (tableRow.index % 2 === 0 ? table.style.table.alternateRowBackground : table.style.table.bodyBackground)
                     FontMetrics { id: cellMetrics; font: tableCell.cellFont }
                     Loader {
                         id: cellContents
@@ -79,6 +83,33 @@ Column {
                             })
                             loaded.gap = 0
                         }
+                    }
+                }
+            }
+            Item {
+                anchors.fill: parent
+                z: 1
+                Rectangle {
+                    objectName: "tableHorizontalLine"
+                    width: tableRow.width; height: tableRow.topLine
+                    color: table.style.table.borderColor
+                }
+                Rectangle {
+                    objectName: "tableBottomLine"
+                    y: tableRow.height - height
+                    width: tableRow.width; height: tableRow.bottomLine
+                    color: table.style.table.borderColor
+                }
+                Repeater {
+                    model: table.mode === MarkdownStyle.TableBorderGrid ? cells.count + 1 : 0
+                    delegate: Rectangle {
+                        required property int index
+                        objectName: "tableVerticalLine"
+                        x: index === cells.count ? tableRow.width - width : Math.max(0, index * tableRow.width / cells.count - (index > 0 ? width / 2 : 0))
+                        y: tableRow.topLine
+                        width: table.lineWidth
+                        height: Math.max(0, tableRow.height - tableRow.topLine - tableRow.bottomLine)
+                        color: table.style.table.borderColor
                     }
                 }
             }
