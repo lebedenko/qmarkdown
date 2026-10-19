@@ -43,7 +43,8 @@ public:
         CodeFencedRole = Qt::UserRole + 19,
         CodeLanguageRole = Qt::UserRole + 20,
         ImageLinkIdRole = Qt::UserRole + 21,
-        DisplayMathRole = Qt::UserRole + 22
+        DisplayMathRole = Qt::UserRole + 22,
+        OrderedListRole = Qt::UserRole + 23
     };
     using QAbstractListModel::QAbstractListModel;
     int rowCount(const QModelIndex &parent = {}) const override;

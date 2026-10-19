@@ -7,6 +7,7 @@ import QMarkdownViewer.Tools
 
 ColumnLayout {
     id: panel
+    property alias taskIndicatorsReplaceBullets: replaceTaskBullets.checked
     property alias codeWrap: wrapToggle.checked
     property alias codeNumbers: numbersToggle.checked
     property alias codeLimit: limitToggle.checked
@@ -14,6 +15,7 @@ ColumnLayout {
     property alias codeMinimum: minimumControl.value
     property alias codeMaximum: maximumControl.value
     RowLayout {
+        CheckBox { id: replaceTaskBullets; text: "Task indicators replace bullets" }
         CheckBox { id: wrapToggle; text: "Wrap code" }
         CheckBox { id: numbersToggle; text: "Line numbers"; checked: true }
         CheckBox { id: limitToggle; text: "Limit code height"; checked: true }

@@ -244,7 +244,12 @@ Flickable {
         QTRY_VERIFY(viewport->property("contentX").toReal() > 0);
         QCOMPARE(outer->property("contentY").toReal(), 0.0);
         wheel(Qt::NoModifier, pixel ? Qt::ScrollUpdate : Qt::NoScrollPhase);
-        if (pixel) wheel(Qt::NoModifier, Qt::ScrollUpdate);
+        if (pixel) {
+            // Exclusive inner scrolling no longer preloads the reader's native
+            // drag threshold with consumed source movement.
+            wheel(Qt::NoModifier, Qt::ScrollUpdate);
+            wheel(Qt::NoModifier, Qt::ScrollUpdate);
+        }
         QTRY_VERIFY(outer->property("contentY").toReal() > 0);
     }
     void missingResources() {

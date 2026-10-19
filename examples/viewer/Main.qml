@@ -300,6 +300,7 @@ ApplicationWindow {
                             gfmEnabled: gfmToggle.checked
                             taskListsEnabled: taskToggle.checked
                             taskIndicator: hostTaskToggle.checked ? hostTaskIndicator : null
+                            taskIndicatorsReplaceBullets: stylePanel.taskIndicatorsReplaceBullets
                             extendedAutolinksEnabled: autolinkToggle.checked
                             strikethroughEnabled: strikeToggle.checked
                             style: hostStyle

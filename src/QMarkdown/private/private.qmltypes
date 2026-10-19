@@ -1,6 +1,14 @@
 import QtQuick.tooling 1.2
 Module {
     Component {
+        name: "SourceWheelArea"
+        prototype: "QQuickItem"
+        exports: ["QMarkdown.Private/SourceWheelArea 1.0"]
+        exportMetaObjectRevisions: [256]
+        Property { name: "sourceViewport"; type: "QQuickItem"; isPointer: true }
+        Property { name: "lineHeight"; type: "double" }
+    }
+    Component {
         name: "QMarkdownPrivate::MathItem"
         prototype: "QQuickPaintedItem"
         exports: ["QMarkdown.Private/MathItem 1.0"]

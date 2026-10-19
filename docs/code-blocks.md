@@ -93,3 +93,15 @@ MarkdownView {
 The playground opts into nowrap, line numbers, height limiting, 50% of the reader
 viewport, and 8–30 line caps. Its badges and copy icon are original playground
 assets and are not included in the library source distribution.
+
+## Development: nested wheel handoff
+
+Source viewports consume complete wheel events while an internal offset moves.
+Further outward input at an edge, and input over a block without overflow, reaches
+the host reader. Direction reversal immediately moves the source again. Phased handoff follows the
+host reader's native gesture threshold; consumed source deltas do not preload it.
+
+A host `WheelHandler` that only observes scrolling must set `blocking: false` in
+addition to `event.accepted = false`. On Qt 6.12.0 a default-blocking observer can
+prevent its own Flickable from receiving mouse-wheel input even without QMarkdown.
+The provider cannot undo a host handler's acceptance after handing an event off.
