@@ -100,6 +100,106 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void replacementTaskGeometry_data()
+    {
+        QTest::addColumn<bool>("loose");
+        QTest::newRow("tight") << false;
+        QTest::newRow("loose") << true;
+    }
+    void replacementTaskGeometry()
+    {
+        QFETCH(bool, loose);
+        QTest::failOnWarning();
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+import QtQuick
+import QMarkdown
+MarkdownView {
+    id: fixture
+    property real artworkWidth: 45
+    property real artworkHeight: 60
+    width: 220; taskListsEnabled: true; selectionEnabled: true
+    taskIndicator: Component { Item {
+        required property bool checked; required property MarkdownStyle markdownStyle
+        implicitWidth: fixture.artworkWidth; implicitHeight: fixture.artworkHeight
+    } }
+    markdown: "- [x] First [link](/target) wrapped label here\n- [ ]\n- ordinary\n- [x] Parent\n  - [ ] Nested\n\n1. [x] Ordered\n2. ordinary"
+}
+)", {});
+        std::unique_ptr<QQuickItem> view(qobject_cast<QQuickItem *>(component.create()));
+        QVERIFY2(view, qPrintable(component.errorString()));
+        if (loose) view->setProperty("markdown", view->property("markdown").toString().replace("\n-", "\n\n-").replace("\n2.", "\n\n2."));
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(240, 700); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_COMPARE(named(view.get(), "taskIndicator").size(), 5);
+        QVERIFY(!view->property("taskIndicatorsReplaceBullets").toBool());
+        const auto source = view->property("markdown");
+        QVERIFY(QMetaObject::invokeMethod(view.get(), "selectAll"));
+        const auto selected = view->property("selectedText");
+        const auto start = view->property("selectionStart"), end = view->property("selectionEnd");
+        for (bool replace : {true, false, true}) {
+            QVERIFY(view->setProperty("taskIndicatorsReplaceBullets", replace));
+            QCoreApplication::processEvents();
+            QCOMPARE(view->property("markdown"), source);
+            QCOMPARE(view->property("selectedText"), selected);
+            QCOMPARE(view->property("selectionStart"), start); QCOMPARE(view->property("selectionEnd"), end);
+            int hidden = 0;
+            for (auto *marker : named(view.get(), "listMarker")) {
+                if (!marker->isVisible()) { ++hidden; QCOMPARE(marker->property("text").toString(), QString::fromUtf8("•")); }
+            }
+            QCOMPARE(hidden, replace ? 4 : 0);
+            auto hosts = named(view.get(), "taskIndicator");
+            for (int i = 0; i < hosts.size(); ++i) {
+                QCOMPARE(hosts[i]->width(), 45.0); QCOMPARE(hosts[i]->height(), 60.0);
+                auto *contentItem = named(hosts[i]->parentItem()->parentItem(), "listItemContent").value(0); QVERIFY(contentItem);
+                QCOMPARE(contentItem->mapToScene(QPointF()).x() - hosts[i]->mapToScene(QPointF(45,0)).x(), 8.0);
+                auto *accessible = QAccessible::queryAccessibleInterface(hosts[i]); QVERIFY(accessible);
+                QCOMPARE(accessible->role(), QAccessible::CheckBox); QVERIFY(accessible->state().readOnly);
+                QVERIFY(!accessible->actionInterface());
+                if (i) QVERIFY2(hosts[i]->mapToScene(QPointF()).y() >= hosts[i-1]->mapToScene(QPointF(0, 60)).y() + 2, qPrintable(QString("indicator %1: top %2 previous bottom %3").arg(i).arg(hosts[i]->mapToScene(QPointF()).y()).arg(hosts[i-1]->mapToScene(QPointF(0,60)).y())));
+            }
+        }
+        view->setProperty("artworkWidth", 73);
+        view->setProperty("artworkHeight", 85);
+        QTRY_COMPARE(named(view.get(), "taskIndicator")[0]->width(), 73.0);
+        auto resized = named(view.get(), "taskIndicator");
+        for (int i = 0; i < resized.size(); ++i) {
+            QCOMPARE(resized[i]->height(), 85.0);
+            if (i) QTRY_VERIFY(resized[i]->mapToScene(QPointF()).y() >= resized[i-1]->mapToScene(QPointF(0,85)).y() + 2);
+        }
+        view->setProperty("artworkWidth", 45); view->setProperty("artworkHeight", 60);
+        auto *state = view->findChild<ViewState *>(); QVERIFY(state);
+        QSignalSpy navigation(view.get(), SIGNAL(navigationRequested(QRectF)));
+        QSignalSpy links(view.get(), SIGNAL(linkActivated(QString)));
+        view->setProperty("selectionEnabled", false);
+        view->setProperty("searchActive", true);
+        view->setProperty("searchQuery", "link");
+        QTRY_COMPARE(view->property("searchResultCount").toInt(), 1);
+        for (bool replace : {false, true}) {
+            view->setProperty("taskIndicatorsReplaceBullets", replace);
+            QCoreApplication::processEvents();
+            auto *label = painted(view.get()).value(0); QVERIFY(label);
+            QTRY_VERIFY(label->layout());
+            const auto rectangles = label->rangeRectangles(6, 10); QVERIFY(!rectangles.isEmpty());
+            const auto center = rectangles[0].center();
+            QCOMPARE(label->linkAt(center.x(), center.y()), 0);
+            navigation.clear(); QVERIFY(state->searchNext());
+            QTRY_VERIFY(!navigation.isEmpty());
+            const auto target = navigation.last()[0].toRectF();
+            const auto textRect = label->mapRectToItem(view.get(), rectangles[0]);
+            QVERIFY(target.intersects(textRect));
+            QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, label->mapToScene(center).toPoint());
+            QCOMPARE(links.size(), replace ? 2 : 1);
+            QCOMPARE(links.last()[0].toString(), "/target");
+        }
+        auto *style = view->property("style").value<QObject *>(); QVERIFY(style);
+        auto font = style->property("bodyFont").value<QFont>(); font.setPixelSize(32); style->setProperty("bodyFont", font);
+        view->setWidth(15); QCoreApplication::processEvents();
+        for (auto *host : named(view.get(), "taskIndicator")) QVERIFY(host->width() <= 14);
+        for (auto *item : named(view.get(), "listItemContent")) QVERIFY(item->width() >= 1);
+        view->setWidth(320); QCoreApplication::processEvents();
+        for (auto *host : named(view.get(), "taskIndicator")) QCOMPARE(host->width(), 45.0);
+    }
     void gfmSwitchCombinations()
     {
         const char *properties[]{"taskListsEnabled", "strikethroughEnabled", "extendedAutolinksEnabled", "tablesEnabled", "tagFilterEnabled", "gfmEnabled"};
@@ -2832,6 +2932,10 @@ MarkdownView {
         window->setWidth(1000);
         QTRY_COMPARE(content(preview), initial);
         auto *panel = window->findChild<QObject *>("stylePanel"); QVERIFY(panel);
+        panel->setProperty("taskIndicatorsReplaceBullets", true);
+        QCOMPARE(preview->property("taskIndicatorsReplaceBullets").toBool(), true);
+        panel->setProperty("taskIndicatorsReplaceBullets", false);
+        QCOMPARE(preview->property("taskIndicatorsReplaceBullets").toBool(), false);
         auto *style = preview->property("style").value<QObject *>(); QVERIFY(style);
         auto *sourceScroll = window->findChild<QQuickItem *>("sourceScroll"); QVERIFY(sourceScroll);
         auto *previewScroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(previewScroll);

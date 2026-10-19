@@ -49,6 +49,7 @@ src/QMarkdown/private/syntaxhighlighter.h
 src/QMarkdown/private/taskindicatoritem.cpp
 src/QMarkdown/private/taskindicatoritem.h
 src/QMarkdown/private/viewstate.cpp
+src/QMarkdown/private/sourcewheelarea.h
 src/QMarkdown/private/viewstate.h
 src/QMarkdown/syntaxtheme.cpp
 src/QMarkdown/syntaxtheme.h

@@ -133,44 +133,60 @@ private slots:
     }
     void wheelBoundaryHandoff_data() {
         QTest::addColumn<bool>("pixel");
-        QTest::newRow("wheel") << false;
-        QTest::newRow("trackpad") << true;
+        QTest::addColumn<bool>("parentHandler");
+        QTest::newRow("wheel") << false << false;
+        QTest::newRow("wheel-parent-handler") << false << true;
+        QTest::newRow("trackpad") << true << false;
+        QTest::newRow("trackpad-parent-handler") << true << true;
     }
     void wheelBoundaryHandoff() {
         QFETCH(bool, pixel);
+        QFETCH(bool, parentHandler);
         QQmlEngine engine; QQmlComponent component(&engine);
         component.setData(R"(
 import QtQuick
 import QMarkdown
 Flickable {
+    id: outer
+    property bool parentHandler: false
+    property int observedWheels: 0
+    WheelHandler {
+        enabled: outer.parentHandler
+        blocking: false
+        onWheel: function(event) { outer.observedWheels++; event.accepted = false }
+    }
     width: 240; height: 300; contentWidth: width; contentHeight: 1500
     MarkdownView {
-        objectName: "reader"; width: 240
+        objectName: "reader"; width: 240; y: 100
+        codeBlockWrapEnabled: false
         codeBlockHeightLimitEnabled: true; codeBlockMinimumLines: 1; codeBlockMaximumLines: 2
-        markdown: "```\n" + "long source line\n".repeat(40) + "```"
+        markdown: "```\n" + ("long source line ".repeat(20) + "\n").repeat(40) + "```"
     }
 }
 )", {});
         std::unique_ptr<QQuickItem> outer(qobject_cast<QQuickItem *>(component.create()));
         QVERIFY2(outer, qPrintable(component.errorString()));
+        outer->setProperty("parentHandler", parentHandler);
         QQuickWindow window; window.resize(240, 300); outer->setParentItem(window.contentItem()); window.show();
         QVERIFY(QTest::qWaitForWindowExposed(&window));
         auto *viewport = named(outer.get(), "codeViewport"); QVERIFY(viewport);
         QTRY_VERIFY(viewport->height() > 0); QCoreApplication::processEvents();
-        const auto point = viewport->mapToScene(QPointF(20, viewport->height() / 2));
+        auto point = viewport->mapToScene(QPointF(20, viewport->height() / 2));
         QPointingDevice trackpad("test touchpad", 42, QInputDevice::DeviceType::TouchPad,
             QPointingDevice::PointerType::Finger, QInputDevice::Capability::Position | QInputDevice::Capability::Scroll, 1, 0);
         if (pixel) {
-            QWheelEvent begin(point, window.mapToGlobal(point.toPoint()), QPoint(), QPoint(),
+            QWheelEvent begin(point, window.mapToGlobal(point.toPoint()), QPoint(0,-40), QPoint(0,-120),
                 Qt::NoButton, Qt::NoModifier, Qt::ScrollBegin, false, Qt::MouseEventSynthesizedBySystem, &trackpad);
             begin.setTimestamp(100);
             QCoreApplication::sendEvent(&window, &begin);
         }
         ulong timestamp = 100;
-        auto wheel = [&] {
+        auto wheel = [&](int direction = -1, bool horizontal = false, bool shift = false) {
+            point = viewport->mapToScene(QPointF(20, viewport->height() / 2));
             // High-resolution Qt wheel events carry both pixel and angle deltas.
-            QWheelEvent event(point, window.mapToGlobal(point.toPoint()), pixel ? QPoint(0, -40) : QPoint(), QPoint(0, -120),
-                Qt::NoButton, Qt::NoModifier, pixel ? Qt::ScrollUpdate : Qt::NoScrollPhase, false,
+            QWheelEvent event(point, window.mapToGlobal(point.toPoint()), pixel ? (horizontal ? QPoint(direction * 40, 0) : QPoint(0, direction * 40)) : QPoint(),
+                horizontal ? QPoint(direction * 120, 0) : QPoint(0, direction * 120),
+                Qt::NoButton, shift ? Qt::ShiftModifier : Qt::NoModifier, pixel ? Qt::ScrollUpdate : Qt::NoScrollPhase, false,
                 pixel ? Qt::MouseEventSynthesizedBySystem : Qt::MouseEventNotSynthesized,
                 pixel ? &trackpad : QPointingDevice::primaryPointingDevice());
             timestamp += 16;
@@ -180,10 +196,69 @@ Flickable {
         wheel();
         QTRY_VERIFY(viewport->property("contentY").toReal() > 0);
         QCOMPARE(outer->property("contentY").toReal(), 0.0);
-        viewport->setProperty("contentY", viewport->property("contentHeight").toReal() - viewport->height());
+        QCOMPARE(outer->property("observedWheels").toInt(), 0);
+        const auto internalY = viewport->property("contentY");
+        wheel(-1, true);
+        QVERIFY(viewport->property("contentX").toReal() > 0);
+        QCOMPARE(viewport->property("contentY"), internalY);
+        const auto internalX = viewport->property("contentX").toReal();
+        wheel(-1, false, true);
+        QVERIFY(viewport->property("contentX").toReal() > internalX);
+        QCOMPARE(viewport->property("contentY"), internalY);
+        const auto edge = viewport->property("contentHeight").toReal() - viewport->height();
+        viewport->setProperty("contentY", edge - 5);
         wheel();
-        if (pixel) { wheel(); wheel(); }
+        QCOMPARE(viewport->property("contentY").toReal(), edge);
+        QCOMPARE(outer->property("contentY").toReal(), 0.0);
+        wheel();
+        wheel(); wheel();
         QTRY_VERIFY(outer->property("contentY").toReal() > 0);
+        QMetaObject::invokeMethod(outer.get(), "cancelFlick");
+        outer->setProperty("contentY", 0);
+        const auto bottom = viewport->property("contentY").toReal();
+        wheel(1);
+        QVERIFY(viewport->property("contentY").toReal() < bottom);
+        QCOMPARE(outer->property("contentY").toReal(), 0.0);
+        viewport->setProperty("contentY", 5);
+        wheel(1);
+        QCOMPARE(viewport->property("contentY").toReal(), 0.0);
+        QCOMPARE(outer->property("contentY").toReal(), 0.0);
+        QMetaObject::invokeMethod(outer.get(), "cancelFlick");
+        QTest::qWait(300); timestamp += 1000;
+        outer->setProperty("contentY", 20);
+        QCoreApplication::processEvents();
+        wheel(1); wheel(1); wheel(1);
+        QTRY_VERIFY(outer->property("contentY").toReal() < 20);
+        QMetaObject::invokeMethod(outer.get(), "cancelFlick");
+        outer->setProperty("contentY", 0);
+        auto *reader = named(outer.get(), "reader"); QVERIFY(reader);
+        reader->setProperty("markdown", "```\nshort\n```");
+        viewport = named(outer.get(), "codeViewport"); QVERIFY(viewport);
+        QTRY_VERIFY(viewport->property("contentHeight").toReal() <= viewport->height());
+        wheel(); wheel(); wheel();
+        QTRY_VERIFY(outer->property("contentY").toReal() > 0);
+    }
+    void blockingObserverPreventsNativeHandoff()
+    {
+        // Reproduces the sibling viewer's default-blocking observer independently
+        // of QMarkdown. Such observers must set blocking: false in the host.
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+import QtQuick
+Flickable {
+    width: 240; height: 300; contentHeight: 1500
+    WheelHandler { onWheel: function(event) { event.accepted = false } }
+}
+)", {});
+        std::unique_ptr<QQuickItem> outer(qobject_cast<QQuickItem *>(component.create()));
+        QVERIFY2(outer, qPrintable(component.errorString()));
+        QQuickWindow window; window.resize(240,300); outer->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QWheelEvent event(QPointF(40,40), window.mapToGlobal(QPoint(40,40)), {}, QPoint(0,-120),
+            Qt::NoButton, Qt::NoModifier, Qt::NoScrollPhase, false);
+        QCoreApplication::sendEvent(&window, &event);
+        QTest::qWait(150);
+        QCOMPARE(outer->property("contentY").toReal(), 0.0);
     }
     void plainSourceScrolling() {
         QQmlEngine engine; auto view = create(engine); QVERIFY(view);

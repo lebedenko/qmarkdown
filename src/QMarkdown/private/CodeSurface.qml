@@ -302,21 +302,10 @@ Rectangle {
         }
         SelectionRegistration { coordinator: surface.coordinator; item: gutter; kind: ViewState.ActionSelection }
     }
-    WheelHandler {
-        target: null
-        blocking: false
-        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-        onWheel: function(event) {
-            const dx = event.pixelDelta.x !== 0 ? -event.pixelDelta.x : -event.angleDelta.x / 120 * surface.lineHeight * 3
-            const dy = event.pixelDelta.y !== 0 ? -event.pixelDelta.y : -event.angleDelta.y / 120 * surface.lineHeight * 3
-            const oldX = viewport.contentX, oldY = viewport.contentY
-            if (event.modifiers & Qt.ShiftModifier) viewport.contentX = Math.max(0, Math.min(oldX + dy + dx, viewport.contentWidth - viewport.width))
-            else {
-                viewport.contentX = Math.max(0, Math.min(oldX + dx, viewport.contentWidth - viewport.width))
-                viewport.contentY = Math.max(0, Math.min(oldY + dy, viewport.contentHeight - viewport.height))
-            }
-            event.accepted = oldX !== viewport.contentX || oldY !== viewport.contentY
-        }
+    SourceWheelArea {
+        anchors.fill: parent
+        sourceViewport: viewport
+        lineHeight: surface.lineHeight
     }
     component SourceScrollBar: Item {
         id: bar

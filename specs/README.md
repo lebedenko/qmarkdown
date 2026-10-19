@@ -262,3 +262,11 @@ Merge, tagging and publication require separate authorization.
 ## Approved development: atomic math selection
 
 [057 atomic math selection](057-atomic-math-selection/requirements.md) retains rendered formulas with selection enabled and source-mode Find. See its design, tasks and verification records.
+
+## Approved development: scrolling and task presentation
+
+[058 requirements](058-scrolling-task-presentation/requirements.md),
+[design](058-scrolling-task-presentation/design.md),
+[mapped tasks](058-scrolling-task-presentation/tasks.md) and
+[actual verification](058-scrolling-task-presentation/verification.md) track the
+approved nested-wheel fix and opt-in replacement task markers. Versions are unchanged.

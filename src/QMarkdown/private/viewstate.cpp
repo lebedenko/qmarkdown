@@ -5,6 +5,7 @@
 #include "taskindicatoritem.h"
 #include <QCoreApplication>
 #include <QEvent>
+#include "sourcewheelarea.h"
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QQmlContext>
@@ -74,6 +75,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
         return links;
     }
     if (role == ChildBlocksRole) return QVariant::fromValue(static_cast<QAbstractItemModel *>(m_children[index.row()]));
+    if (role == OrderedListRole) return block.ordered;
     if (role == TightListRole) return block.tight;
     if (role == MarkersRole) {
         QStringList markers;
@@ -96,7 +98,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
 {
     return {{BlockTextRole, "blockText"}, {HeadingLevelRole, "headingLevel"},
             {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
-            {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
+            {OrderedListRole, "orderedList"}, {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
             {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
             {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}, {DisplayMathRole, "displayMath"}};
 }
@@ -281,6 +283,7 @@ void registerPrivateTypes()
     registerLinkAccessibility();
     qmlRegisterType<LinkTargetItem>("QMarkdown.Private", 1, 0, "LinkTargetItem");
     qmlRegisterType<TaskIndicatorHostItem>("QMarkdown.Private", 1, 0, "TaskIndicatorHostItem");
+    qmlRegisterType<SourceWheelArea>("QMarkdown.Private", 1, 0, "SourceWheelArea");
     qmlRegisterType<TaskIndicatorItem>("QMarkdown.Private", 1, 0, "TaskIndicatorItem");
     qmlRegisterType<ImageItem>("QMarkdown.Private", 1, 0, "ImageItem");
     qmlRegisterType<SelectionRegistration>("QMarkdown.Private", 1, 0, "SelectionRegistration");
@@ -295,7 +298,7 @@ void ViewState::registerSourceViewport(QQuickItem *item)
 }
 bool ViewState::eventFilter(QObject *watched, QEvent *event)
 {
-    // CodeSurface's WheelHandler owns source wheel movement. Native Flickable
+    // CodeSurface's SourceWheelArea owns source wheel movement. Native Flickable
     // otherwise consumes phased pixel events even at its boundary, preventing
     // the outer reader from receiving the unconsumed event.
     if (event->type() == QEvent::Wheel && watched->property("codeSourceViewport").toBool()) {

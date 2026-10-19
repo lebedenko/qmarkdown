@@ -63,21 +63,24 @@ private slots:
         QCOMPARE(view->property("markdown"), source);
         const QString directory = QString(QMARKDOWN_TASK_CAPTURES) + "/" + qEnvironmentVariable("QT_QUICK_CONTROLS_STYLE", "Fusion") + "/" + qEnvironmentVariable("QT_SCALE_FACTOR", "1");
         QVERIFY(QDir().mkpath(directory));
-        for (bool dark : {false, true}) {
-            window->setProperty("dark", dark);
-            // Wait for style transitions and scene-graph rendering before capture.
-            QTest::qWait(250);
-            auto *ordinary = named(window->contentItem(), "ordinaryChecked").value(0); QVERIFY(ordinary);
-            auto *backing = named(view, "viewerTaskControl").value(0); QVERIFY(backing);
-            auto *ordinaryIndicator = ordinary->property("indicator").value<QQuickItem *>(); QVERIFY(ordinaryIndicator);
-            auto *hostIndicator = backing->property("indicator").value<QQuickItem *>(); QVERIFY(hostIndicator);
-            QCOMPARE(hostIndicator->size(), ordinaryIndicator->size());
-            auto expected = ordinaryIndicator->grabToImage(); QVERIFY(expected);
-            auto actual = hostIndicator->grabToImage(); QVERIFY(actual);
-            QTRY_VERIFY(!expected->image().isNull() && !actual->image().isNull());
-            QCOMPARE(actual->image(), expected->image());
-            const auto image = window->grabWindow(); QVERIFY(!image.isNull());
-            QVERIFY(image.save(directory + (dark ? "/dark.png" : "/light.png")));
+        for (bool replace : {false, true}) {
+            window->setProperty("replacement", replace);
+            for (bool dark : {false, true}) {
+                window->setProperty("dark", dark);
+                // Wait for style transitions and scene-graph rendering before capture.
+                QTest::qWait(250);
+                auto *ordinary = named(window->contentItem(), "ordinaryChecked").value(0); QVERIFY(ordinary);
+                auto *backing = named(view, "viewerTaskControl").value(0); QVERIFY(backing);
+                auto *ordinaryIndicator = ordinary->property("indicator").value<QQuickItem *>(); QVERIFY(ordinaryIndicator);
+                auto *hostIndicator = backing->property("indicator").value<QQuickItem *>(); QVERIFY(hostIndicator);
+                QCOMPARE(hostIndicator->size(), ordinaryIndicator->size());
+                auto expected = ordinaryIndicator->grabToImage(); QVERIFY(expected);
+                auto actual = hostIndicator->grabToImage(); QVERIFY(actual);
+                QTRY_VERIFY(!expected->image().isNull() && !actual->image().isNull());
+                QCOMPARE(actual->image(), expected->image());
+                const auto image = window->grabWindow(); QVERIFY(!image.isNull());
+                QVERIFY(image.save(directory + (replace ? "/replacement" : "/adjacent") + (dark ? "-dark.png" : "-light.png")));
+            }
         }
     }
 };

@@ -23,6 +23,7 @@ height follows contentHeight. Hosts own scrolling, clipping and backgrounds.
 | `syntaxTheme` | SyntaxTheme / view-owned Light | 1.11 | Replaceable palette; null or external destruction restores default. |
 | `keyboardNavigationEnabled` | bool / false | 1.10 | Tab/Shift+Tab traverse drawable logical links without wrapping; hosts retain boundary focus traversal. |
 | `keyboardFocusColor` | color / bound to style.linkColor | 1.10 | Two-logical-pixel outline around active link fragments, without layout changes. |
+| `taskIndicatorsReplaceBullets` | bool / false | Unreleased | Places unordered task indicators in the marker lane; ordered tasks retain numbers and adjacent indicators. |
 | `taskIndicator` | Component / null | 1.10 | Decorative Item with live `checked` and `markdownStyle` inputs; preferred dimensions and fallback follow the [task indicator contract](task-lists.md#host-presentation-110). |
 | `searchActive` | bool / false | 1.9 | Enables Find and searchable fenced source. |
 | `searchQuery` | string / empty | 1.9 | Non-overlapping literal query over decoded document text. |

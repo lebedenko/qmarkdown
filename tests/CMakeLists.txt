@@ -195,6 +195,9 @@ if(QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
     target_link_libraries(qmarkdown-syntax-test PRIVATE KF6::SyntaxHighlighting)
     target_compile_definitions(qmarkdown-syntax-test PRIVATE QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING)
 endif()
+# This unit target compiles the backend itself, without the QMarkdown plugin.
+# Scanning adjacent QML fixtures would import the static library a second time.
+set_target_properties(qmarkdown-syntax-test PROPERTIES QT_QML_MODULE_NO_IMPORT_SCAN TRUE)
 add_test(NAME qmarkdown-syntax COMMAND qmarkdown-syntax-test)
 set_tests_properties(qmarkdown-syntax PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
