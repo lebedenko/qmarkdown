@@ -3,11 +3,11 @@
 <!-- current-release:start -->
 See the [public API reference](api.md) for the complete supported contract.
 
-Package 1.13.0 / QML 1.13 supports all five GFM extensions on the existing CommonMark 0.31.2 core. Inline code reserves 4/2 logical pixels of horizontal/vertical padding in every preset. This is selected extension support, not a claim of exact GFM 0.29-gfm conformance or GitHub's additional sanitization behavior.
+Package 1.14.0 / QML 1.14 supports all five GFM extensions on the existing CommonMark 0.31.2 core. Inline code reserves 4/2 logical pixels of horizontal/vertical padding in every preset. This is selected extension support, not a claim of exact GFM 0.29-gfm conformance or GitHub's additional sanitization behavior.
 
 ```qml
 import QtQuick
-import QMarkdown 1.13
+import QMarkdown 1.14
 
 MarkdownView {
     width: parent.width
@@ -20,14 +20,18 @@ All six switches default to false. `taskListsEnabled`, `strikethroughEnabled`, `
 
 Tables retain header/body rows, inline formatting, escaped pipes (including code), column alignment and empty missing cells. Excess body cells are ignored; mismatched header/delimiter column counts leave ordinary Markdown. Tables terminate at blank lines or another block start and work inside lists and block quotes. Native cells receive equal shares of the containing width, wrap content and share the tallest cell's row height. Left, center and right alignment also applies to formatted text and authorized image rows. Headers use bold text. Very narrow widths can still overflow an indivisible glyph; tables introduce no internal scrolling.
 
-Use `style.table` with QML 1.13:
+Use `style.table` with QML 1.14:
 
 | Property | Default in every preset |
 | --- | --- |
 | `headerForeground` | Inherits body foreground; an invalid/reset color restores inheritance |
 | `headerBackground`, `bodyBackground`, `borderColor` | Transparent |
+| `borderMode` | `MarkdownStyle.TableBorderGrid`; also None, Rows and HeaderOnly (1.14) |
+| `alternateRowBackground` | Inherits `bodyBackground`; explicit transparency remains transparent (1.14) |
 | `borderWidth` | 0 logical pixels |
 | `horizontalPadding`, `verticalPadding` | 4 and 2 logical pixels |
+
+See [table presentation](styling.md#table-presentation-qml-114) for modes and the grouped-property revision limitation. Grid interior lines have the same thickness as outer lines; alternating backgrounds shade every second body row, excluding the header.
 
 Each property follows the existing override/notification/reset contract. Assign `undefined` to reset one property, or call `style.resetOverrides()` to reset all overrides to the selected preset. Effective layout metrics clamp negative/nonfinite values to zero. Horizontal padding and borders fit within each column at narrow widths. Hosts own visual identity, scrolling and link navigation. Images in cells use the same host resource policy, decoding limits and replacement/cancellation handling as other images; denied images retain their literal descriptions.
 

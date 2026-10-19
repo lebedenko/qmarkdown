@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.14.0 — 2026-10-19
+
+- Keep rendered native math atomic during selection while preserving exact TeX copy and Find endpoints.
+- Fix nested code wheel handoff at boundaries, reversal and horizontal scrolling.
+- Add opt-in task indicators replacing unordered bullets while preserving ordered numbering.
+- Add table Grid, Rows, HeaderOnly and None border modes with uniform grid thickness and alternating body backgrounds.
+- Expand playground samples, style controls and demo defaults, preserving settings between samples.
+
 ## 1.13.0 — 2026-10-17
 
 - Add opt-in native fenced and standalone display math with a bundled private MicroTeX backend.

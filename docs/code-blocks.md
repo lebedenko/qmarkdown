@@ -94,7 +94,7 @@ The playground opts into nowrap, line numbers, height limiting, 50% of the reade
 viewport, and 8–30 line caps. Its badges and copy icon are original playground
 assets and are not included in the library source distribution.
 
-## Development: nested wheel handoff
+## Nested wheel handoff (1.14)
 
 Source viewports consume complete wheel events while an internal offset moves.
 Further outward input at an edge, and input over a block without overflow, reaches

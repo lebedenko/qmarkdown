@@ -43,3 +43,11 @@ Evidence: `/tmp/table-approved-focused.log`, `/tmp/table-approved-static-suite.l
 These local logs are ordinary execution evidence, not release artifacts. Required
 hosted checks are `packaging (minimum)` and `packaging (development)` on the PR's
 final head; an in-progress check is not a success claim.
+
+## Release preparation checks — 2026-10-19
+
+- Confirmed PR #39 merged at d75d42c4f0529c26c5bfc4dbb7169af373017da8 and remote main unchanged at that commit before branching release/1.14.0.
+- Selected /usr/bin/qmake6 reports 6.12.0; explicit qt_versions.py --sync-host completed with no configuration change (minimum 6.8.0, development 6.12.0).
+- Ordinary documentation validation, release documentation validation and git diff --check passed after final documentation edits.
+- Changes are documentation only: release notes/changelog, current summaries, API/style/task/math/scrolling and installation guides, plus these existing feature records. Package and QML versions remain 1.14.0 / 1.14; runtime and dependency inputs are unchanged.
+- Full final-head hosted packaging results and retained release-gate artifact will be recorded in the release PR before merge. Publication and downloaded-hash results belong to the release workflow; no success is claimed here in advance.
