@@ -231,3 +231,12 @@ host body family. See the [dialect and limits](math.md).
 ## Atomic native math selection (1.14)
 
 With selection enabled, eligible native formulas remain rendered and select as complete objects. Find shows TeX source and preserves exact selection endpoints when closed. Copy uses the existing body projection. Registered host `math` renderers retain source fallback during selection and Find. No public API changes.
+
+## Development inline math (1.15)
+
+`MarkdownView.inlineMathEnabled: false` independently opts into single-line dollar
+and backslash-parenthesis formulas. `mathEnabled` continues controlling block math.
+`mathAvailable` and `style.math` serve both. Inline rendering uses surrounding font
+size, baseline atoms and wrappable body fallback; Find shows body source and copy
+omits delimiters. See [inline math](math.md#inline-math-development-qml-115).
+Package 1.15.0 accepts compatible 1.0–1.15 imports; published 1.14 remains unchanged.

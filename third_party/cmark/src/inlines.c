@@ -12,6 +12,7 @@
 #include "utf8.h"
 #include "scanners.h"
 #include "inlines.h"
+#include "qmarkdown_inline_math.h"
 
 static const char *EMDASH = "\xE2\x80\x94";
 static const char *ENDASH = "\xE2\x80\x93";
@@ -68,6 +69,7 @@ typedef struct {
   bufsize_t backticks[MAXBACKTICKS + 1];
   bool scanned_for_backticks;
   bool no_link_openers;
+  qmarkdown_math_scan math_scan;
 } subject;
 
 static inline bool S_is_line_end_char(char c) {
@@ -1455,13 +1457,14 @@ match:
   cmark_node_free(opener->inl_text);
 
   process_emphasis(subj, opener->position);
-  if (!is_image && (options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) && contains_extended_web(inl)) {
+  if ((is_image && (options & CMARK_OPT_QMARKDOWN_INLINE_MATH)) ||
+      (!is_image && (options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) && contains_extended_web(inl))) {
     while (inl->first_child) cmark_node_free(inl->first_child);
     inl->len = initial_pos - opener->position - 1;
     inl->data = subj->mem->calloc(inl->len + 1, 1);
     memcpy(inl->data, subj->input.data + opener->position, inl->len);
     cmark_parse_inlines(subj->mem, inl, subj->refmap,
-                        options & ~CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS);
+                        options & ~(is_image ? CMARK_OPT_QMARKDOWN_INLINE_MATH : CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS));
     subj->mem->free(inl->data);
     inl->data = NULL;
     inl->len = 0;
@@ -1537,6 +1540,7 @@ static bufsize_t subject_find_special_char(subject *subj, int options) {
     if ((options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) &&
         (subj->input.data[n] == 'h' || subj->input.data[n] == 'w') && autolink_boundary(subj, n))
       return n;
+    if ((options & CMARK_OPT_QMARKDOWN_INLINE_MATH) && subj->input.data[n] == '$') return n;
     if ((options & CMARK_OPT_QMARKDOWN_STRIKETHROUGH) && subj->input.data[n] == '~')
       return n;
     if (SPECIAL_CHARS[subj->input.data[n]])
@@ -1564,6 +1568,19 @@ static int parse_inline(subject *subj, cmark_node *parent, int options) {
       (c == 'h' || c == 'w')) {
     new_inl = handle_extended_web(subj);
     if (new_inl) { append_child(parent, new_inl); return 1; }
+  }
+  if ((options & CMARK_OPT_QMARKDOWN_INLINE_MATH) && (c == '$' || c == '\\')) {
+    bufsize_t body, body_end;
+    bufsize_t end = qm_math_match(subj->input.data, subj->input.len, subj->pos,
+                                 &subj->math_scan, &body, &body_end);
+    if (end) {
+      new_inl = make_str(subj, subj->pos, end - 1,
+                         cmark_chunk_dup(&subj->input, body, body_end - body));
+      new_inl->type = CMARK_NODE_QMARKDOWN_INLINE_MATH;
+      subj->pos = end;
+      append_child(parent, new_inl);
+      return 1;
+    }
   }
   switch (c) {
   case '\r':
@@ -1647,6 +1664,7 @@ void cmark_parse_inlines(cmark_mem *mem, cmark_node *parent,
   subject_from_buf(mem, parent->start_line, parent->start_column - 1 + internal_offset, &subj, &content, refmap);
   cmark_chunk_rtrim(&subj.input);
 
+  subj.math_scan = (qmarkdown_math_scan){-1, -1};
   while (!is_eof(&subj) && parse_inline(&subj, parent, options))
     ;
 

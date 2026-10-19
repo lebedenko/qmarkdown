@@ -59,7 +59,7 @@ The evidence contracts remain separate: [iteration 017](017-complete-semantic-ev
 
 Documented public QML behavior and CMake integration remain compatible throughout 1.x. QMarkdown.Private/native classes remain private; no C++ headers are installed and no public C++ ABI is promised. Package 1.6.0 accepts compatible 1.0–1.6 requests and EXACT 1.6.0; exact earlier versions require historical packages.
 
-Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Touch selection handles, edge autoscrolling, rich-text copying, streaming, highlighting, bundled renderer engines, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
+Accepted limits remain separate PNG/JPEG image rows, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown may wait for codecs. Touch selection handles, horizontal autoscrolling, rich-text copying, streaming, public highlighting providers, Mermaid, inline-code borders, arbitrary style inheritance, further performance optimization and broader platforms remain deferred. Historical descriptions below retain their original versions and verification scope.
 
 
 These stages preserve the brief's direction. The table separates completed foundations from deferred capabilities; it does not schedule future releases. Each feature needs its own requirements, design, tasks, and approval. The [standards reference](standards.md) defines the pinned target and future conformance evidence.
@@ -73,7 +73,7 @@ These stages preserve the brief's direction. The table separates completed found
 | Interaction improvements | Optional host-controlled code-block actions released in 1.2.0; [Feature 040](040-document-selection/requirements.md) implements opt-in document-wide desktop selection and host-owned plain-text copy requests in 1.7.0 / QML 1.7. Selection is retained in current downloads. Iteration 044 adds double/triple-click selection and host-owned vertical edge scrolling in 1.8. Touch handles, horizontal autoscrolling, caret navigation and rich-text copying remain deferred. |
 | Reading tools (delivered) | Literal Find, independent highlights, heading outline and fragment navigation in 1.9; opt-in keyboard link traversal, visible focus and per-link accessibility in 1.10. Hosts own controls, scrolling and destination policy. |
 | Streaming (deferred, unscheduled) | Static/appended semantic consistency, incremental document updates and rendering; specify stability and performance checks. |
-| Renderer extensions (partly delivered) | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers delivered in 1.8; historical 1.7.0 downloads exclude them. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Optional syntax highlighting is delivered in 1.11 through [Feature 049](049-syntax-highlighting/requirements.md); Mermaid and math remain deferred. Footnotes and other richer syntax require separate specifications. |
+| Renderer extensions (partly delivered) | [Feature 042](042-custom-fenced-block-renderers/requirements.md), approved on 2026-10-14, implements host QML custom fenced-block renderers delivered in 1.8; historical 1.7.0 downloads exclude them. Selection shows source; existing actions copy source. Verification/delivery are recorded separately. Optional syntax highlighting is delivered in 1.11 through [Feature 049](049-syntax-highlighting/requirements.md); native block math is delivered in 1.13. Inline math is approved in [Feature 061](061-inline-math/requirements.md); footnotes and other richer syntax require separate specifications. |
 | v1.0 conformance gate (completed) | All pinned CommonMark 0.31.2 official examples pass semantic checks, with native renderer verification and documented resource/HTML behavior. Record reproducible commands and actual counts. Streaming and optional extensions are not gates. |
 
 The capability stages separate work streams rather than impose delivery dates or require optional work before v1.0. The static-text slice is implemented; Feature 017 completes pinned-corpus semantic evidence. Iteration 021 records historical local candidate readiness; iterations 023/027 record completed 1.0.0/1.1.0 publication separately.
@@ -93,7 +93,7 @@ one release PR, squash merge and workflow publication of 1.10.0, including
 downloaded-asset hash verification. Actual delivery results remain in Actions;
 this roadmap does not assert publication success.
 
-Streaming, public highlighting providers, Mermaid/math engines, footnotes, caret navigation,
+Streaming, public highlighting providers, Mermaid, footnotes, caret navigation,
 touch selection handles, horizontal autoscrolling, rich-text copy and further
 platforms remain deferred and unscheduled. Future work requires separate scope,
 design and approval; no new feature commitment is introduced here.

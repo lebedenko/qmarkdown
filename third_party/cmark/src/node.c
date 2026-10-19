@@ -230,6 +230,7 @@ const char *cmark_node_get_type_string(cmark_node *node) {
   case CMARK_NODE_STRONG:
     return "strong";
   case CMARK_NODE_QMARKDOWN_MATH: return "math";
+  case CMARK_NODE_QMARKDOWN_INLINE_MATH: return "inline_math";
   case CMARK_NODE_QMARKDOWN_TABLE: return "table";
   case CMARK_NODE_QMARKDOWN_TABLE_ROW: return "table_row";
   case CMARK_NODE_QMARKDOWN_TABLE_CELL: return "table_cell";
@@ -331,6 +332,7 @@ const char *cmark_node_get_literal(cmark_node *node) {
   case CMARK_NODE_HTML_INLINE:
   case CMARK_NODE_CODE:
   case CMARK_NODE_QMARKDOWN_MATH:
+  case CMARK_NODE_QMARKDOWN_INLINE_MATH:
   case CMARK_NODE_CODE_BLOCK:
     return node->data ? (char *)node->data : "";
 

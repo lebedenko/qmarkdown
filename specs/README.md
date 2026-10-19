@@ -281,3 +281,13 @@ approved nested-wheel fix and opt-in replacement task markers. Versions are unch
 ## Approved development: table presentation
 
 [060 requirements](060-table-presentation/requirements.md), [design](060-table-presentation/design.md), [tasks](060-table-presentation/tasks.md) and [verification](060-table-presentation/verification.md) cover QML 1.14 table decoration and combined playground delivery.
+
+## Approved richer rendering: inline math
+
+[061 inline math requirements](061-inline-math/requirements.md),
+[design](061-inline-math/design.md), [mapped tasks](061-inline-math/tasks.md)
+and [verification](061-inline-math/verification.md) were explicitly approved on 2026-10-19 for implementation and verification,
+targeting QML 1.15. The supplied plan then calls
+for separate footnotes (062 / QML 1.16) and host highlighting providers
+(063 / QML 1.17) specifications and approvals, with one PR per feature.
+Merge and publication are excluded from implementation approvals.
