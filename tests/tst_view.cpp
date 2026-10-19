@@ -2932,6 +2932,10 @@ MarkdownView {
         window->setWidth(1000);
         QTRY_COMPARE(content(preview), initial);
         auto *panel = window->findChild<QObject *>("stylePanel"); QVERIFY(panel);
+        panel->setProperty("taskIndicatorsReplaceBullets", true);
+        QCOMPARE(preview->property("taskIndicatorsReplaceBullets").toBool(), true);
+        panel->setProperty("taskIndicatorsReplaceBullets", false);
+        QCOMPARE(preview->property("taskIndicatorsReplaceBullets").toBool(), false);
         auto *style = preview->property("style").value<QObject *>(); QVERIFY(style);
         auto *sourceScroll = window->findChild<QQuickItem *>("sourceScroll"); QVERIFY(sourceScroll);
         auto *previewScroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(previewScroll);

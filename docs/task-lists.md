@@ -75,4 +75,5 @@ tight lists. Artwork keeps its natural dimensions when space permits. At widths
 too small for the lane and text gap, artwork is clipped while at least one content
 pixel remains. The indicator remains one read-only accessible checkbox.
 
-The playground's “Task indicators replace bullets” control compares the layouts.
+The playground's “Style controls” panel includes “Task indicators replace bullets”
+to compare the layouts.

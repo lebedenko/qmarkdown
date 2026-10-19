@@ -112,7 +112,6 @@ ApplicationWindow {
             CheckBox { id: gfmToggle; text: "All GFM"; objectName: "gfmToggle" }
             CheckBox { id: autolinkToggle; text: "GFM extended autolinks"; objectName: "autolinkToggle" }
             CheckBox { id: strikeToggle; text: "GFM strikethrough"; objectName: "strikeToggle" }
-            CheckBox { id: replaceTaskBullets; text: "Task indicators replace bullets" }
             CheckBox { id: hostTaskToggle; text: "Host-styled task indicators"; checked: true; objectName: "hostTaskToggle" }
             CheckBox { id: taskToggle; text: "GFM task lists"; objectName: "taskToggle" }
         }
@@ -301,7 +300,7 @@ ApplicationWindow {
                             gfmEnabled: gfmToggle.checked
                             taskListsEnabled: taskToggle.checked
                             taskIndicator: hostTaskToggle.checked ? hostTaskIndicator : null
-                            taskIndicatorsReplaceBullets: replaceTaskBullets.checked
+                            taskIndicatorsReplaceBullets: stylePanel.taskIndicatorsReplaceBullets
                             extendedAutolinksEnabled: autolinkToggle.checked
                             strikethroughEnabled: strikeToggle.checked
                             style: hostStyle

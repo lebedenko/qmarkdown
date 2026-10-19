@@ -83,3 +83,15 @@ against `main` completed on 2026-10-19. The implementation commit is `4ea6bb6`,
 directly following unchanged `0b22f44`. At PR creation, `targets` passed and both
 required packaging jobs were in progress. Final-head results remain in the PR's
 check records. No merge, tag or release was performed.
+
+The first final-head hosted matrix (run 39240044862) reached the shared tests on
+both exact Qt versions. Provider scrolling/task tests passed, but the playground
+splitter test failed: the added main-toolbar control increased Flow height under
+hosted fonts and placed the pointer target below the 800×600 window. The comparison
+control was moved into the existing Style controls row, with public binding coverage,
+to preserve the playground's bounded main-toolbar geometry. Updated gates follow
+in the same PR; the initial failed run is retained as investigation evidence.
+
+After moving the comparison control, both local suites again pass 32/32 (shared
+27.95 seconds, static 26.50 seconds), with both lint targets and docs/whitespace
+validation passing. Logs: `/tmp/qmarkdown-058-playground-*`.
