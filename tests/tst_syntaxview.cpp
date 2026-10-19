@@ -1,4 +1,6 @@
 #include "private/formattedtext.h"
+#include "markdownstyle.h"
+#include <QQmlProperty>
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QQuickItem>
@@ -11,6 +13,9 @@
 #include <memory>
 #ifdef QMARKDOWN_STATIC
 Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
+#endif
+#ifdef QMARKDOWN_VIEWER_SOURCE
+void qml_register_types_QMarkdownViewer_Tools();
 #endif
 class SyntaxViewTest : public QObject {
     Q_OBJECT
@@ -29,7 +34,77 @@ class SyntaxViewTest : public QObject {
         }
         return nullptr;
     }
+    static QList<FormattedText *> painted(QQuickItem *root) {
+        QList<FormattedText *> result;
+        for (auto *child : root->childItems()) {
+            if (auto *formatted = qobject_cast<FormattedText *>(child)) result.append(formatted);
+            result.append(painted(child));
+        }
+        return result;
+    }
 private slots:
+#ifdef QMARKDOWN_VIEWER_SOURCE
+    void initTestCase() { qml_register_types_QMarkdownViewer_Tools(); }
+    void playgroundSyntax()
+    {
+        QQmlEngine engine;
+        QQmlComponent component(&engine, QUrl::fromLocalFile(QStringLiteral(QMARKDOWN_VIEWER_SOURCE)));
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *window = qobject_cast<QQuickWindow *>(object.get()); QVERIFY(window);
+        auto *preview = window->findChild<QQuickItem *>("preview"); QVERIFY(preview);
+        for (const char *option : {"selectionEnabled", "mathEnabled", "gfmEnabled", "taskIndicatorsReplaceBullets",
+                                   "codeBlockLineNumbersVisible", "codeBlockHeightLimitEnabled", "syntaxHighlightingEnabled"})
+            QVERIFY2(preview->property(option).toBool(), option);
+        QVERIFY(preview->property("taskIndicator").value<QQmlComponent *>());
+        auto *style = preview->property("style").value<QObject *>(); QVERIFY(style);
+        QCOMPARE(style->property("preset").toInt(), int(MarkdownStyle::PolishedDark));
+        QVERIFY(style->property("linkUnderline").toBool());
+        QVERIFY(QQmlProperty::read(style, "headings.h1.separatorVisible").toBool());
+        window->setProperty("sampleKey", "syntax");
+        auto *toggle = window->findChild<QObject *>("syntaxToggle"); QVERIFY(toggle);
+        auto *dark = window->findChild<QObject *>("syntaxDarkToggle"); QVERIFY(dark);
+        const bool available = preview->property("syntaxHighlightingAvailable").toBool();
+        QCOMPARE(toggle->property("enabled").toBool(), available);
+        QVERIFY(toggle->property("checked").toBool());
+        QVERIFY(dark->property("checked").toBool());
+        dark->setProperty("checked", false);
+        toggle->setProperty("checked", true);
+        auto colors = [&]() {
+            QVariantList result;
+            for (auto *item : painted(preview))
+                result.append(item->foregroundRanges());
+            return result;
+        };
+        if (available) {
+            QTRY_VERIFY(!colors().isEmpty());
+            const auto light = colors();
+            dark->setProperty("checked", true);
+            QTRY_VERIFY(colors() != light);
+            QTRY_VERIFY(!window->grabWindow().isNull());
+            auto *theme = preview->property("syntaxTheme").value<QObject *>(); QVERIFY(theme);
+            theme->setProperty("keywordColor", QColor(Qt::magenta));
+            auto magentaPixels = [&]() {
+                int count = 0;
+                for (auto *item : painted(preview)) {
+                    if (item->foregroundRanges().isEmpty()) continue;
+                    QImage image(800, 200, QImage::Format_ARGB32_Premultiplied);
+                    image.fill(Qt::white);
+                    QPainter painter(&image); item->paint(&painter); painter.end();
+                    for (int y = 0; y < image.height(); ++y)
+                        for (int x = 0; x < image.width(); ++x) {
+                            const auto pixel = image.pixelColor(x, y);
+                            if (pixel.red() > 180 && pixel.blue() > 180 && pixel.green() < 120) ++count;
+                        }
+                }
+                return count;
+            };
+            QTRY_VERIFY(magentaPixels() > 5);
+        } else {
+            QVERIFY(colors().isEmpty());
+        }
+    }
+#endif
     void publicDefaults() {
         QQmlEngine engine; QQmlComponent c(&engine);
         c.setData("import QtQuick; import QMarkdown 1.11; MarkdownView {}", {});

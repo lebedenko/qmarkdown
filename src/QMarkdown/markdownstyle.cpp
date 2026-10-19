@@ -81,6 +81,15 @@ void CodeBlockStyle::setVerticalPadding(qreal value) { m_style->update(MarkdownS
 void CodeBlockStyle::resetVerticalPadding() { m_style->reset(MarkdownStyle::Property::CodeBlockVerticalPadding); }
 
 TableStyle::TableStyle(MarkdownStyle *style) : QObject(style), m_style(style) {}
+int TableStyle::borderMode() const { return m_style->m_values.table.borderMode; }
+void TableStyle::setBorderMode(int value) { m_style->update(MarkdownStyle::Property::TableBorderModeProperty, m_style->m_values.table.borderMode, value); }
+void TableStyle::resetBorderMode() { m_style->reset(MarkdownStyle::Property::TableBorderModeProperty); }
+QColor TableStyle::alternateRowBackground() const {
+    const auto color = m_style->m_values.table.alternateRowBackground;
+    return color.isValid() ? color : bodyBackground();
+}
+void TableStyle::setAlternateRowBackground(const QColor &value) { m_style->update(MarkdownStyle::Property::TableAlternateRowBackground, m_style->m_values.table.alternateRowBackground, value); }
+void TableStyle::resetAlternateRowBackground() { m_style->reset(MarkdownStyle::Property::TableAlternateRowBackground); }
 QColor TableStyle::headerForeground() const {
     const auto color = m_style->m_values.table.headerForeground;
     return color.isValid() ? color : m_style->bodyColor();
@@ -427,6 +436,13 @@ void MarkdownStyle::notify(Property property)
         break;
     case Property::TableBodyBackground:
         emit m_table->bodyBackgroundChanged();
+        if (!m_values.table.alternateRowBackground.isValid()) emit m_table->alternateRowBackgroundChanged();
+        break;
+    case Property::TableBorderModeProperty:
+        emit m_table->borderModeChanged();
+        break;
+    case Property::TableAlternateRowBackground:
+        emit m_table->alternateRowBackgroundChanged();
         break;
     case Property::TableBorderColor:
         emit m_table->borderColorChanged();
@@ -643,6 +659,10 @@ void MarkdownStyle::applyPreset()
         update(Property::TableHeaderBackground, m_values.table.headerBackground, values.table.headerBackground, false);
     if (!m_overrides.test(static_cast<size_t>(Property::TableBodyBackground)))
         update(Property::TableBodyBackground, m_values.table.bodyBackground, values.table.bodyBackground, false);
+    if (!m_overrides.test(static_cast<size_t>(Property::TableBorderModeProperty)))
+        update(Property::TableBorderModeProperty, m_values.table.borderMode, values.table.borderMode, false);
+    if (!m_overrides.test(static_cast<size_t>(Property::TableAlternateRowBackground)))
+        update(Property::TableAlternateRowBackground, m_values.table.alternateRowBackground, values.table.alternateRowBackground, false);
     if (!m_overrides.test(static_cast<size_t>(Property::TableBorderColor)))
         update(Property::TableBorderColor, m_values.table.borderColor, values.table.borderColor, false);
     if (!m_overrides.test(static_cast<size_t>(Property::TableBorderWidth)))

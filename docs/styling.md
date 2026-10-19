@@ -47,3 +47,33 @@ The playground's Neutral/Reset controls restore Legacy and host theme bindings; 
 QML 1.6 adds [table styling](gfm.md): inherited header foreground, bold headers, transparent surfaces/borders, zero border width, and 4/2 logical-pixel cell padding in every preset. Inline-code padding uses Qt paragraph shaping with cached geometry for painting and hit testing. This intentionally changes default wrapping and line height in 1.6. Negative/nonfinite padding renders as zero; grouped style values follow existing override/reset conventions. At widths smaller than an indivisible shaped glyph plus its padding, that fragment may overhang.
 
 QML 1.7 adds `selectionBackgroundColor`, default `#603b82f6` (light/Legacy) or `#7078a9ef` (dark presets). It uses the same explicit override and `resetOverrides()` conventions and supports property reset. Highlights preserve text foregrounds and layout. See [document selection](selection.md).
+
+## Development: table presentation (QML 1.14)
+
+Import `QMarkdown 1.14`. Set `style.table.borderMode` to
+`MarkdownStyle.TableBorderNone`, `TableBorderGrid` (default), `TableBorderRows`,
+or `TableBorderHeaderOnly`. Set `borderColor` and `borderWidth` to enable visible
+lines. Presets retain zero-width transparent borders.
+
+Set `style.table.alternateRowBackground` to a host palette color to shade every
+second body row. The header is excluded. Assign `undefined` to inherit
+`bodyBackground` again; explicit transparent colors stay transparent.
+`resetOverrides()` resets both controls. Grid boundaries now have uniform
+thickness instead of doubled interior lines.
+
+For example, a host can provide a style object with row separators and striping:
+
+```qml
+import QMarkdown 1.14
+
+MarkdownStyle {
+    table.borderMode: MarkdownStyle.TableBorderRows
+    table.borderWidth: 1
+    table.borderColor: "#607080"
+    table.alternateRowBackground: "#10203040"
+}
+```
+
+The properties carry 1.14 revision metadata. Qt does not enforce revisions on
+grouped-property members, so older imports may also access these properties;
+use 1.14 when relying on this API. See [Qt’s revision limitation](https://doc.qt.io/qt-6.12/qtqml-cppintegration-definetypes.html).

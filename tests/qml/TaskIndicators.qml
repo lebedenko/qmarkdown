@@ -9,6 +9,7 @@ ApplicationWindow {
     width: 600
     height: 300
     visible: true
+    property real artworkScale: 1
     property bool dark: false
     property bool replacement: false
     MaterialStyle.Material.theme: dark ? MaterialStyle.Material.Dark : MaterialStyle.Material.Light
@@ -35,7 +36,7 @@ ApplicationWindow {
             taskIndicatorsReplaceBullets: window.replacement
             markdown: "- [x] Completed\n- [ ] Pending"
             style.bodyColor: window.palette.windowText
-            taskIndicator: Component { Viewer.TaskIndicator { hostPalette: window.palette } }
+            taskIndicator: Component { Viewer.TaskIndicator { hostPalette: window.palette; artworkScale: window.artworkScale } }
         }
         Text { text: "Library fallback"; color: window.palette.windowText }
         MarkdownView {

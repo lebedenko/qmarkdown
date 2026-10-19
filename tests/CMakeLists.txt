@@ -202,6 +202,10 @@ add_test(NAME qmarkdown-syntax COMMAND qmarkdown-syntax-test)
 set_tests_properties(qmarkdown-syntax PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 qt_add_executable(qmarkdown-syntax-view-test tst_syntaxview.cpp)
+if(QMARKDOWN_BUILD_EXAMPLES)
+    target_compile_definitions(qmarkdown-syntax-view-test PRIVATE QMARKDOWN_VIEWER_SOURCE="${PROJECT_SOURCE_DIR}/examples/viewer/Main.qml")
+    target_link_libraries(qmarkdown-syntax-view-test PRIVATE Qt6::QuickControls2 qmarkdown-font-editor)
+endif()
 target_include_directories(qmarkdown-syntax-view-test PRIVATE ../src/QMarkdown)
 target_compile_definitions(qmarkdown-syntax-view-test PRIVATE
     QMARKDOWN_EXPECT_SYNTAX=$<BOOL:${QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING}>)

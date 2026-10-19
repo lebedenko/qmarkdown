@@ -45,6 +45,14 @@ tasks:
       - task: build
       - QML_IMPORT_PATH="{{.TASKFILE_DIR}}/build-shared/qml" "{{.TASKFILE_DIR}}/build-shared/examples/viewer/qmarkdown-viewer"
 
+  demo-highlighted:
+    desc: Build and launch the playground with syntax highlighting
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - cmake -S . -B build-highlighted -DQMARKDOWN_BUILD_EXAMPLES=ON -DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING=ON
+      - cmake --build build-highlighted --target qmarkdown-viewer --parallel 2
+      - QML_IMPORT_PATH="{{.TASKFILE_DIR}}/build-highlighted/qml" "{{.TASKFILE_DIR}}/build-highlighted/examples/viewer/qmarkdown-viewer"
+
   benchmark:
     desc: Run full advisory Release measurements and validate JSON
     dir: '{{.TASKFILE_DIR}}'

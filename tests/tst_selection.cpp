@@ -568,6 +568,20 @@ Flickable {
         QCOMPARE(view->property("selectedText").toString(), "\nbody\t");
         QVERIFY(QMetaObject::invokeMethod(view, "selectAll"));
         QCOMPARE(view->property("selectedText").toString(), "left\tright\nbody\t");
+        auto *style = view->property("style").value<QObject *>(); QVERIFY(style);
+        auto *table = style->property("table").value<QObject *>(); QVERIFY(table);
+        QSignalSpy copies(view, SIGNAL(copyRequested(QString)));
+        for (int mode : {0, 1, 2, 3}) {
+            table->setProperty("borderMode", mode);
+            table->setProperty("borderWidth", 2);
+            table->setProperty("alternateRowBackground", QColor(Qt::yellow));
+            view->setWidth(100 + mode * 30);
+            QCoreApplication::processEvents();
+            QCOMPARE(view->property("selectedText").toString(), "left\tright\nbody\t");
+            QVERIFY(QMetaObject::invokeMethod(view, "requestCopy"));
+            QCOMPARE(copies.takeFirst()[0].toString(), QString("left\tright\nbody\t"));
+        }
+
         QTemporaryDir dir; QVERIFY(dir.isValid());
         QImage image(40, 30, QImage::Format_ARGB32); image.fill(Qt::red);
         QVERIFY(image.save(dir.filePath("shape.png")));

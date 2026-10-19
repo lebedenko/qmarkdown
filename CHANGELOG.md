@@ -112,3 +112,9 @@ Replace `import QMarkdown 0.7` with `import QMarkdown 1.0`, or use an unversione
 ### Candidate evidence
 
 See [iteration 021 verification](specs/021-v1-release-candidate/verification.md) for actual local gate results, environments and artifacts. These historical candidate results predate publication. Both hosted packaging checks subsequently passed in [run 37999664817](https://github.com/lebedenko/qmarkdown/actions/runs/37999664817). Stable publication evidence is recorded separately in [Feature 023](specs/023-stable-release/verification.md). Optional syntax, streaming, selection/copy, renderer extensions, performance optimization and broader platforms remain deferred.
+
+## Development — 1.14.0
+
+- Add host-controlled table border modes and alternating body row backgrounds.
+- Correct doubled interior Grid borders to uniform thickness, including translucent intersections.
+- Include the pending playground sample, startup and README refresh.
