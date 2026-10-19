@@ -9,3 +9,11 @@ Keep equal-width Rectangle cell backgrounds and existing content loaders. Paint 
 Keep host palette ownership in the existing Style panel and preserve pending playground history. Development notes sit outside published-release markers.
 
 Follow-up approval on 2026-10-19: preserve the grouped API and document Qt’s lack of runtime revision enforcement for grouped members. Verify 1.14 metadata and retain an explicit expected-failure probe for older-import rejection. Strict runtime rejection is excluded from the approved compatibility contract.
+
+## Approved release delivery — 2026-10-19
+
+Retain package 1.14.0 / QML 1.14. Promote shipped behavior into current guides,
+finalize notes/changelog together, preserve old release records and Qt grouped
+revision limitations. Use the existing full-gate artifact and unchanged merged-tree
+eligibility contract in release.yml. Keep ordinary logs in Actions; record final
+PR gate results in the PR before merge so the verified tree stays unchanged.

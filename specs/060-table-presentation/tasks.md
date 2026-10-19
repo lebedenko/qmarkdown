@@ -12,3 +12,10 @@ Approved 2026-10-19 by explicit instruction to implement the supplied plan.
 Follow-up approval on 2026-10-19: preserve the grouped API and document Qt’s lack of runtime revision enforcement for grouped members. Verify 1.14 metadata and retain an explicit expected-failure probe for older-import rejection. Strict runtime rejection is excluded from the approved compatibility contract.
 
 Implementation tasks 1–4 are complete. Completed local verification and exact-container limitations are recorded in verification.md. Remaining installed-static and final-head hosted packaging results are tracked in the combined PR; merge, tagging and publication remain excluded.
+
+## Approved release delivery tasks — 2026-10-19
+
+7. Finalize 1.14.0 notes/changelog and current summaries, API, installation and compatibility guidance; preserve historical notes.
+8. Synchronize host Qt, validate ordinary/release docs and whitespace, and open one release PR.
+9. Require final-head full shared/static Qt 6.8.0/6.12.0 gates and retained artifact; record actual results in the PR before squash merge.
+10. Confirm unchanged main, dispatch release.yml with this release PR number, and require source/Arch checks and stable/latest publication with four assets and downloaded hash verification. Report release/workflow links; stop on any failed stage.
