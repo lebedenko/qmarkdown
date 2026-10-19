@@ -95,7 +95,7 @@ for variant in ("shared", "static"):
     for version, exact, accepted in (("1.0", False, True), ("1.0.0", True, False),
                                      ("1.1", False, True), ("1.1.0", True, False),
                                      ("0.7", False, False), ("1.2", False, True), ("1.2.0", True, False),
-                                     ("1.3", False, True), ("1.3.0", True, False), ("1.4", False, True), ("1.4.0", True, False), ("1.5", False, True), ("1.5.0", True, False), ("1.6", False, True), ("1.6.0", True, False), ("1.7", False, True), ("1.7.0", True, False), ("1.8", False, True), ("1.8.0", True, False), ("1.9", False, True), ("1.9.0", True, False), ("1.10", False, True), ("1.10.0", True, False), ("1.11", False, True), ("1.11.0", True, False), ("1.12", False, True), ("1.12.0", True, False), ("1.13", False, True), ("1.13.0", True, False), ("1.14", False, True), ("1.14.0", True, False), ("1.15", False, True), ("1.15.0", True, False), ("1.16", False, True), ("1.16.0", True, True), ("1.17", False, False), ("2.0", False, False)):
+                                     ("1.3", False, True), ("1.3.0", True, False), ("1.4", False, True), ("1.4.0", True, False), ("1.5", False, True), ("1.5.0", True, False), ("1.6", False, True), ("1.6.0", True, False), ("1.7", False, True), ("1.7.0", True, False), ("1.8", False, True), ("1.8.0", True, False), ("1.9", False, True), ("1.9.0", True, False), ("1.10", False, True), ("1.10.0", True, False), ("1.11", False, True), ("1.11.0", True, False), ("1.12", False, True), ("1.12.0", True, False), ("1.13", False, True), ("1.13.0", True, False), ("1.14", False, True), ("1.14.0", True, False), ("1.15", False, True), ("1.15.0", True, False), ("1.16", False, True), ("1.16.0", True, False), ("1.17", False, True), ("1.17.0", True, True), ("1.18", False, False), ("2.0", False, False)):
         request_build = work / f"request-{variant}-{version}"
         command = ["cmake", "-S", str(consumer_source), "-B", str(request_build),
                    *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
@@ -107,7 +107,7 @@ for variant in ("shared", "static"):
             raise RuntimeError(f"Unexpected package compatibility: {variant} {version}: {result.stdout}{result.stderr}")
         expected_error = "exactly matches requested version" if exact else "compatible with requested version"
         if not accepted and (expected_error not in " ".join(result.stderr.split())
-                             or "version: 1.16.0" not in result.stderr):
+                             or "version: 1.17.0" not in result.stderr):
             raise RuntimeError(f"Package request failed for an unrelated reason: {result.stderr}")
         print(f"PASS: {variant} package request {version}, exact={exact}, accepted={accepted}", flush=True)
     run("cmake", "--build", consumer_build, "--parallel", "2")
@@ -177,14 +177,14 @@ for variant in ("shared", "static"):
         reading_build = work / f"reading-{variant}-{link}"
         run("cmake", "-S", consumer_source, "-B", reading_build,
             *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_READING_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.16.0",
+            "-DQMARKDOWN_READING_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.0",
             "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", reading_build, "--parallel", "2")
         run(reading_build / executable, env=environment)
         math_build = work / f"math-{variant}-{link}"
         run("cmake", "-S", consumer_source, "-B", math_build,
             *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_MATH_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.16.0",
+            "-DQMARKDOWN_MATH_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.0",
             f"-DQMARKDOWN_EXPECT_MATH={1 if args.math == 'ON' else 0}",
             f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", math_build, "--parallel", "2")
@@ -192,14 +192,21 @@ for variant in ("shared", "static"):
         notes_build = work / f"footnotes-{variant}-{link}"
         run("cmake", "-S", consumer_source, "-B", notes_build,
             *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_FOOTNOTES_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.16.0",
+            "-DQMARKDOWN_FOOTNOTES_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.0",
             "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", notes_build, "--parallel", "2")
         run(notes_build / executable, env=environment)
+        providers_build = work / f"providers-{variant}-{link}"
+        run("cmake", "-S", consumer_source, "-B", providers_build,
+            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
+            "-DQMARKDOWN_PROVIDERS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.0",
+            f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
+        run("cmake", "--build", providers_build, "--parallel", "2")
+        run(providers_build / executable, env=environment)
         syntax_build = work / f"syntax-{variant}-{link}"
         run("cmake", "-S", consumer_source, "-B", syntax_build,
             *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_SYNTAX_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.16.0",
+            "-DQMARKDOWN_SYNTAX_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.0",
             f"-DQMARKDOWN_EXPECT_SYNTAX={1 if args.syntax_highlighting == 'ON' else 0}",
             "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", syntax_build, "--parallel", "2")
@@ -207,7 +214,7 @@ for variant in ("shared", "static"):
         keyboard_build = work / f"keyboard-{variant}-{link}"
         run("cmake", "-S", consumer_source, "-B", keyboard_build,
             *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_KEYBOARD_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.16.0",
+            "-DQMARKDOWN_KEYBOARD_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.0",
             "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
         run("cmake", "--build", keyboard_build, "--parallel", "2")
         run(keyboard_build / executable, env=environment)

@@ -249,3 +249,16 @@ endnotes; superscript references and decorative backlinks use existing host link
 activation, fragment navigation, keyboard traversal and accessibility. Copy/Find
 use `[n]` and numbered bodies. See the [footnote guide](footnotes.md).
 Package 1.16.0 accepts compatible 1.0–1.16 imports; published 1.14 remains unchanged.
+
+## Development — QML 1.17
+
+`MarkdownView.syntaxHighlightingProvider` defaults to null and references a
+host-owned `SyntaxHighlightingProvider`. Enable the existing master switch to
+receive `highlightRequested(request)` for eligible fenced source. Requests expose
+read-only `source`, `language`, `cancelled` and methods `complete(spans)` / `decline()`.
+Spans are strict nonoverlapping UTF-16 `{start, length, role}` ranges, using the
+provider's twelve role enums. `invalidate()` clears that provider's cache and
+refreshes subscriptions. See the [provider contract](syntax-highlighting.md#development--host-providers-qml-117)
+for validation, deadlines, cancellation and ownership. Availability continues to
+report only the optional compiled backend. Older imports remain supported; the
+new provider type requires 1.17. The development package is 1.17.0.

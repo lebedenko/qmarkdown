@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown 1.11
+import QMarkdown 1.17
 import QMarkdownViewer.Tools
 
 ApplicationWindow {
@@ -16,6 +16,33 @@ ApplicationWindow {
     Component {
         id: hostTaskIndicator
         TaskIndicator { hostPalette: window.palette; artworkScale: stylePanel.largeTaskIndicators ? 2 : 1 }
+    }
+    SyntaxHighlightingProvider {
+        id: demoHighlighter
+        property var pending: []
+        onHighlightRequested: request => {
+            if (request.language !== "playground") { request.decline(); return }
+            pending = pending.concat([request])
+            providerTimer.restart()
+        }
+    }
+    Timer {
+        id: providerTimer
+        interval: 30
+        onTriggered: {
+            const requests = demoHighlighter.pending
+            demoHighlighter.pending = []
+            for (const request of requests) {
+                if (request.cancelled) continue
+                const spans = []
+                const pattern = /\b(let|show)\b|\b[0-9]+\b/g
+                let match
+                while ((match = pattern.exec(request.source)) !== null)
+                    spans.push({start:match.index, length:match[0].length,
+                        role: /^[0-9]/.test(match[0]) ? SyntaxHighlightingProvider.Number : SyntaxHighlightingProvider.Keyword})
+                request.complete(spans)
+            }
+        }
     }
     property string lastDestination: "No link activated"
     property int sampleIndex: 0
@@ -175,6 +202,7 @@ ApplicationWindow {
                     CheckBox { id: outlineToggle; text: "Heading outline"; objectName: "outlineToggle" }
                     CheckBox { id: mathToggle; checked: true; text: "Block math"; objectName: "mathToggle" }
                     CheckBox { id: inlineMathToggle; checked: false; text: "Inline math"; objectName: "inlineMathToggle" }
+                    CheckBox { id: providerToggle; checked: false; text: "Host highlighting"; objectName: "providerToggle" }
                     CheckBox { id: footnotesToggle; checked: false; text: "Footnotes"; objectName: "footnotesToggle" }
                     CheckBox { id: rendererToggle; text: "Custom fences"; objectName: "rendererToggle" }
                     CheckBox { id: tablesToggle; text: "GFM tables"; objectName: "tablesToggle" }
@@ -189,7 +217,7 @@ ApplicationWindow {
                     id: stylePanel
                     objectName: "stylePanel"
                     width: styleScroll.availableWidth
-                    syntaxAvailable: preview.syntaxHighlightingAvailable
+                    syntaxAvailable: preview.syntaxHighlightingAvailable || providerToggle.checked
                     targetStyle: hostStyle
                     defaultLinkColor: window.palette.link
                     defaultTextColor: window.palette.text
@@ -291,6 +319,7 @@ ApplicationWindow {
                             mathEnabled: mathToggle.checked
                             inlineMathEnabled: inlineMathToggle.checked
                             footnotesEnabled: footnotesToggle.checked
+                            syntaxHighlightingProvider: providerToggle.checked ? demoHighlighter : null
                             syntaxHighlightingEnabled: stylePanel.syntaxEnabled
                             syntaxTheme: SyntaxTheme { preset: stylePanel.syntaxDark ? SyntaxTheme.Dark : SyntaxTheme.Light }
                             keyboardNavigationEnabled: true

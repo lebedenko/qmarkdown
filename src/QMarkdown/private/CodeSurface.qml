@@ -191,6 +191,7 @@ Rectangle {
         source: surface.codeText
         language: surface.language
         enabled: surface.fenced && !surface.mathVisible && surface.coordinator.syntaxHighlightingEnabled && !surface.rendererItem
+        provider: surface.coordinator.syntaxHighlightingProvider
         theme: surface.coordinator.syntaxTheme
     }
     Item {
