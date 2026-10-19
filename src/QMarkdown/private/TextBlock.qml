@@ -24,7 +24,8 @@ Item {
     property bool suppressHeadingSeparators: false
     readonly property bool selectionEnabled: coordinator.selectionEnabled
     signal linkActivated(string destination)
-    height: contents.item ? (contents.item as Item).height : 0
+    property real minimumHeight: 0
+    height: Math.max(minimumHeight, contents.item ? (contents.item as Item).height : 0)
     Loader {
         id: contents
         width: textBlock.width

@@ -128,6 +128,7 @@ Item {
     signal linkActivated(string destination)
     signal codeBlockCopyRequested(string text)
     property Component taskIndicator: null
+    property bool taskIndicatorsReplaceBullets: false
     property Component codeBlockActions: null
     property alias mathEnabled: viewState.mathEnabled
     readonly property bool mathAvailable: viewState.mathAvailable
@@ -168,6 +169,7 @@ Item {
             coordinator: viewState
             style: viewState.style
             taskIndicator: root.taskIndicator
+            taskIndicatorsReplaceBullets: root.taskIndicatorsReplaceBullets
             codeBlockActions: root.codeBlockActions
             fencedBlockRenderers: root.fencedBlockRenderers
             sourceIdentity: root.markdown

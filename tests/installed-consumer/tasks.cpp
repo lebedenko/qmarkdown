@@ -36,6 +36,8 @@ int main(int argc, char **argv)
     const auto source = view->property("markdown");
     if (!view->setProperty("taskListsEnabled", true)) return 5;
     if (!QTest::qWaitFor([&] { return indicators(view).size() == 3; })) return 6;
+    if (view->property("taskIndicatorsReplaceBullets").toBool()) return 14;
+    if (!view->setProperty("taskIndicatorsReplaceBullets", true)) return 15;
     const auto items = indicators(view);
     if (!items[0]->property("checked").toBool() || items[1]->property("checked").toBool()
         || !items[2]->property("checked").toBool()) return 7;
@@ -43,7 +45,7 @@ int main(int argc, char **argv)
     if (!QTest::qWaitFor([&] { return indicators(view).isEmpty(); })) return 8;
     if (view->property("markdown") != source) return 9;
     QQmlComponent custom(&engine);
-    custom.setData("import QtQuick\nimport QMarkdown 1.10\nMarkdownView { width: 180; taskListsEnabled: true; markdown: '- [x] Done'; taskIndicator: Component { Item { required property bool checked; required property MarkdownStyle markdownStyle; implicitWidth: 35; implicitHeight: 45 } } }", {});
+    custom.setData("import QtQuick\nimport QMarkdown 1.10\nMarkdownView { width: 180; taskListsEnabled: true; taskIndicatorsReplaceBullets: true; markdown: '- [x] Done'; taskIndicator: Component { Item { required property bool checked; required property MarkdownStyle markdownStyle; implicitWidth: 35; implicitHeight: 45 } } }", {});
     if (!custom.isReady()) { qWarning() << custom.errorString(); return 10; }
     std::unique_ptr<QObject> customObject(custom.create());
     auto *customView = qobject_cast<QQuickItem *>(customObject.get());

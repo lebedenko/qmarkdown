@@ -9,6 +9,8 @@ Column {
     id: sequence
     objectName: "blockSequence"
     required property ViewState coordinator
+    required property bool taskIndicatorsReplaceBullets
+    property real firstBlockMinimumHeight: 0
     required property Component taskIndicator
     required property Component codeBlockActions
     required property var fencedBlockRenderers
@@ -105,6 +107,7 @@ Column {
                 roleValue: ViewState.List
                 delegate: ListBlock {
                     taskIndicator: sequence.taskIndicator
+                    taskIndicatorsReplaceBullets: sequence.taskIndicatorsReplaceBullets
                     width: sequence.width
                     style: sequence.style
                     sequenceComponent: sequence.sequenceComponent
@@ -240,6 +243,8 @@ Column {
             DelegateChoice {
                 roleValue: ViewState.PlainText
                 delegate: TextBlock {
+                    required property int index
+                    minimumHeight: index === 0 ? sequence.firstBlockMinimumHeight : 0
                     width: sequence.width
                     presentationKind: sequence.selectionEnabled || sequence.searchActive ? ViewState.SelectedText
                         : ViewState.PlainText
@@ -260,6 +265,8 @@ Column {
             DelegateChoice {
                 roleValue: ViewState.FormattedText
                 delegate: TextBlock {
+                    required property int index
+                    minimumHeight: index === 0 ? sequence.firstBlockMinimumHeight : 0
                     width: sequence.width
                     presentationKind: ViewState.FormattedText
                     style: sequence.style

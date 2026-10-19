@@ -58,3 +58,21 @@ The component must create an Item with the two required properties above. The li
 Custom components are trusted application code and **must be decorative**: no focus, pointer handlers, toggle actions or accessibility nodes, including in descendants. The containing library item owns the single read-only checkbox accessibility node. A Controls checkbox itself is therefore not a suitable component root; see the viewer’s [decorative adapter](../examples/viewer/TaskIndicator.qml).
 
 Replacement destroys old instances. Creation failures or non-Item roots produce a diagnostic and show the fallback. Changing appearance does not reparse Markdown, change task state or reset document selection. Qt Quick Controls is a viewer/host dependency only.
+
+## Development: replacement markers (unreleased)
+
+Set `MarkdownView.taskIndicatorsReplaceBullets: true` to place unordered task
+indicators in the marker lane, without bullets or a second task gutter. The default
+is false. Ordinary rows retain bullets and ordered tasks retain numbers with adjacent
+indicators. The option applies recursively and does not change task state, source,
+selection endpoints or copied text.
+
+The marker lane accommodates custom implicit dimensions and retains an eight-pixel
+text gap. Indicators center against the first text line; the first block reserves
+the complete indicator band before subsequent blocks or nested lists. Task rows
+reserve at least two logical pixels between consecutive indicator bounds, including
+tight lists. Artwork keeps its natural dimensions when space permits. At widths
+too small for the lane and text gap, artwork is clipped while at least one content
+pixel remains. The indicator remains one read-only accessible checkbox.
+
+The playground's “Task indicators replace bullets” control compares the layouts.

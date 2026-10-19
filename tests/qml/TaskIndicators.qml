@@ -10,6 +10,7 @@ ApplicationWindow {
     height: 300
     visible: true
     property bool dark: false
+    property bool replacement: false
     MaterialStyle.Material.theme: dark ? MaterialStyle.Material.Dark : MaterialStyle.Material.Light
     palette.window: dark ? "#202124" : "#ffffff"
     palette.windowText: dark ? "#eeeeee" : "#202124"
@@ -31,6 +32,7 @@ ApplicationWindow {
             objectName: "hostView"
             width: 540
             taskListsEnabled: true
+            taskIndicatorsReplaceBullets: window.replacement
             markdown: "- [x] Completed\n- [ ] Pending"
             style.bodyColor: window.palette.windowText
             taskIndicator: Component { Viewer.TaskIndicator { hostPalette: window.palette } }
@@ -39,6 +41,7 @@ ApplicationWindow {
         MarkdownView {
             width: 540
             taskListsEnabled: true
+            taskIndicatorsReplaceBullets: window.replacement
             markdown: "- [x] Completed\n- [ ] Pending"
             style.bodyColor: window.palette.windowText
         }
