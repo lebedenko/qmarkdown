@@ -41,6 +41,10 @@ own header composition, clipboard and scrollbar styling. See the
 [code-block guide](docs/code-blocks.md).
 <!-- current-release:end -->
 
+## Development — 1.14
+
+The development package is 1.14.0 / QML 1.14. Tables support host-controlled Grid, Rows, HeaderOnly and None borders plus alternating body backgrounds. Style controls demonstrate these options; table decorations remain off at startup. See the [table style API](docs/styling.md#development-table-presentation-qml-114). Interior Grid lines now match outer line thickness. Published downloads above remain 1.13.0.
+
 The current development playground demonstrates unreleased nested scrolling fixes and task indicator presentation. Select **Nested code scrolling** for boundary, reversal, horizontal and Shift-wheel instructions. For **GFM task lists**, open Style controls and enable task lists to compare normal or 2× host artwork, replacement markers and the fallback (disable Host-styled task indicators). Sample selection preserves settings.
 
 Both demo commands start with selection, native math, all GFM, host task indicators replacing bullets, line numbers, bounded code height, Polished dark presentation, an H1 separator, underlined links, syntax colors and the dark syntax palette enabled. Normal-sized task artwork remains the default. Neutral/Reset remains available for the previous host-based presentation.

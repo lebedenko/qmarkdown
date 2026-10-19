@@ -39,3 +39,11 @@ The user explicitly requested and clarified that `task demo` and `task demo-high
 Actual startup checks verify selection, math, all GFM, host task artwork, replacement markers, line numbers, code limits, PolishedDark, H1 separator, link underlining and both syntax choices. Both backend-OFF and backend-ON cases pass. Existing option tests explicitly disable aggregate GFM when testing individual toggles, and typography/reset tests establish their Neutral baseline.
 
 Host Qt 6.12.0 verification: shared view/syntax suites 3/3 pass (18.81 s); static view/syntax suites 3/3 pass (13.55 s); backend-enabled syntax suites 2/2 pass (9.00 s), including painted colors and palette changes. QML lint, docs and whitespace checks pass. Logs: `/tmp/defaults-tests.log`, `/tmp/defaults-static-tests.log`, `/tmp/defaults-highlight-tests.log`, `/tmp/defaults-lint.log`. Prior unrelated container and physical-input limitations remain as recorded.
+
+## Combined 1.14 delivery
+
+The subsequent user-approved table-presentation plan extends authorization to
+include the complete pending d11635a commit in one PR against main. Historical
+local-only authorization above remains a record of its original scope. Feature
+060 tracks the combined implementation and current verification; no merge, tag
+or publication is authorized.

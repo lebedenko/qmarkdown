@@ -2,6 +2,8 @@
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QQuickItem>
+#include <QMetaProperty>
+#include <QTypeRevision>
 #include <QtQml/QQmlExtensionPlugin>
 #include <QtTest/QTest>
 #include <memory>
@@ -20,9 +22,9 @@ private slots:
         QTest::addColumn<QByteArray>("version");
         QTest::addColumn<QByteArray>("type");
         QTest::addColumn<bool>("accepted");
-        for (const QByteArray &version : {QByteArray("1.0"), QByteArray("1.1"), QByteArray("1.2"), QByteArray("1.3"), QByteArray("1.4"), QByteArray("1.5"), QByteArray("1.6"), QByteArray("1.7"), QByteArray("1.8"), QByteArray("1.9"), QByteArray("1.10"), QByteArray("1.11"), QByteArray("1.12"), QByteArray("1.13"), QByteArray("1.14"), QByteArray(""), QByteArray("0.7")}) {
+        for (const QByteArray &version : {QByteArray("1.0"), QByteArray("1.1"), QByteArray("1.2"), QByteArray("1.3"), QByteArray("1.4"), QByteArray("1.5"), QByteArray("1.6"), QByteArray("1.7"), QByteArray("1.8"), QByteArray("1.9"), QByteArray("1.10"), QByteArray("1.11"), QByteArray("1.12"), QByteArray("1.13"), QByteArray("1.14"), QByteArray("1.15"), QByteArray(""), QByteArray("0.7")}) {
             for (const QByteArray &type : {QByteArray("MarkdownView"), QByteArray("MarkdownStyle"), QByteArray("MarkdownResourcePolicy")}) {
-                QTest::newRow((version + "-" + type).constData()) << version << type << (version != "0.7" && version != "1.14");
+                QTest::newRow((version + "-" + type).constData()) << version << type << (version != "0.7" && version != "1.15");
             }
         }
     }
@@ -39,6 +41,27 @@ private slots:
         } else {
             QVERIFY(component.isError());
             QVERIFY2(component.errorString().contains("version " + version + " is not installed"), qPrintable(component.errorString()));
+        }
+    }
+    void tablePresentationRevision()
+    {
+        for (auto version : {QByteArray("1.13"), QByteArray("1.14")}) {
+            QQmlEngine engine; QQmlComponent component(&engine);
+            component.setData("import QMarkdown " + version + "\nMarkdownStyle { table.borderMode: MarkdownStyle.TableBorderRows; table.alternateRowBackground: 'transparent' }", {});
+            if (version == "1.14") {
+                QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+                std::unique_ptr<QObject> object(component.create()); QVERIFY(object);
+                auto *table = object->property("table").value<QObject *>(); QVERIFY(table);
+                for (auto name : {"borderMode", "alternateRowBackground"}) {
+                    const auto property = table->metaObject()->property(table->metaObject()->indexOfProperty(name));
+                    QCOMPARE(QTypeRevision::fromEncodedVersion(property.revision()), QTypeRevision::fromVersion(1, 14));
+                    QVERIFY(property.isResettable()); QVERIFY(property.hasNotifySignal());
+                }
+            } else {
+                std::unique_ptr<QObject> object(component.create());
+                QEXPECT_FAIL("", "Qt does not enforce revisions on grouped-property members (documented compatibility limitation)", Continue);
+                QVERIFY2(!object, qPrintable(component.errorString()));
+            }
         }
     }
     void resourcePolicyConfiguration() {

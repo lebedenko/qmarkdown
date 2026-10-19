@@ -24,7 +24,7 @@ static QList<QQuickItem *> tables(QQuickItem *parent)
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc,argv); QQmlEngine engine; QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.6\nMarkdownView { width: 180; markdown: '| **header** | `code` |\\n| :- | -: |\\n| ~~www.a.b~~ | [link](host:target) |' }",{});
+    component.setData("import QtQuick\nimport QMarkdown 1.14\nMarkdownView { width: 180; markdown: '| **header** | `code` |\\n| :- | -: |\\n| ~~www.a.b~~ | [link](host:target) |' }",{});
     if (!component.isReady()) { qWarning() << component.errorString(); return 1; }
     std::unique_ptr<QObject> object(component.create()); auto *view=qobject_cast<QQuickItem *>(object.get());
     if (!view) return 2;
@@ -52,5 +52,13 @@ int main(int argc, char **argv)
     if(padding.size()!=1)return 17;
     const int property=code->metaObject()->indexOfProperty("horizontalPadding");
     if(property<0 || !code->metaObject()->property(property).reset(code) || code->property("horizontalPadding").toDouble()!=4)return 18;
+    if (!table->setProperty("borderMode", 2) || table->property("borderMode").toInt() != 2) return 19;
+    table->setProperty("bodyBackground", QColor(Qt::blue));
+    if (table->property("alternateRowBackground").value<QColor>() != QColor(Qt::blue)) return 20;
+    table->setProperty("alternateRowBackground", QColor(Qt::transparent));
+    if (table->property("alternateRowBackground").value<QColor>() != QColor(Qt::transparent)) return 21;
+    const int alternate = table->metaObject()->indexOfProperty("alternateRowBackground");
+    if (alternate < 0 || !table->metaObject()->property(alternate).reset(table)
+        || table->property("alternateRowBackground").value<QColor>() != QColor(Qt::blue)) return 22;
     return 0;
 }

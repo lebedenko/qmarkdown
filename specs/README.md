@@ -274,3 +274,7 @@ approved nested-wheel fix and opt-in replacement task markers. Versions are unch
 ## Approved development: playground refresh
 
 [059 requirements](059-playground-readme-refresh/requirements.md), [design](059-playground-readme-refresh/design.md), [tasks](059-playground-readme-refresh/tasks.md), and [verification](059-playground-readme-refresh/verification.md) cover the local playground and README refresh.
+
+## Approved development: table presentation
+
+[060 requirements](060-table-presentation/requirements.md), [design](060-table-presentation/design.md), [tasks](060-table-presentation/tasks.md) and [verification](060-table-presentation/verification.md) cover QML 1.14 table decoration and combined playground delivery.

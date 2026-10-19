@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import QMarkdown
+import QMarkdown 1.14
 import QMarkdownViewer.Tools
 
 ColumnLayout {
@@ -339,6 +339,39 @@ ColumnLayout {
             onValueModified: panel.targetStyle.quoteRuleThickness = value
         }
         Item { Layout.fillWidth: true }
+    }
+
+    RowLayout {
+        Label { text: "Table borders" }
+        ComboBox {
+            id: tableBorders
+            objectName: "tableBorderModeField"
+            model: ["None", "Grid", "Rows", "Header only"]
+            currentIndex: panel.targetStyle.table.borderWidth > 0 ? panel.targetStyle.table.borderMode : 0
+            onActivated: {
+                panel.targetStyle.table.borderMode = currentIndex
+                if (currentIndex > 0 && (panel.targetStyle.table.borderWidth <= 0 || panel.targetStyle.table.borderColor.a === 0)) {
+                    panel.targetStyle.table.borderWidth = 1
+                    panel.targetStyle.table.borderColor = Qt.binding(function() { return panel.defaultTextColor })
+                }
+            }
+        }
+        SpinBox {
+            objectName: "tableBorderWidthField"
+            from: 0; to: 16; editable: true
+            value: panel.targetStyle.table.borderWidth
+            onValueModified: panel.targetStyle.table.borderWidth = value
+        }
+        CheckBox {
+            id: tableAlternate
+            objectName: "tableAlternateField"
+            checked: panel.targetStyle.table.alternateRowBackground !== panel.targetStyle.table.bodyBackground
+            text: "Alternate rows"
+            onToggled: {
+                if (checked) panel.targetStyle.table.alternateRowBackground = Qt.binding(function() { return tableAlternate.palette.alternateBase })
+                else panel.targetStyle.table.alternateRowBackground = undefined
+            }
+        }
     }
 
 }
