@@ -77,3 +77,9 @@ The feature branch `fix/nested-scrolling-task-presentation` starts at unchanged
 `0b22f44`. Push and PR creation are authorized; merge and release are excluded.
 Hosted `packaging (minimum)` and `packaging (development)` status must be read from
 the final PR head; local Docker preparation failures are not successful gates.
+
+Branch push and [PR #38](https://github.com/lebedenko/qmarkdown/pull/38) creation
+against `main` completed on 2026-10-19. The implementation commit is `4ea6bb6`,
+directly following unchanged `0b22f44`. At PR creation, `targets` passed and both
+required packaging jobs were in progress. Final-head results remain in the PR's
+check records. No merge, tag or release was performed.
