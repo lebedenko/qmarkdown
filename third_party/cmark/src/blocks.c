@@ -22,6 +22,7 @@
 #include "houdini.h"
 #include "buffer.h"
 #include "chunk.h"
+#include "qmarkdown_footnotes.h"
 
 #define CODE_INDENT 4
 #define TAB_STOP 4
@@ -160,11 +161,18 @@ static bool is_blank(cmark_strbuf *s, bufsize_t offset) {
   return true;
 }
 
+static bool inside_footnote(cmark_node *node) {
+  for (; node; node = node->parent)
+    if (node->type == CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION) return true;
+  return false;
+}
+
 static inline bool can_contain(cmark_node_type parent_type,
                                cmark_node_type child_type) {
   return (parent_type == CMARK_NODE_DOCUMENT ||
           parent_type == CMARK_NODE_BLOCK_QUOTE ||
           parent_type == CMARK_NODE_ITEM ||
+          parent_type == CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION ||
           (parent_type == CMARK_NODE_LIST && child_type == CMARK_NODE_ITEM));
 }
 
@@ -242,6 +250,8 @@ static bool resolve_reference_link_definitions(cmark_parser *parser) {
   bufsize_t pos;
   cmark_strbuf *node_content = &parser->content;
   cmark_chunk chunk = {node_content->ptr, node_content->size};
+  // Nested footnote syntax is literal, even if it resembles a link definition.
+  if (inside_footnote(parser->current) && chunk.len > 1 && chunk.data[0] == '[' && chunk.data[1] == '^') return true;
   while (chunk.len && chunk.data[0] == '[' &&
          (pos = cmark_parse_reference_inline(parser->mem, &chunk,
                                              parser->refmap))) {
@@ -443,7 +453,7 @@ static void process_inlines(cmark_mem *mem, cmark_node *root,
       if (contains_inlines(S_type(cur))) {
         if (options & CMARK_OPT_QMARKDOWN_TASK_LISTS)
           process_task_marker(cur);
-        cmark_parse_inlines(mem, cur, refmap, options);
+        cmark_parse_inlines(mem, cur, refmap, inside_footnote(cur) ? options & ~CMARK_OPT_QMARKDOWN_FOOTNOTES : options);
         mem->free(cur->data);
         cur->data = NULL;
         cur->len = 0;
@@ -996,6 +1006,17 @@ static cmark_node *check_open_blocks(cmark_parser *parser, cmark_chunk *input,
         container->flags &= ~CMARK_NODE__LIST_LAST_LINE_BLANK;
       }
       break;
+    case CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION:
+      if (parser->blank) {
+        S_advance_offset(parser, input, parser->first_nonspace - parser->offset, false);
+      } else if (parser->indent >= 4) {
+        S_advance_offset(parser, input, 4, true);
+      } else {
+        // Notes have no lazy continuation: close their open descendants now.
+        while (parser->current != container->parent) parser->current = finalize(parser, parser->current);
+        goto done;
+      }
+      break;
     case CMARK_NODE_ITEM:
       if (!parse_node_item_prefix(parser, input, container))
         goto done;
@@ -1025,6 +1046,10 @@ static cmark_node *check_open_blocks(cmark_parser *parser, cmark_chunk *input,
 
 done:
   if (!*all_matched) {
+    // A missing enclosing quote/list prefix must not turn a note paragraph
+    // into a lazy continuation outside its defining container.
+    if (inside_footnote(parser->current))
+      while (parser->current != container->parent) parser->current = finalize(parser, parser->current);
     container = container->parent; // back up to last matching node
   }
 
@@ -1090,6 +1115,23 @@ static void open_new_blocks(cmark_parser *parser, cmark_node **container,
       (*container)->as.heading.level = level;
       (*container)->as.heading.setext = false;
       (*container)->as.heading.internal_offset = matched;
+
+    } else if ((parser->options & CMARK_OPT_QMARKDOWN_FOOTNOTES) && !indented && !maybe_lazy
+               && cont_type != CMARK_NODE_PARAGRAPH && !inside_footnote(*container)
+               && (matched = qm_note_label(input->data, input->len, parser->first_nonspace))
+               && matched < input->len && input->data[matched] == ':') {
+      cmark_chunk label = cmark_chunk_dup(input, parser->first_nonspace + 2, matched - parser->first_nonspace - 3);
+      unsigned char *normalized = cmark_normalize_reference(parser->mem, &label);
+      cmark_chunk_free(&label);
+      if (!normalized) break;
+      const bufsize_t start = parser->first_nonspace;
+      *container = add_child(parser, *container, CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION, start + 1);
+      (*container)->qmarkdown_footnote_label = normalized;
+      (*container)->len = matched + 1 - start;
+      (*container)->data = parser->mem->calloc((*container)->len + 1, 1);
+      memcpy((*container)->data, input->data + start, (*container)->len);
+      S_advance_offset(parser, input, matched + 1 - parser->offset, false);
+      if (S_is_space_or_tab(peek_at(input, parser->offset))) S_advance_offset(parser, input, 1, true);
 
     } else if ((parser->options & CMARK_OPT_QMARKDOWN_MATH) && !maybe_lazy &&
                cont_type != CMARK_NODE_PARAGRAPH && qmarkdown_math_delimiter(parser, input) &&

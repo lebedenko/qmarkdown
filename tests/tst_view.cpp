@@ -2961,7 +2961,7 @@ MarkdownView {
         QVERIFY(availability->property("text").toString().contains(
             preview->property("syntaxHighlightingAvailable").toBool() ? "backend available" : "backend unavailable"));
         auto *selector = window->findChild<QObject *>("sampleSelector"); QVERIFY(selector);
-        QCOMPARE(selector->property("count").toInt(), 20);
+        QCOMPARE(selector->property("count").toInt(), 21);
         auto *largeTasks = window->findChild<QObject *>("largeTaskToggle"); QVERIFY(largeTasks);
         QVERIFY(!largeTasks->property("checked").toBool());
         window->setHeight(600);
@@ -2993,7 +2993,7 @@ MarkdownView {
         auto *style = preview->property("style").value<QObject *>(); QVERIFY(style);
         auto *sourceScroll = window->findChild<QQuickItem *>("sourceScroll"); QVERIFY(sourceScroll);
         auto *previewScroll = window->findChild<QQuickItem *>("previewScroll"); QVERIFY(previewScroll);
-        for (const auto *sample : {"overview", "headings", "inline", "code", "unicode", "leaf", "containers", "links", "images", "tasks", "strike", "autolinks", "tables", "renderers", "reading", "keyboard", "syntax", "math", "inline-math", "scrolling"}) {
+        for (const auto *sample : {"overview", "headings", "inline", "code", "unicode", "leaf", "containers", "links", "images", "tasks", "strike", "autolinks", "tables", "renderers", "reading", "keyboard", "syntax", "math", "inline-math", "footnotes", "scrolling"}) {
             window->setProperty("sampleKey", sample);
             QTRY_COMPARE(editor->property("text"), window->property("sample"));
             QVERIFY(!editor->property("text").toString().isEmpty());

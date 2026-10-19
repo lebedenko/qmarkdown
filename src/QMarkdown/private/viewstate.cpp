@@ -48,6 +48,19 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == CodeLanguageRole) return block.language;
     if (role == SelectionOffsetRole) return block.selectionOffset;
     if (role == SelectionLengthRole) return block.selectionLength;
+    if (role == BacklinksRole) {
+        QVariantList links;
+        for (const auto &link : block.logicalLinks)
+            links.append(QVariantMap{{"logicalId", link.logicalId}, {"destination", link.destination},
+                {"label", link.label}, {"occurrence", link.noteOccurrence}});
+        return links;
+    }
+    if (role == ReferenceSpansRole) {
+        QVariantList spans;
+        for (const auto &reference : block.references)
+            spans.append(QVariantMap{{"start", reference.start}, {"length", reference.length}, {"number", reference.number}});
+        return spans;
+    }
     if (role == FormulaSpansRole) {
         QVariantList formulas;
         for (const auto &formula : block.formulas)
@@ -67,7 +80,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == ImageLinkedRole) return block.imageLinked;
     if (role == BlockTextRole) return block.text;
     if (role == HeadingLevelRole) return block.level;
-    if (role == FormattedRole) return (!block.ranges.isEmpty() || !block.links.isEmpty() || !block.formulas.isEmpty());
+    if (role == FormattedRole) return (!block.ranges.isEmpty() || !block.links.isEmpty() || !block.formulas.isEmpty() || !block.references.isEmpty());
     if (role == FormatRangesRole) {
         QVariantList ranges;
         for (const auto &range : block.ranges)
@@ -89,6 +102,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
             markers.append(block.ordered ? QString::number(qint64(block.start) + i) + block.delimiter : QString::fromUtf8("•"));
         return markers;
     }
+    if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Backlinks) return ViewState::Backlinks;
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Table) return ViewState::Table;
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Image) return ViewState::Image;
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::Segments) return ViewState::Segments;
@@ -97,7 +111,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::ListItem) return ViewState::ListItem;
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::HtmlBlock) return ViewState::HtmlBlock;
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::ThematicBreak) return ViewState::ThematicBreak;
-    if (role == RenderKindRole) return block.kind == QMarkdownPrivate::PresentationKind::CodeBlock ? ViewState::CodeBlock : (block.ranges.isEmpty() && block.links.isEmpty() && block.formulas.isEmpty() ? ViewState::PlainText : ViewState::FormattedText);
+    if (role == RenderKindRole) return block.kind == QMarkdownPrivate::PresentationKind::CodeBlock ? ViewState::CodeBlock : (block.ranges.isEmpty() && block.links.isEmpty() && block.formulas.isEmpty() && block.references.isEmpty() ? ViewState::PlainText : ViewState::FormattedText);
     return {};
 }
 QHash<int, QByteArray> BlockModel::roleNames() const
@@ -106,7 +120,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
             {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
             {OrderedListRole, "orderedList"}, {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
             {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
-            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}, {DisplayMathRole, "displayMath"}, {FormulaSpansRole, "formulaSpans"}};
+            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}, {DisplayMathRole, "displayMath"}, {FormulaSpansRole, "formulaSpans"}, {ReferenceSpansRole, "referenceSpans"}, {BacklinksRole, "backlinks"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 {
@@ -181,8 +195,8 @@ void ViewState::reparse()
     const QMarkdownPrivate::ParseOptions options{
         m_gfmEnabled || m_taskListsEnabled, m_gfmEnabled || m_strikethroughEnabled,
         m_gfmEnabled || m_extendedAutolinksEnabled, m_gfmEnabled || m_tablesEnabled,
-        m_gfmEnabled || m_tagFilterEnabled, m_mathEnabled, m_inlineMathEnabled};
-    auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter, o.math, o.inlineMath); };
+        m_gfmEnabled || m_tagFilterEnabled, m_mathEnabled, m_inlineMathEnabled, m_footnotesEnabled};
+    auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter, o.math, o.inlineMath, o.footnotes); };
     const bool semanticChange = flags(options) != flags(m_parsedOptions) || m_sourceChanged;
     if (flags(options) != flags(m_parsedOptions)) clearSelection();
     m_sourceChanged = false;
@@ -209,6 +223,7 @@ void ViewState::reparse()
         rebuildHeadings();
         rebuildSearch();
     }
+    rebuildFootnoteFragments();
     reloadResources();
 }
 void ViewState::setMarkdown(const QString &value)
@@ -489,7 +504,7 @@ const ViewState::SelectionItem *ViewState::selectionMetadata(QQuickItem *item) c
 bool ViewState::selectionExcluded(QQuickItem *view, QPointF point) const
 {
     for (const auto &entry : m_selectionItems)
-        if (entry.item && entry.kind == ActionSelection && entry.item->isVisible()
+        if (entry.item && (entry.kind == ActionSelection || entry.kind == DecorativeLinkSelection) && entry.item->isVisible()
             && entry.item->contains(entry.item->mapFromItem(view, point))) return true;
     return false;
 }
@@ -860,6 +875,48 @@ void ViewState::rebuildHeadings()
     collect(collect, m_presentationBlocks);
     emit headingsChanged();
 }
+void ViewState::rebuildFootnoteFragments()
+{
+    m_footnoteFragments.clear();
+    QSet<QString> used;
+    for (const auto &heading : m_headings) used.insert(heading.toMap().value("fragmentId").toString());
+    auto allocate = [&used](QString base) {
+        QString id = base;
+        for (int suffix = 1; used.contains(id); ++suffix) id = base + u'-' + QString::number(suffix);
+        used.insert(id); return id;
+    };
+    QHash<int, QString> notes;
+    QHash<QString, QString> references;
+    auto key = [](int number, int occurrence) { return QString::number(number) + u':' + QString::number(occurrence); };
+    auto collect = [&](auto &&self, const auto &blocks) -> void {
+        for (const auto &block : blocks) {
+            if (block.noteNumber) {
+                const auto id = allocate(QStringLiteral("fn-%1").arg(block.noteNumber));
+                notes[block.noteNumber] = id;
+                const auto &body = block.children.first().children;
+                const int start = body.isEmpty() ? block.selectionOffset : body.first().selectionOffset;
+                const int length = body.isEmpty() ? 0 : qMin(1, body.first().selectionLength);
+                m_footnoteFragments.insert(id, {start, length});
+            }
+            for (const auto &reference : block.references) {
+                const auto id = allocate(QStringLiteral("fnref-%1-%2").arg(reference.number).arg(reference.occurrence));
+                references[key(reference.number, reference.occurrence)] = id;
+                m_footnoteFragments.insert(id, {block.selectionOffset + reference.start, reference.length});
+            }
+            self(self, block.children);
+        }
+    };
+    collect(collect, m_presentationBlocks);
+    auto destinations = [&](auto &&self, auto &blocks) -> void {
+        for (auto &block : blocks) {
+            for (auto *links : {&block.links, &block.logicalLinks}) for (auto &link : *links)
+                if (link.noteNumber) link.destination = u'#' + (link.backlink
+                    ? references.value(key(link.noteNumber, link.noteOccurrence)) : notes.value(link.noteNumber));
+            self(self, block.children);
+        }
+    };
+    destinations(destinations, m_presentationBlocks);
+}
 bool ViewState::navigateToHeading(int index)
 {
     m_targetStart = -1;
@@ -879,7 +936,10 @@ bool ViewState::navigateToFragment(const QString &fragment)
     if (id.isEmpty()) return false;
     for (int i = 0; i < m_headings.size(); ++i)
         if (m_headings[i].toMap().value("fragmentId").toString() == id) return navigateToHeading(i);
-    return false;
+    const auto target = m_footnoteFragments.constFind(id);
+    if (target == m_footnoteFragments.cend()) return false;
+    m_targetSearch = false; m_targetStart = target->first; m_targetLength = target->second;
+    m_lastTarget = {}; refreshNavigation(); return true;
 }
 void ViewState::setNavigationView(QQuickItem *view)
 {
@@ -916,7 +976,7 @@ void ViewState::emitNavigation()
     for (const auto &entry : m_selectionItems) {
         auto *item = entry.item.data();
         if (!item || !item->isVisible() || item->width() <= 0
-            || (entry.kind != TextSelection && entry.kind != ImageSelection && entry.kind != MathSelection)) continue;
+            || (entry.kind != TextSelection && entry.kind != ImageSelection && entry.kind != MathSelection && entry.kind != DecorativeLinkSelection)) continue;
         const int offset = entry.offset;
         const int length = entry.length;
         const auto bounds = item->mapRectToItem(m_navigationView, item->boundingRect());

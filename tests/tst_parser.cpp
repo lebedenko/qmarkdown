@@ -10,6 +10,60 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void footnoteResolution() {
+        ParseOptions options; options.footnotes = true;
+        const auto blocks = parse("First[^b] then[^a] again[^b] missing[^no].\n\n[^a]: Alpha **bold**\n\n    Second paragraph.\n\n[^b]: Beta\n\n[^unused]: hidden\n\n[^a]: duplicate\n", options);
+        QCOMPARE(blocks.size(), 4);
+        QCOMPARE(blocks[0].text, "First[1] then[2] again[1] missing[^no].");
+        QCOMPARE(blocks[0].references.size(), 3);
+        QCOMPARE(blocks[0].references[2].occurrence, 2);
+        QCOMPARE(blocks[1].text, "[^a]: duplicate");
+        QCOMPARE(blocks[2].kind, BlockKind::Endnote); QCOMPARE(blocks[2].noteNumber, 1);
+        QCOMPARE(blocks[2].children[0].text, "Beta"); QCOMPARE(blocks[2].noteOccurrences, 2);
+        QCOMPARE(blocks[3].children[0].text, "Alpha bold"); QCOMPARE(blocks[3].children[1].text, "Second paragraph.");
+        QVERIFY(!blocks[3].children[0].ranges.isEmpty());
+        QCOMPARE(blocks[3].children.last().kind, BlockKind::Backlinks);
+    }
+    void footnoteProtectionAndContainers() {
+        ParseOptions options; options.footnotes = true; options.inlineMath = true;
+        const auto blocks = parse("`[^n]` [link[^n]](dest) ![alt[^n]](pic) $[^n]$ plain[^n]\n\n> - [^n]: Note\n>\n>       Continued\n\nOutside\n", options);
+        QCOMPARE(blocks[0].references.size(), 1);
+        QCOMPARE(blocks[0].text, "[^n] link[^n] alt[^n] [^n] plain[1]");
+        QCOMPARE(blocks[1].text, "Outside");
+        QCOMPARE(blocks.last().kind, BlockKind::Endnote);
+        QCOMPARE(blocks.last().children[0].text, "Note");
+        QCOMPARE(blocks.last().children[1].text, "Continued");
+        const auto nested = parse("A[^n]\n\n[^n]: [^inner]: literal\n\n    Nested[^n] and $x$\n", options);
+        QCOMPARE(nested.last().children[0].text, "[^inner]: literal");
+        QCOMPARE(nested.last().children[1].text, "Nested[^n] and x");
+        QVERIFY(nested.last().children[1].references.isEmpty());
+        QCOMPARE(nested.last().children[1].formulas.size(), 1);
+        const auto boundary = parse("A[^n]\n\n[^n]: Note\nUnindented\n", options);
+        QCOMPARE(boundary[1].text, "Unindented");
+        QCOMPARE(boundary.last().children[0].text, "Note");
+        for (const auto &prefix : {QString("- "), QString("> ")}) {
+            const auto closed = parse(prefix + "[^n]: Note\nOutside\n\nA[^n]", options);
+            QCOMPARE(closed[0].text, "Outside");
+            QCOMPARE(closed[1].text, "A[1]");
+            QCOMPARE(closed.last().children[0].text, "Note");
+        }
+        const auto disabled = parse("A[^n]\n\n[^n]: /url\n");
+        QCOMPARE(disabled[0].links[0].destination, "/url");
+    }
+    void footnoteLabelsAndRichBodies() {
+        ParseOptions options; options.footnotes = true; options.tables = true; options.math = true;
+        const auto blocks = parse("A[^ STRAẞE  X ][^straße x]\n\n[^Straße x]: # Heading\n\n    - item\n\n    ```cpp\n    int x;\n    ```\n\n    $$\n    x^2\n    $$\n", options);
+        QCOMPARE(blocks[0].text, "A[1][1]");
+        QCOMPARE(blocks.last().noteOccurrences, 2);
+        QCOMPARE(blocks.last().children[0].kind, BlockKind::Heading);
+        QCOMPARE(blocks.last().children[1].kind, BlockKind::List);
+        QCOMPARE(blocks.last().children[2].kind, BlockKind::CodeBlock);
+        QCOMPARE(blocks.last().children[3].kind, BlockKind::MathBlock);
+        const auto label = QString(1000, u'a');
+        const auto bounded = parse("A[^" + label + "]\n\n[^" + label + "]: Body", options);
+        QCOMPARE(bounded[0].text, "A[1]");
+        QCOMPARE(bounded.last().children[0].text, "Body");
+    }
     void inlineMath_data() {
         QTest::addColumn<QString>("source"); QTest::addColumn<QString>("text"); QTest::addColumn<int>("count");
         QTest::newRow("dollar") << "a $x^2$ b" << "a x^2 b" << 1;

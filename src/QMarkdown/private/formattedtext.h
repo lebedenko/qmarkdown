@@ -11,6 +11,7 @@
 class FormattedText : public QQuickPaintedItem
 {
     Q_OBJECT
+    Q_PROPERTY(QVariantList referenceSpans READ referenceSpans WRITE setReferenceSpans NOTIFY referenceSpansChanged FINAL)
     Q_PROPERTY(QVariantList formulaSpans READ formulaSpans WRITE setFormulaSpans NOTIFY mathInputsChanged FINAL)
     Q_PROPERTY(bool mathRenderingEnabled READ mathRenderingEnabled WRITE setMathRenderingEnabled NOTIFY mathInputsChanged FINAL)
     Q_PROPERTY(QColor mathColor READ mathColor WRITE setMathColor NOTIFY mathInputsChanged FINAL)
@@ -46,6 +47,8 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(QVariantList sourceLines READ sourceLines NOTIFY layoutChanged FINAL)
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
+    QVariantList referenceSpans() const { return m_references; }
+    void setReferenceSpans(const QVariantList &v) { if (m_references == v) return; m_references = v; emit referenceSpansChanged(); polish(); }
     QVariantList formulaSpans() const { return m_formulas; }
     bool mathRenderingEnabled() const { return m_mathEnabled; }
     QColor mathColor() const { return m_mathColor; }
@@ -134,6 +137,7 @@ public:
     void paint(QPainter *painter) override;
 signals:
     void mathInputsChanged();
+    void referenceSpansChanged();
     void wrapEnabledChanged();
     void foregroundRangesChanged();
     void focusPaintingChanged();
@@ -161,7 +165,7 @@ protected:
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
     void refreshMath();
-    QVariantList m_formulas;
+    QVariantList m_formulas, m_references;
     bool m_mathEnabled = false;
     QColor m_mathColor = Qt::black;
     qreal m_mathScale = 1;
@@ -171,6 +175,7 @@ private:
         int start, length;
         QMarkdownPrivate::MathCancellation cancellation;
         std::shared_ptr<const QMarkdownPrivate::MathRecording> recording;
+        bool reference = false;
     };
     QVector<Formula> m_mathRequests;
     struct PaintedAtom {

@@ -145,3 +145,6 @@
 #define houdini_unescape_html_f qmarkdown_cmark_houdini_unescape_html_f
 
 #define cmark_qmarkdown_autolink_emails qmarkdown_cmark_cmark_qmarkdown_autolink_emails
+
+#define cmark_normalize_reference qmarkdown_cmark_cmark_normalize_reference
+#define cmark_node_get_footnote_label qmarkdown_cmark_cmark_node_get_footnote_label
