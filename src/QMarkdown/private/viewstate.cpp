@@ -48,6 +48,12 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == CodeLanguageRole) return block.language;
     if (role == SelectionOffsetRole) return block.selectionOffset;
     if (role == SelectionLengthRole) return block.selectionLength;
+    if (role == FormulaSpansRole) {
+        QVariantList formulas;
+        for (const auto &formula : block.formulas)
+            formulas.append(QVariantMap{{"start", formula.start}, {"length", formula.length}});
+        return formulas;
+    }
     if (role == CodeSpansRole) {
         QVariantList codes;
         for (const auto &code : block.codes)
@@ -61,7 +67,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == ImageLinkedRole) return block.imageLinked;
     if (role == BlockTextRole) return block.text;
     if (role == HeadingLevelRole) return block.level;
-    if (role == FormattedRole) return (!block.ranges.isEmpty() || !block.links.isEmpty());
+    if (role == FormattedRole) return (!block.ranges.isEmpty() || !block.links.isEmpty() || !block.formulas.isEmpty());
     if (role == FormatRangesRole) {
         QVariantList ranges;
         for (const auto &range : block.ranges)
@@ -91,7 +97,7 @@ QVariant BlockModel::data(const QModelIndex &index, int role) const
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::ListItem) return ViewState::ListItem;
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::HtmlBlock) return ViewState::HtmlBlock;
     if (role == RenderKindRole && block.kind == QMarkdownPrivate::PresentationKind::ThematicBreak) return ViewState::ThematicBreak;
-    if (role == RenderKindRole) return block.kind == QMarkdownPrivate::PresentationKind::CodeBlock ? ViewState::CodeBlock : (block.ranges.isEmpty() && block.links.isEmpty() ? ViewState::PlainText : ViewState::FormattedText);
+    if (role == RenderKindRole) return block.kind == QMarkdownPrivate::PresentationKind::CodeBlock ? ViewState::CodeBlock : (block.ranges.isEmpty() && block.links.isEmpty() && block.formulas.isEmpty() ? ViewState::PlainText : ViewState::FormattedText);
     return {};
 }
 QHash<int, QByteArray> BlockModel::roleNames() const
@@ -100,7 +106,7 @@ QHash<int, QByteArray> BlockModel::roleNames() const
             {FormattedRole, "formatted"}, {FormatRangesRole, "formatRanges"}, {RenderKindRole, "renderKind"}, {ChildBlocksRole, "childBlocks"},
             {OrderedListRole, "orderedList"}, {TightListRole, "tightList"}, {MarkersRole, "markers"}, {LinkSpansRole, "linkSpans"}, {ImageDataRole, "imageData"},
             {ImageLinkRole, "imageLink"}, {ImageLinkedRole, "imageLinked"},
-            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}, {DisplayMathRole, "displayMath"}};
+            {TaskStateRole, "taskState"}, {TableAlignmentRole, "tableAlignment"}, {CodeSpansRole, "codeSpans"}, {SelectionOffsetRole, "selectionOffset"}, {SelectionLengthRole, "selectionLength"}, {SelectionKindRole, "selectionKind"}, {CodeInfoRole, "codeInfo"}, {CodeFencedRole, "codeFenced"}, {CodeLanguageRole, "codeLanguage"}, {ImageLinkIdRole, "imageLinkId"}, {DisplayMathRole, "displayMath"}, {FormulaSpansRole, "formulaSpans"}};
 }
 void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
 {
@@ -175,8 +181,8 @@ void ViewState::reparse()
     const QMarkdownPrivate::ParseOptions options{
         m_gfmEnabled || m_taskListsEnabled, m_gfmEnabled || m_strikethroughEnabled,
         m_gfmEnabled || m_extendedAutolinksEnabled, m_gfmEnabled || m_tablesEnabled,
-        m_gfmEnabled || m_tagFilterEnabled, m_mathEnabled};
-    auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter, o.math); };
+        m_gfmEnabled || m_tagFilterEnabled, m_mathEnabled, m_inlineMathEnabled};
+    auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter, o.math, o.inlineMath); };
     const bool semanticChange = flags(options) != flags(m_parsedOptions) || m_sourceChanged;
     if (flags(options) != flags(m_parsedOptions)) clearSelection();
     m_sourceChanged = false;
@@ -590,6 +596,8 @@ QPair<int, int> ViewState::selectionUnitAt(QQuickItem *view, QPointF point, int 
     int position = offset;
     if (auto *text = qobject_cast<::FormattedText *>(item)) {
         const auto local = item->mapFromItem(view, point);
+        const auto atom = text->atomAt(local.x(), local.y());
+        if (atom.first >= 0) return {offset + atom.first, offset + atom.second};
         position += text->characterAt(local.x(), local.y());
     } else if (granularity == 2) return {offset, offset + length};
     // Empty image/cell ranges can share an offset with a preceding terminal

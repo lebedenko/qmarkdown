@@ -67,8 +67,9 @@ typedef enum {
   CMARK_NODE_IMAGE,
   CMARK_NODE_QMARKDOWN_STRIKETHROUGH,
 
+  CMARK_NODE_QMARKDOWN_INLINE_MATH,
   CMARK_NODE_FIRST_INLINE = CMARK_NODE_TEXT,
-  CMARK_NODE_LAST_INLINE = CMARK_NODE_QMARKDOWN_STRIKETHROUGH
+  CMARK_NODE_LAST_INLINE = CMARK_NODE_QMARKDOWN_INLINE_MATH
 } cmark_node_type;
 
 /* For backwards compatibility: */
@@ -607,6 +608,7 @@ char *cmark_render_latex(cmark_node *root, int options, int width);
 #define CMARK_OPT_QMARKDOWN_STRIKETHROUGH (1 << 19)
 #define CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS (1 << 20)
 #define CMARK_OPT_QMARKDOWN_MATH (1 << 22)
+#define CMARK_OPT_QMARKDOWN_INLINE_MATH (1 << 23)
 #define CMARK_OPT_QMARKDOWN_TABLES (1 << 21)
 
 /* Private table metadata: 0 unspecified, 1 left, 2 center, 3 right. */

@@ -10,6 +10,54 @@ class ParserTest : public QObject
 {
     Q_OBJECT
 private slots:
+    void inlineMath_data() {
+        QTest::addColumn<QString>("source"); QTest::addColumn<QString>("text"); QTest::addColumn<int>("count");
+        QTest::newRow("dollar") << "a $x^2$ b" << "a x^2 b" << 1;
+        QTest::newRow("parentheses") << R"(a \(\frac{1}{2}\) b)" << R"(a \frac{1}{2} b)" << 1;
+        QTest::newRow("literal-body") << R"($a_*b*&amp;\z$)" << R"(a_*b*&amp;\z)" << 1;
+        QTest::newRow("empty") << "$$ \\(\\)" << "$$ ()" << 0;
+        QTest::newRow("runs") << "$$x$$ $$$y$$$" << "$$x$$ $$$y$$$" << 0;
+        QTest::newRow("currency") << "$5 and $10" << "$5 and $10" << 0;
+        QTest::newRow("spaces") << "$ x$ $y $" << "$ x$ $y $" << 0;
+        QTest::newRow("unicode-space") << QString::fromUtf8("$\u2003x$ $y\u2003$") << QString::fromUtf8("$\u2003x$ $y\u2003$") << 0;
+        QTest::newRow("escaped") << R"(\$x\$ \\(x\\))" << "$x$ \\(x\\)" << 0;
+        QTest::newRow("even-escape") << R"(\\$x$)" << "\\x" << 1;
+        QTest::newRow("unmatched") << "$x" << "$x" << 0;
+        QTest::newRow("multiline") << "$x\ny$" << "$x y$" << 0;
+        QTest::newRow("parenthesis-whitespace") << R"(\( x \))" << " x " << 1;
+        QTest::newRow("code") << "`$x$` `$y$`" << "$x$ $y$" << 0;
+        QTest::newRow("html") << R"(<i title="$x$">$y$</i>)" << R"(<i title="$x$">y</i>)" << 1;
+        QTest::newRow("image") << R"(![$x_*y$](pic))" << "$x_*y$" << 0;
+        QTest::newRow("failed-image") << "![$x$]" << "![x]" << 1;
+        QTest::newRow("link") << R"([$x_*y$](https://a/$z$ "title $t$"))" << "x_*y" << 1;
+        QTest::newRow("heading") << "# $x$" << "x" << 1;
+    }
+    void inlineMath() {
+        QFETCH(QString, source); QFETCH(QString, text); QFETCH(int, count);
+        ParseOptions options; options.inlineMath = true;
+        const auto blocks = parse(source, options); QCOMPARE(blocks.size(), 1);
+        QCOMPARE(blocks[0].text, text); QCOMPARE(blocks[0].formulas.size(), count);
+        for (const auto &span : blocks[0].formulas) {
+            QVERIFY(span.length > 0); QVERIFY(span.start >= 0);
+            QVERIFY(span.start + span.length <= text.size());
+            QVERIFY(span.sourceLine > 0); QVERIFY(span.sourceColumn > 0);
+            QVERIFY(span.sourceEndColumn > span.sourceColumn);
+        }
+        QVERIFY(parse(source)[0].formulas.isEmpty());
+    }
+    void inlineMathContainers() {
+        ParseOptions options; options.inlineMath = true; options.tables = true;
+        const auto blocks = parse("> - 😀 $x$\n\n| $a|b$ | `x` |\n| - | - |\n| \\(c|d\\) | ![$e$](pic) |\n", options);
+        const auto &text = blocks[0].children[0].children[0].children[0];
+        QCOMPARE(text.text, QString::fromUtf8("😀 x")); QCOMPARE(text.formulas[0].start, 3);
+        QCOMPARE(blocks[1].kind, BlockKind::Table);
+        QCOMPARE(blocks[1].children[0].children.size(), 2);
+        QCOMPARE(blocks[1].children[0].children[0].text, "a|b");
+        QCOMPARE(blocks[1].children[0].children[0].formulas[0].sourceLine, 3);
+        QCOMPARE(blocks[1].children[0].children[0].formulas[0].sourceColumn, 3);
+        QCOMPARE(blocks[1].children[1].children[0].text, "c|d");
+        QVERIFY(blocks[1].children[1].children[1].formulas.isEmpty());
+    }
     void semanticCodeSpanIdentity()
     {
         const auto content=parseInline(QString::fromUtf8("`f`**`i`** [אבג `🙂`](target)"));

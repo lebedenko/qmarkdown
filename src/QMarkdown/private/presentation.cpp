@@ -104,6 +104,7 @@ QVector<PresentationBlock> present(const QVector<Block> &blocks)
         block.taskState = source.taskState;
         block.tableAlignment = source.tableAlignment;
         block.codes = source.codes;
+        block.formulas = source.formulas;
         block.children = present(source.children);
         result.append(std::move(block));
     }
@@ -155,6 +156,11 @@ PresentationBlock textSlice(const PresentationBlock &block, int start, int end) 
         const int a = qMax(start, range.start), b = qMin(end, range.start + range.length);
         if (a < b) result.ranges.append({a - start, b - a, range.flags});
     }
+    for (auto formula : block.formulas) {
+        if (formula.start >= start && formula.start + formula.length <= end) {
+            formula.start -= start; result.formulas.append(formula);
+        }
+    }
     for (const auto &code : block.codes) {
         const int a = qMax(start, code.start), b = qMin(end, code.start + code.length);
         if (a < b) result.codes.append({a - start, b - a});
@@ -192,7 +198,7 @@ QVector<PresentationBlock> projectImages(const QVector<PresentationBlock> &block
                 if (segment.kind == PresentationKind::TableCell) segment.kind = PresentationKind::Paragraph;
             block.children = std::move(segments);
             block.images.clear(); block.text.clear(); block.ranges.clear(); block.links.clear();
-            block.codes.clear();
+            block.codes.clear(); block.formulas.clear();
         }
         result.append(std::move(block));
     }

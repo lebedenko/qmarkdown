@@ -173,7 +173,8 @@ ApplicationWindow {
                 Flow {
                     width: parent.width
                     CheckBox { id: outlineToggle; text: "Heading outline"; objectName: "outlineToggle" }
-                    CheckBox { id: mathToggle; checked: true; text: "Native math"; objectName: "mathToggle" }
+                    CheckBox { id: mathToggle; checked: true; text: "Block math"; objectName: "mathToggle" }
+                    CheckBox { id: inlineMathToggle; checked: false; text: "Inline math"; objectName: "inlineMathToggle" }
                     CheckBox { id: rendererToggle; text: "Custom fences"; objectName: "rendererToggle" }
                     CheckBox { id: tablesToggle; text: "GFM tables"; objectName: "tablesToggle" }
                     CheckBox { id: tagFilterToggle; text: "GFM tag filter"; objectName: "tagFilterToggle" }
@@ -287,6 +288,7 @@ ApplicationWindow {
                             codeBlockMinimumLines: stylePanel.codeMinimum
                             codeBlockMaximumLines: stylePanel.codeMaximum
                             mathEnabled: mathToggle.checked
+                            inlineMathEnabled: inlineMathToggle.checked
                             syntaxHighlightingEnabled: stylePanel.syntaxEnabled
                             syntaxTheme: SyntaxTheme { preset: stylePanel.syntaxDark ? SyntaxTheme.Dark : SyntaxTheme.Light }
                             keyboardNavigationEnabled: true

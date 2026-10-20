@@ -44,6 +44,7 @@ public:
         CodeLanguageRole = Qt::UserRole + 20,
         ImageLinkIdRole = Qt::UserRole + 21,
         DisplayMathRole = Qt::UserRole + 22,
+        FormulaSpansRole = Qt::UserRole + 24,
         OrderedListRole = Qt::UserRole + 23
     };
     using QAbstractListModel::QAbstractListModel;
@@ -68,6 +69,7 @@ class ViewState : public QObject
     Q_PROPERTY(int codeBlockMinimumLines READ codeBlockMinimumLines WRITE setCodeBlockMinimumLines NOTIFY codeBlockSettingsChanged FINAL)
     Q_PROPERTY(int codeBlockMaximumLines READ codeBlockMaximumLines WRITE setCodeBlockMaximumLines NOTIFY codeBlockSettingsChanged FINAL)
     Q_PROPERTY(QQmlComponent * codeBlockScrollBar READ codeBlockScrollBar WRITE setCodeBlockScrollBar NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(bool inlineMathEnabled READ inlineMathEnabled WRITE setInlineMathEnabled NOTIFY inlineMathEnabledChanged FINAL)
     Q_PROPERTY(bool mathEnabled READ mathEnabled WRITE setMathEnabled NOTIFY mathEnabledChanged FINAL)
     Q_PROPERTY(bool mathAvailable READ mathAvailable CONSTANT FINAL)
     Q_PROPERTY(bool syntaxHighlightingEnabled READ syntaxHighlightingEnabled WRITE setSyntaxHighlightingEnabled NOTIFY syntaxHighlightingEnabledChanged FINAL)
@@ -121,6 +123,8 @@ public:
         if (value) m_codeScrollBarDestroyed = connect(value, &QObject::destroyed, this, [this] { m_codeBlockScrollBar = nullptr; emit codeBlockSettingsChanged(); });
         emit codeBlockSettingsChanged();
     }
+    bool inlineMathEnabled() const { return m_inlineMathEnabled; }
+    void setInlineMathEnabled(bool value) { if (m_inlineMathEnabled == value) return; m_inlineMathEnabled = value; reparse(); emit inlineMathEnabledChanged(); }
     bool mathEnabled() const { return m_mathEnabled; }
     bool mathAvailable() const { return QMarkdownPrivate::mathAvailable(); }
     void setMathEnabled(bool value) { if (m_mathEnabled == value) return; m_mathEnabled = value; reparse(); emit mathEnabledChanged(); }
@@ -215,6 +219,7 @@ public:
 signals:
     void codeBlockSettingsChanged();
     void mathEnabledChanged();
+    void inlineMathEnabledChanged();
     void syntaxHighlightingEnabledChanged();
     void syntaxThemeChanged();
     void searchActiveChanged();
@@ -257,6 +262,7 @@ private:
     QMetaObject::Connection m_codeScrollBarDestroyed;
     bool m_revealSource = false;
     bool m_mathEnabled = false;
+    bool m_inlineMathEnabled = false;
     bool m_syntaxEnabled = false;
     SyntaxTheme *m_defaultSyntaxTheme = nullptr;
     QPointer<SyntaxTheme> m_syntaxTheme;

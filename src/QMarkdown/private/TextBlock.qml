@@ -12,6 +12,7 @@ Item {
     required property int selectionLength
     required property var formatRanges
     required property var linkSpans
+    required property var formulaSpans
     required property var codeSpans
     required property int presentationKind
     required property MarkdownStyle style
@@ -151,6 +152,12 @@ Item {
                 horizontalAlignment: textBlock.textAlignment
                 text: formattedBlock.blockText
                 formatRanges: formattedBlock.formatRanges
+                Accessible.role: Accessible.StaticText
+                Accessible.name: text
+                formulaSpans: textBlock.formulaSpans
+                mathRenderingEnabled: textBlock.coordinator.inlineMathEnabled && !textBlock.coordinator.searchActive
+                mathColor: textBlock.style.math.color
+                mathScale: textBlock.style.math.scale
                 codeSpans: formattedBlock.codeSpans
                 linkSpans: formattedBlock.linkSpans
                 linkColor: textBlock.style.linkColor
