@@ -30,6 +30,7 @@ Module {
         Property { name: "source"; type: "QString"; notify: "inputChanged" }
         Property { name: "language"; type: "QString"; notify: "inputChanged" }
         Property { name: "enabled"; type: "bool"; notify: "inputChanged" }
+        Property { name: "provider"; type: "SyntaxHighlightingProvider"; isPointer: true; notify: "inputChanged" }
         Property { name: "theme"; type: "SyntaxTheme"; isPointer: true; notify: "themeChanged" }
         Property { name: "ranges"; type: "QVariantList"; isReadonly: true; notify: "rangesChanged" }
         Signal { name: "inputChanged" }
@@ -121,6 +122,8 @@ Module {
         Method { name: "createHostComponent"; type: "QObject"; isPointer: true; Parameter { name: "component"; type: "QQmlComponent"; isPointer: true } Parameter { name: "parent"; type: "QQuickItem"; isPointer: true } Parameter { name: "properties"; type: "QVariantMap" } }
         Method { name: "codeLanguageMetadata"; type: "QVariantMap"; Parameter { name: "language"; type: "QString" } }
         Signal { name: "codeBlockSettingsChanged" }
+        Property { name: "syntaxHighlightingProvider"; type: "SyntaxHighlightingProvider"; isPointer: true; notify: "syntaxHighlightingProviderChanged" }
+        Signal { name: "syntaxHighlightingProviderChanged" }
         Property { name: "syntaxHighlightingEnabled"; type: "bool"; notify: "syntaxHighlightingEnabledChanged" }
         Property { name: "syntaxHighlightingAvailable"; type: "bool"; isReadonly: true }
         Property { name: "syntaxTheme"; type: "SyntaxTheme"; isPointer: true; notify: "syntaxThemeChanged" }

@@ -1,5 +1,7 @@
 #include "syntaxhighlighter.h"
+#include "../syntaxhighlightingprovider.h"
 #include <QCoreApplication>
+#include <QQmlEngine>
 #include <QPointer>
 #include <QThread>
 #include <QMutex>
@@ -130,7 +132,29 @@ SyntaxRequest::SyntaxRequest(QObject *parent) : QObject(parent)
     // Coalesce QML initialization and rapid replacements before subscribing.
     connect(this, &SyntaxRequest::inputChanged, this, &SyntaxRequest::refresh);
 }
-SyntaxRequest::~SyntaxRequest() { if (m_cancelled) m_cancelled->store(true); }
+SyntaxRequest::~SyntaxRequest() { cancel(); }
+void SyntaxRequest::cancel() {
+    if (m_cancelled) m_cancelled->store(true);
+    const auto subscription = m_subscription; m_subscription = 0;
+    if (m_provider && subscription) m_provider->unsubscribe(subscription);
+}
+SyntaxHighlightingProvider *SyntaxRequest::provider() const { return m_provider; }
+void SyntaxRequest::setProvider(SyntaxHighlightingProvider *value) {
+    if (m_provider == value) return;
+    QPointer<SyntaxRequest> guard(this);
+    const QPointer<SyntaxHighlightingProvider> next(value);
+    cancel();
+    if (!guard) return;
+    disconnect(m_providerInvalidated); disconnect(m_providerDestroyed);
+    m_provider = next;
+    if (next) {
+        m_providerInvalidated = connect(next, &SyntaxHighlightingProvider::invalidated, this, &SyntaxRequest::refresh);
+        m_providerDestroyed = connect(next, &QObject::destroyed, this, [this] {
+            m_provider = nullptr; m_subscription = 0; emit inputChanged();
+        });
+    }
+    emit inputChanged();
+}
 void SyntaxRequest::setSource(const QString &value) {
     if (m_source == value) return;
     m_source = value; emit inputChanged();
@@ -154,18 +178,46 @@ void SyntaxRequest::setTheme(SyntaxTheme *value) {
     emit themeChanged(); emit rangesChanged();
 }
 void SyntaxRequest::refresh() {
-    if (m_cancelled) m_cancelled->store(true);
+    QPointer<SyntaxRequest> alive(this);
+    cancel();
+    if (!alive) return;
     const auto generation = ++m_generation;
     m_spans.clear(); emit rangesChanged();
-    if (!m_enabled || !syntaxHighlightingAvailable() || m_source.isEmpty() || m_source.size() > 256 * 1024 || m_language.isEmpty()) return;
+    if (!alive) return;
+    const HighlightLimits limits;
+    if (!m_enabled || (!m_provider && !syntaxHighlightingAvailable()) || m_source.isEmpty()
+        || m_source.size() > limits.sourceUnits || m_language.isEmpty()) return;
+    int line = 0;
+    for (QChar c : m_source) {
+        if (c == u'\n') line = 0;
+        else if (++line > limits.lineUnits) return;
+    }
     QTimer::singleShot(0, this, [this, generation] {
         if (generation != m_generation) return;
         m_cancelled = std::make_shared<std::atomic_bool>(false);
+        const auto cancelled = m_cancelled;
         QPointer<SyntaxRequest> guard(this);
-        scheduler()->submit(m_source, m_language.toLower(), {m_cancelled, [guard, generation](const HighlightSpans &spans) {
+        auto deliver = [guard, generation](const HighlightSpans &spans) {
             if (!guard || guard->m_generation != generation) return;
             guard->m_spans = spans; emit guard->rangesChanged();
-        }});
+        };
+        const auto source = m_source, language = m_language;
+        auto fallback = [cancelled, deliver, source, language] {
+            if (cancelled->load()) return;
+            if (syntaxHighlightingAvailable()) scheduler()->submit(source, language.toLower(), {cancelled, deliver});
+            else deliver({});
+        };
+        if (m_provider) {
+            const QPointer<SyntaxHighlightingProvider> provider = m_provider;
+            const auto subscription = provider->subscribe(source, language, cancelled,
+                [cancelled, deliver, fallback](bool success, const HighlightSpans &spans) {
+                    if (cancelled->load()) return;
+                    if (success) deliver(spans); else fallback();
+                }, qjsEngine(this));
+            // Synchronous host delivery can replace or destroy this subscription.
+            if (guard && guard->m_generation == generation) guard->m_subscription = subscription;
+            else if (provider) provider->unsubscribe(subscription);
+        } else fallback();
     });
 }
 QVariantList SyntaxRequest::ranges() const {

@@ -1,4 +1,5 @@
 #pragma once
+#include "../syntaxhighlightingprovider.h"
 #include "../markdownstyle.h"
 #include "syntaxhighlighter.h"
 #include "mathitem.h"
@@ -77,6 +78,7 @@ class ViewState : public QObject
     Q_PROPERTY(bool mathAvailable READ mathAvailable CONSTANT FINAL)
     Q_PROPERTY(bool syntaxHighlightingEnabled READ syntaxHighlightingEnabled WRITE setSyntaxHighlightingEnabled NOTIFY syntaxHighlightingEnabledChanged FINAL)
     Q_PROPERTY(bool syntaxHighlightingAvailable READ syntaxHighlightingAvailable CONSTANT FINAL)
+    Q_PROPERTY(SyntaxHighlightingProvider *syntaxHighlightingProvider READ syntaxHighlightingProvider WRITE setSyntaxHighlightingProvider NOTIFY syntaxHighlightingProviderChanged FINAL)
     Q_PROPERTY(SyntaxTheme *syntaxTheme READ syntaxTheme WRITE setSyntaxTheme NOTIFY syntaxThemeChanged FINAL)
     Q_PROPERTY(LinkController *linkController READ linkController CONSTANT FINAL)
     Q_PROPERTY(bool searchActive READ searchActive WRITE setSearchActive NOTIFY searchActiveChanged FINAL)
@@ -139,6 +141,16 @@ public:
         m_syntaxEnabled = value; emit syntaxHighlightingEnabledChanged();
     }
     bool syntaxHighlightingAvailable() const { return QMarkdownPrivate::syntaxHighlightingAvailable(); }
+    SyntaxHighlightingProvider *syntaxHighlightingProvider() const { return m_syntaxProvider; }
+    void setSyntaxHighlightingProvider(SyntaxHighlightingProvider *value) {
+        if (m_syntaxProvider == value) return;
+        disconnect(m_syntaxProviderDestroyed);
+        m_syntaxProvider = value;
+        if (value) m_syntaxProviderDestroyed = connect(value, &QObject::destroyed, this, [this] {
+            m_syntaxProvider = nullptr; emit syntaxHighlightingProviderChanged();
+        });
+        emit syntaxHighlightingProviderChanged();
+    }
     SyntaxTheme *syntaxTheme() { if (!m_defaultSyntaxTheme) m_defaultSyntaxTheme = new SyntaxTheme(this); return m_syntaxTheme ? m_syntaxTheme.data() : m_defaultSyntaxTheme; }
     void setSyntaxTheme(SyntaxTheme *value) {
         if (m_syntaxTheme == value) return;
@@ -227,6 +239,7 @@ signals:
     void inlineMathEnabledChanged();
     void footnotesEnabledChanged();
     void syntaxHighlightingEnabledChanged();
+    void syntaxHighlightingProviderChanged();
     void syntaxThemeChanged();
     void searchActiveChanged();
     void searchQueryChanged();
@@ -271,6 +284,8 @@ private:
     bool m_inlineMathEnabled = false;
     bool m_footnotesEnabled = false;
     bool m_syntaxEnabled = false;
+    QPointer<SyntaxHighlightingProvider> m_syntaxProvider;
+    QMetaObject::Connection m_syntaxProviderDestroyed;
     SyntaxTheme *m_defaultSyntaxTheme = nullptr;
     QPointer<SyntaxTheme> m_syntaxTheme;
     QMetaObject::Connection m_syntaxThemeDestroyed;

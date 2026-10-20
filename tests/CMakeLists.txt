@@ -186,6 +186,7 @@ set_tests_properties(qmarkdown-keyboard PROPERTIES
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
 
 qt_add_executable(qmarkdown-syntax-test tst_syntax.cpp
+    ../src/QMarkdown/syntaxhighlightingprovider.h ../src/QMarkdown/syntaxhighlightingprovider.cpp
     ../src/QMarkdown/private/syntaxbackend.cpp
     ../src/QMarkdown/private/syntaxhighlighter.cpp ../src/QMarkdown/syntaxtheme.cpp)
 target_include_directories(qmarkdown-syntax-test PRIVATE ../src/QMarkdown)
@@ -251,3 +252,13 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 add_test(NAME qmarkdown-footnotes COMMAND qmarkdown-footnotes-test)
 set_tests_properties(qmarkdown-footnotes PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")
+
+qt_add_executable(qmarkdown-providers-test tst_providers.cpp)
+target_include_directories(qmarkdown-providers-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-providers-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-providers-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-providers-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-providers COMMAND qmarkdown-providers-test)
+set_tests_properties(qmarkdown-providers PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

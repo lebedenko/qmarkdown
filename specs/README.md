@@ -301,3 +301,15 @@ after Feature 061 passes its required CI checks. Target QML 1.16; merge, tagging
 These specifications and implementation are separate from Feature 061. Its
 [implementation PR #41](https://github.com/lebedenko/qmarkdown/pull/41) passed both
 required Qt packaging gates and remains unmerged.
+
+## Approved development: host highlighting providers
+
+[063 requirements](063-highlighting-providers/requirements.md),
+[design](063-highlighting-providers/design.md),
+[mapped tasks](063-highlighting-providers/tasks.md) and
+[verification](063-highlighting-providers/verification.md) were explicitly approved on 2026-10-20 for implementation and verification after
+Feature 062 passes its required CI checks, targeting QML 1.17. Feature 062’s
+[PR #42](https://github.com/lebedenko/qmarkdown/pull/42) passed both required Qt
+packaging gates and the release gate at 9398444 before provider implementation began.
+These records are separate from that unmerged dependency; merge/tag/publication
+remain excluded.

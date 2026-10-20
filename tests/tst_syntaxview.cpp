@@ -103,6 +103,13 @@ private slots:
         } else {
             QVERIFY(colors().isEmpty());
         }
+        auto *providerToggle = window->findChild<QObject *>("providerToggle"); QVERIFY(providerToggle);
+        providerToggle->setProperty("checked", true);
+        toggle->setProperty("checked", true);
+        window->setProperty("sampleKey", "providers");
+        QTRY_VERIFY(toggle->property("enabled").toBool());
+        QTRY_VERIFY(!colors().isEmpty());
+        QVERIFY(preview->property("syntaxHighlightingProvider").value<QObject *>());
     }
 #endif
     void publicDefaults() {

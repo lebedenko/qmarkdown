@@ -2961,7 +2961,7 @@ MarkdownView {
         QVERIFY(availability->property("text").toString().contains(
             preview->property("syntaxHighlightingAvailable").toBool() ? "backend available" : "backend unavailable"));
         auto *selector = window->findChild<QObject *>("sampleSelector"); QVERIFY(selector);
-        QCOMPARE(selector->property("count").toInt(), 21);
+        QCOMPARE(selector->property("count").toInt(), 22);
         auto *largeTasks = window->findChild<QObject *>("largeTaskToggle"); QVERIFY(largeTasks);
         QVERIFY(!largeTasks->property("checked").toBool());
         window->setHeight(600);

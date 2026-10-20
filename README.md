@@ -307,3 +307,11 @@ superscript references, rich native numbered endnotes and host-owned occurrence
 backlinks. Copy and Find use numbered text while preserving existing resource and
 scrolling policies. See the [footnote guide](docs/footnotes.md) and
 [Feature 062](specs/062-footnotes/requirements.md).
+
+## Development — highlighting providers
+
+The 1.17 development API adds host-owned `SyntaxHighlightingProvider` objects and
+`MarkdownView.syntaxHighlightingProvider`. Providers supply asynchronous UTF-16
+token-role spans, with cancellation, invalidation and built-in/plain fallback.
+They work independently of compiled backend availability. See the
+[syntax guide](docs/syntax-highlighting.md#development--host-providers-qml-117).
