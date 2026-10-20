@@ -51,6 +51,8 @@ src/QMarkdown/private/taskindicatoritem.h
 src/QMarkdown/private/viewstate.cpp
 src/QMarkdown/private/sourcewheelarea.h
 src/QMarkdown/private/viewstate.h
+src/QMarkdown/syntaxhighlightingprovider.cpp
+src/QMarkdown/syntaxhighlightingprovider.h
 src/QMarkdown/syntaxtheme.cpp
 src/QMarkdown/syntaxtheme.h
 third_party/cmark/CMakeLists.txt

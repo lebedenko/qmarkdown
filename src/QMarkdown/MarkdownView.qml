@@ -12,6 +12,7 @@ Item {
     property alias codeBlockMinimumLines: viewState.codeBlockMinimumLines
     property alias codeBlockMaximumLines: viewState.codeBlockMaximumLines
     property alias codeBlockScrollBar: viewState.codeBlockScrollBar
+    property alias syntaxHighlightingProvider: viewState.syntaxHighlightingProvider
     property alias syntaxHighlightingEnabled: viewState.syntaxHighlightingEnabled
     readonly property bool syntaxHighlightingAvailable: viewState.syntaxHighlightingAvailable
     property alias syntaxTheme: viewState.syntaxTheme

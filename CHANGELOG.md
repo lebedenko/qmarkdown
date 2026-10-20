@@ -8,6 +8,12 @@
 - Add table Grid, Rows, HeaderOnly and None border modes with uniform grid thickness and alternating body backgrounds.
 - Expand playground samples, style controls and demo defaults, preserving settings between samples.
 
+## Development — 1.17.0 / QML 1.17
+
+- Add host-owned asynchronous QML syntax highlighting providers with strict UTF-16 role spans and built-in/plain fallback.
+- Add request cancellation, five-second deadlines, provider-local caches and invalidation without changing token palette ownership.
+- Add an asynchronous playground provider and installed consumer coverage with the built-in backend enabled or disabled.
+
 ## Development — 1.16.0 / QML 1.16
 
 - Add independent opt-in Markdown footnotes with forward/repeated references, rich native endnotes, superscript numbers and per-occurrence backlinks.
