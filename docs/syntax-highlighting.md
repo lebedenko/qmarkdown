@@ -89,7 +89,7 @@ then select the Syntax highlighting sample.
 
 Run `task demo-highlighted` for a separate backend-enabled playground build. KF6SyntaxHighlighting must already be installed; CMake reports a missing dependency normally. Style controls display availability and disable both syntax controls when unavailable. Sample selection never enables highlighting or changes the palette.
 
-## Development — host providers (QML 1.17)
+## Host providers (QML 1.17)
 
 Assign a host-owned `SyntaxHighlightingProvider` to `syntaxHighlightingProvider`
 and enable `syntaxHighlightingEnabled`. The provider works with the optional
