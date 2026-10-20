@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.14.0 / QML 1.14 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.17.0 / QML 1.17 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.14` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.17` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -181,7 +181,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.14 CONFIG REQUIRED)
+find_package(QMarkdown 1.17 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
@@ -232,25 +232,25 @@ host body family. See the [dialect and limits](math.md).
 
 With selection enabled, eligible native formulas remain rendered and select as complete objects. Find shows TeX source and preserves exact selection endpoints when closed. Copy uses the existing body projection. Registered host `math` renderers retain source fallback during selection and Find. No public API changes.
 
-## Development inline math (1.15)
+## Inline math (1.15)
 
 `MarkdownView.inlineMathEnabled: false` independently opts into single-line dollar
 and backslash-parenthesis formulas. `mathEnabled` continues controlling block math.
 `mathAvailable` and `style.math` serve both. Inline rendering uses surrounding font
 size, baseline atoms and wrappable body fallback; Find shows body source and copy
-omits delimiters. See [inline math](math.md#inline-math-development-qml-115).
-Package 1.15.0 accepts compatible 1.0–1.15 imports; published 1.14 remains unchanged.
+omits delimiters. See [inline math](math.md#inline-math-qml-115).
+Inline math requires QML 1.15 or later.
 
-## Development footnotes (1.16)
+## Footnotes (1.16)
 
 `MarkdownView.footnotesEnabled: false` independently enables Markdown footnote
 references and definitions. Forward/repeated references share native numbered
 endnotes; superscript references and decorative backlinks use existing host link
 activation, fragment navigation, keyboard traversal and accessibility. Copy/Find
 use `[n]` and numbered bodies. See the [footnote guide](footnotes.md).
-Package 1.16.0 accepts compatible 1.0–1.16 imports; published 1.14 remains unchanged.
+Footnotes require QML 1.16 or later.
 
-## Development — QML 1.17
+## Providers — QML 1.17
 
 `MarkdownView.syntaxHighlightingProvider` defaults to null and references a
 host-owned `SyntaxHighlightingProvider`. Enable the existing master switch to
@@ -258,7 +258,7 @@ receive `highlightRequested(request)` for eligible fenced source. Requests expos
 read-only `source`, `language`, `cancelled` and methods `complete(spans)` / `decline()`.
 Spans are strict nonoverlapping UTF-16 `{start, length, role}` ranges, using the
 provider's twelve role enums. `invalidate()` clears that provider's cache and
-refreshes subscriptions. See the [provider contract](syntax-highlighting.md#development--host-providers-qml-117)
+refreshes subscriptions. See the [provider contract](syntax-highlighting.md#host-providers-qml-117)
 for validation, deadlines, cancellation and ownership. Availability continues to
 report only the optional compiled backend. Older imports remain supported; the
-new provider type requires 1.17. The development package is 1.17.0.
+new provider type requires 1.17. The package is 1.17.0.

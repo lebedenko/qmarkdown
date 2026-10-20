@@ -5,7 +5,9 @@ See the [public API reference](docs/api.md) for the complete supported contract.
 A standalone Qt/QML Markdown rendering library independent of any other project. The library owns Markdown semantics and rendering behavior; applications supply typography and colors. Markdown source feeds a private parser, document model, and native Qt Quick block components, without document-level HTML, QTextDocument, or WebEngine rendering.
 
 <!-- current-release:start -->
-**Status:** QMarkdown 1.14.0 / QML 1.14 adds atomic rendered-math selection, nested code scrolling fixes, replacement task markers, table border modes and alternating row backgrounds. Native block math remains opt-in. It retains optional fenced-code syntax highlighting and independent token palettes. It retains opt-in keyboard link traversal, visible focus, per-link accessibility and replaceable task indicators. It includes literal Find, a heading outline and explicit fragment navigation. It retains custom fenced-block renderers, repeated-click selection and host-owned selection edge autoscrolling. Hosts own clipboard and scrolling. It retains five opt-in GFM extensions, native tables and inline-code padding. See the [selection guide](docs/selection.md), [renderer guide](docs/fenced-block-renderers.md), and [1.14.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.14.0).
+**Status:** QML 1.17 adds host-owned asynchronous syntax highlighting providers with validated UTF-16 role spans, cancellation, deadlines and provider-local caches. Inline math and Markdown footnotes are independent opt-in features; literal copy/Find projections and host-owned navigation remain supported.
+
+QMarkdown 1.17.0 / QML 1.17 adds atomic rendered-math selection, nested code scrolling fixes, replacement task markers, table border modes and alternating row backgrounds. Native block math remains opt-in. It retains optional fenced-code syntax highlighting and independent token palettes. It retains opt-in keyboard link traversal, visible focus, per-link accessibility and replaceable task indicators. It includes literal Find, a heading outline and explicit fragment navigation. It retains custom fenced-block renderers, repeated-click selection and host-owned selection edge autoscrolling. Hosts own clipboard and scrolling. It retains five opt-in GFM extensions, native tables and inline-code padding. See the [selection guide](docs/selection.md), [renderer guide](docs/fenced-block-renderers.md), and [1.17.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.17.0).
 
 ## 1.x compatibility
 
@@ -13,7 +15,7 @@ Supported environment: Linux amd64, Qt >=6.8, C++17 and CMake >=3.21. Configured
 
 Throughout 1.x, documented public QML properties, signals and CMake integration remain backward compatible. Version 1.6 intentionally changes default inline-code wrapping and line height through 4/2 padding; set both padding metrics to zero for historical spacing. Native implementation classes and QMarkdown.Private are private. No C++ headers are installed and no public C++ ABI compatibility is promised. Build consumers against a compatible Qt/toolchain; see [source-build and Arch installation](docs/release-install.md). Existing Ubuntu releases retain their [historical instructions](docs/ubuntu-install-historical.md).
 
-Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: The 1.14.0 package accepts compatible 1.0–1.14 requests and exact 1.14.0, and rejects exact earlier releases, 0.7, 1.15 and 2.0. See [CHANGELOG](CHANGELOG.md). See [1.14.0 release notes](docs/release-notes-1.14.0.md) for these changes. [1.6.0 release notes](docs/release-notes-1.6.0.md) retain the historical release. [1.5.0 release notes](docs/release-notes-1.5.0.md) describe the published Ubuntu and Arch packages; [1.2.0 release notes](docs/release-notes-1.2.0.md) describe historical downloads. Historical [1.1.0 release notes](docs/release-notes-1.1.0.md) remain available.
+Migrate `import QMarkdown 0.7` to `import QMarkdown 1.0` (unversioned imports also work), and `find_package(QMarkdown 0.7 CONFIG REQUIRED)` to `find_package(QMarkdown 1.0 CONFIG REQUIRED)`. There are no legacy 0.x aliases. CMake SameMajorVersion accepts same-major requests no newer than the installed package: The 1.17.0 package accepts compatible 1.0–1.17 requests and exact 1.17.0, and rejects exact earlier releases, 0.7, 1.18 and 2.0. See [CHANGELOG](CHANGELOG.md). See [1.17.0 release notes](docs/release-notes-1.17.0.md) for these changes. [1.6.0 release notes](docs/release-notes-1.6.0.md) retain the historical release. [1.5.0 release notes](docs/release-notes-1.5.0.md) describe the published Ubuntu and Arch packages; [1.2.0 release notes](docs/release-notes-1.2.0.md) describe historical downloads. Historical [1.1.0 release notes](docs/release-notes-1.1.0.md) remain available.
 
 Accepted limits include separate image rows, PNG/JPEG-only resource decoding, literal HTML, full document replacement, narrow-glyph overhang and uninterruptible codecs. Two occupied decoder workers can delay fresh work; application shutdown can wait for codecs. Streaming, bundled Mermaid, further performance optimization and broader platform support remain deferred. Document-wide desktop selection and host-controlled plain-text copy requests are available in 1.7; see the [selection guide](docs/selection.md).
 
@@ -21,7 +23,7 @@ Reading tools include literal Find with independent highlights, a recursive head
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](docs/reading-navigation.md).
 
-QML 1.14 retains opt-in keyboard link traversal, visible focus and one accessible
+QML 1.17 retains opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
@@ -43,7 +45,7 @@ own header composition, clipboard and scrollbar styling. See the
 
 ## Playground and table presentation (1.14)
 
-The package is 1.14.0 / QML 1.14. Tables support host-controlled Grid, Rows, HeaderOnly and None borders plus alternating body backgrounds. Style controls demonstrate these options; table decorations remain off at startup. See the [table style API](docs/styling.md#table-presentation-qml-114). Interior Grid lines now match outer line thickness.
+The package is 1.17.0 / QML 1.17. Tables support host-controlled Grid, Rows, HeaderOnly and None borders plus alternating body backgrounds. Style controls demonstrate these options; table decorations remain off at startup. See the [table style API](docs/styling.md#table-presentation-qml-114). Interior Grid lines now match outer line thickness.
 
 The playground demonstrates nested scrolling fixes and task indicator presentation. Select **Nested code scrolling** for boundary, reversal, horizontal and Shift-wheel instructions. For **GFM task lists**, open Style controls and enable task lists to compare normal or 2× host artwork, replacement markers and the fallback (disable Host-styled task indicators). Sample selection preserves settings.
 
@@ -112,7 +114,7 @@ Fonts support logical pixels (`pixelSize`) and points (`pointSize` in QML, `setP
 
 Qt's QML font getters synthesize the other unit. Its subproperty setters also prefer an already explicit pixel size when both units are set, and may warn when changing a point font to pixels. Use whole-font assignments to select a different unit, or C++ `QFont::setPointSizeF`/`setPixelSize` on a copy to preserve all fields. For fractional QML edits, set `pointSize` on a point-based role (for example `style.bodyFont.pointSize = 12.5`). The playground handles both transitions through a local native helper without changing the library API.
 
-Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Package/import versions are 1.14.0/1.14; existing 1.0 imports retain Legacy defaults. See [Feature 008](specs/008-font-units/requirements.md).
+Application-based defaults can change wrapping and content heights compared with earlier releases. To reproduce the previous typography, explicitly assign body/code-block fonts at 16 px and bold H1–H6 at 32/28/24/20/18/16 px; leave inline code family-only to inherit the block size. Package/import versions are 1.17.0/1.17; existing 1.0 imports retain Legacy defaults. See [Feature 008](specs/008-font-units/requirements.md).
 
 Links display formatted labels; images retain formatted descriptions until an authorized PNG/JPEG is ready; autolinks display text. Links activate only by reporting destinations to the host; image resources are denied by default. Reference definitions disappear; unresolved references remain ordinary inline text. Inline HTML remains literal; HTML blocks use multiline plain body text. Soft breaks become spaces and hard breaks become newlines. LF/CRLF/CR are equivalent; NUL becomes U+FFFD. cmark owns container indentation, lazy continuation, interruption, tightness and precedence. Ordered lists count from the parsed start and retain `.` or `)`; bullets use `•`. Tight lists have zero interior/item gaps; loose lists and quote children use `blockSpacing`. Empty items/quotes reserve a body line. Gutters measure the widest marker plus 8 pixels, at least `listIndent`; quotes inset at least rule thickness plus 8 pixels. Indentation clamps to leave one content pixel at positive widths. Numeric style values render as nonnegative finite values or their defaults. The bundled parser retains complete opening fence lengths; shorter matching fences remain code content, including openers longer than 255 characters. Code whitespace remains literal and info strings stay private. Replacing Markdown disposes the complete child-model tree. Layout settles through Qt Quick polish; hosts own scrolling.
 
@@ -292,26 +294,26 @@ Native math is bundled by default and enabled per view with `mathEnabled: true`.
 See the [math guide](docs/math.md) for the supported dialect, source fallback,
 styling and horizontal scrolling.
 
-## Development inline math
+## Inline math
 
-The 1.15 development API adds `inlineMathEnabled` (default false), independently
+The 1.15 API adds `inlineMathEnabled` (default false), independently
 of block `mathEnabled`. Inline `$…$` and `\(…\)` formulas use native baseline
 rendering and the existing restricted engine, with literal body source for Find,
 copy and rendering fallback. See the [math guide](docs/math.md) and
 [Feature 061](specs/061-inline-math/requirements.md).
 
-## Development footnotes
+## Footnotes
 
-The 1.16 development API adds independent `footnotesEnabled` (default false),
+The 1.16 API adds independent `footnotesEnabled` (default false),
 superscript references, rich native numbered endnotes and host-owned occurrence
 backlinks. Copy and Find use numbered text while preserving existing resource and
 scrolling policies. See the [footnote guide](docs/footnotes.md) and
 [Feature 062](specs/062-footnotes/requirements.md).
 
-## Development — highlighting providers
+## Highlighting providers
 
-The 1.17 development API adds host-owned `SyntaxHighlightingProvider` objects and
+The 1.17 API adds host-owned `SyntaxHighlightingProvider` objects and
 `MarkdownView.syntaxHighlightingProvider`. Providers supply asynchronous UTF-16
 token-role spans, with cancellation, invalidation and built-in/plain fallback.
 They work independently of compiled backend availability. See the
-[syntax guide](docs/syntax-highlighting.md#development--host-providers-qml-117).
+[syntax guide](docs/syntax-highlighting.md#host-providers-qml-117).
