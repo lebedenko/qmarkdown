@@ -63,7 +63,7 @@ Use `&` for columns and `\\` for rows. Common arithmetic/relation/arrow commands
 standard named functions, math font commands and accents are permitted. Literal
 input is ASCII; use named Greek commands. Unknown commands reject the whole
 formula. Custom command definitions, dynamic evaluation, external fonts/resources,
-colors, dimensions and document commands are excluded. Mermaid and public highlighting providers remain deferred. Development footnotes
+colors, dimensions and document commands are excluded. Mermaid and public highlighting providers remain deferred. Footnotes
 are described in the [footnote guide](footnotes.md).
 
 ## Work and resource policy
@@ -92,7 +92,7 @@ See [MicroTeX provenance](../third_party/microtex/PROVENANCE.md) and
 [TinyXML-2 provenance](../third_party/tinyxml2/PROVENANCE.md) for pinned revisions,
 private changes and licenses. The installed license payload accompanies the engine.
 
-## Inline math (development QML 1.15)
+## Inline math (QML 1.15)
 
 `MarkdownView.inlineMathEnabled` defaults to false, independently of
 `mathEnabled`. With it enabled, single-line `$x^2$` and `\(x^2\)` use the same

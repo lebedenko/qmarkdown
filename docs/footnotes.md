@@ -1,4 +1,4 @@
-# Markdown footnotes (development QML 1.16)
+# Markdown footnotes (QML 1.16)
 
 `MarkdownView.footnotesEnabled` defaults to false, independently of aggregate GFM.
 Qt >=6.8 and C++17 remain sufficient. Footnotes use native Qt Quick blocks and

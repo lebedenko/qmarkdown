@@ -61,3 +61,23 @@ The unchanged local Docker/buildx preparation barrier recorded in Feature 061
 prevents local exact-container gates; hosted Qt 6.8.0/6.12.0 gates remain required.
 Native desktop input acceptance is unavailable in this session. Merge, tagging
 and publication remain excluded.
+
+## 1.17.0 release delivery
+
+On 2026-10-20 the user requested “release the latest version”, authorizing the
+release PR, squash merge, tagging and publication of the existing 1.17.0 package,
+including approved features 061–063. This extends the earlier delivery exclusion;
+no runtime scope changes are included. Delivery follows docs/development-workflow.md:
+finalize current documentation and changelog, require final-head full Qt CI,
+squash merge, dispatch release.yml, and require downloaded-asset hash verification.
+
+Release preparation checks on 2026-10-20:
+- Host Qt synchronization resolves to unchanged Qt 6.12.0.
+- `python3 scripts/check-docs.py --release` passes for 1.17.0.
+- `git diff --check` passes.
+- `python3 -m unittest discover -s tests -p 'test_release_*.py'` passes 53 tests.
+  Publication messages in this test output use fixtures; they are not evidence of
+  an actual 1.17.0 publication.
+
+Final full Qt matrix and distribution/publication results belong to the release
+PR and linked Actions runs. These local results do not claim those gates passed.
