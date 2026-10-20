@@ -6,7 +6,7 @@
 
 namespace QMarkdownPrivate {
 // Preserve semantic fixture identifiers; 8/9 were former presentation-only kinds.
-enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Table = 10, TableRow, TableCell, MathBlock };
+enum class BlockKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Table = 10, TableRow, TableCell, MathBlock, FootnoteDefinition, Endnote, Backlinks };
 enum class TaskState { Ordinary, Unchecked, Checked };
 struct Block {
     BlockKind kind;
@@ -28,6 +28,10 @@ struct Block {
     QString filteredHtml;
     QVector<CodeSpan> codes;
     QVector<FormulaSpan> formulas;
+    QVector<ReferenceSpan> references;
+    QString noteLabel;
+    int noteNumber = 0, noteOccurrences = 0;
+    int sourceLine = 0, sourceColumn = 0, sourceEndLine = 0, sourceEndColumn = 0;
 };
 struct ParseOptions {
     bool taskLists = false;
@@ -37,6 +41,7 @@ struct ParseOptions {
     bool tagFilter = false;
     bool math = false;
     bool inlineMath = false;
+    bool footnotes = false;
 };
 QVector<Block> parse(QString source, ParseOptions options = {});
 // Compatibility helper for existing private fixtures; production uses ParseOptions.

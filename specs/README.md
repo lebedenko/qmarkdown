@@ -291,3 +291,13 @@ targeting QML 1.15. The supplied plan then calls
 for separate footnotes (062 / QML 1.16) and host highlighting providers
 (063 / QML 1.17) specifications and approvals, with one PR per feature.
 Merge and publication are excluded from implementation approvals.
+
+## Approved next feature: footnotes
+
+[062 requirements](062-footnotes/requirements.md),
+[design](062-footnotes/design.md), [mapped tasks](062-footnotes/tasks.md) and
+[verification](062-footnotes/verification.md) were explicitly approved on 2026-10-19 for implementation and verification
+after Feature 061 passes its required CI checks. Target QML 1.16; merge, tagging and publication are excluded.
+These specifications and implementation are separate from Feature 061. Its
+[implementation PR #41](https://github.com/lebedenko/qmarkdown/pull/41) passed both
+required Qt packaging gates and remains unmerged.

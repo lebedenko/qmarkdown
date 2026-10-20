@@ -240,3 +240,12 @@ and backslash-parenthesis formulas. `mathEnabled` continues controlling block ma
 size, baseline atoms and wrappable body fallback; Find shows body source and copy
 omits delimiters. See [inline math](math.md#inline-math-development-qml-115).
 Package 1.15.0 accepts compatible 1.0–1.15 imports; published 1.14 remains unchanged.
+
+## Development footnotes (1.16)
+
+`MarkdownView.footnotesEnabled: false` independently enables Markdown footnote
+references and definitions. Forward/repeated references share native numbered
+endnotes; superscript references and decorative backlinks use existing host link
+activation, fragment navigation, keyboard traversal and accessibility. Copy/Find
+use `[n]` and numbered bodies. See the [footnote guide](footnotes.md).
+Package 1.16.0 accepts compatible 1.0–1.16 imports; published 1.14 remains unchanged.

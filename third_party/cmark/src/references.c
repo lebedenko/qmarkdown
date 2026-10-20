@@ -19,7 +19,7 @@ static void reference_free(cmark_reference_map *map, cmark_reference *ref) {
 // remove leading/trailing whitespace, case fold
 // Return NULL if the reference name is actually empty (i.e. composed
 // solely from whitespace)
-static unsigned char *normalize_reference(cmark_mem *mem, cmark_chunk *ref) {
+unsigned char *cmark_normalize_reference(cmark_mem *mem, cmark_chunk *ref) {
   cmark_strbuf normalized = CMARK_BUF_INIT(mem);
   unsigned char *result;
 
@@ -47,7 +47,7 @@ static unsigned char *normalize_reference(cmark_mem *mem, cmark_chunk *ref) {
 void cmark_reference_create(cmark_reference_map *map, cmark_chunk *label,
                             cmark_chunk *url, cmark_chunk *title) {
   cmark_reference *ref;
-  unsigned char *reflabel = normalize_reference(map->mem, label);
+  unsigned char *reflabel = cmark_normalize_reference(map->mem, label);
 
   /* empty reference name, or composed from only whitespace */
   if (reflabel == NULL)
@@ -124,7 +124,7 @@ cmark_reference *cmark_reference_lookup(cmark_reference_map *map,
   if (map == NULL || !map->size)
     return NULL;
 
-  norm = normalize_reference(map->mem, label);
+  norm = cmark_normalize_reference(map->mem, label);
   if (norm == NULL)
     return NULL;
 

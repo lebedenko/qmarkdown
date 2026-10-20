@@ -26,7 +26,7 @@ public:
     }
     void sequence(QVector<PresentationBlock> &blocks, int depth) {
         for (int i = 0; i < blocks.size(); ++i) {
-            if (i) boundary(2);
+            if (i && blocks[i].kind != PresentationKind::Backlinks) boundary(2);
             block(blocks[i], depth);
         }
     }
@@ -43,7 +43,7 @@ public:
                 if (item.taskState != TaskState::Ordinary)
                     text += item.taskState == TaskState::Checked ? "[x] " : "[ ] ";
                 for (int j = 0; j < item.children.size(); ++j) {
-                    if (j) boundary(item.children[j].kind == PresentationKind::List ? 1 : 2);
+                    if (j && item.children[j].kind != PresentationKind::Backlinks) boundary(item.children[j].kind == PresentationKind::List ? 1 : 2);
                     block(item.children[j], depth + 1);
                 }
                 item.selectionLength = int(text.size()) - item.selectionOffset;
@@ -59,6 +59,8 @@ public:
                 }
                 r.selectionLength = int(text.size()) - r.selectionOffset;
             }
+        } else if (value.kind == PresentationKind::Backlinks) {
+            // Decorative navigation controls have no copy/search text.
         } else if (!value.children.isEmpty()) {
             sequence(value.children, depth);
         } else {
@@ -76,6 +78,9 @@ QVector<PresentationBlock> present(const QVector<Block> &blocks)
     for (const auto &source : blocks) {
         PresentationBlock block{};
         switch (source.kind) {
+        case BlockKind::FootnoteDefinition: continue; // resolved before presentation
+        case BlockKind::Endnote: block.kind = PresentationKind::List; break;
+        case BlockKind::Backlinks: block.kind = PresentationKind::Backlinks; break;
         case BlockKind::Paragraph: block.kind = PresentationKind::Paragraph; break;
         case BlockKind::Heading: block.kind = PresentationKind::Heading; break;
         case BlockKind::MathBlock: block.kind = PresentationKind::CodeBlock; block.displayMath = true; break;
@@ -105,7 +110,19 @@ QVector<PresentationBlock> present(const QVector<Block> &blocks)
         block.tableAlignment = source.tableAlignment;
         block.codes = source.codes;
         block.formulas = source.formulas;
+        block.references = source.references;
         block.children = present(source.children);
+        if (source.kind == BlockKind::Endnote) {
+            PresentationBlock item{PresentationKind::ListItem};
+            item.children = std::move(block.children);
+            block.children = {item}; block.ordered = true; block.start = source.noteNumber;
+            block.tight = false; block.noteNumber = source.noteNumber;
+        } else if (source.kind == BlockKind::Backlinks) {
+            for (int occurrence = 1; occurrence <= source.noteOccurrences; ++occurrence)
+                block.logicalLinks.append({0, 0, {}, occurrence - 1,
+                    QStringLiteral("Back to reference %1, occurrence %2").arg(source.noteNumber).arg(occurrence),
+                    source.noteNumber, occurrence, true});
+        }
         result.append(std::move(block));
     }
     return result;
@@ -119,6 +136,8 @@ Presentation projectDocument(const QVector<Block> &blocks)
     auto identify = [&](auto &&self, auto &values) -> void {
         for (auto &value : values) {
             QMap<int, LinkSpan> catalog;
+            for (const auto &link : value.logicalLinks) catalog.insert(link.logicalId, link);
+            value.logicalLinks.clear();
             for (const auto &link : value.links) catalog.insert(link.logicalId, link);
             // Empty image descriptions deliberately have no formatting span.
             // Keep their enclosing identity in the separate logical catalog.
@@ -130,7 +149,7 @@ Presentation projectDocument(const QVector<Block> &blocks)
                 const int id = nextId++;
                 identities.insert(link.logicalId, id);
                 link.logicalId = id;
-                link.label = value.text.mid(link.start, link.length);
+                if (link.label.isEmpty()) link.label = value.text.mid(link.start, link.length);
                 value.logicalLinks.append(link);
             }
             for (auto &link : value.links) link.logicalId = identities.value(link.logicalId, -1);
@@ -156,6 +175,11 @@ PresentationBlock textSlice(const PresentationBlock &block, int start, int end) 
         const int a = qMax(start, range.start), b = qMin(end, range.start + range.length);
         if (a < b) result.ranges.append({a - start, b - a, range.flags});
     }
+    for (auto reference : block.references) {
+        if (reference.start >= start && reference.start + reference.length <= end) {
+            reference.start -= start; result.references.append(reference);
+        }
+    }
     for (auto formula : block.formulas) {
         if (formula.start >= start && formula.start + formula.length <= end) {
             formula.start -= start; result.formulas.append(formula);
@@ -167,7 +191,7 @@ PresentationBlock textSlice(const PresentationBlock &block, int start, int end) 
     }
     for (const auto &link : block.links) {
         const int a = qMax(start, link.start), b = qMin(end, link.start + link.length);
-        if (a < b) result.links.append({a - start, b - a, link.destination, link.logicalId, link.label});
+        if (a < b) { auto part = link; part.start = a - start; part.length = b - a; result.links.append(part); }
     }
     return result;
 }
@@ -198,7 +222,7 @@ QVector<PresentationBlock> projectImages(const QVector<PresentationBlock> &block
                 if (segment.kind == PresentationKind::TableCell) segment.kind = PresentationKind::Paragraph;
             block.children = std::move(segments);
             block.images.clear(); block.text.clear(); block.ranges.clear(); block.links.clear();
-            block.codes.clear(); block.formulas.clear();
+            block.codes.clear(); block.formulas.clear(); block.references.clear();
         }
         result.append(std::move(block));
     }
