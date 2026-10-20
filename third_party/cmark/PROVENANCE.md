@@ -57,3 +57,15 @@ The adapter retains literal bodies and parser source coordinates. No new exporte
 symbols, installed parser API or dependency are introduced. Upstream version,
 checksum and notices remain unchanged. Disabled baseline and opt-in fixtures are
 verified separately.
+
+## Local opt-in footnotes (feature 062)
+
+Private definition containers and reference leaves reuse reference-label
+normalization. Definitions consume container-relative four-space continuations
+without lazy continuation; code/HTML and nested notes remain protected. Resolved
+link/image labels reparse with footnotes disabled. Owned adapters resolve and
+number notes document-wide. One label getter and the shared normalizer are added
+to private prefixed symbols. All private math/note leaf payloads are freed during
+tree teardown. No installed parser API or dependency is added; upstream version,
+checksum and notices remain unchanged. Disabled CommonMark and opt-in note checks
+remain separate.

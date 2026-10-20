@@ -68,6 +68,7 @@ static bool S_can_contain(cmark_node *node, cmark_node *child) {
   }
 
   switch (node->type) {
+  case CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION:
   case CMARK_NODE_DOCUMENT:
   case CMARK_NODE_BLOCK_QUOTE:
   case CMARK_NODE_ITEM:
@@ -136,11 +137,16 @@ static void S_free_nodes(cmark_node *e) {
   cmark_mem *mem = e->mem;
   cmark_node *next;
   while (e != NULL) {
+    mem->free(e->qmarkdown_footnote_label);
     switch (e->type) {
     case CMARK_NODE_CODE_BLOCK:
       mem->free(e->data);
       mem->free(e->as.code.info);
       break;
+    case CMARK_NODE_QMARKDOWN_MATH:
+    case CMARK_NODE_QMARKDOWN_INLINE_MATH:
+    case CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION:
+    case CMARK_NODE_QMARKDOWN_FOOTNOTE_REFERENCE:
     case CMARK_NODE_TEXT:
     case CMARK_NODE_HTML_INLINE:
     case CMARK_NODE_CODE:
@@ -231,6 +237,8 @@ const char *cmark_node_get_type_string(cmark_node *node) {
     return "strong";
   case CMARK_NODE_QMARKDOWN_MATH: return "math";
   case CMARK_NODE_QMARKDOWN_INLINE_MATH: return "inline_math";
+  case CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION: return "footnote_definition";
+  case CMARK_NODE_QMARKDOWN_FOOTNOTE_REFERENCE: return "footnote_reference";
   case CMARK_NODE_QMARKDOWN_TABLE: return "table";
   case CMARK_NODE_QMARKDOWN_TABLE_ROW: return "table_row";
   case CMARK_NODE_QMARKDOWN_TABLE_CELL: return "table_cell";
@@ -333,6 +341,8 @@ const char *cmark_node_get_literal(cmark_node *node) {
   case CMARK_NODE_CODE:
   case CMARK_NODE_QMARKDOWN_MATH:
   case CMARK_NODE_QMARKDOWN_INLINE_MATH:
+  case CMARK_NODE_QMARKDOWN_FOOTNOTE_DEFINITION:
+  case CMARK_NODE_QMARKDOWN_FOOTNOTE_REFERENCE:
   case CMARK_NODE_CODE_BLOCK:
     return node->data ? (char *)node->data : "";
 
@@ -912,4 +922,8 @@ int cmark_node_check(cmark_node *node, FILE *out) {
   }
 
   return errors;
+}
+
+const char *cmark_node_get_footnote_label(cmark_node *node) {
+  return node && node->qmarkdown_footnote_label ? (const char *)node->qmarkdown_footnote_label : "";
 }

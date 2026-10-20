@@ -45,6 +45,8 @@ public:
         ImageLinkIdRole = Qt::UserRole + 21,
         DisplayMathRole = Qt::UserRole + 22,
         FormulaSpansRole = Qt::UserRole + 24,
+        ReferenceSpansRole = Qt::UserRole + 25,
+        BacklinksRole = Qt::UserRole + 26,
         OrderedListRole = Qt::UserRole + 23
     };
     using QAbstractListModel::QAbstractListModel;
@@ -69,6 +71,7 @@ class ViewState : public QObject
     Q_PROPERTY(int codeBlockMinimumLines READ codeBlockMinimumLines WRITE setCodeBlockMinimumLines NOTIFY codeBlockSettingsChanged FINAL)
     Q_PROPERTY(int codeBlockMaximumLines READ codeBlockMaximumLines WRITE setCodeBlockMaximumLines NOTIFY codeBlockSettingsChanged FINAL)
     Q_PROPERTY(QQmlComponent * codeBlockScrollBar READ codeBlockScrollBar WRITE setCodeBlockScrollBar NOTIFY codeBlockSettingsChanged FINAL)
+    Q_PROPERTY(bool footnotesEnabled READ footnotesEnabled WRITE setFootnotesEnabled NOTIFY footnotesEnabledChanged FINAL)
     Q_PROPERTY(bool inlineMathEnabled READ inlineMathEnabled WRITE setInlineMathEnabled NOTIFY inlineMathEnabledChanged FINAL)
     Q_PROPERTY(bool mathEnabled READ mathEnabled WRITE setMathEnabled NOTIFY mathEnabledChanged FINAL)
     Q_PROPERTY(bool mathAvailable READ mathAvailable CONSTANT FINAL)
@@ -123,6 +126,8 @@ public:
         if (value) m_codeScrollBarDestroyed = connect(value, &QObject::destroyed, this, [this] { m_codeBlockScrollBar = nullptr; emit codeBlockSettingsChanged(); });
         emit codeBlockSettingsChanged();
     }
+    bool footnotesEnabled() const { return m_footnotesEnabled; }
+    void setFootnotesEnabled(bool value) { if (m_footnotesEnabled == value) return; m_footnotesEnabled = value; reparse(); emit footnotesEnabledChanged(); }
     bool inlineMathEnabled() const { return m_inlineMathEnabled; }
     void setInlineMathEnabled(bool value) { if (m_inlineMathEnabled == value) return; m_inlineMathEnabled = value; reparse(); emit inlineMathEnabledChanged(); }
     bool mathEnabled() const { return m_mathEnabled; }
@@ -161,9 +166,9 @@ public:
     Q_INVOKABLE bool navigateToHeading(int index);
     Q_INVOKABLE bool navigateToFragment(const QString &fragment);
     Q_INVOKABLE void refreshNavigation();
-    enum RenderKind { PlainText = 0, FormattedText = 1, CodeBlock = 2, ThematicBreak = 3, List = 4, Quote = 5, ListItem = 6, HtmlBlock = 7, Image = 8, Segments = 9, Table = 10, SelectedText = 11, SelectedCode = 12, SelectedHtml = 13 };
+    enum RenderKind { PlainText = 0, FormattedText = 1, CodeBlock = 2, ThematicBreak = 3, List = 4, Quote = 5, ListItem = 6, HtmlBlock = 7, Image = 8, Segments = 9, Table = 10, SelectedText = 11, SelectedCode = 12, SelectedHtml = 13, Backlinks = 14 };
     Q_ENUM(RenderKind)
-    enum SelectionItemKind { TextSelection = 0, ImageSelection = 1, TableCellSelection = 2, ActionSelection = 3, MathSelection = 4 };
+    enum SelectionItemKind { TextSelection = 0, ImageSelection = 1, TableCellSelection = 2, ActionSelection = 3, MathSelection = 4, DecorativeLinkSelection = 5 };
     Q_ENUM(SelectionItemKind)
     explicit ViewState(QObject *parent = nullptr);
     QQuickItem *selectionViewport() const { return m_selectionViewport; }
@@ -220,6 +225,7 @@ signals:
     void codeBlockSettingsChanged();
     void mathEnabledChanged();
     void inlineMathEnabledChanged();
+    void footnotesEnabledChanged();
     void syntaxHighlightingEnabledChanged();
     void syntaxThemeChanged();
     void searchActiveChanged();
@@ -263,6 +269,7 @@ private:
     bool m_revealSource = false;
     bool m_mathEnabled = false;
     bool m_inlineMathEnabled = false;
+    bool m_footnotesEnabled = false;
     bool m_syntaxEnabled = false;
     SyntaxTheme *m_defaultSyntaxTheme = nullptr;
     QPointer<SyntaxTheme> m_syntaxTheme;
@@ -271,6 +278,8 @@ private:
     LinkController *m_linkController;
     void rebuildSearch();
     void rebuildHeadings();
+    void rebuildFootnoteFragments();
+    QHash<QString, QPair<int, int>> m_footnoteFragments;
     bool advanceSearch(int direction);
     void emitNavigation();
     struct ReaderRange { int start, length; };

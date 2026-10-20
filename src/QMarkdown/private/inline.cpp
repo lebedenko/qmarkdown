@@ -28,6 +28,7 @@ QVector<InlineNode> retain(cmark_node *node, bool tagFilter)
         switch (cmark_node_get_type(node)) {
         case CMARK_NODE_TEXT: value.kind = InlineKind::Text; break;
         case CMARK_NODE_CODE: value.kind = InlineKind::Code; break;
+        case CMARK_NODE_QMARKDOWN_FOOTNOTE_REFERENCE: value.kind = InlineKind::FootnoteReference; break;
         case CMARK_NODE_QMARKDOWN_INLINE_MATH: value.kind = InlineKind::Formula; break;
         case CMARK_NODE_HTML_INLINE: value.kind = InlineKind::Html; break;
         case CMARK_NODE_SOFTBREAK: value.kind = InlineKind::SoftBreak; break;
@@ -39,18 +40,20 @@ QVector<InlineNode> retain(cmark_node *node, bool tagFilter)
         case CMARK_NODE_IMAGE: value.kind = InlineKind::Image; break;
         default: continue;
         }
-        if (value.kind == InlineKind::Text || value.kind == InlineKind::Code || value.kind == InlineKind::Html || value.kind == InlineKind::Formula)
+        if (value.kind == InlineKind::Text || value.kind == InlineKind::Code || value.kind == InlineKind::Html || value.kind == InlineKind::Formula || value.kind == InlineKind::FootnoteReference)
             value.literal = QString::fromUtf8(cmark_node_get_literal(node));
         if (value.kind == InlineKind::Link || value.kind == InlineKind::Image) {
             value.destination = QString::fromUtf8(cmark_node_get_url(node));
             value.title = QString::fromUtf8(cmark_node_get_title(node));
         }
+        if (value.kind == InlineKind::FootnoteReference)
+            value.destination = QString::fromUtf8(cmark_node_get_footnote_label(node));
         // cmark can leave an empty Text leaf after trimming line-end spaces.
         // It carries no source semantics; empty link/image containers still survive.
         if (value.kind == InlineKind::Text && value.literal.isEmpty()) continue;
         if (value.kind == InlineKind::Html)
             value.filteredHtml = tagFilter ? filterRawHtml(value.literal) : value.literal;
-        if (value.kind == InlineKind::Formula) {
+        if (value.kind == InlineKind::Formula || value.kind == InlineKind::FootnoteReference) {
             value.sourceLine = cmark_node_get_start_line(node);
             value.sourceColumn = cmark_node_get_start_column(node);
             value.sourceEndColumn = cmark_node_get_end_column(node);
@@ -67,6 +70,16 @@ void project(const QVector<InlineNode> &nodes, InlineContent &output, int flags 
         switch (node.kind) {
         case InlineKind::Text:
         case InlineKind::Html: append(output, node.literal, flags); break;
+        case InlineKind::FootnoteReference: {
+            const int start = output.text.size();
+            append(output, node.literal, flags);
+            if (node.noteNumber) {
+                output.references.append({start, int(node.literal.size()), node.noteNumber, node.noteOccurrence});
+                output.links.append({start, int(node.literal.size()), {}, output.nextLinkIdentity++,
+                    QStringLiteral("Footnote %1").arg(node.noteNumber), node.noteNumber, node.noteOccurrence});
+            }
+            break;
+        }
         case InlineKind::Formula:
             output.formulas.append({int(output.text.size()), int(node.literal.size()),
                 node.sourceLine, node.sourceColumn, node.sourceEndColumn});
@@ -127,6 +140,9 @@ QString filterRawHtml(const QString &literal)
         else result += literal[i];
     }
     return result;
+}
+InlineContent projectInlineNodes(const QVector<InlineNode> &nodes) {
+    InlineContent output; output.nodes = nodes; project(nodes, output); return output;
 }
 InlineContent adaptInlineNodes(cmark_node *node, bool tagFilter)
 {

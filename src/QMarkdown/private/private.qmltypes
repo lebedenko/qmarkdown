@@ -81,6 +81,7 @@ Module {
         Property { name: "kind"; type: "ViewState::SelectionItemKind"; notify: "metadataChanged" }
         Property { name: "offset"; type: "int"; notify: "metadataChanged" }
         Property { name: "length"; type: "int"; notify: "metadataChanged" }
+        Property { name: "linkIdentity"; type: "int"; notify: "metadataChanged" }
         Property { name: "imageLinkId"; type: "int"; notify: "metadataChanged" }
         Property { name: "imageLink"; type: "QString"; notify: "metadataChanged" }
         Property { name: "imageLinked"; type: "bool"; notify: "metadataChanged" }
@@ -99,6 +100,8 @@ Module {
     }
     Component {
         name: "ViewState"
+        Property { name: "footnotesEnabled"; type: "bool"; notify: "footnotesEnabledChanged" }
+        Signal { name: "footnotesEnabledChanged" }
         Property { name: "inlineMathEnabled"; type: "bool"; notify: "inlineMathEnabledChanged" }
         Signal { name: "inlineMathEnabledChanged" }
         Property { name: "mathEnabled"; type: "bool"; notify: "mathEnabledChanged" }
@@ -126,8 +129,8 @@ Module {
         prototype: "QObject"
         exports: ["QMarkdown.Private/ViewState 1.0"]
         exportMetaObjectRevisions: [256]
-        Enum { name: "RenderKind"; values: { "PlainText": 0, "FormattedText": 1, "CodeBlock": 2, "ThematicBreak": 3, "List": 4, "Quote": 5, "ListItem": 6, "HtmlBlock": 7, "Image": 8, "Segments": 9, "Table": 10, "SelectedText": 11, "SelectedCode": 12, "SelectedHtml": 13 } }
-        Enum { name: "SelectionItemKind"; values: { "TextSelection": 0, "ImageSelection": 1, "TableCellSelection": 2, "ActionSelection": 3, "MathSelection": 4 } }
+        Enum { name: "RenderKind"; values: { "PlainText": 0, "FormattedText": 1, "CodeBlock": 2, "ThematicBreak": 3, "List": 4, "Quote": 5, "ListItem": 6, "HtmlBlock": 7, "Image": 8, "Segments": 9, "Table": 10, "SelectedText": 11, "SelectedCode": 12, "SelectedHtml": 13, "Backlinks": 14 } }
+        Enum { name: "SelectionItemKind"; values: { "TextSelection": 0, "ImageSelection": 1, "TableCellSelection": 2, "ActionSelection": 3, "MathSelection": 4, "DecorativeLinkSelection": 5 } }
         Property { name: "linkController"; type: "LinkController"; isPointer: true; isReadonly: true }
         Property { name: "searchActive"; type: "bool"; notify: "searchActiveChanged" }
         Property { name: "searchQuery"; type: "QString"; notify: "searchQueryChanged" }
@@ -199,6 +202,8 @@ Module {
     }
     Component {
         name: "FormattedText"
+        Property { name: "referenceSpans"; type: "QVariantList"; notify: "referenceSpansChanged" }
+        Signal { name: "referenceSpansChanged" }
         Property { name: "formulaSpans"; type: "QVariantList"; notify: "mathInputsChanged" }
         Property { name: "mathRenderingEnabled"; type: "bool"; notify: "mathInputsChanged" }
         Property { name: "mathColor"; type: "QColor"; notify: "mathInputsChanged" }

@@ -241,3 +241,13 @@ set_tests_properties(qmarkdown-math PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offs
 if(QMARKDOWN_WITH_MATH)
     target_compile_definitions(qmarkdown-math-test PRIVATE QMARKDOWN_MATH_TEST_BACKEND)
 endif()
+
+qt_add_executable(qmarkdown-footnotes-test tst_footnotes.cpp)
+target_include_directories(qmarkdown-footnotes-test PRIVATE ../src/QMarkdown)
+target_link_libraries(qmarkdown-footnotes-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-footnotes-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-footnotes-test PRIVATE QMARKDOWN_STATIC)
+endif()
+add_test(NAME qmarkdown-footnotes COMMAND qmarkdown-footnotes-test)
+set_tests_properties(qmarkdown-footnotes PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml")

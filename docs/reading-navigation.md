@@ -118,3 +118,12 @@ Flickable {
 
 The playground demonstrates a Find bar, Ctrl+F, Enter/Shift+Enter, Escape, a
 collapsible heading outline and host-clamped scrolling.
+
+## Development footnote targets (1.16)
+
+With `footnotesEnabled`, note references and occurrence backlinks emit local
+fragments through `linkActivated`. Pass them to `navigateToFragment()` and use
+`navigationRequested` with the host's existing scroll controls. IDs are reserved
+after headings to preserve heading destinations; note-body headings join the
+outline. Decorative backlinks remain accessible/keyboard links while contributing
+no copy/Find text. See [footnotes](footnotes.md).

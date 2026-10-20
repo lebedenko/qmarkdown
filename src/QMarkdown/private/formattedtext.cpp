@@ -204,13 +204,37 @@ void FormattedText::updatePolish()
     m_sourceLines.clear();
     m_paintOffset = {};
     if (m_layoutWidth > 0) {
+        QVector<Formula> layoutRequests = m_mathRequests;
+        int referenceEnd = 0;
+        for (const auto &value : m_references) {
+            const auto span = value.toMap();
+            const int start = span.value("start").toInt(), length = span.value("length").toInt();
+            const int number = span.value("number").toInt();
+            if (number <= 0 || start < referenceEnd || length <= 0 || start > m_text.size() || length > m_text.size() - start) continue;
+            referenceEnd = start + length;
+            QFont labelFont = m_layoutFont;
+            if (labelFont.pixelSize() > 0) labelFont.setPixelSize(qMax(1, qRound(labelFont.pixelSize() * .75)));
+            else labelFont.setPointSizeF(qMax(qreal(.5), labelFont.pointSizeF() * .75));
+            const QString label = QString::number(number);
+            QTextLayout labelLayout(label, labelFont);
+            labelLayout.beginLayout(); auto line = labelLayout.createLine(); line.setLineWidth(100000); labelLayout.endLayout();
+            const qreal rise = QFontMetricsF(m_layoutFont).ascent() * .35;
+            auto recording = std::make_shared<QMarkdownPrivate::MathRecording>();
+            recording->ascent = line.ascent() + rise;
+            recording->descent = qMax(qreal(0), line.descent() - rise);
+            recording->size = {line.naturalTextWidth(), recording->ascent + recording->descent};
+            QPainter painter(&recording->picture);
+            painter.setPen(m_linkColor); labelLayout.draw(&painter, {}); painter.end();
+            layoutRequests.append({start, length, {}, recording, true});
+        }
+        std::sort(layoutRequests.begin(), layoutRequests.end(), [](const Formula &a, const Formula &b) { return a.start < b.start; });
         QString layoutText;
         m_layoutToProjection.clear();
         QVector<int> atoms;
         int source = 0;
-        for (int i = 0; i < m_mathRequests.size(); ++i) {
-            const auto &formula = m_mathRequests[i];
-            if (!formula.recording || formula.recording->size.width() > m_layoutWidth) continue;
+        for (int i = 0; i < layoutRequests.size(); ++i) {
+            const auto &formula = layoutRequests[i];
+            if (!formula.recording || (!formula.reference && formula.recording->size.width() > m_layoutWidth) || formula.start < source) continue;
             while (source < formula.start) {
                 m_layoutToProjection.append(source); atoms.append(-1); layoutText += m_text[source++];
             }
@@ -473,7 +497,7 @@ void FormattedText::updatePolish()
                 for (int i = 0; i < cells.size(); ++i) if (startsFragment(cells, i)) ++count;
                 qreal reservation = 2 * m_codeHorizontalPadding * count;
                 for (const auto &cell : cells) if (atoms[cell.source] >= 0)
-                    reservation += m_mathRequests[atoms[cell.source]].recording->size.width() - cell.rect.width();
+                    reservation += layoutRequests[atoms[cell.source]].recording->size.width() - cell.rect.width();
                 if (reservation <= budget + .01) break;
                 budget = reservation;
                 line.setLineWidth(qMax(qreal(.01), m_layoutWidth - budget));
@@ -484,7 +508,7 @@ void FormattedText::updatePolish()
             while (cells.size() > 1) {
                 qreal measured = line.naturalTextWidth() + 2 * m_codeHorizontalPadding * count;
                 for (const auto &cell : cells) if (atoms[cell.source] >= 0)
-                    measured += m_mathRequests[atoms[cell.source]].recording->size.width() - cell.rect.width();
+                    measured += layoutRequests[atoms[cell.source]].recording->size.width() - cell.rect.width();
                 if (measured <= m_layoutWidth + .01) break;
                 const int previousLength = line.textLength();
                 const int columns = m_layout->previousCursorPosition(line.textStart() + previousLength) - line.textStart();
@@ -496,7 +520,7 @@ void FormattedText::updatePolish()
             const qreal vertical = count ? m_codeVerticalPadding : 0;
             qreal ascent = line.ascent(), descent = line.descent();
             for (const auto &cell : cells) if (atoms[cell.source] >= 0) {
-                const auto &recording = m_mathRequests[atoms[cell.source]].recording;
+                const auto &recording = layoutRequests[atoms[cell.source]].recording;
                 ascent = qMax(ascent, recording->ascent); descent = qMax(descent, recording->descent);
             }
             const qreal extraTop = ascent - line.ascent(), extraBottom = descent - line.descent();
@@ -526,7 +550,7 @@ void FormattedText::updatePolish()
                 } else {
                     auto rect = cell.rect.translated(shift, 0);
                     if (atoms[cell.source] >= 0) {
-                        const auto &recording = m_mathRequests[atoms[cell.source]].recording;
+                        const auto &recording = layoutRequests[atoms[cell.source]].recording;
                         rect.setWidth(recording->size.width());
                         shift += rect.width() - cell.rect.width();
                     }
@@ -545,7 +569,7 @@ void FormattedText::updatePolish()
                 region.rect.translate(align, 0);
                 const int pos = cells[i].source;
                 if (atoms[pos] >= 0) {
-                    const auto &formula = m_mathRequests[atoms[pos]];
+                    const auto &formula = layoutRequests[atoms[pos]];
                     m_paintedAtoms.append({formula.start, formula.start + formula.length, region.rect,
                         QPointF(region.rect.left(), line.y() + line.ascent() - formula.recording->ascent), cells[i].reversed, formula.recording});
                 }

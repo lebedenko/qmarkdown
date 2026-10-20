@@ -13,6 +13,7 @@
 #include "scanners.h"
 #include "inlines.h"
 #include "qmarkdown_inline_math.h"
+#include "qmarkdown_footnotes.h"
 
 static const char *EMDASH = "\xE2\x80\x94";
 static const char *ENDASH = "\xE2\x80\x93";
@@ -1457,14 +1458,15 @@ match:
   cmark_node_free(opener->inl_text);
 
   process_emphasis(subj, opener->position);
-  if ((is_image && (options & CMARK_OPT_QMARKDOWN_INLINE_MATH)) ||
-      (!is_image && (options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) && contains_extended_web(inl))) {
+  if ((is_image && (options & (CMARK_OPT_QMARKDOWN_INLINE_MATH | CMARK_OPT_QMARKDOWN_FOOTNOTES))) ||
+      (!is_image && ((options & CMARK_OPT_QMARKDOWN_FOOTNOTES) ||
+       ((options & CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS) && contains_extended_web(inl))))) {
     while (inl->first_child) cmark_node_free(inl->first_child);
     inl->len = initial_pos - opener->position - 1;
     inl->data = subj->mem->calloc(inl->len + 1, 1);
     memcpy(inl->data, subj->input.data + opener->position, inl->len);
     cmark_parse_inlines(subj->mem, inl, subj->refmap,
-                        options & ~(is_image ? CMARK_OPT_QMARKDOWN_INLINE_MATH : CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS));
+                        options & ~CMARK_OPT_QMARKDOWN_FOOTNOTES & ~(is_image ? CMARK_OPT_QMARKDOWN_INLINE_MATH : CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS));
     subj->mem->free(inl->data);
     inl->data = NULL;
     inl->len = 0;
@@ -1580,6 +1582,21 @@ static int parse_inline(subject *subj, cmark_node *parent, int options) {
       subj->pos = end;
       append_child(parent, new_inl);
       return 1;
+    }
+  }
+  if ((options & CMARK_OPT_QMARKDOWN_FOOTNOTES) && c == '[') {
+    const bufsize_t start = subj->pos;
+    const bufsize_t end = qm_note_label(subj->input.data, subj->input.len, start);
+    if (end) {
+      cmark_chunk label = cmark_chunk_dup(&subj->input, start + 2, end - start - 3);
+      unsigned char *normalized = cmark_normalize_reference(subj->mem, &label);
+      cmark_chunk_free(&label);
+      if (normalized) {
+        new_inl = make_str(subj, start, end - 1, cmark_chunk_dup(&subj->input, start, end - start));
+        new_inl->type = CMARK_NODE_QMARKDOWN_FOOTNOTE_REFERENCE;
+        new_inl->qmarkdown_footnote_label = normalized;
+        subj->pos = end; append_child(parent, new_inl); return 1;
+      }
     }
   }
   switch (c) {

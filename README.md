@@ -299,3 +299,11 @@ of block `mathEnabled`. Inline `$…$` and `\(…\)` formulas use native baselin
 rendering and the existing restricted engine, with literal body source for Find,
 copy and rendering fallback. See the [math guide](docs/math.md) and
 [Feature 061](specs/061-inline-math/requirements.md).
+
+## Development footnotes
+
+The 1.16 development API adds independent `footnotesEnabled` (default false),
+superscript references, rich native numbered endnotes and host-owned occurrence
+backlinks. Copy and Find use numbered text while preserving existing resource and
+scrolling policies. See the [footnote guide](docs/footnotes.md) and
+[Feature 062](specs/062-footnotes/requirements.md).

@@ -14,6 +14,7 @@ class SelectionRegistration : public QObject, public QQmlParserStatus
     Q_PROPERTY(int offset READ offset WRITE setOffset NOTIFY metadataChanged FINAL)
     Q_PROPERTY(int length READ length WRITE setLength NOTIFY metadataChanged FINAL)
     Q_PROPERTY(QString imageLink READ imageLink WRITE setImageLink NOTIFY metadataChanged FINAL)
+    Q_PROPERTY(int linkIdentity READ imageLinkId WRITE setImageLinkId NOTIFY metadataChanged FINAL)
     Q_PROPERTY(int imageLinkId READ imageLinkId WRITE setImageLinkId NOTIFY metadataChanged FINAL)
     Q_PROPERTY(bool imageLinked READ imageLinked WRITE setImageLinked NOTIFY metadataChanged FINAL)
 public:

@@ -170,7 +170,7 @@ LinkTargetItem {
                     add(link.value("logicalId", -1).toInt(), item,
                         item->mapRectToItem(view, rect.translated(text->paintOffset())));
             }
-        } else if (entry.kind == ViewState::ImageSelection && entry.imageLinked) {
+        } else if (entry.kind == ViewState::DecorativeLinkSelection || (entry.kind == ViewState::ImageSelection && entry.imageLinked)) {
             add(entry.registration->imageLinkId(), item, item->mapRectToItem(view, item->boundingRect()));
         }
     }

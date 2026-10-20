@@ -12,6 +12,7 @@ Item {
     required property int selectionLength
     required property var formatRanges
     required property var linkSpans
+    required property var referenceSpans
     required property var formulaSpans
     required property var codeSpans
     required property int presentationKind
@@ -154,6 +155,7 @@ Item {
                 formatRanges: formattedBlock.formatRanges
                 Accessible.role: Accessible.StaticText
                 Accessible.name: text
+                referenceSpans: textBlock.referenceSpans
                 formulaSpans: textBlock.formulaSpans
                 mathRenderingEnabled: textBlock.coordinator.inlineMathEnabled && !textBlock.coordinator.searchActive
                 mathColor: textBlock.style.math.color

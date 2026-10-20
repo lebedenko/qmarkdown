@@ -5,7 +5,7 @@
 #include <QUrl>
 
 namespace QMarkdownPrivate {
-enum class PresentationKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Table, TableRow, TableCell, Image, Segments };
+enum class PresentationKind { Paragraph, Heading, CodeBlock, ThematicBreak, List, ListItem, Quote, HtmlBlock, Table, TableRow, TableCell, Image, Segments, Backlinks };
 struct PresentationBlock {
     PresentationKind kind;
     QString text;
@@ -31,6 +31,8 @@ struct PresentationBlock {
     int tableAlignment = 0;
     QVector<CodeSpan> codes;
     QVector<FormulaSpan> formulas;
+    QVector<ReferenceSpan> references;
+    int noteNumber = 0;
     int selectionOffset = 0;
     int selectionLength = 0;
 };

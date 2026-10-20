@@ -8,6 +8,12 @@
 - Add table Grid, Rows, HeaderOnly and None border modes with uniform grid thickness and alternating body backgrounds.
 - Expand playground samples, style controls and demo defaults, preserving settings between samples.
 
+## Development — 1.16.0 / QML 1.16
+
+- Add independent opt-in Markdown footnotes with forward/repeated references, rich native endnotes, superscript numbers and per-occurrence backlinks.
+- Preserve numbered copy/Find projections and host-owned fragment navigation, keyboard traversal and accessible links.
+- Retain parser source coordinates and release owned private leaf payloads.
+
 ## Development — 1.15.0 / QML 1.15
 
 - Add independent opt-in inline math with literal TeX projection, baseline atoms, complete-formula wrapping and source fallback.

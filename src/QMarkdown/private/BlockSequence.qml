@@ -37,6 +37,60 @@ Column {
         delegate: DelegateChooser {
             role: "renderKind"
             DelegateChoice {
+                roleValue: ViewState.Backlinks
+                delegate: Flow {
+                    id: backlinksRow
+                    required property var backlinks
+                    required property int selectionOffset
+                    width: sequence.width
+                    spacing: 8
+                    Repeater {
+                        model: backlinksRow.backlinks
+                        delegate: Item {
+                            id: backlink
+                            required property var modelData
+                            width: label.implicitWidth
+                            height: label.implicitHeight
+                            Text {
+                                id: label
+                                text: "↩" + backlink.modelData.occurrence
+                                font: sequence.style.bodyFont
+                                color: sequence.style.linkColor
+                                textFormat: Text.PlainText
+                                Accessible.ignored: true
+                                Rectangle {
+                                    anchors.left: parent.left
+                                    anchors.right: parent.right
+                                    anchors.bottom: parent.bottom
+                                    height: 1
+                                    visible: sequence.style.linkUnderline
+                                    color: sequence.style.linkColor
+                                }
+                            }
+                            Rectangle {
+                                anchors.fill: parent
+                                color: "transparent"
+                                border.color: sequence.coordinator.linkController.color
+                                border.width: sequence.coordinator.linkController.focusedId === backlink.modelData.logicalId ? 2 : 0
+                            }
+                            SelectionRegistration {
+                                coordinator: sequence.coordinator
+                                item: backlink
+                                kind: ViewState.DecorativeLinkSelection
+                                offset: backlinksRow.selectionOffset
+                                length: 0
+                                linkIdentity: backlink.modelData.logicalId
+                            }
+                            HoverHandler { cursorShape: Qt.PointingHandCursor }
+                            TapHandler {
+                                acceptedButtons: Qt.LeftButton
+                                onTapped: sequence.linkActivated(backlink.modelData.destination)
+                            }
+                        }
+                    }
+                }
+            }
+            DelegateChoice {
                 roleValue: ViewState.Table
                 delegate: TableBlock {
                     width: sequence.width
