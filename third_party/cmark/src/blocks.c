@@ -1351,15 +1351,42 @@ static void add_text_to_container(cmark_parser *parser, cmark_node *container,
 // QMarkdown: split table rows before ordinary inline parsing. Remove only the
 // backslash escaping a pipe, including inside code spans (GFM table semantics).
 static cmark_node *qmarkdown_table_row(cmark_mem *mem, const unsigned char *data,
-                                      bufsize_t len, bool *has_pipe) {
+                                      bufsize_t len, bool *has_pipe, int options,
+                                      int source_line, int source_column) {
   while (len && (data[len - 1] == '\n' || data[len - 1] == '\r' ||
                  S_is_space_or_tab(data[len - 1]))) --len;
-  while (len && S_is_space_or_tab(*data)) { ++data; --len; }
+  while (len && S_is_space_or_tab(*data)) { ++data; --len; ++source_column; }
   *has_pipe = false;
-  if (len && *data == '|') { *has_pipe = true; ++data; --len; }
+  if (len && *data == '|') { *has_pipe = true; ++data; --len; ++source_column; }
   cmark_node *row = cmark_node_new_with_mem(CMARK_NODE_QMARKDOWN_TABLE_ROW, mem);
   cmark_strbuf cell = CMARK_BUF_INIT(mem);
+  /* Tokenize a temporary paragraph to identify formulas before splitting pipes.
+   * The same inline parser provides code/HTML/image/destination protection. */
+  unsigned char *math_ends = NULL;
+  cmark_node *probe = NULL;
+  if (options & CMARK_OPT_QMARKDOWN_INLINE_MATH) {
+    math_ends = mem->calloc(len + 1, 1);
+    probe = cmark_node_new_with_mem(CMARK_NODE_PARAGRAPH, mem);
+    probe->start_line = 1; probe->start_column = 1;
+    probe->len = len; probe->data = mem->calloc(len + 1, 1);
+    memcpy(probe->data, data, len);
+    cmark_reference_map *refs = cmark_reference_map_new(mem);
+    cmark_parse_inlines(mem, probe, refs, options);
+    cmark_iter *iter = cmark_iter_new(probe);
+    cmark_event_type event;
+    while ((event = cmark_iter_next(iter)) != CMARK_EVENT_DONE) {
+      cmark_node *node = cmark_iter_get_node(iter);
+      if (event == CMARK_EVENT_ENTER && node->type == CMARK_NODE_QMARKDOWN_INLINE_MATH) {
+        bufsize_t start = node->start_column - 1, end = node->end_column;
+        if (start >= 0 && end <= len)
+          for (bufsize_t j = start; j < end; ++j) math_ends[j] = 1;
+      }
+    }
+    cmark_iter_free(iter); cmark_reference_map_free(refs); cmark_node_free(probe);
+  }
+  bufsize_t cell_start = 0;
   for (bufsize_t i = 0; i <= len; ++i) {
+    if (i < len && math_ends && math_ends[i]) { cmark_strbuf_putc(&cell, data[i]); continue; }
     if (i < len && data[i] == '\\' && i + 1 < len) {
       if (data[i + 1] == '|') { cmark_strbuf_putc(&cell, '|'); ++i; continue; }
       // Consume pairs to preserve escape parity at a following pipe.
@@ -1369,16 +1396,22 @@ static cmark_node *qmarkdown_table_row(cmark_mem *mem, const unsigned char *data
     }
     if (i == len || data[i] == '|') {
       if (i < len) *has_pipe = true;
+      bufsize_t leading = 0;
+      while (leading < cell.size && cmark_isspace(cell.ptr[leading])) ++leading;
       cmark_strbuf_trim(&cell);
       cmark_node *node = cmark_node_new_with_mem(CMARK_NODE_QMARKDOWN_TABLE_CELL, mem);
+      node->start_line = node->end_line = source_line;
+      node->start_column = source_column + cell_start + leading;
       node->len = cell.size;
       node->data = cmark_strbuf_detach(&cell);
       cmark_node_append_child(row, node);
+      cell_start = i + 1;
       // A trailing pipe is a border, not another empty cell.
       if (i < len && i + 1 == len) break;
     } else cmark_strbuf_putc(&cell, data[i]);
   }
   cmark_strbuf_free(&cell);
+  if (math_ends) mem->free(math_ends);
   return row;
 }
 
@@ -1402,10 +1435,11 @@ static bool qmarkdown_table_start(cmark_parser *parser, cmark_node *paragraph,
   while (start && !S_is_line_end_char(content->ptr[start - 1])) --start;
   bool header_pipe, delimiter_pipe;
   cmark_node *header = qmarkdown_table_row(parser->mem, content->ptr + start,
-                                           end - start, &header_pipe);
+                                           end - start, &header_pipe, parser->options,
+                                           parser->line_number - 1, paragraph->start_column);
   cmark_node *delimiter = qmarkdown_table_row(parser->mem,
       input->data + parser->first_nonspace, input->len - parser->first_nonspace,
-      &delimiter_pipe);
+      &delimiter_pipe, parser->options, parser->line_number, parser->first_nonspace + 1);
   const int columns = qmarkdown_cell_count(header);
   bool valid = header_pipe && columns == qmarkdown_cell_count(delimiter);
   cmark_node *head = header->first_child;
@@ -1443,7 +1477,8 @@ static void qmarkdown_table_body(cmark_parser *parser, cmark_node *table,
                                  cmark_chunk *input) {
   bool pipe;
   cmark_node *row = qmarkdown_table_row(parser->mem, input->data + parser->first_nonspace,
-                                        input->len - parser->first_nonspace, &pipe);
+                                        input->len - parser->first_nonspace, &pipe, parser->options,
+                                        parser->line_number, parser->first_nonspace + 1);
   int count = qmarkdown_cell_count(row);
   while (count > table->qmarkdown_table_columns) {
     cmark_node_free(row->last_child); --count;

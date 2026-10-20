@@ -28,6 +28,7 @@ QVector<InlineNode> retain(cmark_node *node, bool tagFilter)
         switch (cmark_node_get_type(node)) {
         case CMARK_NODE_TEXT: value.kind = InlineKind::Text; break;
         case CMARK_NODE_CODE: value.kind = InlineKind::Code; break;
+        case CMARK_NODE_QMARKDOWN_INLINE_MATH: value.kind = InlineKind::Formula; break;
         case CMARK_NODE_HTML_INLINE: value.kind = InlineKind::Html; break;
         case CMARK_NODE_SOFTBREAK: value.kind = InlineKind::SoftBreak; break;
         case CMARK_NODE_LINEBREAK: value.kind = InlineKind::HardBreak; break;
@@ -38,7 +39,7 @@ QVector<InlineNode> retain(cmark_node *node, bool tagFilter)
         case CMARK_NODE_IMAGE: value.kind = InlineKind::Image; break;
         default: continue;
         }
-        if (value.kind == InlineKind::Text || value.kind == InlineKind::Code || value.kind == InlineKind::Html)
+        if (value.kind == InlineKind::Text || value.kind == InlineKind::Code || value.kind == InlineKind::Html || value.kind == InlineKind::Formula)
             value.literal = QString::fromUtf8(cmark_node_get_literal(node));
         if (value.kind == InlineKind::Link || value.kind == InlineKind::Image) {
             value.destination = QString::fromUtf8(cmark_node_get_url(node));
@@ -49,6 +50,11 @@ QVector<InlineNode> retain(cmark_node *node, bool tagFilter)
         if (value.kind == InlineKind::Text && value.literal.isEmpty()) continue;
         if (value.kind == InlineKind::Html)
             value.filteredHtml = tagFilter ? filterRawHtml(value.literal) : value.literal;
+        if (value.kind == InlineKind::Formula) {
+            value.sourceLine = cmark_node_get_start_line(node);
+            value.sourceColumn = cmark_node_get_start_column(node);
+            value.sourceEndColumn = cmark_node_get_end_column(node);
+        }
         value.children = retain(cmark_node_first_child(node), tagFilter);
         result.append(std::move(value));
     }
@@ -61,6 +67,10 @@ void project(const QVector<InlineNode> &nodes, InlineContent &output, int flags 
         switch (node.kind) {
         case InlineKind::Text:
         case InlineKind::Html: append(output, node.literal, flags); break;
+        case InlineKind::Formula:
+            output.formulas.append({int(output.text.size()), int(node.literal.size()),
+                node.sourceLine, node.sourceColumn, node.sourceEndColumn});
+            append(output, node.literal, flags); break;
         case InlineKind::Code:
             if (!node.literal.isEmpty()) output.codes.append({int(output.text.size()), int(node.literal.size())});
             append(output, node.literal, flags | Code); break;

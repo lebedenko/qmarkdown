@@ -2,6 +2,8 @@
 #include "inline.h"
 #include "formatintervals.h"
 #include <QFontMetricsF>
+#include <QDataStream>
+#include <QFontInfo>
 #include <QGlyphRun>
 #include <QPainter>
 #include <QGuiApplication>
@@ -36,6 +38,7 @@ FormattedText::~FormattedText()
     disconnect(this, &QQuickItem::windowChanged, this, &FormattedText::observeWindow);
     disconnect(m_windowScreenConnection);
     disconnect(m_screenDpiConnection);
+    for (const auto &request : m_mathRequests) if (request.cancellation) *request.cancellation = true;
 }
 void FormattedText::observeWindow(QQuickWindow *window)
 {
@@ -132,8 +135,63 @@ void FormattedText::setLayoutWidth(qreal value)
     if (m_layoutWidth == value) return;
     m_layoutWidth = value; emit layoutWidthChanged(); polish();
 }
+void FormattedText::setFormulaSpans(const QVariantList &v) {
+    if (m_formulas == v) return;
+    m_formulas = v; emit mathInputsChanged(); polish();
+}
+void FormattedText::setMathRenderingEnabled(bool v) {
+    if (m_mathEnabled == v) return;
+    m_mathEnabled = v; refreshMath(); emit mathInputsChanged(); polish();
+}
+void FormattedText::setMathColor(const QColor &v) {
+    if (m_mathColor == v) return;
+    m_mathColor = v; emit mathInputsChanged(); polish();
+}
+void FormattedText::setMathScale(qreal v) {
+    v = std::isfinite(v) && v > 0 ? v : 1;
+    if (m_mathScale == v) return;
+    m_mathScale = v; emit mathInputsChanged(); polish();
+}
+void FormattedText::refreshMath() {
+    const qreal size = QFontMetricsF(m_layoutFont).height() > 0
+        ? (m_layoutFont.pixelSize() > 0 ? m_layoutFont.pixelSize()
+           : QFontInfo(m_layoutFont).pixelSize()) * m_mathScale : 0;
+    QByteArray key;
+    QDataStream stream(&key, QIODevice::WriteOnly);
+    stream << m_text << m_formulas << size << m_mathColor << m_mathEnabled;
+    if (key == m_mathKey) return;
+    m_mathKey = key;
+    const auto generation = ++m_mathGeneration;
+    for (const auto &request : m_mathRequests) if (request.cancellation) *request.cancellation = true;
+    m_mathRequests.clear();
+    if (!m_mathEnabled) return;
+    int end = 0;
+    for (const auto &v : m_formulas) {
+        const auto span = v.toMap();
+        const int start = span.value("start").toInt(), length = span.value("length").toInt();
+        if (start < end || length <= 0 || start > m_text.size() || length > m_text.size() - start) continue;
+        end = start + length;
+        const int index = m_mathRequests.size();
+        m_mathRequests.append({start, length, {}, {}});
+        m_mathRequests[index].cancellation = QMarkdownPrivate::requestMath(this, m_text.mid(start, length),
+            size, m_mathColor, QMarkdownPrivate::MathMode::Text,
+            [this, generation, index](auto recording) {
+                if (generation != m_mathGeneration) return;
+                m_mathRequests[index].recording = recording;
+                polish();
+            });
+    }
+}
+QPair<int, int> FormattedText::atomAt(qreal x, qreal y) const {
+    const QPointF point = QPointF(x, y) - m_paintOffset;
+    for (const auto &atom : m_paintedAtoms)
+        if (atom.rect.contains(point)) return {atom.start, atom.end};
+    return {-1, -1};
+}
 void FormattedText::updatePolish()
 {
+    refreshMath();
+    m_paintedAtoms.clear();
     m_layout.reset();
     m_codeRects.clear();
     m_cursorCells.clear();
@@ -146,7 +204,40 @@ void FormattedText::updatePolish()
     m_sourceLines.clear();
     m_paintOffset = {};
     if (m_layoutWidth > 0) {
-        QString layoutText = m_text;
+        QString layoutText;
+        m_layoutToProjection.clear();
+        QVector<int> atoms;
+        int source = 0;
+        for (int i = 0; i < m_mathRequests.size(); ++i) {
+            const auto &formula = m_mathRequests[i];
+            if (!formula.recording || formula.recording->size.width() > m_layoutWidth) continue;
+            while (source < formula.start) {
+                m_layoutToProjection.append(source); atoms.append(-1); layoutText += m_text[source++];
+            }
+            m_layoutToProjection.append(source); atoms.append(i); layoutText += QChar::ObjectReplacementCharacter;
+            source += formula.length;
+        }
+        while (source < m_text.size()) {
+            m_layoutToProjection.append(source); atoms.append(-1); layoutText += m_text[source++];
+        }
+        m_layoutToProjection.append(source);
+        const bool hasAtoms = std::any_of(atoms.cbegin(), atoms.cend(), [](int i) { return i >= 0; });
+        auto remap = [&](const QVariantList &spans) {
+            QVariantList result;
+            for (const auto &v : spans) {
+                auto span = v.toMap();
+                const int start = span.value("start").toInt();
+                const int length = span.value("length").toInt();
+                if (start < 0 || length <= 0 || start > m_text.size() || length > m_text.size() - start) continue;
+                const auto begin = std::lower_bound(m_layoutToProjection.cbegin(), m_layoutToProjection.cend(), start);
+                const auto end = std::lower_bound(m_layoutToProjection.cbegin(), m_layoutToProjection.cend(), start + length);
+                span["start"] = int(begin - m_layoutToProjection.cbegin()); span["length"] = int(end - begin);
+                result.append(span);
+            }
+            return result;
+        };
+        const auto ranges = remap(m_ranges), linkSpans = remap(m_links), codeSpans = remap(m_codes);
+
         // QTextLayout is a paragraph layout: use its native line separator for
         // decoded LF characters, keeping every UTF-16 range offset unchanged.
         layoutText.replace(u'\n', QChar::LineSeparator);
@@ -154,14 +245,14 @@ void FormattedText::updatePolish()
         m_layout->setCacheEnabled(true);
         QTextOption option;
         option.setWrapMode(m_wrapEnabled ? QTextOption::WrapAtWordBoundaryOrAnywhere : QTextOption::NoWrap);
-        m_padded = (m_codeHorizontalPadding > 0 || m_codeVerticalPadding > 0)
-            && std::any_of(m_ranges.cbegin(), m_ranges.cend(), [](const QVariant &range) {
+        m_padded = hasAtoms || (m_codeHorizontalPadding > 0 || m_codeVerticalPadding > 0)
+            && std::any_of(ranges.cbegin(), ranges.cend(), [](const QVariant &range) {
                 return range.toMap().value("flags").toInt() & QMarkdownPrivate::Code;
             });
         option.setAlignment(m_padded ? Qt::AlignLeft : Qt::Alignment(m_alignment));
         m_layout->setTextOption(option);
         QList<QTextLayout::FormatRange> formats;
-        const auto intervals = QMarkdownPrivate::prepareFormatIntervals(int(m_text.size()), m_ranges, m_links);
+        const auto intervals = QMarkdownPrivate::prepareFormatIntervals(int(layoutText.size()), ranges, linkSpans);
         for (const auto &interval : intervals) {
             const int start = interval.start, length = interval.length, flags = interval.flags;
             const bool linked = interval.linked;
@@ -181,7 +272,7 @@ void FormattedText::updatePolish()
             }
             formats.append({start, length, format});
         }
-        QVector<int> codes(m_text.size(), -1), links(m_text.size(), -1), formatIdentities(m_text.size(), -1);
+        QVector<int> codes(layoutText.size(), -1), links(layoutText.size(), -1), formatIdentities(layoutText.size(), -1);
         int formatEnd = 0, formatIdentity = 0;
         for (const auto &interval : intervals) {
             for (int pos = formatEnd; pos < interval.start; ++pos)
@@ -192,7 +283,7 @@ void FormattedText::updatePolish()
                 formatIdentities[pos] = formatIdentity;
             ++formatIdentity;
         }
-        for (int pos = formatEnd; pos < m_text.size(); ++pos)
+        for (int pos = formatEnd; pos < layoutText.size(); ++pos)
             formatIdentities[pos] = formatIdentity;
         auto mapSpan = [&](const QVariantMap &span, QVector<int> &map, int identity) {
             const qint64 start = span.value("start").toLongLong();
@@ -202,15 +293,15 @@ void FormattedText::updatePolish()
             for (qint64 pos = qMax(qint64(0), start); pos < qMin(qint64(map.size()), end); ++pos)
                 map[int(pos)] = identity;
         };
-        for (int i = 0; i < m_codes.size(); ++i) mapSpan(m_codes[i].toMap(), codes, i);
+        for (int i = 0; i < codeSpans.size(); ++i) mapSpan(codeSpans[i].toMap(), codes, i);
         // Direct private consumers may provide only effective ranges.
-        if (m_codes.isEmpty()) for (int i = 0; i < m_ranges.size(); ++i)
-            if (m_ranges[i].toMap().value("flags").toInt() & QMarkdownPrivate::Code)
-                mapSpan(m_ranges[i].toMap(), codes, i);
-        for (int i = 0; i < m_links.size(); ++i) mapSpan(m_links[i].toMap(), links, i);
+        if (codeSpans.isEmpty()) for (int i = 0; i < ranges.size(); ++i)
+            if (ranges[i].toMap().value("flags").toInt() & QMarkdownPrivate::Code)
+                mapSpan(ranges[i].toMap(), codes, i);
+        for (int i = 0; i < linkSpans.size(); ++i) mapSpan(linkSpans[i].toMap(), links, i);
         // A custom format property preserves individual code shaping boundaries
         // even when their effective fonts and colors are identical.
-        if (m_padded && !m_codes.isEmpty()) {
+        if (m_padded && !codeSpans.isEmpty()) {
             QList<QTextLayout::FormatRange> split;
             for (const auto &format : formats) {
                 for (int start = format.start; start < format.start + format.length;) {
@@ -224,14 +315,14 @@ void FormattedText::updatePolish()
             }
             formats = split;
         }
-        QVector<QColor> tokenColors(m_foregroundRanges.isEmpty() ? 0 : m_text.size());
+        QVector<QColor> tokenColors(m_foregroundRanges.isEmpty() ? 0 : layoutText.size());
         for (const auto &value : m_foregroundRanges) {
             const auto range = value.toMap();
             const qint64 start = range.value("start").toLongLong();
             const qint64 length = range.value("length").toLongLong();
             const QColor color = range.value("color").value<QColor>();
-            if (start < 0 || length <= 0 || start >= m_text.size() || !color.isValid()) continue;
-            const int end = int(start + qMin(length, qint64(m_text.size()) - start));
+            if (start < 0 || length <= 0 || start >= layoutText.size() || !color.isValid()) continue;
+            const int end = int(start + qMin(length, qint64(layoutText.size()) - start));
             QTextCharFormat format; format.setForeground(color);
             formats.append({int(start), end - int(start), format});
             for (int pos = int(start); pos < end; ++pos) tokenColors[pos] = color;
@@ -249,7 +340,7 @@ void FormattedText::updatePolish()
             for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
                 if (!m_layout->isValidCursorPosition(pos) || layoutText[pos] == QChar::LineSeparator) continue;
                 const qreal a = line.cursorToX(pos, QTextLine::Leading), b = line.cursorToX(pos, QTextLine::Trailing);
-                if (a != b) cells.append({pos, codes[pos], QRectF(qMin(a, b) + alignmentShift, line.y(), std::abs(a - b), line.height()), 0, a > b});
+                if (a != b || atoms[pos] >= 0) cells.append({pos, codes[pos], QRectF(qMin(a, b) + alignmentShift, line.y(), std::abs(a - b), line.height()), 0, a > b});
             }
             if (!m_padded && line.width() != originalWidth) line.setLineWidth(originalWidth);
             std::stable_sort(cells.begin(), cells.end(), [](const Cell &a, const Cell &b) { return a.rect.left() < b.rect.left(); });
@@ -324,6 +415,7 @@ void FormattedText::updatePolish()
                 for (int i = 0; i < positions.size(); ++i) {
                     int source = int(indexes[i]);
                     while (source > line.textStart() && !m_layout->isValidCursorPosition(source)) --source;
+                    if (atoms[source] >= 0) { flush(); continue; }
                     const QColor foreground = links[source] >= 0 ? m_linkColor
                         : !tokenColors.isEmpty() && tokenColors[source].isValid() ? tokenColors[source]
                         : codes[source] >= 0 && m_codeForeground.isValid() ? m_codeForeground : m_color;
@@ -373,18 +465,43 @@ void FormattedText::updatePolish()
                 m_logicalHeight += line.height();
                 continue;
             }
-            int budget = 0, count = 0;
+            qreal budget = 0;
+            int count = 0;
             QVector<Cell> cells;
             while (true) {
                 cells = cellsFor(line); count = 0;
                 for (int i = 0; i < cells.size(); ++i) if (startsFragment(cells, i)) ++count;
-                if (m_codeHorizontalPadding == 0 || count <= budget) break;
-                budget = count;
-                line.setLineWidth(qMax(qreal(.01), m_layoutWidth - 2 * m_codeHorizontalPadding * budget));
+                qreal reservation = 2 * m_codeHorizontalPadding * count;
+                for (const auto &cell : cells) if (atoms[cell.source] >= 0)
+                    reservation += m_mathRequests[atoms[cell.source]].recording->size.width() - cell.rect.width();
+                if (reservation <= budget + .01) break;
+                budget = reservation;
+                line.setLineWidth(qMax(qreal(.01), m_layoutWidth - budget));
+            }
+            // Zero-advance adjacent object placeholders can all survive even a
+            // near-zero line width. Force an earlier logical boundary until the
+            // measured advances fit; always retain at least one grapheme/atom.
+            while (cells.size() > 1) {
+                qreal measured = line.naturalTextWidth() + 2 * m_codeHorizontalPadding * count;
+                for (const auto &cell : cells) if (atoms[cell.source] >= 0)
+                    measured += m_mathRequests[atoms[cell.source]].recording->size.width() - cell.rect.width();
+                if (measured <= m_layoutWidth + .01) break;
+                const int previousLength = line.textLength();
+                const int columns = m_layout->previousCursorPosition(line.textStart() + previousLength) - line.textStart();
+                line.setNumColumns(qMax(1, columns), m_layoutWidth);
+                if (line.textLength() >= previousLength) break;
+                cells = cellsFor(line); count = 0;
+                for (int i = 0; i < cells.size(); ++i) if (startsFragment(cells, i)) ++count;
             }
             const qreal vertical = count ? m_codeVerticalPadding : 0;
+            qreal ascent = line.ascent(), descent = line.descent();
+            for (const auto &cell : cells) if (atoms[cell.source] >= 0) {
+                const auto &recording = m_mathRequests[atoms[cell.source]].recording;
+                ascent = qMax(ascent, recording->ascent); descent = qMax(descent, recording->descent);
+            }
+            const qreal extraTop = ascent - line.ascent(), extraBottom = descent - line.descent();
             const qreal previousY = line.y();
-            line.setPosition({0, m_logicalHeight + vertical});
+            line.setPosition({0, m_logicalHeight + vertical + extraTop});
             // Moving the baseline does not change shaping or cursor advances.
             for (auto &cell : cells) cell.rect.translate(0, line.y() - previousY);
             qreal shift = 0;
@@ -406,10 +523,20 @@ void FormattedText::updatePolish()
                     if (first) fragments.append(rect);
                     else fragments.last() = fragments.last().united(rect);
                     m_hitRegions.append({rect, links[cell.source]});
-                } else m_hitRegions.append({cell.rect.translated(shift, 0), links[cell.source]});
+                } else {
+                    auto rect = cell.rect.translated(shift, 0);
+                    if (atoms[cell.source] >= 0) {
+                        const auto &recording = m_mathRequests[atoms[cell.source]].recording;
+                        rect.setWidth(recording->size.width());
+                        shift += rect.width() - cell.rect.width();
+                    }
+                    rect.setTop(m_logicalHeight); rect.setBottom(line.y() + line.height() + vertical + extraBottom);
+                    m_hitRegions.append({rect, links[cell.source]});
+                }
                 if (last) shift += m_codeHorizontalPadding;
             }
             const qreal contentWidth = line.naturalTextWidth() + shift;
+            m_logicalWidth = qMax(m_logicalWidth, contentWidth);
             const qreal align = m_alignment == Qt::AlignRight ? m_layoutWidth - contentWidth
                 : m_alignment == Qt::AlignHCenter ? (m_layoutWidth - contentWidth) / 2 : 0;
             for (auto &rect : fragments) { rect.translate(align, 0); m_codeRects.append(rect); }
@@ -417,6 +544,11 @@ void FormattedText::updatePolish()
                 auto &region = m_hitRegions[m_hitRegions.size() - cells.size() + i];
                 region.rect.translate(align, 0);
                 const int pos = cells[i].source;
+                if (atoms[pos] >= 0) {
+                    const auto &formula = m_mathRequests[atoms[pos]];
+                    m_paintedAtoms.append({formula.start, formula.start + formula.length, region.rect,
+                        QPointF(region.rect.left(), line.y() + line.ascent() - formula.recording->ascent), cells[i].reversed, formula.recording});
+                }
                 m_cursorCells.append({pos, m_layout->nextCursorPosition(pos), region.rect, cells[i].reversed});
             }
             QVector<Gutter> gutters;
@@ -428,10 +560,14 @@ void FormattedText::updatePolish()
                             + (left.code >= 0 ? m_codeHorizontalPadding : 0)});
             }
             cacheLine(line, shifts, align, gutters);
-            m_cursorLines.append({line.textStart(), line.y() - vertical, line.y() + line.height() + vertical});
-            m_logicalHeight += line.height() + 2 * vertical;
+            m_cursorLines.append({line.textStart(), line.y() - vertical - extraTop, line.y() + line.height() + vertical + extraBottom});
+            m_logicalHeight += line.height() + 2 * vertical + extraTop + extraBottom;
         }
         m_layout->endLayout();
+        for (auto &cell : m_cursorCells) {
+            cell.start = m_layoutToProjection[cell.start]; cell.end = m_layoutToProjection[cell.end];
+        }
+        for (auto &line : m_cursorLines) line.start = m_layoutToProjection[line.start];
         // Use the same visual character cells as link hit testing, including
         // disjoint bidi runs and complete grapheme cells. No layout padding.
         qsizetype intervalIndex = 0;
@@ -442,7 +578,7 @@ void FormattedText::updatePolish()
             const auto line = m_layout->lineAt(i);
             QVector<QRectF> cells;
             for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
-                if (!m_layout->isValidCursorPosition(pos) || m_text[pos] == u'\n') continue;
+                if (!m_layout->isValidCursorPosition(pos) || layoutText[pos] == u'\n') continue;
                 while (intervalIndex < intervals.size()
                        && pos >= intervals[intervalIndex].start + intervals[intervalIndex].length)
                     ++intervalIndex;
@@ -450,7 +586,7 @@ void FormattedText::updatePolish()
                     || !(intervals[intervalIndex].flags & QMarkdownPrivate::Code)) continue;
                 const qreal a = line.cursorToX(pos, QTextLine::Leading);
                 const qreal b = line.cursorToX(pos, QTextLine::Trailing);
-                if (a != b) cells.append(QRectF(qMin(a, b), line.y(), std::abs(b - a), line.height()));
+                if (a != b || atoms[pos] >= 0) cells.append(QRectF(qMin(a, b), line.y(), std::abs(b - a), line.height()));
             }
             std::sort(cells.begin(), cells.end(), [](const QRectF &a, const QRectF &b) { return a.left() < b.left(); });
             for (const auto &cell : cells) {
@@ -465,15 +601,15 @@ void FormattedText::updatePolish()
             const auto line = m_layout->lineAt(i);
             m_logicalWidth = qMax(m_logicalWidth, line.naturalTextWidth());
             if (line.textStart() == sourceStart) {
-                m_sourceLines.append(QVariantMap{{"number", number++}, {"start", sourceStart},
+                m_sourceLines.append(QVariantMap{{"number", number++}, {"start", m_layoutToProjection[sourceStart]},
                     {"baseline", line.y() + line.ascent()}, {"top", line.y()}, {"height", line.height()}});
-                const int newline = m_text.indexOf(u'\n', sourceStart);
-                sourceStart = newline < 0 ? m_text.size() + 1 : newline + 1;
+                const int newline = layoutText.indexOf(QChar::LineSeparator, sourceStart);
+                sourceStart = newline < 0 ? layoutText.size() + 1 : newline + 1;
             }
         }
         if (m_sourceLines.isEmpty()) m_sourceLines.append(QVariantMap{{"number", 1}, {"start", 0},
             {"baseline", QFontMetricsF(m_layoutFont).ascent()}, {"top", 0}, {"height", QFontMetricsF(m_layoutFont).height()}});
-        if (m_text.isEmpty()) m_logicalHeight = QFontMetricsF(m_layoutFont).height();
+        if (layoutText.isEmpty()) m_logicalHeight = QFontMetricsF(m_layoutFont).height();
         // Raster bounds include ink overhang; wrapping and parent geometry retain
         // the host's logical width and native line height.
         QRectF bounds(0, 0, qMax(m_layoutWidth, m_logicalWidth), m_logicalHeight);
@@ -527,6 +663,7 @@ void FormattedText::paint(QPainter *painter)
             painter->drawLine(decoration.line.translated(run.origin));
         }
     }
+    for (const auto &atom : m_paintedAtoms) painter->drawPicture(atom.origin, atom.recording->picture);
     if (m_focusedLink >= 0) {
         painter->setPen(QPen(m_focusColor, 2));
         painter->setBrush(Qt::NoBrush);
@@ -558,7 +695,7 @@ void FormattedText::setLinkUnderline(bool value)
 }
 int FormattedText::linkAt(qreal x, qreal y) const
 {
-    if (!m_layout || m_layout->text().size() != m_text.size()) return -1;
+    if (!m_layout) return -1;
     const QPointF point = QPointF(x, y) - m_paintOffset;
     if (m_padded) {
         for (const auto &region : m_hitRegions)
@@ -634,8 +771,11 @@ QVector<QRectF> FormattedText::rangeRectangles(int start, int end) const
 }
 int FormattedText::cursorAt(qreal x, qreal y) const
 {
-    if (!m_layout || m_layout->text().size() != m_text.size()) return 0;
+    if (!m_layout) return 0;
     const QPointF p = QPointF(x, y) - m_paintOffset;
+    for (const auto &atom : m_paintedAtoms)
+        if (atom.rect.contains(p))
+            return (p.x() < atom.rect.center().x()) != atom.reversed ? atom.start : atom.end;
     if (p.y() < 0) return 0;
     if (p.y() >= m_logicalHeight) return int(m_text.size());
     qreal nearest = std::numeric_limits<qreal>::max();
@@ -691,7 +831,16 @@ QRectF FormattedText::sourceRectangleAt(int position) const
 {
     if (!m_layout) return {};
     position = qBound(0, position, int(m_text.size()));
-    auto line = m_layout->lineForTextPosition(position);
-    if (!line.isValid() && m_layout->lineCount()) line = m_layout->lineAt(m_layout->lineCount() - 1);
-    return line.isValid() ? QRectF(line.cursorToX(position), line.y(), 1, line.height()) : QRectF();
+    if (m_paintedAtoms.isEmpty()) {
+        auto line = m_layout->lineForTextPosition(position);
+        if (!line.isValid() && m_layout->lineCount()) line = m_layout->lineAt(m_layout->lineCount() - 1);
+        return line.isValid() ? QRectF(line.cursorToX(position), line.y(), 1, line.height()) : QRectF();
+    }
+    for (const auto &cell : m_cursorCells)
+        if (position >= cell.start && position < cell.end) return cell.rect;
+    if (!m_cursorCells.isEmpty()) {
+        const auto &cell = m_cursorCells.last();
+        return QRectF(cell.reversed ? cell.rect.left() : cell.rect.right(), cell.rect.top(), 1, cell.rect.height());
+    }
+    return {};
 }

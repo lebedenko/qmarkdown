@@ -86,11 +86,11 @@ MathService *service() {
     if (!instance && QCoreApplication::instance()) instance = new MathService(QCoreApplication::instance());
     return instance;
 }
-std::shared_ptr<const MathRecording> render(MathService *scheduler, const QString &source, qreal size, QColor color) {
+std::shared_ptr<const MathRecording> render(MathService *scheduler, const QString &source, qreal size, QColor color, MathMode mode) {
 #ifdef QMARKDOWN_WITH_MATH
     QByteArray key;
     QDataStream stream(&key, QIODevice::WriteOnly);
-    stream << source << double(size) << color;
+    stream << source << double(size) << color << int(mode);
     if (auto cached = scheduler->cache.object(key)) return std::make_shared<MathRecording>(*cached);
     try {
         // Initialization is worker-owned and input-independent.
@@ -107,11 +107,14 @@ std::shared_ptr<const MathRecording> render(MathService *scheduler, const QStrin
         tex::Formula::_predefinedTeXFormulas.clear();
         tex::Formula formula(source.toStdWString());
         tex::TeXRenderBuilder builder;
-        std::unique_ptr<tex::TeXRender> result(builder.setStyle(tex::TexStyle::display).setTextSize(float(size)).setForeground(color.rgba()).build(formula));
+        std::unique_ptr<tex::TeXRender> result(builder.setStyle(mode == MathMode::Display ? tex::TexStyle::display : tex::TexStyle::text).setTextSize(float(size)).setForeground(color.rgba()).build(formula));
         const QSizeF bounds(result->getWidth(), result->getHeight());
         if (!std::isfinite(bounds.width()) || !std::isfinite(bounds.height()) || bounds.width() <= 0 || bounds.height() <= 0 || bounds.width() > 16384 || bounds.height() > 16384 || bounds.width() * bounds.height() > 4 * 1024 * 1024) return {};
         auto recording = std::make_shared<MathRecording>();
         recording->size = bounds;
+        recording->ascent = bounds.height() * result->getBaseline();
+        recording->descent = bounds.height() - recording->ascent;
+        if (!std::isfinite(recording->ascent) || recording->ascent < 0 || recording->descent < 0) return {};
         QPainter painter(&recording->picture);
         painter.setRenderHint(QPainter::Antialiasing);
         painter.setRenderHint(QPainter::TextAntialiasing);
@@ -125,10 +128,27 @@ std::shared_ptr<const MathRecording> render(MathService *scheduler, const QStrin
         return recording;
     } catch (const std::exception &) { return {}; }
 #else
-    Q_UNUSED(scheduler) Q_UNUSED(source) Q_UNUSED(size) Q_UNUSED(color)
+    Q_UNUSED(scheduler) Q_UNUSED(source) Q_UNUSED(size) Q_UNUSED(color) Q_UNUSED(mode)
     return {};
 #endif
 }
+}
+MathCancellation requestMath(QObject *owner, const QString &source, qreal size, QColor color,
+    MathMode mode, std::function<void(std::shared_ptr<const MathRecording>)> complete) {
+    if (!mathAvailable() || !permitted(source) || !std::isfinite(size) || size <= 0 || size > 512) return {};
+    auto scheduler = service();
+    if (!scheduler || !scheduler->fonts || scheduler->pending >= 64) return {};
+    ++scheduler->pending;
+    auto cancelled = std::make_shared<std::atomic_bool>(false);
+    const QPointer<QObject> target(owner);
+    scheduler->pool.start([scheduler, target, source, size, color, mode, cancelled, complete] {
+        auto recording = cancelled->load() ? nullptr : render(scheduler, source, size, color, mode);
+        QMetaObject::invokeMethod(scheduler, [scheduler, target, cancelled, complete, recording] {
+            --scheduler->pending;
+            if (!cancelled->load() && target) complete(recording);
+        }, Qt::QueuedConnection);
+    });
+    return cancelled;
 }
 MathItem::MathItem(QQuickItem *parent) : QQuickPaintedItem(parent) {
     setAntialiasing(true);
@@ -145,24 +165,15 @@ void MathItem::refresh() {
     const auto generation = ++m_generation;
     m_pending = false;
     m_recording.reset(); setImplicitSize(0, 0); update(); emit resultChanged();
-    if (!m_enabled || !mathAvailable() || !permitted(m_source) || !std::isfinite(m_size) || m_size <= 0 || m_size > 512) return;
-    auto scheduler = service();
-    if (!scheduler || !scheduler->fonts || scheduler->pending >= 64) return;
-    ++scheduler->pending; m_pending = true; emit resultChanged();
-    auto cancelled = m_cancelled = std::make_shared<std::atomic_bool>(false);
-    const auto source = m_source; const auto size = m_size; const auto color = m_color;
-    const QPointer<MathItem> target(this);
-    scheduler->pool.start([scheduler, target, source, size, color, cancelled, generation] {
-        auto recording = cancelled->load() ? nullptr : render(scheduler, source, size, color);
-        QMetaObject::invokeMethod(scheduler, [scheduler, target, cancelled, generation, recording] {
-            --scheduler->pending;
-            if (cancelled->load() || !target || target->m_generation != generation) return;
-            target->m_pending = false;
-            target->m_recording = recording;
-            if (recording) target->setImplicitSize(recording->size.width(), recording->size.height());
-            target->update(); emit target->resultChanged();
-        }, Qt::QueuedConnection);
-    });
+    if (!m_enabled) return;
+    m_cancelled = requestMath(this, m_source, m_size, m_color, MathMode::Display,
+        [this, generation](std::shared_ptr<const MathRecording> recording) {
+            if (m_generation != generation) return;
+            m_pending = false; m_recording = recording;
+            if (recording) setImplicitSize(recording->size.width(), recording->size.height());
+            update(); emit resultChanged();
+        });
+    m_pending = bool(m_cancelled); emit resultChanged();
 }
 void MathItem::paint(QPainter *painter) {
     if (m_recording) painter->drawPicture(QPointF(0, 0), m_recording->picture);

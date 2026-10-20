@@ -1,4 +1,4 @@
-# Native block math
+# Native math
 
 QML 1.13 adds library-owned formula rendering through a private, bundled MicroTeX
 Qt painter backend. The backend is built by default (`QMARKDOWN_WITH_MATH=ON`);
@@ -63,8 +63,7 @@ Use `&` for columns and `\\` for rows. Common arithmetic/relation/arrow commands
 standard named functions, math font commands and accents are permitted. Literal
 input is ASCII; use named Greek commands. Unknown commands reject the whole
 formula. Custom command definitions, dynamic evaluation, external fonts/resources,
-colors, dimensions and document commands are excluded. Inline math, Mermaid,
-footnotes and public highlighting providers remain deferred.
+colors, dimensions and document commands are excluded. Mermaid, footnotes and public highlighting providers remain deferred.
 
 ## Work and resource policy
 
@@ -79,7 +78,7 @@ allocations and 100000 instrumented operations, 16384 logical pixels per axis,
 4 megapixels of logical painted area, 512 px effective text size, 64 queued/running subscriptions, 1 MiB per recording,
 and 64 cached results within a 16 MiB byte budget. Queue saturation falls back to
 source; changing input or presentation can retry. Cache keys include source,
-resolved size and color. No failed or partial result is cached.
+resolved size, color and display/text mode. No failed or partial result is cached.
 
 Cancellation does not forcibly interrupt Qt font shaping, painter recording,
 standard-library operations or trusted-resource initialization. Input and operation
@@ -91,3 +90,35 @@ hard real-time or process-isolated TeX service.
 See [MicroTeX provenance](../third_party/microtex/PROVENANCE.md) and
 [TinyXML-2 provenance](../third_party/tinyxml2/PROVENANCE.md) for pinned revisions,
 private changes and licenses. The installed license payload accompanies the engine.
+
+## Inline math (development QML 1.15)
+
+`MarkdownView.inlineMathEnabled` defaults to false, independently of
+`mathEnabled`. With it enabled, single-line `$x^2$` and `\(x^2\)` use the same
+bundled engine, `mathAvailable` and restricted dialect. Code, literal HTML tokens,
+link destinations/titles and image descriptions protect their contents. Formulas
+work in headings, paragraphs, links, lists, quotes and enabled table cells.
+
+Dollar delimiters must be unescaped single dollars outside dollar runs. Openers
+precede non-whitespace; closers follow non-whitespace and cannot precede a digit.
+Empty, unmatched and multiline candidates retain ordinary Markdown behavior.
+TeX bodies are literal, including Markdown punctuation, entities and backslashes.
+
+Formulas use text-style math at the surrounding font size times `style.math.scale`
+and the resolved math color. They align to the surrounding baseline and wrap as
+complete objects. A formula wider than the complete content line shows wrappable
+body source. Pending, unavailable, invalid and failed formulas also show body source.
+
+Copy, Find, outline labels and accessible link descriptions use bodies without
+delimiters. Rendered formulas select atomically; retained partial selections copy
+exact substrings. Active Find shows source. Closing Find or completing rendering
+preserves projection offsets. Inline math shares the block engine's budgets and
+cancellation policy; cache identity also includes display/text rendering mode.
+
+```qml
+import QMarkdown 1.15
+MarkdownView {
+    inlineMathEnabled: true
+    markdown: "Energy $E=mc^2$ and \\(x^2\\)."
+}
+```

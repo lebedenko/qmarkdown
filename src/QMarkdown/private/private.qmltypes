@@ -99,6 +99,8 @@ Module {
     }
     Component {
         name: "ViewState"
+        Property { name: "inlineMathEnabled"; type: "bool"; notify: "inlineMathEnabledChanged" }
+        Signal { name: "inlineMathEnabledChanged" }
         Property { name: "mathEnabled"; type: "bool"; notify: "mathEnabledChanged" }
         Property { name: "mathAvailable"; type: "bool"; isReadonly: true }
         Signal { name: "mathEnabledChanged" }
@@ -197,6 +199,11 @@ Module {
     }
     Component {
         name: "FormattedText"
+        Property { name: "formulaSpans"; type: "QVariantList"; notify: "mathInputsChanged" }
+        Property { name: "mathRenderingEnabled"; type: "bool"; notify: "mathInputsChanged" }
+        Property { name: "mathColor"; type: "QColor"; notify: "mathInputsChanged" }
+        Property { name: "mathScale"; type: "double"; notify: "mathInputsChanged" }
+        Signal { name: "mathInputsChanged" }
         Property { name: "wrapEnabled"; type: "bool"; notify: "wrapEnabledChanged" }
         Signal { name: "wrapEnabledChanged" }
         Property { name: "logicalWidth"; type: "double"; isReadonly: true; notify: "layoutChanged" }

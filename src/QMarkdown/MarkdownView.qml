@@ -130,6 +130,7 @@ Item {
     property Component taskIndicator: null
     property bool taskIndicatorsReplaceBullets: false
     property Component codeBlockActions: null
+    property alias inlineMathEnabled: viewState.inlineMathEnabled
     property alias mathEnabled: viewState.mathEnabled
     readonly property bool mathAvailable: viewState.mathAvailable
     property var fencedBlockRenderers: ({})

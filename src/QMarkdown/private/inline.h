@@ -29,7 +29,11 @@ struct ImageSpan {
     bool linked = false;
     int logicalId = -1;
 };
-enum class InlineKind { Text, Code, Emphasis, Strong, SoftBreak, HardBreak, Link, Image, Html, Strikethrough };
+struct FormulaSpan {
+    int start = 0, length = 0;
+    int sourceLine = 0, sourceColumn = 0, sourceEndColumn = 0;
+};
+enum class InlineKind { Text, Code, Emphasis, Strong, SoftBreak, HardBreak, Link, Image, Html, Strikethrough, Formula };
 // Owned source semantics; presentation spans deliberately retain effective styles.
 struct InlineNode {
     InlineKind kind;
@@ -38,6 +42,7 @@ struct InlineNode {
     QString title;
     QVector<InlineNode> children;
     QString filteredHtml;
+    int sourceLine = 0, sourceColumn = 0, sourceEndColumn = 0;
 };
 struct InlineContent {
     QString text;
@@ -46,6 +51,7 @@ struct InlineContent {
     QVector<ImageSpan> images;
     QVector<InlineNode> nodes;
     QVector<CodeSpan> codes;
+    QVector<FormulaSpan> formulas;
     int nextLinkIdentity = 0;
 };
 QString filterRawHtml(const QString &literal);

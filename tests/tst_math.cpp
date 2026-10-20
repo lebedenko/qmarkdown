@@ -1,6 +1,7 @@
 #include "private/document.h"
 #include "private/mathitem.h"
 #include "private/formattedtext.h"
+#include <QPainter>
 #include "markdownstyle.h"
 #include "private/viewstate.h"
 #include <QQmlComponent>
@@ -21,6 +22,10 @@ Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
 static void removeMathResources() { Q_CLEANUP_RESOURCE(math_resources); }
 #endif
 using namespace QMarkdownPrivate;
+class InlineText : public FormattedText {
+public:
+    void layoutNow() { updatePolish(); }
+};
 class MathTest : public QObject {
     Q_OBJECT
     static QList<MathItem *> formulas(QQuickItem *root) {
@@ -32,6 +37,11 @@ class MathTest : public QObject {
         return found;
     }
 private slots:
+    void inlineLayout_data();
+    void inlineLayout();
+    void inlineBaselineAndWrapping();
+    void adjacentInlineAtoms();
+    void inlineViewProjectionAndFind();
     void parser_data() {
         QTest::addColumn<QString>("source"); QTest::addColumn<QString>("body");
         QTest::newRow("simple") << "$$\nx^2\n$$\n" << "x^2\n";
@@ -376,5 +386,138 @@ MarkdownView { width: 120; markdown: "```math\n\\frac{1}{2}\n```\n\n$$\nx^2\n$$"
         if (mathAvailable()) for (auto f : formulas(view.get())) QTRY_VERIFY(f->ready());
     }
 };
+void MathTest::inlineLayout_data() {
+        QTest::addColumn<QString>("prefix"); QTest::addColumn<QString>("suffix");
+        QTest::newRow("ltr") << "before " << " after";
+        QTest::newRow("rtl") << QString::fromUtf8("אבג ") << QString::fromUtf8(" דהו");
+        QTest::newRow("mixed") << QString::fromUtf8("😀 אב a ") << QString::fromUtf8(" b גד");
+    }
+void MathTest::inlineLayout() {
+        QFETCH(QString, prefix); QFETCH(QString, suffix);
+        InlineText item;
+        QFont font; font.setPixelSize(20); item.setFont(font);
+        const QString body = R"(\frac{a}{b}+x_2)";
+        const QString source = prefix + body + suffix;
+        item.setText(source); item.setLayoutWidth(400);
+        item.setFormulaSpans({QVariantMap{{"start", prefix.size()}, {"length", body.size()}}});
+        item.setLinkSpans({QVariantMap{{"start", prefix.size()}, {"length", body.size()}, {"destination", "target"}}});
+        item.setMathRenderingEnabled(true); item.layoutNow();
+        const auto rendered = [&] {
+            item.layoutNow();
+            return item.layout()->text().contains(QChar::ObjectReplacementCharacter);
+        };
+        if (!mathAvailable()) { QVERIFY(!rendered()); QCOMPARE(item.layout()->text(), source); return; }
+        QTRY_VERIFY(rendered());
+        QCOMPARE(item.text(), source);
+        QCOMPARE(item.layout()->text().size(), prefix.size() + 1 + suffix.size());
+        const auto rects = item.rangeRectangles(prefix.size() + 1, prefix.size() + 2);
+        QCOMPARE(rects.size(), 1); const auto rect = rects[0];
+        QVERIFY(rect.width() > 0); QVERIFY(rect.height() >= QFontMetricsF(font).height());
+        const auto center = rect.center() + item.paintOffset();
+        QCOMPARE(item.atomAt(center.x(), center.y()), qMakePair(int(prefix.size()), int(prefix.size() + body.size())));
+        QCOMPARE(item.linkAt(center.x(), center.y()), 0);
+        const auto left = rect.topLeft() + QPointF(.01, rect.height() / 2) + item.paintOffset();
+        const auto right = rect.topRight() + QPointF(-.01, rect.height() / 2) + item.paintOffset();
+        const auto a = item.cursorAt(left.x(), left.y()), b = item.cursorAt(right.x(), right.y());
+        QVERIFY(a == prefix.size() || a == prefix.size() + body.size());
+        QVERIFY(b == prefix.size() || b == prefix.size() + body.size()); QVERIFY(a != b);
+        item.setSelectionStart(prefix.size() + 1); item.setSelectionEnd(prefix.size() + 2);
+        QCOMPARE(item.selectionRectangles(), rects);
+        const auto beforeHeight = item.logicalHeight();
+        QImage image(450, 100, QImage::Format_ARGB32_Premultiplied); image.fill(Qt::white);
+        QPainter painter(&image); item.paint(&painter); painter.end();
+        int ink = 0;
+        for (int y = 0; y < image.height(); ++y) for (int x = 0; x < image.width(); ++x)
+            if (image.pixelColor(x, y).lightness() < 200) ++ink;
+        QVERIFY(ink > 100);
+        // Source mode keeps partial selection offsets and restores the same atom.
+        item.setMathRenderingEnabled(false); item.layoutNow();
+        QCOMPARE(item.layout()->text(), source); QCOMPARE(item.selectionStart(), int(prefix.size()) + 1);
+        item.setMathRenderingEnabled(true); QTRY_VERIFY(rendered());
+        QCOMPARE(item.logicalHeight(), beforeHeight);
+        // A formula wider than the complete line falls back to wrappable source.
+        item.setLayoutWidth(5); item.layoutNow();
+        QVERIFY(!item.layout()->text().contains(QChar::ObjectReplacementCharacter));
+        QVERIFY(item.layout()->lineCount() > 1); QCOMPARE(item.text(), source);
+        item.setLayoutWidth(400); item.layoutNow(); QVERIFY(rendered());
+    }
+void MathTest::inlineBaselineAndWrapping() {
+        if (!mathAvailable()) QSKIP("math backend disabled");
+        InlineText item; QFont font; font.setPixelSize(20); item.setFont(font);
+        const QString body = R"(\frac{1}{2})";
+        item.setText("Text " + body + " end"); item.setLayoutWidth(500);
+        item.setFormulaSpans({QVariantMap{{"start", 5}, {"length", body.size()}}});
+        item.setMathRenderingEnabled(true);
+        QTRY_VERIFY((item.layoutNow(), item.layout()->text().size() == 10));
+        const auto atom = item.rangeRectangles(5, 5 + body.size())[0];
+        const qreal width = atom.width();
+        item.setLayoutWidth(width + 3); item.layoutNow();
+        QVERIFY(item.layout()->text().contains(QChar::ObjectReplacementCharacter));
+        QCOMPARE(item.rangeRectangles(5, 5 + body.size()).size(), 1);
+        QVERIFY(item.logicalHeight() > font.pixelSize() * 2);
+        // Effective size changes must request new metrics, with stale work ignored.
+        item.setMathScale(2); item.layoutNow();
+        item.setText("new"); item.setFormulaSpans({}); item.layoutNow();
+        QTest::qWait(50); item.layoutNow(); QCOMPARE(item.text(), "new"); QCOMPARE(item.layout()->text(), "new");
+    }
+void MathTest::adjacentInlineAtoms() {
+    if (!mathAvailable()) QSKIP("math backend disabled");
+    InlineText item; QFont font; font.setPixelSize(20); item.setFont(font);
+    item.setText("x^2x^2x^2"); item.setLayoutWidth(500);
+    item.setFormulaSpans({QVariantMap{{"start", 0}, {"length", 3}},
+        QVariantMap{{"start", 3}, {"length", 3}}, QVariantMap{{"start", 6}, {"length", 3}}});
+    item.setMathRenderingEnabled(true);
+    QTRY_COMPARE((item.layoutNow(), item.layout()->text().size()), 3);
+    const qreal atomWidth = item.rangeRectangles(0, 3)[0].width();
+    item.setLayoutWidth(atomWidth + 1); item.layoutNow();
+    QCOMPARE(item.layout()->lineCount(), 3);
+    for (int start : {0, 3, 6}) {
+        const auto rectangles = item.rangeRectangles(start, start + 3);
+        QCOMPARE(rectangles.size(), 1); QVERIFY(rectangles[0].right() <= item.layoutWidth() + .01);
+    }
+}
+void MathTest::inlineViewProjectionAndFind() {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+import QtQuick
+import QMarkdown 1.15
+MarkdownView {
+    width: 400; inlineMathEnabled: true; selectionEnabled: true; tablesEnabled: true
+    markdown: "# 😀 $x^2$\n\n[$a_b$](#target) and `code`\n\n| $c|d$ |\n| - |\n| \\(e\\) |"
+}
+)", QUrl());
+        QQuickWindow window; window.setColor(Qt::white); window.resize(420, 280);
+        std::unique_ptr<QQuickItem> view(qobject_cast<QQuickItem *>(component.create()));
+        QVERIFY2(view, qPrintable(component.errorString()));
+        view->setParentItem(window.contentItem()); window.show();
+        auto texts = [](auto &&self, QQuickItem *root) -> QList<FormattedText *> {
+            QList<FormattedText *> result;
+            if (auto text = qobject_cast<FormattedText *>(root)) result.append(text);
+            for (auto child : root->childItems()) result.append(self(self, child));
+            return result;
+        };
+        const auto atomCount = [&] {
+            int count = 0;
+            for (auto text : texts(texts, view.get()))
+                if (text->layout()) count += text->layout()->text().count(QChar::ObjectReplacementCharacter);
+            return count;
+        };
+        if (mathAvailable()) QTRY_COMPARE(atomCount(), 4);
+        const auto capture = qEnvironmentVariable("QMARKDOWN_INLINE_MATH_CAPTURE");
+        if (!capture.isEmpty()) { QTest::qWait(30); QVERIFY(window.grabWindow().save(capture)); }
+        QVERIFY(!view->property("mathEnabled").toBool());
+        QVERIFY(QMetaObject::invokeMethod(view.get(), "selectAll"));
+        const auto expected = QString::fromUtf8("😀 x^2\n\na_b and code\n\nc|d\ne");
+        QCOMPARE(view->property("selectedText").toString(), expected);
+        view->setProperty("searchActive", true); view->setProperty("searchQuery", "a_b");
+        QCOMPARE(view->property("searchResultCount").toInt(), 1);
+        QTRY_COMPARE(atomCount(), 0);
+        const int start = view->property("selectionStart").toInt(), end = view->property("selectionEnd").toInt();
+        view->setProperty("searchActive", false);
+        if (mathAvailable()) QTRY_COMPARE(atomCount(), 4);
+        QCOMPARE(view->property("selectionStart").toInt(), start); QCOMPARE(view->property("selectionEnd").toInt(), end);
+        QCOMPARE(view->property("selectedText").toString(), expected);
+    }
+
 QTEST_MAIN(MathTest)
 #include "tst_math.moc"

@@ -88,6 +88,7 @@ third_party/cmark/src/man.c
 third_party/cmark/src/node.c
 third_party/cmark/src/node.h
 third_party/cmark/src/parser.h
+third_party/cmark/src/qmarkdown_inline_math.h
 third_party/cmark/src/references.c
 third_party/cmark/src/references.h
 third_party/cmark/src/render.c

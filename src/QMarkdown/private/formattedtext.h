@@ -6,10 +6,15 @@
 #include <QVariantList>
 #include <QtQml/qqmlregistration.h>
 #include <memory>
+#include "mathitem.h"
 
 class FormattedText : public QQuickPaintedItem
 {
     Q_OBJECT
+    Q_PROPERTY(QVariantList formulaSpans READ formulaSpans WRITE setFormulaSpans NOTIFY mathInputsChanged FINAL)
+    Q_PROPERTY(bool mathRenderingEnabled READ mathRenderingEnabled WRITE setMathRenderingEnabled NOTIFY mathInputsChanged FINAL)
+    Q_PROPERTY(QColor mathColor READ mathColor WRITE setMathColor NOTIFY mathInputsChanged FINAL)
+    Q_PROPERTY(qreal mathScale READ mathScale WRITE setMathScale NOTIFY mathInputsChanged FINAL)
     QML_ANONYMOUS
     Q_PROPERTY(QVariantList foregroundRanges READ foregroundRanges WRITE setForegroundRanges NOTIFY foregroundRangesChanged FINAL)
     Q_PROPERTY(int focusedLink READ focusedLink WRITE setFocusedLink NOTIFY focusPaintingChanged FINAL)
@@ -41,6 +46,15 @@ class FormattedText : public QQuickPaintedItem
     Q_PROPERTY(QVariantList sourceLines READ sourceLines NOTIFY layoutChanged FINAL)
     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
 public:
+    QVariantList formulaSpans() const { return m_formulas; }
+    bool mathRenderingEnabled() const { return m_mathEnabled; }
+    QColor mathColor() const { return m_mathColor; }
+    qreal mathScale() const { return m_mathScale; }
+    void setFormulaSpans(const QVariantList &v);
+    void setMathRenderingEnabled(bool v);
+    void setMathColor(const QColor &v);
+    void setMathScale(qreal v);
+    QPair<int, int> atomAt(qreal x, qreal y) const;
     bool wrapEnabled() const { return m_wrapEnabled; }
     void setWrapEnabled(bool value) { if (m_wrapEnabled == value) return; m_wrapEnabled = value; emit wrapEnabledChanged(); polish(); }
     qreal logicalWidth() const { return m_logicalWidth; }
@@ -119,6 +133,7 @@ public:
     Q_INVOKABLE QString linkDestination(int identity) const;
     void paint(QPainter *painter) override;
 signals:
+    void mathInputsChanged();
     void wrapEnabledChanged();
     void foregroundRangesChanged();
     void focusPaintingChanged();
@@ -145,6 +160,28 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    void refreshMath();
+    QVariantList m_formulas;
+    bool m_mathEnabled = false;
+    QColor m_mathColor = Qt::black;
+    qreal m_mathScale = 1;
+    QByteArray m_mathKey;
+    quint64 m_mathGeneration = 0;
+    struct Formula {
+        int start, length;
+        QMarkdownPrivate::MathCancellation cancellation;
+        std::shared_ptr<const QMarkdownPrivate::MathRecording> recording;
+    };
+    QVector<Formula> m_mathRequests;
+    struct PaintedAtom {
+        int start, end;
+        QRectF rect;
+        QPointF origin;
+        bool reversed;
+        std::shared_ptr<const QMarkdownPrivate::MathRecording> recording;
+    };
+    QVector<PaintedAtom> m_paintedAtoms;
+    QVector<int> m_layoutToProjection;
     bool m_wrapEnabled = true;
     qreal m_logicalWidth = 0;
     QVariantList m_sourceLines;

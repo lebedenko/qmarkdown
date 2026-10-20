@@ -8,6 +8,12 @@
 - Add table Grid, Rows, HeaderOnly and None border modes with uniform grid thickness and alternating body backgrounds.
 - Expand playground samples, style controls and demo defaults, preserving settings between samples.
 
+## Development — 1.15.0 / QML 1.15
+
+- Add independent opt-in inline math with literal TeX projection, baseline atoms, complete-formula wrapping and source fallback.
+- Share bounded math requests between block and inline rendering; preserve copy, Find and selection offsets.
+- Add inline math playground controls and samples.
+
 ## 1.13.0 — 2026-10-17
 
 - Add opt-in native fenced and standalone display math with a bundled private MicroTeX backend.

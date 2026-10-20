@@ -3,10 +3,16 @@
 #include <QPicture>
 #include <atomic>
 #include <memory>
+#include <functional>
 
 namespace QMarkdownPrivate {
 bool mathAvailable();
-struct MathRecording { QPicture picture; QSizeF size; };
+enum class MathMode { Display, Text };
+struct MathRecording { QPicture picture; QSizeF size; qreal ascent = 0, descent = 0; };
+using MathCancellation = std::shared_ptr<std::atomic_bool>;
+// GUI-thread API. A null handle means unavailable, invalid or saturated.
+MathCancellation requestMath(QObject *owner, const QString &source, qreal size, QColor color,
+    MathMode mode, std::function<void(std::shared_ptr<const MathRecording>)> complete);
 // Immutable recordings cross the worker boundary; the engine never touches an Item.
 class MathItem : public QQuickPaintedItem {
     Q_OBJECT

@@ -27,6 +27,7 @@ struct Block {
     int tableAlignment = 0;
     QString filteredHtml;
     QVector<CodeSpan> codes;
+    QVector<FormulaSpan> formulas;
 };
 struct ParseOptions {
     bool taskLists = false;
@@ -35,6 +36,7 @@ struct ParseOptions {
     bool tables = false;
     bool tagFilter = false;
     bool math = false;
+    bool inlineMath = false;
 };
 QVector<Block> parse(QString source, ParseOptions options = {});
 // Compatibility helper for existing private fixtures; production uses ParseOptions.

@@ -59,6 +59,7 @@ QVector<Block> adaptBlocks(cmark_node *node, bool tagFilter)
             block.ranges = content.ranges;
             block.links = content.links;
             block.codes = content.codes;
+            block.formulas = content.formulas;
             block.images = content.images;
             block.inlines = content.nodes;
         } else if (block.kind == BlockKind::List || block.kind == BlockKind::ListItem || block.kind == BlockKind::Quote
@@ -81,7 +82,8 @@ QVector<Block> parse(QString source, ParseOptions options)
         | (options.strikethrough ? CMARK_OPT_QMARKDOWN_STRIKETHROUGH : 0)
         | (options.extendedAutolinks ? CMARK_OPT_QMARKDOWN_EXTENDED_AUTOLINKS : 0)
         | (options.tables ? CMARK_OPT_QMARKDOWN_TABLES : 0)
-        | (options.math ? CMARK_OPT_QMARKDOWN_MATH : 0)), &cmark_node_free};
+        | (options.math ? CMARK_OPT_QMARKDOWN_MATH : 0)
+        | (options.inlineMath ? CMARK_OPT_QMARKDOWN_INLINE_MATH : 0)), &cmark_node_free};
     return document.get() ? adaptBlocks(cmark_node_first_child(document.get()), options.tagFilter) : QVector<Block>{};
 }
 

@@ -291,3 +291,11 @@ and scrolling; the playground demonstrates shortcuts and scroll clamping.
 Native math is bundled by default and enabled per view with `mathEnabled: true`.
 See the [math guide](docs/math.md) for the supported dialect, source fallback,
 styling and horizontal scrolling.
+
+## Development inline math
+
+The 1.15 development API adds `inlineMathEnabled` (default false), independently
+of block `mathEnabled`. Inline `$…$` and `\(…\)` formulas use native baseline
+rendering and the existing restricted engine, with literal body source for Find,
+copy and rendering fallback. See the [math guide](docs/math.md) and
+[Feature 061](specs/061-inline-math/requirements.md).

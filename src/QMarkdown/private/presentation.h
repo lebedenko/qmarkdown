@@ -30,6 +30,7 @@ struct PresentationBlock {
     TaskState taskState = TaskState::Ordinary;
     int tableAlignment = 0;
     QVector<CodeSpan> codes;
+    QVector<FormulaSpan> formulas;
     int selectionOffset = 0;
     int selectionLength = 0;
 };

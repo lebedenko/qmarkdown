@@ -46,3 +46,14 @@ QMarkdown 1.13 adds the private opt-in standalone display-math block option and
 literal node. It reuses container-aware fence parsing in two block passes, with a
 matched-opener line bitmap so unmatched delimiters retain ordinary Markdown.
 Default-disabled CommonMark behavior remains on the original single-pass path.
+
+## Local opt-in inline math (feature 061)
+
+`src/qmarkdown_inline_math.h`, `inlines.c`, `blocks.c`, `cmark.h` and `node.c` add
+a default-off leaf and option for raw single-line dollar/backslash-parenthesis
+formulas. Image descriptions reparse with math disabled; table splitting uses a
+temporary inline tree to protect recognized formula pipes with the same grammar.
+The adapter retains literal bodies and parser source coordinates. No new exported
+symbols, installed parser API or dependency are introduced. Upstream version,
+checksum and notices remain unchanged. Disabled baseline and opt-in fixtures are
+verified separately.
