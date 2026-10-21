@@ -37,3 +37,20 @@ A real-backend scheduler regression treats every warning as failure through init
 asynchronous delivery, cancellation and scheduler teardown/recreation. Existing deterministic fake
 backend tests retain cancellation, cache and delivery coverage. Fresh playground reproduction
 precedes the fix. Exact container matrices and native DPR assertions remain qualification gates.
+
+## Approved 1.17.1 release design
+
+Release the merged PR #45 tree with package metadata and current documentation updates.
+Keep QML 1.17 and SOVERSION 1. Compatible 1.17 and 1.17.0 package requests succeed;
+EXACT 1.17.1 succeeds, EXACT 1.17.0 and future versions fail. Exact and compatible
+requests use distinct build directories and logs to avoid cache/evidence collisions.
+
+Run both exact-Qt local packaging matrices because metadata and packaging checks change.
+Retain native/replay/lifetime evidence only after checking unchanged renderer, fixtures and
+measurement inputs. Final-head hosted full verification supplies the retained release gate.
+After protected squash merge, dispatch release.yml with this PR number; require matching
+head, merged tree, version, Qt targets and unchanged main. The workflow checks extracted
+source builds with highlighting OFF/ON on both targets and focused Arch distribution behavior,
+then publishes stable/latest with four assets and verifies their downloaded hashes. Stop on
+publication failure, inspect remote state before retrying, and never move tags or replace
+differing assets. Record final hosted/publication results in the PR, without evidence-only commits.

@@ -2,7 +2,7 @@
 
 See the [public API reference](api.md) for the complete supported contract.
 
-Use `import QtQuick` and `import QMarkdown 1.17` for the current API. The published 1.17.0 package accepts compatible 1.0–1.17 CMake requests and EXACT 1.17.0; exact earlier versions require historical packages. Existing QML 1.0 consumers continue to work with Legacy defaults.
+Use `import QtQuick` and `import QMarkdown 1.17` for the current API. The published 1.17.1 package accepts compatible 1.0–1.17 CMake requests and EXACT 1.17.1; exact earlier versions require historical packages. Existing QML 1.0 consumers continue to work with Legacy defaults.
 
 `MarkdownStyle.preset` defaults to `MarkdownStyle.Legacy`. Additional presets are `PolishedLight`, `PolishedDark`, `MinimalLight`, and `MinimalDark`. These are fixed palettes, with no application-theme subscription or document background. The host owns backgrounds, scrolling, navigation, and resource authorization.
 

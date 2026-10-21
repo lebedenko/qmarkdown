@@ -49,3 +49,12 @@ historical evidence and exact Qt 6.8.0/6.12.0 targets. No merge, auto-merge, tag
 change, installed-package replacement, viewer dependency adoption or visual-acceptance claim is
 included. Record final hosted results in the PR description and handoff to the owner, without an
 additional evidence-only commit that would invalidate the checked revision.
+
+## Release 1.17.1 approval (2026-10-22)
+
+The owner explicitly requested implementation of the Release QMarkdown 1.17.1 plan,
+approving these release requirements, design and tasks: one release PR from refreshed main,
+package 1.17.1 / QML 1.17, full local and hosted verification, protected squash merge,
+workflow publication and downloaded hash verification. Retain SOVERSION 1, public APIs
+and dependencies. Viewer adoption, installed-package replacement and new rendering features
+are excluded. Historical approval boundaries above retain their original scope.

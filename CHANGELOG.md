@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.17.1 — 2026-10-22
+
+- Automatically select scene-graph text for eligible layouts, retaining corrected raster rendering for padded code, rendered atoms and rounded code backgrounds.
+- Preserve layout and glyph nodes across independent Find, selection and focus overlay updates.
+- Fix built-in highlighting repository initialization and worker ownership without cross-thread event-filter warnings.
+- Retain QML 1.17, SOVERSION 1, public APIs and dependency requirements. Historical measurements establish no speedup; perceived shimmer and owner visual acceptance remain unassessed.
+
+See [release notes](docs/release-notes-1.17.1.md).
+
 ## 1.17.0 — 2026-10-20
 
 - Add host-owned asynchronous QML syntax highlighting providers with strict UTF-16 role spans and built-in/plain fallback.

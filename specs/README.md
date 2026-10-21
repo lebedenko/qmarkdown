@@ -3,18 +3,18 @@
 ## Current release
 
 <!-- current-release:start -->
-Package **1.17.0 / QML 1.17**. Release assets: [1.17.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.17.0).
+Package **1.17.1 / QML 1.17**. Release assets: [1.17.1 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.17.1).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
 host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
 selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.17.0.md) and
+See the [release notes](../docs/release-notes-1.17.1.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.17.0 accepts compatible 1.0–1.17 requests and
-EXACT 1.17.0; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.17.1 accepts compatible 1.0–1.17 requests, including 1.17.0, and
+EXACT 1.17.1; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
 
@@ -49,6 +49,13 @@ QML 1.17 adds replacement task markers, nested code wheel handoff, table border
 modes and alternating body backgrounds, with playground controls and samples.
 
 QML 1.17 adds host-owned asynchronous syntax highlighting providers with validated UTF-16 role spans, cancellation, deadlines and provider-local caches. Inline math and Markdown footnotes are independent opt-in features; literal copy/Find projections and host-owned navigation remain supported.
+
+Eligible text automatically uses native Qt scene-graph text nodes; padded code,
+rendered formula/footnote atoms and rounded code backgrounds retain corrected raster
+rendering. Independent Find, selection and focus overlays preserve layout and glyph
+nodes. Built-in highlighting initializes its repository on the application thread
+before transferring processing and destruction to its worker, fixing cross-thread
+event-filter warnings. No public API or QML version change is required.
 <!-- current-release:end -->
 
 ## 1.11 syntax highlighting
@@ -284,7 +291,7 @@ approved nested-wheel fix and opt-in replacement task markers. Versions are unch
 
 [060 requirements](060-table-presentation/requirements.md), [design](060-table-presentation/design.md), [tasks](060-table-presentation/tasks.md) and [verification](060-table-presentation/verification.md) cover QML 1.14 table decoration and combined playground delivery.
 
-## Approved richer rendering: inline math
+## Delivered inline math (QML 1.15)
 
 [061 inline math requirements](061-inline-math/requirements.md),
 [design](061-inline-math/design.md), [mapped tasks](061-inline-math/tasks.md)
@@ -294,7 +301,7 @@ for separate footnotes (062 / QML 1.16) and host highlighting providers
 (063 / QML 1.17) specifications and approvals, with one PR per feature.
 Merge and publication are excluded from implementation approvals.
 
-## Approved next feature: footnotes
+## Delivered footnotes (QML 1.16)
 
 [062 requirements](062-footnotes/requirements.md),
 [design](062-footnotes/design.md), [mapped tasks](062-footnotes/tasks.md) and
@@ -302,9 +309,9 @@ Merge and publication are excluded from implementation approvals.
 after Feature 061 passes its required CI checks. Target QML 1.16; merge, tagging and publication are excluded.
 These specifications and implementation are separate from Feature 061. Its
 [implementation PR #41](https://github.com/lebedenko/qmarkdown/pull/41) passed both
-required Qt packaging gates and remains unmerged.
+required Qt packaging gates. Features 061–063 subsequently merged and shipped in 1.17.0.
 
-## Approved development: host highlighting providers
+## Delivered host highlighting providers (QML 1.17)
 
 [063 requirements](063-highlighting-providers/requirements.md),
 [design](063-highlighting-providers/design.md),
@@ -313,15 +320,18 @@ required Qt packaging gates and remains unmerged.
 Feature 062 passes its required CI checks, targeting QML 1.17. Feature 062’s
 [PR #42](https://github.com/lebedenko/qmarkdown/pull/42) passed both required Qt
 packaging gates and the release gate at 9398444 before provider implementation began.
-These records are separate from that unmerged dependency; merge/tag/publication
-remain excluded.
+Those implementation approvals excluded merge/tag/publication; subsequent delivery
+shipped Features 061–063 in 1.17.0. Historical approvals remain unchanged.
 
-## Isolated candidate: hybrid text rendering
+## Delivered hybrid text rendering
 
 [064 requirements](064-hybrid-text-rendering/requirements.md),
 [design](064-hybrid-text-rendering/design.md),
 [tasks](064-hybrid-text-rendering/tasks.md) and
 [historical verification](064-hybrid-text-rendering/verification.md) record the owner-authorized
 2026-10-21 implementation candidate. [Continuation verification](064-hybrid-text-rendering/continuation-verification.md)
-records fresh checkout builds and the subsequently authorized highlighting fix and toolchain acquisition. No integration, release, version bump or viewer adoption
-is authorized by this record. Qualification failures and unavailable environments remain explicit.
+records successful fresh checkout qualification and the highlighting ownership fix.
+[PR #45](https://github.com/lebedenko/qmarkdown/pull/45) merged after full hosted verification.
+The subsequently approved 1.17.1 release scope is recorded in the same feature documents.
+Historical failures remain explicit; speedup, perceived shimmer and owner visual acceptance
+remain unestablished. Viewer adoption is outside the release scope.

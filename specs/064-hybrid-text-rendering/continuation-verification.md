@@ -192,3 +192,33 @@ are unchanged, so the completed local matrix and historical performance measurem
 Remote preflight confirms `main` remains at `bbb0d0c1985567c4f1a7b71f82445c8fafd6ccf7`, with
 no remote feature branch or existing PR. Hosted checks remain pending at this preparation commit;
 actual final results will be recorded in the PR description and owner handoff.
+
+## Completed implementation PR
+
+[PR #45](https://github.com/lebedenko/qmarkdown/pull/45) merged on 2026-10-21 as
+`ed3a71491df1090085b8723df4ff9f00e4a9a388`. Its final head
+`c199d4b13624b14b2c2fad3e3c8ac4ca14494a49` passed `targets`, both packaging roles
+and `release-gate` in [run 39668457483](https://github.com/lebedenko/qmarkdown/actions/runs/39668457483).
+The full retained gate covered package 1.17.0 and exact Qt 6.8.0/6.12.0. Earlier
+uncommitted/unmerged statements describe historical snapshots, not current delivery status.
+
+## Release 1.17.1 preparation (2026-10-22)
+
+Refreshed origin/main is exactly the PR #45 merge; no intervening changes. The release
+branch preserves the feature branch and local archived evidence. `task sync-qt` returns
+6.12.0 without changes; minimum remains 6.8.0. Release checks are recorded below as
+they complete; final hosted and publication results belong in the release PR.
+
+Preparation checks pass: release documentation validation, whitespace, and all 53
+release-tooling tests (22 upload, 15 publish, 16 delivery). All 142 tracked files
+under src/tests/benchmarks/examples match both qualified Qt source snapshots from
+`final-ci-inputs.json`; all 13 retained measurement input hashes in
+`build/qualification-064/source-identities.json` match. No renderer, fixture or
+measurement change requires new native/replay/lifetime measurements.
+
+Initial sandboxed local tasks stopped during image preparation (Docker buildx was
+unavailable there; `docker build` rejected `--progress`), before verification.
+The authorized unrestricted tasks reuse the existing exact-Qt images and retain
+fresh logs under `build-ci/6.8.0/20261021T212214Z-3zjcy3i6` and
+`build-ci/6.12.0/20261021T212232Z-_u2fvegz`. Final local and hosted outcomes are recorded in
+the release PR after completion.

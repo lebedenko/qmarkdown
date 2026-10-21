@@ -42,3 +42,17 @@ Completed results and remaining visual/measurement limits are recorded in
 The unchecked delivery steps are tracked to completion in the PR and final owner handoff, avoiding
 an evidence-only commit after hosted verification. No further local matrix is needed for these
 prose-only additions while qualified inputs remain unchanged.
+
+## Approved release delivery (2026-10-22)
+
+- [x] Prepare release/1.17.1 from refreshed main; preserve feature branch and local evidence.
+- [x] Bump package metadata and installed-consumer checks; retain QML/API/dependency versions.
+- [x] Add dated release notes/changelog and reconcile current summaries and downloads.
+- [x] Synchronize Qt and run release documentation, whitespace and release-tooling checks.
+- [ ] Pass both local Qt packaging tasks, including optional features and installed consumers.
+- [x] Verify unchanged inputs for retained renderer/native/performance evidence.
+- [ ] Open one non-draft release PR and pass all final-head hosted gates.
+- [ ] Record results in the PR, squash merge under protections and dispatch publication.
+- [ ] Verify distribution checks, stable/latest publication and all four downloaded asset hashes.
+
+Final hosted and publication steps are tracked in the release PR to avoid an evidence-only commit.

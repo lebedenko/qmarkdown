@@ -1,20 +1,20 @@
 # Arch Linux release package
 
 <!-- current-release:start -->
-QMarkdown 1.17.0 / QML 1.17 uses the package and checksum below.
+QMarkdown 1.17.1 / QML 1.17 uses the package and checksum below.
 
-[QMarkdown 1.17.0](https://github.com/lebedenko/qmarkdown/releases/tag/v1.17.0)
-provides `qmarkdown-1.17.0-1-x86_64.pkg.tar.zst` with a SHA-256 companion.
+[QMarkdown 1.17.1](https://github.com/lebedenko/qmarkdown/releases/tag/v1.17.1)
+provides `qmarkdown-1.17.1-1-x86_64.pkg.tar.zst` with a SHA-256 companion.
 Pacman enforces Qt lower bounds matching the package's build version. Qt and
 the development viewer are not bundled.
 
 Download the package and checksum from the release, then verify and install:
 
 ```sh
-curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.17.0/qmarkdown-1.17.0-1-x86_64.pkg.tar.zst
-curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.17.0/qmarkdown-1.17.0-1-x86_64.pkg.tar.zst.sha256
-sha256sum -c qmarkdown-1.17.0-1-x86_64.pkg.tar.zst.sha256
-sudo pacman -U ./qmarkdown-1.17.0-1-x86_64.pkg.tar.zst
+curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.17.1/qmarkdown-1.17.1-1-x86_64.pkg.tar.zst
+curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.17.1/qmarkdown-1.17.1-1-x86_64.pkg.tar.zst.sha256
+sha256sum -c qmarkdown-1.17.1-1-x86_64.pkg.tar.zst.sha256
+sudo pacman -U ./qmarkdown-1.17.1-1-x86_64.pkg.tar.zst
 pacman -Qi qmarkdown
 pacman -Qo /usr/lib/libQMarkdown.so
 ```
