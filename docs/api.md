@@ -1,6 +1,6 @@
 # Public API reference
 
-QMarkdown 1.17.0 / QML 1.17 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.17.1 / QML 1.17 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
@@ -261,4 +261,4 @@ provider's twelve role enums. `invalidate()` clears that provider's cache and
 refreshes subscriptions. See the [provider contract](syntax-highlighting.md#host-providers-qml-117)
 for validation, deadlines, cancellation and ownership. Availability continues to
 report only the optional compiled backend. Older imports remain supported; the
-new provider type requires 1.17. The package is 1.17.0.
+new provider type requires 1.17. The package is 1.17.1.
