@@ -37,6 +37,7 @@ class Scheduler : public QObject {
     QThread m_thread;
     QObject *m_worker = new QObject;
     std::unique_ptr<HighlightBackend> m_backend;
+    bool m_prepared = false;
     std::deque<std::shared_ptr<Job>> m_pending;
     std::shared_ptr<Job> m_active;
     struct Entry { QString source, language; HighlightSpans spans; qsizetype bytes; };
@@ -48,14 +49,17 @@ class Scheduler : public QObject {
         if (m_pending.empty()) return;
         m_active = m_pending.front(); m_pending.pop_front();
         auto job = m_active;
-        QMetaObject::invokeMethod(m_worker, [this, job] {
-            if (!m_backend) {
+        if (!m_prepared) {
 #ifdef QMARKDOWN_SYNTAX_TESTING
-                m_backend = testFactory ? testFactory() : createHighlightBackend();
-#else
-                m_backend = createHighlightBackend();
+            if (!testFactory)
 #endif
-            }
+                m_backend = createHighlightBackend({}, &m_thread);
+            m_prepared = true;
+        }
+        QMetaObject::invokeMethod(m_worker, [this, job] {
+#ifdef QMARKDOWN_SYNTAX_TESTING
+            if (!m_backend && testFactory) m_backend = testFactory();
+#endif
             const auto cancelled = [job] { return job->cancelled(); };
             auto spans = m_backend && !cancelled() ? m_backend->highlight(job->source, job->language, cancelled) : HighlightSpans{};
             const bool aborted = cancelled();
