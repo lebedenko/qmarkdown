@@ -8,6 +8,9 @@
 #include <QPainter>
 #include <QGuiApplication>
 #include <QQuickWindow>
+#include <QQuickPaintedItem>
+#include <QSGTextNode>
+#include <QSGRectangleNode>
 #include <QScreen>
 #include <cmath>
 #include <limits>
@@ -23,19 +26,142 @@ QFont layoutFont(QFont font)
     return font;
 }
 }
-FormattedText::FormattedText(QQuickItem *parent) : QQuickPaintedItem(parent)
+// Surfaces own only drawing. The parent retains layout and interaction coordinates.
+// Nodes belong to the scene graph, so Qt destroys them on window invalidation.
+class RasterTextSurface final : public QQuickPaintedItem
 {
-    setAntialiasing(true);
-    // Filtering an already rasterized text surface introduces extra softness.
-    setSmooth(false);
+public:
+    explicit RasterTextSurface(FormattedText *owner) : QQuickPaintedItem(owner), m_owner(owner)
+    {
+        setAntialiasing(true);
+        setSmooth(false);
+    }
+    void place();
+    void paint(QPainter *painter) override
+    {
+        painter->save();
+        painter->translate(-position());
+        m_owner->paint(painter);
+        painter->restore();
+    }
+private:
+    FormattedText *m_owner;
+};
+class SceneGraphTextSurface final : public QQuickItem
+{
+public:
+    explicit SceneGraphTextSurface(FormattedText *owner) : QQuickItem(owner), m_owner(owner)
+    { setFlag(ItemHasContents); }
+protected:
+    QSGNode *updatePaintNode(QSGNode *old, UpdatePaintNodeData *) override
+    {
+        struct Root final : QSGNode {
+            QSGNode *layers[FormattedText::LayerCount];
+            quint64 revisions[FormattedText::LayerCount] = {};
+            Root() {
+                for (auto &layer : layers) { layer = new QSGNode; appendChildNode(layer); }
+            }
+        };
+        auto *root = static_cast<Root *>(old);
+        const bool fresh = !root;
+        if (!root) root = new Root;
+        auto &text = *m_owner;
+        if (!text.sceneGraphEligible() || !window()) return root;
+        for (int layer = 0; layer < FormattedText::LayerCount; ++layer) {
+            if (!fresh && root->revisions[layer] == text.m_revisions[layer]) continue;
+            auto *branch = root->layers[layer];
+            while (auto *child = branch->firstChild()) { branch->removeChildNode(child); delete child; }
+            root->revisions[layer] = text.m_revisions[layer];
+            const auto rectangle = [&](QRectF rect, QColor color) {
+                if (rect.isEmpty() || !color.isValid() || color.alpha() == 0) return;
+                auto *node = window()->createRectangleNode();
+                node->setRect(rect); node->setColor(color); branch->appendChildNode(node);
+            };
+            switch (layer) {
+            case FormattedText::Code:
+                for (const auto &rect : text.m_codeRects) rectangle(rect, text.m_codeBackground);
+                break;
+            case FormattedText::Search:
+                for (bool current : {false, true}) for (const auto &value : text.m_searchRanges) {
+                    const auto range = value.toMap();
+                    if (range.value("current").toBool() != current) continue;
+                    const int start = range.value("start").toInt();
+                    for (const auto &rect : text.rangeRectangles(start, start + range.value("length").toInt()))
+                        rectangle(rect, current ? text.m_currentSearchColor : text.m_searchColor);
+                }
+                break;
+            case FormattedText::Selection:
+                for (const auto &rect : text.selectionRectangles()) rectangle(rect, text.m_selectionColor);
+                break;
+            case FormattedText::Glyphs: {
+                auto *glyphs = window()->createTextNode();
+                glyphs->setRenderType(QSGTextNode::QtRendering);
+                glyphs->setColor(text.m_color);
+                glyphs->setLinkColor(text.m_linkColor);
+                // Background-only selection preserves original syntax/link foregrounds.
+                glyphs->addTextLayout({}, text.m_layout.get());
+                branch->appendChildNode(glyphs);
+                break;
+            }
+            case FormattedText::Focus:
+                if (text.m_focusedLink >= 0) for (const auto &value : text.m_links) {
+                    const auto link = value.toMap();
+                    if (link.value("logicalId", -1).toInt() != text.m_focusedLink) continue;
+                    const int start = link.value("start").toInt();
+                    for (const auto &rect : text.rangeRectangles(start, start + link.value("length").toInt())) {
+                        rectangle({rect.left(), rect.top(), rect.width(), 2}, text.m_focusColor);
+                        rectangle({rect.left(), rect.bottom() - 2, rect.width(), 2}, text.m_focusColor);
+                        rectangle({rect.left(), rect.top() + 2, 2, rect.height() - 4}, text.m_focusColor);
+                        rectangle({rect.right() - 2, rect.top() + 2, 2, rect.height() - 4}, text.m_focusColor);
+                    }
+                }
+                break;
+            }
+        }
+        return root;
+    }
+private:
+    FormattedText *m_owner;
+};
+bool FormattedText::sceneGraphEligible() const
+{
+    return m_layout && !m_padded && m_paintedAtoms.isEmpty()
+        && (m_codeRects.isEmpty() || m_codeCornerRadius <= 0);
+}
+void FormattedText::update(int layer)
+{
+    if (layer < 0) for (auto &revision : m_revisions) ++revision;
+    else ++m_revisions[layer];
+    if (sceneGraphEligible()) {
+        delete m_rasterSurface;
+        m_rasterSurface = nullptr;
+        if (!m_sceneGraphSurface) m_sceneGraphSurface = new SceneGraphTextSurface(this);
+        m_sceneGraphSurface->setSize(size());
+        m_sceneGraphSurface->update();
+    } else {
+        delete m_sceneGraphSurface;
+        m_sceneGraphSurface = nullptr;
+        if (!m_rasterSurface) m_rasterSurface = new RasterTextSurface(this);
+        m_rasterSurface->place();
+        m_rasterSurface->update();
+    }
+}
+FormattedText::FormattedText(QQuickItem *parent) : QQuickItem(parent)
+{
     connect(this, &QQuickItem::windowChanged, this, &FormattedText::observeWindow);
     observeWindow(window());
+    connect(this, &QQuickItem::parentChanged, this, &FormattedText::observeAncestors);
+    observeAncestors();
+    connect(this, &QQuickItem::xChanged, this, &FormattedText::placeRaster);
+    connect(this, &QQuickItem::yChanged, this, &FormattedText::placeRaster);
 }
 FormattedText::~FormattedText()
 {
     // QQuickItem detaches from its window in its base destructor, after the
     // derived slot is no longer callable (and before QObject disconnects it).
     disconnect(this, &QQuickItem::windowChanged, this, &FormattedText::observeWindow);
+    disconnect(this, &QQuickItem::parentChanged, this, &FormattedText::observeAncestors);
+    for (const auto &connection : m_ancestorConnections) disconnect(connection);
     disconnect(m_windowScreenConnection);
     disconnect(m_screenDpiConnection);
     for (const auto &request : m_mathRequests) if (request.cancellation) *request.cancellation = true;
@@ -47,6 +173,7 @@ void FormattedText::observeWindow(QQuickWindow *window)
         m_windowScreenConnection = connect(window, &QWindow::screenChanged, this,
                                            [this, window] { observeScreen(window); });
     observeScreen(window);
+    placeRaster();
 }
 void FormattedText::observeScreen(QQuickWindow *window)
 {
@@ -59,8 +186,8 @@ void FormattedText::observeScreen(QQuickWindow *window)
 }
 void FormattedText::itemChange(ItemChange change, const ItemChangeData &data)
 {
-    QQuickPaintedItem::itemChange(change, data);
-    if (change == ItemDevicePixelRatioHasChanged) polish();
+    QQuickItem::itemChange(change, data);
+    if (change == ItemDevicePixelRatioHasChanged) placeRaster();
 }
 void FormattedText::setCodeSpans(const QVariantList &value)
 {
@@ -115,13 +242,13 @@ void FormattedText::setCodeForeground(const QColor &value)
 void FormattedText::setCodeBackground(const QColor &value)
 {
     if (m_codeBackground == value) return;
-    m_codeBackground = value; emit codeBackgroundChanged(); update();
+    m_codeBackground = value; emit codeBackgroundChanged(); update(Code);
 }
 void FormattedText::setCodeCornerRadius(qreal value)
 {
     value = std::isfinite(value) ? qMax(qreal(0), value) : 0;
     if (m_codeCornerRadius == value) return;
-    m_codeCornerRadius = value; emit codeCornerRadiusChanged(); update();
+    m_codeCornerRadius = value; emit codeCornerRadiusChanged(); update(Code);
 }
 void FormattedText::setHorizontalAlignment(int value)
 {
@@ -183,7 +310,7 @@ void FormattedText::refreshMath() {
     }
 }
 QPair<int, int> FormattedText::atomAt(qreal x, qreal y) const {
-    const QPointF point = QPointF(x, y) - m_paintOffset;
+    const QPointF point = QPointF(x, y);
     for (const auto &atom : m_paintedAtoms)
         if (atom.rect.contains(point)) return {atom.start, atom.end};
     return {-1, -1};
@@ -202,7 +329,6 @@ void FormattedText::updatePolish()
     m_logicalHeight = 0;
     m_logicalWidth = 0;
     m_sourceLines.clear();
-    m_paintOffset = {};
     if (m_layoutWidth > 0) {
         QVector<Formula> layoutRequests = m_mathRequests;
         int referenceEnd = 0;
@@ -350,6 +476,13 @@ void FormattedText::updatePolish()
             QTextCharFormat format; format.setForeground(color);
             formats.append({int(start), end - int(start), format});
             for (int pos = int(start); pos < end; ++pos) tokenColors[pos] = color;
+        }
+        // The painter gives links precedence over syntax colors. Encode that
+        // same precedence in the prepared layout consumed by the text node.
+        if (!m_foregroundRanges.isEmpty()) for (const auto &value : linkSpans) {
+            const auto link = value.toMap();
+            QTextCharFormat format; format.setForeground(m_linkColor);
+            formats.append({link.value("start").toInt(), link.value("length").toInt(), format});
         }
         m_layout->setFormats(formats);
         struct Cell { int source, code; QRectF rect; qreal shift = 0; bool reversed = false; };
@@ -634,28 +767,74 @@ void FormattedText::updatePolish()
         if (m_sourceLines.isEmpty()) m_sourceLines.append(QVariantMap{{"number", 1}, {"start", 0},
             {"baseline", QFontMetricsF(m_layoutFont).ascent()}, {"top", 0}, {"height", QFontMetricsF(m_layoutFont).height()}});
         if (layoutText.isEmpty()) m_logicalHeight = QFontMetricsF(m_layoutFont).height();
-        // Raster bounds include ink overhang; wrapping and parent geometry retain
-        // the host's logical width and native line height.
+        // Logical ink bounds include glyph overhang. The raster child expands
+        // these for texture allocation; interaction geometry stays logical.
         QRectF bounds(0, 0, qMax(m_layoutWidth, m_logicalWidth), m_logicalHeight);
         for (const auto &run : m_paintedRuns) bounds = bounds.united(run.glyphs.boundingRect().translated(run.origin));
         for (const auto &rect : m_codeRects) bounds = bounds.united(rect);
-        const qreal left = std::floor(bounds.left()) - 1;
-        const qreal top = std::floor(bounds.top()) - 1;
-        m_paintOffset = QPointF(-left, -top);
-        setX(left); setY(top);
-        setWidth(std::ceil(bounds.right()) - left + 1);
-        setHeight(std::ceil(bounds.bottom()) - top + 1);
+        m_inkBounds = bounds;
+        setSize(QSizeF(qMax(m_layoutWidth, m_logicalWidth), m_logicalHeight));
     } else {
-        setX(0); setY(0); setWidth(0); setHeight(0);
+        m_inkBounds = {};
+        setSize({});
     }
     emit layoutChanged();
     update();
+}
+void FormattedText::observeAncestors()
+{
+    for (const auto &connection : m_ancestorConnections) disconnect(connection);
+    m_ancestorConnections.clear();
+    for (auto *ancestor = parentItem(); ancestor; ancestor = ancestor->parentItem()) {
+        m_ancestorConnections.append(connect(ancestor, &QQuickItem::xChanged, this, &FormattedText::placeRaster));
+        m_ancestorConnections.append(connect(ancestor, &QQuickItem::yChanged, this, &FormattedText::placeRaster));
+        m_ancestorConnections.append(connect(ancestor, &QQuickItem::parentChanged, this, &FormattedText::observeAncestors));
+    }
+    placeRaster();
+}
+void FormattedText::placeRaster()
+{
+    if (m_rasterSurface) m_rasterSurface->place();
+}
+void RasterTextSurface::place()
+{
+    if (m_owner->m_inkBounds.isEmpty()) { setSize({}); return; }
+    const auto bounds = m_owner->m_inkBounds.adjusted(-1, -1, 1, 1);
+    const qreal dpr = window() ? window()->effectiveDevicePixelRatio() : 1;
+    const QPointF origin = m_owner->mapToScene(QPointF());
+    const QRectF scene = bounds.translated(origin);
+    const QPointF topLeft(std::floor(scene.left() * dpr) / dpr,
+                          std::floor(scene.top() * dpr) / dpr);
+    const QPointF bottomRight(std::ceil(scene.right() * dpr) / dpr,
+                              std::ceil(scene.bottom() * dpr) / dpr);
+    const QPointF local = topLeft - origin;
+    // QQuickPaintedItem quantizes its scene-graph extent to whole logical pixels
+    // before independently rounding the image allocation. Expand to the common
+    // logical/physical grid, so both operations preserve an exact DPR transform.
+    int grid = 1;
+    for (; grid <= 120; ++grid)
+        if (std::abs(grid * dpr - std::round(grid * dpr)) < 1e-7) break;
+    if (grid > 120) {
+        // Keep the previous renderer at exotic scales outside this prototype's
+        // qualification range. Never leave a newly created item without bounds.
+        const QPointF legacy(std::floor(bounds.left()), std::floor(bounds.top()));
+        setPosition(legacy);
+        setSize(QSizeF(std::ceil(bounds.right()) - legacy.x(),
+                       std::ceil(bounds.bottom()) - legacy.y()));
+        update();
+        return;
+    }
+    const QSizeF size(std::ceil((bottomRight.x() - topLeft.x()) / grid - 1e-9) * grid,
+                      std::ceil((bottomRight.y() - topLeft.y()) / grid - 1e-9) * grid);
+    const bool changed = position() != local || QSizeF(width(), height()) != size;
+    setPosition(local);
+    setSize(size);
+    if (changed) update();
 }
 void FormattedText::paint(QPainter *painter)
 {
     if (!m_layout) return;
     painter->save();
-    painter->translate(m_paintOffset);
     painter->setPen(Qt::NoPen);
     painter->setBrush(m_codeBackground);
     for (const auto &rect : m_codeRects)
@@ -720,7 +899,7 @@ void FormattedText::setLinkUnderline(bool value)
 int FormattedText::linkAt(qreal x, qreal y) const
 {
     if (!m_layout) return -1;
-    const QPointF point = QPointF(x, y) - m_paintOffset;
+    const QPointF point = QPointF(x, y);
     if (m_padded) {
         for (const auto &region : m_hitRegions)
             if (point.x() >= region.rect.left() && point.x() < region.rect.right()
@@ -757,17 +936,17 @@ QString FormattedText::linkDestination(int identity) const
 void FormattedText::setSelectionStart(int value)
 {
     if (m_selectionStart == value) return;
-    m_selectionStart = value; emit selectionChanged(); update();
+    m_selectionStart = value; emit selectionChanged(); update(Selection);
 }
 void FormattedText::setSelectionEnd(int value)
 {
     if (m_selectionEnd == value) return;
-    m_selectionEnd = value; emit selectionChanged(); update();
+    m_selectionEnd = value; emit selectionChanged(); update(Selection);
 }
 void FormattedText::setSelectionColor(const QColor &value)
 {
     if (m_selectionColor == value) return;
-    m_selectionColor = value; emit selectionChanged(); update();
+    m_selectionColor = value; emit selectionChanged(); update(Selection);
 }
 QVector<QRectF> FormattedText::selectionRectangles() const
 {
@@ -796,7 +975,7 @@ QVector<QRectF> FormattedText::rangeRectangles(int start, int end) const
 int FormattedText::cursorAt(qreal x, qreal y) const
 {
     if (!m_layout) return 0;
-    const QPointF p = QPointF(x, y) - m_paintOffset;
+    const QPointF p = QPointF(x, y);
     for (const auto &atom : m_paintedAtoms)
         if (atom.rect.contains(p))
             return (p.x() < atom.rect.center().x()) != atom.reversed ? atom.start : atom.end;
@@ -829,7 +1008,7 @@ int FormattedText::cursorAt(qreal x, qreal y) const
 
 int FormattedText::characterAt(qreal x, qreal y) const
 {
-    const QPointF point = QPointF(x, y) - m_paintOffset;
+    const QPointF point = QPointF(x, y);
     for (const auto &cell : m_cursorCells)
         if (cell.rect.contains(point)) return cell.start;
     return cursorAt(x, y);
@@ -838,17 +1017,17 @@ int FormattedText::characterAt(qreal x, qreal y) const
 void FormattedText::setSearchRanges(const QVariantList &value)
 {
     if (m_searchRanges == value) return;
-    m_searchRanges = value; emit searchPaintingChanged(); update();
+    m_searchRanges = value; emit searchPaintingChanged(); update(Search);
 }
 void FormattedText::setSearchHighlightColor(const QColor &value)
 {
     if (m_searchColor == value) return;
-    m_searchColor = value; emit searchPaintingChanged(); update();
+    m_searchColor = value; emit searchPaintingChanged(); update(Search);
 }
 void FormattedText::setCurrentSearchHighlightColor(const QColor &value)
 {
     if (m_currentSearchColor == value) return;
-    m_currentSearchColor = value; emit searchPaintingChanged(); update();
+    m_currentSearchColor = value; emit searchPaintingChanged(); update(Search);
 }
 
 QRectF FormattedText::sourceRectangleAt(int position) const

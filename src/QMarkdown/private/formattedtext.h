@@ -1,5 +1,8 @@
 #pragma once
-#include <QQuickPaintedItem>
+#include <QQuickItem>
+class QPainter;
+class RasterTextSurface;
+class SceneGraphTextSurface;
 #include <QTextLayout>
 #include <QGlyphRun>
 #include <QLineF>
@@ -8,7 +11,7 @@
 #include <memory>
 #include "mathitem.h"
 
-class FormattedText : public QQuickPaintedItem
+class FormattedText : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(QVariantList referenceSpans READ referenceSpans WRITE setReferenceSpans NOTIFY referenceSpansChanged FINAL)
@@ -73,11 +76,11 @@ public:
     QColor focusColor() const { return m_focusColor; }
     void setFocusedLink(int value) {
         if (m_focusedLink == value) return;
-        m_focusedLink = value; update(); emit focusPaintingChanged();
+        m_focusedLink = value; update(Focus); emit focusPaintingChanged();
     }
     void setFocusColor(const QColor &value) {
         if (m_focusColor == value) return;
-        m_focusColor = value; update(); emit focusPaintingChanged();
+        m_focusColor = value; update(Focus); emit focusPaintingChanged();
     }
     QVariantList searchRanges() const { return m_searchRanges; }
     void setSearchRanges(const QVariantList &value);
@@ -86,7 +89,7 @@ public:
     void setSearchHighlightColor(const QColor &value);
     void setCurrentSearchHighlightColor(const QColor &value);
     QVector<QRectF> rangeRectangles(int start, int end) const;
-    QPointF paintOffset() const { return m_paintOffset; }
+    QPointF paintOffset() const { return {}; }
     int selectionStart() const { return m_selectionStart; }
     int selectionEnd() const { return m_selectionEnd; }
     QColor selectionColor() const { return m_selectionColor; }
@@ -134,7 +137,7 @@ public:
     void setLinkUnderline(bool value);
     Q_INVOKABLE int linkAt(qreal x, qreal y) const;
     Q_INVOKABLE QString linkDestination(int identity) const;
-    void paint(QPainter *painter) override;
+    void paint(QPainter *painter);
 signals:
     void mathInputsChanged();
     void referenceSpansChanged();
@@ -164,7 +167,19 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    friend class RasterTextSurface;
+    friend class SceneGraphTextSurface;
+    enum Layer { Code, Search, Selection, Glyphs, Focus, LayerCount };
+    void update(int layer = -1);
+    quint64 m_revisions[LayerCount] = {};
+    bool sceneGraphEligible() const;
+    RasterTextSurface *m_rasterSurface = nullptr;
+    SceneGraphTextSurface *m_sceneGraphSurface = nullptr;
     void refreshMath();
+    void observeAncestors();
+    void placeRaster();
+    QVector<QMetaObject::Connection> m_ancestorConnections;
+    QRectF m_inkBounds;
     QVariantList m_formulas, m_references;
     bool m_mathEnabled = false;
     QColor m_mathColor = Qt::black;
@@ -223,6 +238,5 @@ private:
     QColor m_color = Qt::black;
     int m_alignment = Qt::AlignLeft;
     qreal m_layoutWidth = 0, m_logicalHeight = 0;
-    QPointF m_paintOffset;
     std::unique_ptr<QTextLayout> m_layout;
 };

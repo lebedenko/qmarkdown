@@ -1,5 +1,7 @@
 #include "syntaxhighlighter.h"
 #include <QElapsedTimer>
+#include <QCoreApplication>
+#include <QThread>
 #include <algorithm>
 #ifdef QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING
 #include <KSyntaxHighlighting/AbstractHighlighter>
@@ -44,7 +46,7 @@ int roleFor(Theme::TextStyle style)
     }
 }
 class Backend : public HighlightBackend, private KSyntaxHighlighting::AbstractHighlighter {
-    // Constructed and used exclusively on the highlighting worker.
+    // Prepared on the application thread, then owned exclusively by the worker.
     KSyntaxHighlighting::Repository m_repository;
     HighlightLimits m_limits;
     HighlightSpans m_spans;
@@ -79,7 +81,12 @@ class Backend : public HighlightBackend, private KSyntaxHighlighting::AbstractHi
         return m_repository.definitionForFileName(QStringLiteral("source.") + language);
     }
 public:
-    explicit Backend(HighlightLimits limits) : m_limits(limits) {}
+    explicit Backend(HighlightLimits limits, QThread *worker) : m_limits(limits) {
+        // Repository installs an application event filter in its constructor.
+        // Token roles do not need translation notifications. Detach before moving.
+        qApp->removeEventFilter(&m_repository);
+        if (worker) m_repository.moveToThread(worker);
+    }
     HighlightSpans highlight(const QString &source, const QString &language,
                             const HighlightCancelled &cancelled) override {
         m_spans.clear(); m_cancelled = cancelled; m_failed = false; m_offset = 0;
@@ -121,12 +128,14 @@ public:
 };
 }
 #endif
-std::unique_ptr<HighlightBackend> createHighlightBackend(HighlightLimits limits)
+std::unique_ptr<HighlightBackend> createHighlightBackend(HighlightLimits limits, QThread *worker)
 {
 #ifdef QMARKDOWN_WITH_KSYNTAXHIGHLIGHTING
-    return std::make_unique<Backend>(limits);
+    Q_ASSERT(qApp && QThread::currentThread() == qApp->thread());
+    return std::make_unique<Backend>(limits, worker);
 #else
     Q_UNUSED(limits)
+    Q_UNUSED(worker)
     return {};
 #endif
 }

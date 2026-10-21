@@ -238,27 +238,54 @@ Flickable {
         wheel(); wheel(); wheel();
         QTRY_VERIFY(outer->property("contentY").toReal() > 0);
     }
-    void blockingObserverPreventsNativeHandoff()
+    void wheelObserverAcceptance_data()
     {
-        // Reproduces the sibling viewer's default-blocking observer independently
-        // of QMarkdown. Such observers must set blocking: false in the host.
+        QTest::addColumn<bool>("blocking");
+        QTest::addColumn<bool>("accepts");
+        QTest::newRow("rejecting-blocker") << true << false;
+        QTest::newRow("accepting-blocker") << true << true;
+        QTest::newRow("passive-observer") << false << false;
+    }
+    void wheelObserverAcceptance()
+    {
+        // Assert delivery as well as scrolling, so a filtered device cannot
+        // silently turn this into a test of Flickable alone.
+        QFETCH(bool, blocking);
+        QFETCH(bool, accepts);
         QQmlEngine engine; QQmlComponent component(&engine);
         component.setData(R"(
 import QtQuick
 Flickable {
     width: 240; height: 300; contentHeight: 1500
-    WheelHandler { onWheel: function(event) { event.accepted = false } }
+    id: outer
+    property bool blocks: true
+    property bool accepts: false
+    property int observed: 0
+    WheelHandler {
+        blocking: outer.blocks
+        onWheel: function(event) { outer.observed++; event.accepted = outer.accepts }
+    }
 }
 )", {});
         std::unique_ptr<QQuickItem> outer(qobject_cast<QQuickItem *>(component.create()));
         QVERIFY2(outer, qPrintable(component.errorString()));
+        outer->setProperty("blocks", blocking);
+        outer->setProperty("accepts", accepts);
         QQuickWindow window; window.resize(240,300); outer->setParentItem(window.contentItem()); window.show();
         QVERIFY(QTest::qWaitForWindowExposed(&window));
+        // Wayland's primary device need not be a mouse. WheelHandler accepts
+        // Mouse by default; name the synthetic event device explicitly.
+        QPointingDevice mouse("test wheel mouse", 43, QInputDevice::DeviceType::Mouse,
+            QPointingDevice::PointerType::Generic,
+            QInputDevice::Capability::Position | QInputDevice::Capability::Scroll, 1, 3);
         QWheelEvent event(QPointF(40,40), window.mapToGlobal(QPoint(40,40)), {}, QPoint(0,-120),
-            Qt::NoButton, Qt::NoModifier, Qt::NoScrollPhase, false);
+            Qt::NoButton, Qt::NoModifier, Qt::NoScrollPhase, false, Qt::MouseEventNotSynthesized, &mouse);
+        event.setTimestamp(1000);
         QCoreApplication::sendEvent(&window, &event);
         QTest::qWait(150);
-        QCOMPARE(outer->property("contentY").toReal(), 0.0);
+        QCOMPARE(outer->property("observed").toInt(), 1);
+        if (blocking) QCOMPARE(outer->property("contentY").toReal(), 0.0);
+        else QTRY_VERIFY(outer->property("contentY").toReal() > 0);
     }
     void plainSourceScrolling() {
         QQmlEngine engine; auto view = create(engine); QVERIFY(view);

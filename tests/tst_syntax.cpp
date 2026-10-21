@@ -36,6 +36,27 @@ private slots:
     void providerFallback();
     void providerDeadlineAndReentrantDelivery();
     void cleanup() { resetHighlightScheduler(); }
+    void realBackendLifecycle() {
+        if (!syntaxHighlightingAvailable()) QSKIP("Built-in backend disabled");
+        QTest::failOnWarning();
+        // Exercise real lazy preparation, queued delivery and worker destruction,
+        // including a second scheduler lifetime in the same application.
+        for (int cycle = 0; cycle < 2; ++cycle) {
+            SyntaxTheme theme;
+            SyntaxRequest request;
+            request.setTheme(&theme); request.setLanguage("cpp"); request.setEnabled(true);
+            request.setSource("const int value = 42;\n");
+            QVERIFY(request.ranges().isEmpty());
+            QTRY_VERIFY(!request.ranges().isEmpty());
+            request.setSource(QStringLiteral("int value = 42;\n").repeated(4000));
+            QCoreApplication::processEvents(); // Submit before cancelling.
+            request.setEnabled(false);
+            QVERIFY(request.ranges().isEmpty());
+            resetHighlightScheduler(); // Cancels and joins active real backend work.
+            QCoreApplication::processEvents();
+            QVERIFY(request.ranges().isEmpty());
+        }
+    }
     void palette() {
         SyntaxTheme theme;
         QCOMPARE(theme.keywordColor(), QColor("#7c3aed"));

@@ -9,6 +9,7 @@
 #include <QQmlProperty>
 #include <QSignalSpy>
 #include <QPainter>
+#include <QQuickPaintedItem>
 #include <QElapsedTimer>
 #include <QDir>
 #include <QTemporaryDir>
@@ -37,7 +38,337 @@ class StylingTest : public QObject
         for (auto *child : item->childItems()) if (auto *found = textItem(child, text)) return found;
         return nullptr;
     }
+    static QQuickPaintedItem *rasterSurface(FormattedText &text)
+    {
+        for (auto *child : text.childItems())
+            if (auto *raster = qobject_cast<QQuickPaintedItem *>(child)) return raster;
+        return nullptr;
+    }
 private slots:
+    void sceneGraphLifecycleAndStock()
+    {
+        QQuickWindow first, second;
+        first.resize(640, 300); second.resize(640, 300);
+        first.setColor(Qt::white); second.setColor(Qt::white);
+        QQuickItem parent(first.contentItem()); parent.setPosition({20, 20});
+        FormattedText text(&parent);
+        QFont font("DejaVu Sans"); font.setPixelSize(20);
+        text.setFont(font); text.setLayoutWidth(560);
+        text.setText(QString::fromUtf8("office affine é العربية שלום text wraps across several lines. ").repeated(4));
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+            import QtQuick
+            Text { width: 560; color: "black"; wrapMode: Text.Wrap; textFormat: Text.PlainText
+                renderType: Text.QtRendering }
+        )", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *stock = qobject_cast<QQuickItem *>(object.get()); QVERIFY(stock);
+        stock->setParentItem(&parent); stock->setProperty("font", font);
+        stock->setProperty("text", text.text()); stock->setVisible(false);
+        const auto rasterVisible = [&] {
+            for (auto *child : text.childItems())
+                if (qobject_cast<QQuickPaintedItem *>(child)) return child->isVisible();
+            return false;
+        };
+        first.show(); second.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&first));
+        QVERIFY(QTest::qWaitForWindowExposed(&second));
+        QTRY_VERIFY(text.layout() && text.logicalHeight() > 0);
+        QVERIFY(!rasterVisible());
+        QCOMPARE(text.childItems().size(), 1);
+        QSignalSpy layouts(&text, &FormattedText::layoutChanged);
+        for (int frame = 0; frame < 8; ++frame) {
+            parent.setY(20 + frame * .27); QTest::qWait(20);
+            const auto actual = first.grabWindow(); QVERIFY(!actual.isNull());
+            text.setVisible(false); stock->setVisible(true); QTest::qWait(20);
+            const auto expected = first.grabWindow(); QVERIFY(!expected.isNull());
+            QCOMPARE(actual.size(), expected.size());
+            int different = 0;
+            for (int y = 0; y < actual.height(); ++y) for (int x = 0; x < actual.width(); ++x)
+                different += std::abs(qGray(actual.pixel(x,y)) - qGray(expected.pixel(x,y))) > 20;
+            QVERIFY2(different < 100, qPrintable(QString("Stock difference %1 pixels").arg(different)));
+            stock->setVisible(false); text.setVisible(true);
+        }
+        QCOMPARE(layouts.size(), 0);
+        text.setForegroundRanges({QVariantMap{{"start", 0}, {"length", 12}, {"color", QColor(Qt::green)}}});
+        text.setLinkSpans({QVariantMap{{"start", 0}, {"length", 6}, {"logicalId", 0}, {"href", "#target"}}});
+        text.setSelectionStart(0); text.setSelectionEnd(6); text.setSelectionColor(Qt::yellow);
+        text.setFocusedLink(0); text.setFocusColor(Qt::red);
+        text.setSearchRanges({QVariantMap{{"start", 7}, {"length", 6}, {"current", true}}});
+        QTest::qWait(40); QVERIFY(!rasterVisible());
+        QCOMPARE(text.layout()->formats().last().format.foreground().color(), text.linkColor());
+        const auto point = text.sourceRectangleAt(0).center();
+        QCOMPARE(text.linkAt(point.x(), point.y()), 0);
+        QVERIFY(!text.selectionRectangles().isEmpty());
+        text.setFormatRanges({QVariantMap{{"start", 0}, {"length", 6}, {"flags", QMarkdownPrivate::Code}}});
+        QTRY_VERIFY(rasterVisible());
+        text.setFormatRanges({}); QTRY_VERIFY(!rasterVisible());
+        for (int cycle = 0; cycle < 20; ++cycle) {
+            const auto origin = text.position();
+            text.setFormatRanges({QVariantMap{{"start", 0}, {"length", 6}, {"flags", QMarkdownPrivate::Code}}});
+            QTRY_VERIFY(rasterVisible());
+            QCOMPARE(text.position(), origin);
+            QCOMPARE(text.paintOffset(), QPointF());
+            QCOMPARE(text.childItems().size(), 1);
+            text.setFormatRanges({}); QTRY_VERIFY(!rasterVisible());
+            QCOMPARE(text.childItems().size(), 1);
+        }
+        text.setLayoutWidth(400); QTest::qWait(40);
+        QVERIFY(!rasterVisible());
+        parent.setParentItem(second.contentItem()); QTest::qWait(40);
+        QVERIFY(!second.grabWindow().isNull()); QVERIFY(!rasterVisible());
+        parent.setParentItem(nullptr);
+        {
+            QQuickWindow recreated; recreated.resize(640, 300); recreated.setColor(Qt::white);
+            parent.setParentItem(recreated.contentItem()); recreated.show();
+            QVERIFY(QTest::qWaitForWindowExposed(&recreated)); QTest::qWait(40);
+            QVERIFY(!recreated.grabWindow().isNull()); QVERIFY(!rasterVisible());
+            parent.setParentItem(nullptr);
+        }
+        parent.setParentItem(first.contentItem()); QTest::qWait(40);
+        QVERIFY(!first.grabWindow().isNull());
+        QTest::qWait(100); QSignalSpy idle(&first, &QQuickWindow::frameSwapped);
+        QTest::qWait(200); QVERIFY(idle.size() <= 1);
+        parent.setParentItem(nullptr);
+    }
+    void overlayUpdatesRetainLayout()
+    {
+        QQuickWindow window; window.resize(640, 240); window.setColor(Qt::white);
+        FormattedText text(window.contentItem());
+        text.setPosition({20, 20}); text.setLayoutWidth(580);
+        text.setText("office combining é العربية link and search text");
+        text.setLinkSpans({QVariantMap{{"start", 0}, {"length", 6}, {"logicalId", 0}, {"href", "#link"}}});
+        text.setFocusColor(Qt::red);
+        window.show(); QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_VERIFY(text.layout() && text.logicalHeight() > 0);
+        const auto original = window.grabWindow(); QVERIFY(!original.isNull());
+        auto *layout = text.layout();
+        QSignalSpy layouts(&text, &FormattedText::layoutChanged);
+        for (int cycle = 0; cycle < 12; ++cycle) {
+            text.setCodeCornerRadius(cycle % 2);
+            text.setSelectionStart(cycle % 3); text.setSelectionEnd(10 + cycle);
+            text.setSelectionColor(cycle % 2 ? Qt::yellow : Qt::cyan);
+            text.setSearchRanges({QVariantMap{{"start", 24}, {"length", 4}, {"current", cycle % 2 == 0}}});
+            text.setSearchHighlightColor(Qt::green);
+            text.setCurrentSearchHighlightColor(Qt::magenta);
+            text.setFocusedLink(cycle % 2 ? 0 : -1);
+            QTest::qWait(20);
+            QVERIFY(window.grabWindow() != original);
+            QCOMPARE(text.layout(), layout);
+            QCOMPARE(text.childItems().size(), 1);
+        }
+        text.setSelectionStart(0); text.setSelectionEnd(0);
+        text.setSearchRanges({}); text.setFocusedLink(-1);
+        QTest::qWait(40);
+        QCOMPARE(window.grabWindow(), original);
+        QCOMPARE(layouts.size(), 0);
+    }
+    void rasterWindowLifecycle()
+    {
+        QQuickWindow first, second;
+        first.resize(960, 360); second.resize(960, 360);
+        auto obsolete = std::make_unique<QQuickItem>();
+        QQuickItem parent;
+        parent.setParentItem(obsolete.get());
+        parent.setPosition(QPointF(24.2, 56.7));
+        FormattedText text(&parent);
+        text.setFormatRanges({QVariantMap{{"start", 0}, {"length", 1}, {"flags", QMarkdownPrivate::Code}}});
+        text.setLayoutWidth(912); text.setText("Window attachment preserves logical geometry.");
+        first.show(); second.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&first));
+        QVERIFY(QTest::qWaitForWindowExposed(&second));
+        obsolete->setParentItem(first.contentItem()); // Initial attachment after construction.
+        QTRY_VERIFY(text.layout() && text.logicalHeight() > 0);
+        const auto cursor = text.sourceRectangleAt(0);
+        QSignalSpy layouts(&text, &FormattedText::layoutChanged);
+        for (auto *target : {static_cast<QQuickItem *>(nullptr), second.contentItem(),
+                             first.contentItem(), second.contentItem()}) {
+            parent.setParentItem(target);
+            QTest::qWait(40);
+            QCOMPARE(text.window(), target ? target->window() : nullptr);
+            QVERIFY(text.layout());
+            QCOMPARE(text.sourceRectangleAt(0), cursor);
+            QVERIFY(QLineF(text.mapToScene(text.paintOffset()), parent.mapToScene(QPointF())).length() < 1e-8);
+            if (target) {
+                const auto origin = rasterSurface(text)->mapToScene(QPointF()) * text.window()->effectiveDevicePixelRatio();
+                QVERIFY(std::abs(origin.y() - std::round(origin.y())) < 1e-7);
+            }
+        }
+        const auto position = text.position();
+        obsolete.reset(); // Destroy detached obsolete observer chain.
+        QTest::qWait(40);
+        QCOMPARE(text.position(), position);
+        qInfo("Window lifecycle layout notifications=%lld", qlonglong(layouts.size()));
+        parent.setParentItem(nullptr);
+    }
+    void strokesSurviveActualFlickable()
+    {
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(
+            import QtQuick
+            Flickable {
+                width: 960; height: 360; contentWidth: width; contentHeight: 2000
+                clip: true; flickDeceleration: 1500; maximumFlickVelocity: 1000
+            }
+        )", {});
+        QVERIFY2(component.isReady(), qPrintable(component.errorString()));
+        std::unique_ptr<QObject> object(component.create());
+        auto *viewport = qobject_cast<QQuickItem *>(object.get()); QVERIFY(viewport);
+        auto *content = qvariant_cast<QQuickItem *>(viewport->property("contentItem")); QVERIFY(content);
+        QQuickWindow window; window.resize(960, 360); window.setColor(Qt::white);
+        viewport->setParentItem(window.contentItem());
+        QQuickItem parent(content); parent.setPosition(QPointF(24, 280));
+        FormattedText text(&parent);
+        text.setFormatRanges({QVariantMap{{"start", 0}, {"length", 1}, {"flags", QMarkdownPrivate::Code}}});
+        QFont font("Inter"); font.setPointSizeF(10); text.setFont(font);
+        text.setColor(Qt::black); text.setLayoutWidth(912);
+        text.setText("The reading window displays several paragraphs with different fonts and sizes. "
+                     "Each sentence provides enough characters to populate the text cache and expose "
+                     "horizontal damage in the letter shapes.");
+        window.show(); QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_VERIFY(text.layout() && text.logicalHeight() > 0);
+        const auto *layout = text.layout();
+        const auto cursor = text.sourceRectangleAt(0);
+        QSignalSpy layouts(&text, &FormattedText::layoutChanged);
+        int samples = 0;
+        const auto sample = [&] {
+            QCOMPARE(text.layout(), layout);
+            QCOMPARE(text.sourceRectangleAt(0), cursor);
+            const auto actual = window.grabWindow(); QVERIFY(!actual.isNull());
+            const auto dpr = window.effectiveDevicePixelRatio();
+            QImage expected(QSize(qRound(rasterSurface(text)->width()*dpr), qRound(rasterSurface(text)->height()*dpr)), QImage::Format_ARGB32_Premultiplied);
+            expected.fill(Qt::transparent);
+            { QPainter painter(&expected); painter.scale(dpr,dpr); rasterSurface(text)->paint(&painter); }
+            const auto origin = rasterSurface(text)->mapToScene(QPointF()) * dpr;
+            int mismatch = 0, tested = 0;
+            for (int y=0; y<expected.height(); ++y) for (int x=0; x<expected.width(); ++x) {
+                const int ax=qRound(origin.x())+x, ay=qRound(origin.y())+y;
+                if (ax<0 || ay<0 || ax>=actual.width() || ay>=actual.height()) continue;
+                ++tested;
+                mismatch += (qAlpha(expected.pixel(x,y))>127) != (qGray(actual.pixel(ax,ay))<128);
+            }
+            QVERIFY(tested > 0);
+            QVERIFY2(mismatch<=50, qPrintable(QString("sample %1: %2 misplaced pixels, contentY %3")
+                .arg(samples).arg(mismatch).arg(viewport->property("contentY").toDouble())));
+            ++samples;
+        };
+        for (int i=0; i<40; ++i) {
+            viewport->setProperty("contentY", 80+i*.27); QTest::qWait(16); sample();
+        }
+        // Real Flickable velocity/deceleration, then reverse before it settles.
+        QVERIFY(QMetaObject::invokeMethod(viewport,"flick",Q_ARG(qreal,0),Q_ARG(qreal,-450)));
+        bool moved=false;
+        for (int i=0;i<8;++i) { QTest::qWait(16); moved |= viewport->property("moving").toBool(); sample(); }
+        QVERIFY(moved);
+        QVERIFY(QMetaObject::invokeMethod(viewport,"flick",Q_ARG(qreal,0),Q_ARG(qreal,300)));
+        QElapsedTimer timer; timer.start();
+        do { QTest::qWait(16); sample(); } while(viewport->property("moving").toBool() && timer.elapsed()<3000);
+        QVERIFY(!viewport->property("moving").toBool());
+        QVERIFY(QMetaObject::invokeMethod(viewport,"cancelFlick"));
+        QTest::qWait(150);
+        QSignalSpy idle(&window,&QQuickWindow::frameSwapped);
+        QTest::qWait(300);
+        QVERIFY(idle.size()<=1); QCOMPARE(layouts.size(),0);
+        qInfo("Flickable samples=%d layoutChanges=%lld idleFrames=%lld DPR=%.3f",samples,
+              qlonglong(layouts.size()),qlonglong(idle.size()),window.effectiveDevicePixelRatio());
+        viewport->setParentItem(nullptr);
+    }
+    void presentedStrokesSurviveFractionalTranslations()
+    {
+        QQuickWindow window; window.resize(960, 360); window.setColor(Qt::white);
+        QQuickItem ancestor(window.contentItem());
+        ancestor.setPosition(QPointF(24, 56));
+        FormattedText text(&ancestor);
+        text.setFormatRanges({QVariantMap{{"start", 0}, {"length", 1}, {"flags", QMarkdownPrivate::Code}}});
+        QFont font("Inter"); font.setPointSizeF(10); text.setFont(font);
+        text.setColor(Qt::black); text.setLayoutWidth(912);
+        text.setText("The reading window displays several paragraphs with different fonts and sizes. "
+                     "Each sentence provides enough characters to populate the text cache and expose "
+                     "horizontal damage in the letter shapes.");
+        window.show(); QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_VERIFY(text.layout() && text.logicalHeight() > 0);
+        const auto *layout = text.layout();
+        for (int frame = 0; frame < 32; ++frame) {
+            // Slow translation followed by an eased deceleration, including
+            // fractional scroll offsets. Compare actual textured pixels with
+            // an independently painted, one-to-one raster on every sample.
+            const qreal t = frame / qreal(31);
+            ancestor.setPosition(QPointF(24 + (frame % 4) * .2, 56 - 12 * (1 - std::pow(1 - t, 3))));
+            QTest::qWait(25);
+            QCOMPARE(text.layout(), layout);
+            const qreal dpr = window.effectiveDevicePixelRatio();
+            QImage expected(QSize(qRound(rasterSurface(text)->width() * dpr), qRound(rasterSurface(text)->height() * dpr)),
+                            QImage::Format_ARGB32_Premultiplied);
+            expected.fill(Qt::transparent);
+            { QPainter painter(&expected); painter.scale(dpr, dpr); rasterSurface(text)->paint(&painter); }
+            const QImage actual = window.grabWindow(); QVERIFY(!actual.isNull());
+            const QPointF origin = rasterSurface(text)->mapToScene(QPointF()) * dpr;
+            int mismatch = 0;
+            for (int y = 0; y < expected.height(); ++y) for (int x = 0; x < expected.width(); ++x) {
+                const int ax = qRound(origin.x()) + x, ay = qRound(origin.y()) + y;
+                if (ax < 0 || ay < 0 || ax >= actual.width() || ay >= actual.height()) continue;
+                mismatch += (qAlpha(expected.pixel(x, y)) > 127) != (qGray(actual.pixel(ax, ay)) < 128);
+            }
+            // No best-fit image shift: a one-pixel lag or geometry jitter must
+            // fail just like a missing/duplicated scanline.
+            QVERIFY2(mismatch <= 50, qPrintable(QString("Frame %1 has %2 misplaced stroke pixels")
+                                                .arg(frame).arg(mismatch)));
+        }
+        QTest::qWait(150);
+        QSignalSpy idle(&window, &QQuickWindow::frameSwapped);
+        QTest::qWait(250);
+        QVERIFY2(idle.size() <= 1, "Persistent scene-graph frames after motion stopped");
+    }
+    void rasterPlacementTracksTranslations()
+    {
+        QQuickWindow window;
+        window.resize(960, 720);
+        QQuickItem outer(window.contentItem()), parent(&outer), other(window.contentItem());
+        parent.setPosition(QPointF(24, 56));
+        FormattedText text(&parent);
+        text.setFormatRanges({QVariantMap{{"start", 0}, {"length", 1}, {"flags", QMarkdownPrivate::Code}}});
+        text.setLayoutWidth(912);
+        QFont font("Inter"); font.setPointSizeF(10); text.setFont(font);
+        text.setText("Reading window text with a link and selection geometry.");
+        text.setLinkSpans({QVariantMap{{"start", 0}, {"length", 7}, {"logicalId", 0},
+                                     {"href", "https://example.org"}}});
+        text.setSelectionStart(0); text.setSelectionEnd(7);
+        window.show(); QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_VERIFY(text.layout() && text.logicalHeight() > 0);
+        const auto *layout = text.layout();
+        const auto rectangles = text.selectionRectangles();
+        const auto height = text.logicalHeight();
+        const auto cursor = text.sourceRectangleAt(0);
+        for (QPointF position : {QPointF(.2, .2), QPointF(.75, 1.25), QPointF(1, 2), QPointF(-.2, -1.5)}) {
+            outer.setPosition(position);
+            QTest::qWait(20);
+            QCOMPARE(text.layout(), layout);
+            QCOMPARE(text.logicalHeight(), height);
+            QCOMPARE(text.selectionRectangles(), rectangles);
+            QCOMPARE(text.sourceRectangleAt(0), cursor);
+            const auto glyphOrigin = text.mapToScene(text.paintOffset());
+            const auto logicalOrigin = parent.mapToScene(QPointF());
+            QVERIFY(QLineF(glyphOrigin, logicalOrigin).length() < 1e-8);
+            const qreal dpr = window.effectiveDevicePixelRatio();
+            const auto scene = rasterSurface(text)->mapToScene(QPointF());
+            QVERIFY(std::abs(scene.x() * dpr - std::round(scene.x() * dpr)) < 1e-7);
+            QVERIFY(std::abs(scene.y() * dpr - std::round(scene.y() * dpr)) < 1e-7);
+            QVERIFY(std::abs(rasterSurface(text)->width() * dpr - std::round(rasterSurface(text)->width() * dpr)) < 1e-7);
+            QVERIFY(std::abs(rasterSurface(text)->height() * dpr - std::round(rasterSurface(text)->height() * dpr)) < 1e-7);
+            const auto point = cursor.center() + text.paintOffset();
+            QVERIFY(text.cursorAt(point.x(), point.y()) <= 1);
+            QCOMPARE(text.linkAt(point.x(), point.y()), 0);
+        }
+        parent.setParentItem(&other);
+        other.setPosition(QPointF(.3, .7));
+        QTest::qWait(20);
+        QCOMPARE(text.layout(), layout);
+        QVERIFY(QLineF(text.mapToScene(text.paintOffset()), parent.mapToScene(QPointF())).length() < 1e-8);
+        const auto before = text.position();
+        outer.setPosition(QPointF(50, 70)); // Previous ancestors no longer affect placement.
+        QCOMPARE(text.position(), before);
+    }
     void selectableTextRetainsEdgeContrast()
     {
         QQmlEngine engine; QQmlComponent component(&engine);
@@ -1037,7 +1368,14 @@ private slots:
                     selectionEnabled: true
                     tablesEnabled: true
                     syntaxHighlightingEnabled: true
-                    style: MarkdownStyle { preset: MarkdownStyle.PolishedLight }
+                    style: MarkdownStyle {
+                        preset: MarkdownStyle.PolishedLight
+                        // Keep the scrolling fixture independent of desktop defaults.
+                        bodyFont.family: "Inter"
+                        bodyFont.pointSize: 10
+                        codeBlockFont.pointSize: 10
+                        inlineCodeFont.pointSize: 10
+                    }
                 }
             }
         )", {});

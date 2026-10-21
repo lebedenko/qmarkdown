@@ -222,7 +222,7 @@ Module {
         Property { name: "focusedLink"; type: "int"; notify: "focusPaintingChanged" }
         Property { name: "focusColor"; type: "QColor"; notify: "focusPaintingChanged" }
         Signal { name: "focusPaintingChanged" }
-        prototype: "QQuickPaintedItem"
+        prototype: "QQuickItem"
         exports: ["QMarkdown.Private/FormattedText 1.0"]
         exportMetaObjectRevisions: [256]
         Signal { name: "searchPaintingChanged" }
