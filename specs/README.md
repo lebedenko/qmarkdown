@@ -315,3 +315,13 @@ Feature 062 passes its required CI checks, targeting QML 1.17. Feature 062’s
 packaging gates and the release gate at 9398444 before provider implementation began.
 These records are separate from that unmerged dependency; merge/tag/publication
 remain excluded.
+
+## Isolated candidate: hybrid text rendering
+
+[064 requirements](064-hybrid-text-rendering/requirements.md),
+[design](064-hybrid-text-rendering/design.md),
+[tasks](064-hybrid-text-rendering/tasks.md) and
+[historical verification](064-hybrid-text-rendering/verification.md) record the owner-authorized
+2026-10-21 implementation candidate. [Continuation verification](064-hybrid-text-rendering/continuation-verification.md)
+records fresh checkout builds and the subsequently authorized highlighting fix and toolchain acquisition. No integration, release, version bump or viewer adoption
+is authorized by this record. Qualification failures and unavailable environments remain explicit.

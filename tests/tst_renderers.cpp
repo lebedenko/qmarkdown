@@ -23,6 +23,7 @@ class RendererTest : public QObject
     static QList<QQuickItem *> named(QQuickItem *root, const QString &name);
     static std::unique_ptr<QQuickItem> create(QQmlEngine &engine, const QByteArray &extra = {});
 private slots:
+    void asynchronousDiagram();
     void originAndProjection();
     void matching_data();
     void matching();
@@ -92,6 +93,67 @@ codeBlockActions: actions
     auto object = std::unique_ptr<QQuickItem>(qobject_cast<QQuickItem *>(component.create()));
     if (!object) qWarning() << component.errorString();
     return object;
+}
+
+void RendererTest::asynchronousDiagram()
+{
+    QQmlEngine engine; QQuickWindow window;
+    auto view = create(engine, R"QML(
+    property Component diagram: Component {
+        Rectangle {
+            id: mock
+            objectName: "asyncDiagram"
+            required property string codeText
+            required property string infoString
+            required property string language
+            required property var markdownStyle
+            property bool ready: false
+            property bool failed: false
+            color: markdownStyle.codeBlockColor
+            implicitHeight: ready && !failed ? width / 2 : source.implicitHeight
+            Text { id: source; text: mock.codeText; visible: !mock.ready || mock.failed
+                color: mock.markdownStyle.codeBlockColor }
+            Timer { interval: 30; running: true; onTriggered: {
+                mock.failed = mock.codeText.indexOf("fail") >= 0; mock.ready = true
+            } }
+        }
+    }
+    function useDiagram() { fencedBlockRenderers = {preview: diagram} }
+    Component.onCompleted: useDiagram()
+)QML");
+    QVERIFY(view); view->setParentItem(window.contentItem()); window.show();
+    view->setProperty("markdown", "```preview\ngraph A --> B\n```");
+    QTRY_COMPARE(named(view.get(), "asyncDiagram").size(), 1);
+    QPointer<QQuickItem> item = named(view.get(), "asyncDiagram")[0];
+    QTRY_VERIFY(item->property("ready").toBool());
+    QTRY_COMPARE(item->height(), item->width() / 2);
+    view->setWidth(360); QTRY_COMPARE(item->height(), item->width() / 2);
+    auto *style = view->property("style").value<QObject *>(); QVERIFY(style);
+    style->setProperty("codeBlockColor", QColor("#123456"));
+    QTRY_COMPARE(item->property("color").value<QColor>(), QColor("#123456"));
+    view->setProperty("searchActive", true); QTRY_VERIFY(item.isNull());
+    view->setProperty("searchQuery", "graph");
+    QTRY_VERIFY(view->property("searchResultCount").toInt() > 0);
+    view->setProperty("searchActive", false);
+    QTRY_COMPARE(named(view.get(), "asyncDiagram").size(), 1);
+    item = named(view.get(), "asyncDiagram")[0];
+    view->setProperty("selectionEnabled", true); QTRY_VERIFY(item.isNull());
+    QVERIFY(QMetaObject::invokeMethod(view.get(), "selectAll"));
+    QCOMPARE(view->property("selectedText").toString(), "graph A --> B\n");
+    view->setProperty("selectionEnabled", false);
+    QTRY_COMPARE(named(view.get(), "asyncDiagram").size(), 1);
+    item = named(view.get(), "asyncDiagram")[0];
+    QVERIFY(QMetaObject::invokeMethod(view.get(), "useAlternative")); QTRY_VERIFY(item.isNull());
+    QVERIFY(QMetaObject::invokeMethod(view.get(), "useDiagram"));
+    view->setProperty("markdown", "```preview\nfail source\n```");
+    QTRY_COMPARE(named(view.get(), "asyncDiagram").size(), 1);
+    item = named(view.get(), "asyncDiagram")[0];
+    QTRY_VERIFY(item->property("failed").toBool()); QVERIFY(item->height() > 0);
+    view->setProperty("markdown", "```preview\npending\n```");
+    QTRY_VERIFY(item.isNull());
+    QTRY_COMPARE(named(view.get(), "asyncDiagram").size(), 1);
+    item = named(view.get(), "asyncDiagram")[0];
+    view.reset(); QVERIFY(item.isNull()); QTest::qWait(60);
 }
 
 void RendererTest::originAndProjection()

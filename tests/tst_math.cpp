@@ -2,6 +2,7 @@
 #include "private/mathitem.h"
 #include "private/formattedtext.h"
 #include <QPainter>
+#include <QQuickPaintedItem>
 #include "markdownstyle.h"
 #include "private/viewstate.h"
 #include <QQmlComponent>
@@ -37,6 +38,41 @@ class MathTest : public QObject {
         return found;
     }
 private slots:
+    void hybridBackendTransitions() {
+        InlineText item;
+        item.setLayoutWidth(400);
+        const QString source = R"(\frac{793}{577})";
+        item.setText(source);
+        item.setFormulaSpans({QVariantMap{{"start", 0}, {"length", source.size()}}});
+        const auto raster = [&] {
+            for (auto *child : item.childItems())
+                if (qobject_cast<QQuickPaintedItem *>(child)) return true;
+            return false;
+        };
+        item.setMathRenderingEnabled(true); item.layoutNow();
+        // This uncached request cannot deliver its queued result until events run.
+        QCOMPARE(item.layout()->text(), source); QVERIFY(!raster());
+        QCOMPARE(item.childItems().size(), 1);
+        if (!mathAvailable()) return;
+        QTRY_VERIFY((item.layoutNow(), raster()));
+        QCOMPARE(item.childItems().size(), 1);
+        const auto origin = item.position();
+        for (int cycle = 0; cycle < 4; ++cycle) {
+            item.setMathRenderingEnabled(false); item.layoutNow();
+            QVERIFY(!raster()); QCOMPARE(item.layout()->text(), source);
+            item.setMathRenderingEnabled(true);
+            QTRY_VERIFY((item.layoutNow(), raster()));
+            QCOMPARE(item.position(), origin); QCOMPARE(item.childItems().size(), 1);
+        }
+        item.setLayoutWidth(1); item.layoutNow(); QVERIFY(!raster());
+        item.setLayoutWidth(400); item.layoutNow(); QVERIFY(raster());
+        const QString invalid = R"(\unknown{invalid})";
+        item.setText(invalid);
+        item.setFormulaSpans({QVariantMap{{"start", 0}, {"length", invalid.size()}}});
+        item.layoutNow(); QTest::qWait(100); item.layoutNow();
+        QVERIFY(!raster()); QCOMPARE(item.layout()->text(), invalid);
+        QCOMPARE(item.childItems().size(), 1);
+    }
     void inlineLayout_data();
     void inlineLayout();
     void inlineBaselineAndWrapping();

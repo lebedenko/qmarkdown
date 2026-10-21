@@ -8,6 +8,7 @@
 #include "../syntaxtheme.h"
 
 class SyntaxHighlightingProvider;
+class QThread;
 Q_MOC_INCLUDE("syntaxhighlightingprovider.h")
 
 namespace QMarkdownPrivate {
@@ -28,7 +29,8 @@ struct HighlightLimits {
     int spans = 65536;
     int milliseconds = 100;
 };
-std::unique_ptr<HighlightBackend> createHighlightBackend(HighlightLimits limits = {});
+// Prepare on the application thread; subsequent use and destruction belong to worker.
+std::unique_ptr<HighlightBackend> createHighlightBackend(HighlightLimits limits = {}, QThread *worker = nullptr);
 #ifdef QMARKDOWN_SYNTAX_TESTING
 void resetHighlightScheduler(std::function<std::unique_ptr<HighlightBackend>()> factory = {});
 QPair<qsizetype, qsizetype> highlightCacheSize();
