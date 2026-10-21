@@ -113,3 +113,14 @@ installed-library filename. Both were corrected from current read-only evidence 
 The owner subsequently approved the qualification continuation, including the highlighting fix and
 isolated toolchain acquisition. See [current actual results](continuation-verification.md); the
 transfer-only boundaries above describe the historical transfer, not the new authorization.
+
+## Current PR delivery scope (2026-10-21)
+
+Implementation and completed qualification records are committed at `2e7f7d6`. The owner now
+authorizes a normal follow-up documentation commit, branch publication, one non-draft PR against
+`main`, and full hosted CI. [PR preparation results](continuation-verification.md#pr-preparation-2026-10-21)
+confirm unchanged qualified inputs and exact Qt targets. Historical transfer and qualification
+restrictions above retain their original scope. Final hosted results belong in the PR description
+and owner handoff after the final revision passes; no evidence-only follow-up commit is planned.
+Leave the PR open with auto-merge disabled. Merge, release, version/API changes, installed-package
+replacement, viewer adoption and owner visual acceptance remain outside scope.

@@ -39,3 +39,13 @@ After completed qualification, the owner explicitly requested `commit`. This aut
 commit containing the Feature 064 implementation, regressions, specifications and verification
 records. Earlier no-commit statements describe their original scope. Push, PR, merge, release and
 viewer adoption remain outside this authorization.
+
+## PR and hosted CI authorization (2026-10-21)
+
+The owner explicitly approved publishing `feat/hybrid-text-rendering`, opening one non-draft PR
+against `main`, and completing the existing full hosted verification. Update delivery records in a
+normal follow-up commit to `2e7f7d6`; resolve CI failures within approved scope if needed. Preserve
+historical evidence and exact Qt 6.8.0/6.12.0 targets. No merge, auto-merge, tag, release, API/version
+change, installed-package replacement, viewer dependency adoption or visual-acceptance claim is
+included. Record final hosted results in the PR description and handoff to the owner, without an
+additional evidence-only commit that would invalidate the checked revision.

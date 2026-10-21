@@ -30,3 +30,15 @@ See [handoff](handoff.md). Historical completed tasks above retain their origina
 
 Completed results and remaining visual/measurement limits are recorded in
 [continuation verification](continuation-verification.md). No commit or publication was performed.
+
+## Approved PR delivery (2026-10-21)
+
+- [x] Record PR/CI authorization and committed implementation status at `2e7f7d6`.
+- [x] Synchronize Qt, validate documentation/whitespace, and compare qualified runtime/test snapshots.
+- [ ] Publish the branch normally and open one non-draft review PR against `main`.
+- [ ] Require full hosted verification and passing minimum/development packaging and remaining jobs.
+- [ ] Record final revision/results in the PR description and owner handoff; leave open without auto-merge.
+
+The unchecked delivery steps are tracked to completion in the PR and final owner handoff, avoiding
+an evidence-only commit after hosted verification. No further local matrix is needed for these
+prose-only additions while qualified inputs remain unchanged.

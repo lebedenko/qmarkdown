@@ -172,3 +172,23 @@ After the verification recorded above, the owner explicitly authorized a local c
 uncommitted-work statements above describe the completed qualification snapshot. Only this
 authorization note and its requirements record were added before committing; implementation and
 test inputs remain unchanged. Documentation and whitespace were checked again.
+
+## PR preparation (2026-10-21)
+
+The qualified implementation and local records are committed at
+`2e7f7d6` (`Add qualified hybrid text rendering`). The owner subsequently approved PR publication
+and hosted CI; see [requirements](requirements.md). Earlier uncommitted and no-publication statements
+retain their historical scope.
+
+Fresh preparation checks: `task sync-qt` reports 6.12.0 with no configuration change;
+`python3 scripts/check-docs.py` passes; `git diff --check` passes. The configured targets remain
+minimum 6.8.0 and development 6.12.0. `check-scope.py --base bbb0d0c` returns `true`, requiring full CI.
+A broader comparison of all 796 tracked non-Markdown files against each retained exact-Qt source
+snapshot finds no mismatches. An initial comparison incorrectly asserted the earlier narrower
+446-file count against this broader set; that count assertion failed, with no byte mismatches.
+The corrected comparison verifies both snapshots. Runtime, test, renderer and measurement inputs
+are unchanged, so the completed local matrix and historical performance measurements are not rerun.
+
+Remote preflight confirms `main` remains at `bbb0d0c1985567c4f1a7b71f82445c8fafd6ccf7`, with
+no remote feature branch or existing PR. Hosted checks remain pending at this preparation commit;
+actual final results will be recorded in the PR description and owner handoff.
