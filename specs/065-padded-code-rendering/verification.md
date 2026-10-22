@@ -36,3 +36,9 @@ interactions, texture retention, timing, memory and packaging were not run:
 production integration is explicitly prohibited after this gate failure. No
 speedup, retained-node or production acceptance claim is made. Historical Feature
 064 evidence is unchanged. PR delivery and hosted checks remain pending.
+
+## Later retained-texture experiment
+
+The separately approved follow-up and its actual results are recorded in
+[retained verification](retained-verification.md). Historical results above
+remain unchanged.
