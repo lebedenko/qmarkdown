@@ -335,3 +335,12 @@ records successful fresh checkout qualification and the highlighting ownership f
 The subsequently approved 1.17.1 release scope is recorded in the same feature documents.
 Historical failures remain explicit; speedup, perceived shimmer and owner visual acceptance
 remain unestablished. Viewer adoption is outside the release scope.
+
+## Padded inline-code prototype
+
+[065 requirements](065-padded-code-rendering/requirements.md),
+[design](065-padded-code-rendering/design.md),
+[tasks](065-padded-code-rendering/tasks.md) and
+[verification](065-padded-code-rendering/verification.md) record the approved
+Iteration 065 gate. Software foreground emission failed; production integration
+is stopped pending a revised, approved design.
