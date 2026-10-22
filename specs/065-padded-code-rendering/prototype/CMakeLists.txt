@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.21)
+project(padded_code_gate LANGUAGES CXX)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Quick)
+add_executable(padded-code-gate main.cpp)
+target_link_libraries(padded-code-gate PRIVATE Qt6::Quick)
+target_compile_features(padded-code-gate PRIVATE cxx_std_17)
