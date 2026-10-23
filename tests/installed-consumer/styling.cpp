@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     QGuiApplication app(argc, argv);
     QQmlEngine engine;
     QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.1\n"
+    component.setData("import QtQuick\nimport QMarkdown 1.17\n"
         "MarkdownView { width: 260; markdown: '# Heading\\n\\nBody `inline code`.\\n\\n```\\n  literal\\n```';"
         "style: MarkdownStyle { preset: MarkdownStyle.PolishedDark; headings.h1.color: '#123456';"
         "inlineCode.cornerRadius: 5; codeBlock.horizontalPadding: 14 } }", {});

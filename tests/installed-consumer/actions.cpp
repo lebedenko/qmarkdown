@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     QQmlEngine engine;
     QQmlComponent component(&engine);
     component.setData(R"(import QtQuick
-import QMarkdown 1.2
+import QMarkdown 1.17
 MarkdownView {
     width: 180
     markdown: "> ```info\n>   λ 😀  \n>\n> ```"

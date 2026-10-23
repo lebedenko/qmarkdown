@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     QQmlEngine engine; QQmlComponent component(&engine);
     component.setData(R"(
 import QtQuick
-import QMarkdown 1.15
+import QMarkdown 1.17
 MarkdownView { width: 100; mathEnabled: true; inlineMathEnabled: true; selectionEnabled: true; markdown: "A $x^2$ B\n\n$$\n\\frac{1}{2}\n$$" }
 )", QUrl());
     QQuickWindow window; window.resize(120, 200);

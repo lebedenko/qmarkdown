@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     QQmlEngine engine; QQmlComponent component(&engine);
     component.setData(R"QML(
 import QtQuick
-import QMarkdown 1.16
+import QMarkdown 1.17
 MarkdownView {
     width: 280; footnotesEnabled: true; selectionEnabled: true
     markdown: "A[^n] B[^n]\n\n[^n]: Note"

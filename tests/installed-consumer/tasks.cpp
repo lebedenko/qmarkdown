@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     QGuiApplication app(argc, argv);
     QQmlEngine engine;
     QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.3\nMarkdownView { width: 180; markdown: '- [x] Done\\n- [ ] Pending\\n  - [X] Nested' }", {});
+    component.setData("import QtQuick\nimport QMarkdown 1.17\nMarkdownView { width: 180; markdown: '- [x] Done\\n- [ ] Pending\\n  - [X] Nested' }", {});
     if (!component.isReady()) { qWarning() << component.errorString(); return 1; }
     std::unique_ptr<QObject> object(component.create());
     auto *view = qobject_cast<QQuickItem *>(object.get());
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     if (!QTest::qWaitFor([&] { return indicators(view).isEmpty(); })) return 8;
     if (view->property("markdown") != source) return 9;
     QQmlComponent custom(&engine);
-    custom.setData("import QtQuick\nimport QMarkdown 1.10\nMarkdownView { width: 180; taskListsEnabled: true; taskIndicatorsReplaceBullets: true; markdown: '- [x] Done'; taskIndicator: Component { Item { required property bool checked; required property MarkdownStyle markdownStyle; implicitWidth: 35; implicitHeight: 45 } } }", {});
+    custom.setData("import QtQuick\nimport QMarkdown 1.17\nMarkdownView { width: 180; taskListsEnabled: true; taskIndicatorsReplaceBullets: true; markdown: '- [x] Done'; taskIndicator: Component { Item { required property bool checked; required property MarkdownStyle markdownStyle; implicitWidth: 35; implicitHeight: 45 } } }", {});
     if (!custom.isReady()) { qWarning() << custom.errorString(); return 10; }
     std::unique_ptr<QObject> customObject(custom.create());
     auto *customView = qobject_cast<QQuickItem *>(customObject.get());

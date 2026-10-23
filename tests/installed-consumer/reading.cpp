@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     QGuiApplication app(argc, argv); QQmlEngine engine; QQmlComponent component(&engine);
     component.setData(R"(
 import QtQuick
-import QMarkdown 1.9
+import QMarkdown 1.17
 MarkdownView {
     width: 200
     markdown: "# Install\n\n> ## Install\n\nSearch **needle** and NEEDLE."

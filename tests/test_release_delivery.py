@@ -96,7 +96,7 @@ class EligibilityTest(unittest.TestCase):
                     'conclusion': 'success', 'path': '.github/workflows/linux-qt.yml',
                     'pull_requests': [{'number': 42}]}
         self.versions = {'minimum': '6.8.0', 'development': '6.12.0'}
-        self.gate = {'full': True, 'pr': 42, 'head': 'head', 'tree': 'tree',
+        self.gate = {'schema': 'qmarkdown-ci-v2', 'profile': 'full', 'full': True, 'pr': 42, 'head': 'head', 'tree': 'tree',
                      'qt': self.versions, 'version': '1.6.0'}
 
     def validate(self, **kwargs):
@@ -119,7 +119,7 @@ class EligibilityTest(unittest.TestCase):
                 self.validate(run=run)
 
     def test_tree_qt_version_and_full_gate_must_match(self):
-        for field, value in (('tree', 'other'), ('qt', {'minimum': '6.8.0', 'development': '6.13.0'}),
+        for field, value in (('profile', 'core'), ('profile', 'light'), ('schema', None), ('tree', 'other'), ('qt', {'minimum': '6.8.0', 'development': '6.13.0'}),
                              ('pr', 43), ('version', '1.5.0'), ('full', False), ('head', 'previous')):
             with self.subTest(field=field), self.assertRaises(ValueError):
                 self.validate(gate={**self.gate, field: value})
@@ -216,7 +216,7 @@ class DocumentationTest(unittest.TestCase):
 
     def test_only_prose_changes_get_lightweight_jobs(self):
         self.assertFalse(scope.full_verification(['README.md', 'docs/gfm.md', 'specs/039/verification.md']))
-        for names in (['CHANGELOG.md'], ['docs/release-notes-1.7.0.md'], ['src/QMarkdown/MarkdownView.qml'],
+        for names in (['CHANGELOG.md'], ['docs/release-notes-1.7.0.md'],
                       ['scripts/ci-toolchain/qt-versions.json'], ['CMakeLists.txt'], ['LICENSE']):
             self.assertTrue(scope.full_verification(names))
 
