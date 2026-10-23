@@ -1,0 +1,12 @@
+--- a/src/QMarkdown/private/formattedtext.h
++++ b/src/QMarkdown/private/formattedtext.h
+@@ -50,6 +50,9 @@
+     Q_PROPERTY(QVariantList sourceLines READ sourceLines NOTIFY layoutChanged FINAL)
+     Q_PROPERTY(qreal logicalHeight READ logicalHeight NOTIFY layoutChanged FINAL)
+ public:
++    // Diagnostic-only prepared snapshot; never applied to shipping sources.
++    void diagnosticPrepare() { updatePolish(); }
++    auto diagnosticRuns() const { return m_paintedRuns; }
+     QVariantList referenceSpans() const { return m_references; }
+     void setReferenceSpans(const QVariantList &v) { if (m_references == v) return; m_references = v; emit referenceSpansChanged(); polish(); }
+     QVariantList formulaSpans() const { return m_formulas; }
