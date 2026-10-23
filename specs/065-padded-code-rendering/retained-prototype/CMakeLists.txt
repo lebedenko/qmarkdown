@@ -10,3 +10,8 @@ add_executable(retained-glyph-gate main.cpp)
 target_include_directories(retained-glyph-gate PRIVATE "${QMARKDOWN_STAGE}/src/QMarkdown")
 target_link_libraries(retained-glyph-gate PRIVATE QMarkdown Qt6::Quick)
 target_compile_features(retained-glyph-gate PRIVATE cxx_std_17)
+
+add_executable(retained-glyph-diagnostic diagnostic.cpp)
+target_include_directories(retained-glyph-diagnostic PRIVATE "${QMARKDOWN_STAGE}/src/QMarkdown")
+target_link_libraries(retained-glyph-diagnostic PRIVATE QMarkdown Qt6::Quick)
+target_compile_features(retained-glyph-diagnostic PRIVATE cxx_std_17)

@@ -1,0 +1,11 @@
+{
+  "stagedSource": "4baf0fb934ced7b732267e1ed83bbab529cf0ef9",
+  "files": {
+    "diagnostic.cpp": "d86b1d2d8a5b19bd04aee3da5b263b7e7ae770297ba21449396b378aa77ce459",
+    "main.cpp": "68dcb85bc75c68c8d02db7978e45b24d878834cebc1c3f96898bb99dbba8f0fd",
+    "prepared-runs.patch": "28a7e648da1b751599226cd1b2be216973f7605a9378a7218a5a695eb1d7d1a7",
+    "CMakeLists.txt": "bac33d33cc9da6f679406f978cf3cde817bd8fde80bfdd637cdcc645e7556858",
+    "stage.py": "0afe5b472a9acac3448242f0ff377dfe7ab8fa84dfc39d6e5df383ba168cb38b",
+    "summarize.py": "0a0dcc4c0465f1dc2f1b2642a53071588408319a083b5867246f7e90b3643741"
+  }
+}

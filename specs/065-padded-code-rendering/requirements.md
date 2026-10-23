@@ -59,3 +59,21 @@ direction. Production integration requires a later approved plan.
   checks. No merge, auto-merge, release, package replacement, public API, version,
   dependency or shipping-renderer changes. Automated success permits design
   review only; visual acceptance and production readiness are separate.
+
+## Diagnostic revision — approved 2026-10-23
+
+The owner's explicit request to implement the supplied diagnostic plan approves
+these requirements, design and tasks before implementation. Both failed probes
+and their evidence remain historical. No shipping or scene-graph work is authorized.
+
+- D1: Compare whole prepared runs, reconstructed and metadata-preserving individual
+  glyphs, local tiles, original-coordinate translated tiles and full-canvas crops.
+- D2: Preserve order, fonts, indexes, positions, colors and painter settings; disable
+  decorations consistently. Log metadata, transforms, phases, bounds and image DPR.
+- D3: Independently select comparisons; never stop remaining controls on mismatch.
+- D4: Reproduce historical fX at (24.25,24.25), DPR 1/1.25; test f/X/fX/fXfX
+  at DPR 1/1.25/1.5/2 with independent physical X/Y phases 0/.25/.5/.75.
+- D5: Use fresh exact Qt 6.8.0/6.12.0 offscreen software builds; retain exact pixel,
+  support, channel, border and emission metrics, identities and representative images.
+- D6: Report evidence-supported diagnosis and recommendation in PR 48, open and
+  unmerged, auto-merge disabled. Exact parity qualifies this matrix only.
