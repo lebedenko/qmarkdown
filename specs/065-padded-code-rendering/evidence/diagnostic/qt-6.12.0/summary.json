@@ -1,0 +1,659 @@
+{
+  "identity": {
+    "compiler": "16.2.1 20260810",
+    "engine": "QPainter raster",
+    "platform": "offscreen",
+    "qt": "6.12.0",
+    "selection": "all",
+    "type": "identity"
+  },
+  "cases": 258,
+  "comparisons": {
+    "local->legacy": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "preserved->crop": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "preserved->local": {
+      "failedCases": 120,
+      "changed": 40349,
+      "maxChanged": 1058,
+      "lost": 212,
+      "extra": 211,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        11
+      ]
+    },
+    "preserved->translated": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "reconstructed->preserved": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "reference->crop": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "reference->legacy": {
+      "failedCases": 120,
+      "changed": 40349,
+      "maxChanged": 1058,
+      "lost": 212,
+      "extra": 211,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        11
+      ]
+    },
+    "reference->local": {
+      "failedCases": 120,
+      "changed": 40349,
+      "maxChanged": 1058,
+      "lost": 212,
+      "extra": 211,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        11
+      ]
+    },
+    "reference->preserved": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "reference->reconstructed": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "reference->translated": {
+      "failedCases": 0,
+      "changed": 0,
+      "maxChanged": 0,
+      "lost": 0,
+      "extra": 0,
+      "maxBGRA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "borderInk": {},
+  "overlapChanges": 0,
+  "outsideOverlapChanges": 0,
+  "historical": [
+    {
+      "borderInk": {},
+      "directChangesInOverlap": 0,
+      "directChangesOutsideOverlap": 0,
+      "dpr": 1,
+      "emissions": {
+        "crop": 2,
+        "legacy": 2,
+        "local": 2,
+        "preserved": 2,
+        "reconstructed": 2,
+        "translated": 2
+      },
+      "fixture": "fX",
+      "glyphs": [
+        {
+          "bounds": [
+            25,
+            30,
+            28,
+            47
+          ],
+          "color": "#ff000000",
+          "dpr": 1,
+          "flags": 0,
+          "fontFamily": "DejaVu Sans",
+          "fontStyle": "Oblique",
+          "fontWeight": 400,
+          "hinting": 0,
+          "index": 73,
+          "localDeviceTransform": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "localDrawOrigin": [
+            -0.75,
+            43.4375
+          ],
+          "origin": [
+            24.25,
+            24.25
+          ],
+          "phase": [
+            0.25,
+            0.4375
+          ],
+          "pixelSize": 53,
+          "position": [
+            0,
+            49.1875
+          ],
+          "reconstructedFlags": 0,
+          "singleFlags": 0,
+          "translatedDeviceTransform": [
+            1,
+            0,
+            0,
+            1,
+            -25,
+            -30
+          ]
+        },
+        {
+          "bounds": [
+            37,
+            32,
+            46,
+            44
+          ],
+          "color": "#ff000000",
+          "dpr": 1,
+          "flags": 0,
+          "fontFamily": "DejaVu Sans",
+          "fontStyle": "Oblique",
+          "fontWeight": 400,
+          "hinting": 0,
+          "index": 59,
+          "localDeviceTransform": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "localDrawOrigin": [
+            5.90625,
+            41.4375
+          ],
+          "origin": [
+            24.25,
+            24.25
+          ],
+          "phase": [
+            0.90625,
+            0.4375
+          ],
+          "pixelSize": 53,
+          "position": [
+            18.65625,
+            49.1875
+          ],
+          "reconstructedFlags": 0,
+          "singleFlags": 0,
+          "translatedDeviceTransform": [
+            1,
+            0,
+            0,
+            1,
+            -37,
+            -32
+          ]
+        }
+      ],
+      "id": "historical-1",
+      "metrics": {
+        "local->legacy": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "preserved->crop": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "preserved->local": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "preserved->translated": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reconstructed->preserved": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->crop": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->legacy": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->local": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->preserved": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->reconstructed": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->translated": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "occurrences": 2,
+      "origin": [
+        24.25,
+        24.25
+      ],
+      "type": "case"
+    },
+    {
+      "borderInk": {},
+      "directChangesInOverlap": 0,
+      "directChangesOutsideOverlap": 0,
+      "dpr": 1.25,
+      "emissions": {
+        "crop": 2,
+        "legacy": 2,
+        "local": 2,
+        "preserved": 2,
+        "reconstructed": 2,
+        "translated": 2
+      },
+      "fixture": "fX",
+      "glyphs": [
+        {
+          "bounds": [
+            32,
+            38,
+            33,
+            58
+          ],
+          "color": "#ff000000",
+          "dpr": 1.25,
+          "flags": 0,
+          "fontFamily": "DejaVu Sans",
+          "fontStyle": "Oblique",
+          "fontWeight": 400,
+          "hinting": 0,
+          "index": 73,
+          "localDeviceTransform": [
+            1.25,
+            0,
+            0,
+            1.25,
+            0,
+            0
+          ],
+          "localDrawOrigin": [
+            -1.35,
+            43.0375
+          ],
+          "origin": [
+            24.25,
+            24.25
+          ],
+          "phase": [
+            0.3125,
+            0.796875
+          ],
+          "pixelSize": 53,
+          "position": [
+            0,
+            49.1875
+          ],
+          "reconstructedFlags": 0,
+          "singleFlags": 0,
+          "translatedDeviceTransform": [
+            1.25,
+            0,
+            0,
+            1.25,
+            -32,
+            -38
+          ]
+        },
+        {
+          "bounds": [
+            47,
+            41,
+            57,
+            53
+          ],
+          "color": "#ff000000",
+          "dpr": 1.25,
+          "flags": 0,
+          "fontFamily": "DejaVu Sans",
+          "fontStyle": "Oblique",
+          "fontWeight": 400,
+          "hinting": 0,
+          "index": 59,
+          "localDeviceTransform": [
+            1.25,
+            0,
+            0,
+            1.25,
+            0,
+            0
+          ],
+          "localDrawOrigin": [
+            5.30625,
+            40.6375
+          ],
+          "origin": [
+            24.25,
+            24.25
+          ],
+          "phase": [
+            0.6328125,
+            0.796875
+          ],
+          "pixelSize": 53,
+          "position": [
+            18.65625,
+            49.1875
+          ],
+          "reconstructedFlags": 0,
+          "singleFlags": 0,
+          "translatedDeviceTransform": [
+            1.25,
+            0,
+            0,
+            1.25,
+            -47,
+            -41
+          ]
+        }
+      ],
+      "id": "historical-1.25",
+      "metrics": {
+        "local->legacy": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "preserved->crop": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "preserved->local": {
+          "changed": 380,
+          "extra": 2,
+          "lost": 1,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            8
+          ]
+        },
+        "preserved->translated": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reconstructed->preserved": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->crop": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->legacy": {
+          "changed": 380,
+          "extra": 2,
+          "lost": 1,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            8
+          ]
+        },
+        "reference->local": {
+          "changed": 380,
+          "extra": 2,
+          "lost": 1,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            8
+          ]
+        },
+        "reference->preserved": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->reconstructed": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "reference->translated": {
+          "changed": 0,
+          "extra": 0,
+          "lost": 0,
+          "maxBGRA": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "occurrences": 2,
+      "origin": [
+        24.25,
+        24.25
+      ],
+      "type": "case"
+    }
+  ]
+}

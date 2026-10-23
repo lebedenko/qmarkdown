@@ -35,3 +35,14 @@ have not been executed:
 The retained preparation gate failed on both exact SDKs at image DPR 1.25.
 Conditional expansion tasks remain intentionally unexecuted; see
 [actual retained verification](retained-verification.md).
+
+## Diagnostic tasks — approved 2026-10-23
+
+The owner requested implementation of the supplied diagnostic plan.
+
+- [x] Record requirements/design/tasks and approval before implementation (D1–D6).
+- [x] Implement separate selectable diagnostic controls and structured logs (D1–D3).
+- [x] Run historical reproducer and full phase matrix on fresh exact SDK builds (D4–D5).
+- [x] Inspect representative captures; record actual results and recommendation (D5–D6).
+- [x] Synchronize Qt and validate docs/whitespace (D6).
+- [ ] Update open PR and observe final-head hosted checks (D6; results in PR).
