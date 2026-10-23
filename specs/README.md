@@ -342,5 +342,7 @@ remain unestablished. Viewer adoption is outside the release scope.
 [design](065-padded-code-rendering/design.md),
 [tasks](065-padded-code-rendering/tasks.md) and
 [verification](065-padded-code-rendering/verification.md) record the approved
-Iteration 065 gate. Software foreground emission failed; production integration
-is stopped pending a revised, approved design.
+Iteration 065 gate. Software foreground emission failed. The subsequently
+approved retained glyph-texture experiment also failed its preparation image
+gate; see [retained results](065-padded-code-rendering/retained-verification.md).
+Production integration remains excluded.

@@ -1,0 +1,2 @@
+Qt 6.8.0 DPR 1.00 occurrences 2 emitted 2 unique images 2 image bytes 15172 changed 0 lost 0 extra 0 control changed 0 border ink 0 max alpha delta 0
+Qt 6.8.0 DPR 1.25 occurrences 2 emitted 2 unique images 2 image bytes 22812 changed 306 lost 1 extra 1 control changed 3 border ink 0 max alpha delta 5

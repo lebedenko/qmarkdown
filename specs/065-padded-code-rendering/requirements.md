@@ -30,3 +30,32 @@ design if the gate fails. Merge and publication are excluded.
   timing without assuming speedup. Replay p95 <= one refresh, max <= two.
 
 See [design](design.md), [tasks](tasks.md) and [actual verification](verification.md).
+
+## Retained glyph-texture revision — approved 2026-10-22
+
+The owner's explicit request to implement the supplied retained glyph-texture
+plan renews approval for the following replacement experiment. The preceding
+requirements and failed selection probe remain historical, not implementation
+direction. Production integration requires a later approved plan.
+
+- T1: Extract actual prepared `m_paintedRuns` in a staged diagnostic patch; keep
+  fonts, indexes, positions, padding translations, colors and decorations.
+- T2: Rasterize individual glyphs using public QPainter APIs on the preparation
+  thread, including ink, transparent margins and local subpixel phase. Share
+  immutable images per surface by font identity/index/color/DPR/phase.
+- T3: Transfer only images and geometry to render-thread-owned image nodes and
+  textures. Preserve backgrounds, Find, selection, glyphs, focus order; keep
+  decorations separate and rounded backgrounds in small retained images.
+- T4: Invalidate affected resources on content/style/DPR changes. Settled
+  scrolling transforms retained content only; overlays retain glyph resources.
+- T5: Correctness failure rejects the experiment and stops expansion. Otherwise
+  qualify exact Qt 6.8.0/6.12.0 software, then confirmed OpenGL/Vulkan at DPR
+  1/1.25/1.5/2, shaping, clipping, fractional translation and lifecycle.
+- T6: Require zero replay layout/raster/upload/node rebuilds; balanced teardown.
+  Compare fresh 1.17.1 fixed traces with clean timing separate from counters:
+  p95 <= measured refresh interval, maximum <= two. Report preparation, textures,
+  nodes, image bytes and bounded memory. A lifecycle or timing failure rejects.
+- T7: One open non-draft PR with specs/prototype/evidence and final-head hosted
+  checks. No merge, auto-merge, release, package replacement, public API, version,
+  dependency or shipping-renderer changes. Automated success permits design
+  review only; visual acceptance and production readiness are separate.
