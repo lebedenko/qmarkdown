@@ -1,0 +1,10 @@
+[  1%] Built target QMarkdown_copy_qml
+[  2%] Built target generate_qmlls_build_ini_file
+[  3%] Built target QMarkdown_copy_res
+[ 27%] Built target qmarkdown_cmark
+[ 27%] Built target QMarkdown_autogen_timestamp_deps
+[ 29%] Built target QMarkdown_autogen
+[ 97%] Built target QMarkdown
+[ 98%] Building CXX object CMakeFiles/retained-glyph-diagnostic.dir/diagnostic.cpp.o
+[100%] Linking CXX executable retained-glyph-diagnostic
+[100%] Built target retained-glyph-diagnostic

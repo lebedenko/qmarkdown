@@ -1,0 +1,8 @@
+[ 12%] Built target QMarkdown_tooling
+[ 34%] Built target qmarkdown_cmark
+[ 34%] Built target QMarkdown_autogen_timestamp_deps
+[ 35%] Built target QMarkdown_autogen
+[ 97%] Built target QMarkdown
+[ 98%] Building CXX object CMakeFiles/retained-glyph-diagnostic.dir/diagnostic.cpp.o
+[100%] Linking CXX executable retained-glyph-diagnostic
+[100%] Built target retained-glyph-diagnostic
