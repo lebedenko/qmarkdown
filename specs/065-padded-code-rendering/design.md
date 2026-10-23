@@ -45,3 +45,41 @@ render-thread-owned public image nodes/textures, explicit decorations and layer
 ordering, resource invalidation and the full requirements matrix. Linear
 filtering is fixed for later fractional-transform captures; no shimmer claim
 follows from a same-phase comparison. Historical probe files remain unchanged.
+
+## Diagnostic revision (2026-10-23 approval)
+
+A separate executable in retained-prototype shares only the staged snapshot patch.
+Each case prepares text once. The reference paints whole runs; direct controls
+reconstruct a glyph or copy its run before replacing indexes/positions. Tile controls
+compare the historical zero-position formula with unchanged positions plus an integer
+physical translation in the painter transform. A full-canvas single-glyph image is
+cropped at integer physical bounds and copied without scaling using a DPR-1 compositor.
+All paths preserve emission order and turn off decorations. JSON Lines retain every
+case and glyph's metadata; PNGs retain historical examples and first differences.
+Comparison selection controls reporting only, so failures never interrupt the matrix.
+Exact premultiplied pixels remain the gate. Classification depends on paired controls,
+not visual impressions. No GPU, scrolling, lifecycle, shaping breadth or performance
+claim follows from this diagnostic.
+
+## Whole-run revision — approved 2026-10-23
+
+The owner's supplied implementation request approves W1–W7 and the tasks below.
+Reuse PR #49's diagnostics without reopening it; its delivery is closed/unmerged,
+not completed integration. Historical results remain evidence of earlier probes.
+
+A separate standalone executable uses the same exported-tree snapshot patch.
+Union raw-font ink rectangles at original glyph positions plus run/canvas origin,
+scale to physical space, round outward and add four physical pixels. Translate
+the painter by the negative integer tile origin divided by DPR and draw the
+unchanged complete run. Reset image DPR to one for integer physical composition.
+Do not rebuild or split runs. A full-canvas image per run supplies the crop
+control and detects support outside bounds. All three paths preserve order.
+Log each run and glyph sequence, fonts and geometry; count emissions explicitly.
+Individual-glyph painting remains a non-accepting diagnostic. Compare exact
+premultiplied pixels, keep transparent differences and representative captures.
+
+Load explicit font files before layout and hash their bytes in each environment.
+Historical binaries retain environment font resolution. Run historical, basic
+phase and extended prepared-run stages in order, finishing each matrix before
+stopping on failure. Both SDKs must pass the basic stage before either extends.
+No later rendering architecture is selected by this experiment.

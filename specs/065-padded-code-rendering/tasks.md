@@ -35,3 +35,31 @@ have not been executed:
 The retained preparation gate failed on both exact SDKs at image DPR 1.25.
 Conditional expansion tasks remain intentionally unexecuted; see
 [actual retained verification](retained-verification.md).
+
+## Diagnostic tasks — approved 2026-10-23
+
+The owner requested implementation of the supplied diagnostic plan.
+
+- [x] Record requirements/design/tasks and approval before implementation (D1–D6).
+- [x] Implement separate selectable diagnostic controls and structured logs (D1–D3).
+- [x] Run historical reproducer and full phase matrix on fresh exact SDK builds (D4–D5).
+- [x] Inspect representative captures; record actual results and recommendation (D5–D6).
+- [x] Synchronize Qt and validate docs/whitespace (D6).
+- [x] Submit continuation [PR 49](https://github.com/lebedenko/qmarkdown/pull/49)
+  for final-head hosted checks (D6; actual outcomes recorded in PR). PR 48 was
+  already merged before that session. PR #49 subsequently closed without merge;
+  the current continuation recovers its work without reopening it.
+
+## Whole-run tasks — owner approval 2026-10-23
+
+- [x] Record approved bounded revision before implementation (W1–W7).
+- [x] Recover closed PR #49 harness/evidence and correct delivery status (W6).
+- [x] Implement separate whole-run tile/crop/direct gate and explicit fonts (W1–W4).
+- [x] Fresh exact-SDK builds; historical fresh/reverse controls, complete basic
+  matrix, then conditional extended matrix; retain identities/metrics/captures (W3–W5).
+- [x] Lightweight verification (W6).
+- [ ] Open one continuation PR, complete final-head hosted checks and leave
+  unmerged with auto-merge disabled (W6; final status lives in PR checks/body).
+
+Software parity alone permits a later design review, never production integration
+or speedup claims (W7).
