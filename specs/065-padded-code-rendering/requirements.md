@@ -75,5 +75,5 @@ and their evidence remain historical. No shipping or scene-graph work is authori
   at DPR 1/1.25/1.5/2 with independent physical X/Y phases 0/.25/.5/.75.
 - D5: Use fresh exact Qt 6.8.0/6.12.0 offscreen software builds; retain exact pixel,
   support, channel, border and emission metrics, identities and representative images.
-- D6: Report evidence-supported diagnosis and recommendation in PR 48, open and
+- D6: Report evidence-supported diagnosis and recommendation in the experiment continuation PR, open and
   unmerged, auto-merge disabled. Exact parity qualifies this matrix only.

@@ -131,6 +131,13 @@ Qt target synchronization reported 6.12.0 with no configuration change.
 `python3 scripts/check-docs.py` and `git diff --check` passed. Summarizer assertions
 passed on both final logs. The existing CI classification remains full because
 this PR includes executable/CMake/evidence inputs; it was not weakened.
-Final-head hosted results are recorded in [PR 48](https://github.com/lebedenko/qmarkdown/pull/48)
+The selectable `preserved->translated,preserved->crop` host run also completed all
+258 cases and exited 0, independently of known failures.
+
+PR 48 had already merged before this session (2026-10-23 07:59 UTC). Its original
+title and description were restored after discovering that state. The diagnosis
+therefore continues in a new PR based on `b4e650d`; that main tree is identical to
+the tested source export before this diagnostic. No shipping input changed.
+Final-head hosted results are recorded in [PR 49](https://github.com/lebedenko/qmarkdown/pull/49)
 after pushing this report. Earlier-head checks do not qualify the new head.
 The PR remains open, unmerged, with auto-merge disabled.

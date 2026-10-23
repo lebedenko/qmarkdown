@@ -45,4 +45,6 @@ The owner requested implementation of the supplied diagnostic plan.
 - [x] Run historical reproducer and full phase matrix on fresh exact SDK builds (D4–D5).
 - [x] Inspect representative captures; record actual results and recommendation (D5–D6).
 - [x] Synchronize Qt and validate docs/whitespace (D6).
-- [ ] Update open PR and observe final-head hosted checks (D6; results in PR).
+- [x] Submit continuation [PR 49](https://github.com/lebedenko/qmarkdown/pull/49)
+  for final-head hosted checks (D6; actual outcomes recorded in PR). PR 48 was
+  already merged before this session; continuation preserves an open review.
