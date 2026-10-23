@@ -45,3 +45,18 @@ render-thread-owned public image nodes/textures, explicit decorations and layer
 ordering, resource invalidation and the full requirements matrix. Linear
 filtering is fixed for later fractional-transform captures; no shimmer claim
 follows from a same-phase comparison. Historical probe files remain unchanged.
+
+## Diagnostic revision (2026-10-23 approval)
+
+A separate executable in retained-prototype shares only the staged snapshot patch.
+Each case prepares text once. The reference paints whole runs; direct controls
+reconstruct a glyph or copy its run before replacing indexes/positions. Tile controls
+compare the historical zero-position formula with unchanged positions plus an integer
+physical translation in the painter transform. A full-canvas single-glyph image is
+cropped at integer physical bounds and copied without scaling using a DPR-1 compositor.
+All paths preserve emission order and turn off decorations. JSON Lines retain every
+case and glyph's metadata; PNGs retain historical examples and first differences.
+Comparison selection controls reporting only, so failures never interrupt the matrix.
+Exact premultiplied pixels remain the gate. Classification depends on paired controls,
+not visual impressions. No GPU, scrolling, lifecycle, shaping breadth or performance
+claim follows from this diagnostic.
