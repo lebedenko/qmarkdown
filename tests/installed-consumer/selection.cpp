@@ -12,7 +12,7 @@ Q_IMPORT_QML_PLUGIN(QMarkdownPlugin)
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv); QQmlEngine engine; QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.8\nMarkdownView { width: 200; markdown: '**one**\\n\\ntwo'; style: MarkdownStyle { selectionBackgroundColor: '#603b82f6' } }", {});
+    component.setData("import QtQuick\nimport QMarkdown 1.17\nMarkdownView { width: 200; markdown: '**one**\\n\\ntwo'; style: MarkdownStyle { selectionBackgroundColor: '#603b82f6' } }", {});
     std::unique_ptr<QObject> view(component.create());
     if (!view) { qWarning() << component.errorString(); return 1; }
     if (view->property("selectionEnabled").toBool() || !view->property("selectedText").toString().isEmpty()) return 2;

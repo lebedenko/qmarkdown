@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     QQmlEngine engine; QQmlComponent component(&engine);
     component.setData(R"(
 import QtQuick
-import QMarkdown 1.11
+import QMarkdown 1.17
 MarkdownView {
     width: 300
     markdown: "```cpp\nconst int n = 42;\n```"
@@ -46,7 +46,7 @@ MarkdownView {
     QQmlComponent codeBlocks(&engine);
     codeBlocks.setData(R"(
 import QtQuick
-import QMarkdown 1.12
+import QMarkdown 1.17
 MarkdownView {
     width: 160
     codeBlockWrapEnabled: false

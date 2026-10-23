@@ -346,3 +346,5 @@ Iteration 065 gate. Software foreground emission failed. The subsequently
 approved retained glyph-texture experiment also failed its preparation image
 gate; see [retained results](065-padded-code-rendering/retained-verification.md).
 Production integration remains excluded.
+
+- [066: Focused CI and local verification](066-focused-verification/requirements.md) — approved implementation; see its [design](066-focused-verification/design.md), [tasks](066-focused-verification/tasks.md) and [actual verification](066-focused-verification/verification.md).

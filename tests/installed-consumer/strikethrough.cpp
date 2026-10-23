@@ -24,7 +24,7 @@ static QStringList labels(QQuickItem *parent)
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv); QQmlEngine engine; QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.4\nMarkdownView { width: 180; markdown: '~~**bold** [link](strike:link)~~' }", {});
+    component.setData("import QtQuick\nimport QMarkdown 1.17\nMarkdownView { width: 180; markdown: '~~**bold** [link](strike:link)~~' }", {});
     if (!component.isReady()) { qWarning() << component.errorString(); return 1; }
     std::unique_ptr<QObject> object(component.create()); auto *view = qobject_cast<QQuickItem *>(object.get());
     if (!view || view->property("strikethroughEnabled").toBool() || view->property("taskListsEnabled").toBool()) return 2;

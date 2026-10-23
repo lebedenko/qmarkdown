@@ -20,15 +20,29 @@ Run the narrowest relevant checks first. Repeat broader checks when their inputs
 
 For prose-only changes, use lightweight checks such as document links, whitespace, and consistency. Runtime tests are unnecessary unless the documentation change exposes a behavior concern. For build-affecting changes, perform full verification relevant to the affected build, packaging, and supported environments. Record actual results separately from planned checks, including any checks that could not run and the exact reason.
 
-PR CI retains the required `packaging (minimum)` and `packaging (development)` jobs.
-Documentation-only PRs run documentation validation through these jobs. Release
-notes/changelog changes and all build/tooling/runtime inputs run the complete
-shared/static matrix on exact committed minimum/development Qt versions. There
-are no automatic main-push, manual prepublication or publication-triggered full
-suite runs. Before PR verification, run `task sync-qt` (or
-`python3 scripts/ci-toolchain/qt_versions.py --sync-host /path/to/qmake`) to align
-the development target with the selected host SDK; review and commit that change.
-CI never silently chooses the latest Qt.
+PR CI retains `packaging (minimum)` and `packaging (development)` on exact committed Qt targets. The complete PR diff (including both sides of renames) selects additive coverage:
+
+| Profile | Inputs | Verification |
+| --- | --- | --- |
+| Light | Documentation, specs, standalone experiments/evidence | Documentation links, changed evidence/configuration syntax and Qt-independent Python tests once |
+| Core | Shipping C++/QML, runtime tests, examples | Shared runtime suite, QML lint, symbol privacy and grouped installed consumers on both Qt targets |
+| Full | Build/package/dependency/toolchain/CI inputs, consumer infrastructure, benchmark tooling, release notes/changelog/version changes, unknown inputs | Shared/static × syntax OFF/ON, both math-disabled linkage variants, one library-only build per target and development-Qt Release benchmark smoke |
+
+Core syntax/provider/code-block inputs add a shared syntax-enabled configuration; math inputs add both math-disabled linkage checks. The `ci:full` PR label only escalates coverage. Label changes reclassify; superseded PR runs are cancelled, while matrix failures do not cancel the other target. Standalone experiments stay outside shipping CI; their own local verification plans must execute exact-Qt harnesses and retain results.
+
+Ninja builds use two workers and serial GUI tests. Build-only ccache is shared across configurations, keyed by recipe/Qt/architecture, and persisted between hosted runs. A miss changes speed only. Image preparation has 20 minutes; Core verification has 20 minutes and Full 45 minutes. Outer jobs allow 50/75 minutes, and the supervisor leaves time to collect container timeout results. Available logs, phase durations and cache statistics are collected unconditionally with existence checks and 14-day retention. Forced runner termination can prevent artifact upload.
+
+Before changing the configured development target, run `task sync-qt` (or `python3 scripts/ci-toolchain/qt_versions.py --sync-host /path/to/qmake`) and review/commit that change. CI never silently chooses latest Qt. There are no main-push or publication-triggered full-suite runs. Only successful Full evidence with schema `qmarkdown-ci-v2` qualifies for publication; Core/Light never qualify.
+
+### Local verification and hooks
+
+`task check` runs documentation, configuration/evidence syntax and Python tooling checks without Docker. Install Python 3, PyYAML (`python3-yaml` or `python3 -m pip install PyYAML==6.0.3`) and Git first. `task install-hooks` sets the local repository hook path and refuses unrelated hook configurations or existing active hooks; integrate those manually when necessary.
+
+Pre-commit checks staged whitespace/conflict markers and validates the staged snapshot. Pre-push checks each distinct non-deleted commit supplied by Git, including non-HEAD tips and multiple refs. Each commit is classified against its merge-base with locally available `origin/main`; missing ancestry conservatively requires a build. `task check-push` checks HEAD explicitly. Shipping/build/runtime-test inputs run an incremental shared build and full runtime suite on configured development Qt. Documentation, experiments and CI/Python-only inputs use lightweight checks.
+
+Hooks export Git blobs into a managed `build-ci/hooks/source` cache, retain timestamps for unchanged files and adjacent incremental build outputs, and use an exclusive nonblocking lock. They never stash or alter the checkout. Set `QMARKDOWN_QMAKE=/path/to/qmake` for the exact development SDK; install CMake and Ninja before building. Missing/mismatched tools fail with instructions; hooks never download or synchronize Qt. Standard `git commit --no-verify` and `git push --no-verify` bypass hooks. Local success assists development and cannot replace hosted release evidence.
+
+`task ci-minimum` and `task ci-development` remain explicit comprehensive Full container checks. For focused reproduction use `python3 scripts/run-ci.py --qt-role development --profile core`, adding `--syntax`/`--math` when relevant. Full performance measurements remain explicit through `task benchmark`. Record cold/warm compiler-cache conditions separately; the 8–12 minute Core target is a goal, not a guaranteed result.
 
 ## Release delivery
 

@@ -24,7 +24,8 @@ def validate(pr, run, gate, main, merged_tree, versions, version, tag_commit=Non
             or run['status'] != 'completed' or run['conclusion'] != 'success'
             or run['path'] != '.github/workflows/linux-qt.yml'):
         raise ValueError('Final PR CI run did not pass')
-    if (gate.get('full') is not True or gate.get('head') != pr['head']['sha']
+    if (gate.get('schema') != 'qmarkdown-ci-v2' or gate.get('profile') != 'full'
+            or gate.get('full') is not True or gate.get('head') != pr['head']['sha']
             or gate.get('pr') != pr['number']):
         raise ValueError('Release requires full verification of the final PR head')
     if gate.get('tree') != merged_tree:

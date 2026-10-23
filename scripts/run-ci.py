@@ -23,7 +23,8 @@ qt_versions = SimpleNamespace(**runpy.run_path(
     str(Path(__file__).resolve().parent / "ci-toolchain" / "qt_versions.py")))
 QT_TARGETS = qt_versions.load_versions()
 QT_VERSIONS = tuple(QT_TARGETS.values())
-TIMEOUT_SECONDS = 35 * 60
+PREPARATION_TIMEOUT_SECONDS = 20 * 60
+VERIFICATION_TIMEOUT_SECONDS = {"core": 20 * 60 + 90, "full": 45 * 60 + 90}
 SOURCE = Path(__file__).resolve().parents[1]
 
 
@@ -42,7 +43,7 @@ def image_metadata(qt, context):
             "recipeFingerprint": fingerprint, "qt": qt, "platform": PLATFORM}
 
 
-def logged_process(command, log_path, container=None):
+def logged_process(command, log_path, container=None, timeout=None):
     with log_path.open("w") as log:
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                    text=True, errors="replace", bufsize=1, start_new_session=True)
@@ -57,7 +58,7 @@ def logged_process(command, log_path, container=None):
         reader = threading.Thread(target=copy_output)
         reader.start()
         try:
-            return process.wait(timeout=TIMEOUT_SECONDS)
+            return process.wait(timeout=PREPARATION_TIMEOUT_SECONDS if timeout is None else timeout)
         except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
             if container:
                 stop_container(container, process)
@@ -121,7 +122,7 @@ def snapshot(source, destination):
         shutil.copy2(original, target, follow_symlinks=False)
 
 
-def docker_command(source, artifacts, qt, name, image_id):
+def docker_command(source, artifacts, qt, name, image_id, profile="full", syntax=False, math=False, cache=None):
     return [
         "docker", "run", "--rm", "--init", "--name", name,
         "--platform", PLATFORM,
@@ -129,13 +130,18 @@ def docker_command(source, artifacts, qt, name, image_id):
         "--mount", f"type=bind,src={artifacts},dst=/artifacts",
         # The retained snapshot is also visible below the artifact mount.
         "--mount", f"type=bind,src={source},dst=/artifacts/source,readonly",
+        "--mount", f"type=bind,src={cache or artifacts / 'ccache'},dst=/ccache",
+        "--env", f"CI_PROFILE={profile}",
+        "--env", f"CI_SYNTAX={int(syntax)}",
+        "--env", f"CI_MATH={int(math)}",
+        "--env", f"CI_QT_ROLE={'development' if qt == QT_TARGETS['development'] else 'minimum'}",
         "--workdir", "/tmp",
         "--env", f"CI_QT_VERSION={qt}",
         "--env", f"CI_UID={os.getuid()}",
         "--env", f"CI_GID={os.getgid()}",
         "--env", "CI_SOURCE_COMMIT=" + subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=SOURCE, text=True).strip(),
-        image_id, "timeout", "--signal=TERM", "--kill-after=30s", "35m",
+        image_id, "timeout", "--signal=TERM", "--kill-after=30s", "20m" if profile == "core" else "45m",
         "bash", "/source/scripts/ci-container.sh",
     ]
 
@@ -165,6 +171,9 @@ def main():
                         help="New or empty directory; defaults to build-ci/<Qt>/<unique run>")
     parser.add_argument("--rebuild-image", action="store_true", help="Refresh provisioning without build cache")
     parser.add_argument("--image-metadata", action="store_true", help="Print image identity JSON without Docker or writes")
+    parser.add_argument("--profile", choices=("core", "full"), default="full")
+    parser.add_argument("--syntax", action="store_true")
+    parser.add_argument("--math", action="store_true")
     args = parser.parse_args()
     if args.qt_role:
         args.qt = QT_TARGETS[args.qt_role]
@@ -192,7 +201,7 @@ def main():
     verification_seconds = 0
     status = 1
     reason = "preparation failed"
-    evidence = {**metadata, "startedAt": datetime.now(timezone.utc).isoformat()}
+    evidence = {"profile": args.profile, "schema": "qmarkdown-ci-v2", **metadata, "startedAt": datetime.now(timezone.utc).isoformat()}
     try:
         # Hash and build the same captured inputs even if the working tree changes.
         with tempfile.TemporaryDirectory(prefix="qmarkdown-toolchain-") as temporary:
@@ -203,7 +212,7 @@ def main():
             image_id = None if args.rebuild_image else inspect_image(metadata["tag"])
             evidence["imageReused"] = image_id is not None
             if image_id is None:
-                build = ["docker", "build", "--platform", PLATFORM, "--progress=plain",
+                build = ["docker", "build", "--platform", PLATFORM,
                          "--tag", metadata["tag"], "--build-arg", f"CI_QT_VERSION={args.qt}"]
                 if args.rebuild_image:
                     build += ["--no-cache", "--pull"]
@@ -221,11 +230,14 @@ def main():
         preparation_seconds = time.monotonic() - started
         snapshot(SOURCE, work / "source")
         name = "qmarkdown-ci-" + uuid.uuid4().hex
-        command = docker_command(work / "source", work, args.qt, name, image_id)
+        cache = Path(os.environ.get("QMARKDOWN_CCACHE_DIR", str(SOURCE / "build-ci/ccache"))) / metadata["recipeFingerprint"]
+        cache.mkdir(parents=True, exist_ok=True)
+        command = docker_command(work / "source", work, args.qt, name, image_id,
+                                 args.profile, args.syntax, args.math, cache)
         evidence["command"] = command
         (work / "environment.json").write_text(json.dumps(evidence, indent=2) + "\n")
         verification_started = time.monotonic()
-        status = logged_process(command, work / "ci.log", name)
+        status = logged_process(command, work / "ci.log", name, timeout=VERIFICATION_TIMEOUT_SECONDS[args.profile])
         verification_seconds = time.monotonic() - verification_started
         reason = {0: "passed", 124: "timed out", 130: "interrupted"}.get(status, "failed")
     except (OSError, subprocess.SubprocessError, RuntimeError, KeyboardInterrupt) as error:
@@ -241,6 +253,7 @@ def main():
         preparation_seconds = time.monotonic() - started
     (work / "environment.json").write_text(json.dumps(evidence, indent=2) + "\n")
     (work / "result.json").write_text(json.dumps({
+        "schema": "qmarkdown-ci-v2", "profile": args.profile,
         "status": reason, "exitCode": status, "imageId": evidence.get("imageId"),
         "recipeFingerprint": metadata["recipeFingerprint"],
         "preparationSeconds": round(preparation_seconds, 3),

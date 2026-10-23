@@ -1,6 +1,24 @@
 version: '3'
 
 tasks:
+  check:
+    desc: Run Qt-independent documentation, evidence and tooling checks
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - python3 scripts/check.py
+
+  check-push:
+    desc: Verify committed inputs incrementally on development Qt when needed
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - python3 scripts/git-hooks.py check-push
+
+  install-hooks:
+    desc: Install repository hooks without replacing unrelated hooks
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - python3 scripts/git-hooks.py install
+
   sync-qt:
     desc: Synchronize development Qt with the selected host qmake before PR verification
     dir: '{{.TASKFILE_DIR}}'
