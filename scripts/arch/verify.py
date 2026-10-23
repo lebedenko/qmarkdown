@@ -91,36 +91,20 @@ def main():
                 raise RuntimeError('Wrong ELF architecture')
             if 'not found' in output('ldd', path):
                 raise RuntimeError(f'Unresolved dependencies: {path}')
-    for link in ('ON', 'OFF'):
-        math_build = Path('/work') / f'math-{link}'
-        run('cmake', '-S', '/tools/installed-consumer', '-B', math_build,
-            '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
-            '-DQMARKDOWN_MATH_CONSUMER=ON', '-DQMARKDOWN_EXPECT_MATH=1', f'-DQMARKDOWN_REQUEST_VERSION={version}',
-            '-DQMARKDOWN_REQUEST_EXACT=ON')
-        run('cmake', '--build', math_build, '--parallel', '2')
-        run(math_build / 'qmarkdown-consumer')
-        syntax_build = Path('/work') / f'syntax-{link}'
-        run('cmake', '-S', '/tools/installed-consumer', '-B', syntax_build,
-            '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
-            '-DQMARKDOWN_SYNTAX_CONSUMER=ON', '-DQMARKDOWN_EXPECT_SYNTAX=1', f'-DQMARKDOWN_REQUEST_VERSION={version}',
-            '-DQMARKDOWN_REQUEST_EXACT=ON')
-        run('cmake', '--build', syntax_build, '--parallel', '2')
-        run(syntax_build / 'qmarkdown-consumer')
+    build = Path('/work/consumers')
+    run('cmake', '-S', '/tools/installed-consumer', '-B', build, '-G', 'Ninja',
+        '-DQMARKDOWN_EXPECT_MATH=1', '-DQMARKDOWN_EXPECT_SYNTAX=1',
+        f'-DQMARKDOWN_REQUEST_VERSION={version}', '-DQMARKDOWN_REQUEST_EXACT=ON')
+    targets = [f'consumer-{fixture}-{mode}' for fixture in ('math', 'syntax', 'gfm')
+               for mode in ('linked', 'plugin')]
+    run('cmake', '--build', build, '--parallel', '2', '--target', *targets)
+    if 'libQMarkdown' in output('readelf', '-d', build / 'consumer-gfm-plugin'):
+        raise RuntimeError('Plugin-only consumer links backing library')
+    run('ctest', '--parallel', '1', '--test-dir', build, '-R', '^consumer-(math|syntax|gfm)-', '--output-on-failure')
     integrity = output('pacman', '-Qkk', 'qmarkdown')
     print(integrity)
     if '0 altered files' not in integrity:
         raise RuntimeError('Package integrity failure')
-    for link in ('ON', 'OFF'):
-        build = Path('/work') / f'consumer-{link}'
-        run('cmake', '-S', '/tools/installed-consumer', '-B', build,
-            '-G', 'Ninja', f'-DQMARKDOWN_CONSUMER_LINK_MODULE={link}',
-            '-DQMARKDOWN_GFM_CONSUMER=ON', f'-DQMARKDOWN_REQUEST_VERSION={version}',
-            '-DQMARKDOWN_REQUEST_EXACT=ON')
-        run('cmake', '--build', build, '--parallel', '2')
-        executable = build / 'qmarkdown-consumer'
-        if link == 'OFF' and 'libQMarkdown' in output('readelf', '-d', executable):
-            raise RuntimeError('Plugin-only consumer links backing library')
-        run(executable)
     run('pacman', '-R', '--noconfirm', 'qmarkdown')
     if subprocess.run(['pacman', '-Q', 'qmarkdown']).returncode == 0:
         raise RuntimeError('Removal registration failed')

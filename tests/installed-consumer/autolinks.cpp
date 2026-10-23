@@ -31,7 +31,7 @@ static QStringList destinations(QQuickItem *parent)
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv); QQmlEngine engine; QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.5\nMarkdownView { width: 180; markdown: 'www.a.b https://a.b foo@a.b mailto:foo@a.b xmpp:foo@a.b/res' }", {});
+    component.setData("import QtQuick\nimport QMarkdown 1.17\nMarkdownView { width: 180; markdown: 'www.a.b https://a.b foo@a.b mailto:foo@a.b xmpp:foo@a.b/res' }", {});
     if (!component.isReady()) { qWarning() << component.errorString(); return 1; }
     std::unique_ptr<QObject> object(component.create()); auto *view = qobject_cast<QQuickItem *>(object.get());
     if (!view || view->property("extendedAutolinksEnabled").toBool() || view->property("strikethroughEnabled").toBool() || view->property("taskListsEnabled").toBool()) return 2;

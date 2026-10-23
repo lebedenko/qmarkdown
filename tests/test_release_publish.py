@@ -52,7 +52,7 @@ class PublishTest(unittest.TestCase):
             path.with_name(name + '.sha256').write_text(hashlib.sha256(data).hexdigest() + '  ' + name + '\n')
         stream = io.BytesIO()
         with zipfile.ZipFile(stream, 'w') as archive:
-            archive.writestr('gate.json', json.dumps({'full': True, 'pr': 42, 'head': self.head,
+            archive.writestr('gate.json', json.dumps({'schema': 'qmarkdown-ci-v2', 'profile': 'full', 'full': True, 'pr': 42, 'head': self.head,
                 'tree': self.tree, 'qt': json.loads((ROOT / 'scripts/ci-toolchain/qt-versions.json').read_text()), 'version': '1.6.0'}))
         self.gate_zip = stream.getvalue()
 

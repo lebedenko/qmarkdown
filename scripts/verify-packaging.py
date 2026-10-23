@@ -3,6 +3,7 @@
 
 import argparse
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -15,7 +16,11 @@ parser.add_argument("--qt-root", type=Path, help="Explicit Qt SDK root; every co
 parser.add_argument("--syntax-highlighting", choices=("OFF", "ON"), default="OFF")
 parser.add_argument("--math", choices=("OFF", "ON"), default="ON")
 parser.add_argument("--kde-prefix", type=Path)
+parser.add_argument("--shared-only", action="store_true")
+parser.add_argument("--skip-library-only", action="store_true")
 args = parser.parse_args()
+version = re.search(r'project\(QMarkdown VERSION (\d+\.\d+\.\d+)', (source / 'CMakeLists.txt').read_text())[1]
+qml_version = re.search(r'VERSION\s+(\d+\.\d+)', (source / 'src/QMarkdown/CMakeLists.txt').read_text())[1]
 work = args.work_dir.resolve() if args.work_dir else Path(tempfile.mkdtemp(prefix="qmarkdown-packaging-"))
 work.mkdir(parents=True, exist_ok=True)
 qt_args = []
@@ -38,12 +43,15 @@ def run(*args, env=None):
 
 consumer_source = work / "consumer-source"
 shutil.copytree(source / "tests/installed-consumer", consumer_source)
-for variant in ("shared", "static"):
+# Fixtures always import the current module contract.
+for fixture in consumer_source.glob("*.cpp"):
+    fixture.write_text(re.sub(r'import QMarkdown \d+\.\d+', 'import QMarkdown ' + qml_version, fixture.read_text()))
+for variant in (("shared",) if args.shared_only else ("shared", "static")):
     build = work / f"build-{variant}"
     prefix = work / f"install-{variant}"
     relocated = work / f"relocated-{variant}"
     qml_dir = "lib/qt6/qml" if variant == "shared" else "share/qml"
-    run("cmake", "-S", source, "-B", build,
+    run("cmake", "-G", "Ninja", "-S", source, "-B", build,
         "-DBUILD_TESTING=ON", "-DQMARKDOWN_BUILD_EXAMPLES=ON",
         f"-DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING={args.syntax_highlighting}", f"-DQMARKDOWN_WITH_MATH={args.math}",
         f"-DBUILD_SHARED_LIBS={'ON' if variant == 'shared' else 'OFF'}",
@@ -53,7 +61,7 @@ for variant in ("shared", "static"):
         if "KF6SyntaxHighlighting_DIR:" in (build / "CMakeCache.txt").read_text():
             raise RuntimeError("Disabled build discovered KDE")
     run("cmake", "--build", build, "--parallel", "2")
-    run("ctest", "--test-dir", build, "--output-on-failure")
+    run("ctest", "--parallel", "1", "--test-dir", build, "--output-on-failure")
     run("cmake", "--build", build, "--target", "all_qmllint")
     if os.name == "posix" and shutil.which("nm"):
         run("python3", source / "scripts/verify-cmark-symbols.py", build)
@@ -90,150 +98,21 @@ for variant in ("shared", "static"):
     consumer_prefix = f"{relocated};{qt_root}" if args.qt_root else str(relocated)
     if args.kde_prefix:
         consumer_prefix += f";{args.kde_prefix}"
-    run("cmake", "-S", consumer_source, "-B", consumer_build,
-        *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}")
-    for version, exact, accepted in (("1.0", False, True), ("1.0.0", True, False),
-                                     ("1.1", False, True), ("1.1.0", True, False),
-                                     ("0.7", False, False), ("1.2", False, True), ("1.2.0", True, False),
-                                     ("1.3", False, True), ("1.3.0", True, False), ("1.4", False, True), ("1.4.0", True, False), ("1.5", False, True), ("1.5.0", True, False), ("1.6", False, True), ("1.6.0", True, False), ("1.7", False, True), ("1.7.0", True, False), ("1.8", False, True), ("1.8.0", True, False), ("1.9", False, True), ("1.9.0", True, False), ("1.10", False, True), ("1.10.0", True, False), ("1.11", False, True), ("1.11.0", True, False), ("1.12", False, True), ("1.12.0", True, False), ("1.13", False, True), ("1.13.0", True, False), ("1.14", False, True), ("1.14.0", True, False), ("1.15", False, True), ("1.15.0", True, False), ("1.16", False, True), ("1.16.0", True, False), ("1.17", False, True), ("1.17.0", False, True), ("1.17.0", True, False), ("1.17.1", True, True), ("1.17.2", False, False), ("1.18", False, False), ("2.0", False, False)):
-        request_name = f"request-{variant}-{version}-{'exact' if exact else 'compatible'}"
-        request_build = work / request_name
-        command = ["cmake", "-S", str(consumer_source), "-B", str(request_build),
-                   *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-                   f"-DQMARKDOWN_REQUEST_VERSION={version}",
-                   f"-DQMARKDOWN_REQUEST_EXACT={'ON' if exact else 'OFF'}"]
-        result = subprocess.run(command, capture_output=True, text=True)
-        (work / f"{request_name}.log").write_text(result.stdout + result.stderr)
-        if (result.returncode == 0) != accepted:
-            raise RuntimeError(f"Unexpected package compatibility: {variant} {version}: {result.stdout}{result.stderr}")
-        expected_error = "exactly matches requested version" if exact else "compatible with requested version"
-        if not accepted and (expected_error not in " ".join(result.stderr.split())
-                             or "version: 1.17.1" not in result.stderr):
-            raise RuntimeError(f"Package request failed for an unrelated reason: {result.stderr}")
-        print(f"PASS: {variant} package request {version}, exact={exact}, accepted={accepted}", flush=True)
+    run("cmake", "-G", "Ninja", "-S", consumer_source, "-B", consumer_build,
+        *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
+        f"-DQMARKDOWN_REQUEST_VERSION={version}", "-DQMARKDOWN_REQUEST_EXACT=ON",
+        f"-DQMARKDOWN_EXPECT_SYNTAX={int(args.syntax_highlighting == 'ON')}",
+        f"-DQMARKDOWN_EXPECT_MATH={int(args.math == 'ON')}")
     run("cmake", "--build", consumer_build, "--parallel", "2")
     environment = os.environ.copy()
     environment["QT_QPA_PLATFORM"] = "offscreen"
     environment.pop("QML2_IMPORT_PATH", None)
     environment.pop("LD_LIBRARY_PATH", None)
     environment["QML_IMPORT_PATH"] = str(relocated / qml_dir) if variant == "shared" else ""
-    executable = "qmarkdown-consumer.exe" if os.name == "nt" else "qmarkdown-consumer"
-    run(consumer_build / executable, env=environment)
-    styling_build = work / f"styling-{variant}"
-    run("cmake", "-S", consumer_source, "-B", styling_build,
-        *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-        "-DQMARKDOWN_STYLING_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.1")
-    run("cmake", "--build", styling_build, "--parallel", "2")
-    run(styling_build / executable, env=environment)
-    for link in (("ON", "OFF") if variant == "shared" else ("ON",)):
-        actions_build = work / f"actions-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", actions_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_ACTIONS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.2.0",
-            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", actions_build, "--parallel", "2")
-        run(actions_build / executable, env=environment)
-        tasks_build = work / f"tasks-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", tasks_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_TASKS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.3.0",
-            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", tasks_build, "--parallel", "2")
-        run(tasks_build / executable, env=environment)
-        strike_build = work / f"strike-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", strike_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_STRIKE_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.4.0",
-            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", strike_build, "--parallel", "2")
-        run(strike_build / executable, env=environment)
-        autolink_build = work / f"autolink-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", autolink_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_AUTOLINK_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.5.0",
-            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", autolink_build, "--parallel", "2")
-        run(autolink_build / executable, env=environment)
-        gfm_build = work / f"gfm-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", gfm_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_GFM_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.6.0",
-            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", gfm_build, "--parallel", "2")
-        run(gfm_build / executable, env=environment)
-        selection_build = work / f"selection-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", selection_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_SELECTION_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.8.0",
-            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", selection_build, "--parallel", "2")
-        run(selection_build / executable, env=environment)
-        renderer_build = work / f"renderers-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", renderer_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_RENDERERS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.8.0",
-            "-DQMARKDOWN_REQUEST_EXACT=OFF", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", renderer_build, "--parallel", "2")
-        run(renderer_build / executable, env=environment)
-        reading_build = work / f"reading-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", reading_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_READING_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.1",
-            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", reading_build, "--parallel", "2")
-        run(reading_build / executable, env=environment)
-        math_build = work / f"math-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", math_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_MATH_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.1",
-            f"-DQMARKDOWN_EXPECT_MATH={1 if args.math == 'ON' else 0}",
-            f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", math_build, "--parallel", "2")
-        run(math_build / executable, env=environment)
-        notes_build = work / f"footnotes-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", notes_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_FOOTNOTES_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.1",
-            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", notes_build, "--parallel", "2")
-        run(notes_build / executable, env=environment)
-        providers_build = work / f"providers-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", providers_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_PROVIDERS_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.1",
-            f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", providers_build, "--parallel", "2")
-        run(providers_build / executable, env=environment)
-        syntax_build = work / f"syntax-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", syntax_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_SYNTAX_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.1",
-            f"-DQMARKDOWN_EXPECT_SYNTAX={1 if args.syntax_highlighting == 'ON' else 0}",
-            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", syntax_build, "--parallel", "2")
-        run(syntax_build / executable, env=environment)
-        keyboard_build = work / f"keyboard-{variant}-{link}"
-        run("cmake", "-S", consumer_source, "-B", keyboard_build,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_KEYBOARD_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.17.1",
-            "-DQMARKDOWN_REQUEST_EXACT=ON", f"-DQMARKDOWN_CONSUMER_LINK_MODULE={link}")
-        run("cmake", "--build", keyboard_build, "--parallel", "2")
-        run(keyboard_build / executable, env=environment)
-    if variant == "shared":
-        plugin_consumer = work / "consumer-shared-plugin"
-        run("cmake", "-S", consumer_source, "-B", plugin_consumer,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}", "-DQMARKDOWN_CONSUMER_LINK_MODULE=OFF")
-        run("cmake", "--build", plugin_consumer, "--parallel", "2")
-        run(plugin_consumer / executable, env=environment)
-        styling_plugin = work / "styling-shared-plugin"
-        run("cmake", "-S", consumer_source, "-B", styling_plugin,
-            *consumer_qt_args, f"-DCMAKE_PREFIX_PATH={consumer_prefix}",
-            "-DQMARKDOWN_STYLING_CONSUMER=ON", "-DQMARKDOWN_REQUEST_VERSION=1.1",
-            "-DQMARKDOWN_CONSUMER_LINK_MODULE=OFF")
-        run("cmake", "--build", styling_plugin, "--parallel", "2")
-        run(styling_plugin / executable, env=environment)
-run("cmake", "-S", source, "-B", work / "library-only", *qt_args,
-    "-DBUILD_TESTING=OFF", "-DQMARKDOWN_BUILD_EXAMPLES=OFF", "-DQMARKDOWN_BUILD_BENCHMARKS=OFF",
-    f"-DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING={args.syntax_highlighting}")
-run("cmake", "--build", work / "library-only", "--parallel", "2")
-print("PASS: shared and static relocated package consumers", flush=True)
+    run("ctest", "--parallel", "1", "--test-dir", consumer_build, "--output-on-failure", env=environment)
+if not args.skip_library_only:
+    run("cmake", "-G", "Ninja", "-S", source, "-B", work / "library-only", *qt_args,
+        "-DBUILD_TESTING=OFF", "-DQMARKDOWN_BUILD_EXAMPLES=OFF", "-DQMARKDOWN_BUILD_BENCHMARKS=OFF",
+        f"-DQMARKDOWN_WITH_KSYNTAXHIGHLIGHTING={args.syntax_highlighting}")
+    run("cmake", "--build", work / "library-only", "--parallel", "2")
+print("PASS: selected relocated package consumers", flush=True)

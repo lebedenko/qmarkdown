@@ -85,7 +85,8 @@ sys.exit(17)
             stack.enter_context(contextlib.redirect_stdout(io.StringIO()))
             stack.enter_context(contextlib.redirect_stderr(io.StringIO()))
             if timeout is not None:
-                stack.enter_context(patch.object(runner, "TIMEOUT_SECONDS", timeout))
+                stack.enter_context(patch.object(runner, "PREPARATION_TIMEOUT_SECONDS", timeout))
+                stack.enter_context(patch.object(runner, "VERIFICATION_TIMEOUT_SECONDS", {"core": timeout, "full": timeout}))
                 stack.enter_context(patch.dict(os.environ, {"CI_TEST_SLEEP": "1"}))
             return runner.main()
 
@@ -178,7 +179,7 @@ sys.exit(17)
 
         def wait(process, *args, **kwargs):
             nonlocal interrupted
-            if kwargs.get("timeout") == runner.TIMEOUT_SECONDS and not interrupted:
+            if kwargs.get("timeout") in (20 * 60, 45 * 60 + 90) and not interrupted:
                 interrupted = True
                 raise KeyboardInterrupt()
             return original_wait(process, *args, **kwargs)
@@ -194,7 +195,7 @@ sys.exit(17)
 
         def wait(process, *args, **kwargs):
             nonlocal interrupted
-            if kwargs.get("timeout") == runner.TIMEOUT_SECONDS and not interrupted:
+            if kwargs.get("timeout") in (20 * 60, 45 * 60 + 90) and not interrupted:
                 interrupted = True
                 raise KeyboardInterrupt()
             return original_wait(process, *args, **kwargs)
@@ -221,6 +222,16 @@ sys.exit(17)
         self.assertIn("sha256:" + "a" * 64, command)
         self.assertIn("linux/amd64", command)
         self.assertNotIn("--privileged", command)
+
+    def test_core_coverage_and_deadline_reach_container(self):
+        self.assertEqual(self.invoke("--profile", "core", "--syntax", "--math"), 17)
+        command = next(c for c in self.recorded_commands() if c[0] == "run")
+        for value in ("CI_PROFILE=core", "CI_SYNTAX=1", "CI_MATH=1", "20m"):
+            self.assertIn(value, command)
+        self.assertTrue(any("dst=/ccache" in part for part in command))
+        evidence = json.loads((self.work / "environment.json").read_text())
+        self.assertEqual(evidence["profile"], "core")
+        self.assertEqual(evidence["schema"], "qmarkdown-ci-v2")
 
     def test_previous_evidence_is_never_overwritten(self):
         self.work.mkdir()

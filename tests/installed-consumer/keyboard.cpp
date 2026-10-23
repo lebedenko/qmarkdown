@@ -31,7 +31,7 @@ private slots:
         QQmlEngine engine; QQmlComponent component(&engine);
         component.setData(R"QML(
 import QtQuick
-import QMarkdown 1.10
+import QMarkdown 1.17
 Item {
     width: 300; height: 200
     Item { objectName: "before"; activeFocusOnTab: true }

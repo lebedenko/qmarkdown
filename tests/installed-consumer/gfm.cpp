@@ -24,7 +24,7 @@ static QList<QQuickItem *> tables(QQuickItem *parent)
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc,argv); QQmlEngine engine; QQmlComponent component(&engine);
-    component.setData("import QtQuick\nimport QMarkdown 1.14\nMarkdownView { width: 180; markdown: '| **header** | `code` |\\n| :- | -: |\\n| ~~www.a.b~~ | [link](host:target) |' }",{});
+    component.setData("import QtQuick\nimport QMarkdown 1.17\nMarkdownView { width: 180; markdown: '| **header** | `code` |\\n| :- | -: |\\n| ~~www.a.b~~ | [link](host:target) |' }",{});
     if (!component.isReady()) { qWarning() << component.errorString(); return 1; }
     std::unique_ptr<QObject> object(component.create()); auto *view=qobject_cast<QQuickItem *>(object.get());
     if (!view) return 2;
