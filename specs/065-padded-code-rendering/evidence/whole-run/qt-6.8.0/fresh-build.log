@@ -1,0 +1,156 @@
+[1/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[2/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[3/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[4/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[5/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[6/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[7/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[8/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[9/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[10/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[11/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[12/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[13/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[14/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[15/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[16/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[17/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[18/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[19/92] Copying MarkdownView.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/MarkdownView.qml
+[20/92] Copying private/BlockSequence.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/BlockSequence.qml
+[21/92] Copying private/TextBlock.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/TextBlock.qml
+[22/92] Copying private/SelectableText.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/SelectableText.qml
+[23/92] Copying private/ImageBlock.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/ImageBlock.qml
+[24/92] Copying private/ListBlock.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/ListBlock.qml
+[25/92] Copying private/HeadingSeparator.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/HeadingSeparator.qml
+[26/92] Copying private/CodeSurface.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/CodeSurface.qml
+[27/92] Copying private/CodeActionHost.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/CodeActionHost.qml
+[28/92] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[29/92] Copying private/TableBlock.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/TableBlock.qml
+[30/92] Copying private/TaskIndicatorHost.qml to /work/qmarkdown-065-whole-680/qml/QMarkdown/TaskIndicatorHost.qml
+[31/92] Copying private/Layout.js to /work/qmarkdown-065-whole-680/qml/QMarkdown/private/Layout.js
+[32/92] Automatic MOC for target QMarkdown
+[33/92] Running rcc for resource qmake_QMarkdown
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[34/92] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[35/92] Running AUTOMOC file extraction for target QMarkdown
+[36/92] Running moc --collect-json for target QMarkdown
+[37/92] Running rcc for resource QMarkdown_raw_qml_0
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[38/92] Automatic QML type registration for target QMarkdown
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[39/92] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[40/92] Generating .rcc/qmlcache/QMarkdown_private/BlockSequence_qml.cpp, .rcc/qmlcache/QMarkdown_private/BlockSequence_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[41/92] Generating .rcc/qmlcache/QMarkdown_private/SelectableText_qml.cpp, .rcc/qmlcache/QMarkdown_private/SelectableText_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[42/92] Generating .rcc/qmlcache/QMarkdown_private/TextBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private/TextBlock_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[43/92] Generating .rcc/qmlcache/QMarkdown_private/ImageBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private/ImageBlock_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[44/92] Generating .rcc/qmlcache/QMarkdown_private/ListBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private/ListBlock_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[45/92] Generating .rcc/qmlcache/QMarkdown_private/HeadingSeparator_qml.cpp, .rcc/qmlcache/QMarkdown_private/HeadingSeparator_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[46/92] Generating .rcc/qmlcache/QMarkdown_private/CodeActionHost_qml.cpp, .rcc/qmlcache/QMarkdown_private/CodeActionHost_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[47/92] Generating .rcc/qmlcache/QMarkdown_private/CodeSurface_qml.cpp, .rcc/qmlcache/QMarkdown_private/CodeSurface_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[48/92] Generating .rcc/qmlcache/QMarkdown_private/TableBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private/TableBlock_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[49/92] Generating .rcc/qmlcache/QMarkdown_private/Layout_js.cpp
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[50/92] Generating .rcc/qmlcache/QMarkdown_private/TaskIndicatorHost_qml.cpp, .rcc/qmlcache/QMarkdown_private/TaskIndicatorHost_qml.cpp.aotstats
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[51/92] Building CXX object CMakeFiles/retained-glyph-gate.dir/main.cpp.o
+[52/92] Building CXX object CMakeFiles/retained-glyph-diagnostic.dir/diagnostic.cpp.o
+[53/92] Building CXX object CMakeFiles/whole-run-gate.dir/whole_run.cpp.o
+[54/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[55/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[56/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[57/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/syntaxhighlightingprovider.cpp.o
+[58/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/syntaxtheme.cpp.o
+[59/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/mathitem.cpp.o
+[60/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/syntaxbackend.cpp.o
+[61/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/syntaxhighlighter.cpp.o
+[62/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/taskindicatoritem.cpp.o
+[63/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/linkcontroller.cpp.o
+[64/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/selectionregistration.cpp.o
+[65/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/presentation.cpp.o
+[66/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[67/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[68/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[69/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[70/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[71/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[72/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[73/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[74/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[75/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[76/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/BlockSequence_qml.cpp.o
+[77/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/TextBlock_qml.cpp.o
+[78/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/SelectableText_qml.cpp.o
+[79/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/ImageBlock_qml.cpp.o
+[80/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/ListBlock_qml.cpp.o
+[81/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/HeadingSeparator_qml.cpp.o
+[82/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/CodeActionHost_qml.cpp.o
+[83/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/CodeSurface_qml.cpp.o
+[84/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/TaskIndicatorHost_qml.cpp.o
+[85/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/TableBlock_qml.cpp.o
+[86/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[87/92] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private/Layout_js.cpp.o
+[88/92] Linking CXX shared library staged/src/QMarkdown/libQMarkdown.so.1.17.1
+[89/92] Creating library symlink staged/src/QMarkdown/libQMarkdown.so.1 staged/src/QMarkdown/libQMarkdown.so
+[90/92] Linking CXX executable retained-glyph-diagnostic
+[91/92] Linking CXX executable retained-glyph-gate
+[92/92] Linking CXX executable whole-run-gate

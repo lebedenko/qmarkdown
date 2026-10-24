@@ -1,0 +1,83 @@
+[1/83] Copying QMarkdown qml sources into build dir
+[2/83] Copying QMarkdown qml resources into build dir
+[3/83] Populating .qmlls.build.ini file at /tmp/qmarkdown-065-whole-612/.qt/.qmlls.build.ini
+[4/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/buffer.c.o
+[5/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark.c.o
+[6/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/cmark_ctype.c.o
+[7/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/blocks.c.o
+[8/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_href_e.c.o
+[9/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/commonmark.c.o
+[10/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_e.c.o
+[11/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/houdini_html_u.c.o
+[12/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/html.c.o
+[13/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/iterator.c.o
+[14/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/latex.c.o
+[15/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/man.c.o
+[16/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/inlines.c.o
+[17/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/references.c.o
+[18/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/node.c.o
+[19/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/render.c.o
+[20/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/utf8.c.o
+[21/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/xml.c.o
+[22/83] Building C object staged/third_party/cmark/CMakeFiles/qmarkdown_cmark.dir/src/scanners.c.o
+[23/83] Automatic MOC for target QMarkdown
+[24/83] Running AUTOMOC file extraction for target QMarkdown
+[25/83] Running rcc for resource qmake_QMarkdown
+[26/83] Running moc --collect-json for target QMarkdown
+[27/83] Generating .rcc/qmlcache/QMarkdown_qmlcache_loader.cpp
+[28/83] Running rcc for resource QMarkdown_raw_qml_0
+[29/83] Automatic QML type registration for target QMarkdown
+[30/83] Generating .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp, .rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.aotstats
+[31/83] Generating .rcc/qmlcache/QMarkdown_private_BlockSequence_qml.cpp, .rcc/qmlcache/QMarkdown_private_BlockSequence_qml.cpp.aotstats
+[32/83] Generating .rcc/qmlcache/QMarkdown_private_SelectableText_qml.cpp, .rcc/qmlcache/QMarkdown_private_SelectableText_qml.cpp.aotstats
+[33/83] Generating .rcc/qmlcache/QMarkdown_private_TextBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private_TextBlock_qml.cpp.aotstats
+[34/83] Generating .rcc/qmlcache/QMarkdown_private_ImageBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private_ImageBlock_qml.cpp.aotstats
+[35/83] Generating .rcc/qmlcache/QMarkdown_private_HeadingSeparator_qml.cpp, .rcc/qmlcache/QMarkdown_private_HeadingSeparator_qml.cpp.aotstats
+[36/83] Generating .rcc/qmlcache/QMarkdown_private_ListBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private_ListBlock_qml.cpp.aotstats
+[37/83] Generating .rcc/qmlcache/QMarkdown_private_CodeActionHost_qml.cpp, .rcc/qmlcache/QMarkdown_private_CodeActionHost_qml.cpp.aotstats
+[38/83] Generating .rcc/qmlcache/QMarkdown_private_CodeSurface_qml.cpp, .rcc/qmlcache/QMarkdown_private_CodeSurface_qml.cpp.aotstats
+[39/83] Generating .rcc/qmlcache/QMarkdown_private_TableBlock_qml.cpp, .rcc/qmlcache/QMarkdown_private_TableBlock_qml.cpp.aotstats
+[40/83] Generating .rcc/qmlcache/QMarkdown_private_TaskIndicatorHost_qml.cpp, .rcc/qmlcache/QMarkdown_private_TaskIndicatorHost_qml.cpp.aotstats
+[41/83] Generating .rcc/qmlcache/QMarkdown_private_Layout_js.cpp
+[42/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/qmarkdown_qmltyperegistrations.cpp.o
+[43/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_qmake_QMarkdown.cpp.o
+[44/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/QMarkdown_autogen/mocs_compilation.cpp.o
+[45/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/syntaxhighlightingprovider.cpp.o
+[46/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/syntaxtheme.cpp.o
+[47/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/mathitem.cpp.o
+[48/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/syntaxbackend.cpp.o
+[49/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/syntaxhighlighter.cpp.o
+[50/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/linkcontroller.cpp.o
+[51/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/taskindicatoritem.cpp.o
+[52/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/presentation.cpp.o
+[53/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/selectionregistration.cpp.o
+[54/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/decodescheduler.cpp.o
+[55/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/resourcecontroller.cpp.o
+[56/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/markdownstyle.cpp.o
+[57/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/document.cpp.o
+[58/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/inline.cpp.o
+[59/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/viewstate.cpp.o
+[60/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formatintervals.cpp.o
+[61/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/private/formattedtext.cpp.o
+[62/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_qmlcache_loader.cpp.o
+[63/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_MarkdownView_qml.cpp.o
+[64/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_BlockSequence_qml.cpp.o
+[65/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_SelectableText_qml.cpp.o
+[66/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_TextBlock_qml.cpp.o
+[67/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_ImageBlock_qml.cpp.o
+[68/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_ListBlock_qml.cpp.o
+[69/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_HeadingSeparator_qml.cpp.o
+[70/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_CodeActionHost_qml.cpp.o
+[71/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_CodeSurface_qml.cpp.o
+[72/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_TableBlock_qml.cpp.o
+[73/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_TaskIndicatorHost_qml.cpp.o
+[74/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.qt/rcc/qrc_QMarkdown_raw_qml_0.cpp.o
+[75/83] Building CXX object staged/src/QMarkdown/CMakeFiles/QMarkdown.dir/.rcc/qmlcache/QMarkdown_private_Layout_js.cpp.o
+[76/83] Linking CXX shared library staged/src/QMarkdown/libQMarkdown.so.1.17.1
+[77/83] Building CXX object CMakeFiles/retained-glyph-gate.dir/main.cpp.o
+[78/83] Building CXX object CMakeFiles/retained-glyph-diagnostic.dir/diagnostic.cpp.o
+[79/83] Creating library symlink staged/src/QMarkdown/libQMarkdown.so.1 staged/src/QMarkdown/libQMarkdown.so
+[80/83] Linking CXX executable retained-glyph-gate
+[81/83] Linking CXX executable retained-glyph-diagnostic
+[82/83] Building CXX object CMakeFiles/whole-run-gate.dir/whole_run.cpp.o
+[83/83] Linking CXX executable whole-run-gate
