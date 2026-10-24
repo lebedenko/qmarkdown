@@ -1,0 +1,42 @@
+from pathlib import Path
+import subprocess,os,json,hashlib
+repo=Path('/home/andrii/Projects/pet/qmarkdown'); work=repo/'build-ci/065-scenegraph'
+prototype=repo/'specs/065-padded-code-rendering/retained-prototype'
+image='qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961'
+results=work/'results';results.mkdir(exist_ok=True)
+records=[]
+def run(stage,qt,api,script,tail):
+    build='host' if qt=='6.12.0' else 'minimum'
+    extra={}
+    if qt=='6.8.0' and api=='software':
+        command=['docker','run','--rm','--user','1000:1000','-v',str(repo)+':/source:ro','-v',str(work)+':/work',image,'python3','/source/specs/065-padded-code-rendering/retained-prototype/'+script,'/work/minimum','/work/fonts']+tail('/work')
+    else:
+        command=['python3',str(prototype/script),str(work/build),str(work/'fonts')]+tail(str(work))
+        if qt=='6.8.0':
+            extra['LD_LIBRARY_PATH']=str(work/'native-sdk/lib')+':'+str(work/'minimum/staged/src/QMarkdown')
+            command+=['--qt-root',str(work/'native-sdk')]
+    print('Starting',stage,qt,api,flush=True)
+    with (work/(stage+'-'+qt+'-'+api+'.log')).open('w') as log:
+        code=subprocess.run(command,env=dict(os.environ,**extra),stdout=log,stderr=subprocess.STDOUT).returncode
+    record=dict(stage=stage,qt=qt,api=api,command=command,environment=extra,exit=code)
+    records.append(record);(results/'launch.json').write_text(json.dumps(records,indent=2)+'\n')
+    print(json.dumps(record),flush=True)
+    return code
+failed=False
+for qt in ['6.12.0','6.8.0']:
+    for stage in ['historical','basic','extended']:
+        code=run('preparation-'+stage,qt,'software','run_whole.py',lambda root,qt=qt,stage=stage:[root+'/preparation/qt-'+qt,stage])
+        failed|=code!=0
+if failed:
+    (results/'progression.json').write_text(json.dumps(dict(stoppedAfter='preparation',nextStagesNotRun=['static','scroll','lifecycle']),indent=2)+'\n')
+    raise SystemExit(1)
+(results/'executables.json').write_text(json.dumps({name:hashlib.sha256((work/name/'scenegraph-run-gate').read_bytes()).hexdigest() for name in ['host','minimum']},indent=2)+'\n')
+for stage in ['static','scroll','lifecycle']:
+    for qt,api in [('6.12.0','software'),('6.8.0','software'),('6.12.0','opengl'),('6.12.0','vulkan'),('6.8.0','opengl'),('6.8.0','vulkan')]:
+        code=run(stage,qt,api,'run_scenegraph.py',lambda root,qt=qt,stage=stage,api=api:[root+'/results/qt-'+qt+'/'+api,stage,api,'--qt',qt])
+        failed|=code!=0
+    if failed:
+        (results/'progression.json').write_text(json.dumps(dict(stoppedAfter=stage,nextStagesNotRun=['static','scroll','lifecycle'][['static','scroll','lifecycle'].index(stage)+1:]),indent=2)+'\n')
+        break
+else:(results/'progression.json').write_text(json.dumps(dict(completed=['static','scroll','lifecycle']),indent=2)+'\n')
+raise SystemExit(1 if failed else 0)

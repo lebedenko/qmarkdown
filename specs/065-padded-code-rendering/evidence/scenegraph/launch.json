@@ -1,0 +1,500 @@
+[
+  {
+    "stage": "preparation-historical",
+    "qt": "6.12.0",
+    "api": "software",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_whole.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/preparation/qt-6.12.0",
+      "historical"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "preparation-basic",
+    "qt": "6.12.0",
+    "api": "software",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_whole.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/preparation/qt-6.12.0",
+      "basic"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "preparation-extended",
+    "qt": "6.12.0",
+    "api": "software",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_whole.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/preparation/qt-6.12.0",
+      "extended"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "preparation-historical",
+    "qt": "6.8.0",
+    "api": "software",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "python3",
+      "/source/specs/065-padded-code-rendering/retained-prototype/run_whole.py",
+      "/work/minimum",
+      "/work/fonts",
+      "/work/preparation/qt-6.8.0",
+      "historical"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "preparation-basic",
+    "qt": "6.8.0",
+    "api": "software",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "python3",
+      "/source/specs/065-padded-code-rendering/retained-prototype/run_whole.py",
+      "/work/minimum",
+      "/work/fonts",
+      "/work/preparation/qt-6.8.0",
+      "basic"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "preparation-extended",
+    "qt": "6.8.0",
+    "api": "software",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "python3",
+      "/source/specs/065-padded-code-rendering/retained-prototype/run_whole.py",
+      "/work/minimum",
+      "/work/fonts",
+      "/work/preparation/qt-6.8.0",
+      "extended"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "static",
+    "qt": "6.12.0",
+    "api": "software",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/software",
+      "static",
+      "software",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "static",
+    "qt": "6.8.0",
+    "api": "software",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "python3",
+      "/source/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/work/minimum",
+      "/work/fonts",
+      "/work/results/qt-6.8.0/software",
+      "static",
+      "software",
+      "--qt",
+      "6.8.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "static",
+    "qt": "6.12.0",
+    "api": "opengl",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/opengl",
+      "static",
+      "opengl",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "static",
+    "qt": "6.12.0",
+    "api": "vulkan",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/vulkan",
+      "static",
+      "vulkan",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "static",
+    "qt": "6.8.0",
+    "api": "opengl",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl",
+      "static",
+      "opengl",
+      "--qt",
+      "6.8.0",
+      "--qt-root",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk"
+    ],
+    "environment": {
+      "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown"
+    },
+    "exit": 0
+  },
+  {
+    "stage": "static",
+    "qt": "6.8.0",
+    "api": "vulkan",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/vulkan",
+      "static",
+      "vulkan",
+      "--qt",
+      "6.8.0",
+      "--qt-root",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk"
+    ],
+    "environment": {
+      "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown"
+    },
+    "exit": 0
+  },
+  {
+    "stage": "scroll",
+    "qt": "6.12.0",
+    "api": "software",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/software",
+      "scroll",
+      "software",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "scroll",
+    "qt": "6.8.0",
+    "api": "software",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "python3",
+      "/source/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/work/minimum",
+      "/work/fonts",
+      "/work/results/qt-6.8.0/software",
+      "scroll",
+      "software",
+      "--qt",
+      "6.8.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "scroll",
+    "qt": "6.12.0",
+    "api": "opengl",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/opengl",
+      "scroll",
+      "opengl",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "scroll",
+    "qt": "6.12.0",
+    "api": "vulkan",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/vulkan",
+      "scroll",
+      "vulkan",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "scroll",
+    "qt": "6.8.0",
+    "api": "opengl",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl",
+      "scroll",
+      "opengl",
+      "--qt",
+      "6.8.0",
+      "--qt-root",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk"
+    ],
+    "environment": {
+      "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown"
+    },
+    "exit": 0
+  },
+  {
+    "stage": "scroll",
+    "qt": "6.8.0",
+    "api": "vulkan",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/vulkan",
+      "scroll",
+      "vulkan",
+      "--qt",
+      "6.8.0",
+      "--qt-root",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk"
+    ],
+    "environment": {
+      "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown"
+    },
+    "exit": 0
+  },
+  {
+    "stage": "lifecycle",
+    "qt": "6.12.0",
+    "api": "software",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/software",
+      "lifecycle",
+      "software",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "lifecycle",
+    "qt": "6.8.0",
+    "api": "software",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "python3",
+      "/source/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/work/minimum",
+      "/work/fonts",
+      "/work/results/qt-6.8.0/software",
+      "lifecycle",
+      "software",
+      "--qt",
+      "6.8.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "lifecycle",
+    "qt": "6.12.0",
+    "api": "opengl",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/opengl",
+      "lifecycle",
+      "opengl",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "lifecycle",
+    "qt": "6.12.0",
+    "api": "vulkan",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.12.0/vulkan",
+      "lifecycle",
+      "vulkan",
+      "--qt",
+      "6.12.0"
+    ],
+    "environment": {},
+    "exit": 0
+  },
+  {
+    "stage": "lifecycle",
+    "qt": "6.8.0",
+    "api": "opengl",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl",
+      "lifecycle",
+      "opengl",
+      "--qt",
+      "6.8.0",
+      "--qt-root",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk"
+    ],
+    "environment": {
+      "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown"
+    },
+    "exit": 0
+  },
+  {
+    "stage": "lifecycle",
+    "qt": "6.8.0",
+    "api": "vulkan",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/vulkan",
+      "lifecycle",
+      "vulkan",
+      "--qt",
+      "6.8.0",
+      "--qt-root",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk"
+    ],
+    "environment": {
+      "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown"
+    },
+    "exit": 0
+  }
+]
