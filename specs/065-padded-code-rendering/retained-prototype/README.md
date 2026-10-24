@@ -1,7 +1,8 @@
 # Feature 065 standalone software gates
 
 All executables here are excluded from shipping CMake. See the whole-run
-continuation below for the current experiment. The historical standalone diagnostic deliberately stops
+continuation below for its passing software gate; the scene-graph continuation
+at the end is the current experiment. The historical standalone diagnostic deliberately stops
 before scene-graph texture creation: the preparation image gate fails. It is not
 a retained scrolling renderer or a performance benchmark.
 
@@ -164,3 +165,83 @@ required whole-run failures. Do not advance to another stage after failure.
 Compressed JSONL includes explicit loaded-font SHA-256, runtime/compiler identity,
 run/glyph sequences and all metrics. Summary JSON retains commands, environments,
 exit statuses and aggregates; stderr and representative PNGs accompany it.
+
+## Retained run-texture scene-graph gate
+
+`scenegraph-run-gate` is a separate executable; the earlier probes are unchanged.
+It has three retained paths: translated whole-run tiles, full-canvas run crops
+uploaded as tiles, and full-canvas images uploaded separately for each run. The
+last path is reference-only and preserves run ordering. Exact capture equality
+between these paths determines transport acceptance. Fresh current-phase
+QPainter text is diagnostic and cannot qualify fractional text rendering.
+
+The GUI thread prepares fonts, glyphs and immutable images. Only image/physical
+geometry/DPR/generation data crosses the synchronization boundary. Each public
+image node owns its render-thread-created texture. Filtering is linear, wrapping
+is clamp-to-edge; atlas and mipmaps are disabled. Image DPR metadata is one and
+node rectangles express physical bounds divided by actual window DPR. A public `grabWindow()` call drives synchronization/rendering; every capture
+verifies a newer synchronization instead of depending on a presentation callback.
+The viewport is fixed at 600×384 logical pixels, rounded outward to a common
+grid for effective DPR and Qt platform scale; exact physical capture extent is asserted before comparison. Invalid capture extents are logged separately; fixtures never resize the window. Application counters describe preparation and image-node/texture creation, not
+internal GPU uploads; diagnostic reference painting is excluded from candidate
+preparation counters. Resource addresses are scoped to their process/window.
+
+Build fresh standalone configurations and the target `scenegraph-run-gate`
+alongside all existing probes, with two workers. Re-run all existing software
+preparation stages on both exact SDKs before starting transport qualification.
+
+```sh
+python3 specs/065-padded-code-rendering/retained-prototype/stage.py /tmp/scene-stage
+cmake -S specs/065-padded-code-rendering/retained-prototype -B /tmp/scene-build \
+  -DQMARKDOWN_STAGE=/tmp/scene-stage -DCMAKE_BUILD_TYPE=Release -G Ninja
+cmake --build /tmp/scene-build --target scenegraph-run-gate whole-run-gate \
+  retained-glyph-gate retained-glyph-diagnostic --parallel 2
+python3 specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py \
+  /tmp/scene-build /tmp/qmarkdown-065-whole-fonts \
+  /tmp/scene-evidence/qt-6.12.0/software static software --qt 6.12.0
+```
+
+Use the same runner for `opengl` and `vulkan`, replacing the API directory and
+argument. Run **native GUI matrices serially** so windows do not compete for
+Wayland frame callbacks. Native targets use Wayland and a threaded render loop. Fixed-state capture sets
+`QSG_NO_VSYNC=1` and `QT_QPA_UPDATE_IDLE_TIME=0`; no animation/timing claim follows
+(see [Qt render-loop documentation](https://doc.qt.io/qt-6/qtquick-visualcanvas-scenegraph.html)).
+Software uses the zero QPA idle interval as well;
+software uses offscreen Qt Quick software (distinct from the QPainter gate).
+Each stage calibrates natural window DPR in a separate process, derives scale
+factors, and asserts observed API, exact SDK, hardware device and actual DPR in
+every matrix process. Public OpenGL renderer/vendor/version and Vulkan physical
+device properties identify hardware. A software GPU or missing identity fails.
+The runner completes all eight DPR/order processes despite image mismatches and
+validates case uniqueness, prepared phase, occurrences, run order and resource
+counts. JSONL, stderr, commands/environments, aggregates and PNGs are retained.
+
+For Qt 6.8.0, build with its exact SDK inside the recorded cached CI image. Its
+minimal image lacks a working Wayland plugin dependency environment. The native
+attempt therefore copies the **existing exact SDK** to a disposable `/tmp` tree
+and runs the same built binary on the host driver/display stack, with:
+
+```sh
+LD_LIBRARY_PATH=/tmp/qmarkdown-065-native-qt680/lib:/tmp/qmarkdown-065-scene-680/staged/src/QMarkdown \
+  python3 specs/065-padded-code-rendering/retained-prototype/run_scenegraph.py \
+  /tmp/qmarkdown-065-scene-680 /tmp/qmarkdown-065-whole-fonts \
+  /tmp/scene-evidence/qt-6.8.0/opengl static opengl --qt 6.8.0 \
+  --qt-root /tmp/qmarkdown-065-native-qt680
+```
+
+`--qt-root` sets the relocated plugin path; retain the SDK/library identities.
+No system package is installed or replaced. For Vulkan identity queries the
+minimum SDK needs the already-installed public Vulkan headers: mount host
+`/usr/include/vulkan` and `/usr/include/vk_video` read-only below a common include
+root and pass `-DSCENEGRAPH_VULKAN_INCLUDE_DIR=/native-headers` at configure time.
+This affects only the standalone target's includes, not library dependencies.
+Keep fresh builds and raw evidence in an ignored durable directory such as
+`build-ci/065-scenegraph`; `/tmp` contents can disappear across a restart.
+
+`scroll` and `lifecycle` are conditional stages. Their runner requires passing,
+complete summaries for every preceding SDK/backend under the same evidence root;
+never run them after a required static failure. Static has 4,872 captures-as-cases
+per SDK/backend (both backgrounds, both orders, four DPRs). Scroll has 936 cases
+per DPR/order; lifecycle has 12. See the approved specification for the six scroll
+fixtures, exact trace and clip rectangle. A passing ownership smoke would still
+not qualify broader lifecycle, resource budgets or production rendering.

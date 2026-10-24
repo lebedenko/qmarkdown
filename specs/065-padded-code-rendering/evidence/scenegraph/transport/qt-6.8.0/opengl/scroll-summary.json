@@ -1,0 +1,389 @@
+{
+  "stage": "scroll",
+  "qt": "6.8.0",
+  "api": "opengl",
+  "complete": true,
+  "failed": false,
+  "naturalDpr": 1.5,
+  "records": [
+    {
+      "name": "scroll-calibration",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "calibrate",
+        "opengl",
+        "0",
+        "forward",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-calibration"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "1"
+      },
+      "exit": 0
+    },
+    {
+      "name": "scroll-1-forward",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "1",
+        "forward",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-1-forward"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "0.6666666666666666"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 687867
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 156
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    },
+    {
+      "name": "scroll-1-reverse",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "1",
+        "reverse",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-1-reverse"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "0.6666666666666666"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 687867
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 156
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    },
+    {
+      "name": "scroll-1.25-forward",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "1.25",
+        "forward",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-1.25-forward"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "0.8333333333333334"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 855034
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 104
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    },
+    {
+      "name": "scroll-1.25-reverse",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "1.25",
+        "reverse",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-1.25-reverse"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "0.8333333333333334"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 855034
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 104
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    },
+    {
+      "name": "scroll-1.5-forward",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "1.5",
+        "forward",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-1.5-forward"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "1.0"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 1020582
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 107
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    },
+    {
+      "name": "scroll-1.5-reverse",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "1.5",
+        "reverse",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-1.5-reverse"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "1.0"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 1020582
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 107
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    },
+    {
+      "name": "scroll-2-forward",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "2",
+        "forward",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-2-forward"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "1.3333333333333333"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 1357878
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 107
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    },
+    {
+      "name": "scroll-2-reverse",
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/scenegraph-run-gate",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts",
+        "scroll",
+        "opengl",
+        "2",
+        "reverse",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/results/qt-6.8.0/opengl/scroll-2-reverse"
+      ],
+      "environment": {
+        "LD_LIBRARY_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib:/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/minimum/staged/src/QMarkdown",
+        "QT_QPA_PLATFORM": "wayland",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_LOGGING_RULES": "qt.rhi.*=true;qt.scenegraph.general=true",
+        "QSG_RHI_BACKEND": "opengl",
+        "QSG_RENDER_LOOP": "threaded",
+        "QSG_NO_VSYNC": "1",
+        "QT_PLUGIN_PATH": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins",
+        "QT_SCALE_FACTOR": "1.3333333333333333"
+      },
+      "exit": 0,
+      "cases": 936,
+      "failures": 0,
+      "changed": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 1357878
+      },
+      "maxChannelDelta": {
+        "tileCrop": 0,
+        "tileFull": 0,
+        "cropFull": 0,
+        "freshPainterDiagnostic": 107
+      },
+      "borderInk": 0,
+      "croppedInk": 0,
+      "clipLeaks": 0
+    }
+  ]
+}
