@@ -83,3 +83,40 @@ Historical binaries retain environment font resolution. Run historical, basic
 phase and extended prepared-run stages in order, finishing each matrix before
 stopping on failure. Both SDKs must pass the basic stage before either extends.
 No later rendering architecture is selected by this experiment.
+
+## Retained run-texture scene-graph revision — approved 2026-10-23
+
+The owner's implementation request approves S1–S9 and mapped tasks. Add a separate
+standalone executable; retain earlier probes unchanged. GUI-thread preparation
+uses actual prepared runs and the exact-font/four-pixel whole-run tile algorithm.
+An immutable generation contains DPR, canvas size, run ordinals/physical bounds
+and candidate/crop/full images; no raw fonts or layout objects reach the render
+thread. A custom QQuickItem synchronizes snapshots in updatePaintNode; each
+generation creates public QSGImageNodes with owned QSGTextures on that thread.
+Images carry DPR 1; node rectangles carry physical size/position divided by DPR.
+Fix linear/clamp sampling without atlasing/mipmaps. Nodes survive parent movement.
+
+Capture candidate, crop and full-per-run paths separately in the same window,
+comparing exact premultiplied capture pixels. The full-canvas reference retains
+individual run images and order, not a precomposited paragraph image. Record
+fresh QPainter current-phase differences only as diagnostics. Stable frame
+synchronization must precede grabs; failures retain counts and captures and never
+relax thresholds. Native backend/device/DPR must be observed, not inferred from
+requested environment settings.
+
+Static fixtures/matrices are the existing 1,218 cases split by observed window
+DPR, over white and #202020. Forward/reverse controls run in fresh processes.
+Scroll fixtures: plain fXfX/left, single code/left, adjacent code/left, colour
+boundary/left, wrapping/centre and tiny width/right. Physical translation trace
+is row-major Cartesian {0,.25,.5,.75} squared, then (1,1),(-1,-1),(0,0), repeated
+twice; convert offsets to logical units with actual DPR. Test full viewport and
+logical clip (64,32,96,96). Resource counters/identity snapshots bracket warm-up,
+each trace, and three window recreation cycles; they describe application work
+and ownership only. Scene graph nodes own textures; teardown occurs on their
+render thread. No broader lifecycle claim follows.
+
+Progression: preparation on both SDKs → complete static target matrix → complete
+scroll matrix → recreation smoke. Missing native hardware is unverified, not a
+passing fallback. Finish all cases/orders of a started stage on mismatch, then
+stop before the next stage. Publication is one new stacked continuation based
+on PR #51, keeping implementation/specs/evidence in the same change.

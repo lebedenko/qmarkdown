@@ -108,3 +108,42 @@ conditional integration directions for current work.
 - W7: No shipping/public API/dependency/version change. No paragraph coalescing,
   GPU/scene graph, fractional scrolling, decorations/backgrounds, broader shaping,
   lifecycle, retention or performance. Passing permits later design review only.
+
+## Retained run-texture scene-graph gate — approved 2026-10-23
+
+The owner's explicit request to implement the supplied next-iteration plan approves
+this bounded revision, its design and mapped tasks before implementation. PR #51
+remains unchanged; this is a new stacked continuation from its verified commit
+`18f1259e27e9407d642b309b79ce7a795c6fc0fc`.
+
+- S1: Standalone Qt Quick executable, with prepared runs exposed only through
+  the exported-tree patch. Preserve whole-run rasterization, order, bounds,
+  four-physical-pixel margins, disabled decorations and explicit font identities.
+- S2: Prepare immutable images/geometry on the GUI thread; create one public image
+  node/texture per run on the render thread. Node ownership releases textures.
+  Upload DPR-1 images, place physical bounds divided by observed DPR, use linear
+  filtering/clamp-to-edge, no mipmaps/atlas. Scroll only an ancestor transform.
+- S3: Require exact captured pixel equality between translated tiles, full-canvas
+  run crops uploaded as tiles, and full-canvas textures per run, on the same
+  backend/DPR/background. Fresh QPainter text at the current phase is diagnostic.
+- S4: Fresh exact Qt 6.8.0/6.12.0 configurations; require Qt Quick software and
+  runtime-confirmed native OpenGL/Vulkan on both SDKs at DPR 1/1.25/1.5/2. Record
+  device/driver; no silent fallback or software-GPU substitution. Missing targets
+  are incomplete. Re-run existing software gate before transport qualification.
+- S5: Static: all 1,218 existing cases per SDK/backend/order, both backgrounds
+  white/#202020, fresh candidate-first/reference-first processes. Finish stages
+  despite mismatches; a required failure stops progression.
+- S6: Scroll: six approved fixtures, zero preparation phase; all Cartesian X/Y
+  phases 0/.25/.5/.75 then (1,1),(-1,-1),(0,0), twice. Test unclipped and fixed
+  logical clip (64,32,96,96), both backgrounds and all targets/DPRs. Require exact
+  transport equality, no clip leaks, return-to-origin equality and stable retained
+  identities with zero layout/raster/node-replacement/application-texture creations
+  after warm-up. Counters do not measure internal GPU uploads.
+- S7: After scrolling passes, destroy/recreate the window three times with retained
+  CPU images; require balanced application resource counts and unchanged output.
+- S8: Keep specs, harness, actual evidence and final-head checks together in one
+  new stacked PR, unmerged with auto-merge disabled; no evidence-only follow-up
+  commits. PR #51 remains unchanged. Hosted Light is not experiment qualification.
+- S9: No shipping renderer/API/dependency/version change, paragraph coalescing or
+  cross-surface cache. Broader shaping, backgrounds/decorations, interactions,
+  production invalidation, budgets, perceived shimmer and performance are deferred.
