@@ -1,0 +1,9 @@
+{
+  "stoppedAfter": "cpu",
+  "notRun": [
+    "static",
+    "scroll",
+    "lifecycle"
+  ],
+  "qualified": false
+}

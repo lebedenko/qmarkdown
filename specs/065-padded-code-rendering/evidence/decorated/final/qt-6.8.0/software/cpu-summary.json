@@ -1,0 +1,281 @@
+{
+  "executableSha256": "40fe4708c060bf39bcadd63222a823c31da590a3742e3fc92e37dcc67aab1537",
+  "runnerSha256": "878766b93b3fd7ea745e55eea0607cd01527214896ae227e301431da0d24498d",
+  "stage": "cpu",
+  "qt": "6.8.0",
+  "api": "software",
+  "complete": true,
+  "failed": true,
+  "fonts": {
+    "DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "LiberationSans-Regular.ttf": "baccc64becc3eb7d104b7c84d99f5314a0a1f896e2b3ea6c2f22fc08d2003bee"
+  },
+  "records": [
+    {
+      "name": "cpu-1-forward",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "1",
+        "forward",
+        "/work/results/qt-6.8.0/software/cpu-1-forward"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "1.0"
+      },
+      "cases": 720,
+      "failures": 0,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 0,
+        "shippingCrop": 0,
+        "tileCrop": 0
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    },
+    {
+      "name": "cpu-1-reverse",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "1",
+        "reverse",
+        "/work/results/qt-6.8.0/software/cpu-1-reverse"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "1.0"
+      },
+      "cases": 720,
+      "failures": 0,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 0,
+        "shippingCrop": 0,
+        "tileCrop": 0
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    },
+    {
+      "name": "cpu-1.25-forward",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "1.25",
+        "forward",
+        "/work/results/qt-6.8.0/software/cpu-1.25-forward"
+      ],
+      "exit": 1,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "1.25"
+      },
+      "cases": 720,
+      "failures": 85,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 9384,
+        "shippingCrop": 0,
+        "tileCrop": 9384
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    },
+    {
+      "name": "cpu-1.25-reverse",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "1.25",
+        "reverse",
+        "/work/results/qt-6.8.0/software/cpu-1.25-reverse"
+      ],
+      "exit": 1,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "1.25"
+      },
+      "cases": 720,
+      "failures": 85,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 9384,
+        "shippingCrop": 0,
+        "tileCrop": 9384
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    },
+    {
+      "name": "cpu-1.5-forward",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "1.5",
+        "forward",
+        "/work/results/qt-6.8.0/software/cpu-1.5-forward"
+      ],
+      "exit": 1,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "1.5"
+      },
+      "cases": 720,
+      "failures": 165,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 11795,
+        "shippingCrop": 0,
+        "tileCrop": 11795
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    },
+    {
+      "name": "cpu-1.5-reverse",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "1.5",
+        "reverse",
+        "/work/results/qt-6.8.0/software/cpu-1.5-reverse"
+      ],
+      "exit": 1,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "1.5"
+      },
+      "cases": 720,
+      "failures": 165,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 11795,
+        "shippingCrop": 0,
+        "tileCrop": 11795
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    },
+    {
+      "name": "cpu-2-forward",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "2",
+        "forward",
+        "/work/results/qt-6.8.0/software/cpu-2-forward"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "2.0"
+      },
+      "cases": 720,
+      "failures": 0,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 0,
+        "shippingCrop": 0,
+        "tileCrop": 0
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    },
+    {
+      "name": "cpu-2-reverse",
+      "command": [
+        "/work/minimum/decorated-content-gate",
+        "/work/fonts",
+        "cpu",
+        "software",
+        "2",
+        "reverse",
+        "/work/results/qt-6.8.0/software/cpu-2-reverse"
+      ],
+      "exit": 0,
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen",
+        "QT_QPA_PLATFORMTHEME": "",
+        "QT_SCALE_FACTOR_ROUNDING_POLICY": "PassThrough",
+        "QT_QPA_UPDATE_IDLE_TIME": "0",
+        "QSG_INFO": "1",
+        "QT_QUICK_BACKEND": "software",
+        "QT_SCALE_FACTOR": "2.0"
+      },
+      "cases": 720,
+      "failures": 0,
+      "coverageFailures": 0,
+      "changed": {
+        "shippingFull": 0,
+        "shippingTile": 0,
+        "shippingCrop": 0,
+        "tileCrop": 0
+      },
+      "croppedInk": 0,
+      "borderInk": 0
+    }
+  ]
+}

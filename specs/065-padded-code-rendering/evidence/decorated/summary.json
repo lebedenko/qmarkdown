@@ -1,0 +1,482 @@
+{
+  "6.8.0": {
+    "complete": true,
+    "failed": true,
+    "cases": 5760,
+    "failures": 500,
+    "dprs": {
+      "1": [
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        },
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        }
+      ],
+      "1.25": [
+        {
+          "cases": 720,
+          "failures": 85,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 9384,
+            "shippingCrop": 0,
+            "tileCrop": 9384
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "ligatures",
+            "mixed-wrap",
+            "single-combined",
+            "single-combined-wrap",
+            "single-overline",
+            "single-overline-wrap",
+            "single-underline",
+            "single-underline-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4"
+          ]
+        },
+        {
+          "cases": 720,
+          "failures": 85,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 9384,
+            "shippingCrop": 0,
+            "tileCrop": 9384
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "ligatures",
+            "mixed-wrap",
+            "single-combined",
+            "single-combined-wrap",
+            "single-overline",
+            "single-overline-wrap",
+            "single-underline",
+            "single-underline-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4"
+          ]
+        }
+      ],
+      "1.5": [
+        {
+          "cases": 720,
+          "failures": 165,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 11795,
+            "shippingCrop": 0,
+            "tileCrop": 11795
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "opaque-rounded",
+            "opaque-rounded-wrap",
+            "strike-gutter-0",
+            "strike-gutter-0-wrap",
+            "strike-gutter-1-wrap",
+            "strike-gutter-2-wrap",
+            "strike-gutter-3",
+            "strike-gutter-3-wrap",
+            "strike-gutter-4",
+            "strike-gutter-4-wrap",
+            "strike-gutter-5",
+            "strike-gutter-5-wrap",
+            "strike-gutter-6",
+            "strike-gutter-6-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4",
+            "translucent-rounded",
+            "translucent-rounded-wrap"
+          ]
+        },
+        {
+          "cases": 720,
+          "failures": 165,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 11795,
+            "shippingCrop": 0,
+            "tileCrop": 11795
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "opaque-rounded",
+            "opaque-rounded-wrap",
+            "strike-gutter-0",
+            "strike-gutter-0-wrap",
+            "strike-gutter-1-wrap",
+            "strike-gutter-2-wrap",
+            "strike-gutter-3",
+            "strike-gutter-3-wrap",
+            "strike-gutter-4",
+            "strike-gutter-4-wrap",
+            "strike-gutter-5",
+            "strike-gutter-5-wrap",
+            "strike-gutter-6",
+            "strike-gutter-6-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4",
+            "translucent-rounded",
+            "translucent-rounded-wrap"
+          ]
+        }
+      ],
+      "2": [
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        },
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        }
+      ]
+    }
+  },
+  "6.12.0": {
+    "complete": true,
+    "failed": true,
+    "cases": 5760,
+    "failures": 500,
+    "dprs": {
+      "1": [
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        },
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        }
+      ],
+      "1.25": [
+        {
+          "cases": 720,
+          "failures": 85,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 9384,
+            "shippingCrop": 0,
+            "tileCrop": 9384
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "ligatures",
+            "mixed-wrap",
+            "single-combined",
+            "single-combined-wrap",
+            "single-overline",
+            "single-overline-wrap",
+            "single-underline",
+            "single-underline-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4"
+          ]
+        },
+        {
+          "cases": 720,
+          "failures": 85,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 9384,
+            "shippingCrop": 0,
+            "tileCrop": 9384
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "ligatures",
+            "mixed-wrap",
+            "single-combined",
+            "single-combined-wrap",
+            "single-overline",
+            "single-overline-wrap",
+            "single-underline",
+            "single-underline-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4"
+          ]
+        }
+      ],
+      "1.5": [
+        {
+          "cases": 720,
+          "failures": 165,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 11795,
+            "shippingCrop": 0,
+            "tileCrop": 11795
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "opaque-rounded",
+            "opaque-rounded-wrap",
+            "strike-gutter-0",
+            "strike-gutter-0-wrap",
+            "strike-gutter-1-wrap",
+            "strike-gutter-2-wrap",
+            "strike-gutter-3",
+            "strike-gutter-3-wrap",
+            "strike-gutter-4",
+            "strike-gutter-4-wrap",
+            "strike-gutter-5",
+            "strike-gutter-5-wrap",
+            "strike-gutter-6",
+            "strike-gutter-6-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4",
+            "translucent-rounded",
+            "translucent-rounded-wrap"
+          ]
+        },
+        {
+          "cases": 720,
+          "failures": 165,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 11795,
+            "shippingCrop": 0,
+            "tileCrop": 11795
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 255,
+            "shippingCrop": 0,
+            "tileCrop": 255
+          },
+          "fixtures": [
+            "adjacent-combined",
+            "adjacent-combined-wrap",
+            "adjacent-overline",
+            "adjacent-overline-wrap",
+            "adjacent-underline",
+            "adjacent-underline-wrap",
+            "opaque-rounded",
+            "opaque-rounded-wrap",
+            "strike-gutter-0",
+            "strike-gutter-0-wrap",
+            "strike-gutter-1-wrap",
+            "strike-gutter-2-wrap",
+            "strike-gutter-3",
+            "strike-gutter-3-wrap",
+            "strike-gutter-4",
+            "strike-gutter-4-wrap",
+            "strike-gutter-5",
+            "strike-gutter-5-wrap",
+            "strike-gutter-6",
+            "strike-gutter-6-wrap",
+            "tiny-1",
+            "tiny-2",
+            "tiny-4",
+            "translucent-rounded",
+            "translucent-rounded-wrap"
+          ]
+        }
+      ],
+      "2": [
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        },
+        {
+          "cases": 720,
+          "failures": 0,
+          "changed": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "maxChannelDelta": {
+            "shippingFull": 0,
+            "shippingTile": 0,
+            "shippingCrop": 0,
+            "tileCrop": 0
+          },
+          "fixtures": []
+        }
+      ]
+    }
+  }
+}
