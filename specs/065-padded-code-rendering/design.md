@@ -120,3 +120,30 @@ scroll matrix → recreation smoke. Missing native hardware is unverified, not a
 passing fallback. Finish all cases/orders of a started stage on mismatch, then
 stop before the next stage. Publication is one new stacked continuation based
 on PR #51, keeping implementation/specs/evidence in the same change.
+
+## Shaping and decorated-content design — approved 2026-10-24
+
+The owner explicitly requested implementation of the supplied plan on
+2026-10-24; this approves the requirements, design and mapped tasks in this
+revision before implementation.
+
+Add decorated.cpp and run_decorated.py beside the historical probes. Reuse the
+established public image-node transport algorithm in a separate executable. GUI
+preparation retains immutable DPR-1 images; nodes own textures on the render
+thread with physical geometry divided by observed DPR, linear/clamp sampling and
+no atlas/mipmaps. Explicit fixture records assert shaping, fallback, wrapping
+and decoration coverage. Compare shipping paint with independent full-canvas
+component composition, translated tiles and crops. Include glyph raw-font ink
+and flat-cap stroked line extents. Background components precede run components.
+Fresh current-phase painter output during motion is diagnostic. Finish all
+cases/orders/targets of each started stage despite mismatches; stop progression
+on any required failure. Retain commands, identities, complete metrics and
+representative captures. PR #51 and #52 are merged; their historical delivery
+instructions above remain unchanged. The continuation starts from current main
+and remains unmerged with auto-merge disabled.
+
+Component painters retain the shipping coordinate representation: paragraph
+origin in the painter transform, original background rectangles, original run
+origins, and recorded lines translated only by their run origin. Tile painters
+add only the negative integer physical tile origin divided by DPR. Folding the
+paragraph origin into rectangle/line geometry is not assumed raster-equivalent.

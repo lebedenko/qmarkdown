@@ -1,0 +1,34 @@
+{
+  "sourceBase": "96c530660aab25654cd611c70af68affdb58761d",
+  "sourceTree": "e6436a06419d6ef2deecbc839aea9b50f1ffe8f6",
+  "files": {
+    "prepared-runs.patch": "28a7e648da1b751599226cd1b2be216973f7605a9378a7218a5a695eb1d7d1a7",
+    "main.cpp": "68dcb85bc75c68c8d02db7978e45b24d878834cebc1c3f96898bb99dbba8f0fd",
+    "stage.py": "0afe5b472a9acac3448242f0ff377dfe7ab8fa84dfc39d6e5df383ba168cb38b",
+    "CMakeLists.txt": "2aa75534ff6ebe9daa81385400a462d75df60529f042d6a45292a641491012c3",
+    "README.md": "4d192c9b981c236697c9a49bba527cda90b89203a4219a922bd8bb73b8c9a566",
+    "diagnostic.cpp": "5f4781d9d490db4cbf5812ef7946b3cfa8f45efa020d00eb5a3514497f4f378d",
+    "run_whole.py": "262346cff30817bef71f80e719b7697e803c3243971625b4315d52e147696764",
+    "summarize.py": "0a0dcc4c0465f1dc2f1b2642a53071588408319a083b5867246f7e90b3643741",
+    "whole_run.cpp": "5277435162c20cbf3d3cc568b8948cc4831522e4d3ef9bdad974d842a0fa495f",
+    "scenegraph.cpp": "7f8127512f30e4c7d0c8a2e0f977a489dd8e16a5d38c1da26ab5383a25d0c290",
+    "run_scenegraph.py": "b4d4c69662b6fc350786235876b322903d8c916940066044178b9cf8f2aefbf5",
+    "decorated.cpp": "8845ae744f87829d012e9fc49ee71107484d434f758c38d1a147abe92d3a7943",
+    "run_decorated.py": "878766b93b3fd7ea745e55eea0607cd01527214896ae227e301431da0d24498d"
+  },
+  "executables": {
+    "host": "6846c0c9f574322a58ab41e4275a490a96d80f353290c7b2a5914b1aa55e4b13",
+    "minimum": "40fe4708c060bf39bcadd63222a823c31da590a3742e3fc92e37dcc67aab1537"
+  },
+  "fonts": {
+    "DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "LiberationSans-Regular.ttf": "baccc64becc3eb7d104b7c84d99f5314a0a1f896e2b3ea6c2f22fc08d2003bee"
+  },
+  "toolchain": {
+    "host": "c++ (GCC) 16.2.1 20260810\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "hostQt": "6.12.0\n",
+    "minimumImage": "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961"
+  }
+}

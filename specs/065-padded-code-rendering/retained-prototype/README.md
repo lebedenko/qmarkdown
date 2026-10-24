@@ -245,3 +245,42 @@ per SDK/backend (both backgrounds, both orders, four DPRs). Scroll has 936 cases
 per DPR/order; lifecycle has 12. See the approved specification for the six scroll
 fixtures, exact trace and clip rectangle. A passing ownership smoke would still
 not qualify broader lifecycle, resource budgets or production rendering.
+
+## Shaping and decorated-content gate (2026-10-24)
+
+`decorated-content-gate` is a separate executable. Historical probes and shipping
+sources remain unchanged. Its 45 fixture records include normal width 400/left
+and width 120/centre variants, plus width-1 cases in all three alignments. The
+corpus covers ligatures, composed/decomposed/multiple accents, mixed bidi and
+Arabic joining, forced Liberation Sans → DejaVu Sans fallback, italic foreground
+and padding boundaries, all single/adjacent underline/overline combinations,
+seven historical strikeout-gutter modes, and opaque/translucent rounded spans.
+Prepared font tables, source indexes, decoration flags, gutter connectors,
+fallback, overhang and wrapping are checked explicitly.
+
+Supply the same four files on both targets: `DejaVuSans.ttf`,
+`DejaVuSans-Oblique.ttf`, `DejaVuSansMono.ttf`, `LiberationSans-Regular.ttf`.
+Font SHA-256 identities are emitted; any prepared font outside these files is
+incomplete coverage. Build a fresh exported source tree with `stage.py`, configure
+this directory with `QMARKDOWN_STAGE`, and build `decorated-content-gate` plus
+the existing whole-run prerequisites using each exact SDK.
+
+Run `run_whole.py` historical/basic/extended for each target, placing evidence at
+`ROOT/prerequisite/qt-VERSION`. Both targets' basic/extended controls must pass
+before the new CPU matrix starts:
+
+```sh
+python3 run_decorated.py BUILD FONTS ROOT cpu --qt 6.8.0
+python3 run_decorated.py BUILD FONTS ROOT cpu --qt 6.12.0
+```
+
+Then use `static`, `scroll`, and `lifecycle` in that order, with `--api software`,
+`--api opengl`, and `--api vulkan` for both SDKs. Each stage requires all previous
+required target/backend reports to qualify. Native transport requires an observed
+hardware device; software emulation does not qualify. `--qt-root` selects plugins
+for a relocated SDK; set its library search path in the launching environment.
+The runner calibrates observed window DPR before the four requested DPRs. Each
+DPR/order combination uses a fresh process. Pixel failures never shorten a started
+matrix. Structured metrics, commands, stderr and representative captures are kept
+under `ROOT/qt-VERSION/API`. Exact equality is required throughout; motion's fresh
+current-phase painter is diagnostic only. No production integration follows.

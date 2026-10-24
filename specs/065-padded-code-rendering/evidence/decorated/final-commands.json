@@ -1,0 +1,74 @@
+[
+  {
+    "name": "final-host-build",
+    "command": [
+      "cmake",
+      "--build",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host",
+      "--target",
+      "decorated-content-gate",
+      "-j2"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "final-minimum-build",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "cmake",
+      "--build",
+      "/work/minimum",
+      "--target",
+      "decorated-content-gate",
+      "-j2"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "final-cpu-6.12.0",
+    "command": [
+      "python3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/retained-prototype/run_decorated.py",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/results",
+      "cpu",
+      "--qt",
+      "6.12.0"
+    ],
+    "exit": 1
+  },
+  {
+    "name": "final-cpu-6.8.0",
+    "command": [
+      "docker",
+      "run",
+      "--rm",
+      "--user",
+      "1000:1000",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown:/source:ro",
+      "-v",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated:/work",
+      "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+      "python3",
+      "/source/specs/065-padded-code-rendering/retained-prototype/run_decorated.py",
+      "/work/minimum",
+      "/work/fonts",
+      "/work/results",
+      "cpu",
+      "--qt",
+      "6.8.0"
+    ],
+    "exit": 1
+  }
+]

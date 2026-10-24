@@ -1,0 +1,42 @@
+[
+  {
+    "name": "basic-forward",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/whole-run-gate",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSans-Oblique.ttf",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSansMono.ttf",
+      "basic",
+      "forward",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/results/prerequisite/qt-6.12.0/basic-forward"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 256,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  },
+  {
+    "name": "basic-reverse",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/whole-run-gate",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSans-Oblique.ttf",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSansMono.ttf",
+      "basic",
+      "reverse",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/results/prerequisite/qt-6.12.0/basic-reverse"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 256,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "basic-forward",
+    "command": [
+      "/work/minimum/whole-run-gate",
+      "/work/fonts/DejaVuSans-Oblique.ttf",
+      "/work/fonts/DejaVuSansMono.ttf",
+      "basic",
+      "forward",
+      "/work/results/prerequisite/qt-6.8.0/basic-forward"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 256,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  },
+  {
+    "name": "basic-reverse",
+    "command": [
+      "/work/minimum/whole-run-gate",
+      "/work/fonts/DejaVuSans-Oblique.ttf",
+      "/work/fonts/DejaVuSansMono.ttf",
+      "basic",
+      "reverse",
+      "/work/results/prerequisite/qt-6.8.0/basic-reverse"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 256,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  }
+]

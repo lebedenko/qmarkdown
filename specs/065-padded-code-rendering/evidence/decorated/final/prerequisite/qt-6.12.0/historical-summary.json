@@ -1,0 +1,104 @@
+[
+  {
+    "name": "historical-forward",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/whole-run-gate",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSans-Oblique.ttf",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSansMono.ttf",
+      "historical",
+      "forward",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/results/prerequisite/qt-6.12.0/historical-forward"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 2,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  },
+  {
+    "name": "historical-reverse",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/whole-run-gate",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSans-Oblique.ttf",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/fonts/DejaVuSansMono.ttf",
+      "historical",
+      "reverse",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/results/prerequisite/qt-6.12.0/historical-reverse"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 2,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  },
+  {
+    "name": "legacy-0-1",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/retained-glyph-gate"
+    ],
+    "environment": {
+      "GATE_DPR": "1"
+    },
+    "exit": 0
+  },
+  {
+    "name": "legacy-0-1.25",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/retained-glyph-gate"
+    ],
+    "environment": {
+      "GATE_DPR": "1.25"
+    },
+    "exit": 1
+  },
+  {
+    "name": "legacy-1-1",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/retained-glyph-gate"
+    ],
+    "environment": {
+      "GATE_DPR": "1"
+    },
+    "exit": 0
+  },
+  {
+    "name": "legacy-1-1.25",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/retained-glyph-gate"
+    ],
+    "environment": {
+      "GATE_DPR": "1.25"
+    },
+    "exit": 1
+  },
+  {
+    "name": "diagnostic-forward",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/retained-glyph-diagnostic"
+    ],
+    "environment": {
+      "DIAG_REVERSE": "0",
+      "DIAG_CAPTURES": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/results/prerequisite/qt-6.12.0/diagnostic-forward"
+    },
+    "exit": 1
+  },
+  {
+    "name": "diagnostic-reverse",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/host/retained-glyph-diagnostic"
+    ],
+    "environment": {
+      "DIAG_REVERSE": "1",
+      "DIAG_CAPTURES": "/home/andrii/Projects/pet/qmarkdown/build-ci/065-decorated/results/prerequisite/qt-6.12.0/diagnostic-reverse"
+    },
+    "exit": 1
+  }
+]

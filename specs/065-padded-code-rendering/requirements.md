@@ -147,3 +147,61 @@ remains unchanged; this is a new stacked continuation from its verified commit
 - S9: No shipping renderer/API/dependency/version change, paragraph coalescing or
   cross-surface cache. Broader shaping, backgrounds/decorations, interactions,
   production invalidation, budgets, perceived shimmer and performance are deferred.
+
+## Shaping and decorated-content revision — approved 2026-10-24
+
+The owner explicitly requested implementation of the supplied plan on 2026-10-24;
+this approves the requirements, design and mapped tasks before implementation.
+
+- C1: Keep the experiment standalone; expose prepared data only through the patch
+  applied to an exported source tree. Preserve complete runs, glyph positions,
+  source indexes, fonts, colours, origins and emission order. Never reshape
+  substrings, split prepared runs or combine runs.
+- C2: Rasterize each run's glyphs followed by its recorded decorations, including
+  padding-gutter connectors. Disable implicit glyph decorations. Include glyph
+  ink and stroked-line extents in outward-rounded physical bounds with four
+  physical pixels of margin. Preserve original coordinates and use integer
+  physical tile translation.
+- C3: Retain one small image per prepared rounded code-background rectangle,
+  preserving rectangle order, colour and radius. Place backgrounds before runs.
+  Reuse immutable GUI-prepared DPR-1 images and render-thread-owned public image
+  nodes. Divide physical geometry by observed DPR; use linear filtering, clamp
+  wrapping, no atlas and no mipmaps.
+- C4: Use explicit fixtures for office/ffi/ffl ligatures; composed, decomposed and
+  multiple marks; mixed Latin/Hebrew/Arabic/numbers; Arabic joining; forced
+  Liberation Sans → DejaVu Sans Arabic fallback; italic foreground/padding
+  overhang; single and adjacent underline/overline/combined code; seven historical
+  strikeout-gutter modes including inherited strikeout and distinct linked-code
+  colour; opaque/translucent rounded backgrounds. Prepare each at 400/left and
+  120/centre, plus short width-1 cases for all three alignments. Assert intended
+  shaping, fallback, wrapping and decoration coverage. Explicitly load identical
+  DejaVu Sans Regular, Oblique, Mono and Liberation Sans Regular files on both
+  targets; retain SHA-256 identities and validate every prepared font against
+  them. Unexpected fallback is incomplete coverage.
+- C5: Build fresh exact Qt 6.8.0 and 6.12.0 configurations and run the existing
+  whole-run software prerequisite. Require exact premultiplied CPU pixel equality
+  between shipping FormattedText::paint(), independent full-canvas components,
+  translated tiles and component crops. Test DPR 1, 1.25, 1.5 and 2, with
+  independent physical X/Y phases 0, .25, .5 and .75.
+- C6: Only after both CPU targets pass, require exact tile/crop/full-component
+  transport equality on software and confirmed native OpenGL/Vulkan on both
+  SDKs, over white and #202020. Only after static transport passes, apply the
+  existing fractional translation trace and fixed clip to every zero-phase
+  fixture; require stable resources, zero candidate preparation/resource creation
+  after warm-up, no clip leaks and exact return to origin. Then recreate windows
+  three times using retained CPU images, requiring unchanged output and balanced
+  application resource ownership. Fresh current-phase text during movement is
+  diagnostic; visual quality is outside acceptance. Use fresh forward/reverse
+  processes. Verify occurrence/source metadata, order, cropped/border ink. Finish
+  every started stage despite mismatches; any required failure blocks progression.
+  Missing required environments remain incomplete.
+- C7: No shipping renderer, public API, dependency or version changes. Retain
+  commands, source/font/toolchain/device identities, complete structured metrics
+  and representative reference/candidate/difference captures in durable workspace
+  storage. Record actual results separately, preserving failures and thresholds.
+  Run lightweight repository checks and final-head hosted checks; hosted Light
+  does not qualify this experiment. Submit one continuation PR against main with
+  specs, harness and evidence; leave unmerged with auto-merge disabled, without
+  evidence-only follow-up commits. Selection, Find, focus, production invalidation,
+  broader lifecycle, budgets, perceived shimmer and performance remain deferred.
+  Passing permits a production design review only.

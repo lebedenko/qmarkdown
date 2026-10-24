@@ -79,3 +79,24 @@ or speedup claims (W7).
 
 Final-head hosted outcomes and open/unmerged/auto-merge status are recorded in the
 continuation PR body/checks; no evidence-only follow-up commit is created (S8).
+
+## Shaping and decorated-content tasks — approved 2026-10-24
+
+The owner explicitly requested implementation of the supplied plan on
+2026-10-24; this approves the requirements, design and mapped tasks in this
+revision before implementation.
+
+- [x] Record C1–C7 requirements, design and tasks before implementation.
+- [x] Implement separate gate, fixture records, explicit font validation and CPU controls (C1–C5).
+- [x] Build fresh exact Qt 6.8.0/6.12.0 and run whole-run prerequisite (C5).
+- [x] Finish CPU matrix on both targets; retain failures without threshold changes (C4–C5).
+- [ ] Conditional: complete transport, traces and three recreation cycles (C6).
+- [x] Retain actual evidence and prepare the complete continuation payload (C7).
+- [x] Pass final lightweight repository checks, whitespace and evidence identities (C7).
+- [x] Prepare one continuation PR payload against main, unmerged with auto-merge
+  disabled (C7; actual publication and final-head outcomes live in PR body/checks).
+
+The final CPU gate failed on both SDKs; conditional transport, motion and
+recreation qualification remains unexecuted. See
+[actual decorated verification](decorated-verification.md). PR #51 and #52 are
+merged; their earlier delivery instructions remain historical records.
