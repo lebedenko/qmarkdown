@@ -63,3 +63,19 @@ The owner requested implementation of the supplied diagnostic plan.
 
 Software parity alone permits a later design review, never production integration
 or speedup claims (W7).
+
+## Retained run-texture scene-graph tasks — approved 2026-10-23
+
+- [x] Record the supplied approved requirements/design/tasks revision (S1–S9).
+- [x] Inspect native environments; implement isolated immutable preparation,
+  render-thread-owned image nodes and exact three-path controls (S1–S4).
+- [x] Fresh SDK builds and preparation gates on both targets (S4).
+- [x] Complete static software/OpenGL/Vulkan matrices and both orders; retain
+  identities, counts, metrics and captures; stop on failure (S3–S5).
+- [x] Conditional: scroll/clip/retention matrix, then three recreation cycles
+  with retained CPU images and balanced resources (S6–S7).
+- [x] Record actual experiment results and evidence separately (S8).
+- [x] Prepare the complete stacked-PR payload and pass local repository checks (S8).
+
+Final-head hosted outcomes and open/unmerged/auto-merge status are recorded in the
+continuation PR body/checks; no evidence-only follow-up commit is created (S8).

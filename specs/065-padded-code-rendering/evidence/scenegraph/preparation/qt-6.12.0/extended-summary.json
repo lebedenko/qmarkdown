@@ -1,0 +1,42 @@
+[
+  {
+    "name": "extended-forward",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host/whole-run-gate",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts/DejaVuSans-Oblique.ttf",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts/DejaVuSansMono.ttf",
+      "extended",
+      "forward",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/preparation/qt-6.12.0/extended-forward"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 960,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  },
+  {
+    "name": "extended-reverse",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/host/whole-run-gate",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts/DejaVuSans-Oblique.ttf",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/fonts/DejaVuSansMono.ttf",
+      "extended",
+      "reverse",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/preparation/qt-6.12.0/extended-reverse"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 960,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  }
+]

@@ -1,0 +1,380 @@
+[
+  {
+    "qt": "6.8.0",
+    "api": "software",
+    "stage": "static",
+    "complete": true,
+    "failed": false,
+    "cases": 4872,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "software",
+    "stage": "scroll",
+    "complete": true,
+    "failed": false,
+    "cases": 7488,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 5340272
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 192
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "software",
+    "stage": "lifecycle",
+    "complete": true,
+    "failed": false,
+    "cases": 96,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "opengl",
+    "stage": "static",
+    "complete": true,
+    "failed": false,
+    "cases": 4872,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 112
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 1
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "opengl",
+    "stage": "scroll",
+    "complete": true,
+    "failed": false,
+    "cases": 7488,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 7842722
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 156
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "opengl",
+    "stage": "lifecycle",
+    "complete": true,
+    "failed": false,
+    "cases": 96,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "vulkan",
+    "stage": "static",
+    "complete": true,
+    "failed": false,
+    "cases": 4872,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 112
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 1
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "vulkan",
+    "stage": "scroll",
+    "complete": true,
+    "failed": false,
+    "cases": 7488,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 7842722
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 156
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "api": "vulkan",
+    "stage": "lifecycle",
+    "complete": true,
+    "failed": false,
+    "cases": 96,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "software",
+    "stage": "static",
+    "complete": true,
+    "failed": false,
+    "cases": 4872,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "software",
+    "stage": "scroll",
+    "complete": true,
+    "failed": false,
+    "cases": 7488,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 5340272
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 192
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "software",
+    "stage": "lifecycle",
+    "complete": true,
+    "failed": false,
+    "cases": 96,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "opengl",
+    "stage": "static",
+    "complete": true,
+    "failed": false,
+    "cases": 4872,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 112
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 1
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "opengl",
+    "stage": "scroll",
+    "complete": true,
+    "failed": false,
+    "cases": 7488,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 7842722
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 156
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "opengl",
+    "stage": "lifecycle",
+    "complete": true,
+    "failed": false,
+    "cases": 96,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "vulkan",
+    "stage": "static",
+    "complete": true,
+    "failed": false,
+    "cases": 4872,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 112
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 1
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "vulkan",
+    "stage": "scroll",
+    "complete": true,
+    "failed": false,
+    "cases": 7488,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 7842722
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 156
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "api": "vulkan",
+    "stage": "lifecycle",
+    "complete": true,
+    "failed": false,
+    "cases": 96,
+    "failures": 0,
+    "changed": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    },
+    "maximum": {
+      "tileCrop": 0,
+      "tileFull": 0,
+      "cropFull": 0,
+      "freshPainterDiagnostic": 0
+    }
+  }
+]

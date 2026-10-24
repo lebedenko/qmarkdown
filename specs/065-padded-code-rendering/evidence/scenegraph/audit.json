@@ -1,0 +1,11 @@
+{
+  "cases": {
+    "static": 29232,
+    "scroll": 44928,
+    "lifecycle": 576
+  },
+  "returnChecks": 4608,
+  "recreatedChecks": 576,
+  "balancedTeardowns": 432,
+  "requiredPixelDifferences": 0
+}

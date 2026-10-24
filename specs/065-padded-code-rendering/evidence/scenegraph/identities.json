@@ -1,0 +1,69 @@
+{
+  "sourceBase": "18f1259e27e9407d642b309b79ce7a795c6fc0fc",
+  "sourceTree": "7c8a6c2c0f4fb7eb872695f67ee2f12e8c9ec2f1",
+  "files": {
+    "prepared-runs.patch": "28a7e648da1b751599226cd1b2be216973f7605a9378a7218a5a695eb1d7d1a7",
+    "main.cpp": "68dcb85bc75c68c8d02db7978e45b24d878834cebc1c3f96898bb99dbba8f0fd",
+    "stage.py": "0afe5b472a9acac3448242f0ff377dfe7ab8fa84dfc39d6e5df383ba168cb38b",
+    "CMakeLists.txt": "8c009bb1497afba4934840f938afd7335fc73810baf4ded43dde765a44f4c54a",
+    "README.md": "970612458eab19799e67afd0dfe253a83b33549a77717849ae06e132b405494f",
+    "diagnostic.cpp": "5f4781d9d490db4cbf5812ef7946b3cfa8f45efa020d00eb5a3514497f4f378d",
+    "run_whole.py": "262346cff30817bef71f80e719b7697e803c3243971625b4315d52e147696764",
+    "summarize.py": "0a0dcc4c0465f1dc2f1b2642a53071588408319a083b5867246f7e90b3643741",
+    "whole_run.cpp": "5277435162c20cbf3d3cc568b8948cc4831522e4d3ef9bdad974d842a0fa495f",
+    "scenegraph.cpp": "7f8127512f30e4c7d0c8a2e0f977a489dd8e16a5d38c1da26ab5383a25d0c290",
+    "run_scenegraph.py": "b4d4c69662b6fc350786235876b322903d8c916940066044178b9cf8f2aefbf5"
+  },
+  "fonts": {
+    "DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+  },
+  "executables": {
+    "host": "e56f99f9c34d1e0d935400bf7a99214579af157542c64a54291a413a7eab686e",
+    "minimum": "441147f7b0af2c4f8fd17d0d84f14e270288aa68163f16103733c15909cb23ec"
+  },
+  "libraries": {
+    "host": {
+      "libQt6Core.so.6": "10635d6f11ff08ed0d81ce3dd6b461b54e90ce29b23aa45d85ad4d50074e022e",
+      "libQt6Gui.so.6": "eb4dffb79a4f7a5b3f718aa0e0280ccb26cd4b434616e6a2c51f782a3c69d71a",
+      "libQt6Quick.so.6": "e554f84de32e89ab61c310c6d580e19e9214f334164a0295d0b2925a3b6f1130",
+      "libQt6Qml.so.6": "fa12557e3311da372066792cbc42b96543a4d672b336041493e8543bf89bdde8"
+    },
+    "minimum": {
+      "libQt6Core.so.6": "afb1c1feb0ee470368d2da90198d0b7aea482574461d1dfd8595fd717ce094a3",
+      "libQt6Gui.so.6": "889138f5546ef4a961503a801b75f8983525b6ec15ad4bd009c822d191288c0e",
+      "libQt6Quick.so.6": "9f8fcb014b06722c31cb93ed984a8f8191ff70d112af6804178994aae7bcde3e",
+      "libQt6Qml.so.6": "caaa62c937527527d11c892739d78c263056e83049edb537e16af26f2581594a"
+    }
+  },
+  "hostVersions": {
+    "compiler": "c++ (GCC) 16.2.1 20260810",
+    "cmake": "cmake version 4.4.4",
+    "ninja": "1.13.2",
+    "qt": "6.12.0"
+  },
+  "osRelease": "NAME=\"Arch Linux\"\nPRETTY_NAME=\"Arch Linux\"\nID=arch\nBUILD_ID=rolling\nANSI_COLOR=\"38;2;23;147;209\"\nHOME_URL=\"https://archlinux.org/\"\nDOCUMENTATION_URL=\"https://wiki.archlinux.org/\"\nSUPPORT_URL=\"https://bbs.archlinux.org/\"\nBUG_REPORT_URL=\"https://gitlab.archlinux.org/groups/archlinux/-/issues\"\nPRIVACY_POLICY_URL=\"https://terms.archlinux.org/docs/privacy-policy/\"\nLOGO=archlinux-logo\n",
+  "minimumImage": "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+  "configureHost": "cmake -S specs/065-padded-code-rendering/retained-prototype -B build-ci/065-scenegraph/host -DQMARKDOWN_STAGE=/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/stage -DCMAKE_BUILD_TYPE=Release -G Ninja",
+  "configureMinimum": "cmake -S /source/specs/065-padded-code-rendering/retained-prototype -B /work/minimum -DQMARKDOWN_STAGE=/work/stage -DCMAKE_PREFIX_PATH=/opt/Qt/6.8.0/gcc_64 -DSCENEGRAPH_VULKAN_INCLUDE_DIR=/native-headers -DCMAKE_BUILD_TYPE=Release -G Ninja",
+  "containerMounts": [
+    "repository:/source:ro",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph:/work",
+    "/usr/include/vulkan:/native-headers/vulkan:ro",
+    "/usr/include/vk_video:/native-headers/vk_video:ro"
+  ],
+  "buildTargets": [
+    "scenegraph-run-gate",
+    "whole-run-gate",
+    "retained-glyph-gate",
+    "retained-glyph-diagnostic"
+  ],
+  "buildWorkers": 2,
+  "minimumImageId": "sha256:94be9e423116f9014482ac2f3e356d6d499f9c4952e0a45ddb4dbe9f39c4a518",
+  "minimumVersions": {
+    "compiler": "GCC 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1)",
+    "cmake": "3.28.3",
+    "ninja": "1.11.1"
+  },
+  "minimumRelocationVerified": true
+}

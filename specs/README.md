@@ -347,6 +347,7 @@ approved retained glyph-texture experiment also failed its preparation image
 gate; see [retained results](065-padded-code-rendering/retained-verification.md).
 The closed/unmerged diagnostic PR is recovered in the bounded whole-run software
 continuation; see [whole-run verification](065-padded-code-rendering/whole-run-verification.md).
-Production integration remains excluded.
+The next standalone [scene-graph gate](065-padded-code-rendering/scenegraph-verification.md)
+records transport/scroll qualification separately. Production integration remains excluded.
 
 - [066: Focused CI and local verification](066-focused-verification/requirements.md) — approved implementation; see its [design](066-focused-verification/design.md), [tasks](066-focused-verification/tasks.md) and [actual verification](066-focused-verification/verification.md).

@@ -20,3 +20,13 @@ add_executable(whole-run-gate whole_run.cpp)
 target_include_directories(whole-run-gate PRIVATE "${QMARKDOWN_STAGE}/src/QMarkdown")
 target_link_libraries(whole-run-gate PRIVATE QMarkdown Qt6::Quick)
 target_compile_features(whole-run-gate PRIVATE cxx_std_17)
+
+add_executable(scenegraph-run-gate scenegraph.cpp)
+target_include_directories(scenegraph-run-gate PRIVATE "${QMARKDOWN_STAGE}/src/QMarkdown")
+target_link_libraries(scenegraph-run-gate PRIVATE QMarkdown Qt6::Quick)
+target_compile_features(scenegraph-run-gate PRIVATE cxx_std_17)
+
+# Optional existing public Vulkan headers for device identity in a minimal SDK.
+if(SCENEGRAPH_VULKAN_INCLUDE_DIR)
+    target_include_directories(scenegraph-run-gate PRIVATE "${SCENEGRAPH_VULKAN_INCLUDE_DIR}")
+endif()
