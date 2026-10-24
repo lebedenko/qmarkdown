@@ -39,6 +39,7 @@ public:
     void place();
     void paint(QPainter *painter) override
     {
+        ++m_owner->m_rasterPaintCount;
         painter->save();
         painter->translate(-position());
         m_owner->paint(painter);
@@ -187,7 +188,11 @@ void FormattedText::observeScreen(QQuickWindow *window)
 void FormattedText::itemChange(ItemChange change, const ItemChangeData &data)
 {
     QQuickItem::itemChange(change, data);
-    if (change == ItemDevicePixelRatioHasChanged) placeRaster();
+    if (change == ItemDevicePixelRatioHasChanged) {
+        placeRaster();
+        // A new pixel ratio can preserve local bounds but still needs new pixels.
+        if (m_rasterSurface) m_rasterSurface->update();
+    }
 }
 void FormattedText::setCodeSpans(const QVariantList &value)
 {
@@ -801,7 +806,14 @@ void RasterTextSurface::place()
     if (m_owner->m_inkBounds.isEmpty()) { setSize({}); return; }
     const auto bounds = m_owner->m_inkBounds.adjusted(-1, -1, 1, 1);
     const qreal dpr = window() ? window()->effectiveDevicePixelRatio() : 1;
-    const QPointF origin = m_owner->mapToScene(QPointF());
+    // Only the approved padded, atom-free path retains its original raster
+    // phase. Ancestor translations then move the texture without dirtying it.
+    int grid = 1;
+    for (; grid <= 120; ++grid)
+        if (std::abs(grid * dpr - std::round(grid * dpr)) < 1e-7) break;
+    const bool retained = m_owner->m_padded && m_owner->m_paintedAtoms.isEmpty() && grid <= 120;
+    setSmooth(retained);
+    const QPointF origin = retained ? QPointF() : m_owner->mapToScene(QPointF());
     const QRectF scene = bounds.translated(origin);
     const QPointF topLeft(std::floor(scene.left() * dpr) / dpr,
                           std::floor(scene.top() * dpr) / dpr);
@@ -811,9 +823,6 @@ void RasterTextSurface::place()
     // QQuickPaintedItem quantizes its scene-graph extent to whole logical pixels
     // before independently rounding the image allocation. Expand to the common
     // logical/physical grid, so both operations preserve an exact DPR transform.
-    int grid = 1;
-    for (; grid <= 120; ++grid)
-        if (std::abs(grid * dpr - std::round(grid * dpr)) < 1e-7) break;
     if (grid > 120) {
         // Keep the previous renderer at exotic scales outside this prototype's
         // qualification range. Never leave a newly created item without bounds.
