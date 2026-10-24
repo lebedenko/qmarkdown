@@ -59,3 +59,52 @@ direction. Production integration requires a later approved plan.
   checks. No merge, auto-merge, release, package replacement, public API, version,
   dependency or shipping-renderer changes. Automated success permits design
   review only; visual acceptance and production readiness are separate.
+
+## Diagnostic revision — approved 2026-10-23
+
+The owner's explicit request to implement the supplied diagnostic plan approves
+these requirements, design and tasks before implementation. Both failed probes
+and their evidence remain historical. No shipping or scene-graph work is authorized.
+
+- D1: Compare whole prepared runs, reconstructed and metadata-preserving individual
+  glyphs, local tiles, original-coordinate translated tiles and full-canvas crops.
+- D2: Preserve order, fonts, indexes, positions, colors and painter settings; disable
+  decorations consistently. Log metadata, transforms, phases, bounds and image DPR.
+- D3: Independently select comparisons; never stop remaining controls on mismatch.
+- D4: Reproduce historical fX at (24.25,24.25), DPR 1/1.25; test f/X/fX/fXfX
+  at DPR 1/1.25/1.5/2 with independent physical X/Y phases 0/.25/.5/.75.
+- D5: Use fresh exact Qt 6.8.0/6.12.0 offscreen software builds; retain exact pixel,
+  support, channel, border and emission metrics, identities and representative images.
+- D6: Report evidence-supported diagnosis and recommendation in the experiment continuation PR, open and
+  unmerged, auto-merge disabled. Exact parity qualifies this matrix only.
+
+## Whole-run software gate — approved 2026-10-23
+
+The owner's request to implement the supplied whole-run plan explicitly approves
+this bounded requirements/design/task revision before implementation. PR #50 is
+merged; PR #49 is closed without merge. Recover its diagnostics in one new
+continuation PR; preserve historical failures. This revision supersedes earlier
+conditional integration directions for current work.
+
+- W1: Snapshot existing prepared runs only through the exported-tree patch.
+  Preserve each complete run's glyphs, positions, font, colour, origin and order,
+  including line/format/padding boundaries. Disable decorations in all controls.
+- W2: One tile per run, original coordinates, integer physical translation,
+  outward-rounded physical ink bounds plus four pixels; composite without scaling.
+- W3: Require exact premultiplied equality to direct whole-run painting and
+  full-canvas run crops; verify occurrences, order and absence of cropped ink.
+  Record border ink separately. Individual-glyph differences are diagnostic only.
+- W4: Fresh exact Qt 6.8.0/6.12.0 offscreen raster builds; identical explicitly
+  loaded DejaVu Sans Oblique/Mono files identified by SHA-256. Keep historical
+  environment-resolved controls, repeat in fresh processes and reverse order.
+- W5: Historical fX DPR 1/1.25, then f/X/fX/fXfX × DPR 1/1.25/1.5/2 ×
+  independent physical X/Y phases 0/.25/.5/.75. Complete a matrix despite
+  mismatches; any required mismatch stops progression. Only after it passes,
+  test single/adjacent padded code, colour boundaries, wrapping, tiny widths and
+  left/centre/right alignment with prepared runs.
+- W6: Keep identities, commands, metrics and representative captures together
+  with implementation; lightweight checks and final-head hosted checks. Open one
+  continuation PR, unmerged with auto-merge disabled. Hosted Light is not the gate.
+- W7: No shipping/public API/dependency/version change. No paragraph coalescing,
+  GPU/scene graph, fractional scrolling, decorations/backgrounds, broader shaping,
+  lifecycle, retention or performance. Passing permits later design review only.

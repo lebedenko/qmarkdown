@@ -1,0 +1,42 @@
+[
+  {
+    "name": "basic-forward",
+    "command": [
+      "/tmp/qmarkdown-065-whole-612/whole-run-gate",
+      "/tmp/qmarkdown-065-whole-fonts/DejaVuSans-Oblique.ttf",
+      "/tmp/qmarkdown-065-whole-fonts/DejaVuSansMono.ttf",
+      "basic",
+      "forward",
+      "/tmp/qmarkdown-065-whole-final4/qt-6.12.0/basic-forward"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 256,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  },
+  {
+    "name": "basic-reverse",
+    "command": [
+      "/tmp/qmarkdown-065-whole-612/whole-run-gate",
+      "/tmp/qmarkdown-065-whole-fonts/DejaVuSans-Oblique.ttf",
+      "/tmp/qmarkdown-065-whole-fonts/DejaVuSansMono.ttf",
+      "basic",
+      "reverse",
+      "/tmp/qmarkdown-065-whole-final4/qt-6.12.0/basic-reverse"
+    ],
+    "environment": {},
+    "exit": 0,
+    "cases": 256,
+    "failures": 0,
+    "tileChanged": 0,
+    "cropChanged": 0,
+    "glyphChanged": 0,
+    "croppedInk": 0,
+    "borderInk": 0
+  }
+]

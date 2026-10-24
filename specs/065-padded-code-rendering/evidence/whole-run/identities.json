@@ -1,0 +1,50 @@
+{
+  "exportedCommit": "3bd978036be35b689876061672309736c9eb2459",
+  "mergedMain": "40c9f23ff6c4d9dfc521959fffeb34694db759ce",
+  "identicalTree": "970caef097d3abfe435719d2dde9742a7dd283a5",
+  "files": {
+    "retained-prototype/prepared-runs.patch": "28a7e648da1b751599226cd1b2be216973f7605a9378a7218a5a695eb1d7d1a7",
+    "retained-prototype/main.cpp": "68dcb85bc75c68c8d02db7978e45b24d878834cebc1c3f96898bb99dbba8f0fd",
+    "retained-prototype/stage.py": "0afe5b472a9acac3448242f0ff377dfe7ab8fa84dfc39d6e5df383ba168cb38b",
+    "retained-prototype/CMakeLists.txt": "40f6cec7db61bbb4b585347dbc96ac430cf28ed23fc17daed9766e3c133c1ee1",
+    "retained-prototype/README.md": "4cb01b88ad441071524f270d975f5410c4186919aa8696f7e4ab2df55b6e03b0",
+    "retained-prototype/diagnostic.cpp": "5f4781d9d490db4cbf5812ef7946b3cfa8f45efa020d00eb5a3514497f4f378d",
+    "retained-prototype/summarize.py": "0a0dcc4c0465f1dc2f1b2642a53071588408319a083b5867246f7e90b3643741",
+    "retained-prototype/whole_run.cpp": "5277435162c20cbf3d3cc568b8948cc4831522e4d3ef9bdad974d842a0fa495f",
+    "retained-prototype/run_whole.py": "262346cff30817bef71f80e719b7697e803c3243971625b4315d52e147696764"
+  },
+  "fonts": {
+    "DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a"
+  },
+  "host": {
+    "os": "Arch Linux",
+    "compiler": "GCC 16.2.1 20260810",
+    "cmake": "4.4.4",
+    "ninja": "1.13.2",
+    "qt": "6.12.0"
+  },
+  "container": {
+    "image": "qmarkdown-ci:6.8.0-amd64-7ec4b6bb915bd0a94d722292934bee25ffb63b68e0b0b07188dc86d6bdfbd961",
+    "id": "sha256:94be9e423116f9014482ac2f3e356d6d499f9c4952e0a45ddb4dbe9f39c4a518",
+    "os": "Ubuntu 24.04.5 LTS",
+    "compiler": "GCC 13.3.0",
+    "cmake": "3.28.3",
+    "ninja": "1.11.1",
+    "qt": "6.8.0"
+  },
+  "stageCommand": "python3 specs/065-padded-code-rendering/retained-prototype/stage.py /tmp/qmarkdown-065-whole-stage",
+  "configureHost": "cmake -S specs/065-padded-code-rendering/retained-prototype -B /tmp/qmarkdown-065-whole-612 -DQMARKDOWN_STAGE=/tmp/qmarkdown-065-whole-stage -G Ninja",
+  "configureContainer": "cmake -S /source/specs/065-padded-code-rendering/retained-prototype -B /work/qmarkdown-065-whole-680 -DQMARKDOWN_STAGE=/work/qmarkdown-065-whole-stage -DCMAKE_PREFIX_PATH=/opt/Qt/6.8.0/gcc_64 -G Ninja",
+  "buildTargets": [
+    "whole-run-gate",
+    "retained-glyph-gate",
+    "retained-glyph-diagnostic"
+  ],
+  "buildParallel": 2,
+  "containerMounts": [
+    "repository:/source:ro",
+    "/tmp:/work"
+  ],
+  "orderValidation": "All final whole-run case records are identical between fresh forward/reverse processes."
+}
