@@ -79,3 +79,14 @@ or speedup claims (W7).
 
 Final-head hosted outcomes and open/unmerged/auto-merge status are recorded in the
 continuation PR body/checks; no evidence-only follow-up commit is created (S8).
+
+## Production retained paragraph tasks — approved 2026-10-24
+
+- [x] Record supplied approval and replacement requirements/design/tasks (P1–P6).
+- [x] Demonstrate warmed scroll rasterization on main with a regression (P2).
+- [x] Implement local retained placement/filtering and adapt motion controls (P1–P4).
+- [x] Exercise composite fixtures, invalidation, fallbacks and lifecycle (P3–P4).
+- [x] Run exact-SDK software/native matrix and five paired Release traces (P5).
+- [x] Record concise before/after evidence; run required final-diff verification (P5–P6).
+- [x] Prepare production PR payload (P6); actual submission, superseding #54 and
+  final-head hosted outcomes are recorded in the production PR body/checks.

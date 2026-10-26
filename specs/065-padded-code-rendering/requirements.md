@@ -147,3 +147,24 @@ remains unchanged; this is a new stacked continuation from its verified commit
 - S9: No shipping renderer/API/dependency/version change, paragraph coalescing or
   cross-surface cache. Broader shaping, backgrounds/decorations, interactions,
   production invalidation, budgets, perceived shimmer and performance are deferred.
+
+## Production retained paragraph revision — approved 2026-10-24
+
+The owner's request to implement the supplied production plan explicitly approves
+this revision, design and tasks before implementation. It supersedes the earlier
+prohibition on paragraph bitmap retention and per-run integration for this work.
+
+- P1: Retain the existing QQuickPaintedItem in local coordinates for padded text
+  without math/reference atoms at supported DPR grids; enable linear filtering.
+- P2: Warm ancestor translation causes zero raster paints/layout rebuilds and
+  preserves surface identity, local bounds and interaction geometry.
+- P3: Keep the current painter and all content/style/overlay/lifecycle invalidation.
+  Preserve native eligibility and atom/unsupported-scale fallback behavior.
+- P4: Compare movement with an independent retained-image control, exact return
+  to origin, clipping and intact strokes; preserve static contrast/interaction tests.
+- P5: Qualify exact Qt 6.8.0/6.12.0 software DPR 1/1.25/1.5/2 and native
+  OpenGL/Vulkan fractional DPR. Compare five paired Release sparse/dense traces;
+  reject repeatable preparation/frame regressions above 10%; claim only measured gains.
+- P6: No public API, cache, dependencies or version changes. One production PR
+  from main; close #54 as superseded when ready, preserving history. Complete
+  final-head hosted checks; leave unmerged with auto-merge disabled.

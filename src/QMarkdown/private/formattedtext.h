@@ -167,6 +167,8 @@ protected:
     void updatePolish() override;
     void itemChange(ItemChange change, const ItemChangeData &data) override;
 private:
+    friend class StylingTest;
+    quint64 m_rasterPaintCount = 0; // Private warmed-scroll regression instrumentation.
     friend class RasterTextSurface;
     friend class SceneGraphTextSurface;
     enum Layer { Code, Search, Selection, Glyphs, Focus, LayerCount };

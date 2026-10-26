@@ -120,3 +120,15 @@ scroll matrix → recreation smoke. Missing native hardware is unverified, not a
 passing fallback. Finish all cases/orders of a started stage on mismatch, then
 stop before the next stage. Publication is one new stacked continuation based
 on PR #51, keeping implementation/specs/evidence in the same change.
+
+## Production retained paragraph design — approved 2026-10-24
+
+The owner's supplied implementation request approves P1–P6. Keep Qt ownership of
+one existing painted surface per paragraph. For padded atom-free text and the
+existing supported common logical/physical DPR grid, round local ink bounds
+outward without scene translation. Stable position/size means ancestor observers
+schedule no paints. Set smooth filtering only on this retained path. Existing
+update() calls still repaint content, decorations, selection, Find and focus;
+window/DPR lifecycle continues through existing handling. Native eligibility,
+atom rendering and unsupported-grid fallback remain unchanged. Fractional motion
+transforms cached pixels; fresh-painter phase equality is no longer required.
