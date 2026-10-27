@@ -27,7 +27,7 @@ set_source_files_properties(private/TaskIndicatorHost.qml PROPERTIES
 qt_add_qml_module(QMarkdown
     ${qmarkdown_library_type}
     URI QMarkdown
-    VERSION 1.17
+    VERSION 1.18
     PLUGIN_TARGET QMarkdownPlugin
     CLASS_NAME QMarkdownPlugin
     RESOURCE_PREFIX /qt/qml

@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.18.0 — 2026-10-27
+
+- Add opt-in streaming ingestion, explicit flush and a non-restarting 16 ms publication interval.
+- Reconcile recursive content and resources and preserve surviving reading state.
+- Document full-parse partial-source semantics and host-owned scrolling.
+
+- Retain padded-paragraph raster content during scrolling, reducing repeated rendering work in the measured cases without a throughput or visual-acceptance guarantee.
+- Select Light/Core/Full CI profiles from the complete PR diff, retain Full release gates, and add committed-snapshot local hooks and compiler caching.
+- Preserve earlier 1.x imports, compatible CMake requests, SOVERSION 1 and dependencies.
+
+See [release notes](docs/release-notes-1.18.0.md).
+
 ## 1.17.1 — 2026-10-22
 
 - Automatically select scene-graph text for eligible layouts, retaining corrected raster rendering for padded code, rendered atoms and rounded code backgrounds.

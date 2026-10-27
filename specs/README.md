@@ -3,18 +3,20 @@
 ## Current release
 
 <!-- current-release:start -->
-Package **1.17.1 / QML 1.17**. Release assets: [1.17.1 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.17.1).
+Opt-in [streaming](../docs/streaming.md) batches appended source and retains unchanged recursive content, resources and surviving reading state, with full snapshot parsing and host-owned scrolling.
+
+Package **1.18.0 / QML 1.18**. Release assets: [1.18.0 downloads](https://github.com/lebedenko/qmarkdown/releases/tag/v1.18.0).
 It includes all five independent opt-in GFM extensions on CommonMark 0.31.2,
 native tables, inline-code padding, opt-in document-wide desktop selection and
 host-owned plain-text copy requests, custom fenced-block renderers, repeated-click
 selection and host-owned selection edge autoscrolling. Exact GFM 0.29-gfm conformance is not claimed.
-See the [release notes](../docs/release-notes-1.17.1.md) and
+See the [release notes](../docs/release-notes-1.18.0.md) and
 [installation instructions](../docs/release-install.md).
 
 Linux amd64 requires Qt >=6.8, C++17 and CMake >=3.21. Configured verification
 targets are Qt 6.8.0 and 6.12.0. Public QML behavior and CMake integration remain
-compatible throughout 1.x. Package 1.17.1 accepts compatible 1.0–1.17 requests, including 1.17.0, and
-EXACT 1.17.1; exact earlier versions require historical packages. Native classes
+compatible throughout 1.x. Package 1.18.0 accepts compatible 1.0–1.18 requests, including 1.17.1, and
+EXACT 1.18.0; exact earlier versions require historical packages. Native classes
 and QMarkdown.Private remain private; no public C++ ABI is promised.
 Hosts own visual identity, scrolling, navigation, clipboard and resource policy.
 
@@ -22,7 +24,7 @@ Reading tools include literal Find with independent highlights, a recursive head
 outline and explicit fragment navigation. Hosts own controls and scrolling. See
 the [reader guide](../docs/reading-navigation.md).
 
-QML 1.17 retains opt-in keyboard link traversal, visible focus and one accessible
+QML 1.18 retains opt-in keyboard link traversal, visible focus and one accessible
 Link per logical link, including text/image splits. Tab exits through the host
 focus chain; Enter activates through host-owned link handling. Replaceable task
 indicators include a rounded fallback; the playground demonstrates the active
@@ -45,17 +47,17 @@ Native block math is opt-in per view, using a bundled private MicroTeX backend.
 It supports exact `math` fences and standalone dollar-delimited display blocks;
 Find and failures show literal TeX source. Rendered math stays atomic during selection. See the [math guide](../docs/math.md).
 
-QML 1.17 adds replacement task markers, nested code wheel handoff, table border
+QML 1.18 includes replacement task markers, nested code wheel handoff, table border
 modes and alternating body backgrounds, with playground controls and samples.
 
-QML 1.17 adds host-owned asynchronous syntax highlighting providers with validated UTF-16 role spans, cancellation, deadlines and provider-local caches. Inline math and Markdown footnotes are independent opt-in features; literal copy/Find projections and host-owned navigation remain supported.
+QML 1.18 includes host-owned asynchronous syntax highlighting providers with validated UTF-16 role spans, cancellation, deadlines and provider-local caches. Inline math and Markdown footnotes are independent opt-in features; literal copy/Find projections and host-owned navigation remain supported.
 
 Eligible text automatically uses native Qt scene-graph text nodes; padded code,
 rendered formula/footnote atoms and rounded code backgrounds retain corrected raster
 rendering. Independent Find, selection and focus overlays preserve layout and glyph
 nodes. Built-in highlighting initializes its repository on the application thread
 before transferring processing and destruction to its worker, fixing cross-thread
-event-filter warnings. No public API or QML version change is required.
+event-filter warnings. The existing rendering contracts remain supported.
 <!-- current-release:end -->
 
 ## 1.11 syntax highlighting
@@ -351,3 +353,7 @@ The next standalone [scene-graph gate](065-padded-code-rendering/scenegraph-veri
 records transport/scroll qualification separately. Production integration remains excluded.
 
 - [066: Focused CI and local verification](066-focused-verification/requirements.md) — approved implementation; see its [design](066-focused-verification/design.md), [tasks](066-focused-verification/tasks.md) and [actual verification](066-focused-verification/verification.md).
+
+## Streaming Markdown delivery
+
+[069 — Streaming Markdown](069-streaming-markdown/requirements.md): approved implementation and release delivery for 1.18.0 / QML 1.18; [design](069-streaming-markdown/design.md), [tasks](069-streaming-markdown/tasks.md), [actual verification](069-streaming-markdown/verification.md).

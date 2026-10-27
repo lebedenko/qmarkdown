@@ -24,6 +24,7 @@ class RendererTest : public QObject
     static std::unique_ptr<QQuickItem> create(QQmlEngine &engine, const QByteArray &extra = {});
 private slots:
     void asynchronousDiagram();
+    void streamingRetainsRendererAndAction();
     void originAndProjection();
     void matching_data();
     void matching();
@@ -95,6 +96,26 @@ codeBlockActions: actions
     return object;
 }
 
+void RendererTest::streamingRetainsRendererAndAction()
+{
+    QQmlEngine engine; auto view = create(engine); QVERIFY(view);
+    view->setProperty("markdown", "```preview\nretained\n```\n\n");
+    QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(300, 500); window.show();
+    QTRY_COMPARE(named(view.get(), "customCode").size(), 1);
+    QTRY_COMPARE(named(view.get(), "actions").size(), 1);
+    QPointer<QQuickItem> renderer = named(view.get(), "customCode")[0], actions = named(view.get(), "actions")[0];
+    const auto callback = actions->property("requestCopy").value<QJSValue>();
+    QSignalSpy copied(view.get(), SIGNAL(codeBlockCopyRequested(QString)));
+    view->setProperty("streamingEnabled", true);
+    QVERIFY(QMetaObject::invokeMethod(view.get(), "appendMarkdown", Q_ARG(QString, "a new paragraph")));
+    QVERIFY(QMetaObject::invokeMethod(view.get(), "flushMarkdown"));
+    QVERIFY(renderer); QVERIFY(actions);
+    QCOMPARE(named(view.get(), "customCode")[0], renderer.data());
+    QCOMPARE(named(view.get(), "actions")[0], actions.data());
+    auto retainedCallback = callback; retainedCallback.call(); QCOMPARE(copied.size(), 1);
+    view->setProperty("markdown", "replacement");
+    retainedCallback.call(); QCOMPARE(copied.size(), 1);
+}
 void RendererTest::asynchronousDiagram()
 {
     QQmlEngine engine; QQuickWindow window;

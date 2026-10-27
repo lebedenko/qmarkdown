@@ -178,7 +178,7 @@ int main(int argc, char **argv) {
                     return decodeImage(std::move(bytes));
                 });
                 QObject::connect(&controller, &ResourceController::changed, &app, [&] {
-                    static_cast<BlockModel *>(state->blocks())->replace(projectImages(presented.blocks, controller.images(), {}));
+                    static_cast<BlockModel *>(state->blocks())->reconcile(projectImages(presented.blocks, controller.images(), {}));
                 });
                 resets = 0; QElapsedTimer timer; timer.start();
                 state->setMarkdown(source); settle(view);
@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
                     gate->release.release();
                     until([&] { return controller.images().size() == i; }); settle(view);
                 }
-                require(!gate->timedOut && controller.idle() && resets == count + 1, "Invalid sequential image completion");
+                require(!gate->timedOut && controller.idle() && resets == 1, "Invalid sequential image completion");
                 return Result{timer.nsecsElapsed()/1e6, items(view), resets};
             }));
         }

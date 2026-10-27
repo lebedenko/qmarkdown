@@ -83,6 +83,7 @@ void LinkController::setColor(const QColor &value)
 }
 void LinkController::invalidate()
 {
+    m_streamingRefresh = false;
     ++m_generation;
     m_restoreFocus = nullptr;
     const auto old = std::exchange(m_targets, {});
@@ -95,6 +96,24 @@ void LinkController::invalidate()
         target->deleteLater();
     }
     emit focusChanged();
+}
+void LinkController::reconcile(const QHash<int, int> &identities)
+{
+    m_streamingRefresh = true;
+    const auto previous = std::exchange(m_targets, {});
+    for (auto *target : previous) {
+        const auto id = identities.constFind(target->identity);
+        if (id != identities.cend()) {
+            if (target->hasActiveFocus()) m_restoreFocus = target;
+            target->identity = id.value();
+            m_targets.insert(target->identity, target);
+            continue;
+        }
+        target->controller = nullptr;
+        target->setFocus(false); target->setVisible(false); target->setActiveFocusOnTab(false);
+        target->setParentItem(nullptr); target->deleteLater();
+    }
+    refresh();
 }
 void LinkController::detach()
 {
@@ -128,7 +147,7 @@ void LinkController::activate(LinkTargetItem *target)
 }
 void LinkController::focused(LinkTargetItem *target)
 {
-    if (target->generation != m_generation || !m_state->navigationView()) return;
+    if (m_streamingRefresh || target->generation != m_generation || !m_state->navigationView()) return;
     target->navigationRect = target->mapRectToItem(m_state->navigationView(), target->boundingRect());
     emit m_state->navigationRequested(target->navigationRect);
 }
@@ -250,10 +269,11 @@ LinkTargetItem {
             && current != target && !current->isAncestorOf(target)) {
             m_restoreFocus = nullptr;
         } else if (m_enabled) {
-            m_restoreFocus = nullptr;
             target->forceActiveFocus(Qt::OtherFocusReason);
+            m_restoreFocus = nullptr;
         }
     }
+    m_streamingRefresh = bool(m_restoreFocus);
 }
 
 namespace {

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(QMarkdown VERSION 1.17.1 LANGUAGES C CXX)
+project(QMarkdown VERSION 1.18.0 LANGUAGES C CXX)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)

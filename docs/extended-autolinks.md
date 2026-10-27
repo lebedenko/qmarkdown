@@ -22,4 +22,4 @@ Bare email, lowercase `mailto:` and `xmpp:` forms are recognized in decoded inli
 
 Explicit and reference links retain precedence, and links cannot nest. Code and HTML token contents stay literal. Image descriptions retain semantic links but present them inertly through the existing image fallback behavior. Generated links use native wrapping, inherited emphasis/strikethrough, existing link colors/underline and `linkActivated(destination)`. Hosts own navigation; enabling recognition grants no resource permissions and makes no network requests.
 
-The playground has an independent toggle and representative sample. This is selected GFM extension support, not full GFM conformance. Tables and HTML filtering remain deferred. See [iteration 037 verification](../specs/037-gfm-extended-autolinks/verification.md) for planned and actual evidence.
+The playground has an independent toggle and representative sample. This is selected GFM extension support, not full GFM conformance. Tables and HTML filtering are available through independent switches. See [iteration 037 verification](../specs/037-gfm-extended-autolinks/verification.md) for planned and actual evidence.

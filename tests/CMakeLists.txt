@@ -42,6 +42,7 @@ add_test(NAME qmarkdown-commonmark
         --report "${CMAKE_CURRENT_BINARY_DIR}/commonmark-report.json")
 
 qt_add_executable(qmarkdown-view-test tst_view.cpp)
+target_compile_definitions(qmarkdown-view-test PRIVATE QMARKDOWN_COMMONMARK_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/commonmark/spec.json")
 target_include_directories(qmarkdown-view-test PRIVATE ../src/QMarkdown)
 if(QMARKDOWN_BUILD_EXAMPLES)
     target_compile_definitions(qmarkdown-view-test PRIVATE QMARKDOWN_VIEWER_SOURCE="${PROJECT_SOURCE_DIR}/examples/viewer/Main.qml")

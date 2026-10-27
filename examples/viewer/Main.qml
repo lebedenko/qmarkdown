@@ -53,13 +53,39 @@ ApplicationWindow {
         const index = samples.entries.findIndex(entry => entry.key === sampleKey)
         if (index >= 0) sampleIndex = index
     }
+    property string streamSource: ""
+    property int streamOffset: 0
+    function stopStream() { streamTimer.stop(); preview.flushMarkdown() }
+    function resetStream() {
+        stopStream()
+        streamSource = samples.entries[sampleIndex].source
+        streamOffset = 0
+        editor.text = ""
+    }
+    function startStream() {
+        if (streamOffset >= streamSource.length || streamOffset === 0) resetStream()
+        preview.streamingEnabled = true
+        streamTimer.start()
+    }
+    Timer {
+        id: streamTimer
+        interval: 5
+        repeat: true
+        onTriggered: {
+            const count = 1 + (window.streamOffset * 7 % 23)
+            editor.text += window.streamSource.slice(window.streamOffset, window.streamOffset + count)
+            window.streamOffset += count
+            if (window.streamOffset >= window.streamSource.length) window.stopStream()
+        }
+    }
     function loadSample() {
+        stopStream()
         editor.text = samples.entries[sampleIndex].source
         editor.cursorPosition = 0
         sourceScroll.contentY = 0
         previewScroll.contentY = 0
     }
-    function clearSource() { editor.text = ""; sourceScroll.contentY = 0; previewScroll.contentY = 0 }
+    function clearSource() { stopStream(); editor.text = ""; sourceScroll.contentY = 0; previewScroll.contentY = 0 }
     function switchStyle() { stylePanel.applyPreset(true) }
     function resetStyle() { stylePanel.resetStyle() }
     onSampleIndexChanged: loadSample()
@@ -133,6 +159,12 @@ ApplicationWindow {
                 model: ["Fit", "240", "480", "720"]
                 onActivated: window.previewWidth = currentIndex === 0 ? 0 : Number(currentText)
             }
+        }
+        RowLayout {
+            Button { text: "Start stream"; objectName: "startStreamButton"; onClicked: window.startStream() }
+            Button { text: "Stop / flush"; objectName: "stopStreamButton"; onClicked: window.stopStream() }
+            Button { text: "Reset stream"; objectName: "resetStreamButton"; onClicked: window.resetStream() }
+            Label { text: "Deterministic chunks; host owns scrolling" }
         }
         Flow {
             Layout.fillWidth: true

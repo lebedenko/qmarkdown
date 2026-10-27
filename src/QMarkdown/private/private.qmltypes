@@ -101,6 +101,10 @@ Module {
     }
     Component {
         name: "ViewState"
+        Property { name: "streamingEnabled"; type: "bool"; notify: "streamingEnabledChanged" }
+        Signal { name: "streamingEnabledChanged" }
+        Method { name: "appendMarkdown"; Parameter { name: "chunk"; type: "QString" } }
+        Method { name: "flushMarkdown" }
         Property { name: "footnotesEnabled"; type: "bool"; notify: "footnotesEnabledChanged" }
         Signal { name: "footnotesEnabledChanged" }
         Property { name: "inlineMathEnabled"; type: "bool"; notify: "inlineMathEnabledChanged" }

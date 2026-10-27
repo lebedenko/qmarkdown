@@ -33,7 +33,7 @@ focus and removes its Tab stops while preserving accessible activation.
 
 Resizing, style changes and image loading preserve logical identities. Source or
 effective parser-option replacement invalidates old targets and activation
-callbacks. Streaming and caret navigation remain deferred. The playground enables
+callbacks. In [1.18 streaming](streaming.md), surviving link occurrences retain focus without automatic navigation. Caret navigation remains deferred. The playground enables
 keyboard links and includes a Keyboard links sample.
 
 ## Find
