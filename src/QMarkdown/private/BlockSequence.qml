@@ -279,7 +279,7 @@ Column {
                     coordinator: sequence.coordinator
                     actions: sequence.codeBlockActions
                     rendererRegistry: sequence.fencedBlockRenderers
-                    sourceIdentity: sequence.sourceIdentity
+                    sourceIdentity: JSON.stringify([blockText, codeInfo, codeLanguage, codeFenced, displayMath])
                     viewportAvailable: sequence.viewportAvailable
                     searchActive: sequence.searchActive
                     searchHighlightColor: sequence.searchHighlightColor

@@ -1,0 +1,86 @@
+{
+  "build": "Release",
+  "chunk_units": 1024,
+  "chunks_per_publication": 4,
+  "qt": "6.12.0",
+  "results": [
+    {
+      "chunks": 1,
+      "delegate_creations": 17,
+      "delegate_removals": 0,
+      "elapsed_ms": 20.495847,
+      "model_resets": 1,
+      "publications": 1,
+      "resource_decodes": 1,
+      "resource_restarts": 0,
+      "retained_resources": 1,
+      "streaming": false,
+      "utf16_units": 1024
+    },
+    {
+      "chunks": 1,
+      "delegate_creations": 17,
+      "delegate_removals": 0,
+      "elapsed_ms": 7.655239,
+      "model_resets": 0,
+      "publications": 1,
+      "resource_decodes": 1,
+      "resource_restarts": 0,
+      "retained_resources": 1,
+      "streaming": true,
+      "utf16_units": 1024
+    },
+    {
+      "chunks": 10,
+      "delegate_creations": 815,
+      "delegate_removals": 669,
+      "elapsed_ms": 383.865611,
+      "model_resets": 10,
+      "publications": 10,
+      "resource_decodes": 10,
+      "resource_restarts": 9,
+      "retained_resources": 1,
+      "streaming": false,
+      "utf16_units": 10240
+    },
+    {
+      "chunks": 10,
+      "delegate_creations": 148,
+      "delegate_removals": 2,
+      "elapsed_ms": 69.134715,
+      "model_resets": 0,
+      "publications": 3,
+      "resource_decodes": 1,
+      "resource_restarts": 0,
+      "retained_resources": 1,
+      "streaming": true,
+      "utf16_units": 10240
+    },
+    {
+      "chunks": 100,
+      "delegate_creations": 73049,
+      "delegate_removals": 71605,
+      "elapsed_ms": 42196.923651,
+      "model_resets": 100,
+      "publications": 100,
+      "resource_decodes": 100,
+      "resource_restarts": 99,
+      "retained_resources": 1,
+      "streaming": false,
+      "utf16_units": 102400
+    },
+    {
+      "chunks": 100,
+      "delegate_creations": 1457,
+      "delegate_removals": 13,
+      "elapsed_ms": 1425.36697,
+      "model_resets": 0,
+      "publications": 25,
+      "resource_decodes": 1,
+      "resource_restarts": 0,
+      "retained_resources": 1,
+      "streaming": true,
+      "utf16_units": 102400
+    }
+  ]
+}

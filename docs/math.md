@@ -63,7 +63,7 @@ Use `&` for columns and `\\` for rows. Common arithmetic/relation/arrow commands
 standard named functions, math font commands and accents are permitted. Literal
 input is ASCII; use named Greek commands. Unknown commands reject the whole
 formula. Custom command definitions, dynamic evaluation, external fonts/resources,
-colors, dimensions and document commands are excluded. Mermaid and public highlighting providers remain deferred. Footnotes
+colors, dimensions and document commands are excluded. Mermaid remains deferred; host highlighting providers are available in 1.17. Footnotes
 are described in the [footnote guide](footnotes.md).
 
 ## Work and resource policy

@@ -1,20 +1,20 @@
 # Arch Linux release package
 
 <!-- current-release:start -->
-QMarkdown 1.17.1 / QML 1.17 uses the package and checksum below.
+QMarkdown 1.18.0 / QML 1.18 uses the package and checksum below.
 
-[QMarkdown 1.17.1](https://github.com/lebedenko/qmarkdown/releases/tag/v1.17.1)
-provides `qmarkdown-1.17.1-1-x86_64.pkg.tar.zst` with a SHA-256 companion.
+[QMarkdown 1.18.0](https://github.com/lebedenko/qmarkdown/releases/tag/v1.18.0)
+provides `qmarkdown-1.18.0-1-x86_64.pkg.tar.zst` with a SHA-256 companion.
 Pacman enforces Qt lower bounds matching the package's build version. Qt and
 the development viewer are not bundled.
 
 Download the package and checksum from the release, then verify and install:
 
 ```sh
-curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.17.1/qmarkdown-1.17.1-1-x86_64.pkg.tar.zst
-curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.17.1/qmarkdown-1.17.1-1-x86_64.pkg.tar.zst.sha256
-sha256sum -c qmarkdown-1.17.1-1-x86_64.pkg.tar.zst.sha256
-sudo pacman -U ./qmarkdown-1.17.1-1-x86_64.pkg.tar.zst
+curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.18.0/qmarkdown-1.18.0-1-x86_64.pkg.tar.zst
+curl -fLO https://github.com/lebedenko/qmarkdown/releases/download/v1.18.0/qmarkdown-1.18.0-1-x86_64.pkg.tar.zst.sha256
+sha256sum -c qmarkdown-1.18.0-1-x86_64.pkg.tar.zst.sha256
+sudo pacman -U ./qmarkdown-1.18.0-1-x86_64.pkg.tar.zst
 pacman -Qi qmarkdown
 pacman -Qo /usr/lib/libQMarkdown.so
 ```
@@ -24,7 +24,7 @@ licenses, and tracks runtime dependencies. Locations are `/usr/lib`,
 `/usr/lib/qt6/qml/QMarkdown`, `/usr/lib/cmake/QMarkdown` and
 `/usr/share/licenses/qmarkdown`. Arch's Qt discovers these paths normally.
 Development consumers need CMake and a C++17 compiler. Use
-`find_package(QMarkdown 1.17 CONFIG REQUIRED)` and `import QMarkdown 1.17`.
+`find_package(QMarkdown 1.18 CONFIG REQUIRED)` and `import QMarkdown 1.18`.
 Install a later package with `pacman -U`; remove with `sudo pacman -R qmarkdown`.
 
 

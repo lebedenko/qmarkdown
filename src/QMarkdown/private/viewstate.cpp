@@ -148,9 +148,110 @@ void BlockModel::replace(QVector<QMarkdownPrivate::PresentationBlock> blocks)
     }
     endResetModel();
 }
+namespace {
+QVector<QMarkdownPrivate::PresentationBlock> childContent(const QMarkdownPrivate::PresentationBlock &block)
+{
+    using Kind = QMarkdownPrivate::PresentationKind;
+    if (block.kind == Kind::TableCell && block.children.isEmpty()) {
+        auto content = block;
+        content.kind = Kind::Paragraph;
+        return {content};
+    }
+    return block.children;
+}
+bool retainsSemanticPrefix(const QMarkdownPrivate::PresentationBlock &before,
+    const QMarkdownPrivate::PresentationBlock &after)
+{
+    if (!before.children.isEmpty() || !after.children.isEmpty()
+        || before.text.isEmpty() || !after.text.startsWith(before.text)) return false;
+    auto prefix = after;
+    prefix.text = before.text;
+    const int length = before.text.size();
+    auto clip = [length](auto &spans) {
+        for (int i = spans.size() - 1; i >= 0; --i) {
+            if (spans[i].start >= length) spans.removeAt(i);
+            else spans[i].length = qMin(spans[i].length, length - spans[i].start);
+        }
+    };
+    clip(prefix.ranges); clip(prefix.links); clip(prefix.logicalLinks); clip(prefix.images);
+    clip(prefix.codes); clip(prefix.formulas); clip(prefix.references);
+    return before == prefix;
+}
+bool hasChildModel(const QMarkdownPrivate::PresentationBlock &block)
+{
+    using Kind = QMarkdownPrivate::PresentationKind;
+    return block.kind == Kind::Segments || block.kind == Kind::List || block.kind == Kind::ListItem
+        || block.kind == Kind::Quote || block.kind == Kind::Table || block.kind == Kind::TableRow
+        || block.kind == Kind::TableCell;
+}
+}
+void BlockModel::reconcile(const QVector<QMarkdownPrivate::PresentationBlock> &blocks)
+{
+    int prefix = 0;
+    while (prefix < m_blocks.size() && prefix < blocks.size() && m_blocks[prefix] == blocks[prefix]) ++prefix;
+    int suffix = 0;
+    while (suffix < m_blocks.size() - prefix && suffix < blocks.size() - prefix
+        && m_blocks[m_blocks.size() - suffix - 1] == blocks[blocks.size() - suffix - 1]) ++suffix;
+    const int common = qMin(m_blocks.size() - suffix, blocks.size() - suffix);
+    auto update = [&](int row, const auto &block) {
+        const auto roles = roleNames();
+        QHash<int, QVariant> old;
+        for (auto it = roles.begin(); it != roles.end(); ++it) old.insert(it.key(), data(index(row), it.key()));
+        m_blocks[row] = block;
+        if (m_children[row]) m_children[row]->reconcile(childContent(block));
+        QList<int> changed;
+        for (auto it = roles.begin(); it != roles.end(); ++it)
+            if (old.value(it.key()) != data(index(row), it.key())) changed.append(it.key());
+        if (!changed.isEmpty()) emit dataChanged(index(row), index(row), changed);
+    };
+    // Equal rows may still have rebased selection offsets, including descendants.
+    for (int row = 0; row < prefix; ++row) update(row, blocks[row]);
+    for (int row = prefix; row < common; ++row) {
+        const auto oldKind = data(index(row), RenderKindRole);
+        const auto oldBlock = m_blocks[row];
+        m_blocks[row] = blocks[row];
+        const auto newKind = data(index(row), RenderKindRole);
+        m_blocks[row] = oldBlock;
+        if (oldKind == newKind && oldBlock.kind == blocks[row].kind) update(row, blocks[row]);
+        else {
+            beginRemoveRows({}, row, row);
+            delete m_children.takeAt(row); m_blocks.removeAt(row);
+            endRemoveRows();
+            beginInsertRows({}, row, row);
+            m_blocks.insert(row, blocks[row]);
+            auto *child = hasChildModel(blocks[row]) ? new BlockModel(this) : nullptr;
+            if (child) child->replace(childContent(blocks[row]));
+            m_children.insert(row, child);
+            endInsertRows();
+        }
+    }
+    const int oldEnd = m_blocks.size() - suffix;
+    const int newEnd = blocks.size() - suffix;
+    if (oldEnd > common) {
+        beginRemoveRows({}, common, oldEnd - 1);
+        for (int row = oldEnd - 1; row >= common; --row) {
+            delete m_children.takeAt(row); m_blocks.removeAt(row);
+        }
+        endRemoveRows();
+    }
+    if (newEnd > common) {
+        beginInsertRows({}, common, newEnd - 1);
+        for (int row = common; row < newEnd; ++row) {
+            m_blocks.insert(row, blocks[row]);
+            auto *child = hasChildModel(blocks[row]) ? new BlockModel(this) : nullptr;
+            if (child) child->replace(childContent(blocks[row]));
+            m_children.insert(row, child);
+        }
+        endInsertRows();
+    }
+    for (int row = newEnd; row < blocks.size(); ++row) update(row, blocks[row]);
+}
 ViewState::ViewState(QObject *parent)
     : QObject(parent), m_linkController(new LinkController(this)), m_defaultPolicy(this), m_policy(&m_defaultPolicy), m_resources(this), m_blocks(this), m_default(this), m_style(&m_default)
 {
+    m_publishTimer.setSingleShot(true);
+    m_publishTimer.setInterval(16);
+    connect(&m_publishTimer, &QTimer::timeout, this, &ViewState::flushMarkdown);
     m_linkTimer.setSingleShot(true);
     connect(&m_linkTimer, &QTimer::timeout, this, [this] {
         const auto link = m_pressedLink;
@@ -166,7 +267,7 @@ ViewState::ViewState(QObject *parent)
     });
     m_policyChanged = connect(m_policy, &MarkdownResourcePolicy::changed, this, &ViewState::reloadResources);
     connect(&m_resources, &ResourceController::changed, this, [this] {
-        m_blocks.replace(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
+        m_blocks.reconcile(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
     });
 }
 void ViewState::setBaseUrl(const QUrl &value) {
@@ -187,18 +288,33 @@ void ViewState::resetResourcePolicy() {
     m_defaultPolicy.restoreDefaults(); setResourcePolicy(&m_defaultPolicy);
 }
 void ViewState::reloadResources() {
+    if (m_pendingPublication) { m_restartResources = true; reparse(); return; }
     m_resources.restart(m_sourceBlocks, m_baseUrl, *m_policy);
     m_blocks.replace(m_presentationBlocks);
 }
 void ViewState::reparse()
 {
+    if (m_publishing) { m_pendingPublication = true; return; }
+    m_publishTimer.stop();
+    m_pendingPublication = false;
+    m_publishing = true;
+    QPointer<ViewState> guard(this);
+    const auto revision = m_sourceRevision;
+    const bool retaining = m_reconcilePublication;
+    const bool restartResources = std::exchange(m_restartResources, false);
+    m_reconcilePublication = false;
+    const auto oldBlocks = m_presentationBlocks;
+    const auto oldProjection = m_projection;
+    const int oldAnchor = m_anchor, oldActive = m_active;
+    const int oldMatch = m_currentMatch >= 0 && m_currentMatch < m_matches.size() ? m_matches[m_currentMatch].start : -1;
     const QMarkdownPrivate::ParseOptions options{
         m_gfmEnabled || m_taskListsEnabled, m_gfmEnabled || m_strikethroughEnabled,
         m_gfmEnabled || m_extendedAutolinksEnabled, m_gfmEnabled || m_tablesEnabled,
         m_gfmEnabled || m_tagFilterEnabled, m_mathEnabled, m_inlineMathEnabled, m_footnotesEnabled};
     auto flags = [](const auto &o) { return std::make_tuple(o.taskLists, o.strikethrough, o.extendedAutolinks, o.tables, o.tagFilter, o.math, o.inlineMath, o.footnotes); };
     const bool semanticChange = flags(options) != flags(m_parsedOptions) || m_sourceChanged;
-    if (flags(options) != flags(m_parsedOptions)) clearSelection();
+    if (flags(options) != flags(m_parsedOptions) || (!retaining && semanticChange)) clearSelection();
+    if (!guard) return;
     m_sourceChanged = false;
     m_parsedOptions = options;
     m_sourceBlocks = QMarkdownPrivate::parse(m_markdown, options);
@@ -215,26 +331,128 @@ void ViewState::reparse()
         }
     };
     collect(collect, presentation.blocks);
+    // Only equal semantic blocks can anchor reading state. Match equal edges and
+    // recurse through compatible changed containers, just as the model does.
+    struct RetainedRange { int start, length, next; };
+    QVector<RetainedRange> retained;
+    QHash<int, int> retainedLinks;
+    auto mapBlocks = [&](auto &&self, const auto &before, const auto &after) -> void {
+        int prefix = 0;
+        auto match = [&](const auto &a, const auto &b) {
+            if ((a == b || retainsSemanticPrefix(a, b)) && a.selectionLength > 0)
+                retained.append({a.selectionOffset, a.selectionLength, b.selectionOffset});
+            if (a.kind == b.kind) {
+                for (const auto &oldLink : a.logicalLinks)
+                    for (const auto &newLink : b.logicalLinks)
+                        if (oldLink == newLink) { retainedLinks.insert(oldLink.logicalId, newLink.logicalId); break; }
+                self(self, a.children, b.children);
+            }
+        };
+        while (prefix < before.size() && prefix < after.size() && before[prefix] == after[prefix]) {
+            match(before[prefix], after[prefix]); ++prefix;
+        }
+        int suffix = 0;
+        while (suffix < before.size() - prefix && suffix < after.size() - prefix
+            && before[before.size() - suffix - 1] == after[after.size() - suffix - 1]) {
+            match(before[before.size() - suffix - 1], after[after.size() - suffix - 1]); ++suffix;
+        }
+        for (int i = prefix; i < qMin(before.size() - suffix, after.size() - suffix); ++i) match(before[i], after[i]);
+    };
+    if (retaining) mapBlocks(mapBlocks, oldBlocks, presentation.blocks);
+    auto rebase = [&](int start, int end) {
+        int delta = 0, covered = start;
+        auto ranges = retained;
+        std::sort(ranges.begin(), ranges.end(), [](auto a, auto b) { return a.start < b.start; });
+        bool found = false;
+        for (const auto &range : ranges) {
+            if (range.start + range.length <= start || range.start >= end) continue;
+            if (!found) { if (range.start > start) return -1; delta = range.next - range.start; found = true; }
+            if (range.next - range.start != delta) return -1;
+            if (range.start > covered && !oldProjection.mid(covered, range.start - covered).trimmed().isEmpty()) return -1;
+            // Separators between retained blocks must also remain byte-for-byte equal.
+            covered = qMax(covered, range.start + range.length);
+        }
+        if (!found || covered < end || presentation.text.mid(start + delta, end - start) != oldProjection.mid(start, end - start)) return -1;
+        return start + delta;
+    };
+    const int selection = retaining && oldAnchor != oldActive ? rebase(qMin(oldAnchor, oldActive), qMax(oldAnchor, oldActive)) : -1;
+    const int matchStart = retaining && oldMatch >= 0 ? rebase(oldMatch, oldMatch + m_searchQuery.size()) : -1;
     m_projection = std::move(presentation.text);
     m_presentationBlocks = std::move(presentation.blocks);
     if (semanticChange) {
-        m_linkController->invalidate();
+        if (!retaining) m_linkController->invalidate();
+        else m_linkController->reconcile(retainedLinks);
+        if (!guard) return;
         m_targetStart = -1;
         rebuildHeadings();
-        rebuildSearch();
+        if (!guard) return;
+        rebuildSearch(!retaining, matchStart);
     }
+    if (!guard) return;
+    if (retaining) {
+        if (selection >= 0) {
+            const int delta = selection - qMin(oldAnchor, oldActive);
+            setSelection(oldAnchor + delta, oldActive + delta);
+        } else clearSelection();
+    }
+    if (!guard) return;
     rebuildFootnoteFragments();
-    reloadResources();
+    if (retaining) {
+        if (restartResources || m_restartResources) m_resources.restart(m_sourceBlocks, m_baseUrl, *m_policy);
+        else m_resources.reconcile(m_sourceBlocks, m_baseUrl);
+        m_blocks.reconcile(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
+    } else reloadResources();
+    if (!guard) return;
+    m_publishing = false;
+    if (m_sourceRevision != revision || m_pendingPublication) {
+        m_pendingPublication = true;
+        if (m_streamingEnabled && m_reconcilePublication) {
+            if (!m_publishTimer.isActive()) m_publishTimer.start();
+        } else reparse();
+    }
+}
+void ViewState::setStreamingEnabled(bool value)
+{
+    if (m_streamingEnabled == value) return;
+    m_streamingEnabled = value;
+    QPointer<ViewState> guard(this);
+    if (!value) flushMarkdown();
+    if (guard) emit streamingEnabledChanged();
+}
+void ViewState::appendMarkdown(const QString &chunk)
+{
+    if (!chunk.isEmpty()) setMarkdown(m_markdown + chunk);
+}
+void ViewState::flushMarkdown()
+{
+    m_publishTimer.stop();
+    if (m_pendingPublication) reparse();
 }
 void ViewState::setMarkdown(const QString &value)
 {
     if (m_markdown == value) return;
-    clearSelection();
-    m_plainCodeLayout.reset(); m_plainCodeInput.clear();
+    // A pending replacement dominates nested suffix appends until it has been
+    // published; reentrant notifications must not turn replacement into a batch.
+    const bool growth = m_streamingEnabled && value.size() > m_markdown.size()
+        && value.startsWith(m_markdown) && (!m_pendingPublication || m_reconcilePublication);
     m_markdown = value;
+    const auto revision = ++m_sourceRevision;
     m_sourceChanged = true;
-    reparse();
+    m_pendingPublication = true;
+    m_reconcilePublication = growth;
+    QPointer<ViewState> guard(this);
+    // Source notifications describe accepted input, before any derived publication.
     emit markdownChanged();
+    if (!guard || revision != m_sourceRevision || !m_pendingPublication) return;
+    if (growth) {
+        if (!m_publishTimer.isActive()) m_publishTimer.start();
+    } else {
+        m_publishTimer.stop();
+        clearSelection();
+        if (!guard) return;
+        m_plainCodeLayout.reset(); m_plainCodeInput.clear();
+        reparse();
+    }
 }
 void ViewState::setTaskListsEnabled(bool value)
 {
@@ -443,7 +661,7 @@ void ViewState::setSelectionEnabled(bool value)
     if (!value) clearSelection();
     m_selectionEnabled = value;
     emit selectionEnabledChanged();
-    m_blocks.replace(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
+    m_blocks.reconcile(QMarkdownPrivate::projectImages(m_presentationBlocks, m_resources.images(), m_baseUrl));
 }
 void ViewState::setSelection(int anchor, int active)
 {
@@ -804,7 +1022,7 @@ QVariantList ViewState::searchRangesFor(int offset, int length) const
     }
     return result;
 }
-void ViewState::rebuildSearch()
+void ViewState::rebuildSearch(bool navigate, int retainedStart)
 {
     if (m_targetSearch) m_targetStart = -1;
     m_matches.clear();
@@ -817,9 +1035,14 @@ void ViewState::rebuildSearch()
         }
     }
     m_currentMatch = m_matches.isEmpty() ? -1 : 0;
+    if (retainedStart >= 0)
+        for (int i = 0; i < m_matches.size(); ++i)
+            if (m_matches[i].start == retainedStart) { m_currentMatch = i; break; }
     if (++m_searchRevision == 0) ++m_searchRevision;
+    QPointer<ViewState> guard(this);
     emit searchChanged();
-    if (m_currentMatch >= 0) {
+    if (!guard) return;
+    if (navigate && m_currentMatch >= 0) {
         m_targetSearch = true;
         m_revealSource = true;
         m_targetStart = m_matches[0].start;

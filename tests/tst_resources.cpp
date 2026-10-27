@@ -98,6 +98,71 @@ void write(const QString &path, const QByteArray &bytes) { QFile file(path); if 
 class ResourceTest : public QObject {
     Q_OBJECT
 private slots:
+    void streamingRetainsRequestsAndFailures() {
+        ResourceController controller;
+        auto *manager = new FakeManager; controller.setNetworkManager(manager);
+        MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
+        const QUrl retained("https://a.invalid/retained"), removed("https://a.invalid/removed"), failed("https://a.invalid/failed"), added("https://a.invalid/added");
+        manager->responses[retained] = {png(), {}, QNetworkReply::NoError, true};
+        manager->responses[removed] = {png(), {}, QNetworkReply::NoError, true};
+        manager->responses[failed] = {{}, {}, QNetworkReply::ContentNotFoundError};
+        manager->responses[added] = {png()};
+        controller.restart(parse("![](https://a.invalid/retained) ![](https://a.invalid/removed) ![](https://a.invalid/failed)"), {}, policy);
+        QCOMPARE(manager->requests.size(), 3);
+        QPointer<FakeReply> first = manager->replies[0], second = manager->replies[1];
+        controller.reconcile(parse("prefix\n\n![](https://a.invalid/retained) ![](https://a.invalid/failed) ![](https://a.invalid/added)"), {});
+        QVERIFY(first); QVERIFY(!first->aborted); QVERIFY(second && second->aborted);
+        QCOMPARE(manager->requests.size(), 4);
+        first->complete();
+        QTRY_VERIFY(controller.idle());
+        QCOMPARE(controller.images().size(), 2); QVERIFY(!controller.images().contains(removed));
+        const auto image = controller.images().value(retained).cacheKey();
+        controller.reconcile(parse("![](https://a.invalid/added) ![](https://a.invalid/retained) ![](https://a.invalid/failed)\n\nmore"), {});
+        QCOMPARE(manager->requests.size(), 4);
+        QCOMPARE(controller.images().value(retained).cacheKey(), image);
+        controller.restart(parse("![](https://a.invalid/retained)"), {}, policy);
+        QCOMPARE(manager->requests.size(), 5); QVERIFY(controller.images().isEmpty());
+        MarkdownResourcePolicy denied;
+        controller.restart(parse("![](https://a.invalid/retained)"), {}, denied);
+        QCOMPARE(manager->requests.size(), 5); QVERIFY(controller.images().isEmpty());
+    }
+    void streamingRemovesDecodeInFlight() {
+        ResourceController controller;
+        auto *manager = new FakeManager; controller.setNetworkManager(manager);
+        MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
+        const QUrl url("https://a.invalid/image"); manager->responses[url] = {png()};
+        auto gate = std::make_shared<DecodeGate>(); ReleaseGate release{gate};
+        controller.setDecoder([gate](QByteArray bytes) { return gate->decode(std::move(bytes)); });
+        QSignalSpy ready(&controller, &ResourceController::changed);
+        controller.restart(parse("![](https://a.invalid/image)"), {}, policy);
+        QTRY_VERIFY(gate->entered.available() > 0);
+        QVERIFY(gate->entered.tryAcquire());
+        controller.reconcile(parse("removed image"), {});
+        gate->release.release();
+        QTRY_VERIFY(controller.idle());
+        QVERIFY(controller.images().isEmpty()); QCOMPARE(ready.size(), 0);
+        controller.reconcile(parse("![](https://a.invalid/image)"), {});
+        QTRY_COMPARE(manager->requests.size(), 2);
+        gate->release.release(); QTRY_VERIFY(controller.idle());
+        QCOMPARE(controller.images().size(), 1);
+    }
+    void streamingReentrantCompletion() {
+        ResourceController controller;
+        auto *manager = new FakeManager; controller.setNetworkManager(manager);
+        MarkdownResourcePolicy policy; policy.setAllowedHttpsOrigins({QUrl("https://a.invalid")});
+        manager->responses[QUrl("https://a.invalid/one")] = {png()};
+        manager->responses[QUrl("https://a.invalid/two")] = {png()};
+        std::atomic<int> decodes{0};
+        controller.setDecoder([&](QByteArray bytes) { ++decodes; return decodeImage(std::move(bytes)); });
+        int completions = 0;
+        connect(&controller, &ResourceController::changed, &controller, [&] {
+            if (++completions == 1) controller.reconcile(parse("![](https://a.invalid/one) ![](https://a.invalid/two)"), {});
+        });
+        controller.restart(parse("![](https://a.invalid/one)"), {}, policy);
+        QTRY_COMPARE(controller.images().size(), 2);
+        QTRY_VERIFY(controller.idle());
+        QCOMPARE(manager->requests.size(), 2); QCOMPARE(decodes.load(), 2); QCOMPARE(completions, 2);
+    }
     void permissions() {
         QTemporaryDir temp; QVERIFY(temp.isValid());
         QDir dir(temp.path()); QVERIFY(dir.mkdir("root")); QVERIFY(dir.mkdir("root-other"));

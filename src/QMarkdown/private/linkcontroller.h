@@ -23,6 +23,7 @@ public:
     QColor color() const { return m_color; }
     void setColor(const QColor &value);
     void invalidate();
+    void reconcile(const QHash<int, int> &identities);
     void detach();
     void refresh();
     void activate(LinkTargetItem *target);
@@ -35,7 +36,7 @@ signals:
 private:
     void updateTargets();
     ViewState *m_state;
-    bool m_enabled = false, m_queued = false;
+    bool m_enabled = false, m_queued = false, m_streamingRefresh = false;
     QColor m_color;
     quint64 m_generation = 0;
     QQmlComponent *m_component = nullptr;

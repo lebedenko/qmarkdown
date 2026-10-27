@@ -1,6 +1,7 @@
 #pragma once
 #include <QString>
 #include <QVector>
+#include <tuple>
 
 namespace QMarkdownPrivate {
 enum InlineFlag { Emphasis = 1, Strong = 2, Code = 4, Strikethrough = 8 };
@@ -36,6 +37,12 @@ struct FormulaSpan {
     int sourceLine = 0, sourceColumn = 0, sourceEndColumn = 0;
 };
 struct ReferenceSpan { int start = 0, length = 0, number = 0, occurrence = 0; };
+inline bool operator==(const InlineRange &a, const InlineRange &b) { return std::tie(a.start, a.length, a.flags) == std::tie(b.start, b.length, b.flags); }
+inline bool operator==(const CodeSpan &a, const CodeSpan &b) { return std::tie(a.start, a.length) == std::tie(b.start, b.length); }
+inline bool operator==(const LinkSpan &a, const LinkSpan &b) { return std::tie(a.start, a.length, a.destination, a.label, a.noteNumber, a.noteOccurrence, a.backlink) == std::tie(b.start, b.length, b.destination, b.label, b.noteNumber, b.noteOccurrence, b.backlink); }
+inline bool operator==(const ImageSpan &a, const ImageSpan &b) { return std::tie(a.start, a.length, a.destination, a.title, a.enclosingLink, a.linked) == std::tie(b.start, b.length, b.destination, b.title, b.enclosingLink, b.linked); }
+inline bool operator==(const FormulaSpan &a, const FormulaSpan &b) { return std::tie(a.start, a.length, a.sourceLine, a.sourceColumn, a.sourceEndColumn) == std::tie(b.start, b.length, b.sourceLine, b.sourceColumn, b.sourceEndColumn); }
+inline bool operator==(const ReferenceSpan &a, const ReferenceSpan &b) { return std::tie(a.start, a.length, a.number, a.occurrence) == std::tie(b.start, b.length, b.number, b.occurrence); }
 enum class InlineKind { Text, Code, Emphasis, Strong, SoftBreak, HardBreak, Link, Image, Html, Strikethrough, Formula, FootnoteReference };
 // Owned source semantics; presentation spans deliberately retain effective styles.
 struct InlineNode {

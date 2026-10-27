@@ -76,6 +76,29 @@ private slots:
         QAccessible::installUpdateHandler(accessibleUpdate);
     }
     void cleanupTestCase() { QAccessible::installUpdateHandler(nullptr); }
+    void streamingFocusSurvivesAndRejectsChangedDestination() {
+        QQmlEngine engine; QQuickWindow window; auto root = create(engine, window); QVERIFY(root);
+        auto *view = root->findChild<QQuickItem *>("view"); QVERIFY(view);
+        view->setProperty("keyboardNavigationEnabled", true);
+        view->setProperty("markdown", "[later][ref]\n\n[kept](same)\n\n");
+        QTRY_COMPARE(links(root.get()).size(), 1);
+        QPointer<LinkTargetItem> kept = links(root.get())[0];
+        kept->forceActiveFocus(); QTRY_VERIFY(kept->hasActiveFocus());
+        QSignalSpy navigation(view, SIGNAL(navigationRequested(QRectF)));
+        view->setProperty("streamingEnabled", true);
+        QVERIFY(QMetaObject::invokeMethod(view, "appendMarkdown", Q_ARG(QString, "[ref]: other\n")));
+        QVERIFY(QMetaObject::invokeMethod(view, "flushMarkdown"));
+        QTRY_COMPARE(links(root.get()).size(), 2);
+        QVERIFY(kept); QCOMPARE(links(root.get())[1], kept.data());
+        QVERIFY(kept->hasActiveFocus()); QCOMPARE(kept->destination(), "same");
+        QTest::qWait(30); QCOMPARE(navigation.size(), 0);
+        view->setProperty("markdown", "[kept][ref]\n\n");
+        QTRY_COMPARE(links(root.get()).size(), 0);
+        QVERIFY(QMetaObject::invokeMethod(view, "appendMarkdown", Q_ARG(QString, "[ref]: changed\n")));
+        QVERIFY(QMetaObject::invokeMethod(view, "flushMarkdown"));
+        QTRY_COMPARE(links(root.get()).size(), 1);
+        QVERIFY(!links(root.get())[0]->hasActiveFocus());
+    }
     void traversalActivationAndSelection() {
         QQmlEngine engine; QQuickWindow window; auto root = create(engine, window); QVERIFY(root);
         auto *view = root->findChild<QQuickItem *>("view");

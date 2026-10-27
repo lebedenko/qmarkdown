@@ -1,12 +1,12 @@
 # Public API reference
 
-QMarkdown 1.17.1 / QML 1.17 is a Qt Quick rendering library. Its supported surface is
+QMarkdown 1.18.0 / QML 1.18 is a Qt Quick rendering library. Its supported surface is
 `MarkdownView`, `MarkdownStyle`, `MarkdownResourcePolicy` and the CMake integration
 below. Documented API remains compatible throughout 1.x. Native implementation
 classes, source headers, `QMarkdown.Private`, child item trees and helper functions
 are private; no C++ headers are installed or C++ ABI compatibility promised.
 
-Use `import QMarkdown 1.17` for the complete current API. Earlier 1.x imports and
+Use `import QMarkdown 1.18` for the complete current API. Earlier 1.x imports and
 unversioned imports remain supported. “Since” below identifies the feature's
 introduction, not a promise that every later member is hidden from older imports.
 Qt Quick inherited Item properties and methods remain available on MarkdownView.
@@ -181,7 +181,7 @@ network manager is private and cannot be replaced through the public API.
 Supported environment: Linux amd64, Qt ≥6.8, C++17, CMake ≥3.21.
 
 ```cmake
-find_package(QMarkdown 1.17 CONFIG REQUIRED)
+find_package(QMarkdown 1.18 CONFIG REQUIRED)
 target_link_libraries(myapp PRIVATE QMarkdown::QMarkdown)
 ```
 
@@ -261,4 +261,8 @@ provider's twelve role enums. `invalidate()` clears that provider's cache and
 refreshes subscriptions. See the [provider contract](syntax-highlighting.md#host-providers-qml-117)
 for validation, deadlines, cancellation and ownership. Availability continues to
 report only the optional compiled backend. Older imports remain supported; the
-new provider type requires 1.17. The package is 1.17.1.
+new provider type requires 1.17. The package is 1.18.0.
+
+## Streaming — 1.18
+
+`streamingEnabled: bool` defaults to `false`. `appendMarkdown(chunk: string)` appends accepted source; `flushMarkdown()` synchronously publishes pending source through parsing and model updates. Resource loading and rendering remain asynchronous. See [streaming behavior and binding ownership](streaming.md).
