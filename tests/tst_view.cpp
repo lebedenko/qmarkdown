@@ -19,6 +19,12 @@
 #include <QFontMetricsF>
 #include <QFontDatabase>
 #include <QSignalSpy>
+#include <QFile>
+#include <QFileInfo>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QAbstractItemModelTester>
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QQmlProperty>
@@ -100,6 +106,170 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void streamingBatchingAndReentrancy()
+    {
+        ViewState state;
+        QVERIFY(!state.streamingEnabled());
+        state.setMarkdown("old");
+        state.setStreamingEnabled(true);
+        QSignalSpy source(&state, &ViewState::markdownChanged);
+        QSignalSpy publications(&state, &ViewState::searchChanged);
+        QSignalSpy resets(state.blocks(), &QAbstractItemModel::modelReset);
+        state.appendMarkdown(" one"); state.appendMarkdown(" two");
+        QCOMPARE(state.markdown(), "old one two");
+        QCOMPARE(source.size(), 2); QCOMPARE(publications.size(), 0);
+        QCOMPARE(state.blocks()->data(state.blocks()->index(0, 0), BlockModel::BlockTextRole).toString(), "old");
+        QTRY_COMPARE(publications.size(), 1);
+        QCOMPARE(resets.size(), 0);
+        state.appendMarkdown(" three"); state.flushMarkdown();
+        QCOMPARE(publications.size(), 2);
+        QTest::qWait(35); QCOMPARE(publications.size(), 2);
+        state.appendMarkdown(""); state.setMarkdown(state.markdown());
+        QCOMPARE(source.size(), 3);
+        state.appendMarkdown(" four"); state.setStreamingEnabled(false);
+        QCOMPARE(publications.size(), 3);
+        state.setStreamingEnabled(true);
+        state.appendMarkdown(" pending"); state.setMarkdown("replacement");
+        QCOMPARE(resets.size(), 1);
+        QTest::qWait(35); QCOMPARE(publications.size(), 4);
+        state.appendMarkdown(" **bold**"); state.setGfmEnabled(true);
+        QCOMPARE(publications.size(), 5);
+        QTest::qWait(35); QCOMPARE(publications.size(), 5);
+        connect(&state, &ViewState::markdownChanged, &state, [&] {
+            if (state.markdown() == "replacement **bold**!") state.appendMarkdown("nested");
+        });
+        state.appendMarkdown("!"); state.flushMarkdown();
+        QCOMPARE(state.markdown(), "replacement **bold**!nested");
+        auto *doomed = new ViewState;
+        doomed->setStreamingEnabled(true);
+        connect(doomed, &ViewState::markdownChanged, doomed, [doomed] { delete doomed; });
+        doomed->appendMarkdown("destroy during notification");
+        auto *publishing = new ViewState;
+        publishing->setStreamingEnabled(true);
+        publishing->appendMarkdown("destroy during publication");
+        connect(publishing, &ViewState::searchChanged, publishing, [publishing] { delete publishing; });
+        publishing->flushMarkdown();
+        bool nested = false;
+        connect(&state, &ViewState::searchChanged, &state, [&] {
+            if (!nested) { nested = true; state.setMarkdown("reentrant replacement"); }
+        });
+        state.appendMarkdown(" next"); state.flushMarkdown();
+        QCOMPARE(state.markdown(), "reentrant replacement");
+        QCOMPARE(state.blocks()->data(state.blocks()->index(0, 0), BlockModel::BlockTextRole).toString(), "reentrant replacement");
+        connect(&state, &ViewState::markdownChanged, &state, [&] {
+            if (state.markdown() == "nested replacement") state.appendMarkdown(" suffix");
+        });
+        const auto beforeReplacement = resets.size();
+        state.setMarkdown("nested replacement");
+        QCOMPARE(resets.size(), beforeReplacement + 1);
+        QCOMPARE(state.blocks()->data(state.blocks()->index(0, 0), BlockModel::BlockTextRole).toString(), "nested replacement suffix");
+        const auto afterReplacement = publications.size();
+        QTest::qWait(35); QCOMPARE(publications.size(), afterReplacement);
+    }
+    void streamingStaticEquivalence()
+    {
+        auto compare = [&](auto &&self, QAbstractItemModel *actual, QAbstractItemModel *expected) -> void {
+            QCOMPARE(actual->rowCount(), expected->rowCount());
+            const auto roles = expected->roleNames();
+            for (int row = 0; row < expected->rowCount(); ++row) {
+                for (auto it = roles.begin(); it != roles.end(); ++it) {
+                    const auto a = actual->data(actual->index(row, 0), it.key());
+                    const auto b = expected->data(expected->index(row, 0), it.key());
+                    if (it.key() == BlockModel::ChildBlocksRole) {
+                        auto *ac = a.value<QAbstractItemModel *>(), *bc = b.value<QAbstractItemModel *>();
+                        QCOMPARE(bool(ac), bool(bc));
+                        if (ac && bc) self(self, ac, bc);
+                    } else QCOMPARE(a, b);
+                }
+            }
+        };
+        const QStringList fixtures = {
+            "one *emphasis* and [link](https://example.org)\r\n\r\nlast",
+            "# head\n\n```cpp\nint x;\n```\n\nlast",
+            "- one\n  - nested\n- two\n\nquote\n=====\n",
+            "a | b\n--|--\nx | y\n\n[ref][later]\n\n[later]: https://example.org\n",
+            "$$\nx^2\n$$\n\ninline $x$ and note[^a]\n\n[^a]: definition\n",
+            QString::fromUtf8("emoji 😀 split\n\n> quote\n\nlast")
+        };
+        for (const auto &fixture : fixtures) {
+            ViewState streamed, fresh;
+            streamed.setGfmEnabled(true); fresh.setGfmEnabled(true);
+            streamed.setMathEnabled(true); fresh.setMathEnabled(true);
+            streamed.setInlineMathEnabled(true); fresh.setInlineMathEnabled(true);
+            streamed.setFootnotesEnabled(true); fresh.setFootnotesEnabled(true);
+            streamed.setStreamingEnabled(true);
+            QAbstractItemModelTester tester(streamed.blocks(), QAbstractItemModelTester::FailureReportingMode::QtTest);
+            for (const auto character : fixture) {
+                streamed.appendMarkdown(QString(character)); streamed.flushMarkdown();
+                fresh.setMarkdown(streamed.markdown());
+                compare(compare, streamed.blocks(), fresh.blocks());
+                QCOMPARE(streamed.headings(), fresh.headings());
+                streamed.setSelectionEnabled(true); fresh.setSelectionEnabled(true);
+                streamed.selectAll(); fresh.selectAll(); QCOMPARE(streamed.selectedText(), fresh.selectedText());
+                streamed.clearSelection(); fresh.clearSelection();
+            }
+        }
+        QFile file(QStringLiteral(QMARKDOWN_COMMONMARK_FIXTURE)); QVERIFY(file.open(QIODevice::ReadOnly));
+        auto examples = QJsonDocument::fromJson(file.readAll()).array();
+        QCOMPARE(examples.size(), 652);
+        for (const auto name : {"task-lists", "tables", "strikethrough", "extended-autolinks", "tag-filter"}) {
+            QFile extension(QFileInfo(file.fileName()).absolutePath() + "/../gfm/" + name + ".json");
+            QVERIFY(extension.open(QIODevice::ReadOnly));
+            for (const auto &entry : QJsonDocument::fromJson(extension.readAll()).array()) {
+                auto example = entry.toObject(); example["streamingGfm"] = true; examples.append(example);
+            }
+        }
+        for (const auto &value : examples) {
+            const auto markdown = value.toObject()["markdown"].toString();
+            for (const bool mixed : {false, true}) {
+                ViewState streamed, fresh; streamed.setStreamingEnabled(true);
+                streamed.setGfmEnabled(value.toObject()["streamingGfm"].toBool());
+                fresh.setGfmEnabled(value.toObject()["streamingGfm"].toBool());
+                for (int offset = 0; offset < markdown.size();) {
+                    const int length = mixed ? 1 + (offset * 7 % 13) : 1;
+                    streamed.appendMarkdown(markdown.mid(offset, length));
+                    offset += length;
+                    streamed.flushMarkdown();
+                }
+                fresh.setMarkdown(markdown); compare(compare, streamed.blocks(), fresh.blocks());
+            }
+        }
+    }
+    void streamingRetainsModelsAndReading()
+    {
+        ViewState state; state.setSelectionEnabled(true);
+        state.setMarkdown("- retained\n  - child\n\n```cpp\ncode\n```\n\nneedle needle\n\n");
+        auto *model = state.blocks();
+        auto *child = model->data(model->index(0, 0), BlockModel::ChildBlocksRole).value<QAbstractItemModel *>();
+        QVERIFY(child);
+        QSignalSpy resets(model, &QAbstractItemModel::modelReset);
+        QSignalSpy childResets(child, &QAbstractItemModel::modelReset);
+        state.setSearchActive(true); state.setSearchQuery("needle"); state.searchNext();
+        QCOMPARE(state.currentSearchResult(), 1);
+        state.selectAll(); const auto selected = state.selectedText();
+        QSignalSpy navigation(&state, &ViewState::navigationRequested);
+        state.setStreamingEnabled(true); state.appendMarkdown("new tail"); state.flushMarkdown();
+        QCOMPARE(model->data(model->index(0, 0), BlockModel::ChildBlocksRole).value<QAbstractItemModel *>(), child);
+        QCOMPARE(resets.size(), 0); QCOMPARE(childResets.size(), 0);
+        QCOMPARE(state.selectedText(), selected); QCOMPARE(state.currentSearchResult(), 1);
+        QTest::qWait(35); QCOMPARE(navigation.size(), 0);
+        state.setMarkdown("[label][ref]\n\n"); state.selectAll();
+        state.appendMarkdown("[ref]: https://example.org\n"); state.flushMarkdown();
+        QVERIFY(state.selectedText().isEmpty());
+        state.setMarkdown("retained words"); state.selectAll();
+        state.appendMarkdown(" and more"); state.flushMarkdown();
+        QCOMPARE(state.selectedText(), "retained words");
+        state.setMarkdown("unfinished *bold"); state.selectAll();
+        state.appendMarkdown("*"); state.flushMarkdown();
+        QVERIFY(state.selectedText().isEmpty());
+        state.setMarkdown("[label][later]\n\n"); state.selectAll();
+        const auto beforeSettings = resets.size();
+        state.appendMarkdown("[later]: destination\n");
+        state.setBaseUrl(QUrl("https://example.invalid/"));
+        QVERIFY(state.selectedText().isEmpty());
+        QCOMPARE(state.blocks()->data(state.blocks()->index(0, 0), BlockModel::BlockTextRole).toString(), "label");
+        QCOMPARE(resets.size(), beforeSettings);
+    }
     void replacementTaskGeometry_data()
     {
         QTest::addColumn<bool>("loose");

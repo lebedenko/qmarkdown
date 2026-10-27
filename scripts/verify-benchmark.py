@@ -41,7 +41,7 @@ def validate(report):
         if entry['operation'] == 'sequential-local-images':
             require(entry['images'] in images and entry['images'] not in image_seen, 'Invalid image workload')
             image_seen.add(entry['images'])
-            require(entry['modelResetCounts'] == [entry['images'] + 1] * 10, 'Missing image resets')
+            require(entry['modelResetCounts'] == [1] * 10, 'Image completions unexpectedly reset models')
         else:
             require(key in expected, 'Unexpected measurement')
         if entry['operation'].startswith('layout') or entry['images']:

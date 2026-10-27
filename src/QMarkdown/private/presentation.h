@@ -36,6 +36,12 @@ struct PresentationBlock {
     int selectionOffset = 0;
     int selectionLength = 0;
 };
+// Offsets are positional metadata, not semantic block identity.
+inline bool operator==(const PresentationBlock &a, const PresentationBlock &b)
+{
+    return std::tie(a.kind, a.text, a.infoString, a.language, a.codeFenced, a.displayMath, a.level, a.ranges, a.links, a.logicalLinks, a.images, a.image, a.imageLink, a.imageLinked, a.children, a.ordered, a.start, a.delimiter, a.tight, a.taskState, a.tableAlignment, a.codes, a.formulas, a.references, a.noteNumber)
+        == std::tie(b.kind, b.text, b.infoString, b.language, b.codeFenced, b.displayMath, b.level, b.ranges, b.links, b.logicalLinks, b.images, b.image, b.imageLink, b.imageLinked, b.children, b.ordered, b.start, b.delimiter, b.tight, b.taskState, b.tableAlignment, b.codes, b.formulas, b.references, b.noteNumber);
+}
 struct Presentation {
     QString text;
     QVector<PresentationBlock> blocks;

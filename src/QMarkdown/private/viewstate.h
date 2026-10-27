@@ -55,6 +55,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
     void replace(QVector<QMarkdownPrivate::PresentationBlock> blocks);
+    void reconcile(const QVector<QMarkdownPrivate::PresentationBlock> &blocks);
 private:
     QVector<QMarkdownPrivate::PresentationBlock> m_blocks;
     QVector<BlockModel *> m_children;
@@ -97,6 +98,7 @@ class ViewState : public QObject
     Q_PROPERTY(bool tablesEnabled READ tablesEnabled WRITE setTablesEnabled NOTIFY tablesEnabledChanged FINAL)
     Q_PROPERTY(bool tagFilterEnabled READ tagFilterEnabled WRITE setTagFilterEnabled NOTIFY tagFilterEnabledChanged FINAL)
     Q_PROPERTY(bool gfmEnabled READ gfmEnabled WRITE setGfmEnabled NOTIFY gfmEnabledChanged FINAL)
+    Q_PROPERTY(bool streamingEnabled READ streamingEnabled WRITE setStreamingEnabled NOTIFY streamingEnabledChanged FINAL)
     Q_PROPERTY(QString markdown READ markdown WRITE setMarkdown NOTIFY markdownChanged FINAL)
     Q_PROPERTY(bool extendedAutolinksEnabled READ extendedAutolinksEnabled WRITE setExtendedAutolinksEnabled NOTIFY extendedAutolinksEnabledChanged FINAL)
     Q_PROPERTY(bool strikethroughEnabled READ strikethroughEnabled WRITE setStrikethroughEnabled NOTIFY strikethroughEnabledChanged FINAL)
@@ -221,6 +223,10 @@ public:
     void setTagFilterEnabled(bool value);
     bool gfmEnabled() const { return m_gfmEnabled; }
     void setGfmEnabled(bool value);
+    bool streamingEnabled() const { return m_streamingEnabled; }
+    void setStreamingEnabled(bool value);
+    Q_INVOKABLE void appendMarkdown(const QString &chunk);
+    Q_INVOKABLE void flushMarkdown();
     QString markdown() const { return m_markdown; }
     void setMarkdown(const QString &value);
     bool extendedAutolinksEnabled() const { return m_extendedAutolinksEnabled; }
@@ -261,6 +267,7 @@ signals:
     void tagFilterEnabledChanged();
     void gfmEnabledChanged();
     void markdownChanged();
+    void streamingEnabledChanged();
     void taskListsEnabledChanged();
     void strikethroughEnabledChanged();
     void extendedAutolinksEnabledChanged();
@@ -291,7 +298,7 @@ private:
     QMetaObject::Connection m_syntaxThemeDestroyed;
     friend class LinkController;
     LinkController *m_linkController;
-    void rebuildSearch();
+    void rebuildSearch(bool navigate = true, int retainedStart = -1);
     void rebuildHeadings();
     void rebuildFootnoteFragments();
     QHash<QString, QPair<int, int>> m_footnoteFragments;
@@ -349,6 +356,13 @@ private:
     QMetaObject::Connection m_policyDestroyed, m_policyChanged;
     ResourceController m_resources;
     QString m_markdown;
+    QTimer m_publishTimer;
+    bool m_streamingEnabled = false;
+    bool m_pendingPublication = false;
+    bool m_publishing = false;
+    bool m_reconcilePublication = false;
+    bool m_restartResources = false;
+    quint64 m_sourceRevision = 0;
     bool m_tablesEnabled = false;
     bool m_tagFilterEnabled = false;
     bool m_gfmEnabled = false;

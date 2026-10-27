@@ -138,6 +138,9 @@ Item {
     property var fencedBlockRenderers: ({})
     property alias baseUrl: viewState.baseUrl
     property alias resourcePolicy: viewState.resourcePolicy
+    property alias streamingEnabled: viewState.streamingEnabled
+    function appendMarkdown(chunk: string) { viewState.appendMarkdown(chunk) }
+    function flushMarkdown() { viewState.flushMarkdown() }
     property alias markdown: viewState.markdown
     property alias extendedAutolinksEnabled: viewState.extendedAutolinksEnabled
     property alias strikethroughEnabled: viewState.strikethroughEnabled

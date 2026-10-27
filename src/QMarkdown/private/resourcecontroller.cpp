@@ -155,6 +155,42 @@ void ResourceController::restart(const QVector<QMarkdownPrivate::Block> &blocks,
     };
     collect(blocks); m_deadline.start(); pump();
 }
+void ResourceController::reconcile(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base)
+{
+    QSet<QUrl> required;
+    auto collect = [&](auto &&self, const auto &items) -> void {
+        for (const auto &block : items) {
+            for (const auto &span : block.images)
+                required.insert(base.resolved(QUrl(span.destination)).adjusted(QUrl::RemoveFragment));
+            self(self, block.children);
+        }
+    };
+    collect(collect, blocks);
+    // Slots are never reordered or reused within a generation. Network and decode
+    // callbacks therefore keep stable handles as documents gain and lose images.
+    for (qsizetype i = 0; i < m_loads.size(); ++i) {
+        auto &load = m_loads[i];
+        if (load.removed) continue;
+        if (required.remove(load.key)) continue;
+        load.removed = true; load.started = true; load.done = true; load.local = false;
+        load.bytes.clear();
+        if (load.reply) {
+            disconnect(load.reply, nullptr, this, nullptr);
+            load.reply->abort(); load.reply->deleteLater(); load.reply = nullptr;
+        }
+        if (i == m_next && m_job && m_scheduler) m_scheduler->cancel(m_job);
+        auto image = m_images.find(load.key);
+        if (image != m_images.end()) { m_retained -= image->sizeInBytes(); m_images.erase(image); }
+    }
+    for (const auto &key : required) {
+        const auto url = QMarkdownPrivate::authorizedResource(key, m_policy);
+        if (url.isEmpty()) continue;
+        Load load; load.key = key; load.url = url; load.local = url.scheme() != "https";
+        m_loads.append(load);
+    }
+    if (m_next < m_loads.size()) m_deadline.start();
+    pump();
+}
 void ResourceController::finish(qsizetype index)
 {
     auto &load = m_loads[index];
@@ -248,14 +284,20 @@ void ResourceController::pump()
         m_job.reset();
         m_decoding = false;
         const auto future = watcher->future();
+        bool published = false;
         if (!future.isCanceled() && future.resultCount() > 0 && !job->deadline.hasExpired()) {
             const auto image = future.result();
-            if (!image.isNull() && m_loads[index].elapsed.elapsed() < m_admissionTimeout && m_retained + image.sizeInBytes() <= retainedLimit) {
-                m_images.insert(m_loads[index].key, image); m_retained += image.sizeInBytes(); emit changed();
+            if (!m_loads[index].removed && !image.isNull() && m_loads[index].elapsed.elapsed() < m_admissionTimeout && m_retained + image.sizeInBytes() <= retainedLimit) {
+                m_images.insert(m_loads[index].key, image); m_retained += image.sizeInBytes(); published = true;
             }
         }
-        if (generation != m_generation) return;
-        ++m_next; pump();
+        // Commit the completed slot before observers can reconcile the next
+        // snapshot, otherwise a reentrant pump could decode this slot twice.
+        ++m_next;
+        QPointer<ResourceController> guard(this);
+        if (published) emit changed();
+        if (!guard || generation != m_generation) return;
+        pump();
     });
     watcher->setFuture(job->promise.future());
 }

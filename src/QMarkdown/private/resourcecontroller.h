@@ -29,6 +29,7 @@ public:
     explicit ResourceController(QObject *parent = nullptr);
     ~ResourceController() override;
     void restart(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base, const MarkdownResourcePolicy &policy);
+    void reconcile(const QVector<QMarkdownPrivate::Block> &blocks, const QUrl &base);
     bool idle() const { return m_next == m_loads.size() && !m_decoding; }
     const QHash<QUrl, QImage> &images() const { return m_images; }
     // Private fixture seam; each worker copies its decoder independently of controller lifetime.
@@ -47,7 +48,7 @@ private:
         QPointer<QNetworkReply> reply;
         QElapsedTimer elapsed;
         int redirects = 0;
-        bool started = false, done = false, local = false;
+        bool started = false, done = false, local = false, removed = false;
     };
     void cancel();
     void pump();

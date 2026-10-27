@@ -3,11 +3,11 @@
 <!-- current-release:start -->
 See the [public API reference](api.md) for the complete supported contract.
 
-Package 1.17.1 / QML 1.17 supports all five GFM extensions on the existing CommonMark 0.31.2 core. Inline code reserves 4/2 logical pixels of horizontal/vertical padding in every preset. This is selected extension support, not a claim of exact GFM 0.29-gfm conformance or GitHub's additional sanitization behavior.
+Package 1.18.0 / QML 1.18 supports all five GFM extensions on the existing CommonMark 0.31.2 core. Inline code reserves 4/2 logical pixels of horizontal/vertical padding in every preset. This is selected extension support, not a claim of exact GFM 0.29-gfm conformance or GitHub's additional sanitization behavior.
 
 ```qml
 import QtQuick
-import QMarkdown 1.17
+import QMarkdown 1.18
 
 MarkdownView {
     width: parent.width
@@ -20,7 +20,7 @@ All six switches default to false. `taskListsEnabled`, `strikethroughEnabled`, `
 
 Tables retain header/body rows, inline formatting, escaped pipes (including code), column alignment and empty missing cells. Excess body cells are ignored; mismatched header/delimiter column counts leave ordinary Markdown. Tables terminate at blank lines or another block start and work inside lists and block quotes. Native cells receive equal shares of the containing width, wrap content and share the tallest cell's row height. Left, center and right alignment also applies to formatted text and authorized image rows. Headers use bold text. Very narrow widths can still overflow an indivisible glyph; tables introduce no internal scrolling.
 
-Use `style.table` with QML 1.17:
+Use `style.table` with QML 1.18:
 
 | Property | Default in every preset |
 | --- | --- |

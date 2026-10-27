@@ -30,6 +30,7 @@ class ProviderTest : public QObject {
     static std::unique_ptr<QQuickItem> create(QQmlEngine &engine, bool custom = false);
 private slots:
     void revisionsAndDefaults();
+    void streamingRetainsSubscription();
     void asynchronousQmlAndProjection();
     void customAndFootnoteFallback();
     void retainedCancellationAndDestruction();
@@ -83,6 +84,22 @@ Item {
     auto object = std::unique_ptr<QQuickItem>(qobject_cast<QQuickItem *>(component.createWithInitialProperties({{"customInitially", custom}})));
     if (!object) qWarning() << component.errorString();
     return object;
+}
+void ProviderTest::streamingRetainsSubscription() {
+    QQmlEngine engine; auto root = create(engine); QVERIFY(root);
+    auto *view = qobject_cast<QQuickItem *>(root->property("view").value<QObject *>()); QVERIFY(view);
+    QQuickWindow window; root->setParentItem(window.contentItem()); window.resize(440, 520); window.show();
+    QTRY_COMPARE(root->property("calls").toInt(), 1);
+    const auto before = painted(view); QVERIFY(!before.isEmpty());
+    QPointer<FormattedText> source = before[0];
+    view->setProperty("streamingEnabled", true);
+    QVERIFY(QMetaObject::invokeMethod(view, "appendMarkdown", Q_ARG(QString, "\n\nnew paragraph")));
+    QVERIFY(QMetaObject::invokeMethod(view, "flushMarkdown"));
+    QVERIFY(source); QVERIFY(painted(view).contains(source));
+    QCOMPARE(root->property("calls").toInt(), 1);
+    QMetaObject::invokeMethod(root.get(), "completeFirst");
+    QTRY_VERIFY(!source->foregroundRanges().isEmpty());
+    QCOMPARE(root->property("calls").toInt(), 1);
 }
 void ProviderTest::revisionsAndDefaults() {
     for (const auto version : {"1.16", "1.17"}) {
