@@ -64,7 +64,7 @@ padding geometry. Highlights preserve existing text colors and layout.
 
 Code action delegates are excluded from document gestures and copy text. Wheel and
 touch scrolling remain host-controlled. Touch links retain their ordinary activation
-behavior. Touch selection handles, horizontal autoscrolling, full caret navigation,
+behavior. Touch selection handles, full caret navigation,
 rich-text/Markdown copying and editing remain deferred.
 
 When selection is enabled, [custom fenced-block renderers](fenced-block-renderers.md)
@@ -111,7 +111,14 @@ edge request linearly increasing speed up to 600 logical pixels/second, retainin
 maximum speed outside the edge. Requests use a 16 ms timer with elapsed-time deltas
 capped at 50 ms per tick. Positive deltas scroll downward. The stationary
 window-space pointer updates selection as the host reveals content. Hosts clamp
-their scroll position. Release, cancellation, window deactivation, selection
+their scroll position. Inside a code source viewport, desktop selection scrolls
+internally on both axes, clamped to the source bounds. Internal vertical movement
+has priority over outer scrolling. Once it cannot move, the outer reader receives
+requests only when the pointer is within its own vertical edge zone; reaching a
+code edge away from those outer edges never scrolls the page. Wheel and touch
+boundary handoff are unchanged.
+
+Release, cancellation, window deactivation, selection
 disablement, viewport removal/destruction and source replacement stop requests.
 
 ## Rendered math (1.14)
