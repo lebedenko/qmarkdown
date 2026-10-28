@@ -264,6 +264,147 @@ Item {
             qPrintable(QString::number(measuredSpeed)));
         QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, QPoint(40, y));
     }
+    void partialCodeCopy_data() {
+        QTest::addColumn<bool>("wrap");
+        QTest::addColumn<bool>("numbers");
+        QTest::addColumn<bool>("scrolled");
+        for (bool wrap : {false, true})
+            for (bool numbers : {false, true})
+                for (bool scrolled : {false, true})
+                    QTest::newRow(qPrintable(QString("wrap%1-numbers%2-scrolled%3").arg(wrap).arg(numbers).arg(scrolled)))
+                        << wrap << numbers << scrolled;
+    }
+    void partialCodeCopy() {
+        QFETCH(bool, wrap); QFETCH(bool, numbers); QFETCH(bool, scrolled);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.18
+MarkdownView {
+    width: 520; selectionEnabled: true
+    syntaxHighlightingEnabled: true
+    codeBlockMinimumLines: 8; codeBlockMaximumLines: 8
+    codeBlockHeightLimitEnabled: true
+})", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *view = qobject_cast<QQuickItem *>(object.get()); QVERIFY(view);
+        view->setProperty("codeBlockWrapEnabled", wrap);
+        view->setProperty("codeBlockLineNumbersVisible", numbers);
+        const QString source = QString::fromUtf8("    while\tbeta\n\n  中文 😀 é tail\nnext line end\n")
+            + QString("long_identifier ").repeated(15) + "\n" + QString("padding line\n").repeated(15);
+        view->setProperty("markdown", "Before prose\n\n```cpp\n" + source + "```\n\nAfter prose");
+        QQuickWindow window; window.resize(540, 900); view->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_COMPARE(leaves(view).size(), 3);
+        auto *text = leaves(view)[1]; QTRY_VERIFY(text->layout());
+        QCOMPARE(text->text(), source.chopped(1));
+        if (view->property("syntaxHighlightingAvailable").toBool())
+            QTRY_VERIFY(!text->foregroundRanges().isEmpty());
+        auto *viewport = named(view, "codeViewport").value(0); QVERIFY(viewport);
+        QVERIFY(!window.grabWindow().isNull());
+        QSignalSpy copies(view, SIGNAL(copyRequested(QString)));
+        struct Range { QString start; int skip; QString expected; };
+        QList<Range> ranges = scrolled
+            ? QList<Range>{{QString::fromUtf8("中文"), 0, QString::fromUtf8("中文 😀 é")},
+                           {"next", 2, "xt line"}}
+            : QList<Range>{{"while", 1, "hile\tbe"}, {"    while", 1, "   while\tbeta\n\n  "},
+                           {QString::fromUtf8("中文"), 0, QString::fromUtf8("中文 😀 é tail\nnext li")}};
+        if (wrap && !scrolled)
+            ranges.append({"long_identifier", 32,
+                "long_identifier long_identifier long_identifier long_identifier "});
+        for (const auto &range : ranges) {
+            const int start = source.indexOf(range.start) + range.skip;
+            const int end = start + range.expected.size();
+            for (bool reverse : {false, true}) {
+                // Separate gestures so repeated-click granularity cannot affect the test.
+                QTest::qWait(QGuiApplication::styleHints()->mouseDoubleClickInterval() + 1);
+                if (scrolled) {
+                    viewport->setProperty("contentY", text->layout()->lineAt(2).y());
+                    if (!wrap) viewport->setProperty("contentX", 12.0);
+                    QCoreApplication::processEvents();
+                    QVERIFY(viewport->property("contentY").toDouble() > 0);
+                    if (!wrap) QVERIFY(viewport->property("contentX").toDouble() > 0);
+                }
+                const auto a = position(text, reverse ? end : start, window.contentItem());
+                const auto b = position(text, reverse ? start : end, window.contentItem());
+                QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, a);
+                QTest::mouseMove(&window, b);
+                QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, b);
+                QCOMPARE(view->property("selectionStart").toInt(), 14 + start);
+                QCOMPARE(view->property("selectionEnd").toInt(), 14 + end);
+                QCOMPARE(view->property("selectedText").toString(), range.expected);
+                view->forceActiveFocus(); QTest::keyClick(&window, Qt::Key_C, Qt::ControlModifier);
+                QCOMPARE(copies.size(), 1);
+                QCOMPARE(copies.takeFirst()[0].toString(), range.expected);
+            }
+        }
+    }
+    void nestedCodeSelectionScrolling_data() {
+        QTest::addColumn<bool>("overflow");
+        QTest::newRow("natural-height") << false;
+        QTest::newRow("bounded-height") << true;
+    }
+    void nestedCodeSelectionScrolling() {
+        QFETCH(bool, overflow);
+        QQmlEngine engine; QQmlComponent component(&engine);
+        component.setData(R"(import QtQuick
+import QMarkdown 1.18
+Item {
+    width: 400; height: 700
+    property alias document: document
+    MarkdownView {
+        id: document; y: 180; width: 400; selectionEnabled: true
+        selectionViewport: parent
+        codeBlockMinimumLines: 3; codeBlockMaximumLines: 3
+        codeBlockWrapEnabled: false
+    }
+})", {});
+        std::unique_ptr<QObject> object(component.create()); QVERIFY2(object, qPrintable(component.errorString()));
+        auto *host = qobject_cast<QQuickItem *>(object.get()); QVERIFY(host);
+        auto *view = host->property("document").value<QQuickItem *>(); QVERIFY(view);
+        view->setProperty("codeBlockHeightLimitEnabled", overflow);
+        view->setProperty("markdown", "```\n" + (QString("line with words ").repeated(8) + "\n").repeated(overflow ? 20 : 3) + "```");
+        QQuickWindow window; window.resize(400, 700); host->setParentItem(window.contentItem()); window.show();
+        QVERIFY(QTest::qWaitForWindowExposed(&window));
+        QTRY_COMPARE(named(view, "codeViewport").size(), 1);
+        auto *viewport = named(view, "codeViewport")[0];
+        QTRY_VERIFY(viewport->height() > 0); QTRY_VERIFY(leaves(view)[0]->layout());
+        const auto center = viewport->mapToScene({80, viewport->height() / 2}).toPoint();
+        const auto bottom = viewport->mapToScene({viewport->width() - 1, viewport->height() - 1}).toPoint();
+        QSignalSpy requests(view, SIGNAL(selectionScrollRequested(double)));
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, center);
+        QTest::mouseMove(&window, bottom);
+        if (overflow) {
+            QTRY_VERIFY(viewport->property("contentY").toDouble() > 0);
+            const int end = view->property("selectionEnd").toInt();
+            QTRY_VERIFY(view->property("selectionEnd").toInt() > end);
+            QCOMPARE(requests.size(), 0);
+            viewport->setProperty("contentY", viewport->property("contentHeight").toDouble() - viewport->height());
+        }
+        QTRY_VERIFY(viewport->property("contentX").toDouble() > 0);
+        QTest::qWait(90); QCOMPARE(requests.size(), 0);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, bottom);
+        viewport->setProperty("contentY", 0);
+        const auto top = viewport->mapToScene({100, 1}).toPoint();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, center);
+        QTest::mouseMove(&window, top);
+        QTest::qWait(90); QCOMPARE(requests.size(), 0);
+        QCOMPARE(viewport->property("contentY").toDouble(), 0.0);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, top);
+        // The same exhausted source now overlaps the outer bottom edge.
+        view->setY(700 - viewport->y() - viewport->height());
+        const auto outerBottom = viewport->mapToScene({100, viewport->height() - 1}).toPoint();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, QPoint(80, 660));
+        QTest::mouseMove(&window, outerBottom);
+        if (overflow) {
+            QTRY_VERIFY(viewport->property("contentY").toDouble() > 0);
+            QCOMPARE(requests.size(), 0);
+            viewport->setProperty("contentY", viewport->property("contentHeight").toDouble() - viewport->height());
+        }
+        QTRY_VERIFY(!requests.isEmpty());
+        QVERIFY(requests.last()[0].toDouble() > 0);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, outerBottom);
+        const int count = requests.size(); QTest::qWait(70); QCOMPARE(requests.size(), count);
+    }
     void edgeAutoscrolling() {
         QQmlEngine engine; QQmlComponent component(&engine);
         component.setData(R"(import QtQuick
