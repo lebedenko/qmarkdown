@@ -357,3 +357,9 @@ records transport/scroll qualification separately. Production integration remain
 ## Streaming Markdown delivery
 
 [069 — Streaming Markdown](069-streaming-markdown/requirements.md): approved implementation and release delivery for 1.18.0 / QML 1.18; [design](069-streaming-markdown/design.md), [tasks](069-streaming-markdown/tasks.md), [actual verification](069-streaming-markdown/verification.md).
+
+## Code selection correction
+
+[070 requirements](070-code-selection-copy/requirements.md), [design](070-code-selection-copy/design.md),
+[tasks](070-code-selection-copy/tasks.md) and [actual verification](070-code-selection-copy/verification.md)
+record the approved partial-selection investigation and nested desktop scrolling fix.

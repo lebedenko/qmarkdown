@@ -935,7 +935,6 @@ void ViewState::scrollSelection()
     const qreal elapsed = qMin(selectionMaximumTick, m_scrollElapsed.restart()) / 1000.0;
     // A source viewport consumes edge movement before the outer reader.
     bool internalVertical = false;
-    qreal boundaryDelta = 0;
     if (auto *item = selectionItemAt(m_dragView, m_dragView->mapFromScene(m_pointerScene))) {
         for (auto *parent = item->parentItem(); parent; parent = parent->parentItem()) {
             if (!parent->property("codeSourceViewport").toBool()) continue;
@@ -949,7 +948,6 @@ void ViewState::scrollSelection()
                 const qreal after = qBound(qreal(0), before + speed * elapsed,
                     qMax(qreal(0), parent->property(extent).toReal() - span));
                 parent->setProperty(offset, after);
-                if (QByteArray(offset) == "contentY" && after == before) boundaryDelta = speed * elapsed;
                 return after != before;
             };
             scrollAxis("contentX", "contentWidth", point.x(), parent->width());
@@ -964,10 +962,10 @@ void ViewState::scrollSelection()
     if (height > 0 && qMin(top, bottom) < selectionEdgeDistance && top != bottom)
         speed = (top < bottom ? -1 : 1) * selectionMaximumSpeed * qBound(qreal(0),
             (selectionEdgeDistance - qMin(top, bottom)) / selectionEdgeDistance, qreal(1));
-    if (!internalVertical && m_selectionViewport) {
-        const qreal delta = boundaryDelta != 0 ? boundaryDelta : speed * elapsed;
-        if (delta != 0) emit selectionScrollRequested(delta);
-    }
+    // Exhausting a source viewport does not make its edge an outer-reader edge.
+    const qreal delta = speed * elapsed;
+    if (!internalVertical && m_selectionViewport && delta != 0)
+        emit selectionScrollRequested(delta);
     // Hosts may synchronously remove the viewport or replace the source.
     if (m_dragView)
         extendSelection(m_dragView, m_dragView->mapFromScene(m_pointerScene));
