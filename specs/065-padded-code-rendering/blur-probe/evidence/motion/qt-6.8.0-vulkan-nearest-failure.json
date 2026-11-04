@@ -1,0 +1,723 @@
+{
+  "environment": {
+    "dpr": 1.25,
+    "graphicsApi": 5,
+    "platform": "wayland",
+    "qt": "6.8.0",
+    "source": {
+      "candidateChange": "setSmooth(retained) -> setSmooth(false)",
+      "commit": "8665b5df53c6da339610e8a84a9e27aebff2058b",
+      "instrumentation": "BlurProbe friendship only",
+      "rendererSha256": "768c73ce9acf793fbe8a7f6ef082c4fe58302b5e633226b44db15491b1a5b369",
+      "variant": "candidate"
+    },
+    "timing": "capture-trace, not display frame rate",
+    "type": "environment"
+  },
+  "fixture": {
+    "allocationBytes": 70700,
+    "cells": [
+      [
+        0,
+        0,
+        203.109375,
+        25
+      ],
+      [
+        208.109375,
+        0,
+        90.296875,
+        25
+      ]
+    ],
+    "fixture": "mixed-decorated",
+    "fonts": [
+      {
+        "family": "DejaVu Sans Mono",
+        "fileSha256": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+        "headTableSha256": "df006aa37712f25de5fa8513a247582b0c52e66588c0a9fc490aa3490e9a776f",
+        "matchedFile": "/usr/share/fonts/TTF/DejaVuSansMono.ttf",
+        "style": "Book"
+      },
+      {
+        "family": "DejaVu Sans",
+        "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+        "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+        "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+        "style": "Book"
+      },
+      {
+        "family": "DejaVu Sans",
+        "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+        "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+        "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+        "style": "Book"
+      },
+      {
+        "family": "DejaVu Sans Mono",
+        "fileSha256": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+        "headTableSha256": "df006aa37712f25de5fa8513a247582b0c52e66588c0a9fc490aa3490e9a776f",
+        "matchedFile": "/usr/share/fonts/TTF/DejaVuSansMono.ttf",
+        "style": "Book"
+      }
+    ],
+    "height": 25,
+    "interactions": {
+      "cells": [
+        {
+          "end": 1,
+          "rect": [
+            0,
+            0,
+            14.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 0
+        },
+        {
+          "end": 2,
+          "rect": [
+            14.828125,
+            0,
+            10.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 1
+        },
+        {
+          "end": 3,
+          "rect": [
+            25.65625,
+            0,
+            10.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 2
+        },
+        {
+          "end": 4,
+          "rect": [
+            36.484375,
+            0,
+            10.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 3
+        },
+        {
+          "end": 5,
+          "rect": [
+            47.3125,
+            0,
+            10.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 4
+        },
+        {
+          "end": 6,
+          "rect": [
+            58.140625,
+            0,
+            14.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 5
+        },
+        {
+          "end": 7,
+          "rect": [
+            72.96875,
+            0,
+            14.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 6
+        },
+        {
+          "end": 9,
+          "rect": [
+            87.796875,
+            0,
+            10.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 7
+        },
+        {
+          "end": 10,
+          "rect": [
+            98.625,
+            0,
+            14.828125,
+            25
+          ],
+          "reversed": false,
+          "start": 9
+        },
+        {
+          "end": 22,
+          "rect": [
+            113.453125,
+            0,
+            11.9375,
+            25
+          ],
+          "reversed": true,
+          "start": 21
+        },
+        {
+          "end": 21,
+          "rect": [
+            125.390625,
+            0,
+            4.890625,
+            25
+          ],
+          "reversed": true,
+          "start": 20
+        },
+        {
+          "end": 20,
+          "rect": [
+            130.28125,
+            0,
+            10.21875,
+            25
+          ],
+          "reversed": true,
+          "start": 19
+        },
+        {
+          "end": 19,
+          "rect": [
+            140.5,
+            0,
+            12.75,
+            25
+          ],
+          "reversed": true,
+          "start": 18
+        },
+        {
+          "end": 18,
+          "rect": [
+            153.25,
+            0,
+            5.71875,
+            25
+          ],
+          "reversed": true,
+          "start": 17
+        },
+        {
+          "end": 17,
+          "rect": [
+            158.96875,
+            0,
+            9.640625,
+            25
+          ],
+          "reversed": true,
+          "start": 16
+        },
+        {
+          "end": 16,
+          "rect": [
+            168.609375,
+            0,
+            5.421875,
+            25
+          ],
+          "reversed": true,
+          "start": 15
+        },
+        {
+          "end": 15,
+          "rect": [
+            174.03125,
+            0,
+            5,
+            25
+          ],
+          "reversed": true,
+          "start": 14
+        },
+        {
+          "end": 14,
+          "rect": [
+            179.03125,
+            0,
+            9.921875,
+            25
+          ],
+          "reversed": true,
+          "start": 13
+        },
+        {
+          "end": 13,
+          "rect": [
+            188.953125,
+            0,
+            8.671875,
+            25
+          ],
+          "reversed": true,
+          "start": 12
+        },
+        {
+          "end": 12,
+          "rect": [
+            197.625,
+            0,
+            5.484375,
+            25
+          ],
+          "reversed": true,
+          "start": 11
+        },
+        {
+          "end": 23,
+          "rect": [
+            208.109375,
+            0,
+            5.71875,
+            25
+          ],
+          "reversed": false,
+          "start": 22
+        },
+        {
+          "end": 24,
+          "rect": [
+            213.828125,
+            0,
+            9.890625,
+            25
+          ],
+          "reversed": false,
+          "start": 23
+        },
+        {
+          "end": 25,
+          "rect": [
+            223.71875,
+            0,
+            11,
+            25
+          ],
+          "reversed": false,
+          "start": 24
+        },
+        {
+          "end": 26,
+          "rect": [
+            234.71875,
+            0,
+            11.421875,
+            25
+          ],
+          "reversed": false,
+          "start": 25
+        },
+        {
+          "end": 27,
+          "rect": [
+            246.140625,
+            0,
+            11.0625,
+            25
+          ],
+          "reversed": false,
+          "start": 26
+        },
+        {
+          "end": 28,
+          "rect": [
+            257.203125,
+            0,
+            5.71875,
+            25
+          ],
+          "reversed": false,
+          "start": 27
+        },
+        {
+          "end": 29,
+          "rect": [
+            262.921875,
+            0,
+            7.046875,
+            25
+          ],
+          "reversed": false,
+          "start": 28
+        },
+        {
+          "end": 30,
+          "rect": [
+            269.96875,
+            0,
+            10.75,
+            25
+          ],
+          "reversed": false,
+          "start": 29
+        },
+        {
+          "end": 31,
+          "rect": [
+            280.71875,
+            0,
+            10.640625,
+            25
+          ],
+          "reversed": false,
+          "start": 30
+        },
+        {
+          "end": 32,
+          "rect": [
+            291.359375,
+            0,
+            7.046875,
+            25
+          ],
+          "reversed": false,
+          "start": 31
+        }
+      ],
+      "codeRects": [
+        [
+          0,
+          0,
+          72.96875,
+          25
+        ],
+        [
+          72.96875,
+          0,
+          40.484375,
+          25
+        ]
+      ],
+      "links": [
+        {
+          "link": -1,
+          "rect": [
+            0,
+            0,
+            14.828125,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            14.828125,
+            0,
+            10.828125,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            25.65625,
+            0,
+            10.828125,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            36.484375,
+            0,
+            10.828125,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            47.3125,
+            0,
+            10.828125,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            58.140625,
+            0,
+            14.828125,
+            25
+          ]
+        },
+        {
+          "link": 0,
+          "rect": [
+            72.96875,
+            0,
+            14.828125,
+            25
+          ]
+        },
+        {
+          "link": 0,
+          "rect": [
+            87.796875,
+            0,
+            10.828125,
+            25
+          ]
+        },
+        {
+          "link": 0,
+          "rect": [
+            98.625,
+            0,
+            14.828125,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            113.453125,
+            0,
+            11.9375,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            125.390625,
+            0,
+            4.890625,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            130.28125,
+            0,
+            10.21875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            140.5,
+            0,
+            12.75,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            153.25,
+            0,
+            5.71875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            158.96875,
+            0,
+            9.640625,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            168.609375,
+            0,
+            5.421875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            174.03125,
+            0,
+            5,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            179.03125,
+            0,
+            9.921875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            188.953125,
+            0,
+            8.671875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            197.625,
+            0,
+            5.484375,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            208.109375,
+            0,
+            5.71875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            213.828125,
+            0,
+            9.890625,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            223.71875,
+            0,
+            11,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            234.71875,
+            0,
+            11.421875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            246.140625,
+            0,
+            11.0625,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            257.203125,
+            0,
+            5.71875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            262.921875,
+            0,
+            7.046875,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            269.96875,
+            0,
+            10.75,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            280.71875,
+            0,
+            10.640625,
+            25
+          ]
+        },
+        {
+          "link": -1,
+          "rect": [
+            291.359375,
+            0,
+            7.046875,
+            25
+          ]
+        }
+      ]
+    },
+    "surfaceCount": 1,
+    "surfaceId": "55a7e9b466c0",
+    "text": "office e\u0301 \u0627\u0644\u0639\u0631\u0628\u064a\u0629 \u05e9\u05dc\u05d5\u05dd code text",
+    "type": "fixture",
+    "width": 400
+  },
+  "capture": {
+    "contentX": 0,
+    "contentY": 0.4,
+    "controlEqual": false,
+    "edgeContrast": 0,
+    "fixture": "mixed-decorated",
+    "id": "0-2",
+    "layoutRebuilds": 0,
+    "moving": false,
+    "ns": 1422122369,
+    "paints": 0,
+    "physicalX": 30.625,
+    "physicalY": 109.5,
+    "pixelAligned": false,
+    "surfaceSmooth": false,
+    "type": "capture",
+    "velocityY": 0
+  },
+  "imageSha256": "195f5f30bd6997c9f9ab6c8c214be9196d286a4d8d5e9c8a1107d2aadef868f3",
+  "left": "candidate paragraph",
+  "right": "independent nearest image",
+  "rawDirectory": "build-ci/065-blur-motion/final/native-6.8.0/vulkan-1-candidate-static",
+  "difference": {
+    "pixels": 87,
+    "maximumChannelDifference": 247,
+    "leftPhysicalBounds": [
+      144,
+      126,
+      390,
+      134
+    ]
+  }
+}

@@ -132,3 +132,30 @@ update() calls still repaint content, decorations, selection, Find and focus;
 window/DPR lifecycle continues through existing handling. Native eligibility,
 atom rendering and unsupported-grid fallback remain unchanged. Fractional motion
 transforms cached pixels; fresh-painter phase equality is no longer required.
+
+## Smoothing-off motion diagnostic — approved 2026-11-04
+
+The owner-approved supplied plan extends feature 065 only (B1–B5). Export HEAD
+into two fresh source trees. Add identical private counter access in both; change
+only `RasterTextSurface::place()`'s `setSmooth(retained)` to `setSmooth(false)` in
+the candidate. The constructor and atom/unsupported-scale behavior already use
+false; do not modify placement, painter, layout, interaction or shipping files.
+Record the commit and renderer hashes. Preserve the existing stationary harness.
+
+A separate executable owns a real QML Flickable and links one staged library.
+Stationary offsets are physical fractions divided by observed DPR. A separately
+painted retained image inherits exactly the surface position, size and DPR, with
+nearest sampling. A second clipped viewport begins exactly 800 logical pixels away (an integer
+physical phase at every qualified DPR), permitting simultaneous framebuffer
+comparison during live motion. It never calls `update()` on the measured surface. Freeze paint counters
+only after constructing/warming this independent control. Movement checks retain
+layout signals, all character cells, surface pointer, position and allocation.
+Capture timing is explicitly not display frame rate. Mutation gates run afterward.
+
+Native preview uses the same source pixels through switchable nearest/linear
+sampling controls within one viewport; qualify this proxy against the isolated
+baseline/candidate stationary outputs before accepting it as a source comparison.
+Labels stay outside the clipped document. Actual source variants remain isolated
+for all correctness/performance measurements. No perceptual acceptance is inferred
+from automated equality or contrast metrics. Results and gaps are recorded in
+`blur-probe/motion-verification.md` separately from this design.

@@ -90,3 +90,17 @@ continuation PR body/checks; no evidence-only follow-up commit is created (S8).
 - [x] Record concise before/after evidence; run required final-diff verification (P5–P6).
 - [x] Prepare production PR payload (P6); actual submission, superseding #54 and
   final-head hosted outcomes are recorded in the production PR body/checks.
+
+## Smoothing-off motion diagnostic — approved 2026-11-04
+
+Approval: owner's supplied implementation plan; diagnostic scope B1–B5 only.
+
+- [x] Record revision/approval without replacing historical records (B1–B5).
+- [x] Stage independent source variants and implement motion/performance harness (B1–B3).
+- [x] Retain exact-SDK stationary/motion/native matrix and mutation results (B2–B4); failed gates and subsequent unverified cases are recorded.
+- [x] Run five alternating Release workload pairs and evaluate 10% limits (B4); both software targets reject the candidate.
+- [x] Provide and open native switchable OpenGL comparison (B5).
+- [ ] Obtain owner perceptual review (B5); automated rejection stands independently of that review.
+- [x] Record actual evidence, missing gates and lightweight validation (B1–B5) in `blur-probe/motion-verification.md`.
+
+No merge, publication or shipping change is authorized by this revision.
