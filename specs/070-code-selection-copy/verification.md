@@ -86,3 +86,86 @@ Requirements, design and tasks were approved through the implementation request 
 2026-10-29 before implementation. One PR contains the fix, tests, report and records.
 Public APIs, clipboard ownership, dependencies and package versions are unchanged.
 Merge and publication remain separately authorized actions.
+
+## Native diagnostic preparation — 2026-11-02
+
+The owner explicitly requested implementation of the supplied diagnostic acceptance
+plan. Requirements/design/tasks record that bounded extension before tooling work.
+Shipping sources, package metadata and dependency pins are unchanged. Existing
+exact-Qt Core evidence above remains applicable; this extension is diagnostic only.
+
+Repository deliverables are the [runbook and tools](diagnostics/README.md): isolated
+source/package/app preparation, public selection/signal and host clipboard tracing,
+raw terminal receiver and earliest-divergence comparison. The receiver stores
+wire framing separately and disables terminal newline conversion during capture.
+No payload trimming or sanitization was introduced.
+
+Executed tool checks:
+
+- Four Python tests passed: literal whitespace/Unicode and framing serialization,
+  real POSIX PTY paste capture and SIGTERM cancellation with termios restoration,
+  and comparator success /
+  earliest writer mismatch detection.
+- Compiled `diagnostics/trace.h` against host Qt 6.12.0 and emitted a known payload
+  containing spaces, tabs, blank lines, CJK, emoji, combining accent and CR/LF.
+  Independently checked JSON text, exact UTF-8 hex, byte length, SHA-256, action ID
+  and selection offsets: passed. Executable/log in `/tmp/070-trace-test` and
+  `/tmp/070-trace-serialization.jsonl`.
+- `python3 scripts/check.py`: passed. Build log and subsequent isolated app results
+  are recorded below; no offscreen result constitutes native acceptance.
+
+Native case status (each applies to released and fixed revisions):
+
+| Cases | Status | Evidence / reason |
+| --- | --- | --- |
+| P1–P5, both directions, wrapping × numbering, internal offsets | Not run | Owner native gestures and captures required |
+| C1 paragraph and C2 whole-code controls | Not run | Owner clipboard/local/remote captures required |
+| S1–S7, both vertical edges and internal horizontal range | Not run | Owner native scrolling observations required |
+| Original unwanted characters / empty SSH-tmux paste | Not run | Original minimized document, exact gestures and affected session still needed if fixture does not reproduce |
+
+No native copy or scrolling acceptance is claimed. No earliest divergent native
+stage has yet been established. The runbook requests terminal/backend, SSH and
+local/remote tmux metadata before the owner session and keeps the app alive while
+pasting. Merge, publication and SSH/tmux configuration changes remain out of scope.
+
+### Isolated build and smoke results
+
+Both installed shared providers and diagnostic apps built successfully under
+`/tmp/qmarkdown-070-native/{released,fixed}` with host Qt 6.12.0, Release,
+math ON and KF6 highlighting ON. Providers are `b22d519` and `e399594` respectively.
+Both offscreen/software startup smoke checks passed. `ldd.txt` and running-process
+`loaded-maps.txt` resolve only the corresponding isolated QMarkdown library.
+The first QML import path is that provider's installed `lib/qt6/qml`; the
+`qml-resource` record's bytes/SHA-256 match that revision's MarkdownView.qml source.
+The module prefers embedded resources and its plugin is optional, so absence of a
+separate plugin mapping is expected, not evidence of a system provider load.
+
+The original md-viewer checkout was being edited concurrently. The initial run
+stopped at a changed copy-handler anchor while preparing the fixed app. The fixed
+app was recovered from the already captured released app source, with matching
+`viewer-snapshot.json` manifests. The interrupted snapshot remains under
+`fixed/viewer-interrupted` and `viewer-snapshot-interrupted.json`. The final tool
+snapshots once before either build and accepts equivalent formatted handlers.
+Both apps use the captured dirty working tree of md-viewer revision
+`12a3439cca989d6be0a385a5c6a903c04504630a`; snapshot hashes, rather than its changing
+live checkout status, identify the exact input. No original app files were edited
+by this work. Isolated seeded TOML files avoid fallback to owner preferences.
+
+Fixed focused checks:
+
+```sh
+QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software \
+  ctest --test-dir /tmp/qmarkdown-070-native/fixed/library-build \
+  -R 'qmarkdown-(selection|codeblocks)$' --output-on-failure
+```
+
+Passed 2/2: selection 25.15 s, code blocks 2.42 s, total 27.57 s.
+The temporary preparation run built all test targets; the final tool limits builds
+to the provider/plugin and these two focused targets. No shipping input changed.
+
+Local artifacts: `/tmp/qmarkdown-070-prepare.log` (includes the interrupted
+preparation), `/tmp/070-fixed-app-build.log`, `/tmp/070-released-app-rebuild.log`,
+`/tmp/070-fixed-focused.log`, `/tmp/070-{released,fixed}-smoke.log`,
+`/tmp/qmarkdown-070-native/manifest.json` and `verified.json`. Launch commands are
+in the [runbook](diagnostics/README.md). These diagnostics establish preparation
+and offscreen startup only; the native case table above is unchanged.
