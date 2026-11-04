@@ -3,6 +3,7 @@
 #include "formattedtext.h"
 #include "imageitem.h"
 #include "taskindicatoritem.h"
+#include "pixellineitem.h"
 #include <QCoreApplication>
 #include <QEvent>
 #include "sourcewheelarea.h"
@@ -524,6 +525,7 @@ void registerPrivateTypes()
     qmlRegisterType<TaskIndicatorHostItem>("QMarkdown.Private", 1, 0, "TaskIndicatorHostItem");
     qmlRegisterType<SourceWheelArea>("QMarkdown.Private", 1, 0, "SourceWheelArea");
     qmlRegisterType<TaskIndicatorItem>("QMarkdown.Private", 1, 0, "TaskIndicatorItem");
+    qmlRegisterType<PixelLineItem>("QMarkdown.Private", 1, 0, "PixelLineItem");
     qmlRegisterType<ImageItem>("QMarkdown.Private", 1, 0, "ImageItem");
     qmlRegisterType<SelectionRegistration>("QMarkdown.Private", 1, 0, "SelectionRegistration");
     qmlRegisterType<ViewState>("QMarkdown.Private", 1, 0, "ViewState");

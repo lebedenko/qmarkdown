@@ -163,6 +163,18 @@ if(QMARKDOWN_BUILD_EXAMPLES)
     endforeach()
 endif()
 
+qt_add_executable(qmarkdown-lines-test tst_lines.cpp)
+target_link_libraries(qmarkdown-lines-test PRIVATE QMarkdown::QMarkdown Qt6::Test)
+if(NOT BUILD_SHARED_LIBS)
+    target_link_libraries(qmarkdown-lines-test PRIVATE QMarkdown::QMarkdownPlugin)
+    target_compile_definitions(qmarkdown-lines-test PRIVATE QMARKDOWN_STATIC)
+endif()
+foreach(scale 1 1.25 1.5 2)
+    add_test(NAME qmarkdown-lines-${scale} COMMAND qmarkdown-lines-test)
+    set_tests_properties(qmarkdown-lines-${scale} PROPERTIES
+        ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QUICK_BACKEND=software;QML_IMPORT_PATH=${CMAKE_BINARY_DIR}/qml;QT_SCALE_FACTOR=${scale}")
+endforeach()
+
 qt_add_executable(qmarkdown-keyboard-test tst_keyboard.cpp)
 target_include_directories(qmarkdown-keyboard-test PRIVATE ../src/QMarkdown)
 target_compile_definitions(qmarkdown-keyboard-test PRIVATE
