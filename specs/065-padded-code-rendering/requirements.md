@@ -168,3 +168,25 @@ prohibition on paragraph bitmap retention and per-run integration for this work.
 - P6: No public API, cache, dependencies or version changes. One production PR
   from main; close #54 as superseded when ready, preserving history. Complete
   final-head hosted checks; leave unmerged with auto-merge disabled.
+
+## Smoothing-off motion qualification — approved 2026-11-04
+
+The owner's supplied implementation plan approves this diagnostic revision of
+feature 065, including requirements, design and tasks. Historical approvals and
+evidence above remain unchanged. This grants no shipping correction or publication.
+
+- B1: Compare isolated committed-source baseline and smoothing-off retained
+  paragraph candidate; preserve atom/unsupported-DPR fallbacks and all geometry.
+- B2: Extend the six blur fixtures with the six retained-scroll fixtures, nearest
+  retained-image equality, Cartesian quarter-physical-pixel phases and exact return.
+- B3: Exercise real Flickable motion with pixel alignment on/off, reversal and
+  settling. Require zero warmed paints/layouts and stable surface/bounds/cells.
+  Verify selection, Find, focused-link, content and style invalidation afterward.
+- B4: Qualify exact Qt 6.8.0/6.12.0 software DPR 1/1.25/1.5/2 and native Wayland
+  OpenGL/Vulkan at observed DPR 1.25; retain identities, fonts, captures and times.
+  Run five alternating Release sparse/dense pairs; reject repeatable preparation
+  or trace-frame median/p95 regressions above 10%.
+- B5: Provide a labelled native comparison at the same scroll position. Owner
+  acceptance of sharpness, shimmer, stepping, reversal and settling is mandatory
+  before recommending a separately approved production correction. Missing or
+  failing evidence remains unqualified. Keep current diagnostics/captures intact.

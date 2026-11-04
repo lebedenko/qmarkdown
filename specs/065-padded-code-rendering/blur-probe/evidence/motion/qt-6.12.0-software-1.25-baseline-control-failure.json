@@ -1,0 +1,39 @@
+{
+  "environment": {
+    "dpr": 1.25,
+    "graphicsApi": 1,
+    "platform": "offscreen",
+    "qt": "6.12.0",
+    "source": {
+      "candidateChange": "setSmooth(retained) -> setSmooth(false)",
+      "commit": "8665b5df53c6da339610e8a84a9e27aebff2058b",
+      "instrumentation": "BlurProbe friendship only",
+      "rendererSha256": "1dae1a962daec40cc4ee9b0e55c0a2563deeb3085e90275a71354f78ff77b451",
+      "variant": "baseline"
+    },
+    "timing": "capture-trace, not display frame rate",
+    "type": "environment"
+  },
+  "capture": {
+    "contentX": 0,
+    "contentY": 0.4,
+    "controlEqual": false,
+    "edgeContrast": 23.954545454545453,
+    "fixture": "code",
+    "id": "0-2",
+    "layoutRebuilds": 0,
+    "moving": false,
+    "ns": 996042801,
+    "paints": 0,
+    "physicalX": 30.625,
+    "physicalY": 109.5,
+    "pixelAligned": false,
+    "surfaceSmooth": true,
+    "type": "capture",
+    "velocityY": 0
+  },
+  "left": "baseline paragraph",
+  "right": "independent linear image proxy",
+  "imageSha256": "cfef3923d7686dd91652e8c41425b87c9c6110142eb89ffc61353a0e90d1cf30",
+  "rawDirectory": "build-ci/065-blur-motion/final/software-6.12.0/software-1.25-baseline-static"
+}
