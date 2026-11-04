@@ -35,6 +35,8 @@ src/QMarkdown/private/linkcontroller.cpp
 src/QMarkdown/private/linkcontroller.h
 src/QMarkdown/private/mathitem.cpp
 src/QMarkdown/private/mathitem.h
+src/QMarkdown/private/pixellineitem.cpp
+src/QMarkdown/private/pixellineitem.h
 src/QMarkdown/private/presentation.cpp
 src/QMarkdown/private/presentation.h
 src/QMarkdown/private/private.qmltypes

@@ -12,6 +12,10 @@
 
 See [release notes](docs/release-notes-1.18.0.md).
 
+## Development — after 1.18.0
+
+- Snap table borders, heading separators and thematic breaks to device pixels for consistent thickness during fractional scaling and scrolling. Preserve logical layout and shared border intersections, and avoid idle repaint requests for disabled lines.
+
 ## 1.17.1 — 2026-10-22
 
 - Automatically select scene-graph text for eligible layouts, retaining corrected raster rendering for padded code, rendered atoms and rounded code backgrounds.

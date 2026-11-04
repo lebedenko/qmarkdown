@@ -363,3 +363,10 @@ records transport/scroll qualification separately. Production integration remain
 [070 requirements](070-code-selection-copy/requirements.md), [design](070-code-selection-copy/design.md),
 [tasks](070-code-selection-copy/tasks.md) and [actual verification](070-code-selection-copy/verification.md)
 record the approved partial-selection investigation and nested desktop scrolling fix.
+
+## Pixel-aligned decorative lines
+
+[071 requirements](071-pixel-aligned-lines/requirements.md), [design](071-pixel-aligned-lines/design.md),
+[tasks](071-pixel-aligned-lines/tasks.md) and [actual verification](071-pixel-aligned-lines/verification.md)
+record the approved fractional-scaling line consistency fix; the
+[original report](../docs/bug-line-thickness-fractional-scaling.md) is design input.
