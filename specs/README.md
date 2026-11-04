@@ -370,3 +370,7 @@ record the approved partial-selection investigation and nested desktop scrolling
 [tasks](071-pixel-aligned-lines/tasks.md) and [actual verification](071-pixel-aligned-lines/verification.md)
 record the approved fractional-scaling line consistency fix; the
 [original report](../docs/bug-line-thickness-fractional-scaling.md) is design input.
+
+## Stable streamed code blocks
+
+[072 requirements](072-stable-streamed-code-blocks/requirements.md), [design](072-stable-streamed-code-blocks/design.md), [tasks](072-stable-streamed-code-blocks/tasks.md) and [actual verification](072-stable-streamed-code-blocks/verification.md) record the approved streamed viewport and highlighting correction.

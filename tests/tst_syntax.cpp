@@ -27,6 +27,39 @@ public:
 class SyntaxTest : public QObject {
     Q_OBJECT
 private slots:
+    void streamedPrefixRetention() {
+        QJSEngine engine; SyntaxTheme theme; SyntaxHighlightingProvider provider;
+        QList<QPointer<SyntaxHighlightingRequest>> pending;
+        connect(&provider, &SyntaxHighlightingProvider::highlightRequested, &provider,
+            [&](auto *request) { pending.append(request); });
+        SyntaxRequest request; request.setTheme(&theme); request.setProvider(&provider);
+        request.setLanguage("host"); request.setEnabled(true); request.setProperty("retainPrefix", true);
+        request.setSource("first");
+        QTRY_COMPARE(pending.size(), 1);
+        pending[0]->complete(engine.evaluate("[{start:0,length:5,role:0}]"));
+        QTRY_COMPARE(request.ranges().size(), 1);
+        const auto accepted = request.ranges();
+        request.setSource("first second");
+        QCOMPARE(request.ranges(), accepted);
+        QTRY_COMPARE(pending.size(), 2);
+        request.setSource("first second third");
+        QCOMPARE(request.ranges(), accepted);
+        QVERIFY(pending[1]->cancelled());
+        pending[1]->complete(engine.evaluate("[]"));
+        QCOMPARE(request.ranges(), accepted);
+        QTRY_COMPARE(pending.size(), 3);
+        pending[2]->complete(engine.evaluate("[]"));
+        QTRY_VERIFY(request.ranges().isEmpty());
+        request.setSource("first second third fourth");
+        QTRY_COMPARE(pending.size(), 4);
+        pending[3]->complete(engine.evaluate("[{start:0,length:5,role:0}]"));
+        QTRY_COMPARE(request.ranges().size(), 1);
+        request.setSource("unrelated");
+        QVERIFY(request.ranges().isEmpty());
+        QTRY_COMPARE(pending.size(), 5);
+        request.setEnabled(false);
+        QVERIFY(pending[4]->cancelled());
+    }
     void providerValidation_data();
     void providerValidation();
     void providerCacheAndSubscriptions();

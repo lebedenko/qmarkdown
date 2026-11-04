@@ -85,14 +85,31 @@ Rectangle {
     }
     Connections {
         target: surface.coordinator
-        function onPresentationReset() { surface.ready = false; surface.clearRenderer() }
+        function onPublicationStarting(retained) {
+            surface.retainedPublication = retained
+            syntaxRequest.retainPrefix = retained
+            surface.rememberPosition()
+        }
+        function onPresentationReset() {
+            surface.ready = false; ++surface.restoreGeneration
+            surface.restoreQueued = false; surface.clearRenderer()
+        }
     }
     onRendererEntryChanged: rebuildRenderer()
     onSelectedChanged: rebuildRenderer()
     onSearchActiveChanged: rebuildRenderer()
     onCodeTextChanged: {
-        firstSourcePosition = 0; firstSourceOffset = 0; firstSourceOffsetX = 0
-        viewport.contentX = 0; viewport.contentY = 0
+        const growth = retainedPublication && fenced && !mathVisible && !rendererItem
+            && codeText.length > previousCodeText.length && codeText.startsWith(previousCodeText)
+        previousCodeText = codeText
+        ++restoreGeneration
+        restoreQueued = false
+        followGrowth = growth && wasAtBottom && coordinator.codeBlockHeightLimitEnabled
+        if (!growth) {
+            firstSourcePosition = 0; firstSourceOffset = 0; firstSourceOffsetX = 0
+            viewport.contentX = 0; viewport.contentY = 0
+        }
+        restorePosition()
         rebuildRenderer()
     }
     onInfoStringChanged: rebuildRenderer()
@@ -129,10 +146,22 @@ Rectangle {
     property int firstSourcePosition: 0
     property real firstSourceOffset: 0
     property real firstSourceOffsetX: 0
+    property string previousCodeText: ""
+    property bool retainedPublication: false
+    property bool wasAtBottom: true
+    property bool followGrowth: false
+    property int restoreGeneration: 0
     property bool restoring: false
     property bool restoreQueued: false
+    function readerMoved() {
+        ++restoreGeneration
+        restoreQueued = false
+        rememberPosition()
+    }
     function rememberPosition() {
         if (restoring || restoreQueued || !surface.sourceItem) return
+        followGrowth = false
+        wasAtBottom = viewport.contentY >= Math.max(0, viewport.contentHeight - viewport.height) - 1
         if (viewport.contentX === 0 && viewport.contentY === 0) {
             firstSourcePosition = 0; firstSourceOffset = 0; firstSourceOffsetX = 0
             return
@@ -145,22 +174,26 @@ Rectangle {
     function restorePosition() {
         if (restoreQueued) return
         restoreQueued = true
+        const generation = restoreGeneration
         Qt.callLater(function() {
-            if (!surface.ready) return
+            if (!surface.ready || generation !== surface.restoreGeneration) return
             surface.restoreQueued = false
             surface.restoring = true
-            if (surface.firstSourcePosition === 0 && surface.firstSourceOffset === 0 && surface.firstSourceOffsetX === 0) {
+            if (!surface.followGrowth && surface.firstSourcePosition === 0 && surface.firstSourceOffset === 0 && surface.firstSourceOffsetX === 0) {
                 viewport.contentX = 0; viewport.contentY = 0
+                surface.wasAtBottom = viewport.contentHeight <= viewport.height + 1
                 surface.restoring = false
                 return
             }
-            if (surface.sourceItem) viewport.contentY = Math.max(0, Math.min(viewport.contentHeight - viewport.height,
+            if (surface.followGrowth) viewport.contentY = Math.max(0, viewport.contentHeight - viewport.height)
+            else if (surface.sourceItem) viewport.contentY = Math.max(0, Math.min(viewport.contentHeight - viewport.height,
                 surface.sourceItem.sourceRectangle(surface.firstSourcePosition).y + surface.firstSourceOffset))
             viewport.contentX = surface.wrapEnabled || !surface.sourceItem ? 0 : Math.max(0, Math.min(surface.sourceItem.sourceRectangle(surface.firstSourcePosition).x + surface.firstSourceOffsetX, viewport.contentWidth - viewport.width))
             surface.restoring = false
         })
     }
     onNaturalHeightChanged: restorePosition()
+    onHeightLimitChanged: restorePosition()
     onWidthChanged: restorePosition()
     onWrapEnabledChanged: restorePosition()
     height: actionHost.height + (rendererItem ? Layout.metric(rendererItem.implicitHeight) : viewport.height + (horizontalOverflow ? 10 : 0)) + 2 * padY
@@ -258,12 +291,14 @@ Rectangle {
                 const oldY = viewport.contentY
                 viewport.contentX = Math.max(0, Math.min(viewport.contentX + dx, viewport.contentWidth - viewport.width))
                 viewport.contentY = Math.max(0, Math.min(oldY + dy, viewport.contentHeight - viewport.height))
+                surface.readerMoved()
                 const remaining = dy - (viewport.contentY - oldY)
                 if (remaining !== 0) surface.coordinator.selectionScrollRequested(remaining)
             }
         }
-        onContentYChanged: surface.rememberPosition()
-        onContentXChanged: surface.rememberPosition()
+        onContentYChanged: { if (moving) surface.readerMoved(); else surface.rememberPosition() }
+        onContentXChanged: { if (moving) surface.readerMoved(); else surface.rememberPosition() }
+        function sourceReaderMoved() { surface.readerMoved() }
         function revealSource(rect: rect) {
             if (rect.y < contentY) contentY = rect.y
             else if (rect.y + rect.height > contentY + height) contentY = rect.y + rect.height - height
@@ -271,11 +306,12 @@ Rectangle {
             else if (rect.x + rect.width > contentX + width) contentX = rect.x + rect.width - width
             contentY = Math.max(0, Math.min(contentY, contentHeight - height))
             contentX = Math.max(0, Math.min(contentX, contentWidth - width))
+            surface.readerMoved()
         }
         Loader {
             id: contents
             width: surface.wrapEnabled ? viewport.width : Math.max(viewport.width, surface.naturalWidth)
-            sourceComponent: surface.rendererItem || surface.mathVisible ? null : surface.selected || surface.searchActive || surface.numbersVisible || syntaxRequest.ranges.length > 0 ? selectedText : plainText
+            sourceComponent: surface.rendererItem || surface.mathVisible ? null : surface.selected || surface.searchActive || surface.numbersVisible || syntaxRequest.enabled ? selectedText : plainText
         }
     }
     Item {
@@ -307,6 +343,7 @@ Rectangle {
         anchors.fill: parent
         sourceViewport: viewport
         lineHeight: surface.lineHeight
+        onSourceMoved: surface.readerMoved()
     }
     component SourceScrollBar: Item {
         id: bar
@@ -324,6 +361,7 @@ Rectangle {
             const offset = Math.max(0, Math.min(1 - size, value)) * extent
             if (vertical) viewport.contentY = offset
             else viewport.contentX = offset
+            surface.readerMoved()
         }
         function rebuild() {
             if (callbackToken) callbackToken.active = false
