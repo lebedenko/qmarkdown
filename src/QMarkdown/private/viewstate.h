@@ -257,6 +257,7 @@ signals:
     void selectionViewportChanged();
     void selectionScrollRequested(qreal deltaY);
     void selectionLinkActivated(const QString &destination);
+    void publicationStarting(bool retained);
     void presentationReset();
     void selectionEnabledChanged();
     void selectionChanged();

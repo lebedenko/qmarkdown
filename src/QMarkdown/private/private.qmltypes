@@ -5,6 +5,7 @@ Module {
         prototype: "QQuickItem"
         exports: ["QMarkdown.Private/SourceWheelArea 1.0"]
         exportMetaObjectRevisions: [256]
+        Signal { name: "sourceMoved" }
         Property { name: "sourceViewport"; type: "QQuickItem"; isPointer: true }
         Property { name: "lineHeight"; type: "double" }
     }
@@ -32,6 +33,7 @@ Module {
         Property { name: "enabled"; type: "bool"; notify: "inputChanged" }
         Property { name: "provider"; type: "SyntaxHighlightingProvider"; isPointer: true; notify: "inputChanged" }
         Property { name: "theme"; type: "SyntaxTheme"; isPointer: true; notify: "themeChanged" }
+        Property { name: "retainPrefix"; type: "bool" }
         Property { name: "ranges"; type: "QVariantList"; isReadonly: true; notify: "rangesChanged" }
         Signal { name: "inputChanged" }
         Signal { name: "themeChanged" }
@@ -112,6 +114,7 @@ Module {
     }
     Component {
         name: "ViewState"
+        Signal { name: "publicationStarting"; Parameter { name: "retained"; type: "bool" } }
         Property { name: "streamingEnabled"; type: "bool"; notify: "streamingEnabledChanged" }
         Signal { name: "streamingEnabledChanged" }
         Method { name: "appendMarkdown"; Parameter { name: "chunk"; type: "QString" } }

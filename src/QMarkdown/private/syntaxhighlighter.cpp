@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <deque>
 #include <list>
+#include <utility>
 
 namespace QMarkdownPrivate {
 namespace {
@@ -161,6 +162,7 @@ void SyntaxRequest::setProvider(SyntaxHighlightingProvider *value) {
 }
 void SyntaxRequest::setSource(const QString &value) {
     if (m_source == value) return;
+    m_preserveSpans = m_retainPrefix && value.size() > m_source.size() && value.startsWith(m_source);
     m_source = value; emit inputChanged();
 }
 void SyntaxRequest::setLanguage(const QString &value) {
@@ -186,15 +188,18 @@ void SyntaxRequest::refresh() {
     cancel();
     if (!alive) return;
     const auto generation = ++m_generation;
-    m_spans.clear(); emit rangesChanged();
+    const bool preserve = std::exchange(m_preserveSpans, false);
+    if (!preserve) { m_spans.clear(); emit rangesChanged(); }
     if (!alive) return;
     const HighlightLimits limits;
     if (!m_enabled || (!m_provider && !syntaxHighlightingAvailable()) || m_source.isEmpty()
-        || m_source.size() > limits.sourceUnits || m_language.isEmpty()) return;
+        || m_source.size() > limits.sourceUnits || m_language.isEmpty()) {
+        m_spans.clear(); emit rangesChanged(); return;
+    }
     int line = 0;
     for (QChar c : m_source) {
         if (c == u'\n') line = 0;
-        else if (++line > limits.lineUnits) return;
+        else if (++line > limits.lineUnits) { m_spans.clear(); emit rangesChanged(); return; }
     }
     QTimer::singleShot(0, this, [this, generation] {
         if (generation != m_generation) return;

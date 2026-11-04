@@ -5,6 +5,7 @@
 #include <QQuickWindow>
 #include <QSignalSpy>
 #include <QFontMetricsF>
+#include <QDir>
 #include <QMetaProperty>
 #include <QWheelEvent>
 #include <QPointingDevice>
@@ -30,6 +31,8 @@ class CodeBlocksTest : public QObject {
         QQmlComponent component(&engine);
         const QByteArray header = legacy ? "" : "required property string language; required property string languageId; required property string languageName; required property string infoString; required property bool fenced;";
         component.setData(R"QML(import QtQuick; import QMarkdown; MarkdownView { width: 240;
+            property string growingSource: ""
+            function bindSource() { markdown = Qt.binding(function() { return growingSource }) }
             property Component hostBar: Component { Item {
                 required property int orientation; required property real position; required property real size;
                 required property bool active; required property var requestPosition;
@@ -45,6 +48,115 @@ class CodeBlocksTest : public QObject {
         return result;
     }
 private slots:
+    void streamedViewport_data() {
+        QTest::addColumn<bool>("binding");
+        QTest::addColumn<bool>("rich");
+        QTest::newRow("append") << false << true;
+        QTest::newRow("growing-source") << true << true;
+        QTest::newRow("append-plain") << false << false;
+        QTest::newRow("growing-source-plain") << true << false;
+    }
+    void streamedViewport() {
+        QFETCH(bool, binding); QFETCH(bool, rich);
+        QQmlEngine engine; auto view = create(engine); QVERIFY(view);
+        QQuickWindow window; window.resize(240, 320);
+        view->setParentItem(window.contentItem()); window.show();
+        QSignalSpy navigation(view.get(), SIGNAL(navigationRequested(QRectF)));
+        view->setProperty("streamingEnabled", true);
+        view->setProperty("codeBlockHeightLimitEnabled", true);
+        view->setProperty("codeBlockMinimumLines", 2);
+        view->setProperty("codeBlockMaximumLines", 3);
+        view->setProperty("codeBlockWrapEnabled", false);
+        view->setProperty("codeBlockLineNumbersVisible", rich);
+        QString source = "```cpp\nshort\n";
+        if (binding) {
+            view->setProperty("growingSource", source);
+            QVERIFY(QMetaObject::invokeMethod(view.get(), "bindSource"));
+        } else view->setProperty("markdown", source);
+        QVERIFY(QMetaObject::invokeMethod(view.get(), "flushMarkdown"));
+        QTRY_VERIFY(named(view.get(), "codeViewport"));
+        auto *viewport = named(view.get(), "codeViewport");
+        auto append = [&](const QString &chunk) {
+            source += chunk;
+            if (binding) view->setProperty("growingSource", source);
+            else QVERIFY(QMetaObject::invokeMethod(view.get(), "appendMarkdown", Q_ARG(QString, chunk)));
+            QVERIFY(QMetaObject::invokeMethod(view.get(), "flushMarkdown"));
+        };
+        auto bottom = [&] { return qMax(0.0, viewport->property("contentHeight").toReal() - viewport->height()); };
+        auto capture = [&](const QString &name) {
+            const auto directory = qEnvironmentVariable("QMARKDOWN_STREAM_CAPTURE");
+            if (directory.isEmpty() || binding || !rich) return;
+            QDir().mkpath(directory);
+            QTest::qWait(30);
+            QVERIFY(window.grabWindow().save(directory + "/" + name + ".png"));
+        };
+        capture("01-before-overflow");
+        append(QString("long line " + QString(100, 'x') + "\n").repeated(8));
+        QTRY_VERIFY(bottom() > 0);
+        QTRY_COMPARE(viewport->property("contentY").toReal(), bottom());
+        QCOMPARE(named(view.get(), "codeViewport"), viewport);
+        capture("02-following");
+        viewport->setProperty("contentY", 20.0);
+        viewport->setProperty("contentX", 30.0);
+        append("another\n");
+        QTRY_COMPARE(viewport->property("contentY").toReal(), 20.0);
+        QTRY_COMPARE(viewport->property("contentX").toReal(), 30.0);
+        capture("03-paused");
+        view->setProperty("selectionEnabled", true);
+        append("selection enabled\n");
+        QTRY_COMPARE(viewport->property("contentY").toReal(), 20.0);
+        view->setProperty("codeBlockWrapEnabled", true);
+        QTRY_COMPARE(viewport->property("contentX").toReal(), 0.0);
+        view->setProperty("codeBlockWrapEnabled", false);
+        view->setProperty("codeBlockMaximumLines", 4);
+        QTest::qWait(20);
+        QTRY_COMPARE(viewport->property("contentY").toReal(), 20.0);
+        viewport->setProperty("contentY", bottom());
+        append("following again\n");
+        QTRY_COMPARE(viewport->property("contentY").toReal(), bottom());
+        view->setProperty("searchActive", true);
+        view->setProperty("searchQuery", "short");
+        QTRY_COMPARE(view->property("searchResultCount").toInt(), 1);
+        QVERIFY(QMetaObject::invokeMethod(view.get(), "searchNext"));
+        QTRY_COMPARE(viewport->property("contentY").toReal(), 0.0);
+        navigation.clear();
+        append("after Find\n");
+        QTest::qWait(20);
+        QTRY_COMPARE(viewport->property("contentY").toReal(), 0.0);
+        view->setProperty("searchActive", false);
+        viewport->setProperty("contentY", bottom());
+        source += "pending before disable\n";
+        if (binding) view->setProperty("growingSource", source);
+        else QVERIFY(QMetaObject::invokeMethod(view.get(), "appendMarkdown", Q_ARG(QString, QString("pending before disable\n"))));
+        view->setProperty("streamingEnabled", false);
+        QTRY_VERIFY(named(view.get(), "codeSurface")->property("codeText").toString().contains("pending before disable"));
+        QTRY_COMPARE(viewport->property("contentY").toReal(), bottom());
+        view->setProperty("streamingEnabled", true);
+        append("```\n");
+        QTest::qWait(30);
+        const auto closedY = viewport->property("contentY").toReal();
+        append("\nOutside the fence\n");
+        QTest::qWait(30);
+        QCOMPARE(viewport->property("contentY").toReal(), closedY);
+        QCOMPARE(navigation.size(), 0);
+        view->setProperty("markdown", "```cpp\nreplacement\n```");
+        QTRY_VERIFY(named(view.get(), "codeViewport"));
+        QTRY_COMPARE(named(view.get(), "codeViewport")->property("contentY").toReal(), 0.0);
+    }
+    void initialLongStreamStartsAtTop() {
+        QQmlEngine engine; auto view = create(engine); QVERIFY(view);
+        view->setProperty("streamingEnabled", true);
+        view->setProperty("codeBlockHeightLimitEnabled", true);
+        view->setProperty("codeBlockMinimumLines", 2);
+        view->setProperty("codeBlockMaximumLines", 3);
+        view->setProperty("markdown", "```cpp\n" + QString("line\n").repeated(20));
+        QVERIFY(QMetaObject::invokeMethod(view.get(), "flushMarkdown"));
+        QTRY_VERIFY(named(view.get(), "codeViewport"));
+        auto *viewport = named(view.get(), "codeViewport");
+        QTRY_VERIFY(viewport->property("contentHeight").toReal() > viewport->height());
+        QTest::qWait(30);
+        QCOMPARE(viewport->property("contentY").toReal(), 0.0);
+    }
     void defaultsAndLegacyHeader() {
         QQmlEngine engine; auto view = create(engine, true); QVERIFY(view);
         QCOMPARE(view->property("codeBlockWrapEnabled").toBool(), true);

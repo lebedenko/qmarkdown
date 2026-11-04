@@ -40,6 +40,7 @@ bool syntaxHighlightingAvailable();
 // One subscription per displayed source. Palette changes only recolor completed spans.
 class SyntaxRequest : public QObject {
     Q_OBJECT
+    Q_PROPERTY(bool retainPrefix MEMBER m_retainPrefix FINAL)
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY inputChanged FINAL)
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY inputChanged FINAL)
     Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY inputChanged FINAL)
@@ -68,6 +69,8 @@ private:
     void refresh();
     void cancel();
     QString m_source, m_language;
+    bool m_retainPrefix = false;
+    bool m_preserveSpans = false;
     bool m_enabled = false;
     SyntaxTheme *m_theme = nullptr;
     QMetaObject::Connection m_themeChanged, m_themeDestroyed;

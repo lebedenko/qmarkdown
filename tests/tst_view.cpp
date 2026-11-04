@@ -106,6 +106,24 @@ class ViewTest : public QObject
     static double content(QQuickItem *view) { return view->property("contentHeight").toDouble(); }
     QFont savedApplicationFont;
 private slots:
+    void streamingPublicationContext() {
+        ViewState state;
+        QSignalSpy publications(&state, &ViewState::publicationStarting);
+        state.setMarkdown("```cpp\nfirst\n");
+        QCOMPARE(publications.takeLast()[0].toBool(), false);
+        state.setStreamingEnabled(true);
+        state.appendMarkdown("second\n"); state.flushMarkdown();
+        QCOMPARE(publications.takeLast()[0].toBool(), true);
+        state.appendMarkdown("third\n"); state.setStreamingEnabled(false);
+        QCOMPARE(publications.takeLast()[0].toBool(), true);
+        state.setMarkdown("```cpp\nnew\n");
+        QCOMPARE(publications.takeLast()[0].toBool(), false);
+        state.setStreamingEnabled(true);
+        state.setMarkdown("```cpp\nnew\nlast\n"); state.flushMarkdown();
+        QCOMPARE(publications.takeLast()[0].toBool(), true);
+        state.setMarkdown("");
+        QCOMPARE(publications.takeLast()[0].toBool(), false);
+    }
     void streamingBatchingAndReentrancy()
     {
         ViewState state;

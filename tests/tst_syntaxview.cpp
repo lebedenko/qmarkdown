@@ -1,5 +1,6 @@
 #include "private/formattedtext.h"
 #include "markdownstyle.h"
+#include "syntaxhighlightingprovider.h"
 #include <QQmlProperty>
 #include <QQmlComponent>
 #include <QQmlEngine>
@@ -43,6 +44,39 @@ class SyntaxViewTest : public QObject {
         return result;
     }
 private slots:
+    void streamedItemIdentity() {
+        QQmlEngine engine; auto view = create(engine); QVERIFY(view);
+        QQuickWindow window; view->setParentItem(window.contentItem()); window.show();
+        SyntaxHighlightingProvider provider;
+        QList<QPointer<SyntaxHighlightingRequest>> pending;
+        connect(&provider, &SyntaxHighlightingProvider::highlightRequested, &provider,
+            [&](auto *request) { if (request->language() == "host") pending.append(request); });
+        view->setProperty("syntaxHighlightingProvider", QVariant::fromValue(&provider));
+        view->setProperty("streamingEnabled", true);
+        view->setProperty("markdown", "```host\nfirst\n");
+        QTRY_VERIFY(text(view.get()));
+        QPointer<FormattedText> original = text(view.get());
+        QTRY_COMPARE(pending.size(), 1);
+        pending[0]->complete(engine.evaluate("[{start:0,length:5,role:0}]"));
+        QTRY_VERIFY(!original->foregroundRanges().isEmpty());
+        const auto ranges = original->foregroundRanges();
+        for (int i = 0; i < 3; ++i) {
+            QVERIFY(QMetaObject::invokeMethod(view.get(), "appendMarkdown", Q_ARG(QString, QString("next\n"))));
+            QVERIFY(QMetaObject::invokeMethod(view.get(), "flushMarkdown"));
+            QTRY_COMPARE(pending.size(), i + 2);
+            QCOMPARE(text(view.get()), original.data());
+            QCOMPARE(original->foregroundRanges(), ranges);
+        }
+        pending.last()->complete(engine.evaluate("[]"));
+        QTRY_VERIFY(original->foregroundRanges().isEmpty());
+        QCOMPARE(text(view.get()), original.data());
+        QVERIFY(QMetaObject::invokeMethod(view.get(), "appendMarkdown", Q_ARG(QString, QString("last\n"))));
+        QVERIFY(QMetaObject::invokeMethod(view.get(), "flushMarkdown"));
+        QTRY_COMPARE(pending.size(), 5);
+        pending.last()->decline();
+        QTest::qWait(30);
+        QCOMPARE(text(view.get()), original.data());
+    }
 #ifdef QMARKDOWN_VIEWER_SOURCE
     void initTestCase() { qml_register_types_QMarkdownViewer_Tools(); }
     void playgroundSyntax()
@@ -124,19 +158,28 @@ private slots:
         QQmlEngine engine; auto view = create(engine); QVERIFY(view);
         QQuickWindow window; view->setParentItem(window.contentItem()); window.resize(240, 240); window.show();
         const bool available = view->property("syntaxHighlightingAvailable").toBool();
-        if (!available) { QCoreApplication::processEvents(); QVERIFY(!text(view.get())); return; }
+        if (!available) {
+            QTRY_VERIFY(text(view.get()));
+            QVERIFY(text(view.get())->foregroundRanges().isEmpty());
+            return;
+        }
         QTRY_VERIFY(text(view.get()));
         auto *formatted = text(view.get());
         QTRY_VERIFY(formatted->logicalHeight() > 0);
         QCOMPARE(formatted->text(), "const int count = 42;");
-        QVERIFY(!formatted->foregroundRanges().isEmpty());
-        QImage image(200, 80, QImage::Format_ARGB32_Premultiplied); image.fill(Qt::white);
-        QPainter painter(&image); formatted->paint(&painter); painter.end();
-        int magenta = 0;
-        for (int y = 0; y < image.height(); ++y) for (int x = 0; x < image.width(); ++x) {
-            auto c = image.pixelColor(x, y); if (c.red() > 180 && c.blue() > 180 && c.green() < 120) ++magenta;
-        }
-        QVERIFY(magenta > 5);
+        QTRY_VERIFY(!formatted->foregroundRanges().isEmpty());
+        auto magentaPixels = [&] {
+            QImage image(200, 80, QImage::Format_ARGB32_Premultiplied); image.fill(Qt::white);
+            QPainter painter(&image); formatted->paint(&painter); painter.end();
+            int magenta = 0;
+            for (int y = 0; y < image.height(); ++y) for (int x = 0; x < image.width(); ++x) {
+                auto c = image.pixelColor(x, y);
+                if (c.red() > 180 && c.blue() > 180 && c.green() < 120) ++magenta;
+            }
+            return magenta;
+        };
+        // The stable text item can finish its first layout before ranges arrive.
+        QTRY_VERIFY(magentaPixels() > 5);
         QVERIFY(QMetaObject::invokeMethod(view.get(), "magentaTheme"));
         QTRY_VERIFY(formatted->foregroundRanges().last().toMap().value("color").value<QColor>() == QColor(Qt::magenta));
         QVERIFY(QMetaObject::invokeMethod(view.get(), "resetTheme"));
