@@ -63,6 +63,17 @@ Module {
         exportMetaObjectRevisions: [256]
     }
     Component {
+        name: "PixelLineItem"
+        prototype: "QQuickItem"
+        exports: ["QMarkdown.Private/PixelLineItem 1.0"]
+        exportMetaObjectRevisions: [256]
+        Property { name: "color"; type: "QColor"; notify: "colorChanged" }
+        Property { name: "startInset"; type: "double"; notify: "joinsChanged" }
+        Property { name: "endThickness"; type: "double"; notify: "joinsChanged" }
+        Signal { name: "joinsChanged" }
+        Signal { name: "colorChanged" }
+    }
+    Component {
         name: "TaskIndicatorItem"
         prototype: "QQuickPaintedItem"
         exports: ["QMarkdown.Private/TaskIndicatorItem 1.0"]

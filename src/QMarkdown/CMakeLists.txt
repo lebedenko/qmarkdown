@@ -38,7 +38,7 @@ qt_add_qml_module(QMarkdown
         private/ImageBlock.qml private/ListBlock.qml private/HeadingSeparator.qml
         private/CodeSurface.qml private/CodeActionHost.qml private/TableBlock.qml private/TaskIndicatorHost.qml private/Layout.js
     SOURCES syntaxhighlightingprovider.h syntaxhighlightingprovider.cpp private/sourcewheelarea.h private/mathitem.h private/mathitem.cpp syntaxtheme.h syntaxtheme.cpp private/syntaxhighlighter.h private/syntaxhighlighter.cpp private/syntaxbackend.cpp
-        private/linkcontroller.h private/linkcontroller.cpp private/taskindicatoritem.cpp private/taskindicatoritem.h private/selectionregistration.h private/selectionregistration.cpp
+        private/linkcontroller.h private/linkcontroller.cpp private/taskindicatoritem.cpp private/taskindicatoritem.h private/pixellineitem.cpp private/pixellineitem.h private/selectionregistration.h private/selectionregistration.cpp
         private/presentation.h private/presentation.cpp private/decodescheduler.h private/decodescheduler.cpp markdownresourcepolicy.h private/resourcecontroller.h private/resourcecontroller.cpp private/imageitem.h moduleanchor.h markdownstyle.h markdownstyle.cpp
         private/document.h private/document.cpp private/viewstate.h private/viewstate.cpp
         private/inline.h private/inlineadapter.h private/inline.cpp private/formattedtext.h private/formattedtext.cpp private/formatintervals.h private/formatintervals.cpp

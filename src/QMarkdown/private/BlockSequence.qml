@@ -252,7 +252,7 @@ Column {
 
             DelegateChoice {
                 roleValue: ViewState.ThematicBreak
-                delegate: Rectangle {
+                delegate: PixelLineItem {
                     width: sequence.width
                     height: Number.isFinite(sequence.style.thematicBreakThickness) ? Math.max(0, sequence.style.thematicBreakThickness)
                         : 1

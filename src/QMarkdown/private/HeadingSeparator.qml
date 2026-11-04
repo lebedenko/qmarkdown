@@ -1,8 +1,9 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QMarkdown.Private
 import "private/Layout.js" as Layout
 
-Rectangle {
+PixelLineItem {
     required property var headingStyle
     property bool suppressed: false
     readonly property bool enabledDecoration: !suppressed && headingStyle !== null && headingStyle.separatorVisible
