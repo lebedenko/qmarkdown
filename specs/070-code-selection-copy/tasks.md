@@ -14,3 +14,19 @@ Approved with the supplied implementation plan on 2026-10-29.
   and syntax-enabled coverage on configured Qt 6.8.0 and 6.12.0; run doc checks.
 - R4: Update selection guide/report and separate actual verification record;
   capture native evidence if available, otherwise mark it pending. Deliver one PR.
+
+## Native diagnostic acceptance extension
+
+Approved on 2026-11-02 by the owner request to implement the supplied native
+acceptance plan. Scope: isolated installed shared builds of b22d519 and e399594,
+temporary md-viewer instrumentation through public APIs, byte capture tooling,
+owner-run native scrolling/copy comparisons and evidence in this feature. No
+shipping API, clipboard, version, dependency, system installation, merge or release
+changes. Native gestures and affected SSH/tmux paste require owner participation.
+
+- R5: Implement guarded temporary-copy preparation and correlated JSONL tracing.
+- R5: Implement raw byte receiver with terminal restoration and framing records.
+- R6: Validate whitespace/Unicode serialization and receiver through a PTY; build,
+  verify provider paths and smoke-test both apps; run focused fixed tests.
+- R6: Guide owner through the runbook matrix and record passed/failed/not-run cases;
+  locate earliest divergence before proposing any runtime change.
