@@ -398,6 +398,8 @@ void ViewState::reparse()
     }
     if (!guard) return;
     rebuildFootnoteFragments();
+    emit publicationStarting(retaining);
+    if (!guard) return;
     if (retaining) {
         if (restartResources || m_restartResources) m_resources.restart(m_sourceBlocks, m_baseUrl, *m_policy);
         else m_resources.reconcile(m_sourceBlocks, m_baseUrl);
@@ -952,8 +954,9 @@ void ViewState::scrollSelection()
                 parent->setProperty(offset, after);
                 return after != before;
             };
-            scrollAxis("contentX", "contentWidth", point.x(), parent->width());
+            const bool horizontal = scrollAxis("contentX", "contentWidth", point.x(), parent->width());
             internalVertical = scrollAxis("contentY", "contentHeight", point.y(), parent->height());
+            if (horizontal || internalVertical) QMetaObject::invokeMethod(parent, "sourceReaderMoved");
             break;
         }
     }

@@ -15,6 +15,7 @@ class SourceWheelArea : public QQuickItem
 public:
     using QQuickItem::QQuickItem;
 signals:
+    void sourceMoved();
     void viewportChanged();
     void lineHeightChanged();
 protected:
@@ -34,6 +35,7 @@ protected:
         m_viewport->setProperty("contentX", x);
         m_viewport->setProperty("contentY", y);
         const bool moved = x != oldX || y != oldY;
+        if (moved) emit sourceMoved();
         // A consumed ScrollBegin must still initialize the enclosing native
         // Flickable's gesture state, without forwarding any movement. Otherwise
         // a later unconsumed ScrollUpdate cannot start scrolling that reader.

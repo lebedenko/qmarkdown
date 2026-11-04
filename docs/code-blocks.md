@@ -105,3 +105,5 @@ A host `WheelHandler` that only observes scrolling must set `blocking: false` in
 addition to `event.accepted = false`. On Qt 6.12.0 a default-blocking observer can
 prevent its own Flickable from receiving mouse-wheel input even without QMarkdown.
 The provider cannot undo a host handler's acceptance after handing an event off.
+
+During retained streaming suffix updates, built-in fenced-code viewports preserve the source anchor and horizontal offset. Height-limited viewports at the bottom automatically follow appended code; scrolling up pauses following and returning to bottom resumes it. Wrapping resets horizontal scrolling. Initial long blocks start at the top. Flush publishes pending code with the same rules, without ending the stream; disabling streaming flushes pending input. Outer document scrolling remains host-owned. Custom renderers and math retain their existing behavior.
