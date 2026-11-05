@@ -1,0 +1,20 @@
+{
+  "outcome": "blocked",
+  "mechanism": "private upstream source-span cluster-edge preflight",
+  "paddedLayoutImplemented": false,
+  "minimal": "adjacent-lam-alef",
+  "disabledEquivalence": "751 fixtures / 775 blocks; exact diagnostic JSON equality",
+  "geometry": "not reached: span edge inside one shaped glyph",
+  "native": "not run: geometry gate blocked",
+  "objectContainment": "historical failure diagnosed, not corrected; tolerance 0.05 unchanged",
+  "qtControl": "unchanged",
+  "qt68Vulkan": "independent shutdown blocker retained",
+  "ownerVisualAcceptance": "pending",
+  "backendSelected": false,
+  "performanceQualified": false,
+  "nextDecision": [
+    "allow shaping boundaries at code edges",
+    "restrict edges to shaped clusters",
+    "define sub-glyph geometry semantics"
+  ]
+}

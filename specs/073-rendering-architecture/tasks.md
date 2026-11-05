@@ -82,3 +82,54 @@ Skia's per-fragment trial is rejected and minimum-Qt Vulkan remains failed.
 The full matrix has 884 clean process passes and 272 retained shutdown failures.
 Task completion records execution, not composition, backend or visual acceptance.
 See the appended [actual verification](verification.md) for precise blockers.
+
+## Fragment-aware upstream experiment — approved tasks (F1–F7)
+
+- [x] Inspect pinned build, existing scan and historical blockers; draft F1–F7,
+  design and mapped tasks while preserving historical records.
+- [x] Obtain explicit owner approval of F1–F7, design and these tasks;
+  recorded 2026-11-05 ("approved") before experimental implementation.
+- [x] Stage a separate pinned checkout, checked patch/build procedure and
+  independent output paths; retain control and full identities (F1).
+- [x] Implement validated UTF-16/SkParagraph boundary mapping and distinct
+  source-span metadata; test invalid/grapheme-splitting intervals (F2).
+- [ ] Extend upstream candidate fit/formatting with shared visual fragments,
+  finite scans, source-progress assertions and explicit oversized-unit overflow;
+  stop if upstream engine replacement is necessary (F3, F7).
+- [ ] Integrate authoritative fragment positions and vertical reservations into
+  painting, rectangles, carets and objects; diagnose fractional baseline/paint
+  bounds without changing containment tolerance (F4).
+- [x] Pass disabled-padding control equivalence with matching inputs, including
+  glyphs, breaks, objects and source mapping (F5 gate 1).
+- [ ] Run all 751 existing cases and fractional transition/edge fixtures; check
+  fragment padding, shaping preservation, vertical bounds, forward/reverse copy
+  and hit tests. Retain minimal failures (F5 gates 2–3, F7).
+- [ ] Only after geometry/consistency pass, run serial Skia GL/Vulkan stationary,
+  selected, resize/reset, motion/replay and three recreations at observed DPR;
+  record unavailable DPRs (F5 gate 4).
+- [x] Retain diagnostic before/counterfactual images and interactive review launcher, reproducible
+  instructions, identities and patch maintenance costs. Update support/migration
+  records with feasible or blocked outcome; keep visual acceptance and Qt 6.8
+  Vulkan shutdown separate (F6–F7, gate 5).
+- [x] Run regression/supervisor tests, repository lightweight checks and whitespace
+  validation; record actual results separately from this plan (F6).
+
+One reviewable change contains implementation, checks, instructions and evidence.
+Unchecked items are planned, not executed. No merge/publication is authorized.
+
+### Execution outcome — blocked at F2/F4 cluster boundary
+
+The private upstream patch implements source-span edge preflight only. The
+minimal adjacent lam–alef spans have valid grapheme edges inside one shaped glyph;
+the approved design explicitly treats such an unsatisfied edge as a capability
+blocker. The finite padded candidate scan, authoritative padded positions and
+vertical correction were therefore not implemented. The padded 751-case scan,
+fractional transition probes, consistency and native gates were not reached.
+Unchecked tasks above remain unimplemented, rather than being marked as passed.
+
+Disabled equivalence passed for 751 fixtures / 775 blocks for this diagnostic
+patch. An empty preflight issue list does not imply layout support. Historical
+object rounding was diagnosed without changing the control or tolerance.
+The review artifact shows unchanged shaping and separately shaped counterfactuals,
+not an accepted after-fix capture. The blocked outcome and required design choice
+are recorded in [verification](verification.md) and [migration](migration.md).

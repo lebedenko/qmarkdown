@@ -90,3 +90,47 @@ No shipping API, dependency, renderer, version or release changes are proposed.
 Broader layout replacement, production fixes, cross-paragraph selection, general
 tables, performance qualification and backend selection remain outside scope.
 Owner visual acceptance, merge and publication are separate authorization gates.
+
+## Fragment-aware upstream experiment — approved 2026-11-05
+
+The supplied continuation plan selects an isolated upstream patch experiment.
+The owner explicitly approved F1–F7, the updated design and mapped tasks on
+2026-11-05 ("approved"). This approves the new isolated mechanism and its bounded
+feasibility evaluation, not production adoption or a successful outcome.
+
+- F1: Stage a separate copy of pinned Skia revision
+  `00227028b0c3cb3052432a456af2027a49e598b2`; retain the unpatched control.
+  Apply a checked reproducible patch, recording base, patch, dependencies, build
+  configuration, tools, libraries and executable/output hashes.
+- F2: Express padding as source-span metadata with distinct adjacent-span
+  identities. Convert UTF-16 fixture intervals at one validated SkParagraph
+  offset boundary; reject invalid and grapheme-splitting ranges. Do not insert
+  padding characters or padding placeholders. Retain source-mapped inline objects.
+- F3: Extend upstream line breaking and formatting using existing shaping,
+  Unicode opportunities, bidi resolution and emergency wrapping. Candidate fit
+  includes both horizontal edges of every contiguous visual code fragment.
+  Use finite candidate scans with monotonic source progress. Preserve indivisible
+  graphemes/objects and report unavoidable overflow for an oversized padded unit.
+- F4: Store adjusted positions and vertical reservations in authoritative
+  paragraph layout. Painting, rectangles, caret hit testing and objects consume
+  those positions. Preserve shaped glyph identities and intracluster advances.
+  Diagnose object baseline rounding against actual painted bounds and retain the
+  existing 0.05 logical-pixel containment tolerance.
+- F5: Pass disabled-padding equivalence against the unpatched pinned control,
+  then the existing 751-case geometry scan plus fractional transition probes,
+  then consistency checks, before serial native OpenGL/Vulkan runs at observed
+  DPR. Preserve unavailable DPRs and owner visual acceptance as separate gaps.
+- F6: Retain representative before/after images, an interactive launcher,
+  reproducible commands, regression checks and evidence identities. Preserve the
+  rejected placeholder trial and all historical failures; update support and
+  migration records only from actual results.
+- F7: Report feasible only when every automated gate passes, with patch upkeep
+  costs and visual acceptance outstanding. Otherwise retain a minimal failing
+  case, attempted mechanism and precise missing capability. Stop executable work
+  if it requires replacing upstream shaping, bidi or the line-breaking engine;
+  document that architectural change for a subsequent decision.
+
+No shipping API/dependency change, Qt-control change, backend selection,
+performance qualification, Qt integration, general tables, cross-paragraph
+selection, production migration, merge or publication belongs to F1–F7.
+The Qt 6.8 Vulkan shutdown failure remains an independent blocker.

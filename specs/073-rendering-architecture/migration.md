@@ -102,3 +102,35 @@ identify ownership of the defect. No SDK, driver or backend change is adopted.
 See the appended [verification record](verification.md) and
 [current support record](evidence/correctness/support.json). Performance,
 production migration, backend choice and owner visual acceptance remain open.
+
+## Fragment-aware upstream experiment — blocked 2026-11-05
+
+F1–F7, design and tasks were explicitly approved before implementation. A checked
+40-line diagnostic patch in a separate copy of the pinned Skia build exposes a
+boundary constraint before candidate fitting: the existing DejaVu Sans Mono font
+shapes Arabic lam–alef into glyph 3254 across two graphemes. Adjacent code spans
+`[0,1)` and `[1,2)` retain separate identities, but their shared edge is inside
+that glyph. Independent whole-cluster translation cannot provide both padding
+edges there. Shaping each character separately yields glyphs 1141 and 1117,
+violating the approved unchanged-shaping constraint.
+
+The next architecture decision must choose explicit shaping boundaries at code
+span edges (allowing changed ligatures/joining), restrict supported span edges to
+shaped-cluster boundaries, or define sub-glyph clipping/placement and its geometry
+semantics. Upstream range clipping exists, but moving clipped pieces would split
+the intact cluster required by this design. No option is adopted automatically;
+this is not evidence that every possible SkParagraph extension is impossible.
+
+Unmodified behavior matches exactly on 751 fixtures / 775 blocks for the
+**diagnostic patch only**. Padded candidate scanning, authoritative adjusted
+geometry and native qualification stopped before implementation. The prior
+placeholder-trial rejection remains valid. Object diagnosis identifies rounding
+of a 36.1885 line height to 36 and a resulting −0.1885 vertical delta; the baseline
+is already integral. DPR-1 raster coverage does not excuse its logical-bound
+failure at the unchanged 0.05 tolerance. A padded reservation fix remains open.
+
+See [experiment instructions and maintenance limits](demonstrator/fragment-experiment/README.md),
+[new support record](evidence/fragment-experiment/support.json) and
+[actual results](evidence/fragment-experiment/summary.json).
+Qt controls and the Qt 6.8 Vulkan shutdown blocker are unchanged. No production
+dependency, backend choice, performance qualification, merge or publication follows.

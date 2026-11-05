@@ -1,0 +1,7 @@
+{
+  "sha256": "cf352a1c6f077ae3b24cd45de250aca2dab3e5427428fa715640ebfad810bac4",
+  "files": [
+    "modules/skparagraph/src/ParagraphImpl.h",
+    "modules/skparagraph/src/ParagraphImpl.cpp"
+  ]
+}

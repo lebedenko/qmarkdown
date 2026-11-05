@@ -396,3 +396,86 @@ as tar hardlinks; safe extraction was checked against every original file's
 SHA-256. See [archive round-trip check](evidence/correctness/native-archive-check.json),
 [archive hashes](evidence/correctness/archives.json) and
 [evidence index](evidence/correctness/README.md).
+
+## Fragment-aware experiment planning — 2026-11-05
+
+Updated requirements (F1–F7), design and mapped tasks for the isolated upstream
+patch experiment. Explicit approval is pending as required by the supplied plan;
+no patch, adapter change, staged build or new geometry/native evidence exists yet.
+Historical failures and control artifacts are preserved.
+
+Planning validation: `python3 scripts/check.py` passed (documentation links,
+configuration/evidence syntax and Qt-independent tooling tests);
+`git diff --check` passed. These checks validate the planning change only and do
+not satisfy any proposed feasibility gate. The final verification-record append
+was additionally checked with `python3 scripts/check-docs.py` and whitespace
+validation.
+
+## Fragment-aware upstream experiment — actual result, 2026-11-05
+
+Owner approval of F1–F7, design and tasks was received as "approved" before
+implementation. **Outcome: blocked**, using the approved design's explicit stop
+condition for a span edge inside an indivisible shaped cluster.
+
+### Isolated build and minimal blocker
+
+Copied pinned revision `00227028b0c3cb3052432a456af2027a49e598b2` into a separate
+stage; applied the hash-pinned 40-line patch to two private SkParagraph files.
+Built independent patched/unpatched CPU adapters with the original GN/ABI
+configuration and two workers. Both builds succeeded. The original libraries,
+build configuration and existing Skia viewer/selection executables retained their
+identities. No shipping or Qt-control source changed.
+
+The [minimal manifest](demonstrator/fragment-experiment/minimal.json) uses Arabic
+lam–alef with two adjacent code spans. UTF-16 offset 1 is a valid ICU grapheme
+boundary mapping to UTF-8 byte 2. The pinned shaper produces glyph 3254, cluster
+bytes `[0,4)`, advance 13.2451171875. Both identities report the same interior
+edge. The patched preflight exits 1 with `blocked-intracluster-edge`. A whole-span
+control produces identical glyphs and positions with no interior edge. Separately
+shaped characters produce glyphs 1141 and 1117, demonstrating why reshaping would
+violate this milestone. No line-fitting or paint-only workaround was introduced.
+
+### Automated evidence and gate limits
+
+The disabled-padding control comparison passes all 751 existing fixture widths,
+775 blocks, with exact JSON equality of glyph IDs/fonts/positions, cluster ranges,
+line ranges/metrics, object bounds, source maps, range rectangles and sampled
+caret hit results. This establishes equivalence of the **preflight patch only**,
+not of a fragment-aware formatter. Zero-padding metadata introduces no reported
+boundary issues. Seven malformed-range cases reject noninteger, negative,
+out-of-range, overlapping, grapheme-splitting and partial-object intervals.
+
+The approved intact-cluster contract fails before padded candidate fit. No padded
+751-case geometry pass, fractional transition scan, directional-copy consistency
+pass or GL/Vulkan native run is claimed. Native stationary/selected, resize/reset,
+motion/replay and recreation checks were gated off. Historical observed Skia DPR
+remains 1; 1.25/1.5/2 remain unavailable. Qt 6.8 Vulkan shutdown remains independent.
+
+The unchanged historical adapter reproduces `objects@679`: baseline 28, raw line
+height 36.1884765625, rounded height 36, vertical delta −0.1884765625, and object
+path bounds top −0.19 / bottom 35.81. `InternalLineMetrics::height`, `delta` and
+`runTop` explain the adjustment. An isolated raster draw with the same round-rect
+paint covers DPR-1 rows 0–35, but the logical top still violates the existing 0.05
+tolerance. Disabled padding has no overhang in this scan; this is not evidence of
+a corrected padded vertical reservation.
+
+[Build identities and commands](evidence/fragment-experiment/build.json),
+[regression summary/input-output hashes](evidence/fragment-experiment/summary.json),
+[historical object trace](evidence/fragment-experiment/historical-objects.jsonl),
+and [support status](evidence/fragment-experiment/support.json) retain the results.
+The [offline review launcher](demonstrator/fragment-experiment/README.md) displays
+CPU images of unchanged joined shaping and separately shaped counterfactuals;
+they are not successful before/after padding images. The joined image was visually
+inspected for capture integrity; owner visual acceptance remains pending.
+
+The diagnostic patch adds no data members or shipping API, but uses private
+SkParagraph internals. Rebase and cluster-semantics checks are required on a new
+pin. Full layout-patch maintenance and performance costs remain unmeasured.
+
+Regression checks pass, including byte-identical CPU PNGs for the unpatched and
+patched minimal cases. Supervisor tests pass (9 tests); repository lightweight
+checks pass (87 tests, document links and evidence/configuration syntax). A final
+patch whitespace normalization was checked by rebuilding a fresh stage: patched
+source hashes match the preceding build exactly, and the regression suite passes
+again. Final documentation/evidence syntax and tracked/new-file whitespace were
+checked after evidence collection. Logs are retained alongside the summary.
