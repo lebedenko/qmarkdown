@@ -190,3 +190,50 @@ evidence above remain unchanged. This grants no shipping correction or publicati
   acceptance of sharpness, shimmer, stepping, reversal and settling is mandatory
   before recommending a separately approved production correction. Missing or
   failing evidence remains unqualified. Keep current diagnostics/captures intact.
+
+## Native-only qualification revision — approved 2026-11-04
+
+The owner's supplied “Qualify native-only smoothing off” plan explicitly approves
+these requirements, design and tasks for diagnostic implementation only.
+
+- N1: Export baseline/candidate from pinned `43d6bba`; identical instrumentation.
+  Disable retained smoothing only on observed OpenGL/Vulkan. Preserve software,
+  unknown/missing-window behavior, atom and unsupported-DPR fallbacks.
+- N2: Calibrate first real raster paint against independent pixels with matching
+  format, dimensions, DPR, transform, clipping and hints. Compare an independent
+  retained painted-image control sequentially at identical viewport coordinates
+  using opacity switching. Exact equality and unchanged warmed counters required.
+  Translated/direct-node comparisons are diagnostic only. Stop on unresolved raw
+  or framebuffer calibration; never substitute tolerance, shifts or repaints.
+- N3: After calibration passes, qualify all 12 fixtures, 16 Cartesian physical
+  quarter-pixel phases and return on exact Qt 6.8.0/6.12.0, software DPR
+  1/1.25/1.5/2 and native Wayland OpenGL/Vulkan DPR 1.25. Replay every captured
+  live drag/reversal/settling pose through a static container at identical
+  coordinates for both pixelAligned modes; source must match live image and
+  independent control must match source. Preserve counters, surfaces, bounds,
+  cursor/selection/link/code geometry; test all five post-motion invalidations.
+- N4: Require stationary software baseline/candidate pixel preservation and five
+  fresh alternating Release pairs per target/backend at DPR 1.25 using committed
+  sparse/dense workload/boundaries. Equal allocation/surfaces; reject >10%
+  preparation, median or p95 regression in at least three pairs. Retain source,
+  renderer/library/executable/harness, GPU/driver/backend/DPR/font identities.
+  Capture-trace timing is separate from display frame rate.
+- N5: Owner review of labelled single-viewport comparison with external alignment
+  toggle remains mandatory. Switching preserves scroll position; label validated
+  proxies. Both native backends, software preservation, performance and explicit
+  owner acceptance must pass before recommending a later production revision.
+  No shipping/API/dependency/package/merge/publication changes are authorized.
+
+## Actual-source artifact diagnosis — approved 2026-11-05
+
+The owner's explicit implementation request approves this diagnostic-only revision.
+Preserve the performance rejection and historical evidence; do not edit production.
+Compare linked baseline/candidate pinned 43d6bba sources with matching linear/nearest
+proxies in the original 24-paragraph, 120-pixel-spacing scene. Record intersections.
+Start Qt 6.12.0 Wayland OpenGL DPR 1.25, pixelAligned true. Scan 240–360 in
+quarter-physical-pixel steps, deduplicating actual positions, then the remaining
+range in physical-pixel steps if needed. Capture drag, deceleration, reversal and
+settling. Require exact live/frozen replay before proxy comparison, viewport only.
+Classify source, proxy, composition or replay/missing reproduction separately.
+Only isolated diagnostic defects may be repaired; no production correction,
+performance pairs, threshold changes or OpenGL-only qualification are authorized.

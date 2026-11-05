@@ -15,6 +15,8 @@ p.add_argument('output', type=Path)
 p.add_argument('--qt', required=True, choices=['6.8.0', '6.12.0'])
 p.add_argument('--native', action='store_true')
 p.add_argument('--performance-only', action='store_true')
+p.add_argument('--backend', choices=['software', 'opengl', 'vulkan'])
+p.add_argument('--correctness-only', action='store_true')
 p.add_argument('--continue-matrix', action='store_true', help='retain failures and continue independent configurations')
 p.add_argument('--library-path')
 p.add_argument('--resume', action='store_true', help='reuse recorded identical binaries; preserve interrupted attempts')
@@ -60,15 +62,26 @@ def run(variant, mode, scale, api='software', pair=None):
     fixtures = {r['fixture'] for r in rows if r.get('type') == 'fixture'}
     captures = [r for r in rows if r.get('type') == 'capture']
     complete = (len(fixtures) == 12 and len(captures) == 216) if mode == 'static' else (len(fixtures) == 12 and len([r for r in rows if r.get('type') == 'motionSummary']) == 24) if mode == 'motion' else len([r for r in rows if r.get('type') == 'performance']) == 2
+    if mode in ['static', 'motion']:
+        replay = [r for r in rows if r.get('type') == 'replay']
+        controls = [r for r in rows if r.get('type') == 'poseControl']
+        raster = {r['fixture'] for r in rows if r.get('type') == 'fixture' and r['surfaceCount']}
+        complete = complete and len(replay) == len(captures) and len(controls) == sum(r['fixture'] in raster for r in captures)
+        complete = complete and all(r['equal'] for r in replay + controls)
+    complete = complete and environment.get('source', {}).get('policy') == 'native-only-v2' and environment.get('source', {}).get('commit') == '43d6bba842bb5b7ab23889e49d5f138c6f22a7fb'
     valid = complete and status == 0 and environment.get('qt') == a.qt and environment.get('dpr') == expected_dpr and environment.get('graphicsApi') == expected_api
-    result = dict(name=name, command=command, exit=status, complete=complete, captures=len(captures), environment=environment, valid=valid, binarySha256=hashlib.sha256(binary.read_bytes()).hexdigest(), pair=pair)
+    failure = (directory / 'stderr.log').read_text().split('GATE FAILED:')[-1].strip() if status else None
+    result = dict(failingStage=failure, name=name, command=command, exit=status, complete=complete, captures=len(captures), environment=environment, valid=valid, binarySha256=hashlib.sha256(binary.read_bytes()).hexdigest(), pair=pair)
+    result['harnessSha256'] = hashlib.sha256(Path(__file__).with_name('motion.cpp').read_bytes()).hexdigest()
+    result['runnerSha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    result['libraries'] = {str(f): hashlib.sha256(f.read_bytes()).hexdigest() for f in binary.parent.glob('qmarkdown/src/QMarkdown/libQMarkdown.so*') if f.is_file()}
     results.append(result)
     (a.output / 'runs.json').write_text(json.dumps(results, indent=2)+'\n')
     print(name, status, 'PASS' if valid else 'FAIL', flush=True)
     return valid, rows
 
 if not a.performance_only:
-    for api in (['opengl', 'vulkan'] if a.native else ['software']):
+    for api in ([a.backend] if a.backend else ['opengl', 'vulkan'] if a.native else ['software']):
         for scale in ([1] if a.native else [1, 1.25, 1.5, 2]):
             snapshots = {}
             for variant in ['baseline', 'candidate']:
@@ -80,6 +93,17 @@ if not a.performance_only:
                         snapshots[variant] = {r['fixture']: {k:r[k] for k in ['text', 'width', 'height', 'cells', 'interactions', 'fonts', 'surfaceCount', 'allocationBytes']} for r in rows if r.get('type') == 'fixture'}
                         for fixture in snapshots[variant].values():
                             fixture['fonts'] = sorted({json.dumps(font, sort_keys=True) for font in fixture['fonts']})
+            if len(snapshots.get('baseline', {})) != 12 or len(snapshots.get('candidate', {})) != 12:
+                results.append(dict(name=f'{api}-{scale}-geometry', valid=False, status='not-reached-incomplete-comparison'))
+                (a.output / 'runs.json').write_text(json.dumps(results, indent=2)+'\n')
+                continue
+            if api == 'software':
+                source_names = [f.name for f in (a.output / f'{api}-{scale}-baseline-static').glob('*.png') if not f.name[0].isdigit() and not f.name.endswith(('-actual.png', '-independent.png'))]
+                preservation = bool(source_names) and all((a.output / f'{api}-{scale}-candidate-static' / name).is_file() and
+                    (a.output / f'{api}-{scale}-baseline-static' / name).read_bytes() == (a.output / f'{api}-{scale}-candidate-static' / name).read_bytes() for name in source_names)
+                results.append(dict(name=f'{api}-{scale}-software-preservation', valid=preservation))
+                if not preservation:
+                    raise SystemExit('Software stationary preservation failed')
             geometry_equal = len(snapshots['baseline']) == 12 and snapshots['baseline'] == snapshots['candidate']
             geometry_name = f'{api}-{scale}-geometry'
             results[:] = [r for r in results if r['name'] != geometry_name]
@@ -88,10 +112,13 @@ if not a.performance_only:
             if not geometry_equal and not a.continue_matrix:
                 raise SystemExit('Baseline/candidate fixture geometry, allocation or fonts differ')
 
+if a.correctness_only:
+    raise SystemExit(0 if all(r['valid'] for r in results) else 1)
+
 pairs = []
 for pair in range(5):
     for variant in (['baseline', 'candidate'] if pair % 2 == 0 else ['candidate', 'baseline']):
-        valid, rows = run(variant, 'performance', 1 if a.native else 1.25, 'opengl' if a.native else 'software', pair)
+        valid, rows = run(variant, 'performance', 1 if a.native else 1.25, a.backend or ('opengl' if a.native else 'software'), pair)
         if not valid:
             raise SystemExit('Performance run failed')
         pairs.extend(dict(r, variant=variant, pair=pair) for r in rows if r.get('type') == 'performance')

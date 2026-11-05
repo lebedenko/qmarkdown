@@ -74,39 +74,20 @@ public:
     }
     QImage image;
 };
-struct Fixture { QString id, text; qreal width = 740; int kind = 0, alignment = Qt::AlignLeft; bool clip = false; };
-static QList<Fixture> fixtures() {
-    QList<Fixture> result;
-    for (QString id : {"plain", "bold", "italic", "link", "code", "combined"})
-        result.append({id, "Try strong, emphasis, inline code, host links, and denied image fallback. <b>HTML stays literal</b>."});
-    for (bool clip : {false,true}) {
-        const QString suffix = clip ? "-clipped" : "";
-        result.append({"mixed-decorated"+suffix, QString::fromUtf8("office é العربية שלום code text"),400,1,Qt::AlignLeft,clip});
-        result.append({"wrapped-adjacent-linked"+suffix,"adjacentcode office linked strikeout wraps",120,1,Qt::AlignHCenter,clip});
-        result.append({"tiny-right"+suffix,"fX code",1,1,Qt::AlignRight,clip});
+// Independent retained painted image, with the source's Qt sampling geometry.
+class PaintedControl : public QQuickPaintedItem {
+public:
+    explicit PaintedControl(QQuickPaintedItem *source) : QQuickPaintedItem(source->parentItem()),
+        image(source->property("blurImage").value<QImage>()) {
+        setPosition(source->position()); setSize(source->size());
+        setAntialiasing(source->antialiasing()); setSmooth(source->smooth());
+        setOpaquePainting(source->opaquePainting()); setFillColor(source->fillColor());
+        setTextureSize(source->textureSize()); setOpacity(0);
     }
-    return result;
-}
-static void configure(FormattedText &text, const Fixture &f) {
-    text.setText(f.text); text.setLayoutWidth(f.width); text.setHorizontalAlignment(f.alignment);
-    QFont font("DejaVu Sans"); font.setPixelSize(18); text.setFont(font);
-    text.setCodeFont(QFont("DejaVu Sans Mono")); text.setCodeBackground(QColor("#eeeeee"));
-    text.setSelectionColor(QColor("#8099bbff")); text.setFocusColor(Qt::red);
-    QVariantList ranges;
-    auto span = [&](QString word,int flags) { return QVariantMap{{"start",f.text.indexOf(word)},{"length",word.size()},{"flags",flags}}; };
-    if (f.kind) {
-        text.setCodeCornerRadius(4);
-        ranges = {QVariantMap{{"start",0},{"length",6},{"flags",QMarkdownPrivate::Code|QMarkdownPrivate::Strikethrough}},
-                  QVariantMap{{"start",6},{"length",4},{"flags",QMarkdownPrivate::Code|QMarkdownPrivate::Strikethrough}}};
-    } else {
-        if (f.id=="bold" || f.id=="combined") ranges.append(span("strong",QMarkdownPrivate::Strong));
-        if (f.id=="italic" || f.id=="combined") ranges.append(span("emphasis",QMarkdownPrivate::Emphasis));
-        if (f.id=="code" || f.id=="combined") ranges.append(span("inline code",QMarkdownPrivate::Code));
-    }
-    text.setFormatRanges(ranges);
-    if (f.kind || f.id=="link" || f.id=="combined")
-        text.setLinkSpans({QVariantMap{{"start",f.kind?6:f.text.indexOf("host links")},{"length",f.kind?4:10},{"logicalId",0},{"href","#test"}}});
-}
+    void paint(QPainter *painter) override { painter->drawImage(boundingRect(), image); }
+    QImage image;
+};
+#include "scene.h"
 static QJsonArray fontRecords(const FormattedText &text) {
     QJsonArray fonts;
     for(const auto &run:text.layout()->glyphRuns()) {
@@ -124,8 +105,10 @@ static QJsonArray fontRecords(const FormattedText &text) {
 int main(int argc,char **argv) {
     QGuiApplication app(argc,argv);
     const auto args = app.arguments();
-    if (args.size()!=3 || !QStringList{"static","motion","performance","view"}.contains(args[1])) return 2;
+    if (args.size()!=3 || !QStringList{"static","motion","performance","view","calibrate"}.contains(args[1])) return 2;
     QDir().mkpath(args[2]);
+    if(args[1]=="calibrate" || args[1]=="static" || args[1]=="motion") qputenv("BLUR_CALIBRATION", args[2].toUtf8());
+    else qunsetenv("BLUR_CALIBRATION");
     QFile manifest(BLUR_MANIFEST); require(manifest.open(QIODevice::ReadOnly),"manifest missing");
     const auto source = QJsonDocument::fromJson(manifest.readAll()).object();
     QQmlEngine engine; QQmlComponent component(&engine);
@@ -159,6 +142,12 @@ Rectangle {
     const auto dpr=window.effectiveDevicePixelRatio();
     record({{"type","environment"},{"source",source},{"qt",qVersion()},{"dpr",dpr},{"platform",app.platformName()},
             {"graphicsApi",int(window.rendererInterface()->graphicsApi())},{"timing","capture-trace, not display frame rate"}});
+    const auto api=window.rendererInterface()->graphicsApi();
+    const bool expectedRetainedSmooth=source["variant"]=="baseline" || (api!=QSGRendererInterface::OpenGL && api!=QSGRendererInterface::Vulkan);
+    auto assertPolicy=[&](FormattedText &text) {
+        auto *s=surface(text);
+        require(s && s->smooth()==expectedRetainedSmooth,"performance smoothing policy mismatch");
+    };
     auto grab=[&] { auto image=window.grabWindow(); require(!image.isNull(),"capture failed"); return image; };
     auto settle=[&] { QTest::qWait(50); return grab(); };
     if (args[1]=="performance") {
@@ -170,7 +159,9 @@ Rectangle {
                 text->setLayoutWidth(720); text->setText(QString("office code example with links and decorated text. ").repeated(2));
                 text->setFormatRanges({QVariantMap{{"start",0},{"length",dense?96:6},{"flags",QMarkdownPrivate::Code|QMarkdownPrivate::Strikethrough}}}); text->setCodeCornerRadius(4);
             }
-            grab(); const auto prep=preparation.nsecsElapsed(); settle();
+            grab(); const auto prep=preparation.nsecsElapsed();
+            for(auto *text:texts) assertPolicy(*text);
+            settle();
             quint64 before=0; qint64 bytes=0; QList<QQuickPaintedItem *> identities;
             for(auto *text:texts) { before+=BlurProbe::paints(*text); auto *s=surface(*text); require(s,"missing workload surface"); identities.append(s); bytes+=qRound(s->width()*dpr)*qRound(s->height()*dpr)*4; }
             // Spies outlive warmed movement.
@@ -178,7 +169,7 @@ Rectangle {
             for(auto *text:texts) layoutSpies.emplace_back(new QSignalSpy(text,&FormattedText::layoutChanged));
             const auto fonts=fontRecords(*texts.first());
             QList<qint64> frames;
-            for(int i=0;i<120;++i) { QElapsedTimer t; t.start(); content->setY(-(i%40)*.27); QCoreApplication::processEvents(); grab(); frames.append(t.nsecsElapsed()); }
+            for(int i=0;i<120;++i) { QElapsedTimer t; t.start(); content->setY(-(i%40)*.27); QCoreApplication::processEvents(); grab(); frames.append(t.nsecsElapsed()); for(auto *text:texts) assertPolicy(*text); }
             quint64 after=0; qint64 afterBytes=0;
             for(int i=0;i<texts.size();++i) {
                 after+=BlurProbe::paints(*texts[i]); auto *s=surface(*texts[i]); require(s==identities[i],"surface changed");
@@ -187,7 +178,7 @@ Rectangle {
             }
             require(afterBytes==bytes,"workload allocation changed");
             std::sort(frames.begin(),frames.end());
-            record({{"type","performance"},{"fonts",fonts},{"dense",dense},{"preparationNs",double(prep)},{"medianNs",double(frames[60])},{"p95Ns",double(frames[114])},{"paints",double(after-before)},{"surfaces",12},{"allocationBytes",double(bytes)}});
+            record({{"type","performance"},{"policyAsserted",true},{"surfaceSmooth",expectedRetainedSmooth},{"fonts",fonts},{"dense",dense},{"preparationNs",double(prep)},{"medianNs",double(frames[60])},{"p95Ns",double(frames[114])},{"paints",double(after-before)},{"surfaces",12},{"allocationBytes",double(bytes)}});
             require(after==before,"workload repainted"); qDeleteAll(texts); content->setY(0);
         }
         return 0;
@@ -197,8 +188,8 @@ Rectangle {
         const auto cases=fixtures();
         for(int i=0;i<24;++i) {
             auto f=cases[4+i%8];
-            auto *clip=new QQuickItem(content); clip->setPosition({24.5,qreal(40+i*120)}); clip->setSize({560,100}); clip->setClip(f.clip);
-            auto *text=new FormattedText(clip); configure(*text,f); texts.append(text);
+            auto *text=createReviewParagraph(content,f); texts.append(text);
+            settle(); text->parentItem()->setY(40+i*120);
         }
         settle();
         for(auto *text:texts) {
@@ -215,11 +206,40 @@ Rectangle {
         return app.exec();
     }
     for (const auto &f:fixtures()) {
+        if(args[1]=="calibrate" && f.id!="mixed-decorated" && f.id!="code" && f.id!="combined") continue;
         if(!qEnvironmentVariable("BLUR_FIXTURE").isEmpty() && f.id!=qEnvironmentVariable("BLUR_FIXTURE")) continue;
+        const QString rawDirectory=args[2]+"/"+f.id+"-raw";
+        require(QDir().mkpath(rawDirectory),"raw capture directory failed");
+        qputenv("BLUR_CALIBRATION",rawDirectory.toUtf8());
         flick->setProperty("pixelAligned",false);
         QQuickItem clip(content); clip.setPosition({24.5,40}); clip.setSize({560,100}); clip.setClip(f.clip);
         FormattedText text(&clip); configure(text,f); settle();
         auto *s=surface(text);
+        const bool expectedSmooth=source["variant"]=="baseline" || (window.rendererInterface()->graphicsApi()!=QSGRendererInterface::OpenGL && window.rendererInterface()->graphicsApi()!=QSGRendererInterface::Vulkan);
+        if(s) require(s->smooth()==expectedSmooth,"unexpected smoothing policy");
+        if(args[1]=="calibrate") {
+            require(s && s->property("blurCaptured").toBool(),"control-calibration: first real paint missing");
+            require(s->property("blurRawEqual").toBool(),"control-calibration: raw raster mismatch");
+            PaintedControl painted(s); settle();
+            const auto before=BlurProbe::paints(text);
+            QSignalSpy calibrationLayouts(&text,&FormattedText::layoutChanged);
+            for(int y=0;y<4;++y) for(int x=0;x<4;++x) {
+                flick->setProperty("contentX",x*.25/dpr); flick->setProperty("contentY",y*.25/dpr); settle();
+                s->setOpacity(1); painted.setOpacity(0); const auto sourceFrame=settle();
+                s->setOpacity(0); painted.setOpacity(1); const auto controlFrame=settle();
+                s->setOpacity(1); painted.setOpacity(0); settle();
+                const bool equal=sourceFrame==controlFrame;
+                const auto id=f.id+QString("-%1-%2").arg(x).arg(y);
+                record({{"type","calibration"},{"fixture",f.id},{"id",id},{"equal",equal},
+                    {"paints",double(BlurProbe::paints(text)-before)},{"layoutRebuilds",calibrationLayouts.size()}});
+                if(!equal) { sourceFrame.save(args[2]+"/"+id+"-source.png"); controlFrame.save(args[2]+"/"+id+"-control.png"); }
+                require(BlurProbe::paints(text)==before && calibrationLayouts.isEmpty(),"control-calibration: warmed counters changed");
+                require(s->smooth()==expectedSmooth,"control-calibration: smoothing changed");
+                require(equal,"control-calibration: same-coordinate framebuffer mismatch");
+            }
+            flick->setProperty("contentX",0); flick->setProperty("contentY",0); settle();
+            continue;
+        }
         const auto cells=text.rangeRectangles(0,f.text.size()); const auto height=text.logicalHeight();
         const auto interactions=BlurProbe::geometry(text); const auto *layout=text.layout();
         QJsonArray rectangles, fonts;
@@ -231,7 +251,11 @@ Rectangle {
         const auto pos=s?s->position():QPointF(); const auto size=s?s->size():QSizeF();
         QQuickItem controlClip(content); controlClip.setPosition({824.5,40}); controlClip.setSize({560,100}); controlClip.setClip(f.clip);
         std::unique_ptr<ImageControl> control(s?new ImageControl(s):nullptr);
-        if(control) { control->setParentItem(&controlClip); control->setSmooth(s->smooth()); control->setVisible(true); }
+        if(control) { control->setParentItem(&controlClip); control->setSmooth(s->smooth()); control->setVisible(false); }
+        std::unique_ptr<PaintedControl> authoritative(s?new PaintedControl(s):nullptr);
+        if(s) require(s->property("blurRawEqual").toBool(),"control-calibration: raw raster mismatch");
+        struct Pose { QString id; QImage image; QPointF content; };
+        QList<Pose> poses;
         settle(); const auto before=BlurProbe::paints(text); QElapsedTimer trace; trace.start();
         auto check=[&](QString id) {
             const auto image=grab();
@@ -240,12 +264,16 @@ Rectangle {
             require(layouts.isEmpty() && text.layout()==layout,"layout rebuilt during movement"); require(BlurProbe::paints(text)==before,"warmed raster paint");
             require(surface(text)==s,"surface identity changed");
             if(s) require(s->position()==pos && s->size()==size,"surface allocation changed");
-            bool equal=true;
-            if(s) {
-                const int half=image.width()/2;
-                equal=image.copy(0,0,half,image.height())==image.copy(half,0,half,image.height());
+            if(s) require(s->smooth()==expectedSmooth,"smoothing policy changed during measurement");
+            poses.append({id,image,content->position()});
+            if(control && args[1]=="static") {
+                control->setVisible(true); const auto translated=settle(); control->setVisible(false); settle();
+                const int half=translated.width()/2;
+                record({{"type","translatedDiagnostic"},{"fixture",f.id},{"id",id},
+                    {"equal",translated.copy(0,0,half,translated.height())==translated.copy(half,0,half,translated.height())}});
             }
             const auto scene=text.mapToScene({});
+            const auto transform=text.itemTransform(window.contentItem(),nullptr);
             double edges=0; int count=0;
             if(!f.kind) {
                 QRect roi(qRound(scene.x()*dpr),qRound(scene.y()*dpr),qRound(27*dpr),qRound(24*dpr));
@@ -254,12 +282,7 @@ Rectangle {
                     edges+=std::abs(qGray(image.pixel(x+1,y))-qGray(image.pixel(x,y)))+std::abs(qGray(image.pixel(x,y+1))-qGray(image.pixel(x,y))); count+=2;
                 }
             }
-            record({{"type","capture"},{"fixture",f.id},{"id",id},{"ns",double(trace.nsecsElapsed())},{"velocityY",flick->property("verticalVelocity").toDouble()},{"moving",flick->property("moving").toBool()},{"contentX",flick->property("contentX").toDouble()},{"contentY",flick->property("contentY").toDouble()},{"physicalX",scene.x()*dpr},{"physicalY",scene.y()*dpr},{"pixelAligned",flick->property("pixelAligned").toBool()},{"surfaceSmooth",s&&s->smooth()},{"layoutRebuilds",layouts.size()},{"controlEqual",equal},{"edgeContrast",count?edges/count:0},{"paints",double(BlurProbe::paints(text)-before)}});
-            if(!equal) {
-                image.save(args[2]+"/"+f.id+"-"+id+"-FAIL.png");
-                if(control) control->image.save(args[2]+"/"+f.id+"-control-raster.png");
-            }
-            require(equal,"retained image control mismatch");
+            record({{"type","capture"},{"fixture",f.id},{"id",id},{"ns",double(trace.nsecsElapsed())},{"velocityY",flick->property("verticalVelocity").toDouble()},{"moving",flick->property("moving").toBool()},{"actualContentX",content->x()},{"actualContentY",content->y()},{"clipX",clip.x()},{"clipY",clip.y()},{"clipWidth",clip.width()},{"clipHeight",clip.height()},{"clipped",clip.clip()},{"contentX",flick->property("contentX").toDouble()},{"contentY",flick->property("contentY").toDouble()},{"physicalX",scene.x()*dpr},{"physicalY",scene.y()*dpr},{"pixelAligned",flick->property("pixelAligned").toBool()},{"surfaceSmooth",s&&s->smooth()},{"layoutRebuilds",layouts.size()},{"comparisonStage","live-capture-only"},{"sourceTransform",QJsonArray{transform.m11(),transform.m12(),transform.m21(),transform.m22(),transform.dx(),transform.dy()}},{"edgeContrast",count?edges/count:0},{"paints",double(BlurProbe::paints(text)-before)}});
             if(args[1]=="static" || (id.startsWith("motion-") || id.startsWith("drag-"))) require(image.save(args[2]+"/"+f.id+"-"+id+".png"),"save failed");
             return image;
         };
@@ -304,6 +327,33 @@ Rectangle {
                 require(check(QString("motion-return-%1").arg(aligned))==origin,"motion return differs");
             }
         }
+        // Replay only after all live motion ends. The static container shares
+        // the Flickable viewport/clip, but has no animation or content binding.
+        QQuickItem replayContainer(flick);
+        clip.setParentItem(&replayContainer);
+        for(const auto &pose:poses) {
+            replayContainer.setPosition(pose.content);
+            if(s) s->setOpacity(1);
+            if(authoritative) authoritative->setOpacity(0);
+            const auto replayed=settle();
+            const bool replayEqual=replayed==pose.image;
+            record({{"type","replay"},{"fixture",f.id},{"id",pose.id},{"equal",replayEqual}});
+            if(!replayEqual) { pose.image.save(args[2]+"/"+f.id+"-"+pose.id+"-live.png"); replayed.save(args[2]+"/"+f.id+"-"+pose.id+"-replay.png"); }
+            require(replayEqual,"replay-failure: source differs from live capture");
+            if(s) {
+                s->setOpacity(0); authoritative->setOpacity(1);
+                const auto independent=settle();
+                const bool controlEqual=independent==replayed;
+                record({{"type","poseControl"},{"fixture",f.id},{"id",pose.id},{"equal",controlEqual}});
+                if(!controlEqual) { replayed.save(args[2]+"/"+f.id+"-"+pose.id+"-source.png"); independent.save(args[2]+"/"+f.id+"-"+pose.id+"-control.png"); }
+                require(controlEqual,"control-calibration: replayed framebuffer mismatch");
+                s->setOpacity(1); authoritative->setOpacity(0);
+                require(surface(text)==s && s->position()==pos && s->size()==size,"renderer-failure: replay surface changed");
+            }
+            require(BlurProbe::paints(text)==before && layouts.isEmpty() && text.layout()==layout,"renderer-failure: replay counters changed");
+            require(BlurProbe::geometry(text)==interactions && text.rangeRectangles(0,f.text.size())==cells && text.logicalHeight()==height,"renderer-failure: replay geometry changed");
+        }
+        clip.setParentItem(content); settle();
         // Mutation gates deliberately occur after warmed motion accounting.
         if(s) {
             control->setVisible(false); clip.setClip(false); settle();

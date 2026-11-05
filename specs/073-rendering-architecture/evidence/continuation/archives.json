@@ -1,0 +1,50 @@
+{
+  "qt-development.tar.gz": {
+    "sha256": "18886a3f5fbde37f3d5faef5fb4e2aaf523b1a0ab2a292368236ceaa5e5c5c4e",
+    "bytes": 20454286
+  },
+  "qt-minimum.tar.gz": {
+    "sha256": "2d188b461c7e81df1cd4e4e109ca52b63768782a40e2e97763b3e07e156e6878",
+    "bytes": 21318786
+  },
+  "skia.tar.gz": {
+    "sha256": "2f125ef06f7cf1de9570d1722dc678118b43a552ec4187147f87c2c4ed0a7060",
+    "bytes": 4714987
+  },
+  "qt-lifecycle.tar.gz": {
+    "sha256": "d2c69a70f164af673808f751eecb6b92c2736677d4f0beedc095773782285e84",
+    "bytes": 10986805
+  },
+  "qt-minimum-empty-reductions.tar.gz": {
+    "sha256": "b84c3640fd26f36755895fb326aead256ea112bb42e27b9435da8b172e667eff",
+    "bytes": 38399
+  },
+  "qt-development-close.tar.gz": {
+    "sha256": "fd1d5d668164be4883946b91d010c11a5e068e1d00712dec91dc8cc4a10f6a66",
+    "bytes": 64555
+  },
+  "qt-minimum-close.tar.gz": {
+    "sha256": "50e590a9ce97b2030cf993c82278c85ad5f1e64c479f616aee738fabaef3ffa9",
+    "bytes": 67951
+  },
+  "qt-development-quit.tar.gz": {
+    "sha256": "39e35607ad52c89eb28581532a091c5508627d598044e453e08d32853b58cfdd",
+    "bytes": 64520
+  },
+  "skia-before-loader-fix.tar.gz": {
+    "sha256": "e8e2bb04319ab77d80a557724408840faa6a03268916b7fe5130601d244c804c",
+    "bytes": 4079
+  },
+  "skia-before-font-fix.tar.gz": {
+    "sha256": "3a0d9719c7c2d1c5d59448ae8c84f74d8876e452b3d662543b9fb247b34c9514",
+    "bytes": 8477
+  },
+  "skia-before-format-fix.tar.gz": {
+    "sha256": "9d5db25e0aea5bb53a462ea6e2cf932a81ac114afe1013890c2161145438056e",
+    "bytes": 30474
+  },
+  "motion.tar.gz": {
+    "sha256": "591e8653521838f6c5ab4d512b8fcd9192b14540ec98a4ab71ba29dc2eca0e5c",
+    "bytes": 28618187
+  }
+}

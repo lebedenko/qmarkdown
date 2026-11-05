@@ -374,3 +374,10 @@ record the approved fractional-scaling line consistency fix; the
 ## Stable streamed code blocks
 
 [072 requirements](072-stable-streamed-code-blocks/requirements.md), [design](072-stable-streamed-code-blocks/design.md), [tasks](072-stable-streamed-code-blocks/tasks.md) and [actual verification](072-stable-streamed-code-blocks/verification.md) record the approved streamed viewport and highlighting correction.
+
+## 2.x rendering architecture evaluation
+
+[073 requirements](073-rendering-architecture/requirements.md), [design](073-rendering-architecture/design.md),
+[tasks](073-rendering-architecture/tasks.md), [coordinate audit](073-rendering-architecture/audit.md)
+and [actual verification](073-rendering-architecture/verification.md) track the approved
+Linux Wayland OpenGL/Vulkan investigation. No 2.x backend or production rewrite is selected.

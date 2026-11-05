@@ -104,3 +104,36 @@ Approval: owner's supplied implementation plan; diagnostic scope B1–B5 only.
 - [x] Record actual evidence, missing gates and lightweight validation (B1–B5) in `blur-probe/motion-verification.md`.
 
 No merge, publication or shipping change is authorized by this revision.
+
+## Native-only diagnostic tasks — approved 2026-11-04
+
+Owner instruction to implement the supplied plan approves N1–N5 and the design
+above. No production revision is authorized.
+
+- [x] Append scope, requirements, design and approval; preserve historical records.
+- [x] Pin isolated snapshots and implement native-only policy and first-paint probe (N1–N2).
+- [x] Add focused same-coordinate painted-image calibration (N2).
+- [x] Pass focused calibration before the frozen qualification attempt (N2).
+- [x] Implement/execute the frozen live-pose replay/correctness matrix (N3); preserve the missing auxiliary raw-pair record.
+- [x] Verify software output preservation and run the first five fresh Release pairs (N4); Qt 6.8.0 software sparse p95 rejects the attempt.
+- [ ] Remaining five target/backend performance groups (N4): not reached after the rejection guard.
+- [x] Provide/open native comparison with alignment toggle and rejection labels on both SDKs/backends (N5).
+- [ ] Validate the complete scrolling review proxy against actual candidate source: owner reported proxy artifacts on 2026-11-05; initial raw-pixel checks were insufficient.
+- [ ] Obtain complete owner motion acceptance (N5): proxy artifacts reported and not accepted on 2026-11-05; full motion criteria remain unaccepted, independently of performance rejection.
+- [x] Record stop condition, frozen source/binaries, actual checks and post-gate diagnostic fixes; run standalone builds and policy/artifact smokes.
+- [ ] Final post-gate harness full qualification: not performed; the frozen attempt remains rejected.
+
+Unchecked downstream tasks are not reached if calibration fails; they must not be
+reported as completed or as renderer/geometry failures.
+
+## Actual-source artifact diagnosis tasks — approved 2026-11-05
+
+- [x] Record owner-approved requirements, design and scope before implementation.
+- [x] Share fixtures and preserve original scene; build both actual-source viewers on both SDKs.
+- [x] Run bounded scan and live trace on intermediate diagnostic binaries; save exact replay captures and metadata. Final-binary full trace remains unreached.
+- [x] Stop at failed replay stage: final Qt 6.8 Vulkan candidate unaligned launch stalled before ready; attribution unresolved.
+- [ ] Repair only evidence-isolated diagnostic defects and verify exact parity,
+  retained resources, geometry and interactions.
+- [ ] Replay final unchanged binaries on eight SDK/backend/alignment combinations.
+- [x] Build both SDKs; run lightweight validation and whitespace checks; record
+  actual results and unreached cases in [artifact verification](blur-probe/artifact-verification.md). No renewed motion acceptance until classified.

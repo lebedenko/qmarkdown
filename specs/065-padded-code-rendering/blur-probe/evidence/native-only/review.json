@@ -1,0 +1,126 @@
+[
+  {
+    "qt": "6.8.0",
+    "backend": "opengl",
+    "pid": 263821,
+    "output": "/tmp/blur-native-only-owner-review/6.8.0-opengl",
+    "binarySha256": "5e602711f043785b3ce7390342954b0f48cca54b113435e842c5e907453acf59",
+    "ready": {
+      "backend": "opengl",
+      "dpr": 1.25,
+      "graphicsApi": 3,
+      "outcome": "performance rejected",
+      "ownerReview": "pending",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "type": "reviewReady"
+    },
+    "libraries": {
+      "/tmp/blur-native-only-min-review/qmarkdown/src/QMarkdown/libQMarkdown.so": "2d5e059a6e2e060c738b3912744fcdbb155f8f846a3f703b55af81cb9c8c296e",
+      "/tmp/blur-native-only-min-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "2d5e059a6e2e060c738b3912744fcdbb155f8f846a3f703b55af81cb9c8c296e",
+      "/tmp/blur-native-only-min-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "2d5e059a6e2e060c738b3912744fcdbb155f8f846a3f703b55af81cb9c8c296e"
+    },
+    "harnessSha256": "592ae19f2222c7904bc765af4007a1e12f7624de484e9f0ca4d0373c9845fee0"
+  },
+  {
+    "qt": "6.8.0",
+    "backend": "vulkan",
+    "pid": 263822,
+    "output": "/tmp/blur-native-only-owner-review/6.8.0-vulkan",
+    "binarySha256": "5e602711f043785b3ce7390342954b0f48cca54b113435e842c5e907453acf59",
+    "ready": {
+      "backend": "vulkan",
+      "dpr": 1.25,
+      "graphicsApi": 5,
+      "outcome": "performance rejected",
+      "ownerReview": "pending",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "type": "reviewReady"
+    },
+    "libraries": {
+      "/tmp/blur-native-only-min-review/qmarkdown/src/QMarkdown/libQMarkdown.so": "2d5e059a6e2e060c738b3912744fcdbb155f8f846a3f703b55af81cb9c8c296e",
+      "/tmp/blur-native-only-min-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "2d5e059a6e2e060c738b3912744fcdbb155f8f846a3f703b55af81cb9c8c296e",
+      "/tmp/blur-native-only-min-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "2d5e059a6e2e060c738b3912744fcdbb155f8f846a3f703b55af81cb9c8c296e"
+    },
+    "harnessSha256": "592ae19f2222c7904bc765af4007a1e12f7624de484e9f0ca4d0373c9845fee0"
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "opengl",
+    "pid": 263823,
+    "output": "/tmp/blur-native-only-owner-review/6.12.0-opengl",
+    "binarySha256": "c48c9e5b295c986c1598b12c7d6a1ff228a8b13d9789572824c5b82e1b908df0",
+    "ready": {
+      "backend": "opengl",
+      "dpr": 1.25,
+      "graphicsApi": 3,
+      "outcome": "performance rejected",
+      "ownerReview": "pending",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "type": "reviewReady"
+    },
+    "libraries": {
+      "/tmp/blur-native-only-review/qmarkdown/src/QMarkdown/libQMarkdown.so": "de6e43df2bd285e1e6400acf9dbdc5a2dbbbf612c4a228931a564bea1bb87fa1",
+      "/tmp/blur-native-only-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "de6e43df2bd285e1e6400acf9dbdc5a2dbbbf612c4a228931a564bea1bb87fa1",
+      "/tmp/blur-native-only-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "de6e43df2bd285e1e6400acf9dbdc5a2dbbbf612c4a228931a564bea1bb87fa1"
+    },
+    "harnessSha256": "592ae19f2222c7904bc765af4007a1e12f7624de484e9f0ca4d0373c9845fee0"
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "vulkan",
+    "pid": 263824,
+    "output": "/tmp/blur-native-only-owner-review/6.12.0-vulkan",
+    "binarySha256": "c48c9e5b295c986c1598b12c7d6a1ff228a8b13d9789572824c5b82e1b908df0",
+    "ready": {
+      "backend": "vulkan",
+      "dpr": 1.25,
+      "graphicsApi": 5,
+      "outcome": "performance rejected",
+      "ownerReview": "pending",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "type": "reviewReady"
+    },
+    "libraries": {
+      "/tmp/blur-native-only-review/qmarkdown/src/QMarkdown/libQMarkdown.so": "de6e43df2bd285e1e6400acf9dbdc5a2dbbbf612c4a228931a564bea1bb87fa1",
+      "/tmp/blur-native-only-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "de6e43df2bd285e1e6400acf9dbdc5a2dbbbf612c4a228931a564bea1bb87fa1",
+      "/tmp/blur-native-only-review/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "de6e43df2bd285e1e6400acf9dbdc5a2dbbbf612c4a228931a564bea1bb87fa1"
+    },
+    "harnessSha256": "592ae19f2222c7904bc765af4007a1e12f7624de484e9f0ca4d0373c9845fee0"
+  }
+]

@@ -1,0 +1,542 @@
+[
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-distance-1.0-ligatures-empty",
+      "--case=empty"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.717069418002211,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 239.845849,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-distance-1.0-ligatures-rectangle",
+      "--case=rectangle"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6500890690003871,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 148.83966,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-distance-1.0-ligatures-static",
+      "--case=static"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6594566310013761,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 152.796359,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-distance-1.0-ligatures-capture",
+      "--case=capture"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6168004870014556,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 144.274077,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-distance-1.0-ligatures-motion",
+      "--case=motion"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6490023499973177,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 150.709088,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-distance-1.0-ligatures-combined",
+      "--case=combined"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6545594529998198,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 141.284579,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-curve-1.0-ligatures-empty",
+      "--case=empty"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6099400919993059,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 129.346373,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-curve-1.0-ligatures-rectangle",
+      "--case=rectangle"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6371624940002221,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 141.406906,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-curve-1.0-ligatures-static",
+      "--case=static"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6600851809998858,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 158.964398,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-curve-1.0-ligatures-capture",
+      "--case=capture"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6348866640000779,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 149.220156,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-curve-1.0-ligatures-motion",
+      "--case=motion"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6528365769991069,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 151.443629,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-native-reduction-minimum/vulkan-curve-1.0-ligatures-combined",
+      "--case=combined"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.6662849979984458,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 139.86246,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "a7df060b1e14d1b2509afaad86d68194af357fd395b42904a078dc783ccd09a0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "0cd3ff7156c3fe9cde25176827795eb417fe95d016373e9dc16cd6a8e30402d0",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "3bab25df6593f364d8c4d300abe0dcd55c621534a15f11be12c68877f655731a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/reference.py": "a2c617407e8d2de45af4b2d0919ae58452d5d19d9e83d723fdd640d90f5fd028",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "9db71af989a4b7d086c64b0338bec4df388b09048e72d58c3a66c8e21ddbded9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/test_runner.py": "d44d08abb3fd97d21f2812188fed34d3c572f12f94a9ade68d4b259ce1227f72",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    }
+  }
+]

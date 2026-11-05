@@ -196,3 +196,116 @@ python3 specs/065-padded-code-rendering/blur-probe/summarize_motion.py build-ci/
 `BLUR_FIXTURE=<fixture-id>` narrows direct executable runs for diagnosis. The
 qualification runner clears this variable and verifies expected fixture/capture
 counts, so a focused run cannot qualify the full matrix.
+
+## Native-only calibration revision — 2026-11-04
+
+The supplied implementation plan approves the appended N1–N5 scope in feature
+065. `stage_motion.py` now pins `43d6bba` and exports policy `native-only-v2`.
+The earlier unconditional candidate and its results do not qualify this revision.
+Production source and all historical evidence remain unchanged.
+
+Build isolated baseline/candidate snapshots as above, using a fresh staging
+folder. Run focused calibration before any further qualification:
+
+```sh
+python3 specs/065-padded-code-rendering/blur-probe/run_calibration.py /tmp/blur-native-only-baseline/blur-motion /tmp/blur-native-only-candidate/blur-motion /tmp/blur-native-only-calibration --qt 6.12.0 --backend software --scale 1.25
+```
+
+Use software scales 1.25/1.5 and native Vulkan `--scale 1` on the desktop at
+observed DPR 1.25; repeat with exact Qt 6.8.0. The runner requires a new output
+directory and stops at the first unresolved stage. It rejects old source/policy
+identities. First real paint instrumentation runs only in `calibrate` mode.
+The independent raw raster uses the real paint device settings; the authoritative
+retained painted-image control uses those independent pixels. Opacity switching
+compares complete framebuffer images at identical coordinates. No tolerance,
+alignment adjustment or source update is used. Raw pixels and failures are saved.
+
+The historical preview does not qualify N5. The revised runner below replaces
+translated equality with complete same-coordinate replay for N2/N3. A revised
+labelled viewer remains downstream of successful automated qualification. Actual
+revision results are in
+[native-only verification](native-only-verification.md).
+
+The revised `motion.cpp` and `run_motion.py` now include complete static replay
+and separate same-coordinate pose-control records. Use the ordered entry point
+for this revision rather than invoking the historical matrix commands above:
+
+```sh
+python3 specs/065-padded-code-rendering/blur-probe/qualify_native.py /tmp/blur-native-only-min-baseline/blur-motion /tmp/blur-native-only-min-candidate/blur-motion /tmp/blur-native-only-baseline/blur-motion /tmp/blur-native-only-candidate/blur-motion build-ci/065-native-only/final --minimum-library-path /path/to/qt-6.8.0/lib
+```
+
+The entry point stops after any failed calibration, replay, renderer or performance
+stage. Its fresh evidence directories preserve actual results and all cases not
+reached after a guard. It does not launch or qualify the historical review viewer.
+
+`blur-review` is a separate viewer target, so preparing review does not change
+measurement executables. It requires all four native correctness stages to pass, uses the baseline
+source, and verifies each proxy's raw pixels against both frozen source variants
+as an initial raw-pixel check. This does not validate the scrolling composition
+(see the owner report below). The toolbar reports a performance rejection
+separately; visual review cannot override that gate. Both toolbar controls sit outside the
+document: click the baseline/candidate label to switch without resetting scroll;
+click `pixelAligned` to change alignment. Run it separately on both native APIs:
+
+```sh
+QT_QPA_PLATFORM=wayland QSG_RHI_BACKEND=opengl QT_SCALE_FACTOR=1 /tmp/blur-native-only-review/blur-review build-ci/065-native-only/final /tmp/blur-qualified-review-opengl opengl
+QT_QPA_PLATFORM=wayland QSG_RHI_BACKEND=vulkan QT_SCALE_FACTOR=1 /tmp/blur-native-only-review/blur-review build-ci/065-native-only/final /tmp/blur-qualified-review-vulkan vulkan
+```
+
+These commands remain guarded until both native comparisons pass on both SDKs.
+The viewer selects its evidence by actual Qt version; use the minimum-SDK viewer
+and its SDK library path to review Qt 6.8.0. Explicit owner review
+must cover resting sharpness, slow-scroll shimmer, stepping, reversal and settling
+in both alignment modes on both backends. Silence does not establish acceptance.
+
+
+Owner feedback on 2026-11-05 invalidates the review viewer's former “validated
+image proxy” claim: artifacts depend on scroll position across both SDKs/native
+backends/alignment modes, while baseline source looks correct. Initial raw-pixel
+checks did not qualify the complete scrolling composition. The current label is
+**UNQUALIFIED image proxy**. Existing open windows retain their original binary's
+label. See the [owner report](native-only-verification.md#owner-artifact-report--2026-11-05).
+Qualification remains stopped; actual candidate-source behavior at those poses
+has not been isolated.
+
+## Actual-source artifact diagnosis — 2026-11-05
+
+`blur-review` now links **either** pinned baseline or candidate, selected by
+`QMARKDOWN_STAGE` at build time. Its default view is labelled **BASELINE — actual
+source** or **CANDIDATE — actual source**. Clicking the left toolbar switches only
+to that executable's matching, explicitly unqualified proxy. Native baseline
+uses linear sampling; native candidate uses nearest. `scene.h` shares text,
+fonts, ranges and paragraph construction with `motion.cpp`. The original
+24-paragraph initialization, clipping and 120-pixel spacing are preserved.
+
+Build both targets using fresh stage/build directories as described above. Run:
+
+```sh
+python3 specs/065-padded-code-rendering/blur-probe/run_artifact.py /tmp/065-artifact-candidate/blur-review /tmp/065-owner-scan --evidence build-ci/065-native-only/final
+python3 specs/065-padded-code-rendering/blur-probe/run_artifact.py /tmp/065-artifact-baseline/blur-review /tmp/065-owner-pose --evidence build-ci/065-native-only/final --pose 320
+```
+
+The default scan starts at 240–360 in 0.2-logical-pixel steps (quarter physical
+pixel at required observed DPR 1.25), deduplicates actual content positions,
+records drag/deceleration/reversal/settling, replays those live frames, then
+scans the full remaining range in 0.8-logical-pixel steps. `--pose` instead
+replays one diagnostic pose, Cartesian quarter-physical phases, origin and
+bottom viewport. `--unaligned` disables pixel alignment; `--backend vulkan`
+selects Vulkan. A nonzero exit preserves the failed stage; do not attribute a
+proxy mismatch until frozen replay succeeds. Source/proxy captures exclude the
+toolbar and cover the full 1000 × 800 physical-pixel document viewport.
+
+For interactive owner inspection, run each **separate executable** directly;
+the second argument must name a fresh output directory:
+
+```sh
+QT_QPA_PLATFORM=wayland QSG_RHI_BACKEND=opengl QT_SCALE_FACTOR=1 /tmp/065-artifact-baseline/blur-review build-ci/065-native-only/final /tmp/065-owner-baseline opengl
+QT_QPA_PLATFORM=wayland QSG_RHI_BACKEND=opengl QT_SCALE_FACTOR=1 /tmp/065-artifact-candidate/blur-review build-ci/065-native-only/final /tmp/065-owner-candidate opengl
+```
+
+Use `/tmp/065-artifact-min-baseline/blur-review` and
+`/tmp/065-artifact-min-candidate/blur-review` for exact Qt 6.8.0; set its SDK `lib`
+directory in `LD_LIBRARY_PATH` if necessary. Repeat with Vulkan and both toolbar
+alignment states. These viewers supply actual source for inspection; they do
+not revoke the performance rejection or establish owner motion acceptance.
+See [diagnosis and actual verification](artifact-verification.md).

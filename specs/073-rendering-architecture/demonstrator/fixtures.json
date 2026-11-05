@@ -1,0 +1,323 @@
+{
+  "schema": 1,
+  "indexUnit": "UTF-16",
+  "fonts": {
+    "regular": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+    "bold": "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
+    "italic": "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf",
+    "mono": "/usr/share/fonts/TTF/DejaVuSansMono.ttf",
+    "cjk": "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc",
+    "emoji": "/usr/share/fonts/noto/NotoColorEmoji.ttf"
+  },
+  "fontSize": 22,
+  "padding": [
+    6,
+    3
+  ],
+  "objectColor": "#b9eadb",
+  "background": "#ffffff",
+  "viewport": [
+    800,
+    600
+  ],
+  "fixtures": [
+    {
+      "id": "padded",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "Before inline code after.",
+          "spans": [
+            {
+              "start": 7,
+              "length": 11,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "adjacent",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "Strong emphasis and code with strike.",
+          "spans": [
+            {
+              "start": 0,
+              "length": 6,
+              "kind": "bold"
+            },
+            {
+              "start": 7,
+              "length": 8,
+              "kind": "italic"
+            },
+            {
+              "start": 20,
+              "length": 4,
+              "kind": "code"
+            },
+            {
+              "start": 30,
+              "length": 6,
+              "kind": "strike"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "wrapping",
+      "width": 225,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "bidi",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "Before العربية code שלום after.",
+          "spans": [
+            {
+              "start": 15,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "ligatures",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "office affinity ffi fi fl",
+          "spans": [],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "combining",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "Café naïve å é",
+          "spans": [],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "fallback",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "Latin Ελληνικά العربية עברית 日本語 😀",
+          "spans": [],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "overhang",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "fff italic fX",
+          "spans": [
+            {
+              "start": 0,
+              "length": 13,
+              "kind": "italic"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    },
+    {
+      "id": "objects",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "Before [object] after code.",
+          "spans": [
+            {
+              "start": 22,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 7,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bidi-objects",
+      "width": 240,
+      "blocks": [
+        {
+          "text": "שלום [object] العربية code",
+          "spans": [
+            {
+              "start": 22,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 5,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "document",
+      "width": 680,
+      "blocks": [
+        {
+          "text": "Native rendering comparison",
+          "spans": [
+            {
+              "start": 0,
+              "length": 27,
+              "kind": "bold"
+            }
+          ],
+          "objects": []
+        },
+        {
+          "text": "This document exercises mixed emphasis, padded code and an inline [object].",
+          "spans": [
+            {
+              "start": 30,
+              "length": 8,
+              "kind": "italic"
+            },
+            {
+              "start": 40,
+              "length": 11,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 66,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        },
+        {
+          "text": "",
+          "spans": [],
+          "objects": [],
+          "kind": "rule"
+        },
+        {
+          "text": "Renderer              Geometry              Status",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "Qt native             Text layout           Inspect",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "Qt fallback           Prepared glyphs       Inspect",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "Skia                  SkParagraph           Inspect",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        },
+        {
+          "text": "Before العربية code שלום after.",
+          "spans": [
+            {
+              "start": 15,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  ]
+}
