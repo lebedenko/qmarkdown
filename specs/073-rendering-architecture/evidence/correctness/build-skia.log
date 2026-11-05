@@ -1,0 +1,33 @@
+[1/4] Building CXX object CMakeFiles/skia-compare.dir/main.cpp.o
+/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp:42:13: warning: ‘template<class _Codecvt, class _Elem, class _Wide_alloc, class _Byte_alloc> class std::__cxx11::wstring_convert’ is deprecated [-Wdeprecated-declarations]
+   42 | static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> utf;
+      |             ^~~~~~~~~~~~~~~
+In file included from /usr/include/c++/16/locale:47,
+                 from /usr/include/c++/16/bits/fs_path.h:36,
+                 from /usr/include/c++/16/filesystem:55,
+                 from /usr/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /usr/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /usr/include/nlohmann/adl_serializer.hpp:14,
+                 from /usr/include/nlohmann/json.hpp:34,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp:4:
+/usr/include/c++/16/bits/locale_conv.h:265:33: note: declared here
+  265 |     class _GLIBCXX17_DEPRECATED wstring_convert
+      |                                 ^~~~~~~~~~~~~~~
+[2/4] Linking CXX executable skia-compare
+[3/4] Building CXX object CMakeFiles/skia-selection.dir/selection.cpp.o
+In file included from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/selection.cpp:3:
+/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp:42:13: warning: ‘template<class _Codecvt, class _Elem, class _Wide_alloc, class _Byte_alloc> class std::__cxx11::wstring_convert’ is deprecated [-Wdeprecated-declarations]
+   42 | static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> utf;
+      |             ^~~~~~~~~~~~~~~
+In file included from /usr/include/c++/16/locale:47,
+                 from /usr/include/c++/16/bits/fs_path.h:36,
+                 from /usr/include/c++/16/filesystem:55,
+                 from /usr/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /usr/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /usr/include/nlohmann/adl_serializer.hpp:14,
+                 from /usr/include/nlohmann/json.hpp:34,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp:4:
+/usr/include/c++/16/bits/locale_conv.h:265:33: note: declared here
+  265 |     class _GLIBCXX17_DEPRECATED wstring_convert
+      |                                 ^~~~~~~~~~~~~~~
+[4/4] Linking CXX executable skia-selection

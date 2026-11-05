@@ -1,0 +1,143 @@
+[
+  {
+    "name": "qt-development",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-selection",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json"
+    ],
+    "exit": 0,
+    "failures": 0,
+    "passed": true,
+    "inputsBefore": {
+      "build-ci/073-demo-development/qt-selection": "9d77f793922845f672ea982ece3661b62407b7405b29327afaffc9f87458b485",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666",
+      "build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6",
+      "build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so.1": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6",
+      "build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6"
+    },
+    "inputsAfter": {
+      "build-ci/073-demo-development/qt-selection": "9d77f793922845f672ea982ece3661b62407b7405b29327afaffc9f87458b485",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666",
+      "build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6",
+      "build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so.1": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6",
+      "build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6"
+    }
+  },
+  {
+    "name": "qt-minimum",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-selection",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json"
+    ],
+    "exit": 0,
+    "failures": 0,
+    "passed": true,
+    "inputsBefore": {
+      "build-ci/073-demo-minimum/qt-selection": "796208598b48d8d21c93eeb0da98ac36ce23628164d35e037af9d95e4c7618c7",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666",
+      "build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812",
+      "build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812",
+      "build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812"
+    },
+    "inputsAfter": {
+      "build-ci/073-demo-minimum/qt-selection": "796208598b48d8d21c93eeb0da98ac36ce23628164d35e037af9d95e4c7618c7",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666",
+      "build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812",
+      "build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812",
+      "build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812"
+    }
+  },
+  {
+    "name": "skia",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-selection",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json"
+    ],
+    "exit": 1,
+    "failures": 2026,
+    "passed": false,
+    "inputsBefore": {
+      "build-ci/073-skia-demo/skia-selection": "ea36587652920d05cb2e85fe45358c0d126e305e51b27116b4011fc1c87c87f3",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666"
+    },
+    "inputsAfter": {
+      "build-ci/073-skia-demo/skia-selection": "ea36587652920d05cb2e85fe45358c0d126e305e51b27116b4011fc1c87c87f3",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666"
+    }
+  },
+  {
+    "name": "skia-trial",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-selection",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json",
+      "--fragment-trial"
+    ],
+    "exit": 1,
+    "failures": 1615,
+    "passed": false,
+    "inputsBefore": {
+      "build-ci/073-skia-demo/skia-selection": "ea36587652920d05cb2e85fe45358c0d126e305e51b27116b4011fc1c87c87f3",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666"
+    },
+    "inputsAfter": {
+      "build-ci/073-skia-demo/skia-selection": "ea36587652920d05cb2e85fe45358c0d126e305e51b27116b4011fc1c87c87f3",
+      "build-ci/073-correctness-geometry-final-binaries/geometry-fixtures.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/prepared-cursor.patch": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666"
+    }
+  }
+]

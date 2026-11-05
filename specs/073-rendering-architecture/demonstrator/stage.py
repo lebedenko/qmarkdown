@@ -44,7 +44,10 @@ def stage(destination):
         }
 """)
     cpp.write_text(source)
-    manifest = {"commit": COMMIT, "purpose": "preparation-only; explicit fixture objects",
+    patch = Path(__file__).with_name("prepared-cursor.patch")
+    subprocess.run(["git", "apply", "--check", str(patch)], cwd=destination, check=True)
+    subprocess.run(["git", "apply", str(patch)], cwd=destination, check=True)
+    manifest = {"patchSha256": hashlib.sha256(patch.read_bytes()).hexdigest(), "commit": COMMIT, "purpose": "preparation-only; explicit fixture objects",
                 "files": {str(p.relative_to(destination)): hashlib.sha256(p.read_bytes()).hexdigest()
                           for p in (header, cpp)}}
     (destination / "demo-source.json").write_text(json.dumps(manifest, indent=2) + "\n")

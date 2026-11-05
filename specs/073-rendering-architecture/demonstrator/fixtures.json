@@ -318,6 +318,31 @@
           "objects": []
         }
       ]
+    },
+    {
+      "id": "unicode-code",
+      "width": 180,
+      "blocks": [
+        {
+          "text": "LTR é 🙂 אב code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
     }
   ]
 }

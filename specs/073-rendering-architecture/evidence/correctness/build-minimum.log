@@ -1,0 +1,4 @@
+[1/4] Building CXX object CMakeFiles/qt-compare.dir/qt.cpp.o
+[2/4] Linking CXX executable qt-compare
+[3/4] Building CXX object CMakeFiles/qt-selection.dir/selection.cpp.o
+[4/4] Linking CXX executable qt-selection

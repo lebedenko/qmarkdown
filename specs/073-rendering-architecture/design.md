@@ -62,3 +62,67 @@ checks requested against observed identities, hashes inputs before and after run
 and applies independent startup, operation and shutdown deadlines. GPU runs are
 serial and failures do not skip another renderer. Captures are correctness evidence,
 not presentation pacing. The inspection title stays outside the document capture.
+
+## Bounded correctness continuation — approved design
+
+Approval: owner explicitly approved C1–C6, this design and mapped tasks on
+2026-11-05 ("approved").
+
+### Qt source mapping (C1, C4)
+
+Keep stage.py's original source commit
+`43d6bba842bb5b7ab23889e49d5f138c6f22a7fb`. First retain failing geometry traces
+on both exact SDKs, including source offsets, cursor-cell bounds, line membership,
+visual direction, pointer positions and resolved source offsets. Use these to
+separate a geometry defect from an ambiguous edge expectation; never change the
+expected copied source to accommodate a failure.
+
+Represent any preparation correction as a checked reproducible patch applied
+only to the isolated stage. Fail staging on an unexpected base or patch mismatch;
+record original commit, patch SHA-256 and patched output SHA-256 identities.
+Interactive selection and offscreen tests consume the same prepared mapping.
+No fixture-text branches or independent test-only hit-test correction are allowed.
+
+### Skia fragment reservations (C2, C4)
+
+Use the existing pinned SkParagraph and whole-paragraph shaping. After each
+layout, derive code-fragment boundaries and the horizontal/vertical reservations
+needed by those fragments; rebuild the mapped layout and repeat. Accept only a
+stable boundary/reservation state within eight passes. Track prior states to
+reject cycles explicitly, and report non-convergence at the pass limit.
+
+Inserted reservations map to source boundaries without contributing copied text;
+collapsed objects retain their complete UTF-16 source interval. Painting,
+selection and hit testing all use the final accepted layout and its mapping.
+Check horizontal padding on every fragment, vertical space, object bounds and
+exact copied source in both directions. Check widths immediately below, at and
+above observed wrap transitions, including adjacent spans, bidi, marks and
+surrogate pairs. Reject reservations that disrupt bidi order, shaping, legal
+wrapping or source mapping. Retain a minimal reproducer and blocker if this
+bounded trial fails; do not add synthetic spaces, atomic code spans or another
+layout engine.
+
+### Vulkan lifecycle diagnostics (C3)
+
+Start with the existing empty-window reproducer. Exercise default and basic
+render loops separately, then explicit scene-graph release with the event loop
+still running. Log callback/resource teardown order and collect externally
+bounded crash backtraces on each exact SDK. Keep variants diagnostic until
+observed Vulkan identity, normal shutdown and three process recreations pass.
+Do not switch backend, Qt SDK or system driver to claim a lifecycle correction.
+If no valid harness correction passes, keep minimum-Qt Vulkan failed and retain
+an independently runnable empty-window reproducer.
+
+### Evidence gates (C4–C6)
+
+Run geometry before affected native fixtures. An unresolved geometry failure
+blocks acceptance for that case; retain its failure rather than interpreting
+replay as acceptance. Run GPU processes serially, with both Qt renderers/APIs
+and each observed Qt DPR; record unavailable Skia scales explicitly. Exercise
+stationary and selected captures, resize/reset, motion/replay and recreation.
+Shared layout/lifecycle changes trigger the complete demonstrator matrix.
+
+Append evidence separately from historical runs, retaining commands, source and
+patch identities, binaries, fonts and before/after results. Update support and
+review/migration records from actual outcomes only. Owner visual acceptance
+remains separate from automated geometry, process and replay success.

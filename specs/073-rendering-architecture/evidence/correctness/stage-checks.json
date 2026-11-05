@@ -1,0 +1,7 @@
+{
+  "repeatedStageIdentical": true,
+  "reapplyingPatchRejected": true,
+  "reapplyExit": 1,
+  "reapplyStderr": "error: patch failed: build-ci/073-correctness-prepared-repeat/src/QMarkdown/private/formattedtext.cpp:503\nerror: build-ci/073-correctness-prepared-repeat/src/QMarkdown/private/formattedtext.cpp: patch does not apply\n",
+  "patchSha256": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666"
+}

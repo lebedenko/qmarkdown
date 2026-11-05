@@ -1,0 +1,23 @@
+--- a/src/QMarkdown/private/formattedtext.cpp
++++ b/src/QMarkdown/private/formattedtext.cpp
+@@ -503,7 +503,19 @@
+             QVector<Cell> cells;
+             for (int pos = line.textStart(); pos < line.textStart() + line.textLength(); ++pos) {
+                 if (!m_layout->isValidCursorPosition(pos) || layoutText[pos] == QChar::LineSeparator) continue;
+-                const qreal a = line.cursorToX(pos, QTextLine::Leading), b = line.cursorToX(pos, QTextLine::Trailing);
++                qreal a = line.cursorToX(pos, QTextLine::Leading), b = line.cursorToX(pos, QTextLine::Trailing);
++                // At a wrapped bidi boundary Qt can return the opposite run's
++                // edge for both affinities. Recover the complete grapheme cell
++                // from the same shaped line, never from unshaped font advances.
++                if (a == b && atoms[pos] < 0) {
++                    const auto runs = line.glyphRuns(pos, m_layout->nextCursorPosition(pos) - pos);
++                    if (runs.size() == 1 && runs.first().boundingRect().width() > 0) {
++                        const auto &run = runs.first();
++                        const auto rect = run.boundingRect();
++                        a = run.isRightToLeft() ? rect.right() : rect.left();
++                        b = run.isRightToLeft() ? rect.left() : rect.right();
++                    }
++                }
+                 if (a != b || atoms[pos] >= 0) cells.append({pos, codes[pos], QRectF(qMin(a, b) + alignmentShift, line.y(), std::abs(a - b), line.height()), 0, a > b});
+             }
+             if (!m_padded && line.width() != originalWidth) line.setLineWidth(originalWidth);

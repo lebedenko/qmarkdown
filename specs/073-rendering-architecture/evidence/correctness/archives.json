@@ -1,0 +1,26 @@
+{
+  "geometry-final.tar.gz": {
+    "bytes": 543327,
+    "sha256": "1df2fc501c899be9e9603285991c22b8df852e7522532f3ad5a238527dd0a5e2"
+  },
+  "geometry-lines.tar.gz": {
+    "bytes": 538391,
+    "sha256": "4fd941c38b3fc74d68955b16d80bd6d6b064849ee18edd74992b1806c592a9b6"
+  },
+  "interrupted-native-sample.tar.gz": {
+    "bytes": 27281,
+    "sha256": "88eb213314b946c93b3501f8ef34b66dda6e9be9a1fdd7039f7c1e90e672f06c"
+  },
+  "lifecycle-native.tar.gz": {
+    "bytes": 26306,
+    "sha256": "2dcc3412a6924f74ae82beefc83b24d1b154a84bd302d41fe464d2b3adf849ac"
+  },
+  "lifecycle-sandbox-denied.tar.gz": {
+    "bytes": 13557,
+    "sha256": "231193918e1cdee68b07990dcdd9d19f8a255236591162a209444ddccbfb4dcf"
+  },
+  "native.tar.gz": {
+    "bytes": 58654657,
+    "sha256": "2b0f83298673c044d6f895717a2673af41dcfcc9756c9d3c041c598b08878e38"
+  }
+}

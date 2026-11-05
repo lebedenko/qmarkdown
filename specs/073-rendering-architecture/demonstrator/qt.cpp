@@ -36,6 +36,26 @@ static void record(QJsonObject object) {
 }
 class DemoAccess {
 public:
+    static QJsonObject geometry(const FormattedText &text) {
+        QJsonArray cells, lines, raw;
+        for(int j=0;j<text.m_layout->lineCount();++j) {
+            auto l=text.m_layout->lineAt(j);
+            for(int pos=l.textStart();pos<l.textStart()+l.textLength();++pos) {
+                QJsonArray runs;
+                for(auto r:l.glyphRuns(pos,1))runs.append(QJsonObject{{"x",r.boundingRect().x()},{"width",r.boundingRect().width()},{"rtl",r.isRightToLeft()}});
+                raw.append(QJsonObject{{"line",j},{"pos",pos},{"valid",text.m_layout->isValidCursorPosition(pos)},
+                    {"a",l.cursorToX(pos,QTextLine::Leading)},{"b",l.cursorToX(pos,QTextLine::Trailing)},{"runs",runs}});
+            }
+        }
+        for (const auto &c : text.m_cursorCells)
+            cells.append(QJsonObject{{"start",c.start},{"end",c.end},{"rtl",c.reversed},
+                {"x",c.rect.x()},{"y",c.rect.y()},{"width",c.rect.width()},{"height",c.rect.height()},
+                {"leftHit",text.cursorAt(c.rect.left()+.01,c.rect.center().y())},
+                {"rightHit",text.cursorAt(c.rect.right()-.01,c.rect.center().y())}});
+        for (const auto &l : text.m_cursorLines)
+            lines.append(QJsonObject{{"start",l.start},{"top",l.top},{"bottom",l.bottom}});
+        return {{"cells",cells},{"lines",lines},{"raw",raw},{"layoutText",text.m_layout->text()}};
+    }
     static void prepare(FormattedText &text) { text.updatePolish(); }
     static QTextLayout *layout(FormattedText &text) { return text.m_layout.get(); }
     static QRectF ink(const FormattedText &text) { return text.m_inkBounds; }
@@ -211,6 +231,21 @@ public:
         }
         record({{"stage",stage},{"rasterPaints",paints},{"uploads",uploads},{"nativeNodes",nodes},{"regions",regions}});
     }
+    static void selectRange(FormattedText &text,int anchor,int cursor) {
+        // Prepared selection rectangles take a logical interval, independent
+        // of the pointer's direction through visual bidi cells.
+        text.setSelectionStart(qMin(anchor,cursor));
+        text.setSelectionEnd(qMax(anchor,cursor));
+    }
+    QString selectedSource() const {
+        QString copied;
+        for(auto &p:paragraphs) {
+            int a=qMin(p->text.selectionStart(),p->text.selectionEnd());
+            int b=qMax(p->text.selectionStart(),p->text.selectionEnd());
+            if(b>a)copied+=p->text.text().mid(a,b-a);
+        }
+        return copied;
+    }
 protected:
     void keyPressEvent(QKeyEvent *event) override {
         switch(event->key()) {
@@ -223,12 +258,7 @@ protected:
         case Qt::Key_Minus: zoom=qMax(.5,zoom-.125);prepare();break;
         case Qt::Key_C:
             if(event->modifiers()&Qt::ControlModifier) {
-                QString copied;
-                for(auto &p:paragraphs) {
-                    int a=qMin(p->text.selectionStart(),p->text.selectionEnd());
-                    int b=qMax(p->text.selectionStart(),p->text.selectionEnd());
-                    if(b>a) copied+=p->text.text().mid(a,b-a);
-                }
+                const QString copied=selectedSource();
                 QGuiApplication::clipboard()->setText(copied);
                 record({{"stage","copied"},{"source",copied}});
             }
@@ -251,7 +281,7 @@ protected:
         if(selectionBlock<0 || !(event->buttons()&Qt::LeftButton)) return;
         auto &p=paragraphs[size_t(selectionBlock)];
         auto local=p->mapFromScene(event->position());
-        p->text.setSelectionStart(anchor);p->text.setSelectionEnd(p->text.cursorAt(local.x(),local.y()));
+        selectRange(p->text,anchor,p->text.cursorAt(local.x(),local.y()));
         // Native geometry resources are replaced only for selection changes.
         p->setVisible(false);p->setVisible(true);
         p->native=false; // Explicit raster inspection for selection foreground/geometry.
@@ -357,6 +387,14 @@ int main(int argc,char **argv) {
                 if(reset.isNull())return;
                 record({{"stage","replay"},{"exact",settled==reset},{"operation","resize-zoom-reset"}});
                 if(settled!=reset){app.exit(5);return;}
+                for(auto &p:window.paragraphs) if(!p->text.text().isEmpty()) {
+                    Window::selectRange(p->text,p->text.text().size(),0);
+                    p->native=false;p->invalidate(true);break;
+                }
+                window.place();phase=10;
+            } else if(phase==10) {
+                if(capture("selected").isNull())return;
+                record({{"stage","selected-source"},{"source",window.selectedSource()}});
                 window.motion.stop();window.counters("shutdown");phase=12;
                 if(closePath)window.close();else app.quit();
             }

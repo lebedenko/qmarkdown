@@ -8,6 +8,9 @@ unchanged. The original [placement probe](../probe/README.md) remains separate.
 Run from the repository root. Python 3, CMake, Ninja and the exact Qt SDK are
 required. Staging refuses an existing destination; it extracts the recorded Git
 commit and modifies only that copy. No working-tree source is copied implicitly.
+Staging checks and applies [prepared-cursor.patch](prepared-cursor.patch), retaining
+its SHA-256 and output hashes in demo-source.json. Existing stages predate this
+correction: create a fresh destination and point PREPARED_STAGE at it.
 
 ~~~sh
 python3 specs/073-rendering-architecture/demonstrator/stage.py build-ci/073-prepared
@@ -115,12 +118,19 @@ QT_QPA_PLATFORM=offscreen build-ci/073-demo-minimum/qt-selection specs/073-rende
 build-ci/073-skia-demo/skia-selection specs/073-rendering-architecture/demonstrator/fixtures.json
 ~~~
 
-Qt selection checks currently exit 1 for the retained narrow bidi/object code-edge
-bug (copies “ode” instead of “code”). Other source-edge and object checks pass.
-Skia source-edge checks pass but report unsupported per-line padding in wrapped
-reservation fixtures. Run the launcher with --fixture bidi-objects or
---fixture wrapping to inspect these reproductions. See the
-[support matrix](../evidence/continuation/support.json).
+With the corrected stage, Qt selection checks pass on both exact SDKs, including
+`bidi-objects` copying the full `code` range. Reverse drags use the same normalized
+logical interval for painting and copy. Skia geometry checks deliberately exit 1:
+source copying passes, but per-fragment padding and some placeholder vertical
+bounds fail. These are composition failures, even when GPU replay passes.
+See the [current support matrix](../evidence/correctness/support.json); the
+[earlier support matrix](../evidence/continuation/support.json) remains historical.
+
+Run the launcher with --fixture bidi-objects and drag across `code` in both
+directions; check the highlight and copied text, then resize across its wrap.
+Use --fixture unicode-code for marks, surrogate pairs, mixed directions and an
+object in one paragraph. Skia --fixture wrapping remains an unsupported control.
+Owner still-image and temporal acceptance are separate from automated results.
 
 For review, inspect both slow motion and flick/reversal on actual windows.
 Automated exact replay cannot provide owner visual acceptance.
@@ -134,3 +144,36 @@ The motion runner covers padded code, objects and the document on both exact Qt
 SDKs, both Qt renderers, both APIs and four observed Qt DPRs; independent Skia
 controls use the available SDL DPR 1. It runs all GPU cases serially. Sixty
 rendered steps do not establish sixty compositor presentations or pacing quality.
+
+
+## Bounded correctness reproduction
+
+All output directories below must be new. Run native commands serially; the
+native matrix takes approximately 25 minutes on the recorded host. It runs the
+complete fixture matrix, three recreations of affected fixtures and separate
+slow/flick/reversal replay. Selected captures must differ from unselected captures
+and report exact source. Skia runs use the original reservation layout; the
+rejected per-fragment trial is restricted to geometry diagnostics.
+
+~~~sh
+python3 specs/073-rendering-architecture/demonstrator/correctness.py geometry build-ci/073-new-geometry
+build-ci/073-skia-demo/skia-selection specs/073-rendering-architecture/evidence/correctness/skia-minimal.json --fragment-trial
+python3 specs/073-rendering-architecture/demonstrator/lifecycle.py build-ci/073-new-lifecycle
+python3 specs/073-rendering-architecture/demonstrator/correctness.py native build-ci/073-new-native
+~~~
+
+Geometry emits the exact generated width-scan manifest, compressed traces,
+failures and identities. The trial bounds convergence at eight passes and rejects
+cycles explicitly. Stable boundaries still require passing padding, object and
+source checks. The geometry command returns failure for the retained Skia gaps.
+
+The standalone qt-lifecycle target has no dependency on staged text preparation
+or the fixture manifest. The lifecycle runner compares default/basic render loops,
+ordinary shutdown and --release-live, with three recreations and bounded debugger
+stacks on each exact SDK. Qt 6.8.0 Vulkan still fails all variants; no workaround
+is adopted. Both lifecycle and native runners return failure for this known gap.
+GPU access and gdb are required for the native lifecycle diagnostics.
+
+See [verification](../verification.md) for actual outcomes, retained failures and
+the capabilities required next. No shipping changes or backend selection follow
+from these experiment results.

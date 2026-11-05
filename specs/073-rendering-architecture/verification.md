@@ -238,3 +238,161 @@ Skia 11,528,624 bytes. The Qt curve/OpenGL document viewer was opened for owner
 review and reached observed readiness on Qt 6.12.0 at DPR 1.25. The generated
 self-contained browser reference is available at /tmp/073-browser-reference.html
 and can be regenerated with the documented command. Owner acceptance is pending.
+
+## Bounded correctness continuation — 2026-11-05
+
+The owner explicitly approved C1–C6, the updated design and mapped tasks before
+implementation. Changes remain under Feature 073; shipping source, APIs,
+dependencies, versions, releases, drivers and backend choices are unchanged.
+Historical evidence above remains valid for its recorded inputs.
+
+### Qt geometry and selection
+
+Fresh baseline runs reproduce `bidi-objects` copying `ode` on both exact SDKs.
+The retained cursor traces identify source line start 22, but no prepared cell
+for source 22 (`c`); cells start at 23. Qt's two cursor affinities collapse to the
+same x at this wrapped bidi boundary, while the same shaped line's glyph-run
+bounds provide the missing nonzero-width cell. This distinguishes missing
+geometry from an ambiguous expected string.
+
+The stage-only [patch](demonstrator/prepared-cursor.patch) recovers such a cell
+from the public shaped glyph run, preserving visual direction. It does not use
+fixture strings, unshaped font advances or a test-only mapping. The original
+source commit remains `43d6bba842bb5b7ab23889e49d5f138c6f22a7fb`. Staging checks
+the patch before applying it and records its SHA-256 plus output hashes.
+Two fresh stages have identical output identities; reapplying the patch fails
+as expected. See [stage checks](evidence/correctness/stage-checks.json),
+[original stage](evidence/correctness/stage-before.json) and
+[patched stage](evidence/correctness/stage-after.json).
+
+The initial native selection capture exposed a separate harness defect:
+reversed drag endpoints copied correctly but yielded no painted selection,
+because the preparer expects an ordered logical interval. Interactive selection
+and automated capture now share endpoint normalization. Both selection directions
+require exact copied source and nonempty selection geometry. The native verifier
+also rejects selected captures identical to the unselected reset capture.
+The interrupted run is explicitly **not accepted**; its
+[record](evidence/correctness/interrupted-native.json),
+[before image](evidence/correctness/qt-before-reverse-selection.png),
+[after image](evidence/correctness/qt-after-reverse-selection.png) and
+[source snapshot](evidence/correctness/qt-before-ordered-selection.cpp) remain.
+
+The dense geometry scan covers 751 fixture/width combinations per SDK: integer
+widths 60–240 for adjacent spans, wrapping, bidi/objects and the new combined
+marks/surrogate-pair/bidi/code/object fixture, plus each other fixture's original
+width and ±1. It brackets wrap changes within one logical pixel. Both Qt 6.8.0
+and 6.12.0 pass 944 formatted-range checks, 1,888 directional copy checks and
+368 object checks. Cursor traces preserve line membership, visual direction,
+prepared cells, raw cursor affinities and hit-test results. Actual commands,
+binaries, staged libraries, patch, manifests and font identities are in the
+[geometry summary](evidence/correctness/geometry-lines.json) and
+[full geometry archive](evidence/correctness/geometry-lines.tar.gz).
+
+### Skia reservation trial
+
+The existing pinned SkParagraph layout remains authoritative. The opt-in geometry
+trial recomputes source-indexed code-fragment cuts after whole-paragraph layout,
+inserts paired padding reservations at new fragment boundaries and repeats until
+the cut set stabilizes. Seen-state detection rejects cycles; an eight-pass limit
+rejects non-convergence. The scan stabilizes within three passes, but **stability
+is not acceptance**. Painting, selection and hit testing retain one final layout;
+the rejected trial is not enabled in the native viewer.
+
+The [single-paragraph reproducer](evidence/correctness/skia-minimal.json) shows
+why the approach fails: reservations can remain on the preceding line, leaving
+later visual code fragments without left padding. At width 190, cuts stabilize
+at UTF-16 offsets 12, 25 and 40, yet fragment checks still fail. Tests require
+actual padding placeholders, not adjacent ordinary text, on fragment boundaries.
+Both original and trial layouts pass exact forward/reverse source-copy checks;
+that does not qualify padding, shaping or bidi behavior. No synthetic spaces,
+atomic code spans, dependency change or alternate layout engine is adopted.
+
+Expanded object checks additionally observe a fractional top overhang: for
+example `objects@679` places the placeholder top at approximately -0.19 with
+bottom 35.81 and paragraph height 36. This fails the explicit 0.05 logical-pixel
+containment tolerance while preserving its full source label and nominal height.
+The next capability is reliable per-fragment horizontal/vertical reservation
+and established placeholder baseline/bounds semantics in the authoritative
+layout. Full shaping/bidi/wrapping acceptance remains open after these failures.
+
+### Vulkan lifecycle reduction
+
+The existing empty-window case was tested first, followed by a standalone
+[empty-window executable](demonstrator/lifecycle.cpp) without text, capture or
+motion. Default and basic render loops each exercise ordinary shutdown and
+explicit hide/release with nonpersistent scene-graph/graphics resources while
+the event loop remains active. Each combination is recreated three times.
+
+All 18 minimum-Qt processes terminate with SIGSEGV; all 18 development-Qt
+processes exit cleanly. Ready records verify Vulkan, Wayland and observed DPR 1.
+Callbacks record scene-graph initialization, stopping/invalidation, shutdown,
+event-loop return and window destruction where execution reaches them. The
+minimum threaded live-release case reaches scene-graph invalidation during hide
+and crashes before the later release call; the basic variant reaches release.
+The faulting thread changes with the render loop. Bounded debugger stacks include
+NVIDIA library frames; this does not by itself establish driver fault.
+No diagnostic variant qualifies as a harness workaround.
+
+See the [lifecycle summary](evidence/correctness/lifecycle-native.json) and
+[full callbacks/backtraces](evidence/correctness/lifecycle-native.tar.gz).
+The initial sandbox attempt could not connect to Wayland and is retained
+separately as [environment-denied evidence](evidence/correctness/lifecycle-sandbox-denied.tar.gz);
+it is not counted as a backend test. Native runs used authorized GPU access.
+
+
+### Final native matrix and checks
+
+The complete serial matrix ran 1,156 processes: 544 development Qt, 544 minimum
+Qt and 68 Skia. All 544 development cases, all 272 minimum OpenGL cases and all
+68 Skia cases exit cleanly. All 272 minimum Vulkan cases fail with SIGSEGV during
+shutdown; no other process error or input-change rejection occurs. All cases
+reach stationary, selected, resize/reset and pose/replay captures, and report
+exact selected source. The selected images differ from the unselected images.
+These observations do not turn a shutdown crash into a process pass.
+
+Qt covers both renderers, OpenGL/Vulkan and observed DPR 1/1.25/1.5/2. Seven
+affected fixtures each receive three ordinary process recreations plus a separate
+motion process; all other fixtures run once per configuration. The 238 motion
+processes complete 60 rendered slow/flick/reversal steps and exact captured-pose
+replay. Skia observes DPR 1 only; 1.25/1.5/2 remain unavailable. Its original
+reservation layout runs as a diagnostic control despite failed geometry; the
+rejected trial is never enabled in GPU runs. Total supervised process time is
+approximately 24.1 minutes, not a performance-qualification measurement.
+
+See [native summary](evidence/correctness/native.json),
+[full captures and input identities](evidence/correctness/native.tar.gz), and
+[current viewer binary identities](evidence/correctness/current-binaries.json).
+The representative [before](evidence/correctness/qt-before-bidi-cursor.png) and
+[after](evidence/correctness/qt-after-bidi-cursor.png) stills show the `c` included
+in the corrected code background. Automated replay and inspection of these stills
+do not establish owner temporal visual acceptance.
+
+A final test-only refinement groups Skia fragments by authoritative line bounds
+and visual adjacency, rather than font-dependent ink centers. It preserves
+separate bidi fragments and avoids splitting one line solely because of fallback
+font metrics. The earlier checker evidence remains in
+[its archive](evidence/correctness/geometry-final.tar.gz). The final scan retains
+1,785 original-layout padding failures versus 1,414 trial padding failures, plus
+60 object-containment failures in each. All exact directional source checks pass;
+no cycles/non-convergence are observed. The final geometry executables return 0
+for both Qt SDKs and 1 for both Skia modes. Viewer binaries remain byte-identical
+after this test-only refinement, so the native matrix remains applicable.
+
+The pinned Skia checkout is clean at
+`00227028b0c3cb3052432a456af2027a49e598b2`; current archive/build-record hashes are
+retained in [library identities](evidence/correctness/skia-library-identities.json).
+The existing [dependency build record](evidence/continuation/skia-build.json)
+remains the dependency/provenance reference. No Qt SDK or system driver changed.
+
+Supervisor tests pass (9 tests); repository lightweight checks pass (87 tests,
+document links and configuration/evidence syntax); tracked and new-text whitespace
+checks pass. These are standalone experiment checks, not shipping/runtime or
+performance qualification. See [supervisor log](evidence/correctness/supervisor-tests.log)
+and [repository check log](evidence/correctness/repository-check.log).
+Owner visual acceptance, merge and publication remain separate gates.
+
+Evidence packaging preserves all 15,267 native files. Identical files are stored
+as tar hardlinks; safe extraction was checked against every original file's
+SHA-256. See [archive round-trip check](evidence/correctness/native-archive-check.json),
+[archive hashes](evidence/correctness/archives.json) and
+[evidence index](evidence/correctness/README.md).
