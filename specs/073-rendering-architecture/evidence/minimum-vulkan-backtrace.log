@@ -1,0 +1,139 @@
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.archlinux.org>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+{"stage":"before-application"}
+[New Thread 0x7ffff1cf76c0 (LWP 83303) (id 2)]
+[New Thread 0x7fffebfff6c0 (LWP 83304) (id 3)]
+[New Thread 0x7fffe3fff6c0 (LWP 83305) (id 4)]
+{"fontSha256":"6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c","qt":"6.8.0","stage":"layout"}
+{"codeStart":44,"copiedRunsDoNotUpdateLayout":true,"objectStart":55,"stage":"placement-contract"}
+{"stage":"before-exposure"}
+[New Thread 0x7fffe9bff6c0 (LWP 83306) (id 5)]
+[New Thread 0x7fffdb3ff6c0 (LWP 83308) (id 6)]
+[New Thread 0x7fffda3fe6c0 (LWP 83309) (id 7)]
+[New Thread 0x7fffd93fd6c0 (LWP 83311) (id 8)]
+[New Thread 0x7fffc7fff6c0 (LWP 83312) (id 9)]
+[New Thread 0x7fffc6ffe6c0 (LWP 83314) (id 10)]
+{"api":5,"dpr":1,"platform":"wayland","refreshHz":59.99700164794922,"stage":"capture-before"}
+{"stage":"capture-after"}
+{"adapterBlocked":true,"exactLayoutReplay":true,"requestedPlacementDiffers":true,"stage":"placement-result"}
+{"presentationQualified":false,"stage":"motion-smoke","swapNotificationMs":[16.433297,32.717657,48.754666,65.197716,81.002096,96.937811,114.043084,130.647304,147.24076,164.006528,180.653282,197.628643,214.011434,230.743364,247.270977,264.032816,280.782936,297.744129,314.092286,330.63684,347.554009,363.996643,381.638637,396.917967,412.557383,429.129653,446.342301,464.017954,481.415117,497.07167,514.263462,530.891233,547.496911,564.046127,580.906384,597.7103,614.079616,630.735105,647.402758,663.956938,680.757254,697.778977,714.104597,730.784392,747.314641,766.003014,780.745258,797.289052,813.980778,830.732959,847.398359,864.116808,881.177601,897.243082,914.222877,930.586074,947.169541,963.843764,980.596546,997.521477,1013.871634,1030.574468,1047.217042,1063.825431,1080.490071,1097.499168,1113.888099,1130.441881,1147.270371,1165.605902,1180.687987,1197.242537,1213.848895,1230.658987,1247.194681,1263.913873,1280.827273,1297.271111,1314.032027,1330.656279,1347.293507,1363.881963,1382.11846,1397.307335,1413.906982,1430.563079,1447.244241,1463.962522,1480.63781,1497.046518]}
+
+Thread 5 "QSGRenderThread" received signal SIGSEGV, Segmentation fault.
+[Switching to thread 5 (Thread 0x7fffe9bff6c0 (LWP 83306))]
+0x00007fffe12f3fc0 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+
+Thread 10 (Thread 0x7fffc6ffe6c0 (LWP 83314) "QSGRenderThread"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4e94c79 in ?? () from /usr/lib/libc.so.6
+#2  0x00007ffff4e97702 in pthread_cond_timedwait () from /usr/lib/libc.so.6
+#3  0x00007fffe0ff569c in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#4  0x00007fffe155c139 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#5  0x00007fffe15538e6 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#6  0x00007fffe0ff5854 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#7  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#8  0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 9 (Thread 0x7fffc7fff6c0 (LWP 83312) "[vkps] Update"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4e94c79 in ?? () from /usr/lib/libc.so.6
+#2  0x00007ffff4e97702 in pthread_cond_timedwait () from /usr/lib/libc.so.6
+#3  0x00007fffe0ff569c in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#4  0x00007fffe141dbed in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#5  0x00007fffe0ff5854 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#6  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#7  0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 8 (Thread 0x7fffd93fd6c0 (LWP 83311) "[vkrt] Analysis"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4e94c79 in ?? () from /usr/lib/libc.so.6
+#2  0x00007ffff4e974ec in pthread_cond_wait () from /usr/lib/libc.so.6
+#3  0x00007fffe0ff563c in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#4  0x00007fffe144b697 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#5  0x00007fffe0ff5854 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#6  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#7  0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 7 (Thread 0x7fffda3fe6c0 (LWP 83309) "[vkcf] Analysis"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4e94c79 in ?? () from /usr/lib/libc.so.6
+#2  0x00007ffff4e974ec in pthread_cond_wait () from /usr/lib/libc.so.6
+#3  0x00007fffe0ff563c in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#4  0x00007fffe1429e9e in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#5  0x00007fffe0ff5854 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#6  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#7  0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 6 (Thread 0x7fffdb3ff6c0 (LWP 83308) "QSGRenderThread"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4e94c79 in ?? () from /usr/lib/libc.so.6
+#2  0x00007ffff4e97702 in pthread_cond_timedwait () from /usr/lib/libc.so.6
+#3  0x00007fffe0ff569c in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#4  0x00007fffe1435b61 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#5  0x00007fffe0ff5854 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#6  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#7  0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 5 (Thread 0x7fffe9bff6c0 (LWP 83306) "QSGRenderThread"):
+#0  0x00007fffe12f3fc0 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#1  0x00007fffe12f42b6 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#2  0x00007fffe12da1ce in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#3  0x00007fffe1331396 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#4  0x00007ffff68f5f64 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Gui.so.6
+#5  0x00007ffff690ec83 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Gui.so.6
+#6  0x00007ffff690f04a in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Gui.so.6
+#7  0x00007ffff7ad51b8 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Quick.so.6
+#8  0x00007ffff7ada536 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Quick.so.6
+#9  0x00007ffff7ad6ce5 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Quick.so.6
+#10 0x00007ffff7ad6f91 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Quick.so.6
+#11 0x00007ffff592986f in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+
+Thread 4 (Thread 0x7fffe3fff6c0 (LWP 83305) "WaylandEventThr"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4f112e5 in poll () from /usr/lib/libc.so.6
+#2  0x00007ffff1d7b9a7 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins/platforms/../../lib/libQt6WaylandClient.so.6
+#3  0x00007ffff592986f in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#4  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#5  0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 3 (Thread 0x7fffebfff6c0 (LWP 83304) "WaylandEventThr"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4e94c79 in ?? () from /usr/lib/libc.so.6
+#2  0x00007ffff4e974ec in pthread_cond_wait () from /usr/lib/libc.so.6
+#3  0x00007ffff5935f4b in QWaitCondition::wait(QMutex*, QDeadlineTimer) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#4  0x00007ffff1d7b935 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/plugins/platforms/../../lib/libQt6WaylandClient.so.6
+#5  0x00007ffff592986f in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#6  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#7  0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 2 (Thread 0x7ffff1cf76c0 (LWP 83303) "QDBusConnection"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4f119d7 in ppoll () from /usr/lib/libc.so.6
+#2  0x00007ffff5105c9e in ?? () from /usr/lib/libglib-2.0.so.0
+#3  0x00007ffff5105db5 in g_main_context_iteration () from /usr/lib/libglib-2.0.so.0
+#4  0x00007ffff5a523ae in QEventDispatcherGlib::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#5  0x00007ffff5789232 in QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#6  0x00007ffff588da1e in QThread::exec() () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#7  0x00007ffff5d6dbde in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6DBus.so.6
+#8  0x00007ffff592986f in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#9  0x00007ffff4e98042 in ?? () from /usr/lib/libc.so.6
+#10 0x00007ffff4f2072c in ?? () from /usr/lib/libc.so.6
+
+Thread 1 (Thread 0x7ffff503c980 (LWP 83300) "placement-probe"):
+#0  0x00007ffff4ea08f2 in ?? () from /usr/lib/libc.so.6
+#1  0x00007ffff4e94c79 in ?? () from /usr/lib/libc.so.6
+#2  0x00007ffff4e974ec in pthread_cond_wait () from /usr/lib/libc.so.6
+#3  0x00007ffff5935f4b in QWaitCondition::wait(QMutex*, QDeadlineTimer) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#4  0x00007ffff7ad6b84 in ?? () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Quick.so.6
+#5  0x00007ffff577bc36 in QCoreApplicationPrivate::sendThroughObjectEventFilters(QObject*, QEvent*) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#6  0x00007ffff577bcff in QCoreApplicationPrivate::notify_helper(QObject*, QEvent*) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#7  0x00007ffff577bf1a in QCoreApplication::notifyInternal2(QObject*, QEvent*) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#8  0x00007ffff6440075 in QWindowPrivate::destroy() () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Gui.so.6
+#9  0x00007ffff6443080 in QWindow::event(QEvent*) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Gui.so.6
+#10 0x00007ffff577bf1a in QCoreApplication::notifyInternal2(QObject*, QEvent*) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Core.so.6
+#11 0x00007ffff63e0331 in QGuiApplicationPrivate::processCloseEvent(QWindowSystemInterfacePrivate::CloseEvent*) () from /home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk/lib/libQt6Gui.so.6

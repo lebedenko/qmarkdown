@@ -1,0 +1,1082 @@
+[
+  {
+    "qt": "6.8.0",
+    "backend": "software",
+    "variant": "baseline",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "8b3929a71c2fbd4607d450b37bbbff8dd15644c9e368a4ace386fc1fdd0ff26c",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 1,
+      "platform": "offscreen",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 1532736,
+        "p95Ns": 4437855,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 9493707,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 1047765,
+        "p95Ns": 3968729,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 10972889,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a"
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "backend": "software",
+    "variant": "candidate",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "a6cd089be25a9e18b79dd9effd03cc7b9d9b9324e6fca8784919f946acb8f853",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 1,
+      "platform": "offscreen",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "candidate"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 1032429,
+        "p95Ns": 4078550,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 10913022,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 1336393,
+        "p95Ns": 4692559,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 10687883,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61"
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "backend": "opengl",
+    "variant": "baseline",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "8b3929a71c2fbd4607d450b37bbbff8dd15644c9e368a4ace386fc1fdd0ff26c",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 3,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 5009849,
+        "p95Ns": 10235782,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 33212470,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 4929527,
+        "p95Ns": 7719871,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 12302397,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a"
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "backend": "opengl",
+    "variant": "candidate",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "a6cd089be25a9e18b79dd9effd03cc7b9d9b9324e6fca8784919f946acb8f853",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 3,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "candidate"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 4776101,
+        "p95Ns": 9583308,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 30014754,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 5377574,
+        "p95Ns": 10335975,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 12493420,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61"
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "backend": "vulkan",
+    "variant": "baseline",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "8b3929a71c2fbd4607d450b37bbbff8dd15644c9e368a4ace386fc1fdd0ff26c",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 5,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 5081980,
+        "p95Ns": 6732904,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 31804579,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 5349600,
+        "p95Ns": 7523822,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 16604605,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a"
+    }
+  },
+  {
+    "qt": "6.8.0",
+    "backend": "vulkan",
+    "variant": "candidate",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "a6cd089be25a9e18b79dd9effd03cc7b9d9b9324e6fca8784919f946acb8f853",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 5,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "candidate"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 4987817,
+        "p95Ns": 7457735,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 30190812,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          },
+          {
+            "family": "DejaVu Sans",
+            "fileSha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+            "headTableSha256": "f4f6c841618514dc32369fc0c938ddcb9c0d11e743b3ed1047795f02c3445120",
+            "matchedFile": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+            "style": "Book"
+          }
+        ],
+        "medianNs": 5222539,
+        "p95Ns": 7423593,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 17999397,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61"
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "software",
+    "variant": "baseline",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "963fabba77ec4f35eaab9ce7bb0e2453fc55b91e8f85445297142b53cf91c003",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 1,
+      "platform": "offscreen",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 1563035,
+        "p95Ns": 3561309,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 17848369,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 1520096,
+        "p95Ns": 2468078,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 5868422,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0",
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0",
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0"
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "software",
+    "variant": "candidate",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "900c89af3618050599e5de1fb46f69ac19adf557d0a89576f5f3895ff2a9d259",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 1,
+      "platform": "offscreen",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "candidate"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 1726315,
+        "p95Ns": 5156083,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 17901060,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 1670039,
+        "p95Ns": 4791943,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 6332592,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb",
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb",
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb"
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "opengl",
+    "variant": "baseline",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "963fabba77ec4f35eaab9ce7bb0e2453fc55b91e8f85445297142b53cf91c003",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 3,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 8047300,
+        "p95Ns": 11450267,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 35743932,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 6487092,
+        "p95Ns": 10590531,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 14861565,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0",
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0",
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0"
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "opengl",
+    "variant": "candidate",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "900c89af3618050599e5de1fb46f69ac19adf557d0a89576f5f3895ff2a9d259",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 3,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "candidate"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 5938691,
+        "p95Ns": 10148874,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 30034402,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 5613147,
+        "p95Ns": 10388377,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 11529629,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb",
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb",
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb"
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "vulkan",
+    "variant": "baseline",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "963fabba77ec4f35eaab9ce7bb0e2453fc55b91e8f85445297142b53cf91c003",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 5,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 5205394,
+        "p95Ns": 8050191,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 30643953,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 5268054,
+        "p95Ns": 7457069,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 16336974,
+        "surfaceSmooth": true,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0",
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0",
+      "/tmp/blur-native-only-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "59109a2646d19e91ecf4fa9574c123e7da7f7f81d30bb85dae63480d3b0b3ac0"
+    }
+  },
+  {
+    "qt": "6.12.0",
+    "backend": "vulkan",
+    "variant": "candidate",
+    "valid": true,
+    "exit": 0,
+    "binarySha256": "900c89af3618050599e5de1fb46f69ac19adf557d0a89576f5f3895ff2a9d259",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "environment": {
+      "dpr": 1.25,
+      "graphicsApi": 5,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "candidate"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "records": [
+      {
+        "allocationBytes": 1303200,
+        "dense": false,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 5768682,
+        "p95Ns": 7761757,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 32765177,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      },
+      {
+        "allocationBytes": 1303200,
+        "dense": true,
+        "fonts": [
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          },
+          {
+            "family": "Inter",
+            "fileSha256": "ea4e3d9970b9b6b566110a1b0e13635fe235280b83dd2443dcb3faca1e2456ef",
+            "headTableSha256": "fb8f58f2b63931af2b4bba3705cbb463b7fdc179d0451e95a1a2c17c8643fc53",
+            "matchedFile": "/usr/share/fonts/inter/Inter.ttc",
+            "style": "Regular"
+          }
+        ],
+        "medianNs": 5579662,
+        "p95Ns": 7688259,
+        "paints": 0,
+        "policyAsserted": true,
+        "preparationNs": 17717178,
+        "surfaceSmooth": false,
+        "surfaces": 12,
+        "type": "performance"
+      }
+    ],
+    "purpose": "policy assertion smoke only; no paired performance qualification",
+    "libraries": {
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb",
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb",
+      "/tmp/blur-native-only-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "d42e8baa813c56236d4a9d195388bbee96fa0ea4b778082b55964a73a8b6b2fb"
+    }
+  }
+]

@@ -1,0 +1,23 @@
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.archlinux.org>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+{"monotonicMs":0.017185,"stage":"startup"}
+[New Thread 0x7ffff44b56c0 (LWP 98259) (id 2)]
+[New Thread 0x7fffe3fff6c0 (LWP 98261) (id 3)]
+[New Thread 0x7fffe2ffe6c0 (LWP 98262) (id 4)]
+[New Thread 0x7fffe1ffd6c0 (LWP 98264) (id 5)]
+[New Thread 0x7fffdbfff6c0 (LWP 98265) (id 6)]
+[New Thread 0x7fffdaffe6c0 (LWP 98267) (id 7)]
+
+Thread 1 "skia-compare" received signal SIGSEGV, Segmentation fault.
+0x00007ffff1717259 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#0  0x00007ffff1717259 in ?? () from /usr/lib/libnvidia-glcore.so.615.78.08
+#1  0x00005555555c9687 in skwindow::internal::VulkanWindowContext::destroyContext() ()
+#2  0x00005555555cb420 in skwindow::internal::VulkanWindowContext::initializeContext() ()
+#3  0x00005555555cb744 in skwindow::internal::VulkanWindowContext::VulkanWindowContext(std::unique_ptr<skwindow::DisplayParams const, std::default_delete<skwindow::DisplayParams const> >, std::function<VkSurfaceKHR_T* (VkInstance_T*)>, std::function<bool (VkInstance_T*, VkPhysicalDevice_T*, unsigned int)>, void (*(*)(VkInstance_T*, char const*))()) ()
+#4  0x00005555555a89ad in main ()

@@ -1,0 +1,6 @@
+{
+  "repository": "https://skia.googlesource.com/skia.git",
+  "commit": "00227028b0c3cb3052432a456af2027a49e598b2",
+  "resolved": "2026-11-05",
+  "dependencies": "Pinned checkout DEPS; record actual revisions after synchronization"
+}

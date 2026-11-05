@@ -1,0 +1,51 @@
+{"blocks":1,"monotonicMs":22.974393,"preparationMs":2.923271,"stage":"prepared"}
+{"copiedSource":"inline code","expectedEnd":18,"expectedStart":7,"fixture":"padded","hitEnd":18,"hitStart":7,"kind":"code","monotonicMs":23.021183,"passed":true,"stage":"formatted-selection"}
+{"fixture":"padded","monotonicMs":23.03088,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":36.37801,"preparationMs":1.249483,"stage":"prepared"}
+{"copiedSource":"adjacent","expectedEnd":8,"expectedStart":0,"fixture":"adjacent","hitEnd":8,"hitStart":0,"kind":"code","monotonicMs":36.399931,"passed":true,"stage":"formatted-selection"}
+{"copiedSource":"code","expectedEnd":12,"expectedStart":8,"fixture":"adjacent","hitEnd":12,"hitStart":8,"kind":"code","monotonicMs":36.409605,"passed":true,"stage":"formatted-selection"}
+{"fixture":"adjacent","monotonicMs":36.416362,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":50.91299,"preparationMs":2.724563,"stage":"prepared"}
+{"copiedSource":"Strong","expectedEnd":6,"expectedStart":0,"fixture":"mixed","hitEnd":6,"hitStart":0,"kind":"bold","monotonicMs":50.932752,"passed":true,"stage":"formatted-selection"}
+{"copiedSource":"emphasis","expectedEnd":15,"expectedStart":7,"fixture":"mixed","hitEnd":15,"hitStart":7,"kind":"italic","monotonicMs":50.94227,"passed":true,"stage":"formatted-selection"}
+{"copiedSource":"code","expectedEnd":24,"expectedStart":20,"fixture":"mixed","hitEnd":24,"hitStart":20,"kind":"code","monotonicMs":50.950315,"passed":true,"stage":"formatted-selection"}
+{"copiedSource":"strike","expectedEnd":36,"expectedStart":30,"fixture":"mixed","hitEnd":36,"hitStart":30,"kind":"strike","monotonicMs":50.957734,"passed":true,"stage":"formatted-selection"}
+{"fixture":"mixed","monotonicMs":50.964693,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":65.309308,"preparationMs":1.388806,"stage":"prepared"}
+{"copiedSource":"long code phrase wraps across several lines","expectedEnd":45,"expectedStart":2,"fixture":"wrapping","hitEnd":45,"hitStart":2,"kind":"code","monotonicMs":65.331514,"passed":true,"stage":"formatted-selection"}
+{"fixture":"wrapping","monotonicMs":65.341026,"passed":true,"rectangles":5,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":79.595543,"preparationMs":1.581922,"stage":"prepared"}
+{"copiedSource":"code","expectedEnd":19,"expectedStart":15,"fixture":"bidi","hitEnd":19,"hitStart":15,"kind":"code","monotonicMs":79.617376,"passed":true,"stage":"formatted-selection"}
+{"fixture":"bidi","monotonicMs":79.62584,"passed":true,"rectangles":3,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":92.148106,"preparationMs":0.808301,"stage":"prepared"}
+{"fixture":"ligatures","monotonicMs":92.165278,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":104.662529,"preparationMs":0.870794,"stage":"prepared"}
+{"fixture":"combining","monotonicMs":104.681109,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":120.981788,"preparationMs":3.406342,"stage":"prepared"}
+{"fixture":"fallback","monotonicMs":121.00161,"passed":true,"rectangles":2,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":133.544594,"preparationMs":0.880645,"stage":"prepared"}
+{"copiedSource":"fff italic fX","expectedEnd":13,"expectedStart":0,"fixture":"overhang","hitEnd":13,"hitStart":0,"kind":"italic","monotonicMs":133.563794,"passed":true,"stage":"formatted-selection"}
+{"fixture":"overhang","monotonicMs":133.57135,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":146.497147,"preparationMs":1.315627,"stage":"prepared"}
+{"copiedSource":"[object]","expectedEnd":15,"expectedStart":7,"fixture":"objects","leftSource":7,"monotonicMs":146.517508,"passed":true,"rightSource":15,"stage":"object-selection"}
+{"copiedSource":"code","expectedEnd":26,"expectedStart":22,"fixture":"objects","hitEnd":26,"hitStart":22,"kind":"code","monotonicMs":146.528372,"passed":true,"stage":"formatted-selection"}
+{"fixture":"objects","monotonicMs":146.535954,"passed":true,"rectangles":3,"stage":"full-source-selection"}
+{"blocks":1,"monotonicMs":159.987841,"preparationMs":1.573699,"stage":"prepared"}
+{"copiedSource":"[object]","expectedEnd":13,"expectedStart":5,"fixture":"bidi-objects","leftSource":5,"monotonicMs":160.008616,"passed":true,"rightSource":13,"stage":"object-selection"}
+{"copiedSource":"ode","expectedEnd":26,"expectedStart":22,"fixture":"bidi-objects","hitEnd":26,"hitStart":23,"kind":"code","monotonicMs":160.019092,"passed":false,"stage":"formatted-selection"}
+{"fixture":"bidi-objects","monotonicMs":160.027128,"passed":true,"rectangles":3,"stage":"full-source-selection"}
+{"blocks":9,"monotonicMs":176.810658,"preparationMs":3.825228,"stage":"prepared"}
+{"copiedSource":"Native rendering comparison","expectedEnd":27,"expectedStart":0,"fixture":"document","hitEnd":27,"hitStart":0,"kind":"bold","monotonicMs":176.837089,"passed":true,"stage":"formatted-selection"}
+{"fixture":"document","monotonicMs":176.845221,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"copiedSource":"[object]","expectedEnd":74,"expectedStart":66,"fixture":"document","leftSource":66,"monotonicMs":176.852533,"passed":true,"rightSource":74,"stage":"object-selection"}
+{"copiedSource":"emphasis","expectedEnd":38,"expectedStart":30,"fixture":"document","hitEnd":38,"hitStart":30,"kind":"italic","monotonicMs":176.86325,"passed":true,"stage":"formatted-selection"}
+{"copiedSource":"padded code","expectedEnd":51,"expectedStart":40,"fixture":"document","hitEnd":51,"hitStart":40,"kind":"code","monotonicMs":176.871876,"passed":true,"stage":"formatted-selection"}
+{"fixture":"document","monotonicMs":176.879089,"passed":true,"rectangles":2,"stage":"full-source-selection"}
+{"fixture":"document","monotonicMs":176.884912,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"fixture":"document","monotonicMs":176.889988,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"fixture":"document","monotonicMs":176.894751,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"fixture":"document","monotonicMs":176.899284,"passed":true,"rectangles":1,"stage":"full-source-selection"}
+{"copiedSource":"long code phrase wraps across several lines","expectedEnd":45,"expectedStart":2,"fixture":"document","hitEnd":45,"hitStart":2,"kind":"code","monotonicMs":176.90673,"passed":true,"stage":"formatted-selection"}
+{"fixture":"document","monotonicMs":176.914705,"passed":true,"rectangles":2,"stage":"full-source-selection"}
+{"copiedSource":"code","expectedEnd":19,"expectedStart":15,"fixture":"document","hitEnd":19,"hitStart":15,"kind":"code","monotonicMs":176.921485,"passed":true,"stage":"formatted-selection"}
+{"fixture":"document","monotonicMs":176.927524,"passed":true,"rectangles":3,"stage":"full-source-selection"}

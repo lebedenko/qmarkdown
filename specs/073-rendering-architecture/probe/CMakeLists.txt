@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.21)
+project(rendering_architecture_probe LANGUAGES CXX)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Quick)
+add_executable(placement-probe main.cpp)
+target_link_libraries(placement-probe PRIVATE Qt6::Quick)
+target_compile_features(placement-probe PRIVATE cxx_std_17)

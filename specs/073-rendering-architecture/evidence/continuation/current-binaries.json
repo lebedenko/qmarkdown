@@ -1,0 +1,14 @@
+{
+  "qt-development": {
+    "bytes": 127776,
+    "sha256": "b4a1caf31d68f9d642687752eea91370ebb2f1879544d7257aedd1df3c745463"
+  },
+  "qt-minimum": {
+    "bytes": 127504,
+    "sha256": "138b254047764d4697aab5836b382ded3de71c6b07e1f16741b34f991fd112b9"
+  },
+  "skia": {
+    "bytes": 11528624,
+    "sha256": "c4be1716145eb0d5150df7246a6bf0cd504342eb9a627d291844338f47ed11ca"
+  }
+}

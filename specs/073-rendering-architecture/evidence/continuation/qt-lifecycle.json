@@ -1,0 +1,966 @@
+[
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-opengl-distance-0"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 1.0167153459988185,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 282.968805,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-opengl-distance-1"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.8960420279981918,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 158.964563,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-opengl-distance-2"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.9617046889979974,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 165.748915,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-opengl-curve-0"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.9830829839993385,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 165.712314,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-opengl-curve-1"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.9594655700020667,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 172.819394,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-opengl-curve-2"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.8869147559998964,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 172.633838,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-vulkan-distance-0"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.8147059660004743,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 148.559824,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-vulkan-distance-1"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.9188413320007385,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 147.938177,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-vulkan-distance-2"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.9118268740021449,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 153.592897,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-vulkan-curve-0"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.94376603800265,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 151.835525,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-vulkan-curve-1"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.847408980000182,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 154.622009,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/development-vulkan-curve-2"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.8972453079986735,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 157.872313,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-opengl-distance-0"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.7275102690000494,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 121.187655,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-opengl-distance-1"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.7900328910000098,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 152.868651,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-opengl-distance-2"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.7090126629991573,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 121.130629,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-opengl-curve-0"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.7438341050001327,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 156.276407,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-opengl-curve-1"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.7352319579986215,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 132.278441,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-opengl-curve-2"
+    ],
+    "exit": 0,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.6814218200015603,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 126.07167,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": true,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-vulkan-distance-0"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.1881370980008796,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 175.506886,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-vulkan-distance-1"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.1329454100014118,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 157.913036,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-vulkan-distance-2"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.1976144530017336,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 159.739265,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-vulkan-curve-0"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.158422739001253,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 159.340865,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-vulkan-curve-1"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.1843538630018884,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 161.157727,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "document",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-lifecycle-final/minimum-vulkan-curve-2"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.214947658998426,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 205.882945,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "padded",
+      "curve",
+      "/proc/1"
+    ],
+    "exit": 4,
+    "timeout": false,
+    "lastStage": "exit",
+    "seconds": 0.3007764630019665,
+    "observed": {
+      "api": 3,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 156.756976,
+      "platform": "wayland",
+      "qt": "6.12.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "padded",
+      "curve",
+      "/dev/null/impossible"
+    ],
+    "exit": 4,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.08269464499971946,
+    "observed": {},
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "facc5733a3c54269aca220d7dabd57fd0a61a0ce4fdf4969cd5122c926e403e1",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  }
+]
