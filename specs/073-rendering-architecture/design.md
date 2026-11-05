@@ -126,3 +126,100 @@ Append evidence separately from historical runs, retaining commands, source and
 patch identities, binaries, fonts and before/after results. Update support and
 review/migration records from actual outcomes only. Owner visual acceptance
 remains separate from automated geometry, process and replay success.
+
+## Fragment-aware upstream experiment — approved design
+
+Owner approval received 2026-11-05 ("approved") for F1–F7 and the mapped tasks.
+The following supersedes the
+rejected reservation mechanism only for the proposed experiment; its historical
+implementation and evidence remain intact.
+
+### Isolation and reproducibility (F1, F6)
+
+Use a separate staged checkout and separate build/output directory. Validate the
+pinned base and clean inputs before patching; reject unexpected content and patch
+application failures. Keep the original checkout, libraries and control binaries
+available and hash them before/after comparison. Record patch SHA-256, patched
+source hashes, DEPS revisions, system package/tool versions, GN/CMake options,
+font/fixture hashes, library/executable hashes and exact commands. Build with two
+workers. Keep experimental metadata/diagnostics confined to the adapter and
+patched SkParagraph, with no shipping dependency or API edits.
+
+### Source spans and candidate fit (F2, F3)
+
+The adapter validates ordered, nonoverlapping code intervals and object intervals
+against the original UTF-16 source and Unicode grapheme boundaries. Adjacent code
+spans remain distinct. Map valid boundaries once to SkParagraph UTF-8 byte
+indices, retaining reverse mappings and complete source intervals for collapsed
+objects. Reject malformed surrogate sequences, out-of-range/reversed intervals,
+partial object intersections and grapheme splits with explicit diagnostics.
+Padding metadata must not introduce shaping/style boundaries into otherwise
+identical text. A span boundary inside a shaped cluster that cannot receive an
+edge without changing its shaping is a capability blocker, not permission to
+split or reshape that cluster.
+
+Extend the pinned `TextWrapper` candidate-fit path and `ParagraphImpl` /
+`TextLine` formatting path. Reuse upstream clusters, legal break opportunities,
+line bidi ordering, trailing-whitespace semantics and emergency-wrap decisions.
+For each candidate endpoint, derive contiguous visual fragments by span identity
+and visual adjacency after upstream bidi ordering. Charge both padding edges for
+each fragment, including disjoint fragments of one logical span. A shared
+fragment calculation drives fit and final formatting; font fallback alone does
+not create a new fragment.
+
+Scan a finite set of upstream candidate boundaries without assuming fragment
+costs are monotonic under bidi reordering. Commit a fitting legal endpoint using
+upstream break priority; if none fits, use upstream emergency boundaries while
+preserving indivisible graphemes/objects. Each committed nonempty line advances
+source; an oversized first indivisible unit advances once and records required
+width, available width and unavoidable overflow. Handle hard breaks/empty lines
+through upstream semantics. Do not rebuild whole paragraphs to converge, invent
+new break opportunities or replace the upstream line-breaking engine. If these
+extension points cannot express the behavior, stop and record the limitation.
+
+### One authoritative geometry (F4)
+
+Apply fragment translation and vertical reservations before final line geometry
+is published. Use identical adjusted positions for paint, range rectangles,
+carets/hit tests and placeholder/object placement. Preserve glyph IDs, fonts,
+cluster membership and relative glyph advances within clusters; only fragment
+translation and reserved line extents change. Invalidate layout/position caches
+when span metadata changes. The empty/disabled-metadata path retains upstream
+behavior and is compared with a matching unpatched control using identical
+source, styles, object reservations, fonts and widths, without padding inserts.
+
+For `objects@679`, trace unrounded/rounded baseline, ascent/descent, placeholder
+rectangle, paragraph bounds and actual object paint bounds. Resolve reservation
+and placement together in the enabled experiment; do not add a paint-only shift
+or loosen the 0.05 logical-pixel tolerance. Keep any unchanged upstream behavior
+in disabled-padding comparisons explicit rather than hiding a mismatch.
+
+### Ordered gates and stop conditions (F5–F7)
+
+1. Disabled-padding equivalence: compare line/source breaks, glyph IDs/fonts,
+   positions, object rectangles, caret/source mappings and copied text against
+   the pinned unpatched build. Require exact discrete values and record numeric
+   comparison precision; do not introduce a new tolerance to mask differences.
+2. Geometry: retain all 751 existing cases. Detect changed line-break signatures
+   across the width scan, refine transition intervals, and add fractional widths
+   below/at/above transitions with recorded probe precision. Cover adjacent spans,
+   disjoint bidi fragments, combining marks, ligatures, surrogate pairs, fallback
+   fonts, whitespace and objects, including oversized units and invalid ranges.
+3. Consistency: assert both padding edges for every visual fragment, vertical
+   reservation, object containment, both selection directions and exact copying.
+   Compare shaping identities and intracluster advances with matching unpadded
+   shaping, and verify hit tests against the same final geometry used for paint.
+4. Native: only after the preceding gates pass, run patched Skia serially on
+   OpenGL and Vulkan at actually observed DPR. Check stationary/selected captures,
+   resize/reset, motion/replay and three process recreations. Preserve deadlines
+   and identity checks. Explicitly list unavailable scales; do not rerun or change
+   the Qt control to qualify this Skia-only experiment.
+5. Review: retain representative matched before/after captures and launcher
+   commands. Process/replay success cannot establish owner visual acceptance.
+
+A failing gate retains a minimal fixture, exact command, diagnostics and identities
+and blocks claims dependent on that gate. Infrastructure failures remain distinct
+from missing layout capabilities. Final support records say feasible only after
+all automated gates pass, otherwise blocked with the precise missing capability
+or verification obstacle. Document touched upstream internals, patch size,
+rebase/regression burden and dependency costs without performance qualification.

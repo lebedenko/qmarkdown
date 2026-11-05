@@ -1,0 +1,181 @@
+Done. Made 95 targets from 51 files in 68ms
+ninja: Entering directory `out/comparison'
+[1/15] link libskcms.a
+[2/15] link libskia.a
+[3/15] link libskunicode_core.a
+[4/15] link libskunicode_icu.a
+[5/15] stamp obj/modules/skunicode/skunicode.stamp
+[6/15] compile ../../modules/skparagraph/src/FontCollection.cpp
+[7/15] compile ../../modules/skparagraph/src/OneLineShaper.cpp
+[8/15] compile ../../modules/skparagraph/src/ParagraphBuilderImpl.cpp
+[9/15] compile ../../modules/skparagraph/src/ParagraphCache.cpp
+[10/15] compile ../../modules/skparagraph/src/Run.cpp
+[11/15] compile ../../modules/skparagraph/src/ParagraphImpl.cpp
+[12/15] compile ../../modules/skparagraph/src/TextWrapper.cpp
+[13/15] link libskshaper.a
+[14/15] compile ../../modules/skparagraph/src/TextLine.cpp
+[15/15] link libskparagraph.a
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "3.0.10")
+-- Checking for modules 'freetype2;harfbuzz;icu-uc;icu-i18n;libpng;fontconfig;zlib'
+--   Found freetype2, version 26.7.20
+--   Found harfbuzz, version 15.1.0
+--   Found icu-uc, version 78.3
+--   Found icu-i18n, version 78.3
+--   Found libpng, version 1.6.59
+--   Found fontconfig, version 2.18.3
+--   Found zlib, version 1.3.2
+-- Checking for module 'sdl2'
+--   Found sdl2, version 2.32.74
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control
+[1/4] Building CXX object CMakeFiles/fragment-preflight.dir/main.cpp.o
+In file included from /tmp/qmarkdown-073-skia/modules/skparagraph/src/ParagraphImpl.h:17,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp:2:
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:125:32: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  125 |     void reset(size_t count = 0) {
+      |                                ^
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:213:25: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  213 |     void reset(int count) {
+      |                         ^
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:334:30: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  334 |     T* reset(size_t count = 0) {
+      |                              ^
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:405:26: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  405 |     T* reset(size_t count) {
+      |                          ^
+/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp:22:13: warning: ‘template<class _Codecvt, class _Elem, class _Wide_alloc, class _Byte_alloc> class std::__cxx11::wstring_convert’ is deprecated [-Wdeprecated-declarations]
+   22 | static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> utf;
+      |             ^~~~~~~~~~~~~~~
+In file included from /usr/include/c++/16/locale:47,
+                 from /usr/include/c++/16/bits/fs_path.h:36,
+                 from /usr/include/c++/16/filesystem:55,
+                 from /usr/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /usr/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /usr/include/nlohmann/adl_serializer.hpp:14,
+                 from /usr/include/nlohmann/json.hpp:34,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp:13:
+/usr/include/c++/16/bits/locale_conv.h:265:33: note: declared here
+  265 |     class _GLIBCXX17_DEPRECATED wstring_convert
+      |                                 ^~~~~~~~~~~~~~~
+[2/4] Linking CXX executable fragment-preflight
+[3/4] Building CXX object CMakeFiles/historical-objects.dir/historical_objects.cpp.o
+In file included from /tmp/qmarkdown-073-skia/include/encode/SkEncoder.h:14,
+                 from /tmp/qmarkdown-073-skia/include/encode/SkPngEncoder.h:16,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/../skia/main.cpp:20,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/historical_objects.cpp:3:
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:125:32: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  125 |     void reset(size_t count = 0) {
+      |                                ^
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:213:25: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  213 |     void reset(int count) {
+      |                         ^
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:334:30: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  334 |     T* reset(size_t count = 0) {
+      |                              ^
+/tmp/qmarkdown-073-skia/include/private/SkTemplates.h:405:26: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  405 |     T* reset(size_t count) {
+      |                          ^
+/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/../skia/main.cpp:42:13: warning: ‘template<class _Codecvt, class _Elem, class _Wide_alloc, class _Byte_alloc> class std::__cxx11::wstring_convert’ is deprecated [-Wdeprecated-declarations]
+   42 | static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> utf;
+      |             ^~~~~~~~~~~~~~~
+In file included from /usr/include/c++/16/locale:47,
+                 from /usr/include/c++/16/bits/fs_path.h:36,
+                 from /usr/include/c++/16/filesystem:55,
+                 from /usr/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /usr/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /usr/include/nlohmann/adl_serializer.hpp:14,
+                 from /usr/include/nlohmann/json.hpp:34,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/../skia/main.cpp:4:
+/usr/include/c++/16/bits/locale_conv.h:265:33: note: declared here
+  265 |     class _GLIBCXX17_DEPRECATED wstring_convert
+      |                                 ^~~~~~~~~~~~~~~
+[4/4] Linking CXX executable historical-objects
+-- The CXX compiler identification is GNU 16.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "3.0.10")
+-- Checking for modules 'freetype2;harfbuzz;icu-uc;icu-i18n;libpng;fontconfig;zlib'
+--   Found freetype2, version 26.7.20
+--   Found harfbuzz, version 15.1.0
+--   Found icu-uc, version 78.3
+--   Found icu-i18n, version 78.3
+--   Found libpng, version 1.6.59
+--   Found fontconfig, version 2.18.3
+--   Found zlib, version 1.3.2
+-- Checking for module 'sdl2'
+--   Found sdl2, version 2.32.74
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched
+[1/4] Building CXX object CMakeFiles/fragment-preflight.dir/main.cpp.o
+In file included from /tmp/qmarkdown-073-fragment-reviewed-skia/modules/skparagraph/src/ParagraphImpl.h:17,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp:2:
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:125:32: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  125 |     void reset(size_t count = 0) {
+      |                                ^
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:213:25: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  213 |     void reset(int count) {
+      |                         ^
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:334:30: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  334 |     T* reset(size_t count = 0) {
+      |                              ^
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:405:26: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  405 |     T* reset(size_t count) {
+      |                          ^
+/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp:22:13: warning: ‘template<class _Codecvt, class _Elem, class _Wide_alloc, class _Byte_alloc> class std::__cxx11::wstring_convert’ is deprecated [-Wdeprecated-declarations]
+   22 | static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> utf;
+      |             ^~~~~~~~~~~~~~~
+In file included from /usr/include/c++/16/locale:47,
+                 from /usr/include/c++/16/bits/fs_path.h:36,
+                 from /usr/include/c++/16/filesystem:55,
+                 from /usr/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /usr/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /usr/include/nlohmann/adl_serializer.hpp:14,
+                 from /usr/include/nlohmann/json.hpp:34,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp:13:
+/usr/include/c++/16/bits/locale_conv.h:265:33: note: declared here
+  265 |     class _GLIBCXX17_DEPRECATED wstring_convert
+      |                                 ^~~~~~~~~~~~~~~
+[2/4] Linking CXX executable fragment-preflight
+[3/4] Building CXX object CMakeFiles/historical-objects.dir/historical_objects.cpp.o
+In file included from /tmp/qmarkdown-073-fragment-reviewed-skia/include/encode/SkEncoder.h:14,
+                 from /tmp/qmarkdown-073-fragment-reviewed-skia/include/encode/SkPngEncoder.h:16,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/../skia/main.cpp:20,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/historical_objects.cpp:3:
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:125:32: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  125 |     void reset(size_t count = 0) {
+      |                                ^
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:213:25: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  213 |     void reset(int count) {
+      |                         ^
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:334:30: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  334 |     T* reset(size_t count = 0) {
+      |                              ^
+/tmp/qmarkdown-073-fragment-reviewed-skia/include/private/SkTemplates.h:405:26: warning: ‘clang::reinitializes’ scoped attribute directive ignored [-Wattributes]
+  405 |     T* reset(size_t count) {
+      |                          ^
+/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/../skia/main.cpp:42:13: warning: ‘template<class _Codecvt, class _Elem, class _Wide_alloc, class _Byte_alloc> class std::__cxx11::wstring_convert’ is deprecated [-Wdeprecated-declarations]
+   42 | static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> utf;
+      |             ^~~~~~~~~~~~~~~
+In file included from /usr/include/c++/16/locale:47,
+                 from /usr/include/c++/16/bits/fs_path.h:36,
+                 from /usr/include/c++/16/filesystem:55,
+                 from /usr/include/nlohmann/detail/meta/std_fs.hpp:22,
+                 from /usr/include/nlohmann/detail/conversions/from_json.hpp:30,
+                 from /usr/include/nlohmann/adl_serializer.hpp:14,
+                 from /usr/include/nlohmann/json.hpp:34,
+                 from /home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/../skia/main.cpp:4:
+/usr/include/c++/16/bits/locale_conv.h:265:33: note: declared here
+  265 |     class _GLIBCXX17_DEPRECATED wstring_convert
+      |                                 ^~~~~~~~~~~~~~~
+[4/4] Linking CXX executable historical-objects

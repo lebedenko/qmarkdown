@@ -1,0 +1,303 @@
+{
+  "outcome": "blocked",
+  "regressionPassed": true,
+  "mechanism": "source-span edge preflight against unchanged upstream shaped clusters",
+  "disabledEquivalence": {
+    "fixtures": 751,
+    "blocks": 775,
+    "exactJSON": true,
+    "scope": "diagnostic patch only; no padding formatter implemented"
+  },
+  "minimal": {
+    "source": "لا",
+    "issues": [
+      {
+        "clusterBytes": [
+          0,
+          4
+        ],
+        "edgeByte": 2,
+        "glyphCount": 1,
+        "identity": 0
+      },
+      {
+        "clusterBytes": [
+          0,
+          4
+        ],
+        "edgeByte": 2,
+        "glyphCount": 1,
+        "identity": 1
+      }
+    ],
+    "joinedGlyphs": [
+      3254
+    ],
+    "separatelyShapedGlyphs": [
+      1141,
+      1117
+    ]
+  },
+  "invalidRangesRejected": [
+    "combining",
+    "surrogate",
+    "fractional-offset",
+    "negative",
+    "out-of-range",
+    "overlap",
+    "partial-object"
+  ],
+  "objectContainmentTolerance": 0.05,
+  "disabledObjectFailures": 0,
+  "historicalObjectDiagnostic": {
+    "lines": [
+      {
+        "baseline": 28.0,
+        "delta": -0.1884765625,
+        "height": 36.0,
+        "rawHeight": 36.1884765625,
+        "roundBaseline": 28.0
+      }
+    ],
+    "monotonicMs": 3.139423,
+    "objects": [
+      {
+        "containedAtTolerance005": false,
+        "paintedPixelRowsAtDpr1": [
+          0,
+          35
+        ],
+        "pathBounds": [
+          78.91999816894531,
+          -0.1899999976158142,
+          126.91999816894531,
+          35.810001373291016
+        ]
+      }
+    ],
+    "paragraphHeight": 36.0,
+    "stage": "historical-object-rounding",
+    "width": 679
+  },
+  "gates": {
+    "unmodified": "pass for preflight patch",
+    "geometry": "blocked before padded candidate fit",
+    "consistency": "blocked: adjacent span edge inside shaped glyph",
+    "native": "not run",
+    "ownerVisual": "pending"
+  },
+  "commands": [
+    {
+      "name": "control-disabled",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/scan.json",
+        "--disabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "patched-disabled",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/scan.json",
+        "--disabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "minimal-control",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/minimal.json",
+        "--disabled",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/control-images"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "minimal-patched",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/minimal.json",
+        "--enabled",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/images"
+      ],
+      "exit": 1
+    },
+    {
+      "name": "zero-padding",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/zero-padding.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "invalid-combining",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/combining.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-surrogate",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/surrogate.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-fractional-offset",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/fractional-offset.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-negative",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/negative.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-out-of-range",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/out-of-range.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-overlap",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/overlap.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-partial-object",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed-evidence/partial-object.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "historical-objects",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control/historical-objects",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json"
+      ],
+      "exit": 0
+    }
+  ],
+  "inputsBefore": {
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/minimal.json": "0bcb51fd5c6bec338987843323d6e306ab1999cb1b83d34808f0697b2596597a",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/fragment-edges.patch": "cf352a1c6f077ae3b24cd45de250aca2dab3e5427428fa715640ebfad810bac4",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/patch-pin.json": "3d5a1f43da5fd3c2be2637c0b5858e045ba1d945a27d8b7c690f9f5e7570a15e",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp": "0b2fb5cfa36ad31c6a42fa5feccbca3eaf7be4e0da3f2133c4d80ca697a86112",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/CMakeLists.txt": "9fb64dcc64f1b1b9c9717249eadd667f069d9fd36bfd447c61cb05f019a585d5",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/build.py": "abdfcb4fd54eb620e2b088a6a76627184722d659ce5334560a5ca273443f819e",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/verify.py": "d495946857066c69d0e20b04654a4a4be907c02f815a365b15ceb718b620538c",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/historical_objects.cpp": "5fd1ec16a4df62644746199bc8054bda640c8cdb3a03ceb70a9f9f2dd6e72637",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp": "b8b10ecd69fdbfbfee8252a20ceb476b784d224687fc95b50458604e66ce08be",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/build.json": "1b4db1b20fbd6817e0620f5044e1846c17a169a0b89f2d97d7787bd6a6630e20",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control/historical-objects": "9aa2a28746f8fcd3df5b4a2c591982d4de1e5cb4fb36af23578d27ca2512587a",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-compare": "20e667c295e22d1bde6ec8913ab0891544886feb890e80beb849314d8f3a5189",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-selection": "faf1f98d2b14dd107cbedd6aa5519db68ce530275c176a7530711b23ded026dd",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control/fragment-preflight": "08467efd647e4d361eb588471872eef0af2e515af96eba9dc73246a212677e88",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight": "a988b35c38d6fb0296aa71468df63a09baf4e4dc630a03ca03f1cf88611ad595",
+    "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+    "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+    "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+  },
+  "inputsAfter": {
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/minimal.json": "0bcb51fd5c6bec338987843323d6e306ab1999cb1b83d34808f0697b2596597a",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/fragment-edges.patch": "cf352a1c6f077ae3b24cd45de250aca2dab3e5427428fa715640ebfad810bac4",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/patch-pin.json": "3d5a1f43da5fd3c2be2637c0b5858e045ba1d945a27d8b7c690f9f5e7570a15e",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/main.cpp": "0b2fb5cfa36ad31c6a42fa5feccbca3eaf7be4e0da3f2133c4d80ca697a86112",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/CMakeLists.txt": "9fb64dcc64f1b1b9c9717249eadd667f069d9fd36bfd447c61cb05f019a585d5",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/build.py": "abdfcb4fd54eb620e2b088a6a76627184722d659ce5334560a5ca273443f819e",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/verify.py": "d495946857066c69d0e20b04654a4a4be907c02f815a365b15ceb718b620538c",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/historical_objects.cpp": "5fd1ec16a4df62644746199bc8054bda640c8cdb3a03ceb70a9f9f2dd6e72637",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp": "b8b10ecd69fdbfbfee8252a20ceb476b784d224687fc95b50458604e66ce08be",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/build.json": "1b4db1b20fbd6817e0620f5044e1846c17a169a0b89f2d97d7787bd6a6630e20",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control/historical-objects": "9aa2a28746f8fcd3df5b4a2c591982d4de1e5cb4fb36af23578d27ca2512587a",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-compare": "20e667c295e22d1bde6ec8913ab0891544886feb890e80beb849314d8f3a5189",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-selection": "faf1f98d2b14dd107cbedd6aa5519db68ce530275c176a7530711b23ded026dd",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control/fragment-preflight": "08467efd647e4d361eb588471872eef0af2e515af96eba9dc73246a212677e88",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched/fragment-preflight": "a988b35c38d6fb0296aa71468df63a09baf4e4dc630a03ca03f1cf88611ad595",
+    "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+    "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+    "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+  },
+  "outputHashes": {
+    "combining.json": "235cc1d54c2f17f5c4035898fc87fb633c0c2b31bb0c4cf344a40b6b8b2c690d",
+    "control-disabled.jsonl.gz": "f2b4e4e99742502eb849f4bbbdffa82de638345def00c7e3c2d58a6555baea8e",
+    "control-disabled.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "control-images/adjacent-lam-alef-0.png": "34bcbcb9ead9995a78153a7060e5978cde870b4cef3f7dc30b330b08cef5b06b",
+    "control-images/reshaped-alef-0.png": "5a25540fb4a44935ffc8a208905d389a5ef10e0529192ae69da7eb0a868c6cd8",
+    "control-images/reshaped-lam-0.png": "2cfc38efca34c856f2caa7966609e8dd555d520265801066bbbf26b17e2719fd",
+    "control-images/whole-lam-alef-0.png": "34bcbcb9ead9995a78153a7060e5978cde870b4cef3f7dc30b330b08cef5b06b",
+    "fractional-offset.json": "4910b9296d5739312ac1b90b70cc9116706a72a9e3a8f2a7bf44fd42ef2c26e2",
+    "historical-objects.jsonl": "7597fc7ef540e9e8fc07783d07a86f084b71c2bd43f72e8a80dd45dd0191262d",
+    "historical-objects.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "images/adjacent-lam-alef-0.png": "34bcbcb9ead9995a78153a7060e5978cde870b4cef3f7dc30b330b08cef5b06b",
+    "images/reshaped-alef-0.png": "5a25540fb4a44935ffc8a208905d389a5ef10e0529192ae69da7eb0a868c6cd8",
+    "images/reshaped-lam-0.png": "2cfc38efca34c856f2caa7966609e8dd555d520265801066bbbf26b17e2719fd",
+    "images/whole-lam-alef-0.png": "34bcbcb9ead9995a78153a7060e5978cde870b4cef3f7dc30b330b08cef5b06b",
+    "invalid-combining.jsonl.gz": "32cf530ec8547ffd31ed43c016a42a91443ee95af6154ac7cfed216f8b3c1449",
+    "invalid-combining.stderr": "677ad2af69e629125567f0e0703175c735fb87415345fb3c0bbec3dc075d716e",
+    "invalid-fractional-offset.jsonl.gz": "63ef7fbde3b31cb97b96f8531691f6edb8cb551055950d87e61d4053b8bb6448",
+    "invalid-fractional-offset.stderr": "dccfba23277ded75087233da99622e217fd68cb8ca18a080122f9995e375a47c",
+    "invalid-negative.jsonl.gz": "4e27c223f98850a38e5f28b35fd3646c08e189c3be53adff3bccf305450cd638",
+    "invalid-negative.stderr": "24c97a09c30ed59de5aabf4282f76780e3960107126a698c589c4b5cf9912501",
+    "invalid-out-of-range.jsonl.gz": "bfcb0c0a5b60099553c59f93c0784bb95e1ec1b4f56961ee8f3066829eda3a30",
+    "invalid-out-of-range.stderr": "24c97a09c30ed59de5aabf4282f76780e3960107126a698c589c4b5cf9912501",
+    "invalid-overlap.jsonl.gz": "05b64da3dcfceea0da4591b12d23b68aa2146ee4300682da1cd41dedd83a83a1",
+    "invalid-overlap.stderr": "e24284f425e5b7ffe483018b9da6865bdce1b237fcb5bacd1e2f2642768337a4",
+    "invalid-partial-object.jsonl.gz": "8e7a3a22cdd5f9eca8fd3e9c774825b1df0b915c4dab53acfd4ca36598a815f1",
+    "invalid-partial-object.stderr": "f9e2bc5d311d51cd2380d3c8929321178ad0366ad142b586f2dec9301b1c0a12",
+    "invalid-surrogate.jsonl.gz": "188b84584dc554597955957a6bba50d9b892f578243aa2f72f9407e48505de94",
+    "invalid-surrogate.stderr": "677ad2af69e629125567f0e0703175c735fb87415345fb3c0bbec3dc075d716e",
+    "minimal-control.jsonl.gz": "c7113be3c06c8d0eb328d916b83f3a8a90f432349647b67d97e76a4aeae957b1",
+    "minimal-control.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "minimal-patched.jsonl.gz": "0e0f3b5953d76e7a94712ff906018ba39da8ae54f9a580000730e6f7a952beeb",
+    "minimal-patched.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "negative.json": "e50158266dc006e711ad0068d73aa094bb1e2fc4df8f75b611cbe304c0872e99",
+    "object-diagnostic.json": "2d8165ed8d0d2fccb86b3ce896e49ab3e06ae634e5ef5c2be4bb117eb757ca5e",
+    "out-of-range.json": "064063d28dbef556424a9531e59a1b00cea9c9c7ffbc10eddc379dfd45f2e37c",
+    "overlap.json": "006451d37091ec442ab87f952e1adf4eec2e05cc05c9c7b1e566ae001d2382f0",
+    "partial-object.json": "dc1263b5b314979d2a6c12b118020c6e1e80924566e2c1b0234aba532ba670b5",
+    "patched-disabled.jsonl.gz": "28d43cccd0a9c0bb47c450d654f6e6158dc18f61fc1e2eaf7d4e3e5f26baaa4f",
+    "patched-disabled.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scan.json": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b",
+    "surrogate.json": "d1e219e89fc99aa5b45ba2905b49413743160dd830c73d5632794fa8dcd672b4",
+    "zero-padding.json": "0bbd9c1b0b489cc7cb6d7e9f3b05111a5be39a2c33aefa670a5b897dfe367c28",
+    "zero-padding.jsonl.gz": "93a03010995e32e4f3c2d7c450a20fbb737e5f87a774e133e3a5d8172c850126",
+    "zero-padding.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
