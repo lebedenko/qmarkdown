@@ -51,3 +51,42 @@ approves this bounded continuation, including requirements, design and tasks.
 
 Shipping APIs, dependencies and behavior remain unchanged. No merge or publication
 is authorized by this milestone.
+
+## Bounded correctness continuation — approved 2026-11-05
+
+The owner explicitly approved these updated requirements, design and mapped
+tasks on 2026-11-05 ("approved"). Approval covers C1–C6 only; prior demonstrator
+approvals and failures remain unchanged.
+
+- C1: Reproduce `bidi-objects` code-edge selection on exact Qt 6.8.0 and 6.12.0.
+  Record prepared cursor cells, line membership, visual direction and hit tests.
+  Correct only isolated staged preparation, with one mapping shared by interactive
+  selection and geometry tests. Exact copied source must remain `code`.
+- C2: Test padding on every visual Skia code fragment, vertical reservation,
+  object placement and exact source copying. Trial per-fragment reservations in
+  the existing whole-paragraph SkParagraph layout, with at most eight layout
+  passes and explicit cycle/non-convergence rejection. Preserve UTF-16 mappings.
+- C3: Isolate minimum-Qt Vulkan shutdown using the existing empty-window case.
+  Compare default/basic render loops and scene-graph release while the event loop
+  remains active, retaining teardown order and bounded backtraces on both SDKs.
+  Adopt a harness correction only with preserved backend and successful normal
+  shutdown and recreation evidence.
+- C4: Begin with CPU/offscreen geometry on both exact SDKs and pinned Skia.
+  Cover original failures, widths immediately around wrapping transitions,
+  adjacent code, mixed RTL/LTR, combining marks, surrogate pairs and objects,
+  with both selection directions and exact copied source.
+- C5: After geometry passes, run affected fixtures serially on OpenGL/Vulkan,
+  both Qt renderers and observed Qt DPR 1, 1.25, 1.5 and 2. Skia uses only its
+  observed DPR; unavailable scales remain explicit. Check stationary capture,
+  selected text, resize/reset, motion/replay and three process recreations.
+  Shared layout or lifecycle changes require the complete demonstrator matrix.
+- C6: Preserve historical failures and input/binary/font identities; append
+  before/after results, update support and review/migration records, and run
+  supervisor tests, repository lightweight checks and whitespace validation.
+  Close gaps only with passing behavior; otherwise name the failing case,
+  attempted correction and capability required next.
+
+No shipping API, dependency, renderer, version or release changes are proposed.
+Broader layout replacement, production fixes, cross-paragraph selection, general
+tables, performance qualification and backend selection remain outside scope.
+Owner visual acceptance, merge and publication are separate authorization gates.

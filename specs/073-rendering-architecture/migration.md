@@ -70,3 +70,35 @@ compositor DPR coverage for SDL, owner temporal visual acceptance,
 presentation timing, CPU/GPU profiling and dependency/resource budgets. No backend
 selection or decision-complete production migration specification follows from
 capture replay or successful compilation.
+
+## Bounded correctness continuation — 2026-11-05
+
+The owner approved C1–C6, design and tasks before implementation. The isolated
+Qt preparer retains source commit `43d6bba842bb5b7ab23889e49d5f138c6f22a7fb`.
+A checked patch recovers a missing wrapped bidi cursor cell from the same shaped
+line's public glyph-run bounds when both cursor affinities collapse. The viewer
+normalizes drag endpoints into the logical interval required by the staged
+selection painter. Interactive copy and automated checks share these paths.
+This is an experiment correction, not a production fix or native padded-text API.
+
+The whole-paragraph SkParagraph trial remains rejected: stable source-fragment
+boundaries do not ensure that inserted reservations straddle a visual line break.
+The retained wrapping reproducer stabilizes but leaves later fragments without
+left padding. A further capability is needed to bind both padding edges to each
+visual fragment without changing legal wrapping, shaping or bidi/source mapping.
+This step does not authorize another layout engine, atomic code spans or spaces.
+Expanded object-bound checks also expose fractional top overhang in some Skia
+placeholder reservations; their baseline/vertical-bound semantics need resolution
+before composition acceptance. Source-copy success does not close either gap.
+
+The standalone empty-window Vulkan reproducer fails on Qt 6.8.0 in both default
+and basic render loops, including explicit release while the event loop runs.
+Each variant passes three independent process recreations on Qt 6.12.0. No tested
+harness lifecycle variant qualifies as a minimum-Qt correction. Further work
+requires a Qt/Wayland/Vulkan teardown diagnosis with the retained bounded
+backtraces and resource-callback order; a driver stack frame alone does not
+identify ownership of the defect. No SDK, driver or backend change is adopted.
+
+See the appended [verification record](verification.md) and
+[current support record](evidence/correctness/support.json). Performance,
+production migration, backend choice and owner visual acceptance remain open.

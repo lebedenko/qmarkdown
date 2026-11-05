@@ -30,6 +30,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <set>
 using json=nlohmann::json;
 using namespace skia::textlayout;
 static auto start=std::chrono::steady_clock::now();
@@ -42,8 +43,10 @@ static std::wstring_convert<std::codecvt_utf8_utf16<char16_t>,char16_t> utf;
 struct DemoBlock {
     std::unique_ptr<Paragraph> paragraph;
     std::u16string source;
-    std::vector<int> mapping;
+    std::vector<int> mapping, contentIndices, placeholderIndices;
+    std::string fragmentStatus="not-trialled";
     std::vector<bool> objects;
+    std::set<int> paddingIndices;
     std::vector<std::pair<int,int>> codes;
     float y=0;
     bool rule=false,table=false,reservations=false;
@@ -67,7 +70,7 @@ public:
         fonts->setDefaultFontManager(provider,"regular");
         fonts->disableFontFallback();
     }
-    void layout(float width) {
+    void layout(float width, bool fragmentTrial=false) {
         auto began=std::chrono::steady_clock::now();
         blocks.clear();float y=0;
         auto codeFaces=fonts->findTypefaces({SkString("mono")},SkFontStyle());
@@ -81,50 +84,84 @@ public:
             block.source=utf.from_bytes(b["text"].get<std::string>());
             TextStyle base;base.setFontFamilies({SkString("regular"),SkString("cjk"),SkString("emoji")});base.setFontSize(manifest["fontSize"].get<float>());base.setColor(SK_ColorBLACK);
             ParagraphStyle style;style.setTextStyle(base);
-            auto builder=ParagraphBuilder::make(style,fonts,SkUnicodes::ICU::Make());
-            require(!fonts->findTypefaces(base.getFontFamilies(),base.getFontStyle()).empty(),"explicit fixture fonts unresolved");
-            int inserted=0;
-            auto placeholder=[&](int index,float w,float ascent,float descent,bool object) {
-                builder->addPlaceholder({w,ascent+descent,PlaceholderAlignment::kBaseline,TextBaseline::kAlphabetic,ascent});
-                block.mapping.push_back(index);++inserted;block.objects.push_back(object);block.reservations=true;
-            };
-            const int length=int(block.source.size());
-            for(int i=0;i<length;) {
-                bool object=false;
-                for(auto o:b["objects"]) if(o["start"]==i) {
-                    placeholder(i,o["width"],o["ascent"],o["descent"],true);
-                    i+=o["length"].get<int>();object=true;break;
-                }
-                if(object)continue;
-                TextStyle current=base;
-                for(auto span:b["spans"]) {
-                    int a=span["start"],n=span["length"];std::string kind=span["kind"];
-                    if(i>=a && i<a+n) {
-                        if(kind=="code")current.setFontFamilies({SkString("mono"),SkString("cjk"),SkString("emoji")});
-                        if(kind=="bold")current.setFontFamilies({SkString("bold"),SkString("cjk"),SkString("emoji")});
-                        if(kind=="italic")current.setFontFamilies({SkString("italic"),SkString("cjk"),SkString("emoji")});
-                        if(kind=="strike")current.setDecoration(TextDecoration::kLineThrough);
+            std::set<int> cuts;
+            std::set<std::set<int>> seen;
+            for(int pass=0;pass<(fragmentTrial?8:1);++pass) {
+                seen.insert(cuts);
+                block.mapping.clear();block.objects.clear();block.codes.clear();block.paddingIndices.clear();block.placeholderIndices.clear();
+                block.contentIndices.assign(block.source.size(),-1);
+                auto builder=ParagraphBuilder::make(style,fonts,SkUnicodes::ICU::Make());
+                require(!fonts->findTypefaces(base.getFontFamilies(),base.getFontStyle()).empty(),"explicit fixture fonts unresolved");
+                int inserted=0;
+                auto placeholder=[&](int index,float w,float ascent,float descent,bool object) {
+                    builder->addPlaceholder({w,ascent+descent,PlaceholderAlignment::kBaseline,TextBaseline::kAlphabetic,ascent});
+                    block.placeholderIndices.push_back(inserted);
+                    if(!object)block.paddingIndices.insert(inserted);
+                    block.mapping.push_back(index);++inserted;block.objects.push_back(object);block.reservations=true;
+                };
+                const int length=int(block.source.size());
+                for(int i=0;i<length;) {
+                    bool object=false;
+                    for(auto o:b["objects"]) if(o["start"]==i) {
+                        placeholder(i,o["width"],o["ascent"],o["descent"],true);
+                        i+=o["length"].get<int>();object=true;break;
                     }
-                    if(kind=="code" && i==a) {
+                    if(object)continue;
+                    TextStyle current=base;
+                    for(auto span:b["spans"]) {
+                        int a=span["start"],n=span["length"];std::string kind=span["kind"];
+                        if(i>=a && i<a+n) {
+                            if(kind=="code")current.setFontFamilies({SkString("mono"),SkString("cjk"),SkString("emoji")});
+                            if(kind=="bold")current.setFontFamilies({SkString("bold"),SkString("cjk"),SkString("emoji")});
+                            if(kind=="italic")current.setFontFamilies({SkString("italic"),SkString("cjk"),SkString("emoji")});
+                            if(kind=="strike")current.setDecoration(TextDecoration::kLineThrough);
+                        }
+                        if(kind=="code" && i==a) {
+                            placeholder(i,manifest["padding"][0],codeAscent,codeDescent,false);
+                            block.codes.push_back({inserted-1,0});
+                        }
+                    }
+                    if(cuts.count(i)) {
                         placeholder(i,manifest["padding"][0],codeAscent,codeDescent,false);
-                        block.codes.push_back({inserted-1,0});
+                        placeholder(i,manifest["padding"][0],codeAscent,codeDescent,false);
+                    }
+                    builder->pushStyle(current);
+                    int count=(block.source[i]>=0xd800 && block.source[i]<=0xdbff)?2:1;
+                    builder->addText(block.source.substr(i,count));builder->pop();
+                    for(int k=0;k<count;++k){block.contentIndices[i+k]=inserted;block.mapping.push_back(i+k);++inserted;}
+                    i+=count;
+                    for(auto span:b["spans"]) if(span["kind"]=="code" && i==span["start"].get<int>()+span["length"].get<int>()) {
+                        placeholder(i,manifest["padding"][0],codeAscent,codeDescent,false);
+                        block.codes.back().second=inserted;
                     }
                 }
-                builder->pushStyle(current);
-                int count=(block.source[i]>=0xd800 && block.source[i]<=0xdbff)?2:1;
-                builder->addText(block.source.substr(i,count));builder->pop();
-                for(int k=0;k<count;++k){block.mapping.push_back(i+k);++inserted;}
-                i+=count;
-                for(auto span:b["spans"]) if(span["kind"]=="code" && i==span["start"].get<int>()+span["length"].get<int>()) {
-                    placeholder(i,manifest["padding"][0],codeAscent,codeDescent,false);
-                    block.codes.back().second=inserted;
+                block.mapping.push_back(length);
+                record({{"stage","paragraph-input"},{"sourceUnits",block.source.size()},{"utf8Bytes",builder->getText().size()},{"mapping",block.mapping}});
+                block.paragraph=builder->Build();
+                block.paragraph->layout(std::min(width,fixture["width"].get<float>()));
+                record({{"stage","paragraph-geometry"},{"height",block.paragraph->getHeight()},{"width",block.paragraph->getMaxIntrinsicWidth()},{"unresolvedGlyphs",block.paragraph->unresolvedGlyphs()}});
+                if(fragmentTrial) {
+                    std::set<int> next;
+                    for(auto span:b["spans"]) if(span["kind"]=="code") {
+                        float previous=-1;
+                        int a=span["start"],z=a+span["length"].get<int>();
+                        for(int i=a;i<z;++i) {
+                            int index=block.contentIndices[i];
+                            if(index<0 || (block.source[i]>=0xdc00 && block.source[i]<=0xdfff))continue;
+                            auto boxes=block.paragraph->getRectsForRange(index,index+1,RectHeightStyle::kMax,RectWidthStyle::kTight);
+                            if(boxes.empty())continue;
+                            float top=boxes.front().rect.top();
+                            if(previous>=0 && std::abs(top-previous)>.1)next.insert(i);
+                            previous=top;
+                        }
+                    }
+                    block.fragmentStatus=next==cuts?"stable":seen.count(next)?"cycle":pass==7?"non-convergent":"iterating";
+                    record({{"stage","fragment-pass"},{"fixture",fixture["id"]},{"pass",pass+1},
+                            {"cuts",cuts},{"next",next},{"status",block.fragmentStatus}});
+                    if(block.fragmentStatus=="iterating") {cuts=next;continue;}
                 }
+                break;
             }
-            block.mapping.push_back(length);
-            record({{"stage","paragraph-input"},{"sourceUnits",block.source.size()},{"utf8Bytes",builder->getText().size()},{"mapping",block.mapping}});
-            block.paragraph=builder->Build();
-            block.paragraph->layout(std::min(width,fixture["width"].get<float>()));
-            record({{"stage","paragraph-geometry"},{"height",block.paragraph->getHeight()},{"width",block.paragraph->getMaxIntrinsicWidth()},{"unresolvedGlyphs",block.paragraph->unresolvedGlyphs()}});
             y+=block.rule?30:block.paragraph->getHeight()+18;
             blocks.push_back(std::move(block));
         }
@@ -167,12 +204,15 @@ public:
             }
         }
     }
-    void copy() {
-        if(selected<0)return;
+    std::string selectedSource() const {
+        if(selected<0)return {};
         auto &b=blocks[selected];
         int a=b.mapping[std::clamp(std::min(anchor,selection),0,int(b.mapping.size())-1)];
         int z=b.mapping[std::clamp(std::max(anchor,selection),0,int(b.mapping.size())-1)];
-        auto text=utf.to_bytes(b.source.substr(a,z-a));
+        return utf.to_bytes(b.source.substr(a,z-a));
+    }
+    void copy() {
+        auto text=selectedSource();
         SDL_SetClipboardText(text.c_str());record({{"stage","copied"},{"source",text}});
     }
 };
@@ -285,6 +325,9 @@ int main(int argc,char **argv) {
                 record({{"stage","motion-frame"},{"frame",motionFrame},{"offset",offset},{"step",step}});
                 ++motionFrame;
             } else if(!motionReplay && !interactive && frame>=2 && frame<=4)offset=17.375;
+            if(!interactive && frame==15 && !document.blocks.empty()) {
+                document.selected=0;document.anchor=int(document.blocks[0].mapping.size())-1;document.selection=0;
+            }
             auto *canvas=surface->getCanvas();canvas->clear(SK_ColorWHITE);canvas->save();
             canvas->scale(float(width)/logicalW,float(height)/logicalH);canvas->translate(24,24+offset);canvas->scale(zoom,zoom);
             document.paint(canvas);canvas->restore();
@@ -294,8 +337,8 @@ int main(int argc,char **argv) {
                         {"platform",SDL_GetCurrentVideoDriver()},{"dpr",double(width)/logicalW},
                         {"framebufferWidth",width},{"framebufferHeight",height},{"refreshHz",mode.refresh_rate}});
             }
-            if(!interactive && ((sampling && motionFrame==60) || frame==1 || frame==3 || frame==4 || frame==6 || frame==8 || frame==10 || frame==12 || frame==14)) {
-                const std::string name=frame==2?"motion-pose":frame==1?"stationary":frame==3?"pose":frame==4?"replay":frame==6?"clip-entry":frame==8?"settled":frame==10?"resize":frame==12?"zoom":"reset";
+            if(!interactive && ((sampling && motionFrame==60) || frame==1 || frame==3 || frame==4 || frame==6 || frame==8 || frame==10 || frame==12 || frame==14 || frame==15)) {
+                const std::string name=frame==2?"motion-pose":frame==1?"stationary":frame==3?"pose":frame==4?"replay":frame==6?"clip-entry":frame==8?"settled":frame==10?"resize":frame==12?"zoom":frame==14?"reset":"selected";
                 record({{"stage","capture"},{"name",name}});
                 auto image=surface->makeImageSnapshot();
                 auto png=SkPngEncoder::Encode(vk?vulkan->directContext():context.get(),image.get(),{});
@@ -313,7 +356,10 @@ int main(int argc,char **argv) {
                     pose=bytes;
                 }
                 if(frame==4){record({{"stage","replay"},{"exact",pose==bytes}});require(pose==bytes,"replay mismatch");}
-                if(frame==14){record({{"stage","replay"},{"exact",stationary==bytes},{"operation","resize-zoom-reset"}});require(stationary==bytes,"reset mismatch");done=true;}
+                if(frame==14){record({{"stage","replay"},{"exact",stationary==bytes},{"operation","resize-zoom-reset"}});require(stationary==bytes,"reset mismatch");}
+            }
+            if(!interactive && frame==15) {
+                record({{"stage","selected-source"},{"source",document.selectedSource()}});done=true;
             }
             if(vk)vulkan->swapBuffers();else {context->flushAndSubmit();SDL_GL_SwapWindow(window);}
             if(!sampling || motionFrame==60)++frame;

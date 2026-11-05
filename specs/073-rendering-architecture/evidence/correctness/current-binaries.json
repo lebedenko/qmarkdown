@@ -1,0 +1,20 @@
+{
+  "development": {
+    "binary": "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+    "sha256": "4bb77fe06ceadade810cbf03a2cabb0e2f43c261dcf6b6de9f8337d9a2180685",
+    "bytes": 131872,
+    "unchangedAfterTestOnlyRefinement": true
+  },
+  "minimum": {
+    "binary": "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+    "sha256": "eb689b7835adf49007fb860aa7d7a968a4ddb469c9b25d219f2de6f7e8c71f85",
+    "bytes": 127504,
+    "unchangedAfterTestOnlyRefinement": true
+  },
+  "skia": {
+    "binary": "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-compare",
+    "sha256": "20e667c295e22d1bde6ec8913ab0891544886feb890e80beb849314d8f3a5189",
+    "bytes": 11541992,
+    "unchangedAfterTestOnlyRefinement": true
+  }
+}

@@ -17,6 +17,9 @@ int main(int argc,char **argv) {
         for(int i=0;i<blocks.size();++i) {
             auto &text=window.paragraphs[size_t(i)]->text;
             const auto block=blocks[i].toObject();
+            auto trace=DemoAccess::geometry(text);
+            trace["stage"]="cursor-trace";trace["fixture"]=fixture["id"];trace["block"]=i;
+            record(trace);
             for(const auto &value:block["objects"].toArray()) {
                 const auto object=value.toObject();
                 const int begin=object["start"].toInt(),end=begin+object["length"].toInt();
@@ -28,6 +31,8 @@ int main(int argc,char **argv) {
                     left=text.cursorAt(rect.left()+.01,rect.center().y());
                     right=text.cursorAt(rect.right()-.01,rect.center().y());
                     valid=qAbs(rect.width()-object["width"].toDouble())<.05
+                        && rect.height()+.05>=object["ascent"].toDouble()+object["descent"].toDouble()
+                        && rect.top()>=0 && rect.bottom()<=text.logicalHeight()+.05
                         && qMin(left,right)==begin && qMax(left,right)==end;
                 }
                 passed &= valid;
@@ -48,6 +53,14 @@ int main(int argc,char **argv) {
                 }
                 bool valid=!rects.isEmpty() && low==begin && high==end;
                 passed &= valid;
+                for(bool reverse:{false,true}) {
+                    Window::selectRange(text,reverse?high:low,reverse?low:high);
+                    const QString copied=window.selectedSource(),expected=text.text().mid(begin,end-begin);
+                    const bool exact=copied==expected && !text.selectionRectangles().isEmpty();passed &= exact;
+                    record({{"stage","direction-copy"},{"fixture",fixture["id"]},{"reverse",reverse},
+                            {"source",copied},{"expected",expected},{"passed",exact}});
+                }
+                text.setSelectionStart(0);text.setSelectionEnd(0);
                 record({{"stage","formatted-selection"},{"fixture",fixture["id"]},
                         {"kind",span["kind"]},{"passed",valid},{"expectedStart",begin},{"expectedEnd",end},
                         {"hitStart",low},{"hitEnd",high},{"copiedSource",text.text().mid(low,high-low)}});

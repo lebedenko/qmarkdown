@@ -1,0 +1,142 @@
+{
+  "fixtures": [
+    {
+      "fixture": "padded",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "adjacent",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unsupported-per-fragment-padding-at-tested-widths",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "mixed",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "wrapping",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unsupported-per-fragment-padding-at-tested-widths",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "bidi",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "ligatures",
+      "qtComposition": "native",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "combining",
+      "qtComposition": "native",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "fallback",
+      "qtComposition": "native",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "overhang",
+      "qtComposition": "native",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "objects",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review",
+      "skiaObjectBounds": "fractional-top-overhang-observed; not accepted"
+    },
+    {
+      "fixture": "bidi-objects",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unsupported-per-fragment-padding-at-tested-widths",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review",
+      "skiaObjectBounds": "fractional-top-overhang-observed-at-some-widths; not accepted"
+    },
+    {
+      "fixture": "document",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "unicode-code",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "passed-staged-corrected-geometry-both-directions",
+      "skiaComposition": "unsupported-per-fragment-padding-at-tested-widths",
+      "skiaSelection": "tested-source-edges-both-directions",
+      "visualAcceptance": "pending-owner-review"
+    }
+  ],
+  "configurationFailures": [
+    "Qt 6.8.0 Vulkan shutdown: existing and standalone empty windows, default/basic loops, live release; three recreations each fail"
+  ],
+  "unavailable": [
+    "SDL DPR 1.25",
+    "SDL DPR 1.5",
+    "SDL DPR 2"
+  ],
+  "remaining": [
+    "cross-paragraph selection",
+    "general table layout",
+    "presentation/CPU/GPU qualification",
+    "owner visual review"
+  ],
+  "motion": "238 processes complete 60 rendered steps and captured-pose replay; minimum-Qt Vulkan still crashes on shutdown",
+  "evidenceStatus": "bounded continuation executed; Qt stage geometry corrected; Skia composition and minimum-Qt Vulkan remain failed",
+  "previousRecord": "../continuation/support.json",
+  "boundedTrial": "Skia reservations stable within three passes in scan; rejected on padding/vertical bounds; not enabled in viewer",
+  "nativeProcessResults": {
+    "total": 1156,
+    "passed": 884,
+    "failedMinimumQtVulkanShutdown": 272,
+    "allRequiredCapturesAndSourceChecksCompleted": true
+  },
+  "geometry": {
+    "variantsPerRenderer": 751,
+    "qtPassed": true,
+    "skiaOriginalPaddingFailures": 1785,
+    "skiaTrialPaddingFailures": 1414,
+    "skiaObjectContainmentFailuresPerMode": 60,
+    "sourceCopyBothDirectionsPassed": true
+  }
+}
