@@ -1,0 +1,2 @@
+{"outcome": "geometry-scan-passed", "boundaryMinimal": "pass", "disabledEquivalence": {"fixtures": 751, "blocks": 775, "exactJSON": true}, "scanBlocks": 775, "failures": 0}
+{"passed": true, "verticalCells": 14272, "visualFragments": 2901, "nearEdgeSnapDifferences": 95, "containmentTolerance": 0.05}

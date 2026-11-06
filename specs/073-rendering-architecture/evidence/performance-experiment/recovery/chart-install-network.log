@@ -1,0 +1,44 @@
+Collecting contourpy==1.4.0 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 1))
+  Downloading contourpy-1.4.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting cycler==0.12.1 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 2))
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools==4.68.0 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 3))
+  Downloading fonttools-4.68.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (139 kB)
+Collecting kiwisolver==1.5.1 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 4))
+  Downloading kiwisolver-1.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Collecting matplotlib==3.11.2 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 5))
+  Downloading matplotlib-3.11.2-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (80 kB)
+Collecting numpy==2.5.4 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 6))
+  Downloading numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting packaging==26.3 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 7))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pillow==13.0.0 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 8))
+  Downloading pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Collecting pyparsing==3.3.3 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 9))
+  Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Collecting python-dateutil==4.0.0 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 10))
+  Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting tzdata==2026.6 (from -r specs/073-rendering-architecture/evidence/performance-experiment/chart-environment.txt (line 11))
+  Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Downloading contourpy-1.4.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (384 kB)
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.68.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 73.1 MB/s  0:00:00
+Downloading kiwisolver-1.5.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 93.6 MB/s  0:00:00
+Downloading matplotlib-3.11.2-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (11.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.0/11.0 MB 74.6 MB/s  0:00:00
+Downloading numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 110.6 MB/s  0:00:00
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 93.5 MB/s  0:00:00
+Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Installing collected packages: tzdata, pyparsing, pillow, packaging, numpy, kiwisolver, fonttools, cycler, python-dateutil, contourpy, matplotlib
+
+Successfully installed contourpy-1.4.0 cycler-0.12.1 fonttools-4.68.0 kiwisolver-1.5.1 matplotlib-3.11.2 numpy-2.5.4 packaging-26.3 pillow-13.0.0 pyparsing-3.3.3 python-dateutil-4.0.0 tzdata-2026.6
+
+[notice] A new release of pip is available: 26.2.2 -> 26.3
+[notice] To update, run: /home/andrii/Projects/pet/qmarkdown/build-ci/073-performance-recovery/chart-venv/bin/python -m pip install --upgrade pip

@@ -1,0 +1,28 @@
+PASS: current 1.18.0 documentation and local links
+.......................................................................................
+----------------------------------------------------------------------
+Ran 87 tests in 2.795s
+
+OK
+PASS: current 1.18.0 documentation and local links
+PASS: current 1.7.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: published v1.6.0; all four downloaded SHA-256 values match
+PASS: current 1.6.0 documentation and local links
+PASS: published v1.6.0; all four downloaded SHA-256 values match
+PASS: current 1.6.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: published v1.6.0; all four downloaded SHA-256 values match
+PASS: current 1.6.0 documentation and local links
+PASS: published v1.6.0; all four downloaded SHA-256 values match
+PASS: current 1.6.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: published v1.6.0; all four downloaded SHA-256 values match
+PASS: current 1.6.0 documentation and local links
+PASS: current 1.6.0 documentation and local links
+PASS: published v1.6.0; all four downloaded SHA-256 values match
+PASS: current 1.6.0 documentation and local links

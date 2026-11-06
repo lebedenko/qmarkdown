@@ -1,0 +1,26 @@
+{
+  "reason": "Remove blank-context whitespace from the stored unified diff; patched source bytes are unchanged.",
+  "testedPatchSha256": "9ea4612d93f8fe2f8aff793cb156931dd0663ef61c970fc2f72afdbb7d3ef3c1",
+  "finalPatchSha256": "8b3c77c50d6424ae57c206a9c667f60e6e09fcf3ee13e9b4fc9be9767a335f25",
+  "commands": [
+    [
+      "git",
+      "apply",
+      "--check",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/fragment-edges.patch"
+    ],
+    [
+      "git",
+      "apply",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/fragment-edges.patch"
+    ]
+  ],
+  "sourceHashes": {
+    "modules/skparagraph/src/OneLineShaper.cpp": "9209b8b05ecc644abbf67caeafceb55499c30e9cac7e050bf12b5fffd12346ce",
+    "modules/skparagraph/src/ParagraphImpl.cpp": "5c42382a6dab4aaed90ee4d81f0c6be5096a166ca11952b1c6c4cc34ef2a37ed",
+    "modules/skparagraph/src/ParagraphImpl.h": "a19e8af0887caef14f8be3ca408826317cd26ccc5becb8c601e97dd0119f06b9",
+    "modules/skparagraph/src/TextLine.cpp": "a39a9fe26074d6b8ca736653511478b8f59138ca3ba0929811f900c6a659c126",
+    "modules/skparagraph/src/TextWrapper.cpp": "1fd4b7e209f85368d47d90da8b0ca6201bbdfcfe6dd2bb112228e3bff49ac8f6"
+  },
+  "identicalToBuiltSources": true
+}

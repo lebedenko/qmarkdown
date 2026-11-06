@@ -133,3 +133,82 @@ object rounding was diagnosed without changing the control or tolerance.
 The review artifact shows unchanged shaping and separately shaped counterfactuals,
 not an accepted after-fix capture. The blocked outcome and required design choice
 are recorded in [verification](verification.md) and [migration](migration.md).
+
+## Explicit shaping-boundary continuation — approved (B1–B8)
+
+These tasks supersede the remaining F-series mechanism for the next isolated
+stage only. Prior completion and blocked evidence remain historical. No task
+below implies that a new implementation or successful feasibility result exists.
+
+- [x] Inspect the historical experiment and revise requirements/design/tasks to
+  select explicit shaping boundaries and separate equivalence baselines.
+- [x] Obtain explicit approval of B1–B8, revised design and these mapped tasks;
+  received 2026-11-05 ("approved") before implementation.
+- [x] Create fresh pinned stage/build/evidence paths with checked patch application
+  and complete identities; preserve `d3b1f05`, diagnostic patch and control (B1).
+- [x] Carry distinct validated source-span identities into shaping; preserve
+  original text/object intervals and range rejection checks (B2).
+- [x] Split upstream shaping/context at all span edges while retaining paragraph
+  bidi, script/fallback and Unicode breaks. Pass lam–alef whole/adjacent and
+  Latin/Arabic/style/bidi/marks/surrogate/fallback/object regressions (B3, gate 1).
+- [x] Bypass shaping-cache reads/writes for boundary metadata; verify metadata
+  invalidation, removal/re-addition, repeated layout and width-only shaped-result
+  reuse. Verify metadata-free control equivalence and establish zero-padding
+  boundary-enabled baseline (B4, B7, gate 2).
+- [x] Implement shared visual-fragment candidate fit/formatting, finite scans,
+  upstream break priorities/emergency handling, source-progress checks and
+  explicit indivisible-unit overflow (B5).
+- [x] Integrate authoritative translations and vertical reservations across paint,
+  rectangles, carets, selection and objects. Resolve complete extents with common
+  baseline adjustment and rounded heights at unchanged tolerance (B6).
+- [x] Run all 751 cases plus boundary regressions and recorded 1/64-pixel wrap
+  transition probes. Check baseline glyph/intracluster equivalence, padding,
+  whitespace, overflow, termination, exact copy both directions and authoritative
+  hit tests; recheck `objects@679` metrics and painted/logical bounds (B7, gate 3).
+- [x] Only after gates 1–3 pass, run serial native GL/Vulkan at observed DPR:
+  stationary/selected, resize/reset, motion/replay and three recreations, retaining
+  deadlines, identities and unavailable DPRs (B8, gate 4).
+- [x] Retain matched captures and an interactive patched viewer launcher after
+  geometry passes; record owner visual acceptance separately (B8, gate 5).
+- [x] Run supervisor regressions, repository lightweight checks and whitespace
+  validation; append actual evidence and upkeep costs. Declare feasible only
+  with all automated gates passed; otherwise retain minimal reproducible blocker,
+  attempted mechanism and missing capability, and stop dependent gates (B8).
+
+No production/backend/performance claim, Qt-control change, merge or publication
+is authorized by this task list.
+
+Execution complete for B1–B8: the tested isolated slice passes all automated
+boundary, equivalence, geometry, extent, selection and native gates. The corrected
+fresh stage preserves the pinned symlink and produces byte-identical native
+binaries. Owner visual acceptance remains pending; see [actual verification](verification.md).
+
+## Approved measurement tasks (2026-11-06)
+
+Owner instruction to implement the supplied plan approves P1–P6 and this mapping.
+
+- [x] P1: Separate scale diagnostic runner, serial API traces and corrected explanation.
+- [x] P2–P3: Pinned three-variant builds, deterministic fixture matrix, operation timers,
+  separate counters, 10 process-cold and 5+30 warm measurements with bounded supervisor.
+- [x] P4: Native scenarios, supported GPU callbacks and presentation feedback; three
+  repetitions, separate captures, memory and submission/swap reporting.
+- [x] P5: Unit/regression checks, instrumentation/source equivalence, raw samples,
+  provenance, summaries, static curves and adjacent-size ratios.
+- [x] P6: Actual verification, qualification gaps, bottlenecks and prioritized follow-ups.
+
+Historical evidence remains intact. No merge or publication is authorized.
+
+
+## Approved recovery — 2026-11-06
+
+- [x] R1: Snapshot and hash surviving evidence; restore pinned prerequisites and record relocations.
+- [x] R2: Harden resume, locking and checkpoints; add focused recovery tests.
+- [x] R3: Finish 116 outstanding diagnostic variant/cases and 18 upstream comparisons serially.
+- [x] R4: Record post-reboot environment/scale, one closed-window retry and corrected CPU smoke.
+- [x] R5: Validate mappings/counters/windows; regenerate reports, inspect visuals, archive and verify hashes; run regression/lightweight checks.
+
+No full CPU/native rerun, optimization, integration, merge or publication is authorized.
+
+Recovery execution and reporting are complete with explicit historical artifact
+availability gaps. This is measurement completion, not performance acceptance.
+See the recovery section in [actual verification](verification.md).

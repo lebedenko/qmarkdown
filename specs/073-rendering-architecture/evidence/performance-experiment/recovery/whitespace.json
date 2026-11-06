@@ -1,0 +1,24 @@
+{
+  "trackedDiff": "passed",
+  "initialAttempt": "Initially treated ordinary no-index difference exit code 1 as failure; no whitespace diagnostics were emitted. Corrected validation accepts 0/1 only with empty diagnostics.",
+  "privateFilesChecked": [
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/workloads.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/cpu.cpp",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/CMakeLists.txt",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/document.h",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/setup.inc",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/build.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/native.cpp",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/run.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/diagnostics.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/scale.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/test_performance.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/report.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/README.md",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/retain.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/retry.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/recovery.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/test_recovery.py",
+    "specs/073-rendering-architecture/demonstrator/performance-experiment/recovery_report.py"
+  ]
+}

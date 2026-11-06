@@ -1,0 +1,302 @@
+[
+  {
+    "case": "document-480-10",
+    "variant": "upstream",
+    "statusCounts": {
+      "completed": 11
+    },
+    "series": "document-480",
+    "size": 10,
+    "exactUtf16Units": 2560,
+    "modes": {
+      "cold": {
+        "samples": 10,
+        "expected": 10,
+        "missingMetrics": [],
+        "complete": true,
+        "metrics": {
+          "constructionMs": {
+            "count": 10,
+            "median": 11.04234,
+            "p95": 22.474474,
+            "maximum": 22.474474
+          },
+          "initialLayoutMs": {
+            "count": 10,
+            "median": 2.652163,
+            "p95": 3.860949,
+            "maximum": 3.860949
+          },
+          "widthReflowMs": {
+            "count": 10,
+            "median": 0.0755905,
+            "p95": 0.110602,
+            "maximum": 0.110602
+          },
+          "repeatLayoutMs": {
+            "count": 10,
+            "median": 0.0004665,
+            "p95": 0.000738,
+            "maximum": 0.000738
+          },
+          "metadataInvalidationMs": {
+            "count": 0,
+            "median": null,
+            "p95": null,
+            "maximum": null
+          },
+          "peakRssBytes": {
+            "count": 10,
+            "median": 86196224.0,
+            "p95": 86196224,
+            "maximum": 86196224
+          }
+        }
+      },
+      "warm": {
+        "samples": 30,
+        "expected": 30,
+        "missingMetrics": [],
+        "complete": true,
+        "metrics": {
+          "constructionMs": {
+            "count": 30,
+            "median": 7.3523805,
+            "p95": 7.645652,
+            "maximum": 7.70455
+          },
+          "initialLayoutMs": {
+            "count": 30,
+            "median": 0.4990105,
+            "p95": 0.539348,
+            "maximum": 0.586995
+          },
+          "widthReflowMs": {
+            "count": 30,
+            "median": 0.0523175,
+            "p95": 0.056079,
+            "maximum": 0.057058
+          },
+          "repeatLayoutMs": {
+            "count": 30,
+            "median": 0.000273,
+            "p95": 0.000299,
+            "maximum": 0.000321
+          },
+          "metadataInvalidationMs": {
+            "count": 0,
+            "median": null,
+            "p95": null,
+            "maximum": null
+          },
+          "peakRssBytes": {
+            "count": 30,
+            "median": 86196224.0,
+            "p95": 86196224,
+            "maximum": 86196224
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "document-480-10",
+    "variant": "zero",
+    "statusCounts": {
+      "completed": 11
+    },
+    "series": "document-480",
+    "size": 10,
+    "exactUtf16Units": 2560,
+    "modes": {
+      "cold": {
+        "samples": 10,
+        "expected": 10,
+        "missingMetrics": [],
+        "complete": true,
+        "metrics": {
+          "constructionMs": {
+            "count": 10,
+            "median": 8.9776205,
+            "p95": 11.460991,
+            "maximum": 11.460991
+          },
+          "initialLayoutMs": {
+            "count": 10,
+            "median": 2.673761,
+            "p95": 3.475373,
+            "maximum": 3.475373
+          },
+          "widthReflowMs": {
+            "count": 10,
+            "median": 0.06839799999999999,
+            "p95": 0.089448,
+            "maximum": 0.089448
+          },
+          "repeatLayoutMs": {
+            "count": 10,
+            "median": 0.0003715,
+            "p95": 0.000482,
+            "maximum": 0.000482
+          },
+          "metadataInvalidationMs": {
+            "count": 10,
+            "median": 1.0463325,
+            "p95": 1.363912,
+            "maximum": 1.363912
+          },
+          "peakRssBytes": {
+            "count": 10,
+            "median": 86196224.0,
+            "p95": 86196224,
+            "maximum": 86196224
+          }
+        }
+      },
+      "warm": {
+        "samples": 30,
+        "expected": 30,
+        "missingMetrics": [],
+        "complete": true,
+        "metrics": {
+          "constructionMs": {
+            "count": 30,
+            "median": 7.228626,
+            "p95": 7.381572,
+            "maximum": 7.506376
+          },
+          "initialLayoutMs": {
+            "count": 30,
+            "median": 0.9175305,
+            "p95": 0.965614,
+            "maximum": 1.05443
+          },
+          "widthReflowMs": {
+            "count": 30,
+            "median": 0.055738499999999996,
+            "p95": 0.059897,
+            "maximum": 0.059948
+          },
+          "repeatLayoutMs": {
+            "count": 30,
+            "median": 0.000254,
+            "p95": 0.000284,
+            "maximum": 0.000285
+          },
+          "metadataInvalidationMs": {
+            "count": 30,
+            "median": 0.855026,
+            "p95": 0.893156,
+            "maximum": 0.902813
+          },
+          "peakRssBytes": {
+            "count": 30,
+            "median": 86196224.0,
+            "p95": 86196224,
+            "maximum": 86196224
+          }
+        }
+      }
+    }
+  },
+  {
+    "case": "document-480-10",
+    "variant": "padded",
+    "statusCounts": {
+      "completed": 11
+    },
+    "series": "document-480",
+    "size": 10,
+    "exactUtf16Units": 2560,
+    "modes": {
+      "cold": {
+        "samples": 10,
+        "expected": 10,
+        "missingMetrics": [],
+        "complete": true,
+        "metrics": {
+          "constructionMs": {
+            "count": 10,
+            "median": 10.6379275,
+            "p95": 22.154755,
+            "maximum": 22.154755
+          },
+          "initialLayoutMs": {
+            "count": 10,
+            "median": 6.0499,
+            "p95": 9.940965,
+            "maximum": 9.940965
+          },
+          "widthReflowMs": {
+            "count": 10,
+            "median": 3.119974,
+            "p95": 4.407367,
+            "maximum": 4.407367
+          },
+          "repeatLayoutMs": {
+            "count": 10,
+            "median": 0.000404,
+            "p95": 0.000615,
+            "maximum": 0.000615
+          },
+          "metadataInvalidationMs": {
+            "count": 10,
+            "median": 4.144356999999999,
+            "p95": 5.336066,
+            "maximum": 5.336066
+          },
+          "peakRssBytes": {
+            "count": 10,
+            "median": 86196224.0,
+            "p95": 86196224,
+            "maximum": 86196224
+          }
+        }
+      },
+      "warm": {
+        "samples": 30,
+        "expected": 30,
+        "missingMetrics": [],
+        "complete": true,
+        "metrics": {
+          "constructionMs": {
+            "count": 30,
+            "median": 7.435422,
+            "p95": 9.574643,
+            "maximum": 9.713873
+          },
+          "initialLayoutMs": {
+            "count": 30,
+            "median": 3.390683,
+            "p95": 3.654884,
+            "maximum": 3.809886
+          },
+          "widthReflowMs": {
+            "count": 30,
+            "median": 2.400947,
+            "p95": 2.505632,
+            "maximum": 2.718659
+          },
+          "repeatLayoutMs": {
+            "count": 30,
+            "median": 0.000273,
+            "p95": 0.000435,
+            "maximum": 0.000577
+          },
+          "metadataInvalidationMs": {
+            "count": 30,
+            "median": 3.3117685000000003,
+            "p95": 4.357258,
+            "maximum": 4.367221
+          },
+          "peakRssBytes": {
+            "count": 30,
+            "median": 86196224.0,
+            "p95": 86196224,
+            "maximum": 86196224
+          }
+        }
+      }
+    }
+  }
+]

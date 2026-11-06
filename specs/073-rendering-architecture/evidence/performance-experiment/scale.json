@@ -1,0 +1,184 @@
+{
+  "opengl": {
+    "sdl": {
+      "desktopScale": 1.25,
+      "desktopScaleSource": "owner configuration; protocol diagnosis separate",
+      "device": "NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2",
+      "documentZoom": 1,
+      "drawablePerWindowX": 1.0,
+      "drawablePerWindowY": 1.0,
+      "drawablePixels": [
+        800,
+        600
+      ],
+      "gpuElapsedSupported": true,
+      "outputIndex": 0,
+      "outputName": "Samsung Electric Company U32J59x H4ZM900512 (DP-1)",
+      "platform": "wayland",
+      "presentationClock": 1,
+      "refreshHz": 60,
+      "sdlVersion": "2.32.74",
+      "timestampUnitNs": 1,
+      "windowCoordinates": [
+        800,
+        600
+      ],
+      "windowFlags": 8230
+    },
+    "outputIntegerScale": [
+      2
+    ],
+    "outputPixelModes": [
+      [
+        3840,
+        2160,
+        59997
+      ]
+    ],
+    "outputLogicalSize": [
+      [
+        3072,
+        1728
+      ]
+    ],
+    "preferredFractionalScale120ths": [
+      150
+    ],
+    "viewportDestinations": [
+      [
+        640,
+        480
+      ]
+    ],
+    "surfaceBufferScaleRequests": [],
+    "windowGeometry": [],
+    "viewportSourceRequests": [
+      "-1.00000000, -1.00000000, -1.00000000, -1.00000000"
+    ],
+    "bufferDimensions": [
+      [
+        800,
+        600
+      ]
+    ],
+    "gaps": [
+      "No explicit xdg set_window_geometry request; effective geometry is not independently reported."
+    ],
+    "bufferPixelsPerSurfaceUnit": [
+      1.25,
+      1.25
+    ],
+    "sdlCoordinatesPerSurfaceUnit": [
+      1.25,
+      1.25
+    ],
+    "preferredDesktopScale": 1.25,
+    "mappingEstablished": true,
+    "outputNames": [
+      "DP-1"
+    ],
+    "preferredSurfaceBufferScale": [
+      2
+    ],
+    "effectiveSurfaceBufferScale": 1,
+    "surfaceBufferScaleBasis": "Wayland initial value; no request in complete startup trace",
+    "viewportSurfaceLinks": [
+      [
+        43,
+        37
+      ]
+    ],
+    "resamplingKernel": null
+  },
+  "vulkan": {
+    "sdl": {
+      "desktopScale": 1.25,
+      "desktopScaleSource": "owner configuration; protocol diagnosis separate",
+      "device": "NVIDIA GeForce GTX 1660 SUPER",
+      "documentZoom": 1,
+      "drawablePerWindowX": 1.0,
+      "drawablePerWindowY": 1.0,
+      "drawablePixels": [
+        800,
+        600
+      ],
+      "gpuElapsedSupported": false,
+      "outputIndex": 0,
+      "outputName": "Samsung Electric Company U32J59x H4ZM900512 (DP-1)",
+      "platform": "wayland",
+      "presentationClock": 1,
+      "refreshHz": 60,
+      "sdlVersion": "2.32.74",
+      "timestampUnitNs": 1,
+      "windowCoordinates": [
+        800,
+        600
+      ],
+      "windowFlags": 268443684
+    },
+    "outputIntegerScale": [
+      2
+    ],
+    "outputPixelModes": [
+      [
+        3840,
+        2160,
+        59997
+      ]
+    ],
+    "outputLogicalSize": [
+      [
+        3072,
+        1728
+      ]
+    ],
+    "preferredFractionalScale120ths": [
+      150
+    ],
+    "viewportDestinations": [
+      [
+        640,
+        480
+      ]
+    ],
+    "surfaceBufferScaleRequests": [],
+    "windowGeometry": [],
+    "viewportSourceRequests": [
+      "-1.00000000, -1.00000000, -1.00000000, -1.00000000"
+    ],
+    "bufferDimensions": [
+      [
+        800,
+        600
+      ]
+    ],
+    "gaps": [
+      "No explicit xdg set_window_geometry request; effective geometry is not independently reported."
+    ],
+    "bufferPixelsPerSurfaceUnit": [
+      1.25,
+      1.25
+    ],
+    "sdlCoordinatesPerSurfaceUnit": [
+      1.25,
+      1.25
+    ],
+    "preferredDesktopScale": 1.25,
+    "mappingEstablished": true,
+    "outputNames": [
+      "DP-1"
+    ],
+    "preferredSurfaceBufferScale": [
+      2
+    ],
+    "effectiveSurfaceBufferScale": 1,
+    "surfaceBufferScaleBasis": "Wayland initial value; no request in complete startup trace",
+    "viewportSurfaceLinks": [
+      [
+        37,
+        3
+      ]
+    ],
+    "resamplingKernel": null
+  }
+}

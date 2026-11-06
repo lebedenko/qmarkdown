@@ -134,3 +134,107 @@ No shipping API/dependency change, Qt-control change, backend selection,
 performance qualification, Qt integration, general tables, cross-paragraph
 selection, production migration, merge or publication belongs to F1–F7.
 The Qt 6.8 Vulkan shutdown failure remains an independent blocker.
+
+## Explicit shaping-boundary continuation — approved 2026-11-05
+
+The supplied continuation plan selects code-span edges as shaping boundaries.
+The following B1–B8 revise F1–F7 for the next isolated experiment and explicitly
+supersede F4's cross-span glyph-preservation constraint and the corresponding
+F2/F4 cluster-edge stop condition. Historical approvals, commit `d3b1f05`, its
+diagnostic patch and all failures remain intact. The owner explicitly approved B1–B8, the revised design and mapped tasks on
+2026-11-05 ("approved") before implementation.
+
+- B1: Create a new isolated stage of pinned Skia revision
+  `00227028b0c3cb3052432a456af2027a49e598b2`. Retain the unpatched control and
+  previous experiment. Record checked patch application, source/dependency
+  identities, build configuration, tools, fonts and input/output hashes.
+- B2: Carry distinct span identities and validated UTF-8 boundaries into upstream
+  shaping. Validate UTF-16 fixture ranges against grapheme boundaries, preserve
+  complete object-source intervals and original source text, and reject malformed
+  ranges. Insert no padding characters or padding placeholders.
+- B3: Split shaping regions at every code-span start/end, including adjacent
+  identically styled spans. Ligatures and Arabic joining may change across edges;
+  shaping within each region remains upstream-owned. Retain paragraph-wide bidi,
+  script/font fallback and original Unicode breaks. Edges do not create breaks.
+- B4: Bypass paragraph shaping-cache reads and writes whenever boundary metadata
+  is present, including zero padding. Metadata changes invalidate shaping/layout;
+  width changes reuse shaped results. Preserve the metadata-free control path.
+  Cache optimization is deferred.
+- B5: Share contiguous visual-fragment calculation between upstream candidate fit
+  and formatting, charging both edges of each fragment. Preserve adjacent span
+  identities and disjoint bidi fragments. Use finite scans with monotonic source
+  progress, upstream legal-break priorities and emergency wrapping; preserve
+  indivisible units and report unavoidable overflow. No paragraph convergence or
+  replacement line-breaking engine is permitted.
+- B6: Store translations and vertical reservations in authoritative paragraph
+  geometry shared by painting, rectangles, caret hit tests, selection and objects.
+  Resolve containment from complete text/object/padding extents; apply baseline
+  adjustments to all line content and reserve rounded line/paragraph height.
+  Keep the 0.05 logical-pixel containment tolerance.
+- B7: Pass boundary semantics, separate equivalence baselines, all 751 existing
+  geometry cases plus boundary regressions and 1/64-pixel transition probes,
+  then consistency checks before native gates. Verify exact copying in both
+  directions, authoritative hit testing, metadata/width/repeated-layout behavior,
+  and `objects@679` raw/rounded metrics and logical/painted bounds.
+- B8: After geometry passes, run serial native GL/Vulkan at observed DPR with
+  stationary/selected captures, resize/reset, motion/replay and three process
+  recreations. Retain deadlines, identities, matched captures and an interactive
+  patched viewer launcher; report unavailable DPRs. Run supervisor regressions,
+  repository lightweight checks and whitespace validation. Declare feasible only
+  after all automated gates pass; otherwise retain a reproducible minimal failure
+  and precise missing capability and stop dependent gates.
+
+All new interfaces and diagnostics are private to the experimental adapter and
+patched SkParagraph. Document upstream touchpoints and patch upkeep costs.
+Owner visual acceptance stays separate. This continuation does not select a
+production backend or qualify performance. Qt controls remain unchanged and the
+Qt 6.8 Vulkan shutdown failure remains independent. Production dependencies,
+Qt integration, general tables, cross-paragraph selection, merge and publication
+remain outside scope.
+
+## Measurement continuation approved 2026-11-06
+
+The owner explicitly requested implementation of the scale diagnosis and performance
+qualification plan. This approves P1–P6 below, their design and mapped tasks. Visual
+review is accepted only for the cases the owner inspected; no additional output,
+scale, API or fixture configuration inherits that acceptance.
+
+- P1: Diagnose the unchanged 1.25 desktop on the same output, serial GL/Vulkan,
+  zoom 1. Retain SDL version/flags, window and drawable dimensions, both ratios,
+  output identity and separate Wayland protocol evidence (output/buffer scale,
+  geometry, buffers, viewport and fractional events). Separate desktop scale,
+  surface mapping, buffer density and zoom. Unknown mapping is a qualification gap.
+- P2: Compare clean upstream, boundaries with zero padding, and boundaries with
+  existing padding using identical sources, fonts, styles, widths and objects.
+  Reuse validated construction and pinned builds. Keep historical runners intact.
+- P3: Generate grapheme-safe prose, dense spans, mixed bidi/marks/fallback, long
+  code and objects at 1/4/16/64/256 Ki UTF-16 units, widths 240/480/960; sweep
+  1/8/32/128 spans at fixed 16 Ki and fixed coverage; documents 10/100/1000 ×
+  approximately 256 units. Separate construction, first layout, width reflow,
+  repeated layout and metadata invalidation. Use 10 fresh processes (not cold
+  filesystem caches), five warmups and 30 samples; diagnostic counters separate.
+  Limit cases to 60 seconds and 4 GiB RSS, preserve partial data, skip larger
+  sizes in failed series and continue independent series.
+- P4: Serial native three variants × two APIs × typical/dense/large documents ×
+  stationary/slow/flick-reversal/settling/resize/selection, three repetitions,
+  two seconds warmup and five measured. No captures, trace or frame console I/O
+  during timing. Separate CPU layout/paint/submission/swap, asynchronous supported
+  Ganesh GPU elapsed time, Wayland presented/discarded feedback, RSS and GPU cache.
+  Preserve traversal; no culling/caching/layout optimizations.
+- P5: Validate fixtures, aggregation/nearest-rank p95, deadlines, missing metrics,
+  scale consistency, instrumentation equivalence/source mapping and invalidation.
+  Capture outside timing; retain source/font/patch/library/executable/config/output
+  hashes. Report raw samples, median/p95/max, growth ratios and static charts.
+  Apply existing pacing target only to actual presentation intervals with precision,
+  per scenario/repetition; missing scale/GPU/feedback never passes qualification.
+- P6: Report observed bottlenecks and prioritized proposals, without new initial
+  layout/memory thresholds or asymptotic proof. Run supervisor and lightweight
+  regressions and whitespace checks. Preserve Qt 6.8 Vulkan shutdown blocker.
+
+No SDL migration, compositor change, competing scale/viewport objects, shipping
+change, Qt integration, optimization, backend selection, merge or publication.
+
+
+## Approved recovery — 2026-11-06
+
+Recovery R1–R5: preserve the completed CPU sweep, 323 native processes, 18 captures, historical gates and 59 clean diagnostic comparisons. Exclude overlapping diagnostics from conclusions. Finish only outstanding diagnostics, upstream counters, post-reboot scale/environment, one closed-window retry and the corrected ten-paragraph CPU smoke. Preserve timeout/skip outcomes, four feedback gaps, strict pacing and the independent Qt 6.8 Vulkan blocker.

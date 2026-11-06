@@ -1,0 +1,78 @@
+{
+  "environmentCohort": "post-reboot",
+  "recordedAtUtc": "2026-11-06T09:44:56.588294+00:00",
+  "kernel": "Linux-7.2.14-arch1-1-x86_64-with-glibc2.44",
+  "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  16\nOn-line CPU(s) list:                     0-15\nVendor ID:                               GenuineIntel\nModel name:                              Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz\nCPU family:                              6\nModel:                                   158\nThread(s) per core:                      2\nCore(s) per socket:                      8\nSocket(s):                               1\nStepping:                                13\nMicrocode version:                       0x104\nCPU(s) scaling MHz:                      66%\nCPU max MHz:                             5000.0000\nCPU min MHz:                             800.0000\nBogoMIPS:                                7200.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp vnmi md_clear flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               256 KiB (8 instances)\nL1i cache:                               256 KiB (8 instances)\nL2 cache:                                2 MiB (8 instances)\nL3 cache:                                16 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-15\nVulnerability Gather data sampling:      Mitigation; Microcode\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Mitigation; Aligned branch/return thunks\nVulnerability Itlb multihit:             KVM: Mitigation: Split huge pages\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop\nVulnerability Srbds:                     Mitigation; Microcode\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Mitigation; TSX disabled\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace\n",
+  "archives": {
+    "identity-artifacts-part-001.tar.gz": {
+      "sourceDirectory": "identity-artifacts",
+      "sha256": "3d196ce4dec7b4b154224bd7f875bc821542a1334d9f46dbc62ca9481301e3f8",
+      "bytes": 26625020,
+      "files": {
+        "DEPS": "3382564bf7ac5cdb863b0af00059561af73a2972729f8315348ded3f1a136001",
+        "archive-gaps.json": "742a4afe20e348e675da70a6a4084edb4b5afe0c91d6cb6dbd5d24b0228ca2e0",
+        "control-build-identities.json": "097c095d2ddac0b8fffc325d39bbe59e9ee6c8d429d7a211fb63b8e41f406cea",
+        "control-identities.json": "14b4313ee353515c33582ccbe5514fc2778d0eae163a692546d81768a7c50ea5",
+        "control-instrumented.patch": "82bfe561069ff112212d8b96885f98fa28bb8ffa1d8ea2b5d3ff9f913b3d1009",
+        "counter-sources/modules/skparagraph/src/OneLineShaper.cpp": "9209b8b05ecc644abbf67caeafceb55499c30e9cac7e050bf12b5fffd12346ce",
+        "counter-sources/modules/skparagraph/src/ParagraphImpl.cpp": "a9e1def5bf918df9f1f7460147acf3aa250c4f483f364c52ab4f2e26f4e1e113",
+        "counter-sources/modules/skparagraph/src/ParagraphImpl.h": "2220ad7b631045f26555e06e997f2bc952b6db692d2f77eff6dddc18a00c7dc0",
+        "counter-sources/modules/skparagraph/src/TextLine.cpp": "a39a9fe26074d6b8ca736653511478b8f59138ca3ba0929811f900c6a659c126",
+        "counter-sources/modules/skparagraph/src/TextWrapper.cpp": "8a5842239e67bb66d7f08a28a150ecc8905d64382251c9b7319f1171cf54c991",
+        "final/adapter-sources.tar.gz": "f399bc1eff18c730d5e21ae33d7035551305c0ed2b3b32576a1ef6fd3d3de749",
+        "final/build.json": "25c9209fd8eaddf79284e28319c058e862209eff96b01a765bbf9af81b4bc9a8",
+        "final/patched/perf-cpu": "0aa13df51d9d0abcabdee70227831ca9bf2c84dbc7b150f5f0536645f5d15152",
+        "final/patched/perf-geometry": "068876020f32dea74f305e402b019e976891bf60cdec7d23e2744cd94a3fc0ea",
+        "final/patched/perf-native": "40a1e4dd0f234bd8acaf21600736c5ed6b4c85c45d024a1b508d171b68958e96",
+        "final/upstream/perf-cpu": "d5980ee5acd2734e76f6fa1ecbd04d8a1b6a88844b3ff7bee11d3b6e692528f6",
+        "final/upstream/perf-geometry": "87bc9ef505939b4ece11a80306053e7896fc4ecd4b77e97394d7e2bd7c4e5f5e",
+        "final/upstream/perf-native": "727924f049a3d06483da757b0becbe75ad0d6bcbbc66c723f4b3f2624ef0a82f",
+        "identities.json": "f02f5f2658f1ac430d1b136d85c674884453ff030d9afb6ab8e29af38b8f6524",
+        "instrumented/perf-cpu": "bc5e171f04a0dfce0a350b72ce211d94db041ac9a2808b630ef1811f03e10369",
+        "instrumented/perf-geometry": "48e35be98c5612b476eb82be79f7ef20675844da27b0869f64093e572babd407",
+        "instrumented.patch": "ac4e8b51efb8adbea529ea92a8efef0763c9403d8cc2a6d5dbf7a4a08f87b2d8",
+        "member-hashes.json": "347c6449e5894e86364c0ad927d74f9eb61e4d59c7b6052d7c950c33a5c6b08d",
+        "recovery-manifest.json": "34e7f999977a172c4f0d8c59ead243693c144a8324ac49b6d549b0d83120ea68",
+        "resume-identities.json": "066f12676a48cc27b5a4c6a471338b4542ff199c20c52ac012c642611e6d2c4d",
+        "timed/build.json": "6003c9059261c551178169b88c178d4995b6a532ffe5e5f4eb58fce866775339"
+      }
+    },
+    "identity-artifacts-part-002.tar.gz": {
+      "sourceDirectory": "identity-artifacts",
+      "sha256": "eaf7ff9c506b51c140e00da16420f681eb3b37885bfa7e28016e499ce690d332",
+      "bytes": 20806587,
+      "files": {
+        "timed/patched/perf-cpu": "fbfc8e6153799b8cabc27ae406e4b6e4b3ca1dd660e0d052e7ccf090be4f4a19",
+        "timed/patched/perf-native": "437c417d682863804f9781ba3f93738a18175adae63f820c544a240e0ae9022e",
+        "timed/sources/boundary-experiment/layout.h": "eee87716c06a5dcc7a6fc12a8e2b613c696cb0b3f0e1b530742f9a646e836103",
+        "timed/sources/performance-experiment/cpu.cpp": "fb212aba8b6ce33c28ca6a68d38094f569c4aaba91f4eae29c68f0eccb78c009",
+        "timed/sources/performance-experiment/run.py": "470152627c30f5cbb78367b4f9fdbd6200d4033643c3300fd8726e0ddbd772cf",
+        "timed/sources/performance-experiment/workloads.py": "1b6a153175c1290c261829ddc7435b723780ed15857218c66a6ba8b587e38764",
+        "timed/upstream/perf-cpu": "f9c7df94571157c0fbf4ebcad1b8517b9401d1fde670cec09b82822d7ceb277d",
+        "timed/upstream/perf-native": "485c71b39bc490f02acaffd13f094c94439a62e896a90f791d81d6da6e54a845",
+        "timed-source-availability.json": "f393538b9716aab5b98fb522446a474373bc92a02477d945a72832620c2f3197",
+        "upstream-counter/perf-cpu": "9e84d19a733562b87f5ff686fd579c5616213e3550dc0c0502179bba02bc3d93",
+        "upstream-counter/perf-geometry": "b1ac470782ea19ff3795f4e8c95669ac0dd7208a82c9e973d85e83744a7852b9"
+      }
+    }
+  },
+  "nvidiaDriver": "NVRM version: NVIDIA UNIX Open Kernel Module for x86_64  615.78.08  Release Build  (root@)  \nGCC version:  gcc version 16.2.1 20260810 (GCC) \n",
+  "cpuGovernors": {
+    "/sys/devices/system/cpu/cpu11/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu9/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu7/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu5/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu14/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu12/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu10/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu8/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu6/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu4/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu15/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu13/cpufreq/scaling_governor": "powersave",
+    "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor": "powersave"
+  }
+}

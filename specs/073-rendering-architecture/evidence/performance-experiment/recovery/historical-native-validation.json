@@ -1,0 +1,15 @@
+{
+  "completed": 323,
+  "windowsComplete": true,
+  "noNonResizeLayout": true,
+  "originalFailed": [
+    {
+      "case": "typical",
+      "variant": "padded",
+      "api": "opengl",
+      "scenario": "settling",
+      "repetition": 0,
+      "status": "failed"
+    }
+  ]
+}
