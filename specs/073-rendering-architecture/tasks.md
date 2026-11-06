@@ -212,3 +212,118 @@ No full CPU/native rerun, optimization, integration, merge or publication is aut
 Recovery execution and reporting are complete with explicit historical artifact
 availability gaps. This is measurement completion, not performance acceptance.
 See the recovery section in [actual verification](verification.md).
+
+## Approved phase diagnosis tasks (2026-11-06)
+
+The owner explicitly requested implementation of this bounded plan.
+
+- [x] D1: Record scope, build isolated hash-identified phase instrumentation.
+- [x] D2: Run twelve fixtures × two variants × two binaries serially; retain
+  phase deltas, geometry equivalence, shaping guards and terminal outcomes.
+- [x] D3: Historical gates; attribution/reset/query-exclusion/resume tests;
+  measurement/recovery/supervisor regressions, lightweight and whitespace checks.
+- [x] D4: Archive verified raw evidence and produce approval-ready optimization
+  requirements/design/tasks or a specific unresolved question and minimal probe.
+
+No optimization, adapter/paint/scheduling work, Vulkan timing, Qt integration,
+backend selection, merge or publication is authorized.
+
+## Approved ownership optimization — 2026-11-06
+
+The owner instruction to implement the supplied plan explicitly approves O1–O5,
+the corrected mechanism and O-T1–O-T4 in [optimization design](optimization-design.md).
+This supersedes the earlier draft-only restriction for this bounded isolated step.
+Preserve historical evidence, uncommitted diagnosis and commit `4b9fd4c`.
+Metric-only `resetContext()` retains ownership; run revision invalidation covers
+replacement, restart, metadata and cache restore. Fresh bounded storage, legacy
+fallback, exact four-operation differential checks and work counts are required.
+No speedup qualification, production change, merge or publication is approved.
+
+- [x] O-T1: Private checked patch, run/cache lifecycle audit and range/fallback tests.
+- [x] O-T2: Lifecycle, stale rejection, failed/empty shaping and bounded-storage checks.
+- [x] O-T3: 48 exact differential traces, preserved phase counts and historical gates.
+- [x] O-T4: Work/memory reporting, regression checks and hash-verified evidence archive.
+
+Completion is an isolated verified optimization, not a speedup qualification.
+
+## Approved ownership runtime tasks — 2026-11-06
+
+The current owner instruction explicitly approves RT1–RT4 requirements/design and:
+
+- [x] RT-T1: Add symmetric driver, pinned builds/provenance and correctness gates.
+- [x] RT-T2: Add durable schedule, bounded serial runner and terminal new-directory resume.
+- [x] RT-T3: Add paired bootstrap reports and focused/regression/lightweight checks.
+- [x] RT-T4: Execute 48 correctness and 480 timing processes, archive verified evidence and record results/recommendation and limitations.
+
+## Approved candidate-scan proof tasks — 2026-11-06
+
+The current owner request approves C1–C5 and the bounded design above before coding.
+
+- [x] C-T1 (C1–C3): Isolated guarded suffix prototype and oracle/shadow modes; proof.
+- [x] C-T2 (C1–C3): Focused endpoint/Unicode/padding tests, exhaustive length ≤4
+  width/whitespace/eligibility patterns and 10,000 seed-73074 numeric cases.
+- [x] C-T3 (C1, C4): Fixed 72-process four-operation diagnostics, runtime archived
+  exact comparisons, historical boundary/extent and lifecycle guards.
+- [x] C-T4 (C4): Supervisor/recovery/harness/light checks, whitespace and completed
+  resume, immutable journals and verified source/raw evidence archives.
+- [x] C-T5 (C5): Report preprocessing/storage and long/spans-32 evaluation reduction;
+  recommend separate implementation approval or reject with reproducible evidence.
+
+## Retained candidate scanner (R1–R5, approved 2026-11-06)
+
+The owner explicitly approved implementation of the supplied “Feature 073: Retain
+the proven candidate-scan cutoff” plan in the current request. Approval covers
+requirements, design and tasks below together; existing proof and archives remain
+immutable. Runtime measurements, Qt integration, ownership changes, merge and
+publication are excluded.
+
+- R1 / R-T1: Produce a sibling clean patch against the hash-verified ownership
+  baseline and a separate diagnostic overlay. Preserve exact enumeration through
+  the first hard break inclusive, whitespace arithmetic, first indivisible
+  endpoint, legal preference, fallback and emergency behavior.
+- R2 / R-T2: Use strict suffix-minimum > width, one layout-local vector with the
+  prototype entry representation, paragraph-cluster-bounded and reused per line.
+  Guard arithmetic and horizontal padding only inside the padded path; zero
+  horizontal and vertical padding performs no cutoff preparation or guards. Keep
+  vertical-only behavior. Unsupported arithmetic or nonfinite inputs/intermediates
+  falls back to the original exhaustive loop after resetting partial endpoints.
+- R3 / R-T3: Predeclare and execute twelve fixtures × zero/padded × oracle/shadow/
+  instrumented/clean = 96 fresh serial processes, four operations each. Compare
+  exact geometry, mappings, visual slices, glyph positions and shaping against
+  archived correctness traces. Preserve ownership guards and reject unexpected
+  supported-fixture fallback. Audit clean sources for diagnostic state.
+- R4 / R-T4: Reuse exhaustive short-sequence and seed-73074 10,000-case numeric
+  coverage, focused boundaries, actual fallback, floating-point rejection, zero
+  guard/preprocessing/allocation checks, historical gates and tooling regressions.
+  Preserve inherited locks, child inheritance, deadlines, RSS limits, terminal
+  failure semantics, immutable separate journals and validated new-directory resume.
+- R5 / R-T5: Archive sources, patches, identities, configuration, commands,
+  environment, raw outputs, counters and reports; verify all file/archive hashes.
+  Accept only with no counterexamples, bounded storage, unchanged zero path and
+  reduced expensive evaluations on padded long-span and spans-32. Report guard,
+  preprocessing, trimming and storage costs without a speedup claim.
+
+Actual results belong in verification.md and the sibling evidence record.
+
+## Candidate-scan runtime tasks (approved 2026-11-06)
+
+The owner's supplied-plan implementation request approves CR1–CR5 and the design
+above before implementation and measurement.
+
+- [x] CR-T1 (CR1–CR3): Sibling driver, pinned fresh builds, preflight source/binary
+  audit, fixed fixtures and persisted complete serial schedule.
+- [x] CR-T2 (CR2–CR4): Strict output/shaping and archived trace validation, historical
+  gates, bounded execution, terminal failure and immutable validated resume.
+- [x] CR-T3 (CR5): Whole-pair statistics, timer suppression, per-paragraph overhead
+  and exact primary/regression gates; missing-sample and boundary tests.
+- [ ] CR-T4 (CR4): Execute correctness and timing, harness/report/recovery/supervisor
+  regressions, lightweight checks, whitespace and fatal-sentinel completed resume.
+- [x] CR-T5 (CR5): Verify all archived files/hashes and record recommendation
+  distinguishing benefit, regression and uncertainty without integration.
+
+CR-T4 actual outcome: 48 correctness processes pass; process 49 fails the inherited
+initial-shape assertion on small prose. The study is terminal with 39 correctness
+and 1,760 timing processes unlaunched. Historical gates and tooling/light checks
+pass; fatal-sentinel terminal-resume rejection passes. Completed-run resume/full
+validator cannot execute. CR-T4 is intentionally incomplete; no retry is authorized
+by this plan. CR-T5 delivers verified failure evidence and a no-retention decision.

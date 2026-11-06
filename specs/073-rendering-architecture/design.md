@@ -356,3 +356,169 @@ timestamps, reported refresh and nanosecond representation, never swap-return ti
 ## Approved recovery — 2026-11-06
 
 Recovery design: snapshot evidence and executable/source identities under build-ci/073-performance-recovery before measurement. Resume into a new directory, validate imported artifacts, retain interrupted outputs, use an exclusive child-inherited execution lock and durable validated phase checkpoints. Preserve original manifests; record relocation and rebuilt prerequisites separately. Restore pinned sources/dependencies and verify hashes before dependent execution. Missing identities stop only affected stages; missing temporary logs remain lost. No production APIs, dependencies or rendering changes.
+
+## Approved diagnostic design (2026-11-06)
+
+Use a new durable build-ci workspace copied from hash-verified recovered pinned
+Skia sources. Private counters use two buckets selected only around candidate
+padding evaluation; the other bucket counts formatting/traversal. Reset counters
+before each operation without touching layout state; snapshot before geometry
+queries. Phase clocks enclose only layout (and metadata mutation for invalidation).
+Construction, geometry and JSON serialization are excluded. Separate instrumented
+and uninstrumented executables use the same new trace driver; original binaries
+remain untouched. Reuse supervisor and recovery primitives. Completed operation
+records are flushed; interrupted processes remain terminal, never automatically
+retried. Historical boundary gates run on the changed diagnostic ABI.
+
+Evidence will rank run ownership precomputation, fragment reuse with invalidation,
+and reduced candidate scanning. The proposal must define lifetime, invalidation,
+memory, correctness and tasks. Candidate costs are non-monotonic; no binary
+search/early termination without proof. Optimization requires separate approval.
+
+Diagnostic execution is complete; see [phase evidence](evidence/phase-experiment/README.md).
+The resulting [optimization requirements, design and tasks](optimization-design.md)
+are draft and require separate owner approval before implementation.
+
+## Approved ownership optimization — 2026-11-06
+
+The owner instruction to implement the supplied plan explicitly approves O1–O5,
+the corrected mechanism and O-T1–O-T4 in [optimization design](optimization-design.md).
+This supersedes the earlier draft-only restriction for this bounded isolated step.
+Preserve historical evidence, uncommitted diagnosis and commit `4b9fd4c`.
+Metric-only `resetContext()` retains ownership; run revision invalidation covers
+replacement, restart, metadata and cache restore. Fresh bounded storage, legacy
+fallback, exact four-operation differential checks and work counts are required.
+No speedup qualification, production change, merge or publication is approved.
+
+## Approved ownership runtime comparison — 2026-11-06
+
+Owner approval is the current instruction to implement the supplied plan. A sibling
+`runtime-comparison` experiment preserves earlier experiments. Two uninstrumented
+builds use one driver. Construction/font loading occur before clocks. Each operation
+uses one steady-clock interval across applicable paragraphs; generation snapshots,
+metadata copies, geometry, serialization and flushes occur outside it. Correctness
+mode queries complete geometry after each operation; timing mode never does.
+Ten fixed passes alternate pair order (five each), serially. Schedule and identities
+are durable before execution. Every sample is a fresh process; reflow/repeat reuse
+its paragraphs. Failed/interrupted/limited samples are terminal for that cell.
+Resume validates immutable inputs, checkpoints and raw records into a new directory.
+Reports bootstrap process pairs with seed 73073 and 10,000 resamples, percentile
+2.5/97.5 intervals for median times, paired differences and pair ratios. Ratios
+are suppressed if either median is below 100 × max(clock period, empirical minimum
+positive delta). Timer overhead is never subtracted. RSS is whole-process evidence.
+
+## Approved candidate-scan proof design — 2026-11-06
+
+Owner approval is the current instruction to implement the supplied plan. C1–C5
+and C-T1–C-T5 are approved for this isolated experiment.
+
+Enumerate every candidate through the first hard break, inclusive. Reproduce the
+exhaustive scalar additions and whitespace subtractions in order. Store endpoint,
+trimmed endpoint/width and reverse suffix minimum. Determine first indivisible
+endpoint independently of cutoff. Before evaluating candidate i, stop only if
+suffix[i] > available. Under guarded IEEE nearest arithmetic, addition of a
+nonnegative padding amount cannot decrease a finite trimmed width. Every remaining
+required width is therefore at least suffix[i] and cannot fit. Equality must still
+be evaluated. This argument does not assume monotonic candidate costs, positive
+cluster widths, or endpoint eligibility; legal/fallback/emergency choice is unchanged.
+
+Guard inputs/intermediates conservatively, including a padded-sum overflow envelope;
+unsupported arithmetic uses the original exhaustive loop. Oracle executes the
+unchanged loop. Shadow also executes it, separately validating every hypothetical
+skip. Prototype consumes enumerated endpoints and applies the strict bound.
+Use a single layout-local vector reserved to paragraph cluster count, reuse between
+lines and release on return; no persistent cache/API. Zero-padding scanner branches
+perform no preprocessing. Enumeration remains potentially quadratic; no linear-time
+or runtime-effect claim follows from fewer expensive visual-slice evaluations.
+
+Sibling `candidate-scan-experiment` preserves existing sources and archives. Use
+hash-anchored ownership sources and historical runtime correctness outputs, immutable
+separate build/execution journals, fixed schedule before execution, inherited lock,
+60-second process deadline and 4 GiB sampled RSS. Failures are terminal; no retries.
+Resume validates identities, checkpoints, complete raw outputs and comparisons into
+a new directory. Archive sources, patches, environment, commands, counters and raw
+records with per-file/archive hashes. Diagnostic durations are not runtime evidence.
+
+## Retained candidate scanner (R1–R5, approved 2026-11-06)
+
+The owner explicitly approved implementation of the supplied “Feature 073: Retain
+the proven candidate-scan cutoff” plan in the current request. Approval covers
+requirements, design and tasks below together; existing proof and archives remain
+immutable. Runtime measurements, Qt integration, ownership changes, merge and
+publication are excluded.
+
+- R1 / R-T1: Produce a sibling clean patch against the hash-verified ownership
+  baseline and a separate diagnostic overlay. Preserve exact enumeration through
+  the first hard break inclusive, whitespace arithmetic, first indivisible
+  endpoint, legal preference, fallback and emergency behavior.
+- R2 / R-T2: Use strict suffix-minimum > width, one layout-local vector with the
+  prototype entry representation, paragraph-cluster-bounded and reused per line.
+  Guard arithmetic and horizontal padding only inside the padded path; zero
+  horizontal and vertical padding performs no cutoff preparation or guards. Keep
+  vertical-only behavior. Unsupported arithmetic or nonfinite inputs/intermediates
+  falls back to the original exhaustive loop after resetting partial endpoints.
+- R3 / R-T3: Predeclare and execute twelve fixtures × zero/padded × oracle/shadow/
+  instrumented/clean = 96 fresh serial processes, four operations each. Compare
+  exact geometry, mappings, visual slices, glyph positions and shaping against
+  archived correctness traces. Preserve ownership guards and reject unexpected
+  supported-fixture fallback. Audit clean sources for diagnostic state.
+- R4 / R-T4: Reuse exhaustive short-sequence and seed-73074 10,000-case numeric
+  coverage, focused boundaries, actual fallback, floating-point rejection, zero
+  guard/preprocessing/allocation checks, historical gates and tooling regressions.
+  Preserve inherited locks, child inheritance, deadlines, RSS limits, terminal
+  failure semantics, immutable separate journals and validated new-directory resume.
+- R5 / R-T5: Archive sources, patches, identities, configuration, commands,
+  environment, raw outputs, counters and reports; verify all file/archive hashes.
+  Accept only with no counterexamples, bounded storage, unchanged zero path and
+  reduced expensive evaluations on padded long-span and spans-32. Report guard,
+  preprocessing, trimming and storage costs without a speedup claim.
+
+Actual results belong in verification.md and the sibling evidence record.
+
+## Candidate-scan runtime study (CR1–CR5, approved 2026-11-06)
+
+The owner's instruction to implement the supplied “Feature 073: Measure the retained
+candidate-scan cutoff” plan explicitly approves these requirements, the sibling
+design and CR-T1–CR-T5 before implementation or measurement. This supersedes the
+prior runtime exclusion for this study only. Existing work and archives remain
+unchanged. Further optimization, shipping Qt integration, ownership changes, merge
+and publication remain excluded.
+
+- CR1: Compare two fresh uninstrumented Release ownership-baseline copies, one with
+  only the verified clean cutoff patch. Audit sources, flags and binaries before
+  execution. Preserve pinned dependencies, identical driver and inherited affinity.
+- CR2: Keep twelve fixtures byte-for-byte; add prose/dense/mixed/long/objects at
+  64/256 UTF-16 units, width 480, each with 32 independently constructed paragraphs.
+  Persist 88 correctness then 1,760 timing processes before building: twenty adjacent
+  baseline/retained pairs per fixture/padding cell, alternating order each pass.
+- CR3: Initial, width +17, repeat and metadata identity mutation/layout use existing
+  operation-wide steady-clock intervals including guards/preprocessing/allocation
+  and metadata application. Construction, copying, snapshots, queries and output
+  stay outside clocks; timing never queries geometry. Metadata-free operations null.
+- CR4: Require exact paired output and archived existing-fixture traces, shaping
+  reuse/invalidation, unchanged historical boundary/extent gates and archived proof
+  verification. Retain lock inheritance, 60-second deadlines, 4 GiB sampled RSS,
+  terminal study failure without retry, separate immutable journals and validated
+  new-directory completed resume with fatal launch sentinels.
+- CR5: Report every cell, absolute paired differences and relative improvements,
+  timer resolution, whole-process RSS and small per-applicable-paragraph times.
+  Bootstrap 10,000 whole-process pairs with seed 73075, preserving operations.
+  Padded long/span-32 initial/reflow/metadata each require median paired improvement
+  >=10% and 95% lower bound >0. Every other applicable cell requires 95% upper bound
+  of median paired overhead per paragraph <=max(5% baseline median per paragraph,
+  2 microseconds). Suppress ratios below 100 times larger period/resolution;
+  timer-limited primary cells cannot pass. Complete sampling and correctness are
+  mandatory. Any failure/uncertainty means retention is not established; no added
+  samples, tuning or substitute optimization. Archive and read back every file/hash.
+
+The sibling `candidate-scan-runtime` reuses the deterministic block generator and
+runtime driver's exact timing boundaries. Both arms are exhaustive ownership
+sources until the clean patch is applied to retained only. Binary symbol/source
+checks exclude diagnostic selectors, phase counters and shadow evaluation. Fixed
+serial schedule, environment (including floating-point state), preflight audits,
+raw execution journal and historical gate journal are separate checkpointed records.
+Each process pair is the resampling unit; the same bootstrap indices apply to all
+four operations. Percentile intervals are descriptive per cell, never a pooled
+headline speedup. Absolute overhead gates remain active when ratios are suppressed.
+RSS is whole-process memory, reported alongside the verified layout-local scratch
+bound; preprocessing/allocation costs are included without separate attribution.

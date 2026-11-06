@@ -238,3 +238,131 @@ change, Qt integration, optimization, backend selection, merge or publication.
 ## Approved recovery — 2026-11-06
 
 Recovery R1–R5: preserve the completed CPU sweep, 323 native processes, 18 captures, historical gates and 59 clean diagnostic comparisons. Exclude overlapping diagnostics from conclusions. Finish only outstanding diagnostics, upstream counters, post-reboot scale/environment, one closed-window retry and the corrected ten-paragraph CPU smoke. Preserve timeout/skip outcomes, four feedback gaps, strict pacing and the independent Qt 6.8 Vulkan blocker.
+
+## Approved phase diagnosis (2026-11-06)
+
+The owner's supplied implementation plan authorizes D1–D4: a bounded diagnostic
+study, not optimization implementation. Preserve commit `4b9fd4c`, historical
+evidence and qualification gaps. Attribute initial, +17 width reflow, unchanged
+repeat and fresh metadata identity invalidation separately. Count candidate and
+whitespace visits, run visits, owner comparisons, reorder calls and emitted slices,
+splitting fitting from formatting/traversal. Compare every operation against an
+uninstrumented trace for the twelve specified fixtures, zero and padded. Retain
+60-second/4 GiB limits, inherited exclusive lock, validated new-directory resume
+and terminal outcomes. No public API, rendering or production dependency changes.
+
+Diagnostic execution is complete; see [phase evidence](evidence/phase-experiment/README.md).
+The resulting [optimization requirements, design and tasks](optimization-design.md)
+are draft and require separate owner approval before implementation.
+
+## Approved ownership optimization — 2026-11-06
+
+The owner instruction to implement the supplied plan explicitly approves O1–O5,
+the corrected mechanism and O-T1–O-T4 in [optimization design](optimization-design.md).
+This supersedes the earlier draft-only restriction for this bounded isolated step.
+Preserve historical evidence, uncommitted diagnosis and commit `4b9fd4c`.
+Metric-only `resetContext()` retains ownership; run revision invalidation covers
+replacement, restart, metadata and cache restore. Fresh bounded storage, legacy
+fallback, exact four-operation differential checks and work counts are required.
+No speedup qualification, production change, merge or publication is approved.
+
+## Approved ownership runtime study — 2026-11-06
+
+The owner instruction to implement the supplied Feature 073 runtime plan approves
+RT1–RT4 below, the design and tasks in this section's sibling documents.
+
+- RT1: Compare original boundary and retained ownership patch with identical uninstrumented drivers, pinned sources, release flags, dependencies and fonts.
+- RT2: Require 48 fresh correctness processes and historical gates before 480 fresh timing processes: twelve fixtures × zero/padded × ten adjacent pairs. Four operations are initial, width +17, repeat and first-span identity mutation/layout; metadata-free results are null.
+- RT3: Preserve exclusive inherited lock, 60-second deadline, 4 GiB sampled RSS ceiling, durable terminal records and validated new-directory resume. Stop on geometry/shaping failure; other failures terminate that cell without retries.
+- RT4: Archive provenance/raw evidence and report per-cell paired medians and descriptive 95% bootstrap intervals (10,000 whole-pair resamples), timer limits, zero-padding overhead and single-span behavior. No performance threshold, warm-cache claim, further optimization, native/Qt integration, backend choice, merge or publication.
+
+## Approved candidate-scan proof — 2026-11-06
+
+The owner request to implement the supplied Feature 073 plan approves C1–C5,
+the design and C-T1–C-T5 below before implementation.
+
+- C1: Preserve exact exhaustive endpoint choice, geometry, glyph positions, visual
+  slices, mappings and shaping lifecycle; use the verified ownership baseline.
+- C2: Prove and prototype strict suffix-minimum cutoff using exact enumeration and
+  trimming through the first hard break. Keep first indivisible/emergency behavior.
+- C3: Guard finite arithmetic, nonnegative finite horizontal padding, IEEE scalar,
+  nearest rounding, no fast math and x86 FTZ/DAZ off; otherwise use exhaustive scan.
+  Scratch is layout-local, bounded by cluster count, absent on zero-padding paths.
+- C4: Run fixed serial 12 × 2 × 3 oracle/shadow/prototype diagnostics, four operations
+  each, exact archived runtime comparison, historical gates, exhaustive short and
+  10,000 seeded numeric cases. Retain inherited supervision and durable provenance.
+- C5: Deliver proof, work/storage trade-offs and separately approvable recommendation
+  or reproducible rejection. No retained optimization, runtime matrix, ownership
+  changes, Qt integration, speedup claim, merge or publication.
+
+## Retained candidate scanner (R1–R5, approved 2026-11-06)
+
+The owner explicitly approved implementation of the supplied “Feature 073: Retain
+the proven candidate-scan cutoff” plan in the current request. Approval covers
+requirements, design and tasks below together; existing proof and archives remain
+immutable. Runtime measurements, Qt integration, ownership changes, merge and
+publication are excluded.
+
+- R1 / R-T1: Produce a sibling clean patch against the hash-verified ownership
+  baseline and a separate diagnostic overlay. Preserve exact enumeration through
+  the first hard break inclusive, whitespace arithmetic, first indivisible
+  endpoint, legal preference, fallback and emergency behavior.
+- R2 / R-T2: Use strict suffix-minimum > width, one layout-local vector with the
+  prototype entry representation, paragraph-cluster-bounded and reused per line.
+  Guard arithmetic and horizontal padding only inside the padded path; zero
+  horizontal and vertical padding performs no cutoff preparation or guards. Keep
+  vertical-only behavior. Unsupported arithmetic or nonfinite inputs/intermediates
+  falls back to the original exhaustive loop after resetting partial endpoints.
+- R3 / R-T3: Predeclare and execute twelve fixtures × zero/padded × oracle/shadow/
+  instrumented/clean = 96 fresh serial processes, four operations each. Compare
+  exact geometry, mappings, visual slices, glyph positions and shaping against
+  archived correctness traces. Preserve ownership guards and reject unexpected
+  supported-fixture fallback. Audit clean sources for diagnostic state.
+- R4 / R-T4: Reuse exhaustive short-sequence and seed-73074 10,000-case numeric
+  coverage, focused boundaries, actual fallback, floating-point rejection, zero
+  guard/preprocessing/allocation checks, historical gates and tooling regressions.
+  Preserve inherited locks, child inheritance, deadlines, RSS limits, terminal
+  failure semantics, immutable separate journals and validated new-directory resume.
+- R5 / R-T5: Archive sources, patches, identities, configuration, commands,
+  environment, raw outputs, counters and reports; verify all file/archive hashes.
+  Accept only with no counterexamples, bounded storage, unchanged zero path and
+  reduced expensive evaluations on padded long-span and spans-32. Report guard,
+  preprocessing, trimming and storage costs without a speedup claim.
+
+Actual results belong in verification.md and the sibling evidence record.
+
+## Candidate-scan runtime study (CR1–CR5, approved 2026-11-06)
+
+The owner's instruction to implement the supplied “Feature 073: Measure the retained
+candidate-scan cutoff” plan explicitly approves these requirements, the sibling
+design and CR-T1–CR-T5 before implementation or measurement. This supersedes the
+prior runtime exclusion for this study only. Existing work and archives remain
+unchanged. Further optimization, shipping Qt integration, ownership changes, merge
+and publication remain excluded.
+
+- CR1: Compare two fresh uninstrumented Release ownership-baseline copies, one with
+  only the verified clean cutoff patch. Audit sources, flags and binaries before
+  execution. Preserve pinned dependencies, identical driver and inherited affinity.
+- CR2: Keep twelve fixtures byte-for-byte; add prose/dense/mixed/long/objects at
+  64/256 UTF-16 units, width 480, each with 32 independently constructed paragraphs.
+  Persist 88 correctness then 1,760 timing processes before building: twenty adjacent
+  baseline/retained pairs per fixture/padding cell, alternating order each pass.
+- CR3: Initial, width +17, repeat and metadata identity mutation/layout use existing
+  operation-wide steady-clock intervals including guards/preprocessing/allocation
+  and metadata application. Construction, copying, snapshots, queries and output
+  stay outside clocks; timing never queries geometry. Metadata-free operations null.
+- CR4: Require exact paired output and archived existing-fixture traces, shaping
+  reuse/invalidation, unchanged historical boundary/extent gates and archived proof
+  verification. Retain lock inheritance, 60-second deadlines, 4 GiB sampled RSS,
+  terminal study failure without retry, separate immutable journals and validated
+  new-directory completed resume with fatal launch sentinels.
+- CR5: Report every cell, absolute paired differences and relative improvements,
+  timer resolution, whole-process RSS and small per-applicable-paragraph times.
+  Bootstrap 10,000 whole-process pairs with seed 73075, preserving operations.
+  Padded long/span-32 initial/reflow/metadata each require median paired improvement
+  >=10% and 95% lower bound >0. Every other applicable cell requires 95% upper bound
+  of median paired overhead per paragraph <=max(5% baseline median per paragraph,
+  2 microseconds). Suppress ratios below 100 times larger period/resolution;
+  timer-limited primary cells cannot pass. Complete sampling and correctness are
+  mandatory. Any failure/uncertainty means retention is not established; no added
+  samples, tuning or substitute optimization. Archive and read back every file/hash.
