@@ -1,0 +1,22 @@
+{
+  "original-archives": {
+    "archives": 24,
+    "members": 6738,
+    "archiveAndMemberHashesVerified": true
+  },
+  "recovery-archives": {
+    "archives": 10,
+    "members": 1026,
+    "archiveAndMemberHashesVerified": true
+  },
+  "identity-archives": {
+    "archives": 2,
+    "members": 37,
+    "archiveAndMemberHashesVerified": true
+  },
+  "build-record-archives": {
+    "archives": 1,
+    "members": 37,
+    "archiveAndMemberHashesVerified": true
+  }
+}

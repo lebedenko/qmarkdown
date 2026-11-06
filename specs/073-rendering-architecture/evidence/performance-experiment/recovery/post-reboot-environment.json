@@ -1,0 +1,204 @@
+{
+  "cohort": "post-reboot",
+  "preRebootUnavailable": [
+    "thermal state",
+    "CPU affinity",
+    "complete runtime library hashes",
+    "driver version",
+    "CPU governor",
+    "complete CPU/runtime environment"
+  ],
+  "environment": {
+    "WAYLAND_DISPLAY": "wayland-0",
+    "DISPLAY": ":1",
+    "XDG_SESSION_TYPE": "wayland",
+    "XDG_CURRENT_DESKTOP": "HoloNight-Labwc:HoloNight:labwc"
+  },
+  "commands": [
+    {
+      "command": [
+        "uname",
+        "-a"
+      ],
+      "returncode": 0,
+      "stdout": "Linux desktop 7.2.14-arch1-1 #1 SMP PREEMPT_DYNAMIC Fri, 30 Oct 2026 14:32:40 +0000 x86_64 GNU/Linux\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "lscpu"
+      ],
+      "returncode": 0,
+      "stdout": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  16\nOn-line CPU(s) list:                     0-15\nVendor ID:                               GenuineIntel\nModel name:                              Intel(R) Core(TM) i9-9900K CPU @ 3.60GHz\nCPU family:                              6\nModel:                                   158\nThread(s) per core:                      2\nCore(s) per socket:                      8\nSocket(s):                               1\nStepping:                                13\nMicrocode version:                       0x104\nCPU(s) scaling MHz:                      79%\nCPU max MHz:                             5000.0000\nCPU min MHz:                             800.0000\nBogoMIPS:                                7200.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp vnmi md_clear flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               256 KiB (8 instances)\nL1i cache:                               256 KiB (8 instances)\nL2 cache:                                2 MiB (8 instances)\nL3 cache:                                16 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-15\nVulnerability Gather data sampling:      Mitigation; Microcode\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Mitigation; Aligned branch/return thunks\nVulnerability Itlb multihit:             KVM: Mitigation: Split huge pages\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop\nVulnerability Srbds:                     Mitigation; Microcode\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Mitigation; TSX disabled\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "fc-list"
+      ],
+      "returncode": 0,
+      "stdout": "/usr/share/fonts/noto-cjk/NotoSansCJK-Light.ttc: Noto Sans CJK JP,Noto Sans CJK JP Light:style=Light,Regular\n/usr/share/fonts/OTF/Rajdhani-Light.otf: Rajdhani,Rajdhani Light:style=Light,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=Bold\n/usr/share/fonts/TTF/DejaVuSerifCondensed.ttf: DejaVu Serif,DejaVu Serif Condensed:style=Condensed,Book\n/usr/share/fonts/liberation/LiberationSerif-Italic.ttf: Liberation Serif:style=Italic\n/usr/share/fonts/OTF/Rajdhani-SemiBold.otf: Rajdhani,Rajdhani SemiBold:style=SemiBold,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=Medium\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK TC,Noto Serif CJK TC ExtraLight:style=ExtraLight,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-DemiLight.ttc: Noto Sans CJK HK,Noto Sans CJK HK DemiLight:style=DemiLight,Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK KR,Noto Serif CJK KR ExtraLight:style=ExtraLight,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display ExtraLight:style=ExtraLight,Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Medium.ttc: Noto Serif CJK TC,Noto Serif CJK TC Medium:style=Medium,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Thin:style=Thin,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=Black Italic\n/usr/share/fonts/liberation/LiberationSans-Bold.ttf: Liberation Sans:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK TC,Noto Serif CJK TC SemiBold:style=SemiBold,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display:style=Bold\n/usr/share/fonts/liberation/LiberationMono-Bold.ttf: Liberation Mono:style=Bold\n/usr/share/fonts/TTF/DejaVuSansCondensed.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed,Book\n/usr/share/fonts/TTF/DejaVuSans-BoldOblique.ttf: DejaVu Sans:style=Bold Oblique\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=Light Italic\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Light:style=Light Italic,Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Medium.ttc: Noto Serif CJK HK,Noto Serif CJK HK Medium:style=Medium,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Medium:style=Medium,Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Medium.ttc: Noto Serif CJK SC,Noto Serif CJK SC Medium:style=Medium,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=ExtraBold Italic\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=Medium\n/usr/share/fonts/inter/Inter.ttc: Inter:style=Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc: Noto Sans CJK KR,Noto Sans CJK KR Medium:style=Medium,Regular\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=Light\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=ExtraLight\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=ExtraLight Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans CJK SC:style=Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Light.ttc: Noto Serif CJK JP,Noto Serif CJK JP Light:style=Light,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans CJK TC:style=Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans CJK JP:style=Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans CJK KR:style=Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans CJK HK:style=Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter ExtraBold:style=ExtraBold Italic,Italic\n/usr/share/fonts/TTF/DejaVuMathTeXGyre.ttf: DejaVu Math TeX Gyre:style=Regular\n/usr/share/fonts/TTF/DejaVuSerifCondensed-Bold.ttf: DejaVu Serif,DejaVu Serif Condensed:style=Condensed Bold,Bold\n/usr/share/fonts/liberation/LiberationSerif-BoldItalic.ttf: Liberation Serif:style=Bold Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-DemiLight.ttc: Noto Sans CJK KR,Noto Sans CJK KR DemiLight:style=DemiLight,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Black:style=Black Italic,Italic\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=Bold Italic\n/usr/share/fonts/TTF/DejaVuSerif-Bold.ttf: DejaVu Serif:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Black.ttc: Noto Serif CJK JP,Noto Serif CJK JP Black:style=Black,Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK SC,Noto Serif CJK SC SemiBold:style=SemiBold,Regular\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=SemiBold Italic\n/usr/share/fonts/inter/Inter.ttc: Inter Display:style=Italic\n/usr/share/fonts/TTF/DejaVuSansMono.ttf: DejaVu Sans Mono:style=Book\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=Medium Italic\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=ExtraBold\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display SemiBold:style=SemiBold Italic,Italic\n/usr/share/fonts/inter/Inter.ttc: Inter Display:style=Bold Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK JP,Noto Serif CJK JP ExtraLight:style=ExtraLight,Regular\n/usr/share/fonts/liberation/LiberationSerif-Regular.ttf: Liberation Serif:style=Regular\n/usr/share/fonts/TTF/DejaVuSerif.ttf: DejaVu Serif:style=Book\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter ExtraLight:style=ExtraLight,Regular\n/usr/share/fonts/Adwaita/AdwaitaMono-Italic.ttf: Adwaita Mono:style=Italic\n/usr/share/fonts/liberation/LiberationSerif-Bold.ttf: Liberation Serif:style=Bold\n/usr/share/fonts/noto-cjk/NotoSansCJK-DemiLight.ttc: Noto Sans CJK TC,Noto Sans CJK TC DemiLight:style=DemiLight,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter SemiBold:style=SemiBold Italic,Italic\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=Light\n/usr/share/fonts/liberation/LiberationMono-Italic.ttf: Liberation Mono:style=Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK TC:style=Bold\n/usr/share/fonts/inter/Inter.ttc: Inter:style=Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=SemiBold Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Black.ttc: Noto Serif CJK SC,Noto Serif CJK SC Black:style=Black,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK SC:style=Bold\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=SemiBold\n/usr/share/fonts/noto-cjk/NotoSansCJK-Thin.ttc: Noto Sans CJK JP,Noto Sans CJK JP Thin:style=Thin,Regular\n/usr/share/fonts/OTF/Rajdhani-Medium.otf: Rajdhani,Rajdhani Medium:style=Medium,Regular\n/usr/share/fonts/liberation/LiberationSans-BoldItalic.ttf: Liberation Sans:style=Bold Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-Black.ttc: Noto Sans CJK TC,Noto Sans CJK TC Black:style=Black,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK JP:style=Bold\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK HK:style=Bold\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans Mono CJK KR:style=Bold\n/usr/share/fonts/noto-cjk/NotoSansCJK-Light.ttc: Noto Sans CJK KR,Noto Sans CJK KR Light:style=Light,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter:style=Bold Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-Thin.ttc: Noto Sans CJK KR,Noto Sans CJK KR Thin:style=Thin,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Thin.ttc: Noto Sans CJK HK,Noto Sans CJK HK Thin:style=Thin,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Thin:style=Thin,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display:style=Regular\n/usr/share/fonts/OTF/Rajdhani-Regular.otf: Rajdhani:style=Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Light.ttc: Noto Sans CJK HK,Noto Sans CJK HK Light:style=Light,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=Regular\n/usr/share/fonts/TTF/DejaVuSerifCondensed-Italic.ttf: DejaVu Serif,DejaVu Serif Condensed:style=Condensed Italic,Italic\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Thin:style=Thin Italic,Italic\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display ExtraLight:style=ExtraLight Italic,Italic\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=Light Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-Light.ttc: Noto Sans CJK TC,Noto Sans CJK TC Light:style=Light,Regular\n/usr/share/fonts/TTF/DejaVuSansCondensed-Oblique.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Oblique,Oblique\n/usr/share/fonts/TTF/DejaVuSerif-BoldItalic.ttf: DejaVu Serif:style=Bold Italic\n/usr/share/fonts/Adwaita/AdwaitaMono-Regular.ttf: Adwaita Mono:style=Regular\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=Black\n/usr/share/fonts/TTF/DejaVuSerifCondensed-BoldItalic.ttf: DejaVu Serif,DejaVu Serif Condensed:style=Condensed Bold Italic,Bold Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Medium.ttc: Noto Serif CJK JP,Noto Serif CJK JP Medium:style=Medium,Regular\n/usr/share/fonts/OTF/Rajdhani-Bold.otf: Rajdhani:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Light.ttc: Noto Serif CJK SC,Noto Serif CJK SC Light:style=Light,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Black.ttc: Noto Sans CJK HK,Noto Sans CJK HK Black:style=Black,Regular\n/usr/share/fonts/TTF/DejaVuSansMono-Oblique.ttf: DejaVu Sans Mono:style=Oblique\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display SemiBold:style=SemiBold,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK KR:style=Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK HK:style=Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK JP:style=Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Medium:style=Medium,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter SemiBold:style=SemiBold,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK SC:style=Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=ExtraBold\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter ExtraLight:style=ExtraLight Italic,Italic\n/usr/share/fonts/TTF/DejaVuSansCondensed-BoldOblique.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Bold Oblique,Bold Oblique\n/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc: Noto Sans Mono CJK TC:style=Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display ExtraBold:style=ExtraBold,Regular\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable\n/usr/share/fonts/noto-cjk/NotoSansCJK-Black.ttc: Noto Sans CJK KR,Noto Sans CJK KR Black:style=Black,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=SemiBold\n/usr/share/fonts/noto-cjk/NotoSansCJK-Light.ttc: Noto Sans CJK SC,Noto Sans CJK SC Light:style=Light,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Medium:style=Medium Italic,Italic\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK HK,Noto Serif CJK HK SemiBold:style=SemiBold,Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Light.ttc: Noto Serif CJK TC,Noto Serif CJK TC Light:style=Light,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Black:style=Black,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Light:style=Light,Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK KR,Noto Serif CJK KR SemiBold:style=SemiBold,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Thin.ttc: Noto Sans CJK SC,Noto Sans CJK SC Thin:style=Thin,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans\n/usr/share/fonts/noto-cjk/NotoSansCJK-Thin.ttc: Noto Sans CJK TC,Noto Sans CJK TC Thin:style=Thin,Regular\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=Thin\n/usr/share/fonts/liberation/LiberationMono-Regular.ttf: Liberation Mono:style=Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Bold.ttc: Noto Serif CJK JP:style=Bold\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display Light:style=Light Italic,Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Bold.ttc: Noto Serif CJK KR:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Bold.ttc: Noto Serif CJK HK:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Bold.ttc: Noto Serif CJK TC:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Bold.ttc: Noto Serif CJK SC:style=Bold\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=Bold Italic\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=ExtraLight\n/usr/share/fonts/TTF/DejaVuSans-ExtraLight.ttf: DejaVu Sans,DejaVu Sans Light:style=ExtraLight\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Medium.ttc: Noto Serif CJK KR,Noto Serif CJK KR Medium:style=Medium,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Black:style=Black Italic,Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Black.ttc: Noto Serif CJK KR,Noto Serif CJK KR Black:style=Black,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Medium:style=Medium Italic,Italic\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Black:style=Black,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Light:style=Light,Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Black.ttc: Noto Serif CJK TC,Noto Serif CJK TC Black:style=Black,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc: Noto Sans CJK HK,Noto Sans CJK HK Medium:style=Medium,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter:style=Bold\n/usr/share/fonts/noto-cjk/NotoSansCJK-Black.ttc: Noto Sans CJK SC,Noto Sans CJK SC Black:style=Black,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-DemiLight.ttc: Noto Sans CJK SC,Noto Sans CJK SC DemiLight:style=DemiLight,Regular\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter Thin:style=Thin Italic,Italic\n/usr/share/fonts/audiowide/Audiowide-Regular.ttf: Audiowide:style=Regular\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Black.ttc: Noto Serif CJK HK,Noto Serif CJK HK Black:style=Black,Regular\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=Black Italic\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=Thin Italic\n/usr/share/fonts/Adwaita/AdwaitaMono-Bold.ttf: Adwaita Mono:style=Bold\n/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf: DejaVu Sans:style=Oblique\n/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc: Noto Sans CJK SC,Noto Sans CJK SC Medium:style=Medium,Regular\n/usr/share/fonts/liberation/LiberationSans-Italic.ttf: Liberation Sans:style=Italic\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=Thin\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=Thin Italic\n/usr/share/fonts/TTF/DejaVuSansMono-Bold.ttf: DejaVu Sans Mono:style=Bold\n/usr/share/fonts/inter/InterVariable.ttf: Inter Variable:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Regular.ttc: Noto Serif CJK KR:style=Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Regular.ttc: Noto Serif CJK HK:style=Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Regular.ttc: Noto Serif CJK JP:style=Regular\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=Italic\n/usr/share/fonts/liberation/LiberationMono-BoldItalic.ttf: Liberation Mono:style=Bold Italic\n/usr/share/fonts/TTF/DejaVuSansCondensed-Bold.ttf: DejaVu Sans,DejaVu Sans Condensed:style=Condensed Bold,Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-SemiBold.ttc: Noto Serif CJK JP,Noto Serif CJK JP SemiBold:style=SemiBold,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans CJK HK:style=Bold\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans CJK KR:style=Bold\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Light.ttc: Noto Serif CJK HK,Noto Serif CJK HK Light:style=Light,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans CJK JP:style=Bold\n/usr/share/fonts/TTF/DejaVuSerif-Italic.ttf: DejaVu Serif:style=Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Regular.ttc: Noto Serif CJK TC:style=Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Regular.ttc: Noto Serif CJK SC:style=Regular\n/usr/share/fonts/inter/Inter.ttc: Inter Display,Inter Display ExtraBold:style=ExtraBold Italic,Italic\n/usr/share/fonts/Adwaita/AdwaitaSans-Italic.ttf: Adwaita Sans:style=Medium Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK HK,Noto Serif CJK HK ExtraLight:style=ExtraLight,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-DemiLight.ttc: Noto Sans CJK JP,Noto Sans CJK JP DemiLight:style=DemiLight,Regular\n/usr/share/fonts/TTF/DejaVuSansMono-BoldOblique.ttf: DejaVu Sans Mono:style=Bold Oblique\n/usr/share/fonts/noto-cjk/NotoSansCJK-Black.ttc: Noto Sans CJK JP,Noto Sans CJK JP Black:style=Black,Regular\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=ExtraLight Italic\n/usr/share/fonts/noto-cjk/NotoSerifCJK-Light.ttc: Noto Serif CJK KR,Noto Serif CJK KR Light:style=Light,Regular\n/usr/share/fonts/noto/NotoColorEmoji.ttf: Noto Color Emoji:style=Regular\n/usr/share/fonts/Adwaita/AdwaitaMono-BoldItalic.ttf: Adwaita Mono:style=Bold Italic\n/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc: Noto Sans CJK JP,Noto Sans CJK JP Medium:style=Medium,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans CJK TC:style=Bold\n/usr/share/fonts/liberation/LiberationSans-Regular.ttf: Liberation Sans:style=Regular\n/usr/share/fonts/noto-cjk/NotoSerifCJK-ExtraLight.ttc: Noto Serif CJK SC,Noto Serif CJK SC ExtraLight:style=ExtraLight,Regular\n/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc: Noto Sans CJK SC:style=Bold\n/usr/share/fonts/inter/Inter.ttc: Inter,Inter ExtraBold:style=ExtraBold,Regular\n/usr/share/fonts/TTF/DejaVuSans.ttf: DejaVu Sans:style=Book\n/usr/share/fonts/noto-cjk/NotoSansCJK-Medium.ttc: Noto Sans CJK TC,Noto Sans CJK TC Medium:style=Medium,Regular\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans:style=Black\n/usr/share/fonts/TTF/DejaVuSans-Bold.ttf: DejaVu Sans:style=Bold\n/usr/share/fonts/inter/InterVariable-Italic.ttf: Inter Variable:style=ExtraBold Italic\n/usr/share/fonts/Adwaita/AdwaitaSans-Regular.ttf: Adwaita Sans\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "pkg-config",
+        "--modversion",
+        "sdl2",
+        "freetype2",
+        "harfbuzz",
+        "icu-uc",
+        "libpng",
+        "vulkan"
+      ],
+      "returncode": 0,
+      "stdout": "2.32.74\n26.7.20\n15.1.0\n78.3\n1.6.59\n1.4.363\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "sh",
+        "-c",
+        "cat /sys/class/drm/card*/device/uevent"
+      ],
+      "returncode": 0,
+      "stdout": "MAJOR=226\nMINOR=1\nDEVNAME=dri/card1\nDEVTYPE=drm_minor\nMAJOR=226\nMINOR=1\nDEVNAME=dri/card1\nDEVTYPE=drm_minor\nMAJOR=226\nMINOR=1\nDEVNAME=dri/card1\nDEVTYPE=drm_minor\nDRIVER=nvidia\nPCI_CLASS=30000\nPCI_ID=10DE:21C4\nPCI_SUBSYS_ID=1043:873B\nPCI_SLOT_NAME=0000:01:00.0\nMODALIAS=pci:v000010DEd000021C4sv00001043sd0000873Bbc03sc00i00\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "sh",
+        "-c",
+        "cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
+      ],
+      "returncode": 0,
+      "stdout": "powersave\n",
+      "stderr": ""
+    }
+  ],
+  "executables": {
+    "build-ci/073-performance-final/upstream/perf-cpu": {
+      "sha256": "d5980ee5acd2734e76f6fa1ecbd04d8a1b6a88844b3ff7bee11d3b6e692528f6",
+      "ldd": {
+        "command": [
+          "ldd",
+          "build-ci/073-performance-final/upstream/perf-cpu"
+        ],
+        "returncode": 0,
+        "stdout": "\tlinux-vdso.so.1 (0x00007fdac6202000)\n\tlibharfbuzz.so.0 => /usr/lib/libharfbuzz.so.0 (0x00007fdac5a90000)\n\tlibicui18n.so.78 => /usr/lib/libicui18n.so.78 (0x00007fdac5600000)\n\tlibicuuc.so.78 => /usr/lib/libicuuc.so.78 (0x00007fdac5200000)\n\tlibfontconfig.so.1 => /usr/lib/libfontconfig.so.1 (0x00007fdac615b000)\n\tlibfreetype.so.6 => /usr/lib/libfreetype.so.6 (0x00007fdac59ab000)\n\tlibpng16.so.16 => /usr/lib/libpng16.so.16 (0x00007fdac55c3000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007fdac5990000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007fdac4e00000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007fdac548c000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007fdac545f000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007fdac4a00000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007fdac6204000)\n\tlibglib-2.0.so.0 => /usr/lib/libglib-2.0.so.0 (0x00007fdac4c9b000)\n\tlibgraphite2.so.3 => /usr/lib/libgraphite2.so.3 (0x00007fdac543c000)\n\tlibicudata.so.78 => /usr/lib/libicudata.so.78 (0x00007fdac2a00000)\n\tlibexpat.so.1 => /usr/lib/libexpat.so.1 (0x00007fdac51d1000)\n\tlibbz2.so.1.0 => /usr/lib/libbz2.so.1.0 (0x00007fdac5429000)\n\tlibbrotlidec.so.1 => /usr/lib/libbrotlidec.so.1 (0x00007fdac5419000)\n\tlibpcre2-8.so.0 => /usr/lib/libpcre2-8.so.0 (0x00007fdac511e000)\n\tlibbrotlicommon.so.1 => /usr/lib/libbrotlicommon.so.1 (0x00007fdac50fb000)\n",
+        "stderr": ""
+      }
+    },
+    "build-ci/073-performance-final/upstream/perf-native": {
+      "sha256": "727924f049a3d06483da757b0becbe75ad0d6bcbbc66c723f4b3f2624ef0a82f",
+      "ldd": {
+        "command": [
+          "ldd",
+          "build-ci/073-performance-final/upstream/perf-native"
+        ],
+        "returncode": 0,
+        "stdout": "\tlinux-vdso.so.1 (0x00007fb9033cf000)\n\tlibSDL2-2.0.so.0 => /usr/lib/libSDL2-2.0.so.0 (0x00007fb90333f000)\n\tlibharfbuzz.so.0 => /usr/lib/libharfbuzz.so.0 (0x00007fb902890000)\n\tlibicui18n.so.78 => /usr/lib/libicui18n.so.78 (0x00007fb902400000)\n\tlibicuuc.so.78 => /usr/lib/libicuuc.so.78 (0x00007fb902000000)\n\tlibfontconfig.so.1 => /usr/lib/libfontconfig.so.1 (0x00007fb902815000)\n\tlibfreetype.so.6 => /usr/lib/libfreetype.so.6 (0x00007fb90231b000)\n\tlibpng16.so.16 => /usr/lib/libpng16.so.16 (0x00007fb9027d8000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007fb9027bd000)\n\tlibvulkan.so.1 => /usr/lib/libvulkan.so.1 (0x00007fb902270000)\n\tlibGL.so.1 => /usr/lib/libGL.so.1 (0x00007fb901f8e000)\n\tlibwayland-client.so.0 => /usr/lib/libwayland-client.so.0 (0x00007fb90332b000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007fb901c00000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007fb901ac9000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007fb902790000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007fb901800000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007fb9033d1000)\n\tlibglib-2.0.so.0 => /usr/lib/libglib-2.0.so.0 (0x00007fb90169b000)\n\tlibgraphite2.so.3 => /usr/lib/libgraphite2.so.3 (0x00007fb90224d000)\n\tlibicudata.so.78 => /usr/lib/libicudata.so.78 (0x00007fb8ff600000)\n\tlibexpat.so.1 => /usr/lib/libexpat.so.1 (0x00007fb90221e000)\n\tlibbz2.so.1.0 => /usr/lib/libbz2.so.1.0 (0x00007fb901f7b000)\n\tlibbrotlidec.so.1 => /usr/lib/libbrotlidec.so.1 (0x00007fb90220e000)\n\tlibGLdispatch.so.0 => /usr/lib/libGLdispatch.so.0 (0x00007fb901f02000)\n\tlibGLX.so.0 => /usr/lib/libGLX.so.0 (0x00007fb901a98000)\n\tlibffi.so.8 => /usr/lib/libffi.so.8 (0x00007fb901ef4000)\n\tlibpcre2-8.so.0 => /usr/lib/libpcre2-8.so.0 (0x00007fb9015e8000)\n\tlibbrotlicommon.so.1 => /usr/lib/libbrotlicommon.so.1 (0x00007fb901a75000)\n\tlibX11.so.6 => /usr/lib/libX11.so.6 (0x00007fb8ff4ae000)\n\tlibxcb.so.1 => /usr/lib/libxcb.so.1 (0x00007fb901a4a000)\n\tlibXau.so.6 => /usr/lib/libXau.so.6 (0x00007fb901eef000)\n\tlibXdmcp.so.6 => /usr/lib/libXdmcp.so.6 (0x00007fb901ee7000)\n",
+        "stderr": ""
+      }
+    },
+    "build-ci/073-performance-final/upstream/perf-geometry": {
+      "sha256": "87bc9ef505939b4ece11a80306053e7896fc4ecd4b77e97394d7e2bd7c4e5f5e",
+      "ldd": {
+        "command": [
+          "ldd",
+          "build-ci/073-performance-final/upstream/perf-geometry"
+        ],
+        "returncode": 0,
+        "stdout": "\tlinux-vdso.so.1 (0x00007f55a83e6000)\n\tlibharfbuzz.so.0 => /usr/lib/libharfbuzz.so.0 (0x00007f55a7c90000)\n\tlibicui18n.so.78 => /usr/lib/libicui18n.so.78 (0x00007f55a7800000)\n\tlibicuuc.so.78 => /usr/lib/libicuuc.so.78 (0x00007f55a7400000)\n\tlibfontconfig.so.1 => /usr/lib/libfontconfig.so.1 (0x00007f55a7c15000)\n\tlibfreetype.so.6 => /usr/lib/libfreetype.so.6 (0x00007f55a771b000)\n\tlibpng16.so.16 => /usr/lib/libpng16.so.16 (0x00007f55a837b000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007f55a7bfa000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007f55a7000000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007f55a6ec9000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007f55a7bcd000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007f55a6c00000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007f55a83e8000)\n\tlibglib-2.0.so.0 => /usr/lib/libglib-2.0.so.0 (0x00007f55a6a9b000)\n\tlibgraphite2.so.3 => /usr/lib/libgraphite2.so.3 (0x00007f55a7baa000)\n\tlibicudata.so.78 => /usr/lib/libicudata.so.78 (0x00007f55a4a00000)\n\tlibexpat.so.1 => /usr/lib/libexpat.so.1 (0x00007f55a76ec000)\n\tlibbz2.so.1.0 => /usr/lib/libbz2.so.1.0 (0x00007f55a7b97000)\n\tlibbrotlidec.so.1 => /usr/lib/libbrotlidec.so.1 (0x00007f55a76dc000)\n\tlibpcre2-8.so.0 => /usr/lib/libpcre2-8.so.0 (0x00007f55a7629000)\n\tlibbrotlicommon.so.1 => /usr/lib/libbrotlicommon.so.1 (0x00007f55a73dd000)\n",
+        "stderr": ""
+      }
+    },
+    "build-ci/073-performance-final/patched/perf-cpu": {
+      "sha256": "0aa13df51d9d0abcabdee70227831ca9bf2c84dbc7b150f5f0536645f5d15152",
+      "ldd": {
+        "command": [
+          "ldd",
+          "build-ci/073-performance-final/patched/perf-cpu"
+        ],
+        "returncode": 0,
+        "stdout": "\tlinux-vdso.so.1 (0x00007f6794249000)\n\tlibharfbuzz.so.0 => /usr/lib/libharfbuzz.so.0 (0x00007f6793a90000)\n\tlibicui18n.so.78 => /usr/lib/libicui18n.so.78 (0x00007f6793600000)\n\tlibicuuc.so.78 => /usr/lib/libicuuc.so.78 (0x00007f6793200000)\n\tlibfontconfig.so.1 => /usr/lib/libfontconfig.so.1 (0x00007f67941a2000)\n\tlibfreetype.so.6 => /usr/lib/libfreetype.so.6 (0x00007f67939ab000)\n\tlibpng16.so.16 => /usr/lib/libpng16.so.16 (0x00007f6794163000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007f6793990000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007f6792e00000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007f67934c9000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007f679349c000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007f6792a00000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007f679424b000)\n\tlibglib-2.0.so.0 => /usr/lib/libglib-2.0.so.0 (0x00007f6792c9b000)\n\tlibgraphite2.so.3 => /usr/lib/libgraphite2.so.3 (0x00007f6793479000)\n\tlibicudata.so.78 => /usr/lib/libicudata.so.78 (0x00007f6790a00000)\n\tlibexpat.so.1 => /usr/lib/libexpat.so.1 (0x00007f679344a000)\n\tlibbz2.so.1.0 => /usr/lib/libbz2.so.1.0 (0x00007f6793437000)\n\tlibbrotlidec.so.1 => /usr/lib/libbrotlidec.so.1 (0x00007f6793427000)\n\tlibpcre2-8.so.0 => /usr/lib/libpcre2-8.so.0 (0x00007f679314d000)\n\tlibbrotlicommon.so.1 => /usr/lib/libbrotlicommon.so.1 (0x00007f679312a000)\n",
+        "stderr": ""
+      }
+    },
+    "build-ci/073-performance-final/patched/perf-native": {
+      "sha256": "40a1e4dd0f234bd8acaf21600736c5ed6b4c85c45d024a1b508d171b68958e96",
+      "ldd": {
+        "command": [
+          "ldd",
+          "build-ci/073-performance-final/patched/perf-native"
+        ],
+        "returncode": 0,
+        "stdout": "\tlinux-vdso.so.1 (0x00007f85e225b000)\n\tlibSDL2-2.0.so.0 => /usr/lib/libSDL2-2.0.so.0 (0x00007f85e21cb000)\n\tlibharfbuzz.so.0 => /usr/lib/libharfbuzz.so.0 (0x00007f85e1690000)\n\tlibicui18n.so.78 => /usr/lib/libicui18n.so.78 (0x00007f85e1200000)\n\tlibicuuc.so.78 => /usr/lib/libicuuc.so.78 (0x00007f85e0e00000)\n\tlibfontconfig.so.1 => /usr/lib/libfontconfig.so.1 (0x00007f85e214e000)\n\tlibfreetype.so.6 => /usr/lib/libfreetype.so.6 (0x00007f85e15ab000)\n\tlibpng16.so.16 => /usr/lib/libpng16.so.16 (0x00007f85e11c3000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007f85e2133000)\n\tlibvulkan.so.1 => /usr/lib/libvulkan.so.1 (0x00007f85e1118000)\n\tlibGL.so.1 => /usr/lib/libGL.so.1 (0x00007f85e10a6000)\n\tlibwayland-client.so.0 => /usr/lib/libwayland-client.so.0 (0x00007f85e159b000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007f85e0a00000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007f85e08c9000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007f85e1079000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007f85e0600000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007f85e225d000)\n\tlibglib-2.0.so.0 => /usr/lib/libglib-2.0.so.0 (0x00007f85e049b000)\n\tlibgraphite2.so.3 => /usr/lib/libgraphite2.so.3 (0x00007f85e1056000)\n\tlibicudata.so.78 => /usr/lib/libicudata.so.78 (0x00007f85de400000)\n\tlibexpat.so.1 => /usr/lib/libexpat.so.1 (0x00007f85e1027000)\n\tlibbz2.so.1.0 => /usr/lib/libbz2.so.1.0 (0x00007f85e1014000)\n\tlibbrotlidec.so.1 => /usr/lib/libbrotlidec.so.1 (0x00007f85e0df0000)\n\tlibGLdispatch.so.0 => /usr/lib/libGLdispatch.so.0 (0x00007f85e0d77000)\n\tlibGLX.so.0 => /usr/lib/libGLX.so.0 (0x00007f85e0d46000)\n\tlibffi.so.8 => /usr/lib/libffi.so.8 (0x00007f85e0d38000)\n\tlibpcre2-8.so.0 => /usr/lib/libpcre2-8.so.0 (0x00007f85e03e8000)\n\tlibbrotlicommon.so.1 => /usr/lib/libbrotlicommon.so.1 (0x00007f85e0d15000)\n\tlibX11.so.6 => /usr/lib/libX11.so.6 (0x00007f85de2ae000)\n\tlibxcb.so.1 => /usr/lib/libxcb.so.1 (0x00007f85e0cea000)\n\tlibXau.so.6 => /usr/lib/libXau.so.6 (0x00007f85e1596000)\n\tlibXdmcp.so.6 => /usr/lib/libXdmcp.so.6 (0x00007f85e158e000)\n",
+        "stderr": ""
+      }
+    },
+    "build-ci/073-performance-final/patched/perf-geometry": {
+      "sha256": "068876020f32dea74f305e402b019e976891bf60cdec7d23e2744cd94a3fc0ea",
+      "ldd": {
+        "command": [
+          "ldd",
+          "build-ci/073-performance-final/patched/perf-geometry"
+        ],
+        "returncode": 0,
+        "stdout": "\tlinux-vdso.so.1 (0x00007fc38b376000)\n\tlibharfbuzz.so.0 => /usr/lib/libharfbuzz.so.0 (0x00007fc38b1da000)\n\tlibicui18n.so.78 => /usr/lib/libicui18n.so.78 (0x00007fc38a800000)\n\tlibicuuc.so.78 => /usr/lib/libicuuc.so.78 (0x00007fc38a400000)\n\tlibfontconfig.so.1 => /usr/lib/libfontconfig.so.1 (0x00007fc38a785000)\n\tlibfreetype.so.6 => /usr/lib/libfreetype.so.6 (0x00007fc38a6a0000)\n\tlibpng16.so.16 => /usr/lib/libpng16.so.16 (0x00007fc38b19b000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007fc38b180000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007fc38a000000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007fc389ec9000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007fc38abd3000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007fc389c00000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007fc38b378000)\n\tlibglib-2.0.so.0 => /usr/lib/libglib-2.0.so.0 (0x00007fc389a9b000)\n\tlibgraphite2.so.3 => /usr/lib/libgraphite2.so.3 (0x00007fc38abb0000)\n\tlibicudata.so.78 => /usr/lib/libicudata.so.78 (0x00007fc387a00000)\n\tlibexpat.so.1 => /usr/lib/libexpat.so.1 (0x00007fc38a671000)\n\tlibbz2.so.1.0 => /usr/lib/libbz2.so.1.0 (0x00007fc38ab9d000)\n\tlibbrotlidec.so.1 => /usr/lib/libbrotlidec.so.1 (0x00007fc38a661000)\n\tlibpcre2-8.so.0 => /usr/lib/libpcre2-8.so.0 (0x00007fc38a34d000)\n\tlibbrotlicommon.so.1 => /usr/lib/libbrotlicommon.so.1 (0x00007fc38a63e000)\n",
+        "stderr": ""
+      }
+    }
+  },
+  "fonts": {
+    "regular": {
+      "path": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+      "sha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c"
+    },
+    "bold": {
+      "path": "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
+      "sha256": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f"
+    },
+    "italic": {
+      "path": "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf",
+      "sha256": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a"
+    },
+    "mono": {
+      "path": "/usr/share/fonts/TTF/DejaVuSansMono.ttf",
+      "sha256": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78"
+    },
+    "cjk": {
+      "path": "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc",
+      "sha256": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a"
+    },
+    "emoji": {
+      "path": "/usr/share/fonts/noto/NotoColorEmoji.ttf",
+      "sha256": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  "historicalFontHashesEqual": true,
+  "historicalSystemVersions": {
+    "sdl2": "2.32.74",
+    "wayland-client": "1.26.0",
+    "wayland-protocols": "1.50",
+    "freetype2": "26.7.20",
+    "harfbuzz": "15.1.0",
+    "icu-uc": "78.3",
+    "icu-i18n": "78.3",
+    "libpng": "1.6.59",
+    "fontconfig": "2.18.3",
+    "zlib": "1.3.2",
+    "vulkan": "1.4.363",
+    "gl": "1.2"
+  },
+  "currentSystemVersions": {
+    "sdl2": "2.32.74",
+    "freetype2": "26.7.20",
+    "harfbuzz": "15.1.0",
+    "icu-uc": "78.3",
+    "libpng": "1.6.59",
+    "vulkan": "1.4.363"
+  },
+  "availableSystemVersionsEqual": true,
+  "nvidiaDriver": "NVRM version: NVIDIA UNIX Open Kernel Module for x86_64  615.78.08  Release Build  (root@)  \nGCC version:  gcc version 16.2.1 20260810 (GCC) \n"
+}

@@ -1,0 +1,368 @@
+{
+  "outcome": "geometry-scan-passed",
+  "boundaryMinimal": "pass",
+  "disabledEquivalence": {
+    "fixtures": 751,
+    "blocks": 775,
+    "exactJSON": true
+  },
+  "scanBlocks": 775,
+  "transitionBrackets": 41,
+  "transitionProbeBlocks": 147,
+  "failures": 0,
+  "commands": [
+    {
+      "name": "boundary-minimal",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/boundary-minimal.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "regression-baseline",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/regression-baseline.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "regression-control",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/control/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/regression-control.json",
+        "--disabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "regression-padded",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/regression-padded.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "control-disabled",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/control/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/control-disabled.json",
+        "--disabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "patched-disabled",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/patched-disabled.json",
+        "--disabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "boundary-baseline",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/boundary-baseline.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "padded-scan",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/padded-scan.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "invalid-combining",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-combining.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-surrogate",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-surrogate.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-fractional",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-fractional.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-negative",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-negative.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-reversed",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-reversed.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-out-of-range",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-out-of-range.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-partial-object",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-partial-object.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-malformed-surrogate",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-malformed-surrogate.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "invalid-overlap",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/invalid-overlap.json",
+        "--enabled"
+      ],
+      "exit": 2
+    },
+    {
+      "name": "transition-refine-0",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-refine-0.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "transition-refine-1",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-refine-1.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "transition-refine-2",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-refine-2.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "transition-refine-3",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-refine-3.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "transition-refine-4",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-refine-4.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "transition-refine-5",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-refine-5.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "transition-zero",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-zero.json",
+        "--enabled"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "transition-padded",
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved-geometry/transition-padded.json",
+        "--enabled"
+      ],
+      "exit": 0
+    }
+  ],
+  "inputsBefore": {
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/build.py": "7d750218b49188e8452cce605b717c28c28c4b8602453c3e5e9d937acb9fa740",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/CMakeLists.txt": "245a6389b79bbdb4b611ef7756d1cff77819da180eda3437043c4c55023fcc0b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/main.cpp": "70111aafd51500d1a93a6ba65168bd84863fb5093c58590ffbe59a6ebbe6564b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/historical_objects.cpp": "5fd1ec16a4df62644746199bc8054bda640c8cdb3a03ceb70a9f9f2dd6e72637",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/minimal.json": "0bcb51fd5c6bec338987843323d6e306ab1999cb1b83d34808f0697b2596597a",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/fragment-edges.patch": "9ea4612d93f8fe2f8aff793cb156931dd0663ef61c970fc2f72afdbb7d3ef3c1",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/patch-pin.json": "d4b254482d150ab05b3247ae02b2e61537188a9779636ecaea61390d9de148b6",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/verify.py": "ede00bd566c0a0744a6fdd1e166761bd1ee92bf993dc9573aaa1de7b4e846a55",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/layout.h": "eee87716c06a5dcc7a6fc12a8e2b613c696cb0b3f0e1b530742f9a646e836103",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/native.cpp": "cea6d12189cfdaba652b51ded7989b7bb23e709f7b590fcd22b0e0a9f6bf19ee",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/native_verify.py": "2de8010b19475fbf3bf9074a3fbfb5b211b80b4cb9e25c242e6e92dd05db8eb4",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/launch.py": "85ec09538e5622866c88e2cae8aa01968e0b5e9c61a35ed42a4b0749e9fe3d9b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/audit.py": "64e7fe80a98d2a867b920ca566549fa9751828cbaff22d3a0c8af18269eb207d",
+    "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+    "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+    "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight": "068876020f32dea74f305e402b019e976891bf60cdec7d23e2744cd94a3fc0ea",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/control/fragment-preflight": "87bc9ef505939b4ece11a80306053e7896fc4ecd4b77e97394d7e2bd7c4e5f5e",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+  },
+  "inputsAfter": {
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/build.py": "7d750218b49188e8452cce605b717c28c28c4b8602453c3e5e9d937acb9fa740",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/CMakeLists.txt": "245a6389b79bbdb4b611ef7756d1cff77819da180eda3437043c4c55023fcc0b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/main.cpp": "70111aafd51500d1a93a6ba65168bd84863fb5093c58590ffbe59a6ebbe6564b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/historical_objects.cpp": "5fd1ec16a4df62644746199bc8054bda640c8cdb3a03ceb70a9f9f2dd6e72637",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/minimal.json": "0bcb51fd5c6bec338987843323d6e306ab1999cb1b83d34808f0697b2596597a",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/fragment-edges.patch": "9ea4612d93f8fe2f8aff793cb156931dd0663ef61c970fc2f72afdbb7d3ef3c1",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/patch-pin.json": "d4b254482d150ab05b3247ae02b2e61537188a9779636ecaea61390d9de148b6",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/verify.py": "ede00bd566c0a0744a6fdd1e166761bd1ee92bf993dc9573aaa1de7b4e846a55",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/layout.h": "eee87716c06a5dcc7a6fc12a8e2b613c696cb0b3f0e1b530742f9a646e836103",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/native.cpp": "cea6d12189cfdaba652b51ded7989b7bb23e709f7b590fcd22b0e0a9f6bf19ee",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/native_verify.py": "2de8010b19475fbf3bf9074a3fbfb5b211b80b4cb9e25c242e6e92dd05db8eb4",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/launch.py": "85ec09538e5622866c88e2cae8aa01968e0b5e9c61a35ed42a4b0749e9fe3d9b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/boundary-experiment/audit.py": "64e7fe80a98d2a867b920ca566549fa9751828cbaff22d3a0c8af18269eb207d",
+    "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+    "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+    "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/patched/fragment-preflight": "068876020f32dea74f305e402b019e976891bf60cdec7d23e2744cd94a3fc0ea",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-boundary-preserved/control/fragment-preflight": "87bc9ef505939b4ece11a80306053e7896fc4ecd4b77e97394d7e2bd7c4e5f5e",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+  },
+  "native": "not run: remaining geometry/consistency gates not passed",
+  "outputHashes": {
+    "boundary-minimal.json": "2fd987150c1dcd8ca5dad52058be0754e93e7bc47abcffd639cb66cf46dfbf3a",
+    "boundary-minimal.jsonl.gz": "f02dbd4b84716ec649fa3748fd660e4321a01a1ec14687ad5025c3117a3a9166",
+    "boundary-minimal.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "regression-baseline.json": "b26dcbcce268e50b122179075a4b1eb6d989590727260ff1eb62fcb7e034e470",
+    "regression-baseline.jsonl.gz": "75b138f66476ccf2169165390069e50c5f46d9b3a91f6a86ace09d1999187e8d",
+    "regression-baseline.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "regression-control.json": "b26dcbcce268e50b122179075a4b1eb6d989590727260ff1eb62fcb7e034e470",
+    "regression-control.jsonl.gz": "16d8956536774c93db3f3bb8ad03d43f410db142f994d7c0cfc080d26b394ff3",
+    "regression-control.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "regression-padded.json": "c3c2ee920a5cc43100744c5b81693148b05c26b7a27bc3c1584fdca9312d0202",
+    "regression-padded.jsonl.gz": "32577fb3317eb1ce5cabc5b3f6345ba4398afee84fd0ca4f48c098e7d46f960b",
+    "regression-padded.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "control-disabled.json": "ca9339d167266890d117df2827cd6641359281594033ebb307e3efc207442edf",
+    "control-disabled.jsonl.gz": "75905f3e62def9a33518db3bf140779b579758d8e48c2dab8668717796c502e6",
+    "control-disabled.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "patched-disabled.json": "ca9339d167266890d117df2827cd6641359281594033ebb307e3efc207442edf",
+    "patched-disabled.jsonl.gz": "acb63b427c5f443f379b9b9b55801ff98067cf2e310627234877fd5ce43da470",
+    "patched-disabled.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "boundary-baseline.json": "33075bf87f29eb37bea9f591a1d866bdbd233efdf6de2658da4332d5f4bf4e51",
+    "boundary-baseline.jsonl.gz": "2603258639e9e4c365f999265c6519d16e1ed3d6edc0dd332e4dca529025c96c",
+    "boundary-baseline.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "padded-scan.json": "ca9339d167266890d117df2827cd6641359281594033ebb307e3efc207442edf",
+    "padded-scan.jsonl.gz": "3f5ce398303e9725c1594c910a65349c7f3b73a81897d34f67a9ea5d5e389909",
+    "padded-scan.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "invalid-combining.json": "3396bef1406119dd4930e8c7257c462778ce3d6f4f4a867c3800d7382b0f6dad",
+    "invalid-combining.jsonl.gz": "a3c066918ba829d2abed3d88587f4bf4403b9ded98a477da517aad4028d7a229",
+    "invalid-combining.stderr": "677ad2af69e629125567f0e0703175c735fb87415345fb3c0bbec3dc075d716e",
+    "invalid-surrogate.json": "69ff29e866e9f76a3e04ae4abec5f36055b61e09cb4d768769d8ecfdfa37964a",
+    "invalid-surrogate.jsonl.gz": "a662651fab507877eee5377c2b0a0c375dec2b798cca394315c9b5b8936068a6",
+    "invalid-surrogate.stderr": "677ad2af69e629125567f0e0703175c735fb87415345fb3c0bbec3dc075d716e",
+    "invalid-fractional.json": "04c3269a6f44db7d12f355beb3c32a719097af4d65f73c6f8253cf0124375279",
+    "invalid-fractional.jsonl.gz": "3bdea0115e6d54bc1baec6ad9f65dd25fe2b209c97bda71519355c2be6a7a2e1",
+    "invalid-fractional.stderr": "dccfba23277ded75087233da99622e217fd68cb8ca18a080122f9995e375a47c",
+    "invalid-negative.json": "556e44b1af0de8f06c8c854b939aaec76d982b6a8581f868d45ef999a22199f9",
+    "invalid-negative.jsonl.gz": "e47a3651cdb83b5f6d65e8ea470902246b7fbe79ef477ed8501f13c4df34e4c2",
+    "invalid-negative.stderr": "24c97a09c30ed59de5aabf4282f76780e3960107126a698c589c4b5cf9912501",
+    "invalid-reversed.json": "d308473fcde00556cd7acfef046a2600cac57a96a918d10302e7d06366c9710d",
+    "invalid-reversed.jsonl.gz": "2b2af06e88f32aea12ddfaf33e842e2464bcdd4c65c6d9b540ccca4e3e6d33c9",
+    "invalid-reversed.stderr": "24c97a09c30ed59de5aabf4282f76780e3960107126a698c589c4b5cf9912501",
+    "invalid-out-of-range.json": "0152e8b7a492c732ba0238d5a2b9566832842838c0e11308bac67116345e2b3e",
+    "invalid-out-of-range.jsonl.gz": "c910b3795148dd4181c82fc0df9e5188a1556747786bd8a3cd95a9deed2088fc",
+    "invalid-out-of-range.stderr": "24c97a09c30ed59de5aabf4282f76780e3960107126a698c589c4b5cf9912501",
+    "invalid-partial-object.json": "4c35050f3c9e7bcfaf41be31a0526118dc6b4a982540ddbd7e5f1a92139bdcea",
+    "invalid-partial-object.jsonl.gz": "f18bbbaa53cf25c1f52bc323cf54e71164bfd3594933d4c471b7dd0ce068b0b1",
+    "invalid-partial-object.stderr": "f9e2bc5d311d51cd2380d3c8929321178ad0366ad142b586f2dec9301b1c0a12",
+    "invalid-malformed-surrogate.json": "a7695c95b09559fd30c7f6492bb7953008b3d30cd737c8f3e4649cadf951de93",
+    "invalid-malformed-surrogate.jsonl.gz": "1c7574894edd373fec8fc518f56ef1b5ee07ca7589d26f00a26b16d93d930c1a",
+    "invalid-malformed-surrogate.stderr": "410aaf9df1ceacdbe5b6ef0a28adc2a8f28ac4254c985c185511566a24f5a5a8",
+    "invalid-overlap.json": "457dd5c33919bc829a73e56af7be91ee61aae65f483841ab240ef4ebf2e210c4",
+    "invalid-overlap.jsonl.gz": "098c5cc6cb8771f8fd0047c0851c875cd6d4db19ec05f5c16f4fec83ec934bf5",
+    "invalid-overlap.stderr": "e24284f425e5b7ffe483018b9da6865bdce1b237fcb5bacd1e2f2642768337a4",
+    "transition-refine-0.json": "351f65bb7c94a76491d003c9acd7941a0056bae0b4ff7ce0bac389ad60b01640",
+    "transition-refine-0.jsonl.gz": "c33980e28840724cf9f4ba1af92a4a03aa23c7de5c4c1fa20ed808c957db383a",
+    "transition-refine-0.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transition-refine-1.json": "68b46370f8eb05ba997da674fdbef3cdc9ad6b75d2f010b92623950e3ef2c586",
+    "transition-refine-1.jsonl.gz": "8c0f74aed573dcc8980ea9e773e83a0cd32185b41e5a4eae8171e8aa442b05e6",
+    "transition-refine-1.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transition-refine-2.json": "026c9f045ba94cc1c14868834f913b5878dfcf9dd1d2aa998b425274e9676809",
+    "transition-refine-2.jsonl.gz": "e12dfe6932c98bf3d53badf0d64323927c88aba147409c1149e470883aaec5f4",
+    "transition-refine-2.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transition-refine-3.json": "4770bc4c464e1ece7771b74aaef0d47049375d903f2c1dd2533160c0889b1ada",
+    "transition-refine-3.jsonl.gz": "439bd6ee0dac018beee3a609f147cbb89ac247757a25d75db8c2f1f26c694432",
+    "transition-refine-3.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transition-refine-4.json": "851de07a60f45b76bfe4c1071e11d417fdf63d486400dccc0bf3820c734ab6ed",
+    "transition-refine-4.jsonl.gz": "5911a44a33858e25b08fdabf1a7a2dcf9244e7b94249529afc375d6a4c4a9a68",
+    "transition-refine-4.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transition-refine-5.json": "122e8338070bf9854ac3e9b8ab6000f660e72bf5de6f54f8290d8a8626a02a37",
+    "transition-refine-5.jsonl.gz": "43c655f037aaa98ddf5517dd1fe16a7f73e73225e28c6dff0adaf0c1a19839f8",
+    "transition-refine-5.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transition-zero.json": "6cea57e70d8f34e02889e4d9dad5aaaf5b0a6a9c9d2c7148f5f64101eee5f69a",
+    "transition-zero.jsonl.gz": "99cb80a6fe127269157b8ca58c96076c6cf9347d59866f2f398f6261163d5561",
+    "transition-zero.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transition-padded.json": "b838d66f497e06f6501e491f0bc3d66ec3ae1a2ff2759fffa7652cdd84b048d1",
+    "transition-padded.jsonl.gz": "d59ff6cbada20334712bd24312de32fc01ea49147f508f9b42dce8680c6e39d5",
+    "transition-padded.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "transitions.json": "3ad62fc9eda01adaa86477469707d1d34c810b4456bc84c12d0f730f1e58d053",
+    "failures.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}

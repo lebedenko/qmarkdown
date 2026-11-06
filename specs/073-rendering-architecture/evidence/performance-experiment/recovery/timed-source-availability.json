@@ -1,0 +1,47 @@
+{
+  "performance-experiment/workloads.py": {
+    "sha256": "1b6a153175c1290c261829ddc7435b723780ed15857218c66a6ba8b587e38764",
+    "available": true,
+    "source": "specs/073-rendering-architecture/evidence/performance-experiment/cpu-timed-workloads.py"
+  },
+  "performance-experiment/cpu.cpp": {
+    "sha256": "fb212aba8b6ce33c28ca6a68d38094f569c4aaba91f4eae29c68f0eccb78c009",
+    "available": true,
+    "source": "specs/073-rendering-architecture/evidence/performance-experiment/cpu-timed-source.cpp"
+  },
+  "performance-experiment/CMakeLists.txt": {
+    "sha256": "aa68f06aeac1813d9c7103a5119c47e21027b173f035c332a3c5165b2f3ce871",
+    "available": false,
+    "source": null
+  },
+  "performance-experiment/document.h": {
+    "sha256": "7168047f6e4ac5ab86214864ccbc55406ae351adee9a550016c4a319a1e6b1fc",
+    "available": false,
+    "source": null
+  },
+  "performance-experiment/setup.inc": {
+    "sha256": "361a3d362529f5f51109d6018a391d34c172f0d8adcc715774bd660497f41606",
+    "available": false,
+    "source": null
+  },
+  "performance-experiment/build.py": {
+    "sha256": "bd485b8c489a5cc52bde51c6883667626ab214b73715082e313ca1c0c0a50ffc",
+    "available": false,
+    "source": null
+  },
+  "performance-experiment/native.cpp": {
+    "sha256": "308908306a7ef2fac9a1ba2030290f70731ebd5711324836659e973de58d0103",
+    "available": false,
+    "source": null
+  },
+  "performance-experiment/run.py": {
+    "sha256": "470152627c30f5cbb78367b4f9fdbd6200d4033643c3300fd8726e0ddbd772cf",
+    "available": true,
+    "source": "build-ci/073-performance-recovery/snapshot/specs/073-rendering-architecture/demonstrator/performance-experiment/run.py"
+  },
+  "boundary-experiment/layout.h": {
+    "sha256": "eee87716c06a5dcc7a6fc12a8e2b613c696cb0b3f0e1b530742f9a646e836103",
+    "available": true,
+    "source": "specs/073-rendering-architecture/demonstrator/boundary-experiment/layout.h"
+  }
+}

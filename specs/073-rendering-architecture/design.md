@@ -223,3 +223,136 @@ from missing layout capabilities. Final support records say feasible only after
 all automated gates pass, otherwise blocked with the precise missing capability
 or verification obstacle. Document touched upstream internals, patch size,
 rebase/regression burden and dependency costs without performance qualification.
+
+## Explicit shaping-boundary continuation — approved design
+
+Owner approval received 2026-11-05 ("approved") for B1–B8 and the mapped tasks. This section supersedes the
+historical fragment experiment's prohibition on shaping boundaries and its
+requirement to preserve glyphs across those boundaries. It does not retroactively
+change the interpretation or results of the diagnostic patch in `d3b1f05`.
+
+### Isolation, boundary ownership and invalidation (B1–B4)
+
+Create fresh stage/build/evidence paths; keep both prior stages and their evidence
+unchanged. Base the new checked patch on the same pinned source, preserving the
+old diagnostic patch independently. Record base, DEPS, patch and patched-source
+hashes, GN/CMake/ABI configuration, tool/package versions, fonts, fixtures,
+libraries, executables, outputs and exact reproduction commands. Use two build
+workers and verify control identities before/after execution.
+
+The adapter retains validated UTF-16-to-UTF-8 and reverse source mapping, including
+complete collapsed-object intervals. Keep original source bytes unchanged.
+Reject fractional, negative, reversed, overlapping, out-of-range, malformed
+surrogate, grapheme-splitting and partial-object intervals. Carry each span's
+identity and UTF-8 edges into private paragraph state independently of style.
+
+Split upstream shaping regions at the union of span starts/ends and existing
+upstream region boundaries before shaping; an adjacent same-style edge must
+survive style coalescing. Bound shaping context at those edges so ligatures and
+joining cannot cross them. Retain upstream shaping within each region, script
+segmentation, fallback and paragraph-wide bidi resolution. Do not shape separate
+paragraphs or insert characters. Preserve Unicode break flags independently of
+shaping splits: a new shaping boundary is not a new legal line-break opportunity.
+Real inline objects keep upstream reservation semantics and complete source maps.
+
+For any nonempty boundary metadata, bypass paragraph shaping-cache lookup and
+insertion, even with zero padding. Metadata replacement/removal invalidates
+shaped runs and all derived clusters, lines, translations and geometry; changing
+width invalidates layout only and reuses shaped results. Equal metadata and
+repeated layout must remain stable. The metadata-free path retains upstream cache
+behavior. Instrument shaping generation privately to verify reuse/invalidation
+without depending on timing. Cache optimization is outside this milestone.
+
+### Candidate fitting and authoritative geometry (B5–B6)
+
+Extend the existing TextWrapper candidate and ParagraphImpl/TextLine formatting
+paths. One shared calculation consumes upstream visual ordering and source/span
+identity to produce contiguous visual fragments. Charge left and right padding
+for every fragment; retain disjoint bidi fragments and distinct adjacent spans.
+Font fallback alone does not create a fragment. Fitting and formatting must use
+identical fragment semantics, including upstream trailing-whitespace handling.
+
+Scan finite upstream candidates without assuming fragment costs are monotonic
+under bidi reordering. Retain upstream legal-break priorities and emergency
+handling. Each nonempty committed line advances source; preserve indivisible
+clusters/graphemes and objects. An oversized first unit advances once and reports
+required/available width and unavoidable overflow. Preserve upstream hard-break
+and empty-line behavior. No paragraph-level convergence or replacement breaker.
+
+Apply fragment translations before publishing final paragraph geometry. Paint,
+range rectangles, caret hit testing, selection and object placement all consume
+those positions. Relative glyph advances within each boundary-enabled shaped
+cluster, glyph IDs and fonts must remain unchanged by padding. Compute vertical
+reservation from full text, object and padding extents. If containment needs a
+baseline shift, apply it to every line component, then reserve sufficient rounded
+line and paragraph height. Keep the 0.05-pixel tolerance. Diagnose `objects@679`
+using raw/rounded metrics, baseline, logical bounds and actual painted bounds;
+a paint-only shift or tolerance change is not a fix.
+
+### Ordered verification gates (B7–B8)
+
+1. Boundary semantics: adjacent lam–alef spans must have no cluster crossing the
+   shared edge; the whole-span control must retain its ligature. Cover Latin
+   ligatures, Arabic joining, identical adjacent styles, mixed bidi, combining
+   marks, surrogate pairs, fallback and object edges. Reject grapheme splits
+   and verify unchanged source. Record intentional differences from the original
+   unpatched shaping, rather than treating those differences as regressions.
+2. Separate baselines: disabled experiment without boundary metadata must match
+   the unpatched control's line/source breaks, glyph IDs/fonts/positions, object
+   placement and source mapping. Establish boundary-enabled zero-padding shaping
+   separately. Compare padded glyph identities and intracluster advances against
+   that baseline. Require exact discrete equality and record numeric precision;
+   do not loosen tolerances to hide discrepancies. Exercise metadata edits,
+   removal/re-addition, repeated layout and width changes for stale state.
+3. Geometry and consistency: run all 751 existing cases plus boundary regressions.
+   Identify wrap transitions by line-break signatures, refine intervals to 1/64
+   logical pixel and probe immediately below, at and above each transition using
+   that resolution; retain brackets, widths and signatures. Verify every visual
+   fragment's padding, vertical reservations, object containment, whitespace,
+   oversized-unit overflow and termination. Check exact copied source in both
+   selection directions and hit tests against authoritative geometry. Retain the
+   complete `objects@679` metric/logical/painted-bound diagnosis.
+4. Native: only after preceding gates pass, run patched Skia serially on OpenGL
+   and Vulkan at actually observed DPR. Preserve supervisor deadlines and input
+   identities. Check stationary/selected captures, resize/reset, motion/replay and
+   three process recreations. Explicitly report unavailable DPRs; Qt controls and
+   the independent Qt 6.8 Vulkan failure are unchanged.
+5. Review: retain representative matched captures and a launcher for the actual
+   patched interactive viewer; keep owner visual acceptance separate. Run
+   supervisor regressions, lightweight repository checks and whitespace checks.
+
+A failing gate stops dependent gates and retains a minimal fixture, command,
+diagnostics and identities, distinguishing infrastructure failure from a missing
+layout capability. Declare feasibility only after all automated gates pass.
+Document touched upstream internals and patch-maintenance costs. Replacing
+upstream shaping, bidi or the line-breaking engine remains outside scope;
+using upstream shaping with explicit region boundaries is now permitted.
+
+## Approved measurement continuation (2026-11-06)
+
+P1–P6 implement the owner's supplied plan in a sibling `performance-experiment`
+using the unchanged boundary `layout.h`. Existing pinned control and patched
+archives are verified against the retained build record before adapter compilation.
+Private diagnostic builds add counters in a copied patched checkout; headline
+binaries use the original archives. Fixture construction and source mapping stay
+identical. Each operation has a distinct timed scope; font initialization is outside
+construction. Fresh-process initial measurements include process-local cache state,
+not filesystem-cache claims. Warm samples retain paragraph/font state as documented.
+
+A Python supervisor owns deadlines/RSS, incremental JSONL retention, series skipping,
+aggregation and hashes. Each case has a stable series/size identity. Native samples
+are buffered in memory and emitted after timing. SDL owns its surface and scale
+objects; a separate Wayland registry binds only presentation feedback on that surface.
+GPU callbacks remain alive until drained; missing callbacks are null. GPU cache bytes
+are not device memory. Vulkan submission includes upstream present transitions and
+semaphores, separately from queue presentation. Native traversal remains full-document.
+
+Scale diagnosis precedes interpretation, not CPU runs. Protocol tracing and captures
+run separately. Reports explicitly retain unknowns; the existing 800/800 ratio alone
+is neither desktop scale nor proof of compositor behavior. Pacing uses presented
+timestamps, reported refresh and nanosecond representation, never swap-return time.
+
+
+## Approved recovery — 2026-11-06
+
+Recovery design: snapshot evidence and executable/source identities under build-ci/073-performance-recovery before measurement. Resume into a new directory, validate imported artifacts, retain interrupted outputs, use an exclusive child-inherited execution lock and durable validated phase checkpoints. Preserve original manifests; record relocation and rebuilt prerequisites separately. Restore pinned sources/dependencies and verify hashes before dependent execution. Missing identities stop only affected stages; missing temporary logs remain lost. No production APIs, dependencies or rendering changes.

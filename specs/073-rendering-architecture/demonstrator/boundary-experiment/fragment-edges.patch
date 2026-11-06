@@ -1,0 +1,332 @@
+diff --git a/modules/skparagraph/src/OneLineShaper.cpp b/modules/skparagraph/src/OneLineShaper.cpp
+index cb916a9..d446330 100644
+--- a/modules/skparagraph/src/OneLineShaper.cpp
++++ b/modules/skparagraph/src/OneLineShaper.cpp
+@@ -581,15 +581,25 @@ bool OneLineShaper::iterateThroughShapingRegions(const ShapeVisitor& shape) {
+                 auto end = std::min(bidiRegion.end, placeholder.fTextBefore.end);
+
+                 // Set up the iterators (the style iterator points to a bigger region that it could
+-                TextRange textRange(start, end);
+-                auto blockRange = fParagraph->findAllBlocks(textRange);
+-                if (!blockRange.empty()) {
+-                    SkSpan<Block> styleSpan(fParagraph->blocks(blockRange));
+-
+-                    // Shape the text between placeholders
+-                    if (!shape(textRange, styleSpan, advanceX, start, bidiRegion.level)) {
+-                        return false;
++                // Keep paragraph-wide bidi; only bound each shaper's input/context.
++                // This is independent of style coalescing and Unicode break flags.
++                auto regionStart = start;
++                while (regionStart < end) {
++                    auto regionEnd = end;
++                    for (const auto& span : fParagraph->fExperimentalSpans) {
++                        for (auto edge : {span.source.start, span.source.end}) {
++                            if (edge > regionStart && edge < regionEnd) regionEnd = edge;
++                        }
++                    }
++                    TextRange textRange(regionStart, regionEnd);
++                    auto blockRange = fParagraph->findAllBlocks(textRange);
++                    if (!blockRange.empty()) {
++                        SkSpan<Block> styleSpan(fParagraph->blocks(blockRange));
++                        if (!shape(textRange, styleSpan, advanceX, regionStart, bidiRegion.level)) {
++                            return false;
++                        }
+                     }
++                    regionStart = regionEnd;
+                 }
+
+                 if (end == bidiRegion.end) {
+diff --git a/modules/skparagraph/src/ParagraphImpl.cpp b/modules/skparagraph/src/ParagraphImpl.cpp
+index bc6fce3..bfebfae 100644
+--- a/modules/skparagraph/src/ParagraphImpl.cpp
++++ b/modules/skparagraph/src/ParagraphImpl.cpp
+@@ -141,6 +141,81 @@ void ParagraphImpl::addUnresolvedCodepoints(TextRange textRange) {
+     );
+ }
+
++bool ParagraphImpl::experimentalPadded() const {
++    for (const auto& span : fExperimentalSpans)
++        if (span.horizontalPadding || span.verticalPadding) return true;
++    return false;
++}
++
++std::vector<ParagraphImpl::ExperimentalVisualSlice>
++ParagraphImpl::experimentalVisualSlices(TextRange range) const {
++    std::vector<size_t> indexes;
++    std::vector<SkUnicode::BidiLevel> levels;
++    for (const auto& run : fRuns) {
++        if (run.textRange().start < range.end && range.start < run.textRange().end) {
++            indexes.push_back(run.index());
++            levels.push_back(run.fBidiLevel);
++        }
++    }
++    std::vector<int32_t> order(indexes.size());
++    if (!order.empty()) fUnicode->reorderVisual(levels.data(), levels.size(), order.data());
++    std::vector<ExperimentalVisualSlice> slices;
++    std::vector<SkScalar> padding;
++    for (auto logical : order) {
++        auto index = indexes[logical];
++        const auto& run = fRuns[index];
++        size_t identity = EMPTY_INDEX;
++        SkScalar pad = 0;
++        for (const auto& span : fExperimentalSpans) {
++            if (span.source.start <= std::max(range.start, run.textRange().start) &&
++                std::min(range.end, run.textRange().end) <= span.source.end) {
++                identity = span.identity;
++                pad = span.horizontalPadding;
++                break;
++            }
++        }
++        slices.push_back({index, identity, 0, 0});
++        padding.push_back(pad);
++    }
++    for (size_t i = 0; i < slices.size(); ++i) {
++        if (slices[i].identity == EMPTY_INDEX) continue;
++        if (i == 0 || slices[i-1].identity != slices[i].identity) slices[i].before = padding[i];
++        if (i+1 == slices.size() || slices[i+1].identity != slices[i].identity) slices[i].after = padding[i];
++    }
++    return slices;
++}
++
++SkScalar ParagraphImpl::experimentalPadding(TextRange range) const {
++    SkScalar padding = 0;
++    for (const auto& slice : experimentalVisualSlices(range)) padding += slice.before + slice.after;
++    return padding;
++}
++
++SkScalar ParagraphImpl::experimentalVerticalPadding(TextRange range) const {
++    SkScalar padding = 0;
++    for (const auto& span : fExperimentalSpans)
++        if (span.source.start < range.end && range.start < span.source.end)
++            padding = std::max(padding, span.verticalPadding);
++    return padding;
++}
++
++void ParagraphImpl::experimentalSetSpans(std::vector<ExperimentalFragmentSpan> spans) {
++    bool equal = spans.size() == fExperimentalSpans.size();
++    for (size_t i = 0; equal && i < spans.size(); ++i) {
++        const auto& a = spans[i];
++        const auto& b = fExperimentalSpans[i];
++        equal = a.identity == b.identity && a.source == b.source &&
++                a.horizontalPadding == b.horizontalPadding && a.verticalPadding == b.verticalPadding;
++    }
++    if (equal) return;
++    fExperimentalSpans = std::move(spans);
++    fBidiRegions.clear();
++    fExperimentalGraphemeEdges.clear();
++    fCodeUnitProperties.clear();
++    fPicture = nullptr;
++    fState = kUnknown; // Recompute Unicode flags; old cluster starts must not survive.
++}
++
+ void ParagraphImpl::layout(SkScalar rawWidth) {
+     // TODO: This rounding is done to match Flutter tests. Must be removed...
+     auto floorWidth = rawWidth;
+@@ -164,7 +239,7 @@ void ParagraphImpl::layout(SkScalar rawWidth) {
+
+     if (fState < kShaped) {
+         // Check if we have the text in the cache and don't need to shape it again
+-        if (!fFontCollection->getParagraphCache()->findParagraph(this)) {
++        if (!fExperimentalSpans.empty() || !fFontCollection->getParagraphCache()->findParagraph(this)) {
+             if (fState < kIndexed) {
+                 // This only happens once at the first layout; the text is immutable
+                 // and there is no reason to repeat it
+@@ -172,6 +247,13 @@ void ParagraphImpl::layout(SkScalar rawWidth) {
+                     fState = kIndexed;
+                 }
+             }
++            if (!fExperimentalSpans.empty()) {
++                fExperimentalGraphemeEdges.clear();
++                for (size_t i = 0; i < size_t(fCodeUnitProperties.size()); ++i)
++                    if (codeUnitHasProperty(i, SkUnicode::CodeUnitFlags::kGraphemeStart))
++                        fExperimentalGraphemeEdges.push_back(i);
++                fExperimentalGraphemeEdges.push_back(fText.size());
++            }
+             this->fRuns.clear();
+             this->fClusters.clear();
+             this->fClustersIndexFromCodeUnit.clear();
+@@ -201,7 +283,7 @@ void ParagraphImpl::layout(SkScalar rawWidth) {
+                 return;
+             } else {
+                 // Add the paragraph to the cache
+-                fFontCollection->getParagraphCache()->updateParagraph(this);
++                if (fExperimentalSpans.empty()) fFontCollection->getParagraphCache()->updateParagraph(this);
+             }
+         }
+         fState = kShaped;
+@@ -679,6 +761,7 @@ void ParagraphImpl::buildClusterTable() {
+ }
+
+ bool ParagraphImpl::shapeTextIntoEndlessLine() {
++    ++fExperimentalShapeGeneration;
+
+     if (fText.size() == 0) {
+         return false;
+@@ -701,7 +784,7 @@ bool ParagraphImpl::shapeTextIntoEndlessLine() {
+
+ void ParagraphImpl::breakShapedTextIntoLines(SkScalar maxWidth) {
+
+-    if (!fHasLineBreaks &&
++    if (!experimentalPadded() && !fHasLineBreaks &&
+         !fHasWhitespacesInside &&
+         fPlaceholders.size() == 1 &&
+         fRuns.size() == 1 && fRuns[0].fAdvance.fX <= maxWidth) {
+diff --git a/modules/skparagraph/src/ParagraphImpl.h b/modules/skparagraph/src/ParagraphImpl.h
+index 51619cf..e9818f1 100644
+--- a/modules/skparagraph/src/ParagraphImpl.h
++++ b/modules/skparagraph/src/ParagraphImpl.h
+@@ -105,6 +105,29 @@ public:
+
+     ~ParagraphImpl() override;
+
++    // Private isolated experiment; metadata is validated by the adapter.
++    struct ExperimentalFragmentSpan {
++        size_t identity;
++        TextRange source;
++        SkScalar horizontalPadding;
++        SkScalar verticalPadding;
++    };
++    struct ExperimentalVisualSlice {
++        size_t runIndex;
++        size_t identity;
++        SkScalar before = 0, after = 0;
++    };
++    std::vector<ExperimentalVisualSlice> experimentalVisualSlices(TextRange range) const;
++    SkScalar experimentalPadding(TextRange range) const;
++    SkScalar experimentalVerticalPadding(TextRange range) const;
++    bool experimentalPadded() const;
++    std::vector<TextIndex> fExperimentalGraphemeEdges;
++    void experimentalSetSpans(std::vector<ExperimentalFragmentSpan> spans);
++    const std::vector<ExperimentalFragmentSpan>& experimentalSpans() const { return fExperimentalSpans; }
++    size_t experimentalShapeGeneration() const { return fExperimentalShapeGeneration; }
++    std::vector<ExperimentalFragmentSpan> fExperimentalSpans;
++    size_t fExperimentalShapeGeneration = 0;
++
+     void layout(SkScalar width) override;
+     void paint(SkCanvas* canvas, SkScalar x, SkScalar y) override;
+     void paint(ParagraphPainter* canvas, SkScalar x, SkScalar y) override;
+diff --git a/modules/skparagraph/src/TextLine.cpp b/modules/skparagraph/src/TextLine.cpp
+index 8d51ced..7b5b24d 100644
+--- a/modules/skparagraph/src/TextLine.cpp
++++ b/modules/skparagraph/src/TextLine.cpp
+@@ -215,6 +215,12 @@ TextLine::TextLine(ParagraphImpl* owner,
+         fRunsInVisualOrder.push_back(firstRunIndex + index);
+     }
+
++    if (fOwner->experimentalPadded()) {
++        const auto padding = fOwner->experimentalPadding(fTextExcludingSpaces);
++        fAdvance.fX += padding;
++        fWidthWithSpaces += padding;
++    }
++
+     // TODO: This is the fix for flutter. Must be removed...
+     for (auto cluster = &start; cluster <= &end; ++cluster) {
+         if (!cluster->run().isPlaceholder() && !cluster->run().isCursiveScript()) {
+@@ -1247,6 +1253,9 @@ void TextLine::iterateThroughVisualRuns(bool includingGhostSpaces, const RunVisi
+         }
+     }
+
++    const auto slices = fOwner->experimentalPadded()
++            ? fOwner->experimentalVisualSlices(this->trimmedText())
++            : std::vector<ParagraphImpl::ExperimentalVisualSlice>{};
+     for (auto& runIndex : fRunsInVisualOrder) {
+
+         const auto run = &this->fOwner->run(runIndex);
+@@ -1268,9 +1277,17 @@ void TextLine::iterateThroughVisualRuns(bool includingGhostSpaces, const RunVisi
+         }
+         runOffset += width;
+         totalWidth += width;
++        SkScalar before = 0, after = 0;
++        for (const auto& slice : slices) if (slice.runIndex == runIndex) {
++            before = slice.before;
++            after = slice.after;
++        }
++        runOffset += before;
++        totalWidth += before;
+         if (!visitor(run, runOffset, lineIntersection, &width)) {
+             return;
+         }
++        width += after;
+     }
+
+     runOffset += width;
+diff --git a/modules/skparagraph/src/TextWrapper.cpp b/modules/skparagraph/src/TextWrapper.cpp
+index b156f31..94b9dc8 100644
+--- a/modules/skparagraph/src/TextWrapper.cpp
++++ b/modules/skparagraph/src/TextWrapper.cpp
+@@ -421,7 +421,47 @@ void TextWrapper::breakTextIntoLines(ParagraphImpl* parent,
+         auto lastLine = (hasEllipsis && unlimitedLines) || fLineNumber >= maxLines;
+         needEllipsis = hasEllipsis && !endlessLine && lastLine;
+
+-        this->lookAhead(maxWidth, end, parent->getApplyRoundingHack(), softHyphen, needEllipsis);
++        auto fittingWidth = maxWidth;
++        Cluster* selectedEnd = end;
++        bool emergencyEnd = false;
++        auto lineStart = fEndLine.endCluster();
++        if (parent->experimentalPadded()) {
++            // Finite endpoint scan. Visual fragment costs need not be monotonic.
++            // Bound the existing breaker by an upstream cluster endpoint. It
++            // retains word stretches, trimming, metrics and emergency handling.
++            SkScalar bare = 0;
++            Cluster* legalEnd = nullptr;
++            Cluster* fallbackEnd = nullptr;
++            Cluster* firstUnitEnd = nullptr;
++            for (auto candidate = lineStart; candidate < end; ++candidate) {
++                bare += candidate->width();
++                auto trimmedEnd = candidate + 1;
++                SkScalar trimmedWidth = bare;
++                while (trimmedEnd > lineStart && (trimmedEnd-1)->isWhitespaceBreak()) {
++                    --trimmedEnd;
++                    trimmedWidth -= trimmedEnd->width();
++                }
++                TextRange range(lineStart->textRange().start,
++                    trimmedEnd > lineStart ? (trimmedEnd-1)->textRange().end : lineStart->textRange().start);
++                auto required = trimmedWidth + parent->experimentalPadding(range);
++                const auto& edges = parent->fExperimentalGraphemeEdges;
++                const bool indivisibleEnd = std::binary_search(edges.begin(), edges.end(), candidate->textRange().end);
++                if (indivisibleEnd && !firstUnitEnd) firstUnitEnd = candidate+1;
++                if (required <= maxWidth && indivisibleEnd) {
++                    fallbackEnd = candidate+1;
++                    if (candidate->isSoftBreak() || candidate->isHardBreak() || candidate+1 == end)
++                        legalEnd = candidate+1;
++                }
++                if (candidate->isHardBreak()) break;
++            }
++            selectedEnd = legalEnd ? legalEnd : (fallbackEnd ? fallbackEnd : (firstUnitEnd ? firstUnitEnd : end));
++            emergencyEnd = legalEnd == nullptr;
++            // Bound the existing scan by source endpoint, not a synthetic width:
++            // otherwise an oversized next cluster can be appended to prior words.
++            fittingWidth = std::numeric_limits<SkScalar>::max();
++        }
++        this->lookAhead(fittingWidth, selectedEnd, parent->getApplyRoundingHack(), softHyphen, needEllipsis);
++        if (parent->experimentalPadded() && emergencyEnd) fTooLongWord = true;
+
+         this->moveForward(needEllipsis);
+         needEllipsis &= fEndLine.endCluster() < end - 1; // Only if we have some text to ellipsize
+@@ -490,6 +530,16 @@ void TextWrapper::breakTextIntoLines(ParagraphImpl* parent,
+             parent->strutMetrics().updateLineMetrics(fEndLine.metrics());
+         }
+
++        if (parent->experimentalPadded()) {
++            auto pad = parent->experimentalVerticalPadding(textExcludingSpaces);
++            auto& metrics = fEndLine.metrics();
++            // Integral baseline and total extent avoid negative rounding delta.
++            auto baseline = std::ceil(metrics.baseline() + pad);
++            auto descent = std::ceil(metrics.descent() + metrics.leading()/2 + pad);
++            metrics.fAscent = -baseline;
++            metrics.fDescent = descent;
++            metrics.fLeading = 0;
++        }
+         SkScalar lineHeight = fEndLine.metrics().height();
+         firstLine = false;
+
+@@ -518,6 +568,9 @@ void TextWrapper::breakTextIntoLines(ParagraphImpl* parent,
+         if (fHardLineBreak) {
+             softLineMaxIntrinsicWidth = 0;
+         }
++        if (parent->experimentalPadded() && startLine <= lineStart) {
++            SK_ABORT("experimental line failed monotonic source progress");
++        }
+         // Start a new line
+         fHeight += lineHeight;
+         if (!fHardLineBreak || startLine != end) {

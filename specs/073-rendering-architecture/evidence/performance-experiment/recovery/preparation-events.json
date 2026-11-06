@@ -1,0 +1,12 @@
+{
+  "identityBundlePreparation": {
+    "status": "initial attempt interrupted",
+    "reason": "073-performance-v2/adapter-sources.tar.gz absent",
+    "resolution": "Preserved partial archive; supplemented identities and retained available hash-matched sources and build records."
+  },
+  "visualInspection": [
+    "all six generated charts",
+    "typical padded Vulkan capture",
+    "span-dense padded OpenGL capture"
+  ]
+}

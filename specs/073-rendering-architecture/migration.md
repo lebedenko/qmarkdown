@@ -134,3 +134,20 @@ See [experiment instructions and maintenance limits](demonstrator/fragment-exper
 [actual results](evidence/fragment-experiment/summary.json).
 Qt controls and the Qt 6.8 Vulkan shutdown blocker are unchanged. No production
 dependency, backend choice, performance qualification, merge or publication follows.
+
+
+## Explicit shaping-boundary feasibility — 2026-11-05
+
+The owner approved B1–B8 and the revised design/tasks. Code-span edges now delimit
+shaping in a new isolated SkParagraph stage. The earlier intact-cross-span-glyph
+blocker remains a valid historical result under its old constraints; it does not
+block this explicitly revised mechanism.
+
+The [new automated evidence](evidence/boundary-experiment/README.md) passes control
+and boundary baselines, padded geometry, transitions, source/caret consistency,
+object containment and 120 native OpenGL/Vulkan processes at observed DPR 1.
+This establishes feasibility for the tested isolated slice, not a production
+backend decision. Owner visual acceptance, unavailable fractional/native DPRs,
+performance and production integration remain separate. The five-file private
+upstream patch requires rebase/ABI review and full regression checks on pin
+updates. The independent Qt 6.8 Vulkan shutdown failure is unchanged.

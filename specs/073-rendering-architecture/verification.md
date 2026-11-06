@@ -479,3 +479,178 @@ patch whitespace normalization was checked by rebuilding a fresh stage: patched
 source hashes match the preceding build exactly, and the regression suite passes
 again. Final documentation/evidence syntax and tracked/new-file whitespace were
 checked after evidence collection. Logs are retained alongside the summary.
+
+## Explicit shaping-boundary continuation planning — 2026-11-05
+
+Prepared B1–B8, revised design and mapped tasks for explicit code-span shaping
+boundaries. These proposed semantics supersede the cross-span glyph-preservation
+constraint for a new isolated stage; historical commit `d3b1f05`, its diagnostic
+patch and failure evidence are unchanged. Explicit approval of these revisions
+is pending, as required by the supplied continuation plan. No new stage, patch,
+layout implementation, geometry result or native run is claimed.
+
+Planning validation: `python3 scripts/check.py` passed documentation links,
+configuration/evidence syntax and all 87 Qt-independent tests. `git diff --check`
+passed. These checks validate the specification change only; they do not satisfy
+the planned boundary, equivalence, geometry or native feasibility gates.
+
+## Explicit shaping-boundary continuation — actual result, 2026-11-05
+
+Owner approval received as "approved" for B1–B8, revised design and mapped tasks
+before implementation. **Outcome: feasible for the tested isolated slice.**
+This supersedes the earlier cross-span shaping constraint for the new experiment
+only; commit `d3b1f05`, its diagnostic patch and all failures remain intact.
+
+A checked five-file patch splits upstream shaping/context at code edges while
+retaining paragraph bidi, script/fallback and Unicode breaks. Adjacent lam–alef
+uses glyphs 1141/1117 in separate clusters; the whole-span control retains 3254.
+The adapter validates UTF-16 grapheme/object intervals and maps them to UTF-8 with
+no padding inserts. Metadata-bearing paragraphs bypass cache reads/writes;
+metadata replacement/removal invalidates derived state and width-only layouts
+reuse shaped runs. Identical round-trip geometry is checked.
+
+A shared visual-fragment calculation drives candidate fitting and formatting.
+Finite candidate scans bound the existing wrapper by cluster endpoint and
+preserve original grapheme boundaries, upstream word stretches and trimming.
+Visual traversal supplies the same translated positions to painting, rectangles,
+carets, selection and objects. Baseline/height reservation is integral before
+geometry publication; containment tolerance remains 0.05 pixels.
+
+Actual gates passed:
+
+- Exact metadata-free control equivalence: 751 fixture widths / 775 blocks.
+- Separate boundary-enabled zero-padding baseline, Latin/Arabic ligatures and
+  joining, adjacent identities, bidi, marks, surrogates, fallback, object edges,
+  oversized units, zero width, hard breaks and whitespace: 14 added regressions.
+- Nine invalid input/range cases rejected, including malformed surrogate input,
+  grapheme splits, overlap and partial-object intervals. Unicode break flags
+  match the unpatched control; padded shaped runs match the new zero-pad baseline.
+- All 751 padded cases pass; 41 observed transition brackets refined to 1/64
+  logical pixel and 147 below/at/above block probes pass. Interior hit tests and
+  exact source copying in both selection directions pass. Zero-width newline
+  boxes have no hittable interior; original source mapping retains them.
+- Extent audit: 14,272 code cells and 2,901 visual fragments pass. Near-edge
+  snapping remains diagnosed separately (95 probe differences); no containment
+  tolerance was changed. Ghost whitespace retains upstream unpainted semantics.
+- `objects@679`: baseline 31, line height 42, delta 0, logical object top/bottom
+  3/39 and DPR-1 painted vertical bounds 3/39 pass. Raw metrics remain recorded.
+- Native: 120 serial processes on OpenGL/Vulkan, including stationary/selected
+  captures, resize/reset, 60-frame motion/replay and three normal recreations
+  for every fixture/API. Observed DPR 1; 1.25/1.5/2 unavailable. Deadlines and
+  input identities retained. Shared CPU/native construction and an interactive
+  patched viewer are included. Representative captures were inspected for
+  integrity; owner visual acceptance remains pending.
+- Supervisor regressions: nine tests pass. Repository lightweight validation:
+  documentation/configuration checks and 87 Python tests pass.
+
+The inherited staging routine initially dereferenced a tracked Skia symlink.
+Corrected staging preserves relative internal symlinks, rejects external links,
+checks a clean copied tree and rejects modifications outside the patch. A fresh
+build and CPU rerun passed; all libraries/executables are byte-identical to those
+used for the native matrix, so those native checks were not repeated. Exact
+reconciliation and original native-input snapshots are retained.
+
+The patch adds 198 lines and removes 12 across private ParagraphImpl,
+OneLineShaper, TextWrapper and TextLine internals. Candidate scans may be quadratic;
+cache optimization and performance qualification are deferred. Original explicit
+font availability/missing glyph limitations remain visible. No shipping dependency,
+Qt-control, backend-selection, integration, merge or publication change occurred.
+The Qt 6.8 Vulkan shutdown failure remains independent.
+
+See [evidence and hashes](evidence/boundary-experiment/README.md),
+[support](evidence/boundary-experiment/support.json), and
+[reproduction and viewer](demonstrator/boundary-experiment/README.md).
+
+Final review: normalized whitespace-only context lines in the stored patch, then
+applied it to fresh pinned source files and verified byte-identical hashes against
+the compiled five-file source set. The tested patch/pin and normalization record
+are retained. Final lightweight checks and tracked/new-text-file whitespace checks
+passed; this packaging normalization does not change runtime verification inputs.
+
+## Scale/performance continuation — 2026-11-06
+
+The owner explicitly approved implementation of the supplied measurement plan.
+Requirements P1–P6, design and mapped tasks were recorded before implementation.
+Owner visual review is accepted only for the cases inspected; this supersedes
+previous pending-owner-review statements for those cases, without extending the
+review to untested configurations. Historical automated results remain unchanged.
+
+Separate serial OpenGL/Vulkan protocol diagnostics establish a 1.25 buffer/surface
+mapping despite SDL's 800/800 drawable/window ratio. See the
+[corrected scale explanation](evidence/performance-experiment/README.md).
+Measurement implementation and runs are in progress; final results follow there.
+
+
+## Approved recovery — 2026-11-06
+
+The user explicitly instructed implementation of the supplied Feature 073 Recovery plan on 2026-11-06. This approves the recovery requirements, design and tasks recorded above before implementation. Existing dirty files and historical evidence are preserved. Recovery results will be recorded separately from planned checks.
+
+Recovery preparation results (2026-11-06): 7,475 surviving files snapshotted and
+all member hashes verified under `build-ci/073-performance-recovery`. Pinned Skia
+`00227028b0c3cb3052432a456af2027a49e598b2`, all three dependency revisions and GN
+identity were restored. All five patched source hashes, three counter source
+hashes and surviving diagnostic executables match historical identities. Six
+rebuilt upstream archives are byte-identical to the historical libraries. Original
+build records remain unchanged; relocation and rebuilt prerequisites are recorded
+in a separate recovery manifest. Original `/tmp` logs remain lost.
+
+The clean prior directory contains 59 validated comparisons and 17 terminal
+outcomes, leaving 116 variant/cases. Its interrupted mixed-480-65536 zero-padding
+instrumented operation restarted successfully into a new output directory; its
+unacknowledged original bytes remain preserved. No completed CPU/native matrix
+was rerun. Independent inspection confirms complete measurement windows in all
+323 completed original native processes and zero non-resize measured layout calls.
+Current font hashes and the six checked system-library versions match available
+historical records; facts collected now are explicitly post-reboot observations.
+
+Recovery final result (2026-11-06): **measurement work and reporting complete;
+performance is not qualified.** All 192 patched diagnostic variant/cases are
+accounted for: 151 exact instrumented/headline comparisons, 23 timeouts and 18
+skips. All 59 clean prior comparisons and 17 prior terminal decisions were reused;
+116 remaining cases were accounted for without repeating the completed CPU or
+native matrices. All 18 upstream counter comparisons, 82 variant source-mapping
+comparisons, shaping reuse/invalidation checks and rebuilt control geometry gates
+pass. No diagnostic RSS ceiling was reached.
+
+The two serial post-reboot scale traces reproduce all retained protocol facts and
+historical SDL fields. The sole native replacement (typical, padded, OpenGL,
+settling, repetition 0, attempt 1) completes its full timing window with 300
+presented frames, no feedback gap and zero measured layout calls. Its 16.799 ms
+presentation p95 still fails the unchanged 16.6675 ms target. It remains a separate
+post-reboot cohort; the original failure and four missing-feedback cases remain.
+The corrected ten-paragraph, width-480 CPU smoke completes all three variants,
+each with ten fresh-process samples and five discarded plus thirty warm samples.
+
+Verification passed: nine recovery tests, eight measurement tests, nine supervisor
+regressions, repository documentation/configuration/syntax checks and 87
+Qt-independent tests. A full finished-phase resume with measurement/build calls
+stubbed to fail passes without invoking either; indexes and comparisons remain
+byte-identical. Tracked and private text-file whitespace checks pass. All six
+regenerated chart PNGs, the original CPU summary and growth records are
+byte-identical to their retained originals. All charts and representative typical
+and span-dense captures were visually inspected.
+
+Thirty-seven raw/build/identity archives and all 7,838 members passed independent
+hash verification. Recovery records and logs are retained separately. The initial
+chart generation failed because the temporary Matplotlib environment was lost;
+the pinned tooling-only environment was restored and chart generation passed.
+The first identity bundle preparation encountered the absent older adapter source
+archive; that partial bundle is preserved and supplemented, not overwritten.
+Five superseded v2 source-file byte sequences and original temporary logs remain
+explicitly unavailable. Timed CPU source, boundary header, workload generator,
+runner, executable identities and compiler/link build records are retained by
+hash; unavailable historical source files were not invented or used for new runs.
+
+See the [final performance report](evidence/performance-experiment/README.md),
+[coverage audit](evidence/performance-experiment/recovery/diagnostic-summary.json),
+[resume validation](evidence/performance-experiment/recovery/resume-validation.json)
+and [archive verification](evidence/performance-experiment/recovery/archive-verification.json).
+The CPU schema caveat, pacing misses, unavailable Vulkan GPU elapsed timing,
+historical failures and independent Qt 6.8 Vulkan shutdown blocker remain. No
+production API, dependency, rendering behavior, optimization, backend selection,
+Qt integration, merge or publication change occurred.
+
+Commit preparation: staged whitespace validation exposed Matplotlib trailing
+spaces in six generated SVG files. Removed trailing spaces only and verified
+equivalent normalized XML trees; chart PNGs and measurement evidence are unchanged.
+Before/after hashes are retained in [SVG normalization](evidence/performance-experiment/svg-normalization.json).

@@ -1,0 +1,12 @@
+{
+  "reason": "Preserve the pinned relative Cargo.toml symlink during staging; prior copy dereferenced it.",
+  "librariesIdentical": true,
+  "executablesIdentical": true,
+  "patchedRuntimeSourcesIdentical": true,
+  "finalSymlinks": {
+    "src/ports/fontations/Cargo.toml": "../../../bazel/external/fontations/Cargo.toml"
+  },
+  "nativeEvidence": "120 native passes apply to byte-identical libraries and executables from corrected staging.",
+  "geometryRerun": "All CPU gates and extent audit passed on corrected fresh stage.",
+  "controlUnchanged": true
+}

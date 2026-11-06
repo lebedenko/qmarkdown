@@ -1,0 +1,152 @@
+[
+  {
+    "case": "typical",
+    "variant": "padded",
+    "api": "opengl",
+    "scenario": "settling",
+    "repetition": 0,
+    "raw": "typical-padded-opengl-settling-0.jsonl",
+    "cohort": "post-reboot",
+    "attempt": 1,
+    "previousStatus": "failed",
+    "previousEvidence": "/home/andrii/Projects/pet/qmarkdown/build-ci/073-performance-native",
+    "status": "completed",
+    "returncode": 0,
+    "peakObservedRssBytes": 291577856,
+    "wallSeconds": 7.686705757000709,
+    "scale": {
+      "api": "opengl",
+      "clockResolutionNs": 1,
+      "desktopScale": 1.25,
+      "desktopScaleSource": "owner configuration; protocol diagnosis separate",
+      "device": "NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2",
+      "documentZoom": 1,
+      "drawablePerWindowX": 1.0,
+      "drawablePerWindowY": 1.0,
+      "drawablePixels": [
+        800,
+        600
+      ],
+      "fixtureId": "typical",
+      "glSwapInterval": 1,
+      "gpuElapsedSupported": true,
+      "outputIndex": 0,
+      "outputName": "Samsung Electric Company U32J59x H4ZM900512 (DP-1)",
+      "platform": "wayland",
+      "presentationClock": 1,
+      "refreshHz": 60,
+      "sdlLoadedLibraries": [
+        "/usr/lib/libSDL2-2.0.so.0.3200.74",
+        "/usr/lib/libSDL3.so.0.4.18"
+      ],
+      "sdlVersion": "2.32.74",
+      "timestampUnitNs": 1,
+      "variant": "padded",
+      "vulkanPresentMode": null,
+      "windowCoordinates": [
+        800,
+        600
+      ],
+      "windowFlags": 8230
+    },
+    "measurementGaps": [],
+    "run": {
+      "bufferedFrames": 423,
+      "captureRun": false,
+      "measurementSeconds": 5,
+      "observedScenarioSeconds": 7.01141049,
+      "protocolDiagnostic": false,
+      "scenario": "settling",
+      "type": "run",
+      "warmupSeconds": 2
+    },
+    "samples": 300,
+    "metrics": {
+      "layoutMs": {
+        "count": 300,
+        "median": 0.0,
+        "p95": 0.0,
+        "maximum": 0.0
+      },
+      "paintMs": {
+        "count": 300,
+        "median": 0.7858635,
+        "p95": 1.239812,
+        "maximum": 1.865705
+      },
+      "acquireMs": {
+        "count": 300,
+        "median": 0.00016,
+        "p95": 0.000243,
+        "maximum": 0.000823
+      },
+      "submissionMs": {
+        "count": 300,
+        "median": 0.3745305,
+        "p95": 0.450351,
+        "maximum": 3.764322
+      },
+      "swapBlockingMs": {
+        "count": 300,
+        "median": 15.420109,
+        "p95": 17.270539,
+        "maximum": 19.277458
+      },
+      "frameThreadWallMs": {
+        "count": 300,
+        "median": 16.626742999999998,
+        "p95": 18.49646,
+        "maximum": 20.444065
+      },
+      "gpuElapsedMs": {
+        "count": 300,
+        "median": 0.038944,
+        "p95": 0.049152,
+        "maximum": 0.06144
+      },
+      "peakRssBytes": {
+        "count": 300,
+        "median": 290467840.0,
+        "p95": 290992128,
+        "maximum": 291123200
+      },
+      "gpuCacheBytes": {
+        "count": 300,
+        "median": 6259712.0,
+        "p95": 6259712,
+        "maximum": 6259712
+      }
+    },
+    "pacing": {
+      "counts": {
+        "presented": 300
+      },
+      "intervalNs": {
+        "count": 299,
+        "median": 16668000.0,
+        "p95": 16799000,
+        "maximum": 16824000
+      },
+      "refreshMultiple": {
+        "count": 299,
+        "median": 1.000029998500075,
+        "p95": 1.007889605519724,
+        "maximum": 1.009389530523474
+      },
+      "timestampUnitNs": 1,
+      "clockResolutionNs": 1,
+      "advertisedClock": 1,
+      "refreshNs": [
+        16667500
+      ],
+      "observedIntervalGcdNs": 1000,
+      "presentationFlagCounts": {
+        "7": 300
+      },
+      "gaps": [],
+      "intervalTargetMet": false
+    },
+    "measuredLayoutCalls": 0,
+    "gpuTimingGap": null
+  }
+]

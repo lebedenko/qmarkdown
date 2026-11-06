@@ -1,0 +1,2436 @@
+[
+  {
+    "name": "adjacent",
+    "low": 63.984375,
+    "high": 64.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@63",
+      "width": 63,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 64.984375,
+    "high": 65.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@64",
+      "width": 64,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 78.984375,
+    "high": 79.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          4
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@78",
+      "width": 78,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 90.984375,
+    "high": 91.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          5
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@90",
+      "width": 90,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 91.984375,
+    "high": 92.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          5
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@91",
+      "width": 91,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 103.984375,
+    "high": 104.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          6
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          11,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@103",
+      "width": 103,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 104.984375,
+    "high": 105.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          6
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@104",
+      "width": 104,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 117.984375,
+    "high": 118.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          7
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@117",
+      "width": 117,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 124.984375,
+    "high": 125.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          13,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@124",
+      "width": 124,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 143.984375,
+    "high": 144.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@143",
+      "width": 143,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 156.984375,
+    "high": 157.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          9,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@156",
+      "width": 156,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 169.984375,
+    "high": 170.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          10
+        ],
+        [
+          10,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@169",
+      "width": 169,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "adjacent",
+    "low": 182.984375,
+    "high": 183.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          11
+        ],
+        [
+          11,
+          18
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "adjacent@182",
+      "width": 182,
+      "blocks": [
+        {
+          "text": "adjacentcode after",
+          "spans": [
+            {
+              "start": 0,
+              "length": 8,
+              "kind": "code"
+            },
+            {
+              "start": 8,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 64.984375,
+    "high": 65.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          10,
+          12
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          15,
+          19
+        ],
+        [
+          19,
+          22
+        ],
+        [
+          22,
+          25
+        ],
+        [
+          25,
+          28
+        ],
+        [
+          28,
+          32
+        ],
+        [
+          32,
+          35
+        ],
+        [
+          35,
+          38
+        ],
+        [
+          38,
+          40
+        ],
+        [
+          40,
+          43
+        ],
+        [
+          43,
+          46
+        ],
+        [
+          46,
+          51
+        ],
+        [
+          51,
+          53
+        ],
+        [
+          53,
+          58
+        ],
+        [
+          58,
+          62
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@64",
+      "width": 64,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 69.984375,
+    "high": 70.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          16,
+          19
+        ],
+        [
+          19,
+          23
+        ],
+        [
+          23,
+          25
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          29,
+          32
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          36,
+          40
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          44,
+          46
+        ],
+        [
+          46,
+          51
+        ],
+        [
+          51,
+          53
+        ],
+        [
+          53,
+          58
+        ],
+        [
+          58,
+          62
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@69",
+      "width": 69,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 72.984375,
+    "high": 73.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          16,
+          19
+        ],
+        [
+          19,
+          23
+        ],
+        [
+          23,
+          25
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          29,
+          32
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          36,
+          40
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          44,
+          46
+        ],
+        [
+          46,
+          51
+        ],
+        [
+          51,
+          53
+        ],
+        [
+          53,
+          59
+        ],
+        [
+          59,
+          62
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@72",
+      "width": 72,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 78.984375,
+    "high": 79.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          16
+        ],
+        [
+          16,
+          19
+        ],
+        [
+          19,
+          23
+        ],
+        [
+          23,
+          25
+        ],
+        [
+          25,
+          29
+        ],
+        [
+          29,
+          32
+        ],
+        [
+          32,
+          36
+        ],
+        [
+          36,
+          40
+        ],
+        [
+          40,
+          44
+        ],
+        [
+          44,
+          46
+        ],
+        [
+          46,
+          53
+        ],
+        [
+          53,
+          59
+        ],
+        [
+          59,
+          62
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@78",
+      "width": 78,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 87.984375,
+    "high": 88.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          17
+        ],
+        [
+          17,
+          19
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          25,
+          30
+        ],
+        [
+          30,
+          32
+        ],
+        [
+          32,
+          37
+        ],
+        [
+          37,
+          40
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          46,
+          53
+        ],
+        [
+          53,
+          60
+        ],
+        [
+          60,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@87",
+      "width": 87,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 91.984375,
+    "high": 92.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          17
+        ],
+        [
+          17,
+          19
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          25,
+          30
+        ],
+        [
+          30,
+          32
+        ],
+        [
+          32,
+          37
+        ],
+        [
+          37,
+          40
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          46,
+          53
+        ],
+        [
+          53,
+          60
+        ],
+        [
+          60,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@91",
+      "width": 91,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 104.984375,
+    "high": 105.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          19
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          38,
+          40
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          46,
+          53
+        ],
+        [
+          53,
+          62
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@104",
+      "width": 104,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 149.984375,
+    "high": 150.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          19
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          46,
+          53
+        ],
+        [
+          53,
+          62
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@149",
+      "width": 149,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 153.984375,
+    "high": 154.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          7
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          12,
+          19
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          46,
+          53
+        ],
+        [
+          53,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@153",
+      "width": 153,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 157.984375,
+    "high": 158.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          12,
+          19
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          40,
+          46
+        ],
+        [
+          46,
+          53
+        ],
+        [
+          53,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@157",
+      "width": 157,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 170.984375,
+    "high": 171.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          12,
+          19
+        ],
+        [
+          19,
+          25
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          40,
+          53
+        ],
+        [
+          53,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@170",
+      "width": 170,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 184.984375,
+    "high": 185.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          32,
+          40
+        ],
+        [
+          40,
+          53
+        ],
+        [
+          53,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@184",
+      "width": 184,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "wrapping",
+    "low": 197.984375,
+    "high": 198.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          12
+        ],
+        [
+          12,
+          25
+        ],
+        [
+          25,
+          32
+        ],
+        [
+          32,
+          46
+        ],
+        [
+          46,
+          62
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "wrapping@197",
+      "width": 197,
+      "blocks": [
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "bidi-objects",
+    "low": 60.984375,
+    "high": 61.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          25,
+          28
+        ],
+        [
+          28,
+          31
+        ],
+        [
+          31,
+          32
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "bidi-objects@60",
+      "width": 60,
+      "blocks": [
+        {
+          "text": "\u05e9\u05dc\u05d5\u05dd [object] \u0627\u0644\u0639\u0631\u0628\u064a\u0629 code",
+          "spans": [
+            {
+              "start": 22,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 5,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "bidi-objects",
+    "low": 64.984375,
+    "high": 65.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          13,
+          28
+        ],
+        [
+          28,
+          31
+        ],
+        [
+          31,
+          32
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "bidi-objects@64",
+      "width": 64,
+      "blocks": [
+        {
+          "text": "\u05e9\u05dc\u05d5\u05dd [object] \u0627\u0644\u0639\u0631\u0628\u064a\u0629 code",
+          "spans": [
+            {
+              "start": 22,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 5,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "bidi-objects",
+    "low": 103.984375,
+    "high": 104.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          9
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          13,
+          28
+        ],
+        [
+          28,
+          32
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "bidi-objects@103",
+      "width": 103,
+      "blocks": [
+        {
+          "text": "\u05e9\u05dc\u05d5\u05dd [object] \u0627\u0644\u0639\u0631\u0628\u064a\u0629 code",
+          "spans": [
+            {
+              "start": 22,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 5,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "bidi-objects",
+    "low": 132.984375,
+    "high": 133.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          13
+        ],
+        [
+          13,
+          28
+        ],
+        [
+          28,
+          32
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "bidi-objects@132",
+      "width": 132,
+      "blocks": [
+        {
+          "text": "\u05e9\u05dc\u05d5\u05dd [object] \u0627\u0644\u0639\u0631\u0628\u064a\u0629 code",
+          "spans": [
+            {
+              "start": 22,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 5,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "bidi-objects",
+    "low": 170.984375,
+    "high": 171.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          13
+        ],
+        [
+          13,
+          32
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "bidi-objects@170",
+      "width": 170,
+      "blocks": [
+        {
+          "text": "\u05e9\u05dc\u05d5\u05dd [object] \u0627\u0644\u0639\u0631\u0628\u064a\u0629 code",
+          "spans": [
+            {
+              "start": 22,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 5,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "document",
+    "low": 679.984375,
+    "high": 680.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          27
+        ]
+      ],
+      [
+        [
+          0,
+          52
+        ],
+        [
+          52,
+          70
+        ]
+      ],
+      [],
+      [
+        [
+          0,
+          50
+        ]
+      ],
+      [
+        [
+          0,
+          51
+        ]
+      ],
+      [
+        [
+          0,
+          51
+        ]
+      ],
+      [
+        [
+          0,
+          51
+        ]
+      ],
+      [
+        [
+          0,
+          46
+        ],
+        [
+          46,
+          67
+        ]
+      ],
+      [
+        [
+          0,
+          42
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "document@679",
+      "width": 679,
+      "blocks": [
+        {
+          "text": "Native rendering comparison",
+          "spans": [
+            {
+              "start": 0,
+              "length": 27,
+              "kind": "bold"
+            }
+          ],
+          "objects": []
+        },
+        {
+          "text": "This document exercises mixed emphasis, padded code and an inline [object].",
+          "spans": [
+            {
+              "start": 30,
+              "length": 8,
+              "kind": "italic"
+            },
+            {
+              "start": 40,
+              "length": 11,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 66,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        },
+        {
+          "text": "",
+          "spans": [],
+          "objects": [],
+          "kind": "rule"
+        },
+        {
+          "text": "Renderer              Geometry              Status",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "Qt native             Text layout           Inspect",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "Qt fallback           Prepared glyphs       Inspect",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "Skia                  SkParagraph           Inspect",
+          "spans": [],
+          "objects": [],
+          "kind": "table"
+        },
+        {
+          "text": "A long code phrase wraps across several lines beside ordinary text.",
+          "spans": [
+            {
+              "start": 2,
+              "length": 43,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        },
+        {
+          "text": "Before \u0627\u0644\u0639\u0631\u0628\u064a\u0629 code \u05e9\u05dc\u05d5\u05dd after.",
+          "spans": [
+            {
+              "start": 15,
+              "length": 4,
+              "kind": "code"
+            }
+          ],
+          "objects": []
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 64.984375,
+    "high": 65.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          4
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          18,
+          21
+        ],
+        [
+          21,
+          23
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          27,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@64",
+      "width": 64,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 65.984375,
+    "high": 66.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          4
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          18,
+          23
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          27,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@65",
+      "width": 65,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 70.984375,
+    "high": 71.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          4
+        ],
+        [
+          4,
+          13
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          18,
+          23
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          27,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@70",
+      "width": 70,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 79.984375,
+    "high": 80.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          18,
+          23
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          27,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@79",
+      "width": 79,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 96.984375,
+    "high": 97.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          18,
+          23
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          27,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@96",
+      "width": 96,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 110.984375,
+    "high": 111.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          8
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          18,
+          23
+        ],
+        [
+          23,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@110",
+      "width": 110,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 150.984375,
+    "high": 151.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          13
+        ],
+        [
+          13,
+          23
+        ],
+        [
+          23,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@150",
+      "width": 150,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 168.984375,
+    "high": 169.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          18,
+          27
+        ],
+        [
+          27,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@168",
+      "width": 168,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "unicode-code",
+    "low": 216.984375,
+    "high": 217.0,
+    "lowSignature": [
+      [
+        [
+          0,
+          18
+        ],
+        [
+          18,
+          30
+        ]
+      ]
+    ],
+    "fixture": {
+      "id": "unicode-code@216",
+      "width": 216,
+      "blocks": [
+        {
+          "text": "LTR e\u0301 \ud83d\ude42 \u05d0\u05d1 code [object] end",
+          "spans": [
+            {
+              "start": 4,
+              "length": 13,
+              "kind": "code"
+            }
+          ],
+          "objects": [
+            {
+              "start": 18,
+              "length": 8,
+              "width": 48,
+              "ascent": 28,
+              "descent": 8
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
