@@ -654,3 +654,192 @@ Commit preparation: staged whitespace validation exposed Matplotlib trailing
 spaces in six generated SVG files. Removed trailing spaces only and verified
 equivalent normalized XML trees; chart PNGs and measurement evidence are unchanged.
 Before/after hashes are retained in [SVG normalization](evidence/performance-experiment/svg-normalization.json).
+
+## Phase diagnosis — planned checks (2026-11-06)
+
+D1–D4 checks: all four operation mappings/geometries match; reflow/repeat reuse
+shaping and metadata invalidates; counters reset independently of layout state and
+exclude queries; interrupted-phase evidence survives new-directory resume;
+historical complex-shaping/object/whitespace/zero-width/wrap gates pass; existing
+measurement, recovery and supervisor regressions, task check and git diff --check.
+Actual results will be recorded separately. Diagnostic clocks are observations,
+not performance qualification or exact CPU-time shares.
+
+## Phase diagnosis — actual results (2026-11-06)
+
+D1–D4 completed in fresh durable workspace `build-ci/073-phase-workspace-v3`.
+All 48 serial traces (24 instrumented/uninstrumented pairs, four phases each)
+completed under the 60-second and 4 GiB ceilings, with exact paired geometry and
+source mapping, width/repeat shaping reuse and metadata invalidation. Every repeat
+has zero counted work. Counter reset preserves geometry and shaping generation.
+
+Historical gates pass: 751 fixtures / 775 blocks, exact disabled equivalence and
+zero failures; extent audit passes 14,272 vertical cells / 2,901 visual fragments.
+Five focused phase/recovery tests, eight measurement tests, nine recovery tests
+and nine supervisor tests pass. Completed new-directory resume preserves all raw
+hashes and index bytes without remeasurement. Interrupted-phase unit tests preserve
+partial records as terminal outcomes. Two preparation-only failures are retained;
+neither reached measurements. Rebuilt headline libraries match historical hashes.
+
+See [retained counts and provenance](evidence/phase-experiment/README.md) and the
+[optimization proposal awaiting approval](optimization-design.md). Ownership
+precomputation is selected as the first proposal; no optimization was implemented.
+Historical gaps and commit `4b9fd4c` remain intact. No performance acceptance,
+backend selection, merge or publication is claimed.
+
+Repository `task check` and whitespace validation passed. No shipping inputs changed.
+
+## Ownership optimization actual result — 2026-11-06
+
+O-T1–O-T4 are implemented and verified in the isolated ownership experiment.
+The owner-approved run revision/table mechanism retains metric-only reset/reflow
+state, releases invalidated storage and falls back conservatively for unsplit or
+stale entries. All 48 traces / 192 operation records match both peers and archived
+baseline geometry/source data; historical boundary and extent gates pass. Existing
+phase counters are unchanged. Ownership work totals 78,702,579,266 legacy comparisons
+versus 1,756,528 build examinations and zero fallback comparisons. Width/repeat
+have zero rebuilds; largest table payload is 9,800 bytes. Zero-padding paths add
+preparation work where the baseline had no ownership searches; no benefit is claimed
+for those paths. Detailed counts, memory limits, tests, retained preparation failure
+and qualification boundaries are in [ownership evidence](evidence/ownership-experiment/README.md).
+No speedup or production-performance acceptance is implied.
+
+## Ownership runtime comparison — actual results, 2026-11-06
+
+The owner-approved RT1–RT4 study is complete. Both identical-driver uninstrumented
+Release builds passed 48 separate correctness processes (192 full geometry/shaping
+records) and historical boundary/extent gates. All 480 timing processes completed:
+24 variants × ten adjacent process pairs, alternating baseline/optimized first
+by pass. All cells have ten pairs; none are incomplete, failed, limited or retried.
+Shaping-reuse and metadata-invalidation guards passed throughout.
+
+Dense-480-4096 padded initial medians are 2.781 s baseline / 0.437 s optimized,
+median paired ratio 6.368; mixed is 5.934 s / 0.927 s, ratio 6.425. Single-span
+improvements are smaller (long initial paired ratio 1.039; spans-1 1.020).
+Zero-padding metadata has measured regressions, including dense-480-4096
++44.46 µs [20.38, 70.32] and mixed +177.54 µs [27.51, 376.53]; many other
+zero-padding intervals include zero. All 24 repeat ratios are timer-limited and
+suppressed; absolute timings remain. No aggregate speedup or performance threshold
+is used. Per-cell medians/differences/ratios and descriptive 95% paired-bootstrap
+intervals use 10,000 resamples and fixed seed 73073.
+
+The completed-run resume initially exposed a mutable command-journal checkpoint:
+gates appended commands after build checkpointing. Original runner, identities,
+checkpoints and failure log are preserved; separate exact build/gate journals and
+a focused regression correct this evidence-bookkeeping issue. Driver/CMake code,
+binaries, libraries, fonts, fixture/schedule identities and raw measurements did
+not change. Corrected new-directory resume validates without launching any sample;
+its index and all 528 raw sample files match the completed run exactly.
+
+Final audit checks paired/archived geometry, flags, dependency libraries,
+instrumentation exclusion and all identities. Runtime harness tests (11), existing
+measurement/recovery (17), supervisor (9), repository lightweight checks (87 tests)
+and whitespace checks pass. Historical gates: 751 fixtures / 775 blocks exact,
+775 scan blocks with zero failures; 14,272 vertical cells and 2,901 visual fragments
+pass extent audit. Max sampled RSS 50,053,120 bytes; max process high-water RSS
+90,292,224 bytes, neither an ownership-table allocation measurement.
+
+Recommendation: retain the optimization as measured and target the remaining
+candidate-scan/layout cost through a separate approved design, retaining the
+zero-padding regressions as a constraint. Ten pairs on one non-isolated host give
+descriptive uncertainty only; filesystem caches/frequency/background load are
+uncontrolled. No independent warm-cache/native/Qt/backend qualification, further
+optimization, merge or publication occurred. Earlier ownership diagnostics and
+prior uncommitted work remain intact.
+
+See [runtime evidence and limitations](evidence/runtime-comparison/README.md),
+[all per-operation results](evidence/runtime-comparison/report.md), and
+[verified archive manifests](evidence/runtime-comparison/archives.json).
+
+## Candidate-scan proof actual result — 2026-11-06
+
+C-T1–C-T5 are complete in the isolated sibling experiment. Final v3 has 72 fresh
+serial diagnostic processes / 288 operation records with exact archived-runtime
+and oracle geometry/glyph/slice/mapping/shaping equivalence. Shadow proves all
+44,946,905 hypothetical skips fail. There are no endpoint/geometry counterexamples.
+Initial padded long-span evaluations fall 3,842,986 → 16,852 and spans-32
+3,346,678 → 16,468, with unchanged exhaustive preprocessing costs and up to 524,320
+bytes of layout-local scratch. There is no speedup or performance acceptance claim.
+
+56,235,842 exhaustive short-sequence checks, 10,000 seed-73074 numeric cases,
+129 focused layouts/checks, ownership lifecycle tests, historical boundary/extent
+gates and harness/recovery regressions pass. Final completed-run resume validates
+all identities/checkpoints/raw comparisons into a new directory without processes.
+Historical tolerances/near-edge observations remain unchanged. The preparation
+failure and full v2 guard-audit history are retained separately from final v3.
+
+See [actual evidence](evidence/candidate-scan-experiment/README.md),
+[experiment/proof](demonstrator/candidate-scan-experiment/README.md) and
+[separately approvable recommendation](candidate-scan-recommendation.md).
+No retained optimization, runtime matrix, ownership change, Qt integration, merge
+or publication is included. Existing zero-padding metadata regressions remain a
+constraint for future implementation. Archive, lightweight and whitespace check
+results are recorded with the final evidence.
+
+## Retained candidate implementation — 2026-11-06
+
+The owner-approved R1–R5 / R-T1–R-T5 isolated implementation is complete and ready
+for review. [Clean patch and tools](demonstrator/candidate-scan-implementation/README.md)
+and [evidence](evidence/candidate-scan-implementation/README.md) accompany the
+[updated recommendation](candidate-scan-recommendation.md). No shipping source,
+ownership implementation, proof experiment or previous archive was changed.
+
+- Final v4: 96 fresh serial processes, 384 operation records; exact archived/oracle
+  geometry, glyph positions, slices, mappings and shaping deltas match. Supported
+  fixtures have no unexpected fallback. Zero padding has no cutoff guards,
+  preprocessing, trimming or scratch allocation.
+- Numeric: 56,235,842 exhaustive checks and 10,000 seed-73074 cases pass. All 134
+  focused cases/checks and inherited ownership lifecycle tests pass. Actual
+  unsupported C/MXCSR rounding, FTZ/DAZ, negative/nonfinite padding and envelope
+  overflow use exhaustive fallback; fast-math and representation rejection pass.
+- Clean source/symbol audit passes; only TextWrapper.cpp and added ScanBound.h
+  differ from the verified ownership baseline. Both patches apply with zero fuzz
+  and reproduce built sources byte-for-byte.
+- Historical gates: 751 disabled-equivalence fixtures / 775 blocks, 775 scan blocks,
+  14,272 vertical cells and 2,901 visual fragments pass. Containment tolerance stays
+  0.05; the same 95 near-edge snap observations remain.
+- Work reduction is retained on padded long-span (3,842,986 → 16,852 evaluations)
+  and spans-32 (3,346,678 → 16,468), with maximum paragraph scratch payload 524,320
+  bytes. Across retained operations: 60 padded guard-block visits, 45,220,272 cheap
+  endpoint visits, 15,853,892 trimming subtractions and 45,213,218 suffix comparisons.
+  Guard blocks perform platform checks, one span-padding pass and envelope checks.
+- Harness/recovery/supervisor/ownership/runtime Python regressions: 40 pass and one
+  optional prior-schema attribution test is skipped. Preparation v1 failed its
+  diagnostic-removal audit; v2 exposed NaN JSON self-inequality in the new
+  nonfinite-padding test; v3 had a test-message type error. All remain terminal,
+  preserved separately. V4 checks exact serialized nonfinite geometry, matching
+  the trace contract; no scanner algorithm correction or alternate optimization
+  was substituted.
+
+Completed-run resume, repository lightweight checks, whitespace validation and
+verified archive details are recorded in the linked evidence. Runtime effect is
+unmeasured and requires a later approved plan. No merge or publication was done.
+
+## Candidate-scan runtime study — terminal outcome, 2026-11-06
+
+The supplied-plan implementation request approved CR1–CR5 / CR-T1–CR-T5 before
+coding. The sibling runtime harness, fixtures, fixed schedule, fresh uninstrumented
+builds, audits, reporting and tests are implemented. **Retention is not established.**
+
+48 historical-fixture correctness processes / 192 operations match paired and
+archived exact geometry, glyphs, slices, mappings and shaping. Process 49, the
+exhaustive small-prose-64 zero-padding baseline, exits 2 with `shaping invariant
+failed`. The initial-generation assertion assumes every paragraph shapes; source
+inspection shows identical metadata-free paragraphs can restore from shared
+ParagraphCache without incrementing that generation. The aborted output does not
+identify the exact triggering paragraph/delta. No runtime or fixture adjustment,
+retry or additional samples followed. Thirty-nine correctness and all 1,760 timing
+processes remain unlaunched. Benefit, regression and all performance gates are
+unevaluated; the report lists every incomplete cell without estimates.
+
+Archived proof/cutoff hashes and live input identities pass. Independent historical
+boundary/extent gates pass at unchanged tolerances (751/775 disabled fixtures/blocks,
+775 scan blocks, 14,272 vertical cells, 2,901 fragments, 0.05 tolerance and 95 snap
+observations). Ten new tests and 40 existing tooling tests pass, with one optional
+historical attribution skip. Terminal resume rejects under fatal process-launch
+sentinels; completed-run resume and full validator are unavailable because no
+completed run exists. Separate journals, raw failure, reports, sources and hashes
+are retained in [runtime evidence](evidence/candidate-scan-runtime/README.md).
+Repository lightweight checks, whitespace and full archive readback are recorded
+with that evidence. No production/API/integration, ownership, merge or publication
+change was made.

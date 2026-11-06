@@ -1,0 +1,2977 @@
+{
+  "seed": 73073,
+  "resamples": 10000,
+  "interval": "descriptive paired percentile 95%",
+  "difference": "optimized minus baseline (signed absolute nanoseconds)",
+  "ratio": "baseline / optimized",
+  "cells": [
+    {
+      "case": "prose-480-4096",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3698108.5,
+      "optimizedMedianNs": 3735630.0,
+      "medianDifferenceNs": -691.0,
+      "medianRatio": 1.0002002572907056,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3644235.0,
+          3811266.0
+        ],
+        "optimizedMedianNs": [
+          3717636.0,
+          3834056.0
+        ],
+        "medianDifferenceNs": [
+          -85222.0,
+          217876.5
+        ],
+        "medianRatio": [
+          0.9436739132408138,
+          1.0228719789675056
+        ]
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 99018.0,
+      "optimizedMedianNs": 97612.5,
+      "medianDifferenceNs": -709.5,
+      "medianRatio": 1.0072480425698809,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          96829.0,
+          104845.0
+        ],
+        "optimizedMedianNs": [
+          96266.5,
+          99137.5
+        ],
+        "medianDifferenceNs": [
+          -5081.5,
+          1884.5
+        ],
+        "medianRatio": [
+          0.9807875380777424,
+          1.0526173765252025
+        ]
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 125.5,
+      "optimizedMedianNs": 115.5,
+      "medianDifferenceNs": -2.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          105.0,
+          139.0
+        ],
+        "optimizedMedianNs": [
+          98.0,
+          125.5
+        ],
+        "medianDifferenceNs": [
+          -36.0,
+          11.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 0,
+      "baselineMedianNs": null,
+      "optimizedMedianNs": null,
+      "medianDifferenceNs": null,
+      "medianRatio": null,
+      "timerLimited": false,
+      "intervals95": null
+    },
+    {
+      "case": "prose-480-4096",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3666575.5,
+      "optimizedMedianNs": 3718839.0,
+      "medianDifferenceNs": 52001.5,
+      "medianRatio": 0.9859150016728998,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3633538.5,
+          3735596.0
+        ],
+        "optimizedMedianNs": [
+          3655216.0,
+          3797101.5
+        ],
+        "medianDifferenceNs": [
+          10734.5,
+          136877.5
+        ],
+        "medianRatio": [
+          0.9641066143139132,
+          0.9969782409952921
+        ]
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 99007.0,
+      "optimizedMedianNs": 99585.5,
+      "medianDifferenceNs": 1770.0,
+      "medianRatio": 0.9822565898258517,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          97435.0,
+          102798.0
+        ],
+        "optimizedMedianNs": [
+          96285.0,
+          102312.0
+        ],
+        "medianDifferenceNs": [
+          -4659.5,
+          4321.0
+        ],
+        "medianRatio": [
+          0.9581298451276428,
+          1.048203483445422
+        ]
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 114.0,
+      "optimizedMedianNs": 101.5,
+      "medianDifferenceNs": 1.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          103.0,
+          123.5
+        ],
+        "optimizedMedianNs": [
+          95.0,
+          127.0
+        ],
+        "medianDifferenceNs": [
+          -13.0,
+          14.5
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 0,
+      "baselineMedianNs": null,
+      "optimizedMedianNs": null,
+      "medianDifferenceNs": null,
+      "medianRatio": null,
+      "timerLimited": false,
+      "intervals95": null
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1625435.5,
+      "optimizedMedianNs": 1638955.0,
+      "medianDifferenceNs": 4543.0,
+      "medianRatio": 0.9972008434557103,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1614996.0,
+          1655112.5
+        ],
+        "optimizedMedianNs": [
+          1620391.0,
+          1762041.5
+        ],
+        "medianDifferenceNs": [
+          -24549.0,
+          141280.5
+        ],
+        "medianRatio": [
+          0.9242028071277248,
+          1.0153852324580837
+        ]
+      }
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 34232.0,
+      "optimizedMedianNs": 32316.0,
+      "medianDifferenceNs": -2037.5,
+      "medianRatio": 1.0634169848379846,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          33556.0,
+          34561.0
+        ],
+        "optimizedMedianNs": [
+          31535.0,
+          33716.0
+        ],
+        "medianDifferenceNs": [
+          -2332.0,
+          -574.5
+        ],
+        "medianRatio": [
+          1.0181571919106414,
+          1.0757437962842666
+        ]
+      }
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 117.0,
+      "optimizedMedianNs": 121.5,
+      "medianDifferenceNs": 8.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          106.0,
+          134.0
+        ],
+        "optimizedMedianNs": [
+          115.0,
+          149.0
+        ],
+        "medianDifferenceNs": [
+          -4.5,
+          25.5
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 428922.5,
+      "optimizedMedianNs": 432101.5,
+      "medianDifferenceNs": 1317.5,
+      "medianRatio": 0.996976729960263,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          425581.0,
+          446159.5
+        ],
+        "optimizedMedianNs": [
+          424619.0,
+          477695.0
+        ],
+        "medianDifferenceNs": [
+          -7114.0,
+          7827.0
+        ],
+        "medianRatio": [
+          0.9819786803247819,
+          1.0167538428567728
+        ]
+      }
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 20212661.0,
+      "optimizedMedianNs": 11231881.5,
+      "medianDifferenceNs": -8993714.5,
+      "medianRatio": 1.7981251194302525,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          20036615.5,
+          20485802.5
+        ],
+        "optimizedMedianNs": [
+          10990444.0,
+          11377977.0
+        ],
+        "medianDifferenceNs": [
+          -9390730.0,
+          -8838767.5
+        ],
+        "medianRatio": [
+          1.7731559387412845,
+          1.8358755053389082
+        ]
+      }
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 18650448.0,
+      "optimizedMedianNs": 9582936.0,
+      "medianDifferenceNs": -9021630.5,
+      "medianRatio": 1.941700201517106,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          18497481.0,
+          18961960.5
+        ],
+        "optimizedMedianNs": [
+          9493172.0,
+          9691714.5
+        ],
+        "medianDifferenceNs": [
+          -9384915.0,
+          -8929742.0
+        ],
+        "medianRatio": [
+          1.925075081988323,
+          1.9572932770380307
+        ]
+      }
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 133.5,
+      "optimizedMedianNs": 138.0,
+      "medianDifferenceNs": -5.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          119.5,
+          170.0
+        ],
+        "optimizedMedianNs": [
+          116.0,
+          143.0
+        ],
+        "medianDifferenceNs": [
+          -28.0,
+          14.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-480-1024",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 18877984.0,
+      "optimizedMedianNs": 9842582.0,
+      "medianDifferenceNs": -9008719.0,
+      "medianRatio": 1.9120675523535486,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          18739064.0,
+          18950175.0
+        ],
+        "optimizedMedianNs": [
+          9666340.0,
+          9924124.0
+        ],
+        "medianDifferenceNs": [
+          -9233175.0,
+          -8953477.0
+        ],
+        "medianRatio": [
+          1.902490853798838,
+          1.9383786299863228
+        ]
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3375306.0,
+      "optimizedMedianNs": 3393638.5,
+      "medianDifferenceNs": 15627.0,
+      "medianRatio": 0.9961001911314205,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3315460.5,
+          3567371.0
+        ],
+        "optimizedMedianNs": [
+          3361832.5,
+          3473379.0
+        ],
+        "medianDifferenceNs": [
+          -55321.0,
+          58268.0
+        ],
+        "medianRatio": [
+          0.982729388182226,
+          1.0163266335138392
+        ]
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 206782.0,
+      "optimizedMedianNs": 180131.5,
+      "medianDifferenceNs": -26361.5,
+      "medianRatio": 1.145434842323993,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          204603.5,
+          210694.0
+        ],
+        "optimizedMedianNs": [
+          178893.5,
+          185178.0
+        ],
+        "medianDifferenceNs": [
+          -30635.0,
+          -23528.5
+        ],
+        "medianRatio": [
+          1.130885847562049,
+          1.1742476381154978
+        ]
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 101.5,
+      "optimizedMedianNs": 115.0,
+      "medianDifferenceNs": 14.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          87.0,
+          115.0
+        ],
+        "optimizedMedianNs": [
+          100.0,
+          129.0
+        ],
+        "medianDifferenceNs": [
+          -11.0,
+          33.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1875798.0,
+      "optimizedMedianNs": 1902599.5,
+      "medianDifferenceNs": 44458.0,
+      "medianRatio": 0.9799141943617949,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1818505.0,
+          1947525.0
+        ],
+        "optimizedMedianNs": [
+          1886559.0,
+          1932079.0
+        ],
+        "medianDifferenceNs": [
+          20384.0,
+          70322.0
+        ],
+        "medianRatio": [
+          0.9640956001858274,
+          0.9893697798025817
+        ]
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2781422853.0,
+      "optimizedMedianNs": 436502156.5,
+      "medianDifferenceNs": -2344191118.5,
+      "medianRatio": 6.367648558844447,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          2759196668.0,
+          2830470253.0
+        ],
+        "optimizedMedianNs": [
+          432028519.0,
+          460596763.5
+        ],
+        "medianDifferenceNs": [
+          -2392170051.0,
+          -2324660949.0
+        ],
+        "medianRatio": [
+          6.055364757831425,
+          6.439306948674744
+        ]
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2768925659.5,
+      "optimizedMedianNs": 429668819.5,
+      "medianDifferenceNs": -2336951867.5,
+      "medianRatio": 6.442217749626158,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          2752277365.5,
+          2822262827.0
+        ],
+        "optimizedMedianNs": [
+          425946769.0,
+          437996722.5
+        ],
+        "medianDifferenceNs": [
+          -2392618057.0,
+          -2326160156.0
+        ],
+        "medianRatio": [
+          6.4062707387217825,
+          6.492363864907172
+        ]
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 251.0,
+      "optimizedMedianNs": 229.0,
+      "medianDifferenceNs": -9.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          219.5,
+          286.0
+        ],
+        "optimizedMedianNs": [
+          210.5,
+          261.0
+        ],
+        "medianDifferenceNs": [
+          -49.0,
+          8.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-480-4096",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2766864127.5,
+      "optimizedMedianNs": 431271558.5,
+      "medianDifferenceNs": -2337344109.5,
+      "medianRatio": 6.428026584387608,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          2755865295.0,
+          2838992002.0
+        ],
+        "optimizedMedianNs": [
+          427861321.5,
+          439860330.0
+        ],
+        "medianDifferenceNs": [
+          -2396693975.0,
+          -2327960778.5
+        ],
+        "medianRatio": [
+          6.397006085371574,
+          6.479245969462912
+        ]
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3572332.0,
+      "optimizedMedianNs": 3506007.5,
+      "medianDifferenceNs": -89124.0,
+      "medianRatio": 1.024021148733604,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          3532704.0,
+          3697682.0
+        ],
+        "optimizedMedianNs": [
+          3441155.0,
+          3688118.5
+        ],
+        "medianDifferenceNs": [
+          -124653.5,
+          -46440.0
+        ],
+        "medianRatio": [
+          1.010587362641981,
+          1.0359193462918876
+        ]
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 358913.5,
+      "optimizedMedianNs": 301037.5,
+      "medianDifferenceNs": -59703.5,
+      "medianRatio": 1.197519053167085,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          355567.0,
+          368289.0
+        ],
+        "optimizedMedianNs": [
+          296825.0,
+          323384.5
+        ],
+        "medianDifferenceNs": [
+          -67067.0,
+          -56275.0
+        ],
+        "medianRatio": [
+          1.1874168484086227,
+          1.2262376688166503
+        ]
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 118.5,
+      "optimizedMedianNs": 112.5,
+      "medianDifferenceNs": -8.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          110.0,
+          129.0
+        ],
+        "optimizedMedianNs": [
+          98.0,
+          124.0
+        ],
+        "medianDifferenceNs": [
+          -14.0,
+          4.5
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2030610.5,
+      "optimizedMedianNs": 1997783.5,
+      "medianDifferenceNs": -22161.0,
+      "medianRatio": 1.0110603059532066,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          1986244.0,
+          2159794.0
+        ],
+        "optimizedMedianNs": [
+          1966718.0,
+          2125959.0
+        ],
+        "medianDifferenceNs": [
+          -72671.0,
+          19877.5
+        ],
+        "medianRatio": [
+          0.9908112955201676,
+          1.0288681784579037
+        ]
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5523815868.5,
+      "optimizedMedianNs": 851942514.0,
+      "medianDifferenceNs": -4677412213.0,
+      "medianRatio": 6.506693995651842,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          5482568349.5,
+          5640873067.0
+        ],
+        "optimizedMedianNs": [
+          844325537.0,
+          870902084.0
+        ],
+        "medianDifferenceNs": [
+          -4757725289.0,
+          -4635613864.0
+        ],
+        "medianRatio": [
+          6.450800190497726,
+          6.528908241815285
+        ]
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5504852659.0,
+      "optimizedMedianNs": 845923870.0,
+      "medianDifferenceNs": -4661174253.0,
+      "medianRatio": 6.519661549192947,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          5481396776.0,
+          5587120552.0
+        ],
+        "optimizedMedianNs": [
+          839699884.0,
+          868220445.0
+        ],
+        "medianDifferenceNs": [
+          -4737377310.0,
+          -4640877560.0
+        ],
+        "medianRatio": [
+          6.465586289709741,
+          6.562030492543067
+        ]
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 233.5,
+      "optimizedMedianNs": 205.5,
+      "medianDifferenceNs": -41.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          219.0,
+          286.0
+        ],
+        "optimizedMedianNs": [
+          177.0,
+          235.0
+        ],
+        "medianDifferenceNs": [
+          -83.0,
+          8.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5509457483.0,
+      "optimizedMedianNs": 855549926.5,
+      "medianDifferenceNs": -4660312992.0,
+      "medianRatio": 6.501236082603205,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          5487297985.0,
+          5594361981.0
+        ],
+        "optimizedMedianNs": [
+          844343987.0,
+          862024713.5
+        ],
+        "medianDifferenceNs": [
+          -4730300527.0,
+          -4638516581.0
+        ],
+        "medianRatio": [
+          6.433262162831606,
+          6.5357451336990495
+        ]
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3259151.0,
+      "optimizedMedianNs": 3283365.0,
+      "medianDifferenceNs": 51773.0,
+      "medianRatio": 0.9842598140953198,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3206449.0,
+          3370206.0
+        ],
+        "optimizedMedianNs": [
+          3219823.0,
+          3478218.0
+        ],
+        "medianDifferenceNs": [
+          -3875.0,
+          173066.0
+        ],
+        "medianRatio": [
+          0.9498360874316306,
+          1.001166027247781
+        ]
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 141163.5,
+      "optimizedMedianNs": 127555.5,
+      "medianDifferenceNs": -13532.0,
+      "medianRatio": 1.1069885555451355,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          138388.0,
+          144359.0
+        ],
+        "optimizedMedianNs": [
+          124457.0,
+          152975.5
+        ],
+        "medianDifferenceNs": [
+          -15224.0,
+          2825.0
+        ],
+        "medianRatio": [
+          0.998524833683043,
+          1.1194317439380237
+        ]
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 109.0,
+      "optimizedMedianNs": 129.0,
+      "medianDifferenceNs": 12.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          89.0,
+          114.0
+        ],
+        "optimizedMedianNs": [
+          100.5,
+          144.0
+        ],
+        "medianDifferenceNs": [
+          -5.0,
+          45.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1771514.0,
+      "optimizedMedianNs": 1794655.5,
+      "medianDifferenceNs": 42672.5,
+      "medianRatio": 0.97609863099916,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1745716.0,
+          1796140.0
+        ],
+        "optimizedMedianNs": [
+          1779759.0,
+          1903771.5
+        ],
+        "medianDifferenceNs": [
+          2421.0,
+          81228.0
+        ],
+        "medianRatio": [
+          0.9552393421695298,
+          0.9986349073530059
+        ]
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1396825832.0,
+      "optimizedMedianNs": 219974468.0,
+      "medianDifferenceNs": -1177696354.5,
+      "medianRatio": 6.406581340729926,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1389147771.0,
+          1428526512.0
+        ],
+        "optimizedMedianNs": [
+          216703527.5,
+          222111922.0
+        ],
+        "medianDifferenceNs": [
+          -1198425333.5,
+          -1172959629.0
+        ],
+        "medianRatio": [
+          6.3368801014997995,
+          6.448760805626792
+        ]
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1299137102.5,
+      "optimizedMedianNs": 199148098.0,
+      "medianDifferenceNs": -1096934348.0,
+      "medianRatio": 6.542816034346485,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1288828100.0,
+          1321508334.5
+        ],
+        "optimizedMedianNs": [
+          196177880.0,
+          201407967.5
+        ],
+        "medianDifferenceNs": [
+          -1106070879.0,
+          -1088932401.0
+        ],
+        "medianRatio": [
+          6.482015127807912,
+          6.5897432827731475
+        ]
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 241.0,
+      "optimizedMedianNs": 191.0,
+      "medianDifferenceNs": -56.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          224.5,
+          288.0
+        ],
+        "optimizedMedianNs": [
+          176.0,
+          349.0
+        ],
+        "medianDifferenceNs": [
+          -97.5,
+          83.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "dense-960-4096",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1305261894.5,
+      "optimizedMedianNs": 202583702.0,
+      "medianDifferenceNs": -1096148626.0,
+      "medianRatio": 6.4065487657866775,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1294945071.0,
+          1318520679.0
+        ],
+        "optimizedMedianNs": [
+          200838178.5,
+          220036698.5
+        ],
+        "medianDifferenceNs": [
+          -1104548752.5,
+          -1084675642.0
+        ],
+        "medianRatio": [
+          5.95624738039073,
+          6.514557749715094
+        ]
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 7273995.0,
+      "optimizedMedianNs": 7354081.5,
+      "medianDifferenceNs": 58837.0,
+      "medianRatio": 0.9919045773093085,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          7097834.0,
+          10726607.5
+        ],
+        "optimizedMedianNs": [
+          7252936.0,
+          8244079.0
+        ],
+        "medianDifferenceNs": [
+          -129362.0,
+          229683.0
+        ],
+        "medianRatio": [
+          0.9684364800703601,
+          1.0114415443411802
+        ]
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 170313.5,
+      "optimizedMedianNs": 154258.5,
+      "medianDifferenceNs": -17904.0,
+      "medianRatio": 1.1128800261040968,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          169756.0,
+          254839.0
+        ],
+        "optimizedMedianNs": [
+          151493.0,
+          228228.0
+        ],
+        "medianDifferenceNs": [
+          -21912.5,
+          -15340.0
+        ],
+        "medianRatio": [
+          1.1017032307682109,
+          1.1234433791609575
+        ]
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 126.0,
+      "optimizedMedianNs": 122.0,
+      "medianDifferenceNs": -12.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          97.0,
+          180.5
+        ],
+        "optimizedMedianNs": [
+          107.0,
+          163.5
+        ],
+        "medianDifferenceNs": [
+          -39.0,
+          41.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 4710542.5,
+      "optimizedMedianNs": 4970365.5,
+      "medianDifferenceNs": 177536.0,
+      "medianRatio": 0.9710661564617347,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          4630587.0,
+          7367714.0
+        ],
+        "optimizedMedianNs": [
+          4821402.5,
+          5317179.5
+        ],
+        "medianDifferenceNs": [
+          27507.0,
+          376529.0
+        ],
+        "medianRatio": [
+          0.9328303217099545,
+          0.9945340570622407
+        ]
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5933774056.0,
+      "optimizedMedianNs": 927050093.5,
+      "medianDifferenceNs": -4996561383.5,
+      "medianRatio": 6.425357735804667,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          5899465445.0,
+          6004034420.5
+        ],
+        "optimizedMedianNs": [
+          911295863.0,
+          955742215.0
+        ],
+        "medianDifferenceNs": [
+          -5057358854.5,
+          -4975316211.0
+        ],
+        "medianRatio": [
+          6.30951237219529,
+          6.5041228365405335
+        ]
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5925526492.0,
+      "optimizedMedianNs": 912136525.5,
+      "medianDifferenceNs": -5008764705.5,
+      "medianRatio": 6.491207683811646,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          5889683026.0,
+          5974387489.0
+        ],
+        "optimizedMedianNs": [
+          904372835.0,
+          949869330.0
+        ],
+        "medianDifferenceNs": [
+          -5044605428.5,
+          -4983742455.0
+        ],
+        "medianRatio": [
+          6.294992004774887,
+          6.522741924839062
+        ]
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 231.5,
+      "optimizedMedianNs": 247.0,
+      "medianDifferenceNs": 2.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          212.0,
+          256.0
+        ],
+        "optimizedMedianNs": [
+          220.0,
+          378.0
+        ],
+        "medianDifferenceNs": [
+          -27.0,
+          68.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "mixed-480-4096",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5947839757.5,
+      "optimizedMedianNs": 933610260.5,
+      "medianDifferenceNs": -5029466081.5,
+      "medianRatio": 6.388461022922077,
+      "timerLimited": false,
+      "ratioThresholdNs": 1300,
+      "intervals95": {
+        "baselineMedianNs": [
+          5932582546.0,
+          5985226967.0
+        ],
+        "optimizedMedianNs": [
+          917443863.5,
+          949400793.0
+        ],
+        "medianDifferenceNs": [
+          -5056295279.0,
+          -4996584960.0
+        ],
+        "medianRatio": [
+          6.309338747476015,
+          6.475105866702646
+        ]
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2906250.0,
+      "optimizedMedianNs": 3029995.0,
+      "medianDifferenceNs": 42616.0,
+      "medianRatio": 0.9857658927941411,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          2884728.5,
+          2992427.5
+        ],
+        "optimizedMedianNs": [
+          2932812.0,
+          3338202.5
+        ],
+        "medianDifferenceNs": [
+          -8391.0,
+          180467.0
+        ],
+        "medianRatio": [
+          0.9405514931386184,
+          1.0002445544139777
+        ]
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 142656.5,
+      "optimizedMedianNs": 128562.0,
+      "medianDifferenceNs": -14295.0,
+      "medianRatio": 1.1115779888384547,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          142349.0,
+          144464.5
+        ],
+        "optimizedMedianNs": [
+          127090.5,
+          134476.0
+        ],
+        "medianDifferenceNs": [
+          -16886.0,
+          -8139.0
+        ],
+        "medianRatio": [
+          1.0606437672304598,
+          1.1308233665346306
+        ]
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 113.0,
+      "optimizedMedianNs": 110.5,
+      "medianDifferenceNs": -1.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          102.0,
+          122.5
+        ],
+        "optimizedMedianNs": [
+          103.5,
+          121.0
+        ],
+        "medianDifferenceNs": [
+          -12.0,
+          16.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1557752.0,
+      "optimizedMedianNs": 1614298.5,
+      "medianDifferenceNs": 52634.0,
+      "medianRatio": 0.9672025430306544,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1544847.5,
+          1575763.0
+        ],
+        "optimizedMedianNs": [
+          1581972.0,
+          1728693.5
+        ],
+        "medianDifferenceNs": [
+          11407.0,
+          157927.5
+        ],
+        "medianRatio": [
+          0.9100558667560941,
+          0.9927924155310572
+        ]
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1715274066.5,
+      "optimizedMedianNs": 303671130.5,
+      "medianDifferenceNs": -1408339152.5,
+      "medianRatio": 5.623203481948048,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1691670161.0,
+          1733499456.0
+        ],
+        "optimizedMedianNs": [
+          300258286.0,
+          307679363.0
+        ],
+        "medianDifferenceNs": [
+          -1428934886.0,
+          -1391559607.0
+        ],
+        "medianRatio": [
+          5.58795518523166,
+          5.66964134985667
+        ]
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1714817327.5,
+      "optimizedMedianNs": 303768457.5,
+      "medianDifferenceNs": -1402722613.5,
+      "medianRatio": 5.617608957708768,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1689006963.0,
+          1730820234.0
+        ],
+        "optimizedMedianNs": [
+          300111486.5,
+          309186173.0
+        ],
+        "medianDifferenceNs": [
+          -1423288519.0,
+          -1383863076.0
+        ],
+        "medianRatio": [
+          5.589387656600937,
+          5.668028415359804
+        ]
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 231.0,
+      "optimizedMedianNs": 247.5,
+      "medianDifferenceNs": -27.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          203.0,
+          265.5
+        ],
+        "optimizedMedianNs": [
+          184.0,
+          277.5
+        ],
+        "medianDifferenceNs": [
+          -47.0,
+          52.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "objects-480-4096",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 1709045477.5,
+      "optimizedMedianNs": 306888988.5,
+      "medianDifferenceNs": -1397621736.0,
+      "medianRatio": 5.567487846054686,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          1699975192.0,
+          1732815142.0
+        ],
+        "optimizedMedianNs": [
+          304152395.0,
+          322750949.5
+        ],
+        "medianDifferenceNs": [
+          -1406717874.5,
+          -1388967009.0
+        ],
+        "medianRatio": [
+          5.346441221259385,
+          5.608531335804802
+        ]
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 4282227.0,
+      "optimizedMedianNs": 4271269.0,
+      "medianDifferenceNs": -70335.5,
+      "medianRatio": 1.017052174370757,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          4221714.5,
+          4493858.0
+        ],
+        "optimizedMedianNs": [
+          4101099.0,
+          4630427.0
+        ],
+        "medianDifferenceNs": [
+          -214125.0,
+          208746.0
+        ],
+        "medianRatio": [
+          0.9549510609359728,
+          1.0492777426327287
+        ]
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 402242.0,
+      "optimizedMedianNs": 389381.5,
+      "medianDifferenceNs": -2842.0,
+      "medianRatio": 1.0072055286434183,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          386527.0,
+          405442.0
+        ],
+        "optimizedMedianNs": [
+          381570.5,
+          426140.0
+        ],
+        "medianDifferenceNs": [
+          -15096.0,
+          28614.5
+        ],
+        "medianRatio": [
+          0.937569388864741,
+          1.0384283477796021
+        ]
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 87.0,
+      "optimizedMedianNs": 101.5,
+      "medianDifferenceNs": 14.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          84.0,
+          106.0
+        ],
+        "optimizedMedianNs": [
+          92.0,
+          132.0
+        ],
+        "medianDifferenceNs": [
+          5.0,
+          26.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3193954.0,
+      "optimizedMedianNs": 3224268.0,
+      "medianDifferenceNs": -71342.0,
+      "medianRatio": 1.022369266708401,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3144835.0,
+          3470693.0
+        ],
+        "optimizedMedianNs": [
+          3137936.0,
+          3348418.5
+        ],
+        "medianDifferenceNs": [
+          -191686.0,
+          33747.0
+        ],
+        "medianRatio": [
+          0.989335048304675,
+          1.0589793640224834
+        ]
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 342047210.5,
+      "optimizedMedianNs": 332738168.0,
+      "medianDifferenceNs": -12881142.0,
+      "medianRatio": 1.038889910052553,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          338309896.0,
+          349080801.0
+        ],
+        "optimizedMedianNs": [
+          329178228.0,
+          335113750.5
+        ],
+        "medianDifferenceNs": [
+          -15700540.0,
+          -7798325.0
+        ],
+        "medianRatio": [
+          1.0237397740118626,
+          1.0473139866688115
+        ]
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 327923965.5,
+      "optimizedMedianNs": 320778278.0,
+      "medianDifferenceNs": -9255723.5,
+      "medianRatio": 1.0293844590497105,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          324620130.0,
+          334813212.0
+        ],
+        "optimizedMedianNs": [
+          315443332.0,
+          342058195.5
+        ],
+        "medianDifferenceNs": [
+          -13422873.5,
+          14760001.5
+        ],
+        "medianRatio": [
+          0.9609082099158694,
+          1.0420956489354851
+        ]
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 204.0,
+      "optimizedMedianNs": 212.5,
+      "medianDifferenceNs": 5.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          177.0,
+          229.0
+        ],
+        "optimizedMedianNs": [
+          186.0,
+          341.0
+        ],
+        "medianDifferenceNs": [
+          -22.0,
+          105.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "long-480-16384",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 332344686.5,
+      "optimizedMedianNs": 322582203.5,
+      "medianDifferenceNs": -10075439.5,
+      "medianRatio": 1.0309601112808768,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          328894455.0,
+          338455253.0
+        ],
+        "optimizedMedianNs": [
+          318349417.0,
+          326674054.0
+        ],
+        "medianDifferenceNs": [
+          -15651732.0,
+          -5160634.5
+        ],
+        "medianRatio": [
+          1.0161592160562112,
+          1.049052782103373
+        ]
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5011704.0,
+      "optimizedMedianNs": 4998714.5,
+      "medianDifferenceNs": -71369.0,
+      "medianRatio": 1.014850038947401,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          4811634.0,
+          5997192.5
+        ],
+        "optimizedMedianNs": [
+          4801466.0,
+          5350831.0
+        ],
+        "medianDifferenceNs": [
+          -276031.0,
+          208589.0
+        ],
+        "medianRatio": [
+          0.9620279615597707,
+          1.0578747668311874
+        ]
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 388853.5,
+      "optimizedMedianNs": 390617.0,
+      "medianDifferenceNs": 4916.5,
+      "medianRatio": 0.9872194355697673,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          382605.0,
+          457286.5
+        ],
+        "optimizedMedianNs": [
+          377207.5,
+          427380.0
+        ],
+        "medianDifferenceNs": [
+          -6150.5,
+          19907.5
+        ],
+        "medianRatio": [
+          0.963149442492998,
+          1.0168356740944593
+        ]
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 95.5,
+      "optimizedMedianNs": 106.5,
+      "medianDifferenceNs": 9.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          89.0,
+          117.0
+        ],
+        "optimizedMedianNs": [
+          93.0,
+          122.5
+        ],
+        "medianDifferenceNs": [
+          0.0,
+          29.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3160249.0,
+      "optimizedMedianNs": 3191099.5,
+      "medianDifferenceNs": 68825.5,
+      "medianRatio": 0.9782773115804388,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3098660.0,
+          3434102.0
+        ],
+        "optimizedMedianNs": [
+          3117106.0,
+          3311854.5
+        ],
+        "medianDifferenceNs": [
+          -93084.5,
+          165274.0
+        ],
+        "medianRatio": [
+          0.9498030530497849,
+          1.031066926955907
+        ]
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 416826889.5,
+      "optimizedMedianNs": 407300569.5,
+      "medianDifferenceNs": -8173524.5,
+      "medianRatio": 1.020364058039368,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          411513693.5,
+          427601679.0
+        ],
+        "optimizedMedianNs": [
+          401610804.0,
+          411122001.0
+        ],
+        "medianDifferenceNs": [
+          -14523772.0,
+          -6525504.0
+        ],
+        "medianRatio": [
+          1.0132237635628412,
+          1.0357633922032208
+        ]
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 408033852.0,
+      "optimizedMedianNs": 399108120.5,
+      "medianDifferenceNs": -9116828.5,
+      "medianRatio": 1.0230603108022365,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          404410907.0,
+          421969941.0
+        ],
+        "optimizedMedianNs": [
+          395384501.5,
+          401166075.0
+        ],
+        "medianDifferenceNs": [
+          -17643976.0,
+          -8236028.0
+        ],
+        "medianRatio": [
+          1.0205265589791284,
+          1.043593069110086
+        ]
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 198.0,
+      "optimizedMedianNs": 208.0,
+      "medianDifferenceNs": 9.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          183.5,
+          222.0
+        ],
+        "optimizedMedianNs": [
+          188.0,
+          253.0
+        ],
+        "medianDifferenceNs": [
+          -13.5,
+          33.5
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "spans-480-1",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 412232252.5,
+      "optimizedMedianNs": 402959442.0,
+      "medianDifferenceNs": -11305334.5,
+      "medianRatio": 1.0283043733909922,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          407145863.0,
+          421891172.5
+        ],
+        "optimizedMedianNs": [
+          397972462.0,
+          409558796.0
+        ],
+        "medianDifferenceNs": [
+          -21526126.0,
+          -4747793.0
+        ],
+        "medianRatio": [
+          1.0117249621247015,
+          1.0420622907511605
+        ]
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 4958297.5,
+      "optimizedMedianNs": 5072361.5,
+      "medianDifferenceNs": 156171.0,
+      "medianRatio": 0.9692182561518569,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          4914462.0,
+          5172965.0
+        ],
+        "optimizedMedianNs": [
+          4923702.0,
+          5297448.0
+        ],
+        "medianDifferenceNs": [
+          -129003.0,
+          356649.0
+        ],
+        "medianRatio": [
+          0.9332896627032585,
+          1.0267206507922075
+        ]
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 407107.5,
+      "optimizedMedianNs": 400842.5,
+      "medianDifferenceNs": -3858.5,
+      "medianRatio": 1.0095142679810158,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          398191.5,
+          444476.0
+        ],
+        "optimizedMedianNs": [
+          388947.0,
+          442267.5
+        ],
+        "medianDifferenceNs": [
+          -13775.0,
+          14507.0
+        ],
+        "medianRatio": [
+          0.9664327290369574,
+          1.0349571378542026
+        ]
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 106.0,
+      "optimizedMedianNs": 112.0,
+      "medianDifferenceNs": -4.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          96.5,
+          128.0
+        ],
+        "optimizedMedianNs": [
+          91.0,
+          131.0
+        ],
+        "medianDifferenceNs": [
+          -14.0,
+          28.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3092638.5,
+      "optimizedMedianNs": 3050313.5,
+      "medianDifferenceNs": 1630.0,
+      "medianRatio": 0.9994724689386905,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3040635.5,
+          3263048.0
+        ],
+        "optimizedMedianNs": [
+          3021293.0,
+          3196804.0
+        ],
+        "medianDifferenceNs": [
+          -153352.5,
+          101439.0
+        ],
+        "medianRatio": [
+          0.9675730468753746,
+          1.050541277165295
+        ]
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 875089581.5,
+      "optimizedMedianNs": 833392806.0,
+      "medianDifferenceNs": -42194957.0,
+      "medianRatio": 1.0509038039633194,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          871378410.5,
+          888765914.0
+        ],
+        "optimizedMedianNs": [
+          828904999.0,
+          854468097.0
+        ],
+        "medianDifferenceNs": [
+          -46996903.5,
+          -36524384.0
+        ],
+        "medianRatio": [
+          1.043981023796617,
+          1.0567587148595676
+        ]
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 860321972.0,
+      "optimizedMedianNs": 814412864.0,
+      "medianDifferenceNs": -41298022.0,
+      "medianRatio": 1.0492353263927163,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          850568863.0,
+          871628137.0
+        ],
+        "optimizedMedianNs": [
+          808544457.0,
+          831245000.0
+        ],
+        "medianDifferenceNs": [
+          -46005127.0,
+          -38674243.0
+        ],
+        "medianRatio": [
+          1.0477802003125798,
+          1.0566876178378624
+        ]
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 212.0,
+      "optimizedMedianNs": 207.0,
+      "medianDifferenceNs": -3.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          190.5,
+          241.0
+        ],
+        "optimizedMedianNs": [
+          146.5,
+          240.5
+        ],
+        "medianDifferenceNs": [
+          -38.5,
+          28.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "spans-480-8",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 864027410.0,
+      "optimizedMedianNs": 816129334.0,
+      "medianDifferenceNs": -43590765.0,
+      "medianRatio": 1.0532473252046124,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          855610279.0,
+          882429818.0
+        ],
+        "optimizedMedianNs": [
+          812214508.0,
+          829721016.5
+        ],
+        "medianDifferenceNs": [
+          -59509954.5,
+          -39322648.5
+        ],
+        "medianRatio": [
+          1.0473721600184978,
+          1.0697819034564549
+        ]
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 5273446.5,
+      "optimizedMedianNs": 5360692.0,
+      "medianDifferenceNs": 38930.0,
+      "medianRatio": 0.9929047986379258,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          5199774.0,
+          5464858.0
+        ],
+        "optimizedMedianNs": [
+          5207231.5,
+          5677683.0
+        ],
+        "medianDifferenceNs": [
+          -31408.5,
+          305131.0
+        ],
+        "medianRatio": [
+          0.9524425549107169,
+          1.0060270627080548
+        ]
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 460645.0,
+      "optimizedMedianNs": 437816.0,
+      "medianDifferenceNs": -22480.5,
+      "medianRatio": 1.0516414301370263,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          454896.0,
+          500538.0
+        ],
+        "optimizedMedianNs": [
+          429933.5,
+          472047.0
+        ],
+        "medianDifferenceNs": [
+          -30762.5,
+          -2627.0
+        ],
+        "medianRatio": [
+          1.0105638913491166,
+          1.0711418235970478
+        ]
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 99.0,
+      "optimizedMedianNs": 111.0,
+      "medianDifferenceNs": 5.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          89.0,
+          120.0
+        ],
+        "optimizedMedianNs": [
+          97.0,
+          126.0
+        ],
+        "medianDifferenceNs": [
+          -13.0,
+          37.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3410669.0,
+      "optimizedMedianNs": 3331347.0,
+      "medianDifferenceNs": -82407.5,
+      "medianRatio": 1.0247815255364587,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3318019.0,
+          3577644.0
+        ],
+        "optimizedMedianNs": [
+          3285336.0,
+          3568646.0
+        ],
+        "medianDifferenceNs": [
+          -224121.0,
+          79984.0
+        ],
+        "medianRatio": [
+          0.9765854925065904,
+          1.0578309870908706
+        ]
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2490433914.5,
+      "optimizedMedianNs": 1608190694.5,
+      "medianDifferenceNs": -851958554.0,
+      "medianRatio": 1.529141646856085,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          2429919608.0,
+          2510998485.5
+        ],
+        "optimizedMedianNs": [
+          1589157955.0,
+          1637326824.0
+        ],
+        "medianDifferenceNs": [
+          -891532772.0,
+          -837774684.5
+        ],
+        "medianRatio": [
+          1.5147922284200077,
+          1.5508490166276954
+        ]
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2413509520.5,
+      "optimizedMedianNs": 1574470750.0,
+      "medianDifferenceNs": -837689043.5,
+      "medianRatio": 1.5313030188016592,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          2381388894.5,
+          2461166662.0
+        ],
+        "optimizedMedianNs": [
+          1557605056.0,
+          1602943107.0
+        ],
+        "medianDifferenceNs": [
+          -864001482.0,
+          -822416144.0
+        ],
+        "medianRatio": [
+          1.5269870954096618,
+          1.5433068882192524
+        ]
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 209.5,
+      "optimizedMedianNs": 225.0,
+      "medianDifferenceNs": 5.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          203.0,
+          248.0
+        ],
+        "optimizedMedianNs": [
+          196.0,
+          284.0
+        ],
+        "medianDifferenceNs": [
+          -36.5,
+          20.5
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "spans-480-32",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2414965802.0,
+      "optimizedMedianNs": 1574176718.0,
+      "medianDifferenceNs": -815527275.0,
+      "medianRatio": 1.5208219168089765,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          2382174933.0,
+          2439441219.0
+        ],
+        "optimizedMedianNs": [
+          1562002335.0,
+          1624957882.0
+        ],
+        "medianDifferenceNs": [
+          -837875058.0,
+          -798206953.0
+        ],
+        "medianRatio": [
+          1.4912170105095683,
+          1.5361314001659065
+        ]
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "zero",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2266411.5,
+      "optimizedMedianNs": 2301066.0,
+      "medianDifferenceNs": 42216.5,
+      "medianRatio": 0.9822286317241229,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          2227781.0,
+          2312044.0
+        ],
+        "optimizedMedianNs": [
+          2243321.5,
+          2427306.0
+        ],
+        "medianDifferenceNs": [
+          -1884.0,
+          98300.0
+        ],
+        "medianRatio": [
+          0.9591658107881498,
+          1.0008155279288016
+        ]
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "zero",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 59485.0,
+      "optimizedMedianNs": 59240.0,
+      "medianDifferenceNs": -200.5,
+      "medianRatio": 1.003385708648248,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          57928.0,
+          61428.5
+        ],
+        "optimizedMedianNs": [
+          57696.0,
+          60969.0
+        ],
+        "medianDifferenceNs": [
+          -1054.5,
+          1192.0
+        ],
+        "medianRatio": [
+          0.9792193302069351,
+          1.0181095017687123
+        ]
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "zero",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 322.0,
+      "optimizedMedianNs": 315.5,
+      "medianDifferenceNs": -15.5,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          293.0,
+          341.0
+        ],
+        "optimizedMedianNs": [
+          294.0,
+          333.0
+        ],
+        "medianDifferenceNs": [
+          -33.0,
+          25.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "zero",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 891605.0,
+      "optimizedMedianNs": 924213.0,
+      "medianDifferenceNs": 12924.5,
+      "medianRatio": 0.9855991314306249,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          875824.0,
+          923681.5
+        ],
+        "optimizedMedianNs": [
+          893491.0,
+          985900.5
+        ],
+        "medianDifferenceNs": [
+          -9807.0,
+          53636.5
+        ],
+        "medianRatio": [
+          0.9440395514685173,
+          1.0093721058164944
+        ]
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "padded",
+      "operation": "initial",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 4751791.5,
+      "optimizedMedianNs": 4552945.0,
+      "medianDifferenceNs": -191902.5,
+      "medianRatio": 1.0422886230968575,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          4663231.5,
+          4870842.0
+        ],
+        "optimizedMedianNs": [
+          4485233.0,
+          4620132.0
+        ],
+        "medianDifferenceNs": [
+          -285938.0,
+          -126204.5
+        ],
+        "medianRatio": [
+          1.0275398624645844,
+          1.0636146263343709
+        ]
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "padded",
+      "operation": "reflow",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 2404833.5,
+      "optimizedMedianNs": 2283289.0,
+      "medianDifferenceNs": -127711.0,
+      "medianRatio": 1.0549200535163714,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          2377071.5,
+          2450087.0
+        ],
+        "optimizedMedianNs": [
+          2246099.0,
+          2322348.0
+        ],
+        "medianDifferenceNs": [
+          -136141.0,
+          -96488.0
+        ],
+        "medianRatio": [
+          1.0422917344222142,
+          1.0604243163967007
+        ]
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "padded",
+      "operation": "repeat",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 315.0,
+      "optimizedMedianNs": 332.0,
+      "medianDifferenceNs": 11.0,
+      "medianRatio": null,
+      "timerLimited": true,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          298.0,
+          325.5
+        ],
+        "optimizedMedianNs": [
+          322.5,
+          340.0
+        ],
+        "medianDifferenceNs": [
+          -7.0,
+          45.0
+        ],
+        "medianRatio": null
+      }
+    },
+    {
+      "case": "document-480-10",
+      "variant": "padded",
+      "operation": "metadata",
+      "incompleteSamples": [],
+      "completedPairs": 10,
+      "applicablePairs": 10,
+      "baselineMedianNs": 3365498.5,
+      "optimizedMedianNs": 3174123.5,
+      "medianDifferenceNs": -139502.5,
+      "medianRatio": 1.0430989677889064,
+      "timerLimited": false,
+      "ratioThresholdNs": 1200,
+      "intervals95": {
+        "baselineMedianNs": [
+          3278303.0,
+          3447244.0
+        ],
+        "optimizedMedianNs": [
+          3136399.0,
+          3249246.0
+        ],
+        "medianDifferenceNs": [
+          -234601.5,
+          -117324.0
+        ],
+        "medianRatio": [
+          1.0371696890010516,
+          1.0743359936814236
+        ]
+      }
+    }
+  ],
+  "processCount": 480,
+  "completedProcesses": 480,
+  "maximumSampledRssBytes": 50053120,
+  "maximumHighWaterRssBytes": 90292224
+}
