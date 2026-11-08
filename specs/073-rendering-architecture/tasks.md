@@ -327,3 +327,184 @@ and 1,760 timing processes unlaunched. Historical gates and tooling/light checks
 pass; fatal-sentinel terminal-resume rejection passes. Completed-run resume/full
 validator cannot execute. CR-T4 is intentionally incomplete; no retry is authorized
 by this plan. CR-T5 delivers verified failure evidence and a no-retention decision.
+
+## Cache-aware runtime continuation (CC1–CC4, approved 2026-11-07)
+
+The owner's request to implement “Resume rendering performance qualification”
+approves these requirements, design and tasks before implementation. Preserve the
+terminal CR study and all historical identities. Only the sibling
+`candidate-scan-continuation` harness changes; no renderer/public API changes,
+production integration, visual acceptance, fractional-DPR qualification, Vulkan
+shutdown diagnosis, merge or publication are authorized.
+
+- CC1: First reproduce small-prose initial layout in both arms with the existing
+  paragraph-cache checker. Record paragraph, phase, metadata presence, cache
+  events and shaping delta. Stop with the precise counterexample if reuse does
+  not explain the failure.
+- CC2: Metadata-bearing initial layouts shape once; metadata-free initial layouts
+  either shape once with a cache miss or restore with a hit. Width/repeat changes
+  never reshape. Metadata identity changes reshape affected paragraphs exactly
+  once and leave others unchanged. Enforce this in C++, Python and completed-run
+  validation with paragraph/phase/expected/observed errors. Correctness verifies
+  cache events and exact paired geometry/shaping plus historical comparisons.
+  Timing retains lifecycle assertions and matches correctness shaping signatures,
+  with no cache checker or geometry queries in timed processes.
+- CC3: After diagnostic/regression gates, predeclare the unchanged 22 fixtures,
+  patches, operation boundaries and 88 correctness then 1,760 timing schedule in
+  new build/evidence directories. Preserve serial alternating pairs, inherited
+  locking, 60-second deadline, 4 GiB sampled RSS and terminal failure/no retries.
+  Preserve CR5 thresholds and missing-sample/timer-limited rejection unchanged.
+- CC4: Cover misses/hits, repeated paragraphs, zero/padded metadata, reuse and
+  invalidation, invalid deltas and arm disagreement; run historical extent/geometry,
+  recovery/supervisor regressions, lightweight and whitespace checks. Validate
+  completed resume with fatal launch sentinels; archive and read back identities,
+  raw results, reports and hashes. Report only isolated cutoff qualification.
+
+- [x] CC-T1 (CC1): Diagnose both arms and retain evidence.
+- [x] CC-T2 (CC2): Correct and regression-test lifecycle validation.
+- [x] CC-T3 (CC3): Execute fresh fixed study after gates.
+- [x] CC-T4 (CC4): Validate, archive, read back and record outcome.
+
+## Candidate-scan diagnosis tasks (approved 2026-11-08)
+
+Approval: the owner's request to implement the supplied diagnosis plan authorizes
+CD1–CD4 requirements, design and these tasks before coding.
+
+- [x] CD-T1 (CD1): Preserve historical state; verify archives, members, schedule,
+  raw/fixture hashes and existing source/binary identities; stop on discrepancies.
+- [x] CD-T2 (CD2): Recompute unchanged report exactly in isolation; produce the
+  complete pair/cell matrix, failed-cell detail and descriptive order/drift context.
+- [x] CD-T3 (CD3): Inspect verified source paths and binary code; retain tool
+  versions/commands/disassembly and separate facts, hypotheses and uncertainties.
+- [x] CD-T4 (CD4): Test pairing/nulls/normalization/timer/extremes/grouping and
+  integrity rejection; check determinism, historical preservation, lightweight
+  checks and whitespace; archive/read back evidence and record recommendation.
+
+## Candidate-scan calibration tasks (CB1–CB4, approved 2026-11-08)
+
+The owner approved CB1–CB4 requirements, design and CB-T1–CB-T5 tasks via the
+supplied-plan implementation request on 2026-11-08. Path isolation, extra samples,
+production integration, commits, merges and publication remain outside approval.
+
+- [x] CB-T1 (CB1): Obtain explicit approval of these requirements, design and tasks;
+  record its scope. Verify historical archives, two fixtures and existing baseline
+  source/binary identities. Stop on discrepancies without rebuilding.
+- [x] CB-T2 (CB2–CB4): Implement the isolated A/B adapter and complete fixed schedule;
+  enforce identical executable/arguments, balanced randomized order, process bounds,
+  raw identity checks, lifecycle/geometry validation and immutable terminal journals.
+- [x] CB-T3 (CB3–CB4): Implement all-cell descriptive reporting, whole-pair bootstrap,
+  frozen target reference envelopes and explicit unresolved/resolved-control wording.
+  Test timer/null/normalization/extreme and boundary cases, schedule/pair identities,
+  missing/failed records, altered hashes and fatal-sentinel recovery before launch.
+- [x] CB-T4 (CB2–CB4): After integrity and tooling gates, run two correctness and
+  eighty timing processes exactly once. Stop terminally on failure. Preserve all
+  four operations and observations; no retries, tuning or additional samples.
+- [x] CB-T5 (CB4): Verify completeness, deterministic reporting and completed-run
+  no-launch resume. Run lightweight and whitespace checks; archive/read back
+  sources, input hashes, schedules, raw outputs, reports and verification evidence.
+  Record results and recommend the separately approved next experiment according
+  to the design decision rules. Preserve retention not established.
+
+Planned checks above are not claims of executed verification; actual results are
+recorded separately in verification.md.
+
+## Calibration revision tasks (approved 2026-11-08)
+
+The owner's supplied-plan implementation request approves MR1–MR4 requirements,
+design and these tasks before implementation, with the exclusions stated above.
+
+- [x] MR-T1 (MR1): Record approval; preserve existing work and inspect dependencies.
+- [x] MR-T2 (MR1–MR2): Implement sibling runner, frozen four-process schedule,
+  historical verification, parent timestamps and terminal prefix recovery.
+- [x] MR-T3 (MR3–MR4): Implement/test group estimator, bootstrap, nulls, timer
+  suppression, extremes, inclusive boundaries, constant offsets and linear drift;
+  test all commands, balance/contiguity, lifecycle, altered identities/hashes,
+  failed/interrupted attempts and missing/duplicate/misordered groups.
+- [x] MR-T4 (MR2): After preflight gates execute exactly 322 processes once.
+- [x] MR-T5 (MR4): Verify completed resume with fatal launch sentinels,
+  deterministic reanalysis, focused/lightweight/whitespace checks, archive and
+  member read-back; revalidate historical evidence and record decision.
+
+Actual verification is recorded separately in verification.md.
+
+## Workstation measurement procedure tasks (2026-11-08)
+
+Approval scope: the owner accepted the characterization direction and requested this
+procedure update, with all experiments on the same non-dedicated workstation.
+The future execution tasks below remain planned, not authorized benchmark launches.
+
+- [x] MP-T1 (MP1–MP4): Record the accepted direction, same-machine constraint,
+  telemetry policy, genuine-batch semantics and historical-preservation rules in
+  [measurement-procedure.md](measurement-procedure.md).
+- [x] MP-T2 (MP2): Analyze existing observations/timestamps and describe patterns
+  without unsupported causal conclusions or new measurements.
+- [ ] MP-T3 (MP2–MP4): Specify the finite pilot size set/counts, seeds, timing and
+  precision objectives, preparation/cache rules, instrumentation overhead checks,
+  deterministic selection/stop rule and tests; obtain implementation-plan approval.
+- [ ] MP-T4 (MP1–MP4): After approval, implement/test the isolated characterization
+  harness and run the fixed pilot, retaining all samples and unavailable telemetry.
+- [ ] MP-T5 (MP3–MP4): Freeze and approve the resulting baseline/self calibration
+  protocol separately; execute only that budget and verify/archive all evidence.
+
+The procedure update above performed MP-T1 only. The later offline characterization
+below completes MP-T2 and the proposal portion of MP-T3; separate pilot approval
+remains pending. No new benchmark or renderer build was launched.
+
+## Offline workstation characterization tasks (approved 2026-11-08)
+
+Approval: the owner's supplied-plan implementation request approves WC1–WC4, the
+above design and these tasks; pilot implementation/execution is expressly excluded.
+
+- [x] WC-T1 (WC1): Record scope, snapshot preservation identities, verify all four
+  evidence chains and reproduce the closed revision exactly.
+- [x] WC-T2 (WC2): Implement isolated timestamp/statistical analysis and complete
+  JSON/CSV matrix plus concise observations/hypotheses report.
+- [x] WC-T3 (WC3): Write the concrete draft pilot protocol and data-only 297-command
+  schedule; test determinism, balance, identity and contiguity without execution.
+- [x] WC-T4 (WC4): Run focused, lightweight and whitespace checks with fatal launch
+  sentinels; prove byte-identical reanalysis; archive/read back every member;
+  recheck history and update recommendation/actual verification.
+
+## Fixed batching pilot — approved 2026-11-08
+
+The owner's supplied-plan implementation request explicitly approves the requirements,
+design and tasks in [batching-pilot-proposal.md](batching-pilot-proposal.md), the
+isolated Release harness build against verified existing baseline libraries, and
+one fixed 297-process pilot (nine correctness, 288 timing). This supersedes the
+proposal's historical draft approval status only. Preserve all prior work and
+evidence. No renderer/public API changes, candidate comparisons, later calibration,
+commits, merges or publication are authorized. Retention remains **not established**.
+
+## Fixed batching pilot delivery (2026-11-08)
+
+- [x] BP-T1: Record the supplied-plan approval; verify historical archive/member
+  hashes and pinned baseline inputs; build only the sibling Release harness with
+  two workers and matching compile definitions.
+- [x] BP-T2: Implement prepared-state lifecycle/cache checks, timer boundaries,
+  enabled/disabled telemetry, fixed schedule, durable journals and descriptive
+  analysis/selection; pass synthetic preflight without benchmark launches.
+- [x] BP-T3: Execute the frozen nine correctness and 288 timing processes once;
+  retain every observation and apply the deterministic selection rule.
+- [x] BP-T4: Verify byte-identical reanalysis/completed resume with fatal launch
+  sentinels; finish lightweight/whitespace checks and archive member read-back.
+
+MP-T3's pilot implementation/execution approval is now granted by the supplied-plan
+request above. MP-T4's fixed pilot executed completely. MP-T5 remains unapproved:
+no later calibration dataset, sampling, renderer change or publication follows.
+
+## Approved fixed batching refinement — 2026-11-08
+
+The supplied-plan implementation request approves the requirements, design and tasks
+in [the refinement protocol](batching-refinement-protocol.md), including its exclusions.
+Historical 297-process pilot and no-selection result remain unchanged.
+
+### Refinement delivery tasks
+
+- [x] BR-T1: Record approval, preserve historical evidence and verify pinned inputs;
+  build only the isolated Release harness with two workers.
+- [x] BR-T2: Implement fixed 231 identities, unchanged lifecycle/cache/timing,
+  validated optional telemetry deltas, mixed ratio suppression and forensic output.
+- [x] BR-T3: Pass offline tests and run seven correctness plus 224 timing processes
+  once; apply the fixed selection rule only after complete validation.
+- [x] BR-T4: Finish deterministic reanalysis/completed resume, archive read-back,
+  historical preservation verification and delivery checks.

@@ -522,3 +522,252 @@ four operations. Percentile intervals are descriptive per cell, never a pooled
 headline speedup. Absolute overhead gates remain active when ratios are suppressed.
 RSS is whole-process memory, reported alongside the verified layout-local scratch
 bound; preprocessing/allocation costs are included without separate attribution.
+
+## Cache-aware runtime continuation (CC1–CC4, approved 2026-11-07)
+
+The owner's request to implement “Resume rendering performance qualification”
+approves these requirements, design and tasks before implementation. Preserve the
+terminal CR study and all historical identities. Only the sibling
+`candidate-scan-continuation` harness changes; no renderer/public API changes,
+production integration, visual acceptance, fractional-DPR qualification, Vulkan
+shutdown diagnosis, merge or publication are authorized.
+
+- CC1: First reproduce small-prose initial layout in both arms with the existing
+  paragraph-cache checker. Record paragraph, phase, metadata presence, cache
+  events and shaping delta. Stop with the precise counterexample if reuse does
+  not explain the failure.
+- CC2: Metadata-bearing initial layouts shape once; metadata-free initial layouts
+  either shape once with a cache miss or restore with a hit. Width/repeat changes
+  never reshape. Metadata identity changes reshape affected paragraphs exactly
+  once and leave others unchanged. Enforce this in C++, Python and completed-run
+  validation with paragraph/phase/expected/observed errors. Correctness verifies
+  cache events and exact paired geometry/shaping plus historical comparisons.
+  Timing retains lifecycle assertions and matches correctness shaping signatures,
+  with no cache checker or geometry queries in timed processes.
+- CC3: After diagnostic/regression gates, predeclare the unchanged 22 fixtures,
+  patches, operation boundaries and 88 correctness then 1,760 timing schedule in
+  new build/evidence directories. Preserve serial alternating pairs, inherited
+  locking, 60-second deadline, 4 GiB sampled RSS and terminal failure/no retries.
+  Preserve CR5 thresholds and missing-sample/timer-limited rejection unchanged.
+- CC4: Cover misses/hits, repeated paragraphs, zero/padded metadata, reuse and
+  invalidation, invalid deltas and arm disagreement; run historical extent/geometry,
+  recovery/supervisor regressions, lightweight and whitespace checks. Validate
+  completed resume with fatal launch sentinels; archive and read back identities,
+  raw results, reports and hashes. Report only isolated cutoff qualification.
+
+## Candidate-scan diagnosis design (approved 2026-11-08)
+
+Implement the owner's approved diagnosis plan in sibling `candidate-scan-diagnosis`
+with separate outputs/evidence. First verify every continuation archive and member,
+then schedule/raw/fixture and existing source/binary identities. Stop on any
+integrity discrepancy and recommend evidence repair without regenerating inputs.
+Only after integrity passes, run unchanged reporting against an isolated copy and
+require exact archived summary agreement. Describe every pair and cell with raw
+arm timings, paragraph normalization, differences, median/MAD/range/sign counts,
+order and early/late medians, timer limits, duration and RSS. Keep all observations
+and original gates. Order is coupled to parity; drift comparisons are exploratory.
+Inspect affected source paths and retain nm/objdump versions, commands, symbol
+sizes/disassembly; static differences cannot establish runtime slowdown. Recommend
+path isolation for plausible added work, calibration for variability without added
+work, or calibration first for mixed evidence. No proposed experiment runs here.
+
+## Candidate-scan calibration design (approved 2026-11-08)
+
+### Decision and scope
+
+Approved on 2026-11-08 by the owner’s supplied-plan implementation request, together
+with CB1–CB4 requirements and CB-T1–CB-T5 tasks. No broader experiment is authorized.
+
+The diagnosis identifies additional compiled false-padding work, but every failed
+interval includes zero and order/chronological summaries vary. Calibrate before
+attributing a patch's apparent improvement. This is the smallest next measurement:
+two fixtures, one existing binary, no C++ edits or compilation. It implements the
+calibration prerequisite of the diagnosis recommendation; path isolation remains
+a subsequent experiment, not an automatically authorized stage.
+
+Use sibling `demonstrator/candidate-scan-calibration`, with fresh output and evidence
+directories. Reuse the existing supervisor and output/lifecycle validators via a
+small adapter. Do not modify the continuation or diagnosis tools or their inputs.
+Both A and B execute the verified continuation `baseline-build/runtime-trace` with
+identical manifest, zero padding and timing mode; labels live in the journal only.
+Require equal binary/driver/fixture hashes and command arguments across each pair.
+Existing source paths must match recorded identities. Stop on a mismatch; do not
+rebuild or regenerate historical inputs.
+
+### Fixed execution
+
+Before launch, record tool/source/binary/fixture identities, inherited CPU affinity,
+host/environment snapshot and the complete schedule. Use deterministic Python
+`random.Random(73076)` and archive the generated schedule as the authoritative
+input. For each fixture, construct five consecutive blocks of four sample rounds;
+each block contains two A-first and two B-first pairs, shuffled independently.
+Within each round, shuffle the order of the two fixture pairs. Each pair remains
+adjacent and execution is serial. This breaks deterministic parity/order coupling
+while retaining local balance; it does not eliminate chronological confounding.
+
+First launch one correctness process per fixture (two total), comparing the full
+geometry and shaping output against the verified historical baseline correctness
+record for the same fixture/variant. Validate cache reuse and metadata lifecycle
+with the existing checker. Then execute twenty timing pairs per fixture: eighty
+timing processes, eighty-two processes total. Each process retains initial,
+width+17 reflow, unchanged repeat and metadata operations. Timing has no geometry
+queries/checker and must match the correctness shaping signature. Preserve null
+prose metadata records. Primary calibration interpretation concerns only prose
+reflow and dense metadata; all sixteen fixture/operation/arm combinations remain
+visible in raw outputs and all eight operation cells are summarized.
+
+Keep inherited exclusive locking, serial launch, 60-second process deadlines and
+4 GiB sampled RSS ceiling. No CPU pinning, governor changes, forced cache flushing,
+warm-up additions, retries or optional extra samples. Record stderr, status,
+duration, sampled/high-water RSS, timer metadata, affinity and exact commands.
+Any process, correctness or integrity failure makes the study terminal; no partial
+calibration decision. Resume may restore completed immutable records into a new
+directory after hash validation, but cannot retry a failed process. Before execution,
+test recovery and completed-run no-launch resume with fatal launch sentinels.
+
+### Statistics and interpretation
+
+For each fixture/operation, retain all twenty pairs and compute
+`(B.elapsedNs - A.elapsedNs) / applicableParagraphs`. Null operations remain null.
+Use whole-pair percentile bootstrap, 10,000 resamples, seed 73077, with identical
+resampling indices across operations of each fixture. Report median, unscaled MAD,
+range, sign counts, 95% interval, per-arm timings, order medians and first-ten versus
+last-ten summaries. Keep the historical timer rule: suppress ratios when either arm
+median is below 100 times the larger recorded clock period/empirical resolution.
+Absolute differences remain visible. No new pooled headline or causal claim.
+
+For the two target cells only, compare the entire overhead interval against the
+symmetric reference envelope `[-L, +L]`. Freeze L to the original archived
+nonprimary overhead limit: prose reflow 4,819.525 ns/paragraph; dense metadata
+101,542.075 ns/paragraph. Validate these exact values against the archived summary
+before launch; do not round values for decisions. This is a new diagnostic
+precision criterion, not a change to the original one-sided candidate gate and
+not a proof of equivalence. Do not subtract calibration estimates from historical
+candidate observations or combine separate runs as matched pairs.
+
+- Integrity/correctness/execution failure: stop and report the precise problem.
+- Either target is timer-limited or its interval is not wholly inside its reference
+  envelope: calibration is unresolved at the historical budget. Propose a separate
+  measurement-design revision before drawing patch-cost conclusions or performing
+  another qualification. Do not tune or extend this run.
+- Both target intervals lie inside their envelopes: the sampled baseline control
+  resolves those reference budgets on this run only. Propose a separately approved
+  path-isolation experiment, comparing original baseline, unchanged candidate and
+  a candidate with padded-only scratch/guard setup, with contemporaneous controls.
+  Scope the patch around verified false-padding behavior and preserve padded-path
+  semantics; do not promise instruction identity or infer candidate retention.
+
+Even a resolved control cannot show that historical variability had the same cause
+or magnitude. Actual CPU placement, scheduling, frequency and thermal behavior
+remain unmeasured; order and drift summaries are exploratory.
+
+### Verification and delivery
+
+Test exact A/B binary identity, fixture identity, schedule determinism/balance and
+adjacency, all eighty-two launches, pairing, nulls, normalization, timer suppression,
+bootstrap boundary equality, envelope decisions, extreme samples, failed/missing
+records and raw-hash rejection. Validate immutable resume and fatal launch sentinels.
+Run focused tests and repository lightweight/whitespace checks. No shipping build
+is needed because renderer/build inputs do not change. Archive tooling, input
+hashes, schedule, environment, journals, raw outputs and all reports; read back all
+members/hashes and verify historical preservation. Record actual results separately
+in verification.md. No commit, merge, publication or production integration.
+
+## Calibration revision design (MR1–MR4, approved 2026-11-08)
+
+Approval: the owner's supplied-plan implementation request authorizes this design
+and MR-T1–MR-T5. Implement a sibling `candidate-scan-calibration-revision` tool
+with separate output/evidence directories, retaining supervisor, lock, strict raw
+parser, lifecycle checks and single-correctness-reference adapter.
+
+Use random.Random(73078): in prose-480-4096 then dense-240-4096 order,
+generate ten independently shuffled [ABBA, ABBA, BAAB, BAAB] blocks for each
+fixture; then shuffle fixture order in each of forty rounds with the same RNG.
+Keep each four-process group contiguous. Launch one correctness process per
+fixture first. All arms use the verified continuation baseline and original
+fixture paths; retain initial → width+17 reflow → unchanged repeat → metadata.
+Persist authoritative schedule, generator/runtime identities, exact commands,
+environment fingerprints and input hashes before launch. Durable attempted launches
+are terminal on ambiguity/failure. Resume only a validated completed prefix into
+a fresh directory, never repeating an attempted launch.
+
+For each group require equal applicable paragraph counts in all four processes.
+D = ((B1 + B2) − (A1 + A2)) / (2 × applicableParagraphs).
+Preserve prose metadata nulls. Central estimate is median(D) across forty groups.
+Bootstrap entire groups 10,000 times, seed 73079 reset per fixture, indices shared
+across operations; percentile index int(p × (N − 1)). Record raw observations,
+group differences, unscaled MAD, range, signs, 95% intervals, per-arm timings,
+ABBA/BAAB and first-20/last-20 summaries. Each arm timing is its two-process mean.
+Report median relative improvement; suppress ratios if either median arm group
+timing is below 100 times maximum recorded clock period/empirical resolution.
+
+Load exact prose reflow and dense metadata limits from continuation summary. A
+target resolves only if not timer-limited and its entire interval is inclusively
+within [-L, +L]. Either failure means unresolved calibration: stop and recommend
+reconsidering measurement procedure before another experiment. Both resolved means
+recommend a separately approved path-isolation experiment with baseline, unchanged
+candidate, isolated candidate and contemporaneous controls using this grouping.
+Retention remains not established. Never pool estimates with historical median
+paired differences or claim historical variability explained. Balanced groups
+cancel ideal linear execution-position effects at equal spacing, not necessarily
+real elapsed-time drift. Forty groups are a budget, not a power/independence
+guarantee; CPU placement, frequency, thermals and scheduling remain unmeasured.
+
+## Workstation measurement procedure update (2026-11-08)
+
+The owner accepted the characterization direction with a same-machine constraint:
+these experiments always run on this development workstation, which is not a
+dedicated benchmark host. See the [measurement procedure](measurement-procedure.md)
+for execution conditions, preparation/cache semantics, separate fresh-process and
+batched modes, whole-group analysis, telemetry and evidence requirements.
+
+This updates future measurement direction; it does not amend historical CB/MR
+protocols or archives. Available telemetry is observational, not proof of isolation.
+Inherited affinity/frequency policy is the default; no quiet-host prerequisite or
+system-wide tuning. Exact pilot sizes/counts, timing objectives, selection rule and
+next calibration budget remain implementation-plan decisions requiring approval.
+
+## Offline workstation characterization design (approved 2026-11-08)
+
+WC1–WC4 implement MP-T2 and the proposal portion of MP-T3. A new sibling
+`candidate-scan-characterization` imports unchanged historical validators/report
+code under fatal process-launch sentinels. It extracts verified archives into fresh
+output, validates closed journals and reconstructs the revision report in a scratch
+copy before diagnostics. No historical directory is an output destination.
+
+Use integer nanosecond start/end arithmetic, deriving midpoint as start plus half
+the duration. Group elapsed time is its four-process mean midpoint relative to the
+first timing-process start across the revision. Imbalance is mean B process midpoint
+minus mean A process midpoint; gaps are successive starts minus preceding ends.
+These are parent-observed process timestamps, never operation timestamps.
+
+Retain all 320 group-operation rows, 1,280 process-operation rows and eight cell
+summaries in JSON and CSV. Normalize operation time by applicable paragraph count;
+null metadata remains null. Spearman is Pearson correlation of average tied ranks;
+constant or wholly null vectors yield null, and mixed null vectors are rejected.
+Order and first/last twenty groups remain per fixture; no causal inference or new
+inferential procedure is added. Historical bootstrap is reproduced solely to check
+exact existing results.
+
+Generate a data-only draft pilot schedule using Python Random(73080): construct two
+independently shuffled balanced four-order blocks for each configuration in fixed
+configuration order, then shuffle configurations per round. Serialize 297 command
+specifications without creating or running a harness. The draft protocol defines
+selection over all 32 timing processes per telemetry-enabled batch, and matched-round
+instrumentation comparisons. Its implementation and execution require later approval.
+
+## Fixed batching pilot — approved 2026-11-08
+
+The owner's supplied-plan implementation request explicitly approves the requirements,
+design and tasks in [batching-pilot-proposal.md](batching-pilot-proposal.md), the
+isolated Release harness build against verified existing baseline libraries, and
+one fixed 297-process pilot (nine correctness, 288 timing). This supersedes the
+proposal's historical draft approval status only. Preserve all prior work and
+evidence. No renderer/public API changes, candidate comparisons, later calibration,
+commits, merges or publication are authorized. Retention remains **not established**.
+
+## Approved fixed batching refinement — 2026-11-08
+
+The supplied-plan implementation request approves the requirements, design and tasks
+in [the refinement protocol](batching-refinement-protocol.md), including its exclusions.
+Historical 297-process pilot and no-selection result remain unchanged.
