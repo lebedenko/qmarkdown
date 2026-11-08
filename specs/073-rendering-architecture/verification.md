@@ -843,3 +843,418 @@ are retained in [runtime evidence](evidence/candidate-scan-runtime/README.md).
 Repository lightweight checks, whitespace and full archive readback are recorded
 with that evidence. No production/API/integration, ownership, merge or publication
 change was made.
+
+## Cache-aware runtime continuation — 2026-11-07
+
+Owner-approved CC1–CC4 continuation uses sibling `candidate-scan-continuation`
+with fresh `build-ci/073-candidate-continuation` and
+`build-ci/073-candidate-continuation-evidence`. The terminal predecessor is intact.
+
+Both diagnostic arms reproduced small-prose-480-64/zero: initial paragraph 0
+reported missingParagraph/addedParagraph and shaping delta 1; paragraphs 1–31
+reported foundParagraph and delta 0. All 128 paragraph/phase observations per arm
+are retained, including metadata presence. Normal cache behavior explains the
+original assertion failure. A diagnostic journal formatting error occurred after
+the baseline completed; its raw outputs were preserved and verified without
+rerunning the process. The retained diagnostic completed normally.
+
+Focused Python suite: 11 tests pass. Real corrected driver: all 22 fixtures ×
+zero/padded (44 processes) pass cache/lifecycle assertions, including metadata
+identity invalidation and repeated identical paragraphs. Historical geometry and
+extent gates pass. Recovery: 9 tests; supervisor/performance: 8 tests; repository
+`task check`: 87 tests and documentation/configuration checks pass. Initial C++
+compilation exposed a string/const-char assertion-message mismatch, corrected
+before these successful checks; failed build logs are retained. A premature
+regression invocation could not launch the missing binary; successful regression
+evidence uses a separate directory. No study processes had started at that point.
+
+The fresh study schedule was persisted before building: 88 correctness followed
+by 1,760 timing processes; the closed outcome is recorded below.
+
+Fresh study actual outcome: all 88 correctness and 1,760 timing processes completed
+without retries. Completed validator passes 924 adjacent pairs, 252 null metadata
+records and symmetric uninstrumented flags/libraries. Historical geometry gates
+pass 751 fixtures / 775 blocks and 147 transition probes; extent audit passes
+14,272 cells / 2,901 fragments. Peak sampled RSS is 43.94 MiB; maximum wall time
+is 5.17 seconds. Exact paired output, historical traces, lifecycle assertions and
+timing/correctness shaping signatures all pass.
+
+The 10,000-resample seed-73075 report gives 162 pass / 8 regression-budget fail /
+6 inapplicable cells. All six primary padded operations pass, with approximately
+60% (long) and 92% (spans-32) median improvements. Forty-two nonprimary cells are
+timer-limited; absolute overhead gates still apply. All applicable small cells
+pass. Eight nonprimary confidence upper bounds exceed their overhead limits;
+their intervals include zero. **Retention is not established**, despite primary
+benefits. No additional samples or tuning. Full values and limitations are in the
+[continuation evidence](evidence/candidate-scan-continuation/README.md).
+
+Completed-run resume passes with fatal sentinels on supervisor and subprocess
+launch APIs: all 1,848 records restored, zero new process launches, and build,
+execution, gate and index journals byte-identical. The destination is the separate
+`build-ci/073-candidate-continuation-resume` directory.
+
+Archive closure: 4,343 files packed into three independent tar.gz archives; every
+member was read back and hashed, every archive SHA-256 verified, and all original
+source/build identities rechecked before packaging. The repository-owned
+[archive index](evidence/candidate-scan-continuation/archives.json) retains the
+full per-file/archive hashes. The complete report and summary are also directly
+reviewable beside the archives. Final lightweight checks pass (87 tests plus
+documentation/configuration); whitespace validation passes. No shipping renderer
+or public API files changed. CC-T1–CC-T4 are complete; qualification is rejected
+under the unchanged gates. No production integration, merge or publication ran.
+
+## Candidate-scan diagnosis (2026-11-08)
+
+CD1–CD4 implemented under the owner's supplied-plan approval. The new sibling
+`demonstrator/candidate-scan-diagnosis` only reads the closed study and existing
+binaries. No renderer changes, benchmarks, rebuilds, instrumentation, new samples,
+threshold changes, integration, commits, merges or publication were performed.
+
+- Integrity passes: three continuation archives / 4,343 members; all 2,605
+  existing identities plus supplemental identities; the unchanged generated
+  schedule matches 1,848 completed records, adjacent alternating pairs and every
+  raw/fixture hash. Published and archived reports agree. The unchanged reporter's
+  10,000-resample output agrees byte-for-byte for both summary.json and report.md.
+- Complete outputs: 176 cells / 3,520 pairs, including six null metadata cells;
+  original gates remain 162 pass / eight overhead failures / six inapplicable.
+  All eight failed intervals include zero. Forty-two applicable cells remain
+  timer-limited, with original ratio suppression. All observations are preserved.
+- Binary inspection: nm/objdump versions, commands, symbol sizes and disassembly
+  retained. False-padding wrapping still has an additional padding predicate,
+  scratch-state initialization/cleanup check and a 48-byte larger stack frame.
+  No heap scratch allocation on that path is inferred. These compiled differences
+  establish plausible added work, not measured causal attribution. Prose remains
+  metadata-free even in the nominal padded variant. Order/parity and drift remain
+  confounded exploratory comparisons.
+- Nine focused tests pass, covering pairing/alternation, missing/duplicate pairs,
+  identity/raw/archive rejection, nulls, normalization, timer suppression,
+  constant/extreme samples, order/halves and summary disagreement. `task check`
+  passes. Matrix construction and report rendering are deterministic. Final
+  checks revalidate all 4,343 historical evidence members and 2,605 identities
+  unchanged. Existing uncommitted continuation work is preserved; only diagnosis
+  sections are appended to its feature documents.
+
+The [diagnosis report](evidence/candidate-scan-diagnosis/report.md) preserves
+**retention not established**. Proposed follow-up: separately approved path
+isolation with baseline-versus-baseline calibration controls before attribution
+or another full qualification. Neither experiment was run. Reproduction commands
+are in the [analysis README](demonstrator/candidate-scan-diagnosis/README.md).
+Analysis sources, input hashes, machine-readable outputs, source copies and binary
+inspection evidence are packaged separately; historical raw archives are unchanged.
+
+Diagnosis final verification: `git diff --check`, explicit new-source whitespace
+checks and final documentation/local-link checks pass. Independent packaging with
+stable metadata produced byte-identical archives, and each archive/member hash
+was read back and verified. The archive index records the final bytes; the output
+is separate from all historical archives. No acceptance label was changed.
+
+A fresh-directory execution of the final analysis tool also passes: all matrix,
+original-report, presentation, integrity and binary-inspection outputs are
+byte-identical to the initial analysis. Final packaging verifies 52 members in
+one archive, independently generated twice with identical bytes. SHA-256:
+`ad2417fd6463923540c6bef7a818826330bbb791035908777abb105038c0a496`.
+Focused tests: 9 passed; repository lightweight tests: 87 passed, plus
+configuration and documentation checks. Logs are included in the diagnosis archive.
+
+
+## Candidate-scan calibration — 2026-11-08
+
+The owner's supplied-plan implementation request explicitly approved CB1–CB4
+requirements/design and CB-T1–CB-T5 tasks before implementation. The sibling
+[calibration tool](demonstrator/candidate-scan-calibration/README.md) uses only the
+existing continuation baseline executable, with identical commands/environment
+for both logical arms. Renderer sources, historical tools and archives were not
+modified; existing uncommitted continuation/diagnosis work was preserved.
+
+- Preflight verified continuation (4,343 members) and diagnosis (52 members)
+  archives, current recorded source/binary identities and exact fixture bytes.
+  The authoritative schedule, runtime identity, commands, inherited environment
+  fingerprints, source/input hashes and exact archived limits were persisted
+  before launch. No build or input regeneration occurred.
+- Exactly two correctness and eighty timing processes completed, in the fixed
+  seed-73076 balanced adjacent-pair schedule. Correctness geometry/shaping matched
+  archived baseline records, timing shaping matched current correctness, and
+  lifecycle, timer, floating-point and affinity checks passed. All four operations
+  were preserved, including null prose metadata. No failed/ambiguous launch,
+  retry, extra sample, warm-up, cache flushing or affinity change occurred.
+- Fourteen focused tests passed before measurement, including deterministic
+  balance/adjacency/commands, single-reference lifecycle, nulls/normalization,
+  timer suppression, extremes, percentile/envelope boundaries, missing/duplicate
+  pairs, altered identity/raw/stderr/fixture/schedule/command rejection, synthetic
+  prefix recovery and terminal interruption before output creation.
+- `task check` passed (87 repository Python tests plus configuration/documentation
+  checks), as did whitespace validation. Actual completed-run resume into a new
+  directory validated 82 records with fatal supervisor/Popen sentinels: zero
+  launches. Recomputed summary, observations and report were byte-identical.
+- Supervised process duration totaled 10.104 seconds; maximum sampled RSS was
+  34,697,216 bytes and maximum reported high-water RSS was 74,305,536 bytes.
+  No deadline or sampled RSS ceiling was exceeded.
+
+Calibration is **unresolved**. Prose reflow's median B-minus-A overhead was
+−414.5 ns/paragraph, with 95% interval [−6,296.5, 2,560.0], outside the exact
+archived ±4,819.525000000001 envelope. Dense metadata's median was −1,289.5,
+with interval [−26,529.5, 13,065.5], within ±101,542.07500000001. Neither target
+was timer-limited. Both unchanged-repeat cells were timer-limited and retained
+ratio suppression; all eight cells and 160 paired operation observations remain
+visible in the machine-readable outputs.
+
+**Retention remains not established.** This result neither changes historical
+gates nor establishes equivalence or permits subtracting control estimates from
+historical timings. Propose a separately approved measurement-design revision
+before path isolation or further qualification: review timing-window resolution
+and variability using controls, with new requirements/design/tasks and a fixed
+budget before any additional measurement. No such revision is implemented here.
+Twenty pairs are not a power guarantee; CPU placement, frequency, thermals and
+scheduling remain unmeasured, and order/chronological summaries are exploratory.
+
+
+Calibration delivery verification: the separate [evidence archive](evidence/candidate-scan-calibration/README.md)
+contains 4,589 hash-verified members, including tool/source snapshots, frozen
+schedule and identities, historical inputs, environment, attempts/completion
+journals, raw stdout/stderr, all observations/reports and verification logs.
+Read-back verified every member and archive hash, then rechecked historical
+identities unchanged. Archive SHA-256:
+`8936d4c066669376cfce4bdacc0bee8dd7f1803d867ea9b0f9a90f755002864b`.
+All CB-T1–CB-T5 delivery tasks are complete. No commit, merge or publication occurred.
+
+## Calibration revision execution (MR1–MR4, 2026-11-08)
+
+The owner's supplied-plan implementation request approved requirements, design
+and MR-T1–MR-T5 before coding. Historical tools and existing uncommitted work were
+preserved. No renderer, build, API, candidate, commit, merge or publication changes.
+
+- Preflight verified continuation, diagnosis and calibration archives and member
+  hashes, current source/binary identities, fixture hashes and exact archived
+  target limits. No rebuilds or input regeneration were performed.
+- All 322 scheduled processes completed once: two correctness processes followed
+  by forty contiguous ABBA/BAAB groups per fixture. Each four-group block has two
+  of each order; seed 73078 and the complete schedule were frozen before launch.
+  Commands/environment were identical between arms. Parent monotonic timestamps,
+  sampled RSS, durations and all raw outputs were retained.
+- Summed supervised duration: 39.696 seconds. Maximum sampled RSS: 34,672,640 bytes;
+  maximum raw high-water RSS: 80,932,864 bytes. No deadline/RSS/lifecycle failures,
+  retries, tuning, warm-ups or additional samples.
+- Fifteen focused tests passed before launch: deterministic schedule and all 322
+  commands, balance/contiguity, constant offset and linear-position drift,
+  normalization/nulls, group timer thresholds, extreme values, percentile and
+  inclusive envelope boundaries; lifecycle/reference checks; corrupted identities,
+  fixture/raw/stderr hashes, missing/duplicate/misordered records, failed and
+  interrupted attempts, complete no-launch and valid-prefix recovery.
+- Repository lightweight checks passed (87 Python tests plus documentation and
+  configuration/evidence syntax checks). Initial whitespace check passed.
+
+Outcome: **unresolved calibration; retention remains not established**. Prose
+reflow interval [−7,180, 1,856.75] exceeds the exact archived envelope
+±4,819.525000000001 ns/paragraph; median −3,493.5. Dense metadata interval
+[−21,943.75, 21,681.25] fits ±101,542.07500000001; median 5,137.25.
+Neither target is timer-limited. Both repeat cells are timer-limited and prose
+metadata remains null. All eight cells and 320 group-operation observations are
+retained. Whole-group bootstrap uses 10,000 resamples, seed 73079 reset per fixture,
+shared indices across operations and historical percentile indexing.
+
+Stop here and reconsider measurement procedure before another separately approved
+experiment. No historical gates were revised, runs pooled, calibration estimates
+subtracted or historical variability claimed explained. Balanced groups cancel
+ideal equally spaced linear-position effects, not necessarily real elapsed-time
+drift. Forty groups are a fixed budget, not a power/independence guarantee; CPU
+placement, frequency, thermals and scheduling remain unmeasured.
+
+Delivery checks completed: independent reanalysis produced byte-identical
+observations.json, summary.json and report.md. Completed-run resume validated all
+322 records with fatal supervisor/Popen sentinels and zero launches. The
+[revision archive](evidence/candidate-scan-calibration-revision/README.md) contains
+9,658 members; each was read back and hash-verified. Archive SHA-256:
+`b92337dc58d390564870aa74b08b5b426a046daea3819dc7dd56406a4fe6e983`.
+Historical archive, source, binary and fixture identities revalidated unchanged.
+Check logs, reproducible sources, schedule, commands, fingerprints, parent timestamps,
+raw outputs, observations and journals are archived. Final documentation and
+whitespace checks cover the delivery records as well as the sibling tool.
+
+## Workstation measurement procedure update (2026-11-08)
+
+Documentation-only update requested by the owner after accepting characterization,
+with the correction that all experiments run on this non-dedicated workstation.
+Added measurement-procedure.md and appended MP requirements, design direction,
+tasks and recommendation. Historical protocol sections, tools and archives remain
+unchanged. The procedure records ordinary shared use, available telemetry and its
+limitations, genuine reflow batching, separate fresh-process observations, fixed
+pilot selection and whole-group analysis. Exact execution parameters remain planned.
+
+Verification: `python3 scripts/check-docs.py` and `git diff --check` passed;
+the new procedure also passed an explicit trailing-whitespace check. No runtime
+tests, builds or measurements were needed or launched for this prose-only change.
+
+## Offline workstation characterization — 2026-11-08
+
+The owner's supplied-plan request approved WC1–WC4 and WC-T1–WC-T4 before
+implementation: existing-evidence analysis and a decision-complete draft pilot only.
+Added the isolated candidate-scan-characterization tool and batching-pilot-proposal.md.
+Existing uncommitted prior work was preserved. No public API/renderer change, build,
+new measurement, commit, merge or publication was performed.
+
+Verified continuation, diagnosis, calibration and revision archives and member
+hashes, original pinned identities, schedules, raw records and closed journals.
+Validated 1,848 continuation, 82 calibration and 322 revision records; verified all
+9,658 revision archive members. Missing or inconsistent inputs stop analysis without
+regeneration. Reconstructed all eight archived revision cells, group differences,
+summary, observations and Markdown report exactly before adding diagnostics.
+
+The complete JSON/CSV output contains eight cell summaries, 320 group-operation
+rows and 1,280 process-operation rows. It includes process duration/midpoint,
+chronological position, group span/gaps, B−A midpoint imbalance, normalized timings,
+order/half summaries and descriptive Spearman correlations with average tied ranks.
+No operation timestamps are inferred. Prose metadata remains null and both repeat
+cells remain timer-limited. No significance tests, sample exclusions or causal
+attribution were added. Retention remains not established.
+
+Twelve focused tests passed: timestamp arithmetic/unequal spacing, group identities,
+normalization/nulls, tied/constant correlations, synthetic offsets and real-time
+versus ordinal drift, full matrix/timer flags, all 297 draft commands and balanced
+contiguous groups, identical A/B commands/environments, missing/duplicate/misordered
+records, altered identities/raw/fixture/schedule/member/archive hashes, failed and
+ambiguous journals, and fatal supervisor/process-launch sentinels. An initial test
+fixture omitted environment.json; it was corrected before the successful run.
+Analysis and focused tests use fatal launch sentinels and perform zero launches.
+
+The draft fixes sizes 1/16/64/256, off/on operation telemetry and a separate original
+reference, seed 73080, nine correctness plus 288 timing processes, shared-cache
+preparation and the smallest-enabled-size duration/MAD/resource selection rule.
+MP-T2 is complete; the proposal portion of MP-T3 is complete, but its approval gate
+and MP-T4/MP-T5 remain pending. The new harness and all future measurements require
+separate approval. A later calibration must use a separate approved dataset.
+
+Repository lightweight checks (`python3 scripts/check.py`) passed: 87 Python tests,
+documentation/local links and configuration/evidence syntax. `git diff --check`
+and explicit whitespace checks on new tool/proposal files passed. All 49 files in
+the four preexisting historical source/evidence directories match the pre-edit
+SHA-256 snapshot; full pinned archive/source/binary/fixture identities also passed
+validation. Check logs and the preservation snapshot accompany the analysis output.
+
+Independent full reanalysis passed under fatal launch sentinels: matrix JSON,
+process/group/cell CSV, report, pilot schedule, draft protocol, input identities
+and integrity record were byte-identical (nine deliverables). Both analyses also
+reproduced the archived revision summary, observations and report byte-for-byte.
+The 297 proposed commands were serialized and tested only; none were executed.
+
+Delivery: the analysis archive was read back and every member hash verified;
+historical identities were revalidated unchanged after packaging. The
+[characterization evidence](evidence/candidate-scan-characterization/README.md)
+provides the final archive manifest/hash, diagnostic JSON/CSV, report, draft
+schedule and read-back log. Archive self-verification is recorded alongside the
+archive (not inside itself); the archive contains the completed focused,
+lightweight, whitespace, reanalysis and historical-preservation checks. Feature
+requirements, design, tasks and verification snapshots are retained with sources.
+
+## Fixed prepared-state batching pilot — actual results (2026-11-08)
+
+The supplied-plan request approved the requirements/design/tasks and exactly one
+297-process pilot. The sibling `demonstrator/candidate-scan-batching-pilot` tool
+built only its Release `prepared-reflow` target with two workers against existing
+baseline archives. Build flags, definitions and include paths matched the original
+baseline exactly. Historical validators, supervisor and recovery tools were imported
+unchanged. Preflight verified the continuation/diagnosis/calibration chains (6,988
+pinned historical identities), plus revision and characterization archive/member
+hashes and identities. No dependency regeneration, benchmark smoke or warm-up ran.
+
+Ten focused Python tests passed under fatal launch sentinels, including all 297
+command identities, order/balance/contiguity, synthetic orchestration, selection
+boundaries, normalization/nulls, offsets/drift, telemetry failures, timer boundaries,
+malformed records/hashes/journals and completed resume without launches. `task check`
+passed. Real lifecycle acceptance used the nine declared correctness processes.
+
+All **297/297** processes completed validly: nine correctness followed by 288 timing,
+with eight contiguous four-process groups per configuration, seed 73080. All nine
+correctness outputs passed original-reference geometry, cache and shaping checks;
+new configurations passed independent-instance mutation isolation. There were no
+retries or extra processes. Affinity and frequency policy were inherited; no tuning,
+cache flushing, unrelated workload termination or quiet-period selection occurred.
+The first-to-last parent-observed span was 125.464 seconds; summed supervised process
+durations were 109.856 seconds. Maximum parent process duration was 2.41336 seconds.
+
+The deterministic result is **no size selected**:
+
+| Enabled size | Median batch ns | Unscaled MAD / median | Maximum parent ns | Maximum sampled RSS bytes | Exclusion |
+| --- | ---: | ---: | ---: | ---: | --- |
+| 1 | 133551 | 0.272843 | 71761998 | 28893184 | Duration below 10 ms; MAD ratio above 10% |
+| 16 | 2287205 | 0.0286448 | 178398411 | 94572544 | Duration below 10 ms |
+| 64 | 9521602 | 0.0116175 | 625396158 | 302641152 | Duration below 10 ms |
+| 256 | 37507841 | 0.00512577 | 2413357677 | 1127469056 | Sampled RSS at/above 1 GiB |
+
+All process resource evidence includes correctness. The 4 GiB terminal ceiling and
+60-second deadline were respected. RSS observations cannot establish unobserved peaks.
+The original's initial/reflow/repeat/metadata cells remain separate; metadata is null.
+The report's reference row displays its initial-operation median, not batch reflow.
+
+Raw and normalized process timings, all A/B group means and differences, medians,
+unscaled MAD/range/signs, order and first-four/last-four summaries, matched-round
+telemetry effects and collection durations are retained in `analysis.json`. The
+median enabled-minus-disabled matched-round mean batch differences for sizes
+1/16/64/256 were −3727.625/−40531/−19349.125/−37393.125 ns. These are descriptive,
+non-simultaneous observations without causal, significance or calibration claims.
+Parent snapshots and operation-boundary telemetry retain their sampling limits.
+
+Retention remains **not established**. No provisional throughput size was selected;
+this pilot neither qualifies historical results nor supplies a subsequent calibration
+dataset. Later calibration requires a separately approved protocol and budget.
+
+Completed-run resume and full reanalysis passed under fatal supervisor/Popen/OS
+launch sentinels: **zero launches**, all 297 records revalidated, and `analysis.json`,
+`selection.json` and `report.md` were byte-identical. Final lightweight and whitespace
+check logs accompany the archive. Archive member read-back and final preservation
+results are recorded in the pilot evidence directory's README.
+
+Archive read-back completed successfully: **631 member SHA-256 values verified**,
+followed by revalidation of historical pinned identities. See the
+[evidence record](evidence/candidate-scan-batching-pilot/README.md) for the archive,
+manifest, observations, no-selection decision and read-back log. All pre-existing
+historical tools/evidence remained unchanged; specification updates append this
+approval and the actual pilot outcome. No subsequent sampling is authorized.
+
+## Fixed batching refinement actual verification — 2026-11-08
+
+Approval: the supplied-plan implementation request, recorded in requirements,
+design, tasks and [protocol](batching-refinement-protocol.md) before implementation.
+Changed only the sibling `demonstrator/candidate-scan-batching-refinement/`, this
+protocol, Feature 073 approval/recommendation/tasks/verification records and the
+separate `evidence/candidate-scan-batching-refinement/` delivery. No historical tool,
+archive, renderer or public interface was changed.
+
+- Historical archive/member and pinned baseline source/library/binary/fixture/font/
+  runtime identities passed pre-build verification, including the completed pilot.
+- Isolated Release harness configured and built successfully with two workers and
+  baseline compile definitions. Existing baseline dependencies were not regenerated.
+  Existing header deprecation/ignored-attribute warnings remain in the build log.
+- Ten inherited/adapted synthetic tests and three refinement tests passed under
+  fatal launch sentinels. Schedule has exactly 231 unique identities, seven
+  correctness first, balanced halves and contiguous four-process groups. Tests cover
+  thresholds, normalization, drift/offsets, lifecycle/cache/timer source boundaries,
+  optional telemetry, mixed ratio suppression, records/hashes/journals and recovery.
+- Additional zero-launch checks rejected altered operation-boundary deltas, accepted
+  explicit unavailable raw values/deltas, and archived an ambiguous journal plus
+  partial output with incomplete/no-selection reporting. All 23 synthetic forensic
+  archive members passed read-back hashes. Test source and logs are retained.
+- The single fixed seed-73081 run completed **231/231 validly**: all seven full
+  geometry/cache/mutation correctness processes passed before 224 timing launches.
+  No smoke, warm-up, retry, replacement or adaptive measurements occurred.
+- Selection is **96**, provisional prepared-state throughput among tested sizes.
+  Median 14170985.5 ns; unscaled MAD 174587.5 ns; MAD/median
+  0.012320068; maximum parent duration 907446534 ns;
+  maximum sampled RSS 440905728 bytes, including correctness.
+  Correctness and timing resource maxima are separately recorded in analysis.json.
+- Full validation and completed-run resume into a fresh directory passed under
+  fatal launch sentinels: zero launches and byte-identical analysis.json,
+  selection.json and report.md. Every raw output, telemetry snapshot, attempt,
+  command/environment identity, normalized observation and descriptive group/order/
+  half/matched-round summary is retained in the archive.
+- `task check` and `git diff --check` passed before delivery. Final archive read-back
+  and post-delivery lightweight results are recorded beside the archive manifest.
+
+Retention remains **not established**. The historical 297-process no-selection
+result remains unchanged. No calibration, candidate comparison, commit, merge or
+publication was performed or authorized. The work stops at evidence delivery.
+
+Final archive delivery passed: **500/500 member hashes** read back successfully;
+historical identities remained unchanged. The archive contains the specification
+snapshot immediately before final packaging; this final checkpoint is recorded in
+these repository records and the adjacent delivery log. Completed-run resume
+launched nothing and reproduced all three deliverables byte-for-byte.

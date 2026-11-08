@@ -366,3 +366,162 @@ and publication remain excluded.
   timer-limited primary cells cannot pass. Complete sampling and correctness are
   mandatory. Any failure/uncertainty means retention is not established; no added
   samples, tuning or substitute optimization. Archive and read back every file/hash.
+
+## Cache-aware runtime continuation (CC1–CC4, approved 2026-11-07)
+
+The owner's request to implement “Resume rendering performance qualification”
+approves these requirements, design and tasks before implementation. Preserve the
+terminal CR study and all historical identities. Only the sibling
+`candidate-scan-continuation` harness changes; no renderer/public API changes,
+production integration, visual acceptance, fractional-DPR qualification, Vulkan
+shutdown diagnosis, merge or publication are authorized.
+
+- CC1: First reproduce small-prose initial layout in both arms with the existing
+  paragraph-cache checker. Record paragraph, phase, metadata presence, cache
+  events and shaping delta. Stop with the precise counterexample if reuse does
+  not explain the failure.
+- CC2: Metadata-bearing initial layouts shape once; metadata-free initial layouts
+  either shape once with a cache miss or restore with a hit. Width/repeat changes
+  never reshape. Metadata identity changes reshape affected paragraphs exactly
+  once and leave others unchanged. Enforce this in C++, Python and completed-run
+  validation with paragraph/phase/expected/observed errors. Correctness verifies
+  cache events and exact paired geometry/shaping plus historical comparisons.
+  Timing retains lifecycle assertions and matches correctness shaping signatures,
+  with no cache checker or geometry queries in timed processes.
+- CC3: After diagnostic/regression gates, predeclare the unchanged 22 fixtures,
+  patches, operation boundaries and 88 correctness then 1,760 timing schedule in
+  new build/evidence directories. Preserve serial alternating pairs, inherited
+  locking, 60-second deadline, 4 GiB sampled RSS and terminal failure/no retries.
+  Preserve CR5 thresholds and missing-sample/timer-limited rejection unchanged.
+- CC4: Cover misses/hits, repeated paragraphs, zero/padded metadata, reuse and
+  invalidation, invalid deltas and arm disagreement; run historical extent/geometry,
+  recovery/supervisor regressions, lightweight and whitespace checks. Validate
+  completed resume with fatal launch sentinels; archive and read back identities,
+  raw results, reports and hashes. Report only isolated cutoff qualification.
+
+## Candidate-scan diagnosis (CD1–CD4, approved 2026-11-08)
+
+The owner's supplied-plan implementation request explicitly approves this bounded
+continuation before coding. CD1: verify existing archives/member hashes, schedules,
+raw hashes and binary/source identities; stop on missing or inconsistent evidence.
+CD2: reproduce the unchanged report exactly and describe all 176 cells and twenty
+pairs each, preserving nulls, timer limits and the eight failed overhead gates.
+CD3: inspect verified sources and existing binaries without executing or rebuilding
+benchmark arms; distinguish facts from runtime-cost hypotheses. CD4: test and
+archive reproducible analysis, preserve historical/uncommitted work and recommend
+only a separately approved follow-up. Retention remains not established. No new
+measurements, thresholds, renderer/API changes, integration or publication.
+
+## Candidate-scan calibration (CB1–CB4, approved 2026-11-08)
+
+Status: planning only; implementation and execution are not approved. The owner's
+“plan the next step” request authorizes this draft, not measurements. This is a
+bounded follow-up within Feature 073. Retention remains not established.
+
+- CB1: Verify the diagnosis/continuation archive hashes, required source and binary
+  identities and fixtures before proceeding. Use the existing uninstrumented
+  continuation baseline binary for both logical arms. No rebuild, renderer change,
+  environment tuning or replacement of historical evidence is permitted.
+- CB2: Measure baseline versus itself for two predeclared targets:
+  `prose-480-4096 / zero / reflow` and
+  `dense-240-4096 / zero / metadata`. These distinguish empty metadata from
+  178 zero-padding spans. Use twenty adjacent fresh-process pairs per fixture,
+  retain the existing four-operation sequence and preserve all outputs/nulls.
+- CB3: Fix and archive a balanced randomized schedule before any launch, with
+  independent logical arm labels A/B pointing to the exact same binary. Report
+  paired B-minus-A overhead, uncertainty, timer limitations, order and chronological
+  summaries without trimming, pooling, adding samples or changing historical gates.
+- CB4: Fail closed on integrity, correctness, execution or completeness problems.
+  Preserve bounded supervision, immutable journaling and archive read-back.
+  Calibration can inform a subsequent experiment but cannot establish candidate
+  retention or repair any of the eight historical failures.
+
+Only this calibration is approved. A path-isolation patch,
+new candidate build, direct candidate comparison and full qualification require
+separate requirements/design/tasks and approval after the calibration is reviewed.
+
+## Calibration revision (MR1–MR4, approved 2026-11-08)
+
+The owner's supplied-plan implementation request approves these requirements,
+the design below and MR-T1–MR-T5 before implementation. Retention remains not
+established under every outcome. This is a new diagnostic, not historical repair.
+
+- MR1: Preserve historical/uncommitted work. Verify continuation, diagnosis and
+  calibration archives/member hashes, existing sources/binary, fixtures and exact
+  archived limits before launch; stop on discrepancies without rebuilding.
+- MR2: Use identical baseline arms, zero padding and unchanged four operations.
+  Execute two correctness processes then forty contiguous ABBA/BAAB groups per
+  fixture (322 total), serially with inherited affinity/environment, 60-second
+  deadlines and 4 GiB sampled RSS. Freeze schedule, commands, identities and
+  environment before launch; record parent monotonic start/end timestamps.
+- MR3: Report the median of forty group differences, whole-group bootstrap and all
+  eight cells, preserving nulls, timer suppression and exact inclusive envelopes.
+  No pooling, historical gate revision, subtraction or explanation of historical
+  variability is permitted. Either unresolved target ends this experiment.
+- MR4: Test schedule, estimator, lifecycle, integrity and terminal recovery before
+  measurement; verify deterministic reanalysis and no-launch completed resume;
+  archive sources, observations, identities, journals and checks with member hashes.
+  No warm-ups, retries, extra samples, tuning, renderer changes, builds, candidate
+  comparisons, integration, commits, merges or publication are authorized.
+
+## Workstation measurement procedure (MP1–MP4, direction accepted 2026-11-08)
+
+The owner agreed to measurement characterization and requested a procedure update,
+correcting the machine assumption: all experiments use this development workstation;
+there is no dedicated machine. Approval covers this procedure direction, not an
+unspecified pilot budget or an unreviewed harness implementation.
+
+- MP1: Use the same workstation under ordinary shared use. Record machine identity,
+  software/hardware changes and available execution telemetry outside timing regions;
+  do not require exclusive access, idle conditions or privileged system tuning.
+- MP2: Inspect existing evidence first, then plan a bounded pilot of genuine
+  width-changing reflow batches with explicit preparation/cache policy. Keep
+  fresh-process single-operation results separate; do not treat inner iterations
+  as independent samples or substitute unchanged-layout calls for reflow.
+- MP3: Freeze a new baseline/self protocol after characterization; retain balanced
+  four-process groups, whole-group analysis, terminal recovery and historical
+  evidence/gates. Neither batching nor use of the same machine establishes precision.
+- MP4: Specify and approve finite pilot parameters, selection rule, instrumentation
+  and verification tasks before implementation/execution. Record unavailable
+  telemetry, preserve every attempted sample and stop at the fixed budget.
+
+The [measurement procedure](measurement-procedure.md) defines the accepted direction.
+Retention remains not established; historical calibrations remain closed.
+
+## Offline workstation characterization (approved 2026-11-08)
+
+The owner's supplied-plan implementation request approves WC1–WC4 and WC-T1–WC-T4
+before implementation. It authorizes existing-evidence analysis and a pilot proposal,
+not a harness, build, measurement, commit, merge or publication.
+
+- WC1: Verify continuation, diagnosis, calibration and revision archives/member
+  hashes, pinned identities, schedules and raw records. Fail closed; never regenerate
+  missing inputs. Reproduce all eight revision cells and published estimates exactly.
+- WC2: Preserve nulls and timer limitations. Derive parent process midpoint/duration,
+  group span/gaps and mean B minus mean A midpoint imbalance; report chronological
+  operation timings and group differences against elapsed time and imbalance.
+  Include order/half summaries and descriptive Spearman correlations with average
+  tied ranks and null constant inputs. No tests of significance, exclusions or causes.
+- WC3: Deliver a decision-complete, separately approved future pilot proposal:
+  zero-padding prose reflow; sizes 1/16/64/256 × telemetry off/on plus original
+  reference; 297 processes; seed 73080; ordinary shared use; deterministic duration,
+  variability and resource selection. Retention stays not established.
+- WC4: Isolate sources/output/evidence, use fatal launch sentinels, verify arithmetic,
+  integrity rejection, deterministic reproduction and schedule without execution;
+  archive sources, input identities, diagnostics, protocol and checks; preserve history.
+
+## Fixed batching pilot — approved 2026-11-08
+
+The owner's supplied-plan implementation request explicitly approves the requirements,
+design and tasks in [batching-pilot-proposal.md](batching-pilot-proposal.md), the
+isolated Release harness build against verified existing baseline libraries, and
+one fixed 297-process pilot (nine correctness, 288 timing). This supersedes the
+proposal's historical draft approval status only. Preserve all prior work and
+evidence. No renderer/public API changes, candidate comparisons, later calibration,
+commits, merges or publication are authorized. Retention remains **not established**.
+
+## Approved fixed batching refinement — 2026-11-08
+
+The supplied-plan implementation request approves the requirements, design and tasks
+in [the refinement protocol](batching-refinement-protocol.md), including its exclusions.
+Historical 297-process pilot and no-selection result remain unchanged.

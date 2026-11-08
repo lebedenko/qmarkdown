@@ -1,0 +1,2176 @@
+{
+  "retentionEstablished": false,
+  "calibration": "unresolved",
+  "recommendation": "Stop: reconsider the measurement procedure before another separately approved experiment. Do not extend this run.",
+  "seed": 73079,
+  "resamples": 10000,
+  "cells": [
+    {
+      "case": "prose-480-4096",
+      "operation": "initial",
+      "applicable": true,
+      "completedGroups": 40,
+      "AMedianNs": 4416857.5,
+      "BMedianNs": 4348374.0,
+      "medianDifferenceNs": -85508.25,
+      "overheadPerParagraphNs": -85508.25,
+      "medianImprovement": 0.01660748854205902,
+      "intervals95": {
+        "AMedianNs": [
+          4204411.25,
+          4696020.75
+        ],
+        "BMedianNs": [
+          4142255.5,
+          4749546.5
+        ],
+        "medianDifferenceNs": [
+          -185241.5,
+          35624.75
+        ],
+        "overheadPerParagraphNs": [
+          -185241.5,
+          35624.75
+        ],
+        "medianImprovement": [
+          -0.009097080546715444,
+          0.04427564102948992
+        ]
+      },
+      "timerLimited": false,
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 71,
+      "ratioThresholdNs": 7100,
+      "descriptive": {
+        "median": -85508.25,
+        "mad": 195981.25,
+        "minimum": -2767818.5,
+        "maximum": 2445683.0,
+        "positive": 16,
+        "negative": 24,
+        "zero": 0
+      },
+      "groupDifferences": [
+        2445683.0,
+        -261462.0,
+        -105596.0,
+        187986.5,
+        323227.5,
+        -704672.0,
+        -202070.0,
+        112652.0,
+        -100755.0,
+        -617723.5,
+        -1858919.0,
+        457081.0,
+        78282.5,
+        -104733.0,
+        -358890.5,
+        507052.0,
+        844483.5,
+        -103180.5,
+        -139000.0,
+        262354.0,
+        -70261.5,
+        15838.5,
+        -170997.5,
+        -602472.0,
+        -43912.0,
+        -390366.5,
+        186796.5,
+        -310304.0,
+        -504650.0,
+        -2767818.5,
+        -199485.5,
+        71159.5,
+        11381.5,
+        -623592.5,
+        97557.5,
+        939646.5,
+        -45280.0,
+        -44078.5,
+        -279310.5,
+        55411.0
+      ],
+      "armGroupTimingsNs": {
+        "A": [
+          3947667.5,
+          4102025.5,
+          4431312.5,
+          4785910.5,
+          3956388.0,
+          5902421.5,
+          4138275.5,
+          3835594.0,
+          4165741.0,
+          4325707.0,
+          5961176.5,
+          4544202.0,
+          4337223.0,
+          4402402.5,
+          4729922.0,
+          4142249.0,
+          4462966.0,
+          5398404.5,
+          3854299.0,
+          4001955.0,
+          4982438.5,
+          4060952.0,
+          4031066.0,
+          5396784.0,
+          5919051.0,
+          4328246.5,
+          4547245.5,
+          5916335.0,
+          5534554.5,
+          6927522.5,
+          4324292.5,
+          4243081.5,
+          5644090.5,
+          4468269.5,
+          4007126.0,
+          3825404.5,
+          4662119.5,
+          5282570.5,
+          4881179.0,
+          3876530.5
+        ],
+        "B": [
+          6393350.5,
+          3840563.5,
+          4325716.5,
+          4973897.0,
+          4279615.5,
+          5197749.5,
+          3936205.5,
+          3948246.0,
+          4064986.0,
+          3707983.5,
+          4102257.5,
+          5001283.0,
+          4415505.5,
+          4297669.5,
+          4371031.5,
+          4649301.0,
+          5307449.5,
+          5295224.0,
+          3715299.0,
+          4264309.0,
+          4912177.0,
+          4076790.5,
+          3860068.5,
+          4794312.0,
+          5875139.0,
+          3937880.0,
+          4734042.0,
+          5606031.0,
+          5029904.5,
+          4159704.0,
+          4124807.0,
+          4314241.0,
+          5655472.0,
+          3844677.0,
+          4104683.5,
+          4765051.0,
+          4616839.5,
+          5238492.0,
+          4601868.5,
+          3931941.5
+        ]
+      },
+      "order": {
+        "ABBA": {
+          "overheadPerParagraphNs": {
+            "median": 5749.5,
+            "mad": 193141.0,
+            "minimum": -2767818.5,
+            "maximum": 2445683.0,
+            "positive": 10,
+            "negative": 10,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 4331465.0,
+              "mad": 315526.75,
+              "minimum": 3825404.5,
+              "maximum": 6927522.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 4370611.0,
+              "mad": 430517.25,
+              "minimum": 3707983.5,
+              "maximum": 6393350.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "BAAB": {
+          "overheadPerParagraphNs": {
+            "median": -153401.5,
+            "mad": 187364.5,
+            "minimum": -1858919.0,
+            "maximum": 262354.0,
+            "positive": 6,
+            "negative": 14,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 4757916.25,
+              "mad": 639678.0,
+              "minimum": 4001955.0,
+              "maximum": 5961176.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 4342636.25,
+              "mad": 405593.5,
+              "minimum": 3840563.5,
+              "maximum": 5655472.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "halves": {
+        "first20": {
+          "overheadPerParagraphNs": {
+            "median": -101967.75,
+            "mad": 273438.5,
+            "minimum": -1858919.0,
+            "maximum": 2445683.0,
+            "positive": 9,
+            "negative": 11,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 4331465.0,
+              "mad": 279474.75,
+              "minimum": 3835594.0,
+              "maximum": 5961176.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 4311693.0,
+              "mad": 369467.25,
+              "minimum": 3707983.5,
+              "maximum": 6393350.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "last20": {
+          "overheadPerParagraphNs": {
+            "median": -57770.75,
+            "mad": 148521.5,
+            "minimum": -2767818.5,
+            "maximum": 939646.5,
+            "positive": 7,
+            "negative": 13,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 4604682.5,
+              "mad": 585586.5,
+              "minimum": 3825404.5,
+              "maximum": 6927522.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 4609354.0,
+              "mad": 494608.75,
+              "minimum": 3844677.0,
+              "maximum": 5875139.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "operation": "reflow",
+      "applicable": true,
+      "completedGroups": 40,
+      "AMedianNs": 120636.25,
+      "BMedianNs": 117226.0,
+      "medianDifferenceNs": -3493.5,
+      "overheadPerParagraphNs": -3493.5,
+      "medianImprovement": 0.0322719432552776,
+      "intervals95": {
+        "AMedianNs": [
+          114768.5,
+          126118.0
+        ],
+        "BMedianNs": [
+          111757.5,
+          126722.0
+        ],
+        "medianDifferenceNs": [
+          -7180.0,
+          1856.75
+        ],
+        "overheadPerParagraphNs": [
+          -7180.0,
+          1856.75
+        ],
+        "medianImprovement": [
+          -0.016168057741990653,
+          0.059190375511019244
+        ]
+      },
+      "timerLimited": false,
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 71,
+      "ratioThresholdNs": 7100,
+      "descriptive": {
+        "median": -3493.5,
+        "mad": 10417.5,
+        "minimum": -56698.5,
+        "maximum": 68018.5,
+        "positive": 15,
+        "negative": 25,
+        "zero": 0
+      },
+      "groupDifferences": [
+        68018.5,
+        -13333.5,
+        -7499.5,
+        14729.0,
+        -14092.5,
+        -29995.0,
+        -3132.5,
+        3645.5,
+        -8049.5,
+        -14503.5,
+        -48999.5,
+        13096.0,
+        3263.5,
+        -6296.5,
+        -7268.5,
+        8567.0,
+        22913.5,
+        -7091.5,
+        -3854.5,
+        11231.5,
+        9094.5,
+        -1083.0,
+        -5401.5,
+        -20203.5,
+        -1873.0,
+        -128.5,
+        -1958.0,
+        -5576.0,
+        -20370.0,
+        -56698.5,
+        -7030.5,
+        4817.5,
+        15163.0,
+        -15941.0,
+        7955.5,
+        23394.5,
+        -17235.5,
+        450.0,
+        -13729.5,
+        11895.5
+      ],
+      "armGroupTimingsNs": {
+        "A": [
+          105280.5,
+          115600.5,
+          123123.0,
+          126553.5,
+          131487.5,
+          168254.5,
+          109131.0,
+          98236.0,
+          120913.0,
+          113423.5,
+          157331.5,
+          121668.5,
+          112035.5,
+          120257.5,
+          125682.5,
+          117313.5,
+          118152.0,
+          148489.5,
+          101313.0,
+          103562.0,
+          125139.5,
+          108448.0,
+          103669.0,
+          146556.5,
+          153651.5,
+          105120.5,
+          123327.5,
+          155581.0,
+          152185.5,
+          162129.0,
+          116113.5,
+          112239.5,
+          151815.0,
+          120359.5,
+          99420.0,
+          106601.5,
+          144326.5,
+          140320.0,
+          135845.0,
+          98756.0
+        ],
+        "B": [
+          173299.0,
+          102267.0,
+          115623.5,
+          141282.5,
+          117395.0,
+          138259.5,
+          105998.5,
+          101881.5,
+          112863.5,
+          98920.0,
+          108332.0,
+          134764.5,
+          115299.0,
+          113961.0,
+          118414.0,
+          125880.5,
+          141065.5,
+          141398.0,
+          97458.5,
+          114793.5,
+          134234.0,
+          107365.0,
+          98267.5,
+          126353.0,
+          151778.5,
+          104992.0,
+          121369.5,
+          150005.0,
+          131815.5,
+          105430.5,
+          109083.0,
+          117057.0,
+          166978.0,
+          104418.5,
+          107375.5,
+          129996.0,
+          127091.0,
+          140770.0,
+          122115.5,
+          110651.5
+        ]
+      },
+      "order": {
+        "ABBA": {
+          "overheadPerParagraphNs": {
+            "median": -1915.5,
+            "mad": 11593.5,
+            "minimum": -56698.5,
+            "maximum": 68018.5,
+            "positive": 9,
+            "negative": 11,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 117732.75,
+              "mad": 9269.0,
+              "minimum": 98236.0,
+              "maximum": 162129.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 116509.25,
+              "mad": 12788.75,
+              "minimum": 97458.5,
+              "maximum": 173299.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "BAAB": {
+          "overheadPerParagraphNs": {
+            "median": -5936.25,
+            "mad": 7595.25,
+            "minimum": -48999.5,
+            "maximum": 15163.0,
+            "positive": 6,
+            "negative": 14,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 126118.0,
+              "mad": 19054.25,
+              "minimum": 99420.0,
+              "maximum": 168254.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 117735.5,
+              "mad": 11053.75,
+              "minimum": 102267.0,
+              "maximum": 166978.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "halves": {
+        "first20": {
+          "overheadPerParagraphNs": {
+            "median": -5075.5,
+            "mad": 8869.0,
+            "minimum": -48999.5,
+            "maximum": 68018.5,
+            "positive": 8,
+            "negative": 12,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 119204.75,
+              "mad": 7259.0,
+              "minimum": 98236.0,
+              "maximum": 168254.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 115461.25,
+              "mad": 11806.75,
+              "minimum": 97458.5,
+              "maximum": 173299.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "last20": {
+          "overheadPerParagraphNs": {
+            "median": -1915.5,
+            "mad": 10440.5,
+            "minimum": -56698.5,
+            "maximum": 23394.5,
+            "positive": 7,
+            "negative": 13,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 124233.5,
+              "mad": 19603.0,
+              "minimum": 98756.0,
+              "maximum": 162129.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 121742.5,
+              "mad": 13513.25,
+              "minimum": 98267.5,
+              "maximum": 166978.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "referenceLimitPerParagraphNs": 4819.525000000001,
+      "resolved": false
+    },
+    {
+      "case": "prose-480-4096",
+      "operation": "repeat",
+      "applicable": true,
+      "completedGroups": 40,
+      "AMedianNs": 164.5,
+      "BMedianNs": 171.25,
+      "medianDifferenceNs": -1.0,
+      "overheadPerParagraphNs": -1.0,
+      "medianImprovement": null,
+      "intervals95": {
+        "AMedianNs": [
+          154.5,
+          177.75
+        ],
+        "BMedianNs": [
+          144.75,
+          180.75
+        ],
+        "medianDifferenceNs": [
+          -15.75,
+          10.0
+        ],
+        "overheadPerParagraphNs": [
+          -15.75,
+          10.0
+        ],
+        "medianImprovement": null
+      },
+      "timerLimited": true,
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 71,
+      "ratioThresholdNs": 7100,
+      "descriptive": {
+        "median": -1.0,
+        "mad": 19.25,
+        "minimum": -82.0,
+        "maximum": 92.5,
+        "positive": 18,
+        "negative": 21,
+        "zero": 1
+      },
+      "groupDifferences": [
+        92.5,
+        13.0,
+        65.0,
+        61.0,
+        20.5,
+        -20.5,
+        -42.5,
+        -25.5,
+        22.0,
+        1.5,
+        -82.0,
+        45.5,
+        17.0,
+        0.0,
+        -50.0,
+        -18.0,
+        7.0,
+        -66.5,
+        -5.0,
+        -11.0,
+        16.0,
+        3.0,
+        15.5,
+        42.5,
+        -25.5,
+        -13.5,
+        -0.5,
+        -9.0,
+        -36.0,
+        -74.0,
+        -19.0,
+        17.5,
+        58.0,
+        -22.0,
+        5.5,
+        21.5,
+        -20.0,
+        -28.5,
+        -1.5,
+        -9.5
+      ],
+      "armGroupTimingsNs": {
+        "A": [
+          147.5,
+          131.5,
+          127.0,
+          169.0,
+          155.0,
+          239.0,
+          164.5,
+          147.5,
+          156.5,
+          143.5,
+          230.5,
+          158.0,
+          152.5,
+          159.0,
+          189.0,
+          183.0,
+          175.0,
+          242.5,
+          145.5,
+          152.5,
+          181.0,
+          129.5,
+          121.0,
+          180.5,
+          224.5,
+          154.0,
+          143.5,
+          233.5,
+          225.0,
+          213.5,
+          168.5,
+          168.0,
+          209.0,
+          164.5,
+          125.0,
+          158.0,
+          199.5,
+          213.5,
+          174.5,
+          134.5
+        ],
+        "B": [
+          240.0,
+          144.5,
+          192.0,
+          230.0,
+          175.5,
+          218.5,
+          122.0,
+          122.0,
+          178.5,
+          145.0,
+          148.5,
+          203.5,
+          169.5,
+          159.0,
+          139.0,
+          165.0,
+          182.0,
+          176.0,
+          140.5,
+          141.5,
+          197.0,
+          132.5,
+          136.5,
+          223.0,
+          199.0,
+          140.5,
+          143.0,
+          224.5,
+          189.0,
+          139.5,
+          149.5,
+          185.5,
+          267.0,
+          142.5,
+          130.5,
+          179.5,
+          179.5,
+          185.0,
+          173.0,
+          125.0
+        ]
+      },
+      "order": {
+        "ABBA": {
+          "overheadPerParagraphNs": {
+            "median": 0.5,
+            "mad": 19.75,
+            "minimum": -74.0,
+            "maximum": 92.5,
+            "positive": 10,
+            "negative": 10,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 156.5,
+              "mad": 13.0,
+              "minimum": 121.0,
+              "maximum": 224.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 167.25,
+              "mad": 24.75,
+              "minimum": 122.0,
+              "maximum": 240.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "BAAB": {
+          "overheadPerParagraphNs": {
+            "median": -5.25,
+            "mad": 23.0,
+            "minimum": -82.0,
+            "maximum": 61.0,
+            "positive": 8,
+            "negative": 11,
+            "zero": 1
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 171.75,
+              "mad": 28.25,
+              "minimum": 125.0,
+              "maximum": 242.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 174.5,
+              "mad": 33.5,
+              "minimum": 122.0,
+              "maximum": 267.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "halves": {
+        "first20": {
+          "overheadPerParagraphNs": {
+            "median": 0.75,
+            "mad": 21.25,
+            "minimum": -82.0,
+            "maximum": 92.5,
+            "positive": 10,
+            "negative": 9,
+            "zero": 1
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 157.25,
+              "mad": 11.75,
+              "minimum": 127.0,
+              "maximum": 242.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 167.25,
+              "mad": 23.75,
+              "minimum": 122.0,
+              "maximum": 240.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "last20": {
+          "overheadPerParagraphNs": {
+            "median": -5.25,
+            "mad": 18.5,
+            "minimum": -74.0,
+            "maximum": 58.0,
+            "positive": 8,
+            "negative": 12,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 171.5,
+              "mad": 32.5,
+              "minimum": 121.0,
+              "maximum": 233.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 176.25,
+              "mad": 33.5,
+              "minimum": 125.0,
+              "maximum": 267.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "operation": "metadata",
+      "applicable": false,
+      "completedGroups": 40,
+      "timerLimited": false,
+      "intervals95": null,
+      "descriptive": null,
+      "groupDifferences": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "initial",
+      "applicable": true,
+      "completedGroups": 40,
+      "AMedianNs": 3515931.25,
+      "BMedianNs": 3501307.25,
+      "medianDifferenceNs": -5362.5,
+      "overheadPerParagraphNs": -5362.5,
+      "medianImprovement": 0.0015256581415686846,
+      "intervals95": {
+        "AMedianNs": [
+          3497887.5,
+          3534232.25
+        ],
+        "BMedianNs": [
+          3480303.25,
+          3537482.5
+        ],
+        "medianDifferenceNs": [
+          -35083.5,
+          36162.75
+        ],
+        "overheadPerParagraphNs": [
+          -35083.5,
+          36162.75
+        ],
+        "medianImprovement": [
+          -0.010221313212698932,
+          0.01008153359656308
+        ]
+      },
+      "timerLimited": false,
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 70,
+      "ratioThresholdNs": 7000,
+      "descriptive": {
+        "median": -5362.5,
+        "mad": 69508.25,
+        "minimum": -202136.5,
+        "maximum": 944104.5,
+        "positive": 18,
+        "negative": 22,
+        "zero": 0
+      },
+      "groupDifferences": [
+        72884.5,
+        -1000.0,
+        944104.5,
+        12032.0,
+        -141769.5,
+        -36996.5,
+        57288.0,
+        5926.5,
+        -104234.5,
+        -94068.5,
+        38203.5,
+        38319.0,
+        -35083.5,
+        -7860.0,
+        145095.0,
+        -39400.5,
+        29627.0,
+        -11272.0,
+        109736.0,
+        218347.0,
+        109654.0,
+        -2865.0,
+        -107029.5,
+        89207.5,
+        79870.5,
+        -67299.5,
+        88411.0,
+        -202136.5,
+        103690.0,
+        -30450.5,
+        154897.0,
+        -9573.5,
+        -72472.5,
+        -171813.5,
+        -105720.0,
+        34122.0,
+        -77269.0,
+        -138001.0,
+        -68104.5,
+        -11928.5
+      ],
+      "armGroupTimingsNs": {
+        "A": [
+          3504237.0,
+          3501969.0,
+          3429607.5,
+          3537015.5,
+          3620831.5,
+          3478622.0,
+          3402189.5,
+          3471880.5,
+          3554934.0,
+          3588737.5,
+          3493806.0,
+          3509040.0,
+          3479976.5,
+          3509505.5,
+          3481956.5,
+          3507878.5,
+          3513328.5,
+          3518534.0,
+          3448702.0,
+          3460732.0,
+          3449943.5,
+          3529696.5,
+          3566737.0,
+          3531449.0,
+          3551164.5,
+          3550475.5,
+          3455061.5,
+          3644133.0,
+          3422224.5,
+          3529667.5,
+          3432408.5,
+          3520894.5,
+          3539479.0,
+          3612723.5,
+          3589577.0,
+          3583285.5,
+          3520743.5,
+          3613102.5,
+          3549649.0,
+          3481651.5
+        ],
+        "B": [
+          3577121.5,
+          3500969.0,
+          4373712.0,
+          3549047.5,
+          3479062.0,
+          3441625.5,
+          3459477.5,
+          3477807.0,
+          3450699.5,
+          3494669.0,
+          3532009.5,
+          3547359.0,
+          3444893.0,
+          3501645.5,
+          3627051.5,
+          3468478.0,
+          3542955.5,
+          3507262.0,
+          3558438.0,
+          3679079.0,
+          3559597.5,
+          3526831.5,
+          3459707.5,
+          3620656.5,
+          3631035.0,
+          3483176.0,
+          3543472.5,
+          3441996.5,
+          3525914.5,
+          3499217.0,
+          3587305.5,
+          3511321.0,
+          3467006.5,
+          3440910.0,
+          3483857.0,
+          3617407.5,
+          3443474.5,
+          3475101.5,
+          3481544.5,
+          3469723.0
+        ]
+      },
+      "order": {
+        "ABBA": {
+          "overheadPerParagraphNs": {
+            "median": 13131.0,
+            "mad": 93541.0,
+            "minimum": -141769.5,
+            "maximum": 944104.5,
+            "positive": 10,
+            "negative": 10,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 3506871.25,
+              "mad": 49936.25,
+              "minimum": 3422224.5,
+              "maximum": 3620831.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 3516588.25,
+              "mad": 42248.0,
+              "minimum": 3441625.5,
+              "maximum": 4373712.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "BAAB": {
+          "overheadPerParagraphNs": {
+            "median": -6219.25,
+            "mad": 40192.25,
+            "minimum": -202136.5,
+            "maximum": 109736.0,
+            "positive": 8,
+            "negative": 12,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 3520819.0,
+              "mad": 18755.0,
+              "minimum": 3402189.5,
+              "maximum": 3644133.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 3496943.0,
+              "mad": 41739.0,
+              "minimum": 3440910.0,
+              "maximum": 3631035.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "halves": {
+        "first20": {
+          "overheadPerParagraphNs": {
+            "median": 8979.25,
+            "mad": 47142.25,
+            "minimum": -141769.5,
+            "maximum": 944104.5,
+            "positive": 11,
+            "negative": 9,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 3503103.0,
+              "mad": 23803.75,
+              "minimum": 3402189.5,
+              "maximum": 3620831.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 3504453.75,
+              "mad": 43749.5,
+              "minimum": 3441625.5,
+              "maximum": 4373712.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "last20": {
+          "overheadPerParagraphNs": {
+            "median": -21189.5,
+            "mad": 85185.25,
+            "minimum": -202136.5,
+            "maximum": 154897.0,
+            "positive": 7,
+            "negative": 13,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 3535464.0,
+              "mad": 39547.25,
+              "minimum": 3422224.5,
+              "maximum": 3644133.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 3491537.0,
+              "mad": 34836.0,
+              "minimum": 3440910.0,
+              "maximum": 3631035.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "reflow",
+      "applicable": true,
+      "completedGroups": 40,
+      "AMedianNs": 299505.0,
+      "BMedianNs": 299805.0,
+      "medianDifferenceNs": -335.25,
+      "overheadPerParagraphNs": -335.25,
+      "medianImprovement": 0.001121027698089012,
+      "intervals95": {
+        "AMedianNs": [
+          298401.75,
+          303569.0
+        ],
+        "BMedianNs": [
+          298761.25,
+          301600.75
+        ],
+        "medianDifferenceNs": [
+          -4438.25,
+          3032.5
+        ],
+        "overheadPerParagraphNs": [
+          -4438.25,
+          3032.5
+        ],
+        "medianImprovement": [
+          -0.010162697093631018,
+          0.014749204329462421
+        ]
+      },
+      "timerLimited": false,
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 70,
+      "ratioThresholdNs": 7000,
+      "descriptive": {
+        "median": -335.25,
+        "mad": 5703.25,
+        "minimum": -50026.5,
+        "maximum": 74880.5,
+        "positive": 19,
+        "negative": 21,
+        "zero": 0
+      },
+      "groupDifferences": [
+        -550.0,
+        -517.0,
+        74880.5,
+        -7140.0,
+        -153.5,
+        -23169.0,
+        1618.0,
+        11464.5,
+        43558.0,
+        14532.0,
+        -742.0,
+        28784.5,
+        24887.5,
+        -14771.5,
+        -9596.0,
+        1429.0,
+        -4459.5,
+        -4987.0,
+        453.0,
+        3006.5,
+        73131.0,
+        -29586.5,
+        -4895.5,
+        -50026.5,
+        -16798.0,
+        64163.0,
+        -3687.5,
+        3326.5,
+        9360.0,
+        5279.0,
+        -1921.5,
+        -5179.5,
+        -6127.5,
+        -17682.5,
+        3058.5,
+        4504.0,
+        -4417.0,
+        20909.0,
+        -12478.5,
+        2355.5
+      ],
+      "armGroupTimingsNs": {
+        "A": [
+          297172.0,
+          299321.5,
+          299980.0,
+          305565.0,
+          298165.0,
+          321197.5,
+          298594.5,
+          297991.5,
+          304902.5,
+          298209.0,
+          296255.0,
+          295009.5,
+          299214.0,
+          316136.0,
+          312824.0,
+          297218.0,
+          298987.0,
+          303152.5,
+          297351.0,
+          297731.5,
+          301395.5,
+          328320.0,
+          303985.5,
+          349221.5,
+          314392.5,
+          338862.0,
+          301309.0,
+          296420.0,
+          299627.5,
+          297340.0,
+          297420.0,
+          305043.0,
+          304916.5,
+          319146.0,
+          299050.5,
+          296186.0,
+          302886.0,
+          298171.0,
+          312050.5,
+          299382.5
+        ],
+        "B": [
+          296622.0,
+          298804.5,
+          374860.5,
+          298425.0,
+          298011.5,
+          298028.5,
+          300212.5,
+          309456.0,
+          348460.5,
+          312741.0,
+          295513.0,
+          323794.0,
+          324101.5,
+          301364.5,
+          303228.0,
+          298647.0,
+          294527.5,
+          298165.5,
+          297804.0,
+          300738.0,
+          374526.5,
+          298733.5,
+          299090.0,
+          299195.0,
+          297594.5,
+          403025.0,
+          297621.5,
+          299746.5,
+          308987.5,
+          302619.0,
+          295498.5,
+          299863.5,
+          298789.0,
+          301463.5,
+          302109.0,
+          300690.0,
+          298469.0,
+          319080.0,
+          299572.0,
+          301738.0
+        ]
+      },
+      "order": {
+        "ABBA": {
+          "overheadPerParagraphNs": {
+            "median": -351.75,
+            "mad": 7050.0,
+            "minimum": -23169.0,
+            "maximum": 74880.5,
+            "positive": 9,
+            "negative": 11,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 300644.5,
+              "mad": 3282.75,
+              "minimum": 296186.0,
+              "maximum": 338862.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 300714.0,
+              "mad": 2897.5,
+              "minimum": 295498.5,
+              "maximum": 403025.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "BAAB": {
+          "overheadPerParagraphNs": {
+            "median": -32.0,
+            "mad": 5703.25,
+            "minimum": -50026.5,
+            "maximum": 28784.5,
+            "positive": 10,
+            "negative": 10,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 299267.75,
+              "mad": 2448.75,
+              "minimum": 295009.5,
+              "maximum": 349221.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 299470.75,
+              "mad": 1356.25,
+              "minimum": 294527.5,
+              "maximum": 324101.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "halves": {
+        "first20": {
+          "overheadPerParagraphNs": {
+            "median": 149.75,
+            "mad": 6213.25,
+            "minimum": -23169.0,
+            "maximum": 74880.5,
+            "positive": 10,
+            "negative": 10,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 298790.75,
+              "mad": 1506.25,
+              "minimum": 295009.5,
+              "maximum": 321197.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 299508.5,
+              "mad": 2371.25,
+              "minimum": 294527.5,
+              "maximum": 374860.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "last20": {
+          "overheadPerParagraphNs": {
+            "median": -2804.5,
+            "mad": 7696.0,
+            "minimum": -50026.5,
+            "maximum": 73131.0,
+            "positive": 9,
+            "negative": 11,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 302140.75,
+              "mad": 4345.25,
+              "minimum": 296186.0,
+              "maximum": 349221.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 299805.0,
+              "mad": 1795.75,
+              "minimum": 295498.5,
+              "maximum": 403025.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "repeat",
+      "applicable": true,
+      "completedGroups": 40,
+      "AMedianNs": 131.5,
+      "BMedianNs": 131.5,
+      "medianDifferenceNs": -1.0,
+      "overheadPerParagraphNs": -1.0,
+      "medianImprovement": null,
+      "intervals95": {
+        "AMedianNs": [
+          129.0,
+          134.0
+        ],
+        "BMedianNs": [
+          128.5,
+          136.75
+        ],
+        "medianDifferenceNs": [
+          -4.0,
+          2.25
+        ],
+        "overheadPerParagraphNs": [
+          -4.0,
+          2.25
+        ],
+        "medianImprovement": null
+      },
+      "timerLimited": true,
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 70,
+      "ratioThresholdNs": 7000,
+      "descriptive": {
+        "median": -1.0,
+        "mad": 10.0,
+        "minimum": -36.5,
+        "maximum": 44.5,
+        "positive": 18,
+        "negative": 22,
+        "zero": 0
+      },
+      "groupDifferences": [
+        -31.5,
+        8.5,
+        -6.5,
+        -7.0,
+        -15.5,
+        -2.0,
+        -1.5,
+        2.0,
+        -36.5,
+        17.5,
+        9.0,
+        14.0,
+        9.0,
+        -5.5,
+        26.0,
+        0.5,
+        44.5,
+        2.0,
+        20.0,
+        -23.5,
+        1.0,
+        -1.5,
+        -24.0,
+        -4.5,
+        -2.5,
+        -36.5,
+        -21.5,
+        -13.0,
+        -3.5,
+        16.0,
+        24.0,
+        2.5,
+        26.0,
+        -0.5,
+        13.0,
+        25.5,
+        -0.5,
+        -2.0,
+        -33.5,
+        -11.0
+      ],
+      "armGroupTimingsNs": {
+        "A": [
+          162.5,
+          126.0,
+          137.5,
+          138.5,
+          131.5,
+          122.5,
+          125.0,
+          129.5,
+          155.5,
+          121.5,
+          117.0,
+          127.5,
+          131.5,
+          149.5,
+          122.0,
+          116.5,
+          107.5,
+          135.5,
+          116.0,
+          151.0,
+          132.0,
+          131.0,
+          138.5,
+          129.0,
+          132.5,
+          160.0,
+          143.0,
+          127.5,
+          147.0,
+          118.5,
+          114.0,
+          131.5,
+          129.0,
+          138.5,
+          131.5,
+          130.5,
+          132.0,
+          141.0,
+          143.5,
+          132.0
+        ],
+        "B": [
+          131.0,
+          134.5,
+          131.0,
+          131.5,
+          116.0,
+          120.5,
+          123.5,
+          131.5,
+          119.0,
+          139.0,
+          126.0,
+          141.5,
+          140.5,
+          144.0,
+          148.0,
+          117.0,
+          152.0,
+          137.5,
+          136.0,
+          127.5,
+          133.0,
+          129.5,
+          114.5,
+          124.5,
+          130.0,
+          123.5,
+          121.5,
+          114.5,
+          143.5,
+          134.5,
+          138.0,
+          134.0,
+          155.0,
+          138.0,
+          144.5,
+          156.0,
+          131.5,
+          139.0,
+          110.0,
+          121.0
+        ]
+      },
+      "order": {
+        "ABBA": {
+          "overheadPerParagraphNs": {
+            "median": -4.5,
+            "mad": 17.25,
+            "minimum": -36.5,
+            "maximum": 26.0,
+            "positive": 7,
+            "negative": 13,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 138.0,
+              "mad": 8.25,
+              "minimum": 114.0,
+              "maximum": 162.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 131.0,
+              "mad": 10.0,
+              "minimum": 110.0,
+              "maximum": 156.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "BAAB": {
+          "overheadPerParagraphNs": {
+            "median": 1.25,
+            "mad": 7.5,
+            "minimum": -13.0,
+            "maximum": 44.5,
+            "positive": 11,
+            "negative": 9,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 129.0,
+              "mad": 3.0,
+              "minimum": 107.5,
+              "maximum": 138.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 132.75,
+              "mad": 5.75,
+              "minimum": 114.5,
+              "maximum": 155.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "halves": {
+        "first20": {
+          "overheadPerParagraphNs": {
+            "median": 1.25,
+            "mad": 8.0,
+            "minimum": -36.5,
+            "maximum": 44.5,
+            "positive": 11,
+            "negative": 9,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 128.5,
+              "mad": 8.0,
+              "minimum": 107.5,
+              "maximum": 162.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 131.5,
+              "mad": 7.75,
+              "minimum": 116.0,
+              "maximum": 152.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "last20": {
+          "overheadPerParagraphNs": {
+            "median": -1.75,
+            "mad": 10.25,
+            "minimum": -36.5,
+            "maximum": 26.0,
+            "positive": 7,
+            "negative": 13,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 132.0,
+              "mad": 3.75,
+              "minimum": 114.0,
+              "maximum": 160.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 132.25,
+              "mad": 8.25,
+              "minimum": 110.0,
+              "maximum": 156.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "metadata",
+      "applicable": true,
+      "completedGroups": 40,
+      "AMedianNs": 2005224.5,
+      "BMedianNs": 1992337.5,
+      "medianDifferenceNs": 5137.25,
+      "overheadPerParagraphNs": 5137.25,
+      "medianImprovement": -0.0025774453965884897,
+      "intervals95": {
+        "AMedianNs": [
+          1990715.25,
+          2017225.0
+        ],
+        "BMedianNs": [
+          1984360.75,
+          2017640.25
+        ],
+        "medianDifferenceNs": [
+          -21943.75,
+          21681.25
+        ],
+        "overheadPerParagraphNs": [
+          -21943.75,
+          21681.25
+        ],
+        "medianImprovement": [
+          -0.010852118213545201,
+          0.010931598532224604
+        ]
+      },
+      "timerLimited": false,
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 70,
+      "ratioThresholdNs": 7000,
+      "descriptive": {
+        "median": 5137.25,
+        "mad": 31408.25,
+        "minimum": -563930.5,
+        "maximum": 114818.0,
+        "positive": 23,
+        "negative": 17,
+        "zero": 0
+      },
+      "groupDifferences": [
+        -563930.5,
+        16151.5,
+        63773.0,
+        -24896.5,
+        29450.0,
+        -24880.0,
+        -248.5,
+        95241.5,
+        330.0,
+        4112.0,
+        30477.5,
+        114818.0,
+        23494.0,
+        -74806.0,
+        20365.5,
+        101092.5,
+        -28407.0,
+        6863.5,
+        39916.0,
+        47307.5,
+        6162.5,
+        -74734.5,
+        -23212.0,
+        6342.0,
+        110933.0,
+        29871.5,
+        76413.5,
+        -27645.5,
+        -78364.5,
+        19425.0,
+        22997.0,
+        -13911.0,
+        -31747.5,
+        -55199.0,
+        -95203.5,
+        -62878.0,
+        -98028.0,
+        -20675.5,
+        3974.5,
+        43776.5
+      ],
+      "armGroupTimingsNs": {
+        "A": [
+          2579968.5,
+          2003091.0,
+          1978124.0,
+          2017834.5,
+          1950344.0,
+          2003734.0,
+          1972522.5,
+          1952539.0,
+          2040485.0,
+          1987625.0,
+          1971431.0,
+          2029769.5,
+          1953544.5,
+          2045126.0,
+          2018232.5,
+          1993805.5,
+          2012505.5,
+          1972616.0,
+          1975778.5,
+          2016615.5,
+          1962999.5,
+          2085803.0,
+          2009216.5,
+          2055027.5,
+          2030459.0,
+          2072687.0,
+          1946894.0,
+          2000056.5,
+          2051532.5,
+          2014275.0,
+          1980199.5,
+          2003931.5,
+          2005150.5,
+          2010556.5,
+          2062330.0,
+          2101088.0,
+          2085790.0,
+          2005298.5,
+          1972875.0,
+          1943177.5
+        ],
+        "B": [
+          2016038.0,
+          2019242.5,
+          2041897.0,
+          1992938.0,
+          1979794.0,
+          1978854.0,
+          1972274.0,
+          2047780.5,
+          2040815.0,
+          1991737.0,
+          2001908.5,
+          2144587.5,
+          1977038.5,
+          1970320.0,
+          2038598.0,
+          2094898.0,
+          1984098.5,
+          1979479.5,
+          2015694.5,
+          2063923.0,
+          1969162.0,
+          2011068.5,
+          1986004.5,
+          2061369.5,
+          2141392.0,
+          2102558.5,
+          2023307.5,
+          1972411.0,
+          1973168.0,
+          2033700.0,
+          2003196.5,
+          1990020.5,
+          1973403.0,
+          1955357.5,
+          1967126.5,
+          2038210.0,
+          1987762.0,
+          1984623.0,
+          1976849.5,
+          1986954.0
+        ]
+      },
+      "order": {
+        "ABBA": {
+          "overheadPerParagraphNs": {
+            "median": 5068.5,
+            "mad": 27012.25,
+            "minimum": -563930.5,
+            "maximum": 76413.5,
+            "positive": 12,
+            "negative": 8,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 2007257.5,
+              "mad": 35234.0,
+              "minimum": 1946894.0,
+              "maximum": 2579968.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 1993956.5,
+              "mad": 22859.0,
+              "minimum": 1967126.5,
+              "maximum": 2102558.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "BAAB": {
+          "overheadPerParagraphNs": {
+            "median": 5227.0,
+            "mad": 34161.5,
+            "minimum": -98028.0,
+            "maximum": 114818.0,
+            "positive": 11,
+            "negative": 9,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 2004541.0,
+              "mad": 21072.25,
+              "minimum": 1943177.5,
+              "maximum": 2085803.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 1992337.5,
+              "mad": 19995.0,
+              "minimum": 1955357.5,
+              "maximum": 2144587.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "halves": {
+        "first20": {
+          "overheadPerParagraphNs": {
+            "median": 18258.5,
+            "mad": 25353.25,
+            "minimum": -563930.5,
+            "maximum": 114818.0,
+            "positive": 14,
+            "negative": 6,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 1998448.25,
+              "mad": 24251.0,
+              "minimum": 1950344.0,
+              "maximum": 2579968.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 2008801.5,
+              "mad": 29872.0,
+              "minimum": 1970320.0,
+              "maximum": 2144587.5,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        },
+        "last20": {
+          "overheadPerParagraphNs": {
+            "median": -17293.25,
+            "mad": 39098.0,
+            "minimum": -98028.0,
+            "maximum": 110933.0,
+            "positive": 9,
+            "negative": 11,
+            "zero": 0
+          },
+          "armTimingNs": {
+            "A": {
+              "median": 2009886.5,
+              "mad": 39328.75,
+              "minimum": 1943177.5,
+              "maximum": 2101088.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            },
+            "B": {
+              "median": 1987358.0,
+              "mad": 17017.25,
+              "minimum": 1955357.5,
+              "maximum": 2141392.0,
+              "positive": 20,
+              "negative": 0,
+              "zero": 0
+            }
+          }
+        }
+      },
+      "referenceLimitPerParagraphNs": 101542.07500000001,
+      "resolved": true
+    }
+  ],
+  "processCount": 322,
+  "wallSeconds": 39.69577773499259,
+  "maximumSampledRssBytes": 34672640,
+  "maximumHighWaterRssBytes": 80932864
+}

@@ -1,0 +1,39 @@
+{
+  "archives": {
+    "073-candidate-characterization.tar.gz": {
+      "bytes": 717724,
+      "files": {
+        "analysis/README.md": "490f7da72dbeb24c0f94854f8fa0b452d9363521dacb8b71b8696df2d14f0a42",
+        "analysis/analyze.py": "3077e1861ecc313da8c786025f3b0fb66f53f85b16b5a410b82b9a2bfb679447",
+        "analysis/package.py": "cafb909208a311fb5e2a51a3840c7d25327acf89c2290d4ce32d380487d8754d",
+        "analysis/test_characterization.py": "04435d9ad24f39fefba47b0cf84a26b4dfc2313292021d3f487ca5bfd784f60e",
+        "analysis/verify.py": "c08a23a6844d2ada97983a8f654c79b1ed0e97edbf346c521623f41697aad471",
+        "batching-pilot-proposal.md": "09efa72dc1cd27bdd7de4b70b9f1968cb689052c7eab8b4ac18e8dc462b84392",
+        "cells.csv": "cd06f9f2db590c0027adac97c1aaffb76019d63bf2fcdcc6aa84e542f0500fe4",
+        "checks/final-docs.log": "87dad13e9b0077a355fb0688b45c88a9577d7309b30f79f8238d45ac028cbd0c",
+        "checks/focused.log": "c90a95b8e316333a67753b4ad96b1760b12eeed3a20772a3d08f73beb67af35a",
+        "checks/historical-preservation.json": "73a367a1e40555bc59e7a2db6368af63b7607681d8c13f5186b090df41936c61",
+        "checks/historical-preservation.log": "4d48241c722d2c019b6eebedf1c54e92c8127a2e3195d1e5a965791ac2f4f974",
+        "checks/lightweight.log": "4a125c31acffa08353c4c02b1e9a3cde609bb7fc97d4d53948610f0d472505e5",
+        "checks/reanalysis.log": "1b7aafcb3cca171b3da0910dc23f38fe9bf660bb38ad68176822d71bb859d5cd",
+        "checks/whitespace.log": "74642fed9a285f62011af8a282027b12a95902d293f0bf8237e49cbc93b6a9f2",
+        "groups.csv": "254cf961da7209b6d88c38462c834cbe3ea0c36b5c52b96a01251da078e4d7de",
+        "input-identities.json": "2f3c3825f5b4c578d97f7f5c5f4577ec3003ad64d180753e352c4c7f401d80e8",
+        "integrity.json": "ffabe62f13493ec6a6018b187a80d9976dfcbeccd5eeafdd37e4d24ddae4280a",
+        "matrix.json": "4d7b149a6fd9efec1cb7c73d5621d3a0a527c68a32ee617c76c95170108d36ee",
+        "pilot-schedule.json": "d64f47feee8d030daeb7bceeea396c1c27ff87e71400caf81b0b92d8304ac5f1",
+        "processes.csv": "c967cc6674e0f0f535847998c76086ab6e9f7cf2cf54e3067917b7ccd586529f",
+        "report.md": "57f6178059ea89d426ed0ddbfe25a2b02eb327bdbe0e6c6ba696c172fbc6dc2e",
+        "reproduced-revision/observations.json": "686395338cddb1cde45d045e7f8e0394f648530b416087e09966af6bf6cf0032",
+        "reproduced-revision/report.md": "bb2be416c38698f079c272a18310d5344cb305988c61df5de929a606352d86de",
+        "reproduced-revision/summary.json": "98bb0d21de81080735ee2cb0baf3c77fa1004da37a2103150dfafc6b19cf2dad",
+        "specification/candidate-scan-recommendation.md": "645016bfdc7a981094ad43e156408b5d3dd2393b5360d2fa8bc4e6088535a4f0",
+        "specification/design.md": "16d863c9593b15be2c38ab58a97ce6eba3d76e77d459b79b374059f0904a8f2e",
+        "specification/requirements.md": "5fd12ef3bf7d33b878ed079d066e1209a7368532b32111d79d7d107d5d03930e",
+        "specification/tasks.md": "9ffe075cefd8144468cbd684512e94a49b64f422c56202167d7aed014dd398f0",
+        "specification/verification.md": "00b157411851991185cbdb1d25e62df8736984422e3d5ad203dc9cb3e2a5147d"
+      },
+      "sha256": "0812332010b6306d49897af3e67d2cacc8a623d65e9798da558ff1fb1b9794bb"
+    }
+  }
+}

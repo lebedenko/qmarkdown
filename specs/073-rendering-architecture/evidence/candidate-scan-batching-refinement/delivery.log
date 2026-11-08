@@ -1,0 +1,3 @@
+Archive read-back: 500 member hashes verified; historical identities preserved.
+Final task check: PASS. Final git diff --check: PASS. New tool/protocol whitespace: PASS.
+Completed-run resume: zero launches; analysis.json, selection.json and report.md byte-identical.

@@ -136,3 +136,115 @@ A future approval should cover all of these requirements and tasks together:
 No alternate optimization, production retention, runtime matrix, native/Qt
 integration, merge, publication or performance acceptance is part of this iteration.
 Existing backend, Vulkan shutdown and presentation qualification gaps remain open.
+
+## Runtime continuation outcome — 2026-11-07
+
+The approved cache-aware harness continuation completed all 88 correctness and
+1,760 timing processes. Primary padded long/spans-32 operations show substantial
+measured benefits, but eight nonprimary cells fail the predeclared overhead-budget
+confidence-bound gate. **Retention is not established.** These intervals include
+zero: they leave the regression budget unresolved rather than establish a nonzero
+slowdown. No retries, additional samples or tuning were performed. See the
+[continuation evidence](evidence/candidate-scan-continuation/README.md) and full
+per-cell report. Production integration remains unauthorized and unperformed.
+
+
+## Baseline/self calibration outcome — 2026-11-08
+
+The approved 82-process calibration is unresolved: the prose reflow interval
+[−6,296.5, 2,560.0] ns/paragraph exceeds its symmetric historical reference
+envelope, although dense metadata fits. Neither target is timer-limited.
+**Retention remains not established.** A separately approved measurement-design
+revision is recommended before path isolation or further qualification. No new
+samples, candidate patch, historical timing correction or integration are approved.
+See the [calibration verification](verification.md#candidate-scan-calibration--2026-11-08).
+
+## Calibration revision decision (2026-11-08)
+
+The approved MR1–MR4 fixed experiment completed 322 processes: two correctness
+and 320 timing, forty balanced four-process groups per fixture. Calibration remains
+**unresolved; retention remains not established**. Prose reflow median overhead is
+−3,493.5 ns/paragraph with 95% interval [−7,180, 1,856.75], outside its exact
+archived ±4,819.525000000001 envelope. Dense metadata median is 5,137.25 with
+interval [−21,943.75, 21,681.25], within ±101,542.07500000001. Neither target is
+timer-limited. The fixed run is closed; reconsider the measurement procedure before
+another separately approved experiment. Do not extend this run or proceed to path
+isolation on this result. Historical gates and results remain unchanged; this
+estimator is not pooled with or subtracted from historical paired estimates.
+
+See the [revision tool](demonstrator/candidate-scan-calibration-revision/README.md)
+for reproducible analysis and the verification record for actual checks.
+
+[Decision report and verified evidence](evidence/candidate-scan-calibration-revision/README.md).
+
+## Accepted next measurement direction (2026-11-08)
+
+The owner accepted characterization before further calibration, with the correction
+that all experiments use this machine and no dedicated benchmark host is available.
+The [updated procedure](measurement-procedure.md) supports ordinary shared workstation
+use, records available machine/execution telemetry, and characterizes genuine
+reflow batches while preserving separate fresh-process observations. Balanced
+four-process groups and whole-group analysis remain the intended statistical unit.
+
+Next prepare the bounded characterization design using existing evidence. Freeze
+pilot parameters and obtain implementation-plan approval before new measurements;
+a later calibration uses a separately frozen protocol. The completed revision
+remains unresolved, and retention remains not established.
+
+## Offline characterization and draft pilot (2026-11-08)
+
+Existing-evidence characterization is complete; **retention remains not established**.
+All eight revision cells reproduce exactly. Unequal process spacing is observed:
+prose group spans range 172.091–228.156 ms and B−A process midpoint imbalance ranges
+−12.382–19.296 ms. Prose reflow Spearman correlations are 0.051220 against elapsed
+time and −0.013696 against midpoint imbalance. First/last twenty medians are
+−5,075.5/−1,915.5 ns per paragraph. These are descriptive observations, not an
+explanation of historical variability or evidence for a particular machine cause.
+Prose metadata nulls and both timer-limited repeat cells remain intact.
+
+Review the [concrete draft pilot](batching-pilot-proposal.md): genuine prose reflow
+at sizes 1/16/64/256 with operation telemetry off/on, plus the unchanged original
+reference; 297 processes, seed 73080, ordinary shared use of this workstation.
+Select the smallest enabled size meeting the predeclared duration, MAD and resource
+criteria, or select none. Instrumentation effects stay separate and A/B envelope
+success does not select a size. No harness or execution is approved by this update.
+A selected size would be provisional prepared-state throughput; later calibration
+requires a separate protocol, dataset and approval. Historical gates are unchanged.
+
+See the [offline tool](demonstrator/candidate-scan-characterization/README.md) and
+[verification record](verification.md#offline-workstation-characterization--2026-11-08)
+for the complete matrix and actual checks.
+
+## Fixed batching pilot outcome — 2026-11-08
+
+The separately approved fixed pilot completed all 297 processes with no retry,
+replacement or additional sample. All nine correctness processes passed. **No size
+was selected**: enabled sizes 1/16/64 were below the inclusive 10 ms median target
+(size 1 also exceeded the 10% MAD ratio); size 256 exceeded the strict 1 GiB sampled
+RSS selection ceiling. Size 64's median was 9.521602 ms; size 256's maximum sampled
+RSS was 1,127,469,056 bytes. These thresholds were applied without adjustment.
+
+See [actual verification](verification.md) and the
+[pilot tool](demonstrator/candidate-scan-batching-pilot/README.md). Retention remains
+**not established**. Stop here: do not infer a qualifying size between tested sizes,
+qualify historical results, reuse this dataset for calibration or run further
+sampling without separately approved requirements, design and tasks.
+
+## Fixed batching refinement — 2026-11-08
+
+The separately approved [231-process refinement](batching-refinement-protocol.md)
+completed all seven correctness and 224 timing processes validly. Select **96**,
+the smallest telemetry-enabled size tested, for **provisional prepared-state
+throughput among the tested sizes**. Its raw batch median is 14,170,985.5 ns,
+unscaled MAD 174,587.5 ns (MAD/median 0.0123201), maximum parent duration
+907,446,534 ns and maximum sampled RSS 440,905,728 bytes, including correctness.
+All configurations completed regardless of provisional performance. No smoke,
+warm-up, retry, replacement or adaptive processes ran. The historical 297-process
+pilot and its no-selection result remain unchanged.
+
+Retention remains **not established**. This neither establishes a globally minimal
+batch size nor authorizes later calibration or candidate comparisons. A later
+calibration requires separately approved protocol, budget and dataset. Evidence:
+[decision](evidence/candidate-scan-batching-refinement/selection.json),
+[report](evidence/candidate-scan-batching-refinement/report.md), and
+[archive manifest](evidence/candidate-scan-batching-refinement/archives.json).
