@@ -508,3 +508,24 @@ Historical 297-process pilot and no-selection result remain unchanged.
   once; apply the fixed selection rule only after complete validation.
 - [x] BR-T4: Finish deterministic reanalysis/completed resume, archive read-back,
   historical preservation verification and delivery checks.
+
+## Approved prepared-state calibration — 2026-11-08
+
+The owner’s supplied-plan implementation request explicitly approves PC1–PC5 and
+PC-T1–PC-T5 in [the calibration protocol](prepared-calibration-protocol.md). This
+grants one 483-process calibration at size 96 and evidence delivery only. Earlier
+exclusions of later calibration remain historical; this approval is bounded to
+this new run. Retention remains **not established** under every outcome.
+
+- [x] PC-T1: Approval and historical input inspection.
+- [x] PC-T2: Isolated frozen runner and strict recovery.
+- [x] PC-T3: Analysis, forensic support and offline tests.
+- [x] PC-T4: Fixed execution once.
+- [x] PC-T5: Reanalysis, checks, archive read-back and delivery.
+
+Subsequent owner approval (2026-11-08): “both”, in response to the explicit
+choice between committing the completed calibration and designing the next
+prepared-state path-isolation experiment, authorizes this calibration commit and
+drafting the next protocol. It does not approve implementation or execution of
+the next experiment, a push, merge or publication. Historical execution limits
+and approval records remain unchanged.

@@ -771,3 +771,11 @@ commits, merges or publication are authorized. Retention remains **not establish
 The supplied-plan implementation request approves the requirements, design and tasks
 in [the refinement protocol](batching-refinement-protocol.md), including its exclusions.
 Historical 297-process pilot and no-selection result remain unchanged.
+
+## Approved prepared-state calibration — 2026-11-08
+
+The owner’s supplied-plan implementation request explicitly approves PC1–PC5 and
+PC-T1–PC-T5 in [the calibration protocol](prepared-calibration-protocol.md). This
+grants one 483-process calibration at size 96 and evidence delivery only. Earlier
+exclusions of later calibration remain historical; this approval is bounded to
+this new run. Retention remains **not established** under every outcome.

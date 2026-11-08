@@ -1,0 +1,10 @@
+Prepared-state calibration delivery: complete; retention not established.
+Exactly 483 valid completions and 483 attempted-launch entries; no retries or extra measurements.
+Focused offline tests: 13 passed under fatal launch sentinels.
+Repository task check: passed (87 tests plus documentation/configuration checks).
+Completed resume: zero launches; full validation and three byte-identical reanalysis deliverables.
+Archive read-back: 1001 member hashes verified; complete: True
+PASS: current 1.18.0 documentation and local links
+PASS: final git diff --check; new tooling final newlines/trailing whitespace verified.
+Archive specification snapshot precedes the final delivery checkpoint/task completion; archive bytes remain unchanged.
+No commit, merge, publication or further measurement performed.

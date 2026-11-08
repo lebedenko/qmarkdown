@@ -248,3 +248,37 @@ calibration requires separately approved protocol, budget and dataset. Evidence:
 [decision](evidence/candidate-scan-batching-refinement/selection.json),
 [report](evidence/candidate-scan-batching-refinement/report.md), and
 [archive manifest](evidence/candidate-scan-batching-refinement/archives.json).
+
+## Prepared-state calibration at 96 — 2026-11-08
+
+The separately approved [483-process protocol](prepared-calibration-protocol.md)
+completed with **resolved prepared-state control**. Both required diagnostic
+intervals lie inclusively inside their exact historical tolerances and neither
+required target is timer-limited:
+
+| Target | Median D ns/paragraph | 95% whole-group interval ns/paragraph | Exact diagnostic tolerance ±ns/paragraph |
+| --- | ---: | --- | ---: |
+| Prepared prose reflow, 96, telemetry enabled | -326.82552083333337 | [-756.8932291666666, 673.1276041666667] | 4819.525000000001 |
+| Original dense metadata | 15477.5 | [3664.0, 25446.0] | 101542.07500000001 |
+
+Original single-instance prose reflow is descriptive: median -4908.5 and interval
+[-26266.75, 6452.0] ns/paragraph, outside its diagnostic envelope. This cannot veto
+or establish prepared-state resolution. The historical prose tolerance serves as
+a diagnostic target for a different measurement mode, not proof of equivalence.
+Reference repeat cells are timer-limited; prose metadata remains null. All nine
+operation cells and per-group ratio suppression remain explicit in the evidence.
+
+Recommend only **designing a separately approved prepared-state path-isolation
+experiment with contemporaneous controls**. No experiment or further measurement
+is authorized. Retention remains **not established**. Size 96 remains fixed; pilot
+selection thresholds are not calibration gates. No pooling, calibration subtraction,
+changed historical gates or explanation of historical variability is inferred.
+The new tooling and evidence live at `demonstrator/candidate-scan-prepared-calibration`
+and `evidence/candidate-scan-prepared-calibration`; historical evidence is unchanged.
+
+Delivery evidence: [report](evidence/candidate-scan-prepared-calibration/report.md),
+[decision](evidence/candidate-scan-prepared-calibration/decision.json) and
+[verified archive manifest](evidence/candidate-scan-prepared-calibration/archives.json).
+All 1001 archive member hashes passed read-back; completed-run resume launched
+nothing and reproduced all three analysis deliverables byte-for-byte. Stop after
+this delivery; retention remains **not established**.
