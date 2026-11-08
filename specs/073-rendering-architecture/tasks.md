@@ -529,3 +529,13 @@ prepared-state path-isolation experiment, authorizes this calibration commit and
 drafting the next protocol. It does not approve implementation or execution of
 the next experiment, a push, merge or publication. Historical execution limits
 and approval records remain unchanged.
+
+## Prepared-state path-isolation proposal — draft, 2026-11-08
+
+The owner approved designing the next experiment and committing the completed
+calibration (“both” after those two explicit choices). Calibration commit is
+`f7879b3`. The [new proposal](prepared-path-isolation-proposal.md) defines draft
+PI1–PI6 requirements, source/build design and PI-T1–PI-T6 tasks, with a proposed
+2,001-process budget and contemporaneous controls. Only protocol drafting is
+authorized. Implementation/build/execution approval is pending; no next-experiment
+sample has been collected. Retention remains **not established**.

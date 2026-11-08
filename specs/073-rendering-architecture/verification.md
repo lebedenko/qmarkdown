@@ -1330,3 +1330,27 @@ read-back and final document/whitespace checks. No additional process was launch
 Evidence: [report](evidence/candidate-scan-prepared-calibration/report.md),
 [decision](evidence/candidate-scan-prepared-calibration/decision.json),
 [archive manifest](evidence/candidate-scan-prepared-calibration/archives.json).
+
+## Next path-isolation protocol drafting — 2026-11-08
+
+The owner explicitly approved both committing the completed calibration and
+**designing** the next experiment. Calibration was committed as `f7879b3`, with
+staged whitespace validation and previously recorded functional/evidence checks
+preserved. No push, merge or publication was performed.
+
+Draft PI1–PI6, design and tasks are in the
+[path-isolation proposal](prepared-path-isolation-proposal.md). Source-only
+inspection confirmed C's pre-loop candidate state, its already-conditional guards
+and reserve, and the read-only span predicate. The proposed private dispatch/split
+makes compiler/code-layout effects an explicit limitation. None of the proposed
+split, drivers, diagnostic copies, builds, functional checks or timing runs exists
+as new implementation under this design-only authorization.
+
+Actual draft verification: `python3 scripts/check-docs.py` passed; `git diff --check`
+passed; new proposal final-newline/trailing-whitespace checks passed. Budget
+arithmetic verified: six functional + 72 original-contract correctness + three
+prepared correctness + (two modes × six configurations × forty groups × four
+processes) = 2,001 proposed executable processes. These are planned counts, not
+observations. Runtime tests were not rerun for these prose-only changes. PI-T1 is
+complete; PI-T2–PI-T6 remain pending. Approval of this concrete protocol is required
+before implementation or execution. Retention remains **not established**.

@@ -282,3 +282,12 @@ Delivery evidence: [report](evidence/candidate-scan-prepared-calibration/report.
 All 1001 archive member hashes passed read-back; completed-run resume launched
 nothing and reproduced all three analysis deliverables byte-for-byte. Stop after
 this delivery; retention remains **not established**.
+
+## Next experiment design — draft, 2026-11-08
+
+The owner approved drafting the next design and committing the calibration;
+`f7879b3` records the calibration. The [prepared-state path-isolation proposal](prepared-path-isolation-proposal.md)
+now specifies a private padded-only wrapper, baseline/unchanged/isolated comparisons,
+contemporaneous self controls, a fixed proposed budget, analysis and stop rules.
+This is a reviewable design, not approved implementation or execution. Retention
+remains **not established**. No follow-up builds or measurements have run.
