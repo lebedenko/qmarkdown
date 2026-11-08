@@ -1258,3 +1258,75 @@ historical identities remained unchanged. The archive contains the specification
 snapshot immediately before final packaging; this final checkpoint is recorded in
 these repository records and the adjacent delivery log. Completed-run resume
 launched nothing and reproduced all three deliverables byte-for-byte.
+
+## Prepared-state calibration at 96 — 2026-11-08
+
+Approval: the owner's supplied-plan implementation request covers PC1–PC5 and
+PC-T1–PC-T5 in [the fixed protocol](prepared-calibration-protocol.md), including
+one 483-process execution and evidence delivery. No shipping interfaces changed.
+The sibling [experimental tool](demonstrator/candidate-scan-prepared-calibration/README.md)
+reuses unchanged refinement and original executable bytes; nothing was rebuilt.
+
+Actual results:
+
+- Historical archive/member and pinned source, executable, libraries, fixture,
+  font and runtime identities verified before launch. All historical tools and
+  archives remain preserved. Frozen context includes exact tolerances, commands,
+  schedule, Python/kernel/environment identities, inherited affinity and protocol.
+- Thirteen offline tests passed under fatal subprocess/supervisor sentinels.
+  They cover 483 unique identities, deterministic balanced contiguous groups,
+  arm command/environment equivalence, lifecycle/cache/timing/normalization and
+  optional telemetry/deltas; zero/offset/drift estimators, reproducible bootstrap,
+  percentile indexing, inclusive boundaries, timer suppression and non-veto;
+  corrupted hashes/records, terminal/resource/ambiguous/partial attempts,
+  validated-prefix/completed recovery and forensic archive member read-back.
+- Exactly **483/483 valid processes**, with 483 attempted-launch journal entries:
+  three correctness first in generator order, then 480 timing processes (forty
+  four-process groups per configuration). Correctness passed full reference
+  geometry/generation and batch preparation/cache/geometry/mutation isolation
+  before timing. No smoke, warm-up, retry, replacement or adaptive samples ran.
+  Serial execution used the existing lock, inherited workstation policy, 60-second
+  deadline and 4 GiB sampled-RSS ceiling during ordinary shared use.
+- The required prepared-reflow interval is [-756.8932291666666,
+  673.1276041666667] ns/paragraph, median -326.82552083333337; dense metadata is
+  [3664.0, 25446.0], median 15477.5. Both fit the exact verified tolerances
+  4819.525000000001 and 101542.07500000001 respectively, without timer limitation:
+  **resolved-prepared-state-control**. Original prose reflow's descriptive
+  [-26266.75, 6452.0] interval fails its envelope and cannot veto resolution.
+- All nine cells, original prose metadata nulls, reference initial/reflow/repeat/
+  metadata, every raw/normalized observation and group arm mean/difference,
+  median/unscaled MAD/range/signs, order/half summaries, ratio null reasons/counts,
+  operation telemetry, parent snapshots and resource evidence are retained.
+  Ratios are descriptive and never bootstrapped; repeat cells are timer-limited.
+- Correctness and timing resource maxima remain separate. For batch prose,
+  maximum parent durations were 949142010 and 501321981 ns and sampled RSS maxima
+  were 438665216 and 281038848 bytes respectively. The batch executable exposes
+  no high-water RSS; this unavailable reason is explicit. Original reference
+  high-water observations remain recorded separately from sampled RSS.
+  Summed supervised duration for all 483 processes was 114.53244208400065 seconds.
+- Completed-run resume into a fresh directory passed under fatal launch sentinels
+  with **zero launches**. Full validation and reanalysis reproduced analysis.json,
+  decision.json and report.md byte-for-byte. No completed observation was replaced.
+- Focused tests and repository `task check` passed. These isolated experimental
+  additions use the Light verification profile; shipping C++/Qt was unchanged.
+  Final check logs and archive read-back are delivered with the new evidence.
+
+Retention remains **not established**. Only design of a separately approved
+prepared-state path-isolation experiment with contemporaneous controls is
+recommended. No candidate comparison, renderer/public API change, further
+measurement, commit, merge or publication occurred. Historical gates and findings
+remain unchanged; no historical variability explanation is claimed.
+
+Final delivery checkpoint: **1001/1001 archive member hashes** passed read-back;
+all pinned historical identities were revalidated unchanged. The new archive
+contains both reused executable bytes, new tooling, frozen context and identities,
+483 raw outputs/stderr pairs, telemetry/journals, complete analysis/decision,
+specification snapshot and check logs. Historical archive contents remain in their
+original archives and are referenced by verified hashes; extracted historical input
+copies are excluded from the new archive. The specification snapshot precedes this
+final checkpoint and PC-T5 completion. The adjacent delivery log records archive
+read-back and final document/whitespace checks. No additional process was launched.
+
+Evidence: [report](evidence/candidate-scan-prepared-calibration/report.md),
+[decision](evidence/candidate-scan-prepared-calibration/decision.json),
+[archive manifest](evidence/candidate-scan-prepared-calibration/archives.json).
