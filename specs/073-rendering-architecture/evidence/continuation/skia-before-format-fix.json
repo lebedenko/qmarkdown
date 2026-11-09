@@ -1,0 +1,89 @@
+{
+  "results": [
+    {
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-compare",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+        "padded",
+        "opengl",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-wrap-diagnostic/opengl-padded-0"
+      ],
+      "exit": 0,
+      "timeout": false,
+      "lastStage": "exit",
+      "seconds": 0.4957200010030647,
+      "observed": {
+        "api": "opengl",
+        "device": "NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2",
+        "dpr": 1.0,
+        "framebufferHeight": 600,
+        "framebufferWidth": 800,
+        "monotonicMs": 146.754659,
+        "platform": "wayland",
+        "refreshHz": 60,
+        "stage": "ready"
+      },
+      "errors": [],
+      "passed": true,
+      "inputsAfter": {
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-compare": "526eeb227d423b5b447f4c22605c13b05d2d99922672d874e446d9ae0a20e079",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/CMakeLists.txt": "2287c6f4d1d93d8c5d3b6548e2f1fc77f480f41530c6b9bb04691b6caaaa2337",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp": "12cf10a15ee34ce7fadbd31cd3c53c35926ad178ed0e0a8073a470b47a4f293a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run_skia.py": "ec7964fcbee99a9c74aa5aa6d850e56f1fd003822cfded87654842901eb7452c",
+        "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+        "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+        "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+        "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+        "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+        "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+      }
+    },
+    {
+      "command": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-compare",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+        "padded",
+        "vulkan",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-wrap-diagnostic/vulkan-padded-0"
+      ],
+      "exit": 1,
+      "timeout": false,
+      "lastStage": "failure",
+      "seconds": 0.21670234400153277,
+      "observed": {},
+      "errors": [
+        "identity api: expected 'vulkan', observed None",
+        "identity platform: expected 'wayland', observed None",
+        "identity dpr: expected 1.0, observed None",
+        "missing exit record"
+      ],
+      "passed": false,
+      "inputsAfter": {
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-skia-demo/skia-compare": "526eeb227d423b5b447f4c22605c13b05d2d99922672d874e446d9ae0a20e079",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/CMakeLists.txt": "2287c6f4d1d93d8c5d3b6548e2f1fc77f480f41530c6b9bb04691b6caaaa2337",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia/main.cpp": "12cf10a15ee34ce7fadbd31cd3c53c35926ad178ed0e0a8073a470b47a4f293a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/skia-pin.json": "c4caddac352d36c43c20d676006368c9b19f656c9fab6cd8d37086d39c9ecfb4",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/build_skia.py": "3f486ecd2419d1f5a11af616e9992b89a331b8f4a2c65ead8477b5459b6db3c3",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run_skia.py": "ec7964fcbee99a9c74aa5aa6d850e56f1fd003822cfded87654842901eb7452c",
+        "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+        "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+        "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+        "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+        "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+        "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+      }
+    }
+  ],
+  "dprCoverage": {
+    "1": "observed",
+    "1.25": "unavailable in current compositor configuration; not emulated by zoom",
+    "1.5": "unavailable in current compositor configuration; not emulated by zoom",
+    "2": "unavailable in current compositor configuration; not emulated by zoom"
+  }
+}

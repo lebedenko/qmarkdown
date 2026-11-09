@@ -1,0 +1,566 @@
+[
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-distance-1.0-ligatures-empty",
+      "--case=empty",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.7037964429982821,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 143.105475,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-distance-1.0-ligatures-rectangle",
+      "--case=rectangle",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.7275559449990396,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 149.931574,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-distance-1.0-ligatures-static",
+      "--case=static",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.7755582579993643,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 149.745943,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-distance-1.0-ligatures-capture",
+      "--case=capture",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.7131503700002213,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 152.435894,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-distance-1.0-ligatures-motion",
+      "--case=motion",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.7412029340011941,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 176.500889,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-distance-1.0-ligatures-combined",
+      "--case=combined",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.1231284419991425,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 153.079181,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-curve-1.0-ligatures-empty",
+      "--case=empty",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.7844713510021393,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 176.463522,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-curve-1.0-ligatures-rectangle",
+      "--case=rectangle",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.8198808449997159,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 181.583985,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-curve-1.0-ligatures-static",
+      "--case=static",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.7921526880018064,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 152.199556,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-curve-1.0-ligatures-capture",
+      "--case=capture",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.746790843000781,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 150.095177,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-curve-1.0-ligatures-motion",
+      "--case=motion",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 0.8022167830022227,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 151.228372,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "ligatures",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-close-minimum/vulkan-curve-1.0-ligatures-combined",
+      "--case=combined",
+      "--close"
+    ],
+    "exit": -11,
+    "timeout": false,
+    "lastStage": "shutdown",
+    "seconds": 1.1147927700003493,
+    "observed": {
+      "api": 5,
+      "dpr": 1,
+      "framebufferHeight": 600,
+      "framebufferWidth": 800,
+      "monotonicMs": 161.219338,
+      "platform": "wayland",
+      "qt": "6.8.0",
+      "refreshHz": 59.99700164794922,
+      "stage": "ready"
+    },
+    "errors": [
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "8ff05f2346a4a51fb5413abad1540c9c355cd94e283300e9f6b5944a52296db2",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "354ef4fc7f300e559624edd2e4b7c46ce19e110557439c57eeaf1f883c60c06a",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "919823e419a6cad1b0786f9efedb0eadc552e71099e230875f14912a47cd56ba",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/CMakeLists.txt": "8646a174867670514a41161db1f34f486a0a7feebaa6cb51ed9cb0a463a8afdc",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/stage.py": "8892960c6eb9ddb2f9a5f7ff147b8fdbfab35ef9d5eb4f4f65a5a8f306dc1272",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/run.py": "23ac71b5eda5f1b09b5cf8afcdd0aceb56eae9e43b08f91e8b54d8074d0fe501",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1.18.0": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so.1": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "426409f17ea10c4efec7f4cef506c4e8b041d49235a78f1e75ae69c07f9eef10",
+      "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+      "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+      "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+      "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+      "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+      "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44"
+    }
+  }
+]

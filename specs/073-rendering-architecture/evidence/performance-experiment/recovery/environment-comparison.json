@@ -1,0 +1,22 @@
+{
+  "cohort": "post-reboot",
+  "scale": {
+    "opengl": {
+      "protocolFactsEqual": true,
+      "historicalSdlFieldsEqual": true
+    },
+    "vulkan": {
+      "protocolFactsEqual": true,
+      "historicalSdlFieldsEqual": true
+    }
+  },
+  "fontsEqual": true,
+  "checkedDependencyVersionsEqual": true,
+  "unavailableHistoricalFacts": [
+    "driver version",
+    "governor",
+    "thermal state",
+    "complete runtime library hashes"
+  ],
+  "originalCpuSummaryAndGrowthUnchanged": true
+}

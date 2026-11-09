@@ -1,0 +1,9 @@
+{
+  "patchSha256": "7fa7c94c8b9f3ba5716087ba68d494ceb44a924d2e77f5f5a60905959036d666",
+  "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+  "purpose": "preparation-only; explicit fixture objects",
+  "files": {
+    "src/QMarkdown/private/formattedtext.h": "220e3679609d9606fcac7e3ee6c2bb29dc323ecd39a86d1120e3bcd84526f1ac",
+    "src/QMarkdown/private/formattedtext.cpp": "3c4eff632ba83f707ec4144abc99796637b4b61fbd4f59832c6ceeb33595fcea"
+  }
+}

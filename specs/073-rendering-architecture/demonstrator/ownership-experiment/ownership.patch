@@ -1,0 +1,138 @@
+--- a/modules/skparagraph/src/ParagraphImpl.h
++++ b/modules/skparagraph/src/ParagraphImpl.h
+@@ -280,6 +280,15 @@
+ 
+     void computeEmptyMetrics();
+ 
++    friend struct OwnershipTestAccess;
++    static constexpr size_t kOwnershipLegacy = EMPTY_INDEX - 1;
++    std::vector<size_t> fRunOwners;
++    size_t fRunRevision = 0, fOwnerRevision = 0;
++    bool fOwnersValid = false;
++    void invalidateRunOwners();
++    void buildRunOwners();
++    size_t runOwner(size_t index, TextRange range) const;
++
+     // Input
+     skia_private::TArray<StyleBlock<SkScalar>> fLetterSpaceStyles;
+     skia_private::TArray<StyleBlock<SkScalar>> fWordSpaceStyles;
+--- a/modules/skparagraph/src/ParagraphImpl.cpp
++++ b/modules/skparagraph/src/ParagraphImpl.cpp
+@@ -141,6 +141,48 @@
+     );
+ }
+ 
++void ParagraphImpl::invalidateRunOwners() {
++    fOwnersValid = false;
++    ++fRunRevision;
++    std::vector<size_t>().swap(fRunOwners);
++}
++
++void ParagraphImpl::buildRunOwners() {
++    if (fExperimentalSpans.empty() || fRuns.empty()) return;
++    std::vector<size_t> owners(fRuns.size(), EMPTY_INDEX);
++    for (size_t i = 0; i < size_t(fRuns.size()); ++i) {
++        auto range = fRuns[i].textRange();
++        size_t owner = EMPTY_INDEX;
++        bool split = false;
++        for (size_t j = 0; j < fExperimentalSpans.size(); ++j) {
++            const auto& span = fExperimentalSpans[j];
++            if ((range.start < span.source.start && span.source.start < range.end) ||
++                (range.start < span.source.end && span.source.end < range.end)) split = true;
++            if (owner == EMPTY_INDEX && span.source.start <= range.start && range.end <= span.source.end)
++                owner = j;
++        }
++        owners[i] = split ? kOwnershipLegacy : owner;
++    }
++    fRunOwners.swap(owners);
++    fOwnerRevision = fRunRevision;
++    fOwnersValid = true;
++}
++
++size_t ParagraphImpl::runOwner(size_t index, TextRange range) const {
++    if (fOwnersValid && fOwnerRevision == fRunRevision &&
++        fRunOwners.size() == size_t(fRuns.size()) && index < fRunOwners.size()) {
++        auto owner = fRunOwners[index];
++        if (owner == EMPTY_INDEX || owner < fExperimentalSpans.size()) return owner;
++    }
++    const auto& run = fRuns[index];
++    for (size_t j = 0; j < fExperimentalSpans.size(); ++j) {
++        const auto& span = fExperimentalSpans[j];
++        if (span.source.start <= std::max(range.start, run.textRange().start) &&
++            std::min(range.end, run.textRange().end) <= span.source.end) return j;
++    }
++    return EMPTY_INDEX;
++}
++
+ bool ParagraphImpl::experimentalPadded() const {
+     for (const auto& span : fExperimentalSpans)
+         if (span.horizontalPadding || span.verticalPadding) return true;
+@@ -166,13 +208,11 @@
+         const auto& run = fRuns[index];
+         size_t identity = EMPTY_INDEX;
+         SkScalar pad = 0;
+-        for (const auto& span : fExperimentalSpans) {
+-            if (span.source.start <= std::max(range.start, run.textRange().start) &&
+-                std::min(range.end, run.textRange().end) <= span.source.end) {
+-                identity = span.identity;
+-                pad = span.horizontalPadding;
+-                break;
+-            }
++        auto owner = runOwner(index, range);
++        if (owner != EMPTY_INDEX) {
++            const auto& span = fExperimentalSpans[owner];
++            identity = span.identity;
++            pad = span.horizontalPadding;
+         }
+         slices.push_back({index, identity, 0, 0});
+         padding.push_back(pad);
+@@ -208,6 +248,7 @@
+                 a.horizontalPadding == b.horizontalPadding && a.verticalPadding == b.verticalPadding;
+     }
+     if (equal) return;
++    invalidateRunOwners();
+     fExperimentalSpans = std::move(spans);
+     fBidiRegions.clear();
+     fExperimentalGraphemeEdges.clear();
+@@ -254,6 +295,7 @@
+                         fExperimentalGraphemeEdges.push_back(i);
+                 fExperimentalGraphemeEdges.push_back(fText.size());
+             }
++            this->invalidateRunOwners();
+             this->fRuns.clear();
+             this->fClusters.clear();
+             this->fClustersIndexFromCodeUnit.clear();
+@@ -761,6 +803,7 @@
+ }
+ 
+ bool ParagraphImpl::shapeTextIntoEndlessLine() {
++    invalidateRunOwners();
+     ++fExperimentalShapeGeneration;
+ 
+     if (fText.size() == 0) {
+@@ -778,6 +821,7 @@
+     fRuns.shrink_to_fit();
+ 
+     this->applySpacingAndBuildClusterTable();
++    if (result) buildRunOwners();
+ 
+     return result;
+ }
+@@ -1200,6 +1244,7 @@
+             [[fallthrough]];
+ 
+         case kIndexed:
++            invalidateRunOwners();
+             fRuns.clear();
+             fClusters.clear();
+             [[fallthrough]];
+--- a/modules/skparagraph/src/ParagraphCache.cpp
++++ b/modules/skparagraph/src/ParagraphCache.cpp
+@@ -324,6 +324,7 @@
+ 
+ void ParagraphCache::updateTo(ParagraphImpl* paragraph, const Entry* entry) {
+ 
++    paragraph->invalidateRunOwners();
+     paragraph->fRuns.clear();
+     paragraph->fRuns = entry->fValue->fRuns;
+     paragraph->fUnresolvedGlyphs = entry->fValue->fUnresolvedGlyphs;

@@ -1,0 +1,1082 @@
+[
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/minimum-default-existing-empty-0",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11292386700006318,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "138b254047764d4697aab5836b382ded3de71c6b07e1f16741b34f991fd112b9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "existing-empty",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/minimum-default-existing-empty-1",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10127204900345532,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "138b254047764d4697aab5836b382ded3de71c6b07e1f16741b34f991fd112b9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "existing-empty",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/minimum-default-existing-empty-2",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.1067806909995852,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "138b254047764d4697aab5836b382ded3de71c6b07e1f16741b34f991fd112b9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "existing-empty",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10175304299991694,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "standalone",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11371258999861311,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "standalone",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10618814999907045,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "standalone",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10559708300206694,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "release-live",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11556596100126626,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "release-live",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10159786800068105,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "default",
+    "variant": "release-live",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/minimum-basic-existing-empty-0",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10550145199886174,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "138b254047764d4697aab5836b382ded3de71c6b07e1f16741b34f991fd112b9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "existing-empty",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/minimum-basic-existing-empty-1",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11133936600162997,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "138b254047764d4697aab5836b382ded3de71c6b07e1f16741b34f991fd112b9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "existing-empty",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/minimum-basic-existing-empty-2",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11228028799814638,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-compare": "138b254047764d4697aab5836b382ded3de71c6b07e1f16741b34f991fd112b9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "existing-empty",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10409291300311452,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "standalone",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11657660699711414,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "standalone",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10340550899854861,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "standalone",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10768412000106764,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "release-live",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10600588299712399,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "release-live",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10317163100262405,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.8.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/qt-lifecycle": "b8553b93b91d682938c3a7fe0628bd39c64ee7dd1271a9f75cc4bed7b5d4865f",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "minimum",
+    "loop": "basic",
+    "variant": "release-live",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/development-default-existing-empty-0",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.1167902300003334,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "b4a1caf31d68f9d642687752eea91370ebb2f1879544d7257aedd1df3c745463",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "existing-empty",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/development-default-existing-empty-1",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11453873999926145,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "b4a1caf31d68f9d642687752eea91370ebb2f1879544d7257aedd1df3c745463",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "existing-empty",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/development-default-existing-empty-2",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11274875800154405,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "b4a1caf31d68f9d642687752eea91370ebb2f1879544d7257aedd1df3c745463",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "existing-empty",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11197643899868126,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "standalone",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10433500100043602,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "standalone",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10519148299863446,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "standalone",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11076610499731032,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "release-live",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11485952400107635,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "release-live",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11081073300010758,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "default",
+    "variant": "release-live",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/development-basic-existing-empty-0",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10992451600031927,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "b4a1caf31d68f9d642687752eea91370ebb2f1879544d7257aedd1df3c745463",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "existing-empty",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/development-basic-existing-empty-1",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10825690499768825,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "b4a1caf31d68f9d642687752eea91370ebb2f1879544d7257aedd1df3c745463",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "existing-empty",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-lifecycle/development-basic-existing-empty-2",
+      "--case=empty"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11527920700245886,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-compare": "b4a1caf31d68f9d642687752eea91370ebb2f1879544d7257aedd1df3c745463",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "existing-empty",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11130756000056863,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "standalone",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.11416439199820161,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "standalone",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.1126342920033494,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "standalone",
+    "cycle": 2
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10911220500202035,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "release-live",
+    "cycle": 0
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10731121599746984,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "release-live",
+    "cycle": 1
+  },
+  {
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle",
+      "--release-live"
+    ],
+    "exit": -6,
+    "timeout": false,
+    "lastStage": "startup",
+    "seconds": 0.10942503600017517,
+    "observed": {},
+    "errors": [
+      "identity qt: expected '6.12.0', observed None",
+      "identity api: expected 5, observed None",
+      "identity platform: expected 'wayland', observed None",
+      "identity dpr: expected 1, observed None",
+      "missing exit record"
+    ],
+    "passed": false,
+    "inputsAfter": {
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/qt-lifecycle": "0a7f0f4fb1e07577dfc9c8f8ef31cb5379ec49c355557e21d40767791416c774",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/lifecycle.cpp": "56f81fc9432f304e9a3ce98b48a4388d2f9864a95f69ab3cd25efa5628e79b7b",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/qt.cpp": "1d4af7a676460d03db7c9554f35ef5dc3ff2fe1dcfc013b7d6e20adceb0807a9",
+      "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fixtures.json": "2f6b440c2e7dc493679f187b9403c8e29062759fe1cbebd5d0eec25e9a0391ef"
+    },
+    "sdk": "development",
+    "loop": "basic",
+    "variant": "release-live",
+    "cycle": 2
+  }
+]

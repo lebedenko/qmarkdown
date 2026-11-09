@@ -1,0 +1,6 @@
+{
+  "status": "interrupted after inspection found missing reverse-selection highlight; not accepted",
+  "completedProcesses": 100,
+  "reportedPasses": 100,
+  "reason": "source copy passed but staged selectionRectangles requires ordered endpoints; harness now normalizes both drag directions and checks visible geometry and changed capture"
+}

@@ -1,0 +1,202 @@
+{
+  "base": "00227028b0c3cb3052432a456af2027a49e598b2",
+  "patchSha256": "cf352a1c6f077ae3b24cd45de250aca2dab3e5427428fa715640ebfad810bac4",
+  "controlBefore": {
+    "comparison-build.json": "5e8fc3c5dc425e6fb1722f6dae07fad2904a9d3b8c6237a0b414922b91c6b300",
+    "out/comparison/args.gn": "d4117ccea50b4246b2ef60eacf8bd65a2e4a29d8e8c5a419f77cd96bb16fc896",
+    "bin/gn": "8fa12442a4d0fc4d754e89ec732aa015cdaf8d4bcbbedf68468c652531ea482c",
+    "out/comparison/libskcms.a": "7ed5b468e8c241f51b7295c73fae509a84c60f1b4b48843118a07a4c29b53834",
+    "out/comparison/libskia.a": "3fbc2e92896f392501aa933886bb19ddab5d4cf0911060adc2d208527cba2e40",
+    "out/comparison/libskparagraph.a": "8f08dad575b9b3b05fc1cc8a8513af3ca4a4f70470425b8a6287f55a239795a6",
+    "out/comparison/libskshaper.a": "d05918b1d5dfe011ff08230ba05e75e14d1e9e6a8cabd833a08220252b4e988b",
+    "out/comparison/libskunicode_core.a": "7e50bb2518edce70ab1304e9d398c73046ca60b13005a121ae366ee962882259",
+    "out/comparison/libskunicode_icu.a": "e03834c7df63a0c27173fe02fd51677deeb3319186c788963b44e521bda61ede"
+  },
+  "inheritedBuild": {
+    "commit": "00227028b0c3cb3052432a456af2027a49e598b2",
+    "dependencies": {
+      "vulkanmemoryallocator": "eb744ea7a2b17040121b4bbb4d6f9e8a77e3cae7",
+      "vulkan-headers": "9fbc2a782ee3f8a4db64e7d991e23da75e893f44",
+      "highway": "457c891775a7397bdb0376bb1031e6e027af1c48"
+    },
+    "systemPackageVersions": [
+      "2.32.74",
+      "26.7.20",
+      "15.1.0",
+      "78.3",
+      "1.6.59",
+      "1.4.363"
+    ],
+    "gn": "is_official_build=true is_debug=false skia_enable_tools=false skia_enable_skparagraph=true skia_enable_skshaper=true skia_use_gl=true skia_use_vulkan=true skia_use_system_freetype2=true skia_use_system_harfbuzz=true skia_use_system_icu=true skia_use_partition_alloc=false skia_use_perfetto=false skia_use_wuffs=false skia_use_piex=false skia_enable_pdf=false skia_enable_skottie=false skia_enable_svg=false skia_use_libjpeg_turbo_decode=false skia_use_libjpeg_turbo_encode=false skia_use_libwebp_decode=false skia_use_libwebp_encode=false",
+    "seconds": 459.5719937649992,
+    "gnSha256": "8fa12442a4d0fc4d754e89ec732aa015cdaf8d4bcbbedf68468c652531ea482c",
+    "libraries": {
+      "libskparagraph.a": {
+        "bytes": 910122,
+        "sha256": "8f08dad575b9b3b05fc1cc8a8513af3ca4a4f70470425b8a6287f55a239795a6"
+      },
+      "libskshaper.a": {
+        "bytes": 190342,
+        "sha256": "d05918b1d5dfe011ff08230ba05e75e14d1e9e6a8cabd833a08220252b4e988b"
+      },
+      "libskunicode_icu.a": {
+        "bytes": 123712,
+        "sha256": "e03834c7df63a0c27173fe02fd51677deeb3319186c788963b44e521bda61ede"
+      },
+      "libskunicode_core.a": {
+        "bytes": 22056,
+        "sha256": "7e50bb2518edce70ab1304e9d398c73046ca60b13005a121ae366ee962882259"
+      },
+      "libskia.a": {
+        "bytes": 26508666,
+        "sha256": "3fbc2e92896f392501aa933886bb19ddab5d4cf0911060adc2d208527cba2e40"
+      },
+      "libskcms.a": {
+        "bytes": 200650,
+        "sha256": "7ed5b468e8c241f51b7295c73fae509a84c60f1b4b48843118a07a4c29b53834"
+      }
+    }
+  },
+  "gnArgs": "is_official_build = true\nis_debug = false\nskia_enable_tools = false\nskia_enable_skparagraph = true\nskia_enable_skshaper = true\nskia_use_gl = true\nskia_use_vulkan = true\nskia_use_system_freetype2 = true\nskia_use_system_harfbuzz = true\nskia_use_system_icu = true\nskia_use_partition_alloc = false\nskia_use_perfetto = false\nskia_use_wuffs = false\nskia_use_piex = false\nskia_enable_pdf = false\nskia_enable_skottie = false\nskia_enable_svg = false\nskia_use_libjpeg_turbo_decode = false\nskia_use_libjpeg_turbo_encode = false\nskia_use_libwebp_decode = false\nskia_use_libwebp_encode = false\n",
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "apply",
+        "--check",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/fragment-edges.patch"
+      ],
+      "cwd": "/tmp/qmarkdown-073-fragment-reviewed-skia"
+    },
+    {
+      "argv": [
+        "git",
+        "apply",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment/fragment-edges.patch"
+      ],
+      "cwd": "/tmp/qmarkdown-073-fragment-reviewed-skia"
+    },
+    {
+      "argv": [
+        "bin/gn",
+        "gen",
+        "out/comparison"
+      ],
+      "cwd": "/tmp/qmarkdown-073-fragment-reviewed-skia"
+    },
+    {
+      "argv": [
+        "ninja",
+        "-C",
+        "out/comparison",
+        "-j2",
+        "skia",
+        "skparagraph",
+        "skshaper",
+        "skunicode"
+      ],
+      "cwd": "/tmp/qmarkdown-073-fragment-reviewed-skia"
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment",
+        "-B",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DSKIA=/tmp/qmarkdown-073-skia",
+        "-DPATCHED=OFF"
+      ],
+      "cwd": null
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/control",
+        "-j2"
+      ],
+      "cwd": null
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/fragment-experiment",
+        "-B",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DSKIA=/tmp/qmarkdown-073-fragment-reviewed-skia",
+        "-DPATCHED=ON"
+      ],
+      "cwd": null
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-fragment-reviewed/patched",
+        "-j2"
+      ],
+      "cwd": null
+    }
+  ],
+  "patchedSources": {
+    "modules/skparagraph/src/ParagraphImpl.h": "8e52cf91ea3161a9145a93f905f40a62dbccdc62fbcea77ca7c9f6e3c4940999",
+    "modules/skparagraph/src/ParagraphImpl.cpp": "8adba5ec180e174502cc934fc41484ebeaec82be595593f583e68e92d4e4ff02"
+  },
+  "libraries": {
+    "comparison-build.json": "5e8fc3c5dc425e6fb1722f6dae07fad2904a9d3b8c6237a0b414922b91c6b300",
+    "out/comparison/args.gn": "d4117ccea50b4246b2ef60eacf8bd65a2e4a29d8e8c5a419f77cd96bb16fc896",
+    "bin/gn": "8fa12442a4d0fc4d754e89ec732aa015cdaf8d4bcbbedf68468c652531ea482c",
+    "out/comparison/libskcms.a": "7ed5b468e8c241f51b7295c73fae509a84c60f1b4b48843118a07a4c29b53834",
+    "out/comparison/libskia.a": "3fbc2e92896f392501aa933886bb19ddab5d4cf0911060adc2d208527cba2e40",
+    "out/comparison/libskparagraph.a": "edf2406948d5b2c7c0b172ae6f47ac30544236c02dbae30426c1e86698614aea",
+    "out/comparison/libskshaper.a": "d05918b1d5dfe011ff08230ba05e75e14d1e9e6a8cabd833a08220252b4e988b",
+    "out/comparison/libskunicode_core.a": "7e50bb2518edce70ab1304e9d398c73046ca60b13005a121ae366ee962882259",
+    "out/comparison/libskunicode_icu.a": "e03834c7df63a0c27173fe02fd51677deeb3319186c788963b44e521bda61ede"
+  },
+  "executables": {
+    "control/fragment-preflight": "08467efd647e4d361eb588471872eef0af2e515af96eba9dc73246a212677e88",
+    "control/historical-objects": "9aa2a28746f8fcd3df5b4a2c591982d4de1e5cb4fb36af23578d27ca2512587a",
+    "patched/fragment-preflight": "a988b35c38d6fb0296aa71468df63a09baf4e4dc630a03ca03f1cf88611ad595",
+    "patched/historical-objects": "9aa2a28746f8fcd3df5b4a2c591982d4de1e5cb4fb36af23578d27ca2512587a"
+  },
+  "tools": {
+    "cmake": "cmake version 4.4.5",
+    "ninja": "1.13.2",
+    "c++": "c++ (GCC) 16.2.1 20260810"
+  },
+  "systemVersions": [
+    "26.7.20",
+    "15.1.0",
+    "78.3",
+    "78.3",
+    "1.6.59",
+    "2.18.3",
+    "1.3.2"
+  ],
+  "dependencies": {
+    "vulkanmemoryallocator": "eb744ea7a2b17040121b4bbb4d6f9e8a77e3cae7",
+    "vulkan-headers": "9fbc2a782ee3f8a4db64e7d991e23da75e893f44",
+    "highway": "457c891775a7397bdb0376bb1031e6e027af1c48"
+  },
+  "completed": true,
+  "controlAfter": {
+    "comparison-build.json": "5e8fc3c5dc425e6fb1722f6dae07fad2904a9d3b8c6237a0b414922b91c6b300",
+    "out/comparison/args.gn": "d4117ccea50b4246b2ef60eacf8bd65a2e4a29d8e8c5a419f77cd96bb16fc896",
+    "bin/gn": "8fa12442a4d0fc4d754e89ec732aa015cdaf8d4bcbbedf68468c652531ea482c",
+    "out/comparison/libskcms.a": "7ed5b468e8c241f51b7295c73fae509a84c60f1b4b48843118a07a4c29b53834",
+    "out/comparison/libskia.a": "3fbc2e92896f392501aa933886bb19ddab5d4cf0911060adc2d208527cba2e40",
+    "out/comparison/libskparagraph.a": "8f08dad575b9b3b05fc1cc8a8513af3ca4a4f70470425b8a6287f55a239795a6",
+    "out/comparison/libskshaper.a": "d05918b1d5dfe011ff08230ba05e75e14d1e9e6a8cabd833a08220252b4e988b",
+    "out/comparison/libskunicode_core.a": "7e50bb2518edce70ab1304e9d398c73046ca60b13005a121ae366ee962882259",
+    "out/comparison/libskunicode_icu.a": "e03834c7df63a0c27173fe02fd51677deeb3319186c788963b44e521bda61ede"
+  },
+  "controlUnchanged": true
+}

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "failures": [],
+  "verticalCells": 14272,
+  "visualFragments": 2901,
+  "nearEdgeSnapDifferences": 95,
+  "containmentTolerance": 0.05,
+  "inputs": {
+    "build-ci/073-boundary-preserved-geometry/padded-scan.json": "ca9339d167266890d117df2827cd6641359281594033ebb307e3efc207442edf",
+    "build-ci/073-boundary-preserved-geometry/padded-scan.jsonl.gz": "3f5ce398303e9725c1594c910a65349c7f3b73a81897d34f67a9ea5d5e389909",
+    "build-ci/073-boundary-preserved-geometry/regression-padded.json": "c3c2ee920a5cc43100744c5b81693148b05c26b7a27bc3c1584fdca9312d0202",
+    "build-ci/073-boundary-preserved-geometry/regression-padded.jsonl.gz": "32577fb3317eb1ce5cabc5b3f6345ba4398afee84fd0ca4f48c098e7d46f960b",
+    "build-ci/073-boundary-preserved-geometry/transition-padded.json": "b838d66f497e06f6501e491f0bc3d66ec3ae1a2ff2759fffa7652cdd84b048d1",
+    "build-ci/073-boundary-preserved-geometry/transition-padded.jsonl.gz": "d59ff6cbada20334712bd24312de32fc01ea49147f508f9b42dce8680c6e39d5"
+  }
+}

@@ -1,0 +1,5564 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness"
+      ],
+      "arm": null,
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 0
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": null,
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 1
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": null,
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 2
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": null,
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 3
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": null,
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 4
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": null,
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 5
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": null,
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 6
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": null,
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 7
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "correctness",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": null,
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "correctness",
+      "positionInGroup": null,
+      "round": null,
+      "sequence": 8
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 9
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 10
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 11
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 12
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 13
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 14
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 15
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 16
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 17
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 18
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 19
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 20
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 21
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 22
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 23
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 24
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 25
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 26
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 27
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 28
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 29
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 30
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 31
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 32
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 33
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 34
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 35
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 36
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 37
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 38
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 39
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 40
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 0,
+      "sequence": 41
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 0,
+      "sequence": 42
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 0,
+      "sequence": 43
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 0,
+      "sequence": 44
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 45
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 46
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 47
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 48
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 49
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 50
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 51
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 52
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 53
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 54
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 55
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 56
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 57
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 58
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 59
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 60
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 61
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 62
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 63
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 64
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 65
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 66
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 67
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 68
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 69
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 70
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 71
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 72
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 73
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 74
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 75
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 76
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 1,
+      "sequence": 77
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 1,
+      "sequence": 78
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 1,
+      "sequence": 79
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 1,
+      "sequence": 80
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 81
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 82
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 83
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 84
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 85
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 86
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 87
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 88
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 89
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 90
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 91
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 92
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 93
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 94
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 95
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 96
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 97
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 98
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 99
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 100
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 101
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 102
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 103
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 104
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 105
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 106
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 107
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 108
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 109
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 110
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 111
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 112
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 2,
+      "sequence": 113
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 2,
+      "sequence": 114
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 2,
+      "sequence": 115
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 2,
+      "sequence": 116
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 117
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 118
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 119
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 120
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 121
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 122
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 123
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 124
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 125
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 126
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 127
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 128
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 129
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 130
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 131
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 132
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 133
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 134
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 135
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 136
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 137
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 138
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 139
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 140
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 141
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 142
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 143
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 144
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 145
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 146
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 147
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 148
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 3,
+      "sequence": 149
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 3,
+      "sequence": 150
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 3,
+      "sequence": 151
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 3,
+      "sequence": 152
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 153
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 154
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 155
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 156
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 157
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 158
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 159
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 160
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 161
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 162
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 163
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 164
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 165
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 166
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 167
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 168
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 169
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 170
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 171
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 172
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 173
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 174
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 175
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 176
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 177
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 178
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 179
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 180
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 181
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 182
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 183
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 184
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 4,
+      "sequence": 185
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 4,
+      "sequence": 186
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 4,
+      "sequence": 187
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 4,
+      "sequence": 188
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 189
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 190
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 191
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 192
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 193
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 194
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 195
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 196
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 197
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 198
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 199
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 200
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 201
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 202
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 203
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 204
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 205
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 206
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 207
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 208
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 209
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 210
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 211
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 212
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 213
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 214
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 215
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 216
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 217
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 218
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 219
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 220
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 5,
+      "sequence": 221
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 5,
+      "sequence": 222
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 5,
+      "sequence": 223
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 5,
+      "sequence": 224
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 225
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 226
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 227
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 228
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 229
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 230
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 231
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 232
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 233
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 234
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 235
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 236
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 237
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 238
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 239
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 240
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 241
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 242
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 243
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 244
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 245
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 246
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 247
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 248
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 249
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 250
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 251
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 252
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 253
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 254
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 255
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 256
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 6,
+      "sequence": 257
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 6,
+      "sequence": 258
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 6,
+      "sequence": 259
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 6,
+      "sequence": 260
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 261
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 262
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 263
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 264
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 265
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 266
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 267
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 268
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 269
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 270
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 271
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "1",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-1-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 272
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 273
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 274
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 275
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "256",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-256-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 276
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 277
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 278
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "B",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 279
+    },
+    {
+      "argv": [
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation/baseline-build/runtime-trace",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing"
+      ],
+      "arm": "A",
+      "configuration": "original-reference",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 280
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 281
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 282
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 283
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 284
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 285
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 286
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 287
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "64",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-64-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 288
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 289
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 290
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 291
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "disabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-disabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 292
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 0,
+      "round": 7,
+      "sequence": 293
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 1,
+      "round": 7,
+      "sequence": 294
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "A",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 2,
+      "round": 7,
+      "sequence": 295
+    },
+    {
+      "argv": [
+        "<draft-prepared-reflow-executable>",
+        "/home/andrii/Projects/pet/qmarkdown/build-ci/073-candidate-continuation-evidence/prose-480-4096.json",
+        "zero",
+        "timing",
+        "--batch-size",
+        "16",
+        "--operation-telemetry",
+        "enabled"
+      ],
+      "arm": "B",
+      "configuration": "batch-16-enabled",
+      "environment": "identical inherited environment within configuration; freeze before execution",
+      "mode": "timing",
+      "positionInGroup": 3,
+      "round": 7,
+      "sequence": 296
+    }
+  ],
+  "configurations": [
+    {
+      "batchSize": null,
+      "id": "original-reference",
+      "telemetry": "original"
+    },
+    {
+      "batchSize": 1,
+      "id": "batch-1-disabled",
+      "telemetry": "disabled"
+    },
+    {
+      "batchSize": 1,
+      "id": "batch-1-enabled",
+      "telemetry": "enabled"
+    },
+    {
+      "batchSize": 16,
+      "id": "batch-16-disabled",
+      "telemetry": "disabled"
+    },
+    {
+      "batchSize": 16,
+      "id": "batch-16-enabled",
+      "telemetry": "enabled"
+    },
+    {
+      "batchSize": 64,
+      "id": "batch-64-disabled",
+      "telemetry": "disabled"
+    },
+    {
+      "batchSize": 64,
+      "id": "batch-64-enabled",
+      "telemetry": "enabled"
+    },
+    {
+      "batchSize": 256,
+      "id": "batch-256-disabled",
+      "telemetry": "disabled"
+    },
+    {
+      "batchSize": 256,
+      "id": "batch-256-enabled",
+      "telemetry": "enabled"
+    }
+  ],
+  "seed": 73080,
+  "status": "draft; implementation and execution require separate approval"
+}

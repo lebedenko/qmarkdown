@@ -1,0 +1,322 @@
+#!/usr/bin/env python3
+"""One fixed 483-process prepared-state calibration; no retries or implicit extra launches."""
+import argparse
+from contextlib import contextmanager
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import platform
+import shutil
+import subprocess
+import sys
+import time
+import random
+
+HERE = Path(__file__).resolve().parent
+FEATURE = HERE.parents[1]
+ROOT = FEATURE.parents[1]
+spec = importlib.util.spec_from_file_location('batching_characterization', HERE.parent/'candidate-scan-characterization/analyze.py')
+a = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(a)
+r = a.revision
+require, digest, write = a.require, a.digest, r.write
+BINARY = ROOT/'build-ci/073-candidate-batching-refinement-build/prepared-reflow'
+BUILD = BINARY.parent
+SKIA = ROOT/'build-ci/073-candidate-continuation/baseline'
+LOCK = ROOT/'build-ci/073-performance-recovery/execution.lock'
+
+
+def schedule():
+    configurations = [dict(id='original-reference', batchSize=None, telemetry='original', case='prose-480-4096'),
+                      dict(id='batch-96-enabled', batchSize=96, telemetry='enabled', case='prose-480-4096'),
+                      dict(id='original-dense', batchSize=None, telemetry='original', case='dense-240-4096')]
+    rng, orders = random.Random(73082), {}
+    for config in configurations:
+        sequence = []
+        for _ in range(10):
+            block = ['ABBA', 'ABBA', 'BAAB', 'BAAB']
+            rng.shuffle(block); sequence.extend(block)
+        orders[config['id']] = sequence
+    commands = []
+    def add(config, mode, rnd, position, arm):
+        argv = [str(r.BINARY if config['batchSize'] is None else BINARY),
+                str(r.HISTORICAL/(config['case']+'.json')), 'zero', mode]
+        if config['batchSize'] is not None:
+            argv += ['--batch-size', '96', '--operation-telemetry', 'enabled']
+        seq = len(commands)
+        commands.append(dict(sequence=seq, id=f"{seq:03}-{config['id']}-{mode}",
+            configuration=config['id'], case=config['case'], mode=mode, round=rnd,
+            positionInGroup=position, arm=arm, argv=argv,
+            environment='identical inherited environment within configuration; frozen before execution'))
+    for c in configurations: add(c, 'correctness', None, None, None)
+    for rnd in range(40):
+        shuffled = list(configurations); rng.shuffle(shuffled)
+        for c in shuffled:
+            for position, arm in enumerate(orders[c['id']][rnd]): add(c, 'timing', rnd, position, arm)
+    return dict(status='approved fixed calibration', seed=73082, configurations=configurations, commands=commands)
+
+
+def snapshot():
+    start = time.monotonic_ns()
+    def read(path):
+        try:
+            return dict(value=path.read_text().strip(), reason=None)
+        except OSError as ex:
+            return dict(value=None, reason=f'{type(ex).__name__}: {ex}')
+    def files(pattern):
+        found = sorted(Path('/sys').glob(pattern))
+        return dict(readings={str(p): read(p) for p in found},
+                    reason=None if found else 'no exposed sysfs readings')
+    try:
+        load = dict(value=list(os.getloadavg()), reason=None)
+    except OSError as ex:
+        load = dict(value=None, reason=str(ex))
+    data = dict(startMonotonicNs=start, scope='parent before/after process; exposed sysfs only', load=load,
+                frequency=files('devices/system/cpu/cpu[0-9]*/cpufreq/scaling_cur_freq'),
+                thermal=files('class/thermal/thermal_zone*/temp'),
+                hwmon=files('class/hwmon/hwmon*/temp*_input'),
+                boost=files('devices/system/cpu/cpufreq/boost'),
+                policy=files('devices/system/cpu/cpufreq/policy*/*governor'))
+    data['durationNs'] = time.monotonic_ns()-start
+    return data
+
+
+def environment():
+    env=dict(os.environ)
+    data=dict(kernel=list(os.uname()),python=sys.version,executable=sys.executable,
+              affinity=sorted(os.sched_getaffinity(0)),
+              environmentValueSha256={k:hashlib.sha256(v.encode()).hexdigest() for k,v in env.items()},
+              visible={k:v for k,v in env.items() if k in ('PATH','LANG','LC_ALL','LC_NUMERIC','LD_LIBRARY_PATH','TZ')})
+    data.pop('load', None)
+    data.update(machine=platform.machine(), cpuInfoSha256=digest(Path('/proc/cpuinfo')),
+                ramBytes=os.sysconf('SC_PAGE_SIZE')*os.sysconf('SC_PHYS_PAGES'),
+                topology={str(p): p.read_text().strip() for p in sorted(Path('/sys/devices/system/cpu').glob('cpu[0-9]*/topology/*_siblings_list'))})
+    # /proc/cpuinfo contains live MHz; retain stable topology/model instead.
+    data.pop('cpuInfoSha256')
+    data['cpuModel'] = sorted(set(line for line in Path('/proc/cpuinfo').read_text().splitlines()
+                                     if line.startswith(('model name', 'vendor_id', 'cpu family', 'model\t', 'stepping'))))
+    return data
+
+
+def historical(output):
+    identities, _ = r.historical(output)
+    for kind in ('calibration-revision', 'characterization', 'batching-pilot'):
+        folder = FEATURE/('evidence/candidate-scan-'+kind)
+        members = a.diagnosis.verify_archives(folder, output/'inputs'/kind)
+        for p in folder.iterdir():
+            if p.is_file(): identities[str(p)] = digest(p)
+        for name, expected in members.items():
+            if name.startswith(('tool/', 'analysis/')):
+                p = HERE.parent/('candidate-scan-'+kind)/Path(name).name
+                a.diagnosis.check_hash(p, expected)
+                identities[str(p)] = expected
+    for name in ('input-identities.json',):
+        pinned = json.loads((output/'inputs/characterization'/name).read_text())
+        a.diagnosis.verify_identities(pinned)
+        identities.update(pinned)
+    require(str(r.BINARY) in identities, 'missing original binary identity')
+    # Every linked baseline archive and its defining Ninja recipe must be pinned.
+    for p in [SKIA/'out/comparison/obj/skia.ninja', *sorted((SKIA/'out/comparison').glob('*.a'))]:
+        require(str(p) in identities, 'unidentified build input: '+str(p))
+        a.diagnosis.check_hash(p, identities[str(p)])
+    require(list((SKIA/'out/comparison').glob('*.a')), 'missing baseline libraries')
+    return identities
+
+
+def prepare(output):
+    require(not output.exists(), 'fresh output required')
+    output.mkdir(parents=True)
+    with a.no_launches():
+        identities = historical(output/'preflight')
+        folder = FEATURE/'evidence/candidate-scan-batching-refinement'
+        members = a.diagnosis.verify_archives(folder, output/'preflight/inputs/batching-refinement')
+        for path in folder.iterdir():
+            if path.is_file(): identities[str(path)] = digest(path)
+        for name, expected in members.items():
+            if name.startswith('tool/'):
+                path = HERE.parent/'candidate-scan-batching-refinement'/Path(name).name
+                a.diagnosis.check_hash(path, expected); identities[str(path)] = expected
+        pinned = json.loads((output/'preflight/inputs/batching-refinement/identities.json').read_text())
+        a.diagnosis.verify_identities(pinned); identities.update(pinned)
+        a.diagnosis.check_hash(BINARY, members['binary/prepared-reflow'])
+        require(identities[str(BINARY)] == members['binary/prepared-reflow'], 'refinement executable identity')
+        selection = json.loads((output/'preflight/inputs/batching-refinement/selection.json').read_text())
+        require(selection['complete'] and selection['selection'] == 96, 'unselected batch size')
+    for path in HERE.iterdir():
+        if path.is_file(): identities[str(path)] = digest(path)
+    identities[str(Path(sys.executable).resolve())] = digest(Path(sys.executable).resolve())
+    write(output/'identities.json', identities)
+    summary = json.loads((output/'preflight/inputs/continuation/summary.json').read_text())
+    limits = {}
+    for case, phase in r.TARGETS.items():
+        matches = [c for c in summary['cells'] if (c['case'], c['variant'], c['operation']) == (case, 'zero', phase)]
+        require(len(matches) == 1, 'missing historical tolerance')
+        limits[case] = matches[0]['overheadLimitPerParagraphNs']
+    require([round(limits[c],3) for c in r.CASES] == [4819.525,101542.075], 'unexpected tolerances')
+    write(output/'limits.json', limits)
+    write(output/'schedule.json', schedule())
+    write(output/'commands.json', [e['argv'] for e in schedule()['commands']])
+    write(output/'environment.json', environment())
+    write(output/'protocol.json', dict(processes=483, correctness=3, timing=480, seed=73082,
+          bootstrapSeed=73083, resamples=10000, batchSize=96, telemetry='enabled',
+          timeoutSeconds=60, rssLimitBytes=4*1024**3, retentionEstablished=False,
+          protocolSha256=digest(FEATURE/'prepared-calibration-protocol.md')))
+    shutil.copyfile(FEATURE/'prepared-calibration-protocol.md', output/'protocol.md')
+    for name in ('index.jsonl', 'attempts.jsonl'): (output/name).touch()
+    frozen = {str(p.relative_to(output)): digest(p) for p in output.rglob('*') if p.is_file() and p.name not in ('index.jsonl', 'attempts.jsonl')}
+    write(output/'frozen.json', frozen)
+
+
+def rows(raw):
+    data = raw.read_bytes()
+    require(not data or data.endswith(b'\n'), 'partial JSONL file')
+    return [json.loads(line) for line in data.splitlines()]
+
+
+def validate_raw(raw, entry, output):
+    data = rows(raw)
+    if entry['configuration'] in ('original-reference', 'original-dense'):
+        expected = r.continuation.old.strict_rows(raw)
+        require([x['phase'] for x in expected] == ['initial','reflow','repeat','metadata'], 'original phases')
+        blocks = json.loads(Path(entry['argv'][1]).read_text())['fixtures'][0]['blocks']
+        for row in expected:
+            r.continuation.validate_lifecycle(row, blocks, entry['mode']=='correctness')
+            count = sum(bool(b['spans']) for b in blocks) if row['phase']=='metadata' else len(blocks)
+            require(row['applicableParagraphs']==count, 'reference applicability')
+            require((row['elapsedNs'] is None)==(count==0), 'reference null')
+            require(row['elapsedNs'] is None or (type(row['elapsedNs']) is int and row['elapsedNs']>=0), 'reference timer')
+            require(row['clockPeriodNs']>0 and row['minimumPositiveDeltaNs']>0 and row['highWaterRssBytes']>0, 'reference timer/resource metadata')
+            require(row['fpEnvironment']['rounding']==0 and row['fpEnvironment']['mxcsr'] & 0xe040==0, 'reference floating point environment')
+            require(row['cpuAffinity']==json.loads((output/'environment.json').read_text())['affinity'], 'reference affinity')
+            require(('geometry' in row)==(entry['mode']=='correctness'), 'reference geometry mode')
+        historical = output/'preflight/inputs/continuation'/('correctness-00-'+entry['case']+'-zero-baseline-sample.jsonl')
+        old = r.continuation.old.strict_rows(historical)
+        r.continuation.compare_shapes(expected, old, 'reference generation')
+        if entry['mode']=='correctness':
+            require([(v['geometry'],v['shapeDeltas']) for v in data] == [(v['geometry'],v['shapeDeltas']) for v in old], 'original geometry/generation changed')
+        return data
+    require(len(data)==1, 'batch row count')
+    row=data[0]; config=next(c for c in schedule()['configurations'] if c['id']==entry['configuration'])
+    n=config['batchSize']; enabled=config['telemetry']=='enabled'
+    require(row['phase']=='prepared-reflow' and row['mode']==entry['mode'] and row['telemetry']==config['telemetry'], 'batch identity')
+    require(row['applicableParagraphs']==n and isinstance(row['elapsedNs'],int) and row['elapsedNs']>0, 'batch timing')
+    require(row['elapsedPerParagraphNs']==row['elapsedNs']/n, 'batch normalization')
+    require(row['distinctInstances'] is True and row['generationUnchanged'] is True and row['sharedFontCollection'] is True and row['finalWidth']==497, 'batch lifecycle')
+    require(row['cacheCounts']==[0,1,1], 'batch cache counts')
+    require(row['initialWidth']==480 and row['initialGenerations']==row['finalGenerations'] and len(row['initialGenerations'])==n, 'generation evidence')
+    require(row['initialStates']==row['finalStates']==[6]*n, 'state evidence')
+    require(row['timerEndMonotonicNs']-row['timerStartMonotonicNs']==row['elapsedNs'], 'timer interval')
+    for key in ('boundaryBefore','boundaryAfter','boundaryDeltas'):
+        require((row[key] is not None)==enabled, 'telemetry switch')
+    if enabled:
+        require(row['boundaryBefore']['startMonotonicNs']+row['boundaryBefore']['durationNs']<=row['timerStartMonotonicNs'] and row['boundaryAfter']['startMonotonicNs']>=row['timerEndMonotonicNs'], 'telemetry overlaps timer')
+        for key in ('boundaryBefore','boundaryAfter'):
+            require(row[key]['durationNs']>=0 and row[key]['startMonotonicNs']>0, 'boundary timestamps')
+            for metric in ('cpu','processCpuNs','voluntary','involuntary'):
+                value=row[key][metric];require((value['value'] is None)==(value['reason'] is not None), 'optional telemetry reason')
+        for metric in ('processCpuNs','voluntary','involuntary'):
+            before=row['boundaryBefore'][metric]['value'];after=row['boundaryAfter'][metric]['value']
+            expected=None if before is None or after is None else after-before
+            require(metric in row['boundaryDeltas'] and row['boundaryDeltas'][metric]==expected, 'invalid boundary delta')
+            require(expected is None or expected>=0, 'negative boundary delta')
+    if entry['mode']=='correctness':
+        reference=rows(output/(schedule()['commands'][0]['id']+'.jsonl'))[1]['geometry'][0]
+        require(len(row['geometry'])==n and all(g==reference for g in row['geometry']), 'reference geometry mismatch')
+        require(row['mutationIsolation'] is True, 'mutation isolation')
+        require(row['cacheEvents']==[['missingParagraph','addedParagraph']]+[['foundParagraph']]*(n-1), 'cache events')
+    for row in data:
+        require(row['clockPeriodNs']>0 and row['minimumPositiveDeltaNs']>0, 'timer metadata')
+    return data
+
+
+def validate(output, complete=False):
+    frozen=json.loads((output/'frozen.json').read_text())
+    for name, expected in frozen.items(): a.diagnosis.check_hash(output/name,expected)
+    a.diagnosis.verify_identities(json.loads((output/'identities.json').read_text()))
+    require(json.loads((output/'schedule.json').read_text())==schedule(), 'altered schedule')
+    records=rows(output/'index.jsonl');attempts=rows(output/'attempts.jsonl');entries=schedule()['commands']
+    require(len(records)==len(attempts)<=483, 'ambiguous attempted launch')
+    require(not complete or len(records)==483, 'incomplete calibration')
+    for i,row in enumerate(records):
+        e=entries[i]
+        require(all(row.get(k)==v for k,v in e.items()), 'misordered/duplicate record')
+        require(attempts[i]==dict(id=e['id'],command=e['argv']), 'attempt identity')
+        require(row['status']=='completed' and row['returncode']==0 and row['command']==e['argv'], 'terminal execution failure')
+        require(0<row['peakObservedRssBytes']<=4*1024**3 and 0<=row['wallSeconds']<=60, 'resource bounds')
+        require(0<row['parentStartMonotonicNs']<=row['parentEndMonotonicNs'], 'parent lifecycle')
+        if i: require(records[i-1]['parentEndMonotonicNs']<=row['parentStartMonotonicNs'], 'overlapping processes')
+        for suffix,key in (('.jsonl','rawSha256'),('.stderr','stderrSha256')):
+            a.diagnosis.check_hash(output/(e['id']+suffix),row[key])
+        for key in ('snapshotBefore','snapshotAfter'):
+            require(row[key]['durationNs']>=0 and row[key]['startMonotonicNs']>0, 'snapshot lifecycle')
+        validate_raw(output/(e['id']+'.jsonl'),e,output)
+    for suffix in ('.jsonl', '.stderr'):
+        require({p.name for p in output.glob('[0-9]*'+suffix)}=={e['id']+suffix for e in entries[:len(records)]}, 'unacknowledged output')
+    return records
+
+
+def resume(prior, output):
+    require(not output.exists(), 'fresh resume directory required')
+    records=validate(prior)
+    if len(records)<483: require(environment()==json.loads((prior/'environment.json').read_text()), 'resume environment mismatch')
+    shutil.copytree(prior,output)
+    return records
+
+
+def execute(output,records):
+    require(environment()==json.loads((output/'environment.json').read_text()), 'execution environment mismatch')
+    validate(output)
+    for e in schedule()['commands'][len(records):]:
+        if e['sequence']==3:
+            require(len(records)==3, 'three correctness completions required')
+            validate(output)
+        before=snapshot()
+        r.supervisor.append(output/'attempts.jsonl',dict(id=e['id'],command=e['argv']))
+        started=time.monotonic_ns()
+        raw=output/(e['id']+'.jsonl');err=output/(e['id']+'.stderr')
+        result=r.supervisor.supervise(e['argv'],raw,err,timeout=60,rss_limit=4*1024**3,env=dict(os.environ))
+        ended=time.monotonic_ns();after=snapshot()
+        error=None
+        if result['status']=='completed':
+            try: validate_raw(raw,e,output)
+            except (AssertionError,ValueError,KeyError,TypeError) as ex: result['status']='invalid-output';error=str(ex)
+        row=dict(**e,**result,parentStartMonotonicNs=started,parentEndMonotonicNs=ended,
+                 snapshotBefore=before,snapshotAfter=after,rawSha256=digest(raw),stderrSha256=digest(err),validationError=error)
+        r.supervisor.append(output/'index.jsonl',row)
+        require(row['status']=='completed' and row['returncode']==0 and row['command']==e['argv'] and
+                0<row['peakObservedRssBytes']<=4*1024**3 and 0<=row['wallSeconds']<=60, str(row))
+        records.append(row); print(e['id'],'completed',flush=True)
+    validate(output,True)
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('action',choices=('run','resume','validate'))
+    p.add_argument('output',type=Path);p.add_argument('--from-directory',type=Path);args=p.parse_args()
+    with r.recovery.execution_lock(LOCK):
+        out=args.output.resolve();source=args.from_directory.resolve() if args.from_directory else None
+        if args.action=='validate': validate(out,True)
+        elif args.action=='run': prepare(out);execute(out,[])
+        else:
+            records=resume(source,out)
+            if len(records)<483:execute(out,records)
+
+if __name__=='__main__':main()
+
+
+def forensic(output):
+    """Read-only terminal evidence; never used by execution or recovery."""
+    errors=[]
+    try: validate(output)
+    except Exception as ex: errors.append(type(ex).__name__+': '+str(ex))
+    journals={}
+    for name in ('attempts.jsonl','index.jsonl'):
+        parsed=[]
+        for line in (output/name).read_text().splitlines() if (output/name).exists() else []:
+            try: parsed.append(json.loads(line))
+            except ValueError as ex: errors.append(name+': '+str(ex))
+        journals[name]=parsed
+    return dict(complete=False,calibration='incomplete',retentionEstablished=False,
+                validationErrors=errors,journals=journals,
+                preservedFiles={str(x.relative_to(output)):digest(x) for x in sorted(output.rglob('*')) if x.is_file() and x.name not in ('analysis.json','decision.json','report.md')})

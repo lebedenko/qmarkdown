@@ -1,0 +1,115 @@
+{
+  "fixtures": [
+    {
+      "fixture": "padded",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "adjacent",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "mixed",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "wrapping",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "unsupported-per-line-padding",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "bidi",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "ligatures",
+      "qtComposition": "native",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "combining",
+      "qtComposition": "native",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "fallback",
+      "qtComposition": "native",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "overhang",
+      "qtComposition": "native",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "native-independent-shaping",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "objects",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "bidi-objects",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "unsupported-code-edge-hit",
+      "skiaComposition": "unsupported-per-line-padding",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    },
+    {
+      "fixture": "document",
+      "qtComposition": "phase-raster-fallback",
+      "qtSelection": "tested-source-edges",
+      "skiaComposition": "unqualified-reservations",
+      "skiaSelection": "tested-source-edges",
+      "visualAcceptance": "pending-owner-review"
+    }
+  ],
+  "configurationFailures": [
+    "Qt 6.8.0 Vulkan shutdown (all cases)"
+  ],
+  "unavailable": [
+    "SDL DPR 1.25",
+    "SDL DPR 1.5",
+    "SDL DPR 2"
+  ],
+  "remaining": [
+    "cross-paragraph selection",
+    "general table layout",
+    "presentation/CPU/GPU qualification",
+    "owner visual review"
+  ],
+  "motion": "60 rendered steps per case: slow, flick-like, reversal; captured-pose replay verified"
+}

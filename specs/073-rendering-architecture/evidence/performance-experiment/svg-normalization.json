@@ -1,0 +1,32 @@
+{
+  "constructionMs.svg": {
+    "beforeSha256": "5e3043b6e80876c0e7dae1b4386197eec3e1dfe8ed4ae6e7032df32c1a38429d",
+    "afterSha256": "199f0295c5ee72d3cfd63658858031bc4a209bfd90ef9424d7774cd91dfeb26a",
+    "normalizedXmlEqual": true
+  },
+  "initialLayoutMs.svg": {
+    "beforeSha256": "de54ad442267a423f54006a397a9e79ed8e9ab640849cd61e5469ef06bdf64bc",
+    "afterSha256": "11f7cbf74d085ac38f52ccd787592444cf64eba9873b5d83db88a66ef64e24ab",
+    "normalizedXmlEqual": true
+  },
+  "widthReflowMs.svg": {
+    "beforeSha256": "5f086a156b87b3b6499269d0fb86ea1b7b92ce2b173138f83b43180de281a350",
+    "afterSha256": "e18a1cdb9a980e3116deaaee36d4e4c709887bce180a11621ca7c9f2b9bd8963",
+    "normalizedXmlEqual": true
+  },
+  "peakRssBytes.svg": {
+    "beforeSha256": "81aacae1ac0cf19b47cc867e9cf828df3284350ab8d356280d6f1ff3d056497b",
+    "afterSha256": "3ef974fd89b854400f2bc08930194c873b8144f549e2c0c91757755d2b880210",
+    "normalizedXmlEqual": true
+  },
+  "constructionMs-cold.svg": {
+    "beforeSha256": "ee576cfc22e6cd9997e453e00f06a4c482c980c20649ae76c501f1088a40a94c",
+    "afterSha256": "d60f91a3ab473a30b6bfc6db38c920b6eaf9e63d4e2aa4a8190e3182b7d88c16",
+    "normalizedXmlEqual": true
+  },
+  "initialLayoutMs-cold.svg": {
+    "beforeSha256": "57bc1efd69cd89a9591a409d379e31ed2203f548471cf7eb5147f976f663c6f1",
+    "afterSha256": "bc5be91bb932a6c4e591d28d01b00ce22505d3e86ad344bf302f4898d2361c73",
+    "normalizedXmlEqual": true
+  }
+}

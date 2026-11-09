@@ -1,0 +1,20 @@
+[
+  {
+    "name": "qt-development",
+    "exit": 1,
+    "binary": "build-ci/073-demo-development/qt-selection",
+    "sha256": "de37499bf239e8c3670d584e70bfe9387d6622acdb75c30d50da59424fed4608"
+  },
+  {
+    "name": "qt-minimum",
+    "exit": 1,
+    "binary": "build-ci/073-demo-minimum/qt-selection",
+    "sha256": "112e1c3306a44e8ddcfba7a479573e1e4ea8b2dbd9d5b2fa7da2b5126efc6ebb"
+  },
+  {
+    "name": "skia",
+    "exit": 0,
+    "binary": "build-ci/073-skia-demo/skia-selection",
+    "sha256": "3627b76dcc21e7a8063171a81155b98a2a0041c383cbe0f05d260a2a6ab1609c"
+  }
+]

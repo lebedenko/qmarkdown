@@ -1,0 +1,717 @@
+{
+  "performance": "rejected; unchanged",
+  "runs": [
+    {
+      "name": "candidate-opengl",
+      "result": {
+        "exit": -6,
+        "status": "stopped; inspect failing stage before attribution"
+      },
+      "poses": 0,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-candidate/blur-review": "98aa627d760becac72014838079df63b6fb3c29492b68fadb7ab19d62fa96a8e",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "ef459204ad9351f909ce656f6c5ead138ae56e2a5fa8ebcc67c38c34f6d4739c",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "44c5f6e44937de70d1e2f922d53d8a65960381c73f59b27e2b8d0b6f31f47e13"
+      },
+      "environment": null,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "candidate-opengl-unrestricted",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 2560,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-candidate/blur-review": "98aa627d760becac72014838079df63b6fb3c29492b68fadb7ab19d62fa96a8e",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "ef459204ad9351f909ce656f6c5ead138ae56e2a5fa8ebcc67c38c34f6d4739c",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "44c5f6e44937de70d1e2f922d53d8a65960381c73f59b27e2b8d0b6f31f47e13"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "5a48f103db008973572bc0eb2f53698942b51dda9b444cefade014233c164cd3"
+    },
+    {
+      "name": "final-candidate-opengl",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 2966,
+      "liveFrames": 286,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-candidate/blur-review": "aaa434cdb95838e2251ac31351b11d25f50f632b39c7b29aefbec4700d3d0944",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "8750903e71255c3fbd6f52a4897ae0b99fddb93fdae99c55e5cd839bab16d671",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "dca89855f3b026a9929a17596f5c75267f5c131f5ebabb059dda2f7ff5112d4f"
+    },
+    {
+      "name": "pose-baseline-6.12-opengl-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-baseline/blur-review": "0e4bc35de5c0ac6b219088aa17aa360bedb5bdd00c06e7455864353e56bd9d06",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "4334f8974bc965019cc0c6ca8dd24fa1d022a4ed13eb75e46519313b45707015"
+    },
+    {
+      "name": "pose-baseline-6.12-opengl-unaligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 18,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-baseline/blur-review": "0e4bc35de5c0ac6b219088aa17aa360bedb5bdd00c06e7455864353e56bd9d06",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "b27d6f35b227c3f23c5a08ccb5b77e988c3ea27f25abe7ccddbd84db0a3fcd4b"
+    },
+    {
+      "name": "pose-baseline-6.12-vulkan-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-baseline/blur-review": "0e4bc35de5c0ac6b219088aa17aa360bedb5bdd00c06e7455864353e56bd9d06",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "vulkan",
+        "dpr": 1.25,
+        "graphicsApi": 5,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "251bc3bd5a34b9643139e296c0c91fc46654ff3753840c29d0c91d11672442da"
+    },
+    {
+      "name": "pose-baseline-6.12-vulkan-unaligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 18,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-baseline/blur-review": "0e4bc35de5c0ac6b219088aa17aa360bedb5bdd00c06e7455864353e56bd9d06",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/tmp/065-artifact-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "1c317899a0299fe447a0778756b4c3caf177140e52d5e973f3d5f6ce95122e99",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "vulkan",
+        "dpr": 1.25,
+        "graphicsApi": 5,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "65a96397a3f204b0901983f3724978de1d435f3f5ad2a81c9a216468dd155b7d"
+    },
+    {
+      "name": "pose-baseline-6.8-opengl-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-baseline/blur-review": "2c9779ee49542dd5d98c1474bb110e63dd1eb176a2093c4a871a038aa06876a8",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.8.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "f4fdaae9e1a71e171846360a9b964c4da828fed4150159ae352fd0e7a25ce099"
+    },
+    {
+      "name": "pose-baseline-6.8-opengl-unaligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 18,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-baseline/blur-review": "2c9779ee49542dd5d98c1474bb110e63dd1eb176a2093c4a871a038aa06876a8",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.8.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "d5d54d612c06963335526c05ba6d68d02eda102d42ee026c4507aa36d575b1c9"
+    },
+    {
+      "name": "pose-baseline-6.8-vulkan-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-baseline/blur-review": "2c9779ee49542dd5d98c1474bb110e63dd1eb176a2093c4a871a038aa06876a8",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "vulkan",
+        "dpr": 1.25,
+        "graphicsApi": 5,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.8.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "9adfadecd24365c53bf2870fff876b1504a8129246c728c6b2fe51ca3c607e9c"
+    },
+    {
+      "name": "pose-baseline-6.8-vulkan-unaligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 18,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-baseline/blur-review": "2c9779ee49542dd5d98c1474bb110e63dd1eb176a2093c4a871a038aa06876a8",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/tmp/065-artifact-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "a6079a83bcce17d66ff687f573500b30a3b5bce4edb9107dc3783a853581f135",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "vulkan",
+        "dpr": 1.25,
+        "graphicsApi": 5,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.8.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "baseline"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "fb044a2c596bea3bcb6f8d1bc24b81ed9e8d638844cbdb0dadb4254d88ee9a55"
+    },
+    {
+      "name": "pose-candidate-6.12-opengl-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-candidate/blur-review": "97052b7195ac5c6940d13406e0102ac007e9448710f9d75613da213e70be3508",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "2da2d8017bf50563c80a60702c944cb975e2d51cca1e1e0f36f95419530dfed7"
+    },
+    {
+      "name": "pose-candidate-6.12-opengl-unaligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 18,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-candidate/blur-review": "97052b7195ac5c6940d13406e0102ac007e9448710f9d75613da213e70be3508",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "2b12f8f813b02441498002aedea02352c9c3df589954511e0777cf50e1638e58"
+    },
+    {
+      "name": "pose-candidate-6.12-vulkan-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-candidate/blur-review": "97052b7195ac5c6940d13406e0102ac007e9448710f9d75613da213e70be3508",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "vulkan",
+        "dpr": 1.25,
+        "graphicsApi": 5,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "675ad312553a24d6ad7700cf720f2e985e7b9a64160dc8c7d5dcb31b484f0d56"
+    },
+    {
+      "name": "pose-candidate-6.12-vulkan-unaligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 18,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-candidate/blur-review": "97052b7195ac5c6940d13406e0102ac007e9448710f9d75613da213e70be3508",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/tmp/065-artifact-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "73682e7c1cf9522a5e0205cc0b0408c85768d31f817c8734b1e4913224ebbe6a",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "vulkan",
+        "dpr": 1.25,
+        "graphicsApi": 5,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.12.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "49bad5c5799f6c64ff778ebd405acb45886917ba06dc00f2c051d756429afe63"
+    },
+    {
+      "name": "pose-candidate-6.8-opengl-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-candidate/blur-review": "14253dd981faf9206b5efaede4a15b47d575efecb2d15d683dfb26548be7fedc",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.8.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "7271bae572888f506aeda2842c837e95f70032bbe73d802071ba6fc0c8c0c689"
+    },
+    {
+      "name": "pose-candidate-6.8-opengl-unaligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 18,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-candidate/blur-review": "14253dd981faf9206b5efaede4a15b47d575efecb2d15d683dfb26548be7fedc",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "opengl",
+        "dpr": 1.25,
+        "graphicsApi": 3,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.8.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "91e29959e1165c45f70a4756bed980d5059840b4aeaef81ea212e92cf28a9187"
+    },
+    {
+      "name": "pose-candidate-6.8-vulkan-aligned",
+      "result": {
+        "exit": 0,
+        "status": "scan completed; visual classification still required"
+      },
+      "poses": 6,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-candidate/blur-review": "14253dd981faf9206b5efaede4a15b47d575efecb2d15d683dfb26548be7fedc",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": {
+        "backend": "vulkan",
+        "dpr": 1.25,
+        "graphicsApi": 5,
+        "outcome": "performance rejected",
+        "ownerReview": "proxy artifacts reported",
+        "proxyValidation": "raw pixels only; scrolling composition unqualified",
+        "qt": "6.8.0",
+        "source": {
+          "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+          "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+          "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+          "policy": "native-only-v2",
+          "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+          "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+          "variant": "candidate"
+        },
+        "type": "reviewReady"
+      },
+      "logSha256": "eded05a7a2e6bac45c8ad4ab3badfd40257e0acb6f784a5c8eea2ff299f5ef9f"
+    },
+    {
+      "name": "pose-candidate-6.8-vulkan-unaligned",
+      "result": {
+        "exit": -15,
+        "status": "stopped; inspect failing stage before attribution"
+      },
+      "poses": 0,
+      "liveFrames": 0,
+      "allReplayEqual": true,
+      "allProxyEqual": true,
+      "identities": {
+        "/tmp/065-artifact-min-candidate/blur-review": "14253dd981faf9206b5efaede4a15b47d575efecb2d15d683dfb26548be7fedc",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/tmp/065-artifact-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "13f8b3f3b0e704029c9c67585d1bbbc555e49c3c0fa0ebaada64b4ed423d3651",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+        "/home/andrii/Projects/pet/qmarkdown/specs/065-padded-code-rendering/blur-probe/scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0"
+      },
+      "environment": null,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "finalHarness": {
+    "review.cpp": "1ead9dc66a0930f1baeb929b2e49c13e6295694fdfbf155051971cc566fa1e2b",
+    "motion.cpp": "97c2818363900e546e546f2c06068fc7a6db98960758120959b63bfe6ad819a8",
+    "scene.h": "34c07440b9b0cccc4c99dd42f20def8264853937a5868f2ab5fa794c9abac7f0",
+    "run_artifact.py": "43dbad225f79b27a366a0486bae54c30576f3daa0181c4316c248b48e5873972",
+    "stage_motion.py": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c"
+  }
+}

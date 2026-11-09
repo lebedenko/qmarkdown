@@ -1,0 +1,220 @@
+--- a/modules/skparagraph/src/ParagraphImpl.cpp
++++ b/modules/skparagraph/src/ParagraphImpl.cpp
+@@ -149,12 +149,14 @@
+ 
+ void ParagraphImpl::buildRunOwners() {
+     if (fExperimentalSpans.empty() || fRuns.empty()) return;
++    ++ownerBuilds;
+     std::vector<size_t> owners(fRuns.size(), EMPTY_INDEX);
+     for (size_t i = 0; i < size_t(fRuns.size()); ++i) {
+         auto range = fRuns[i].textRange();
+         size_t owner = EMPTY_INDEX;
+         bool split = false;
+         for (size_t j = 0; j < fExperimentalSpans.size(); ++j) {
++            ++ownerExaminations;
+             const auto& span = fExperimentalSpans[j];
+             if ((range.start < span.source.start && span.source.start < range.end) ||
+                 (range.start < span.source.end && span.source.end < range.end)) split = true;
+@@ -169,6 +171,7 @@
+ }
+ 
+ size_t ParagraphImpl::runOwner(size_t index, TextRange range) const {
++    ++ownerLookups;
+     if (fOwnersValid && fOwnerRevision == fRunRevision &&
+         fRunOwners.size() == size_t(fRuns.size()) && index < fRunOwners.size()) {
+         auto owner = fRunOwners[index];
+@@ -176,6 +179,7 @@
+     }
+     const auto& run = fRuns[index];
+     for (size_t j = 0; j < fExperimentalSpans.size(); ++j) {
++        ++phaseWork[phaseFitting ? 0 : 1].ownerComparisons;
+         const auto& span = fExperimentalSpans[j];
+         if (span.source.start <= std::max(range.start, run.textRange().start) &&
+             std::min(range.end, run.textRange().end) <= span.source.end) return j;
+@@ -191,16 +195,19 @@
+ 
+ std::vector<ParagraphImpl::ExperimentalVisualSlice>
+ ParagraphImpl::experimentalVisualSlices(TextRange range) const {
++    auto& work = phaseWork[phaseFitting ? 0 : 1];
++    ++work.calls;
+     std::vector<size_t> indexes;
+     std::vector<SkUnicode::BidiLevel> levels;
+     for (const auto& run : fRuns) {
++        ++work.runVisits;
+         if (run.textRange().start < range.end && range.start < run.textRange().end) {
+             indexes.push_back(run.index());
+             levels.push_back(run.fBidiLevel);
+         }
+     }
+     std::vector<int32_t> order(indexes.size());
+-    if (!order.empty()) fUnicode->reorderVisual(levels.data(), levels.size(), order.data());
++    if (!order.empty()) { ++work.reorderCalls; fUnicode->reorderVisual(levels.data(), levels.size(), order.data()); }
+     std::vector<ExperimentalVisualSlice> slices;
+     std::vector<SkScalar> padding;
+     for (auto logical : order) {
+@@ -214,6 +221,7 @@
+             identity = span.identity;
+             pad = span.horizontalPadding;
+         }
++        ++work.slices;
+         slices.push_back({index, identity, 0, 0});
+         padding.push_back(pad);
+     }
+--- a/modules/skparagraph/src/ParagraphImpl.h
++++ b/modules/skparagraph/src/ParagraphImpl.h
+@@ -124,6 +124,23 @@
+     std::vector<TextIndex> fExperimentalGraphemeEdges;
+     void experimentalSetSpans(std::vector<ExperimentalFragmentSpan> spans);
+     const std::vector<ExperimentalFragmentSpan>& experimentalSpans() const { return fExperimentalSpans; }
++    struct PhaseWork { size_t calls=0, runVisits=0, ownerComparisons=0, reorderCalls=0, slices=0; };
++    // Private driver state: 0 oracle, 1 shadow, 2 prototype (historical gates).
++    int scanMode=2;
++    struct ScanWork {
++        size_t guardVisits=0, preprocessing=0, trimming=0, suffixComparisons=0, evaluations=0,
++               skipped=0, shadowChecks=0, shadowTrimming=0, scratchSize=0,
++               scratchCapacity=0, scratchBytes=0, lines=0;
++        size_t fallback[7]={};
++    };
++    mutable ScanWork scanWork;
++    mutable PhaseWork phaseWork[2];
++    mutable size_t phaseCandidates=0, phaseWhitespace=0;
++    mutable bool phaseFitting=false;
++    mutable size_t ownerBuilds=0, ownerExaminations=0, ownerLookups=0;
++    size_t ownerCapacity() const { return fRunOwners.capacity(); }
++    size_t ownerPayload() const { return fRunOwners.size()*sizeof(size_t); }
++    void resetPhaseWork() const { scanWork={}; phaseWork[0]={}; phaseWork[1]={}; phaseCandidates=phaseWhitespace=0; ownerBuilds=ownerExaminations=ownerLookups=0; }
+     size_t experimentalShapeGeneration() const { return fExperimentalShapeGeneration; }
+     std::vector<ExperimentalFragmentSpan> fExperimentalSpans;
+     size_t fExperimentalShapeGeneration = 0;
+--- a/modules/skparagraph/src/TextWrapper.cpp
++++ b/modules/skparagraph/src/TextWrapper.cpp
+@@ -2,6 +2,8 @@
+ #include "modules/skparagraph/src/ParagraphImpl.h"
+ #include "modules/skparagraph/src/TextWrapper.h"
+ #include "modules/skparagraph/src/ScanBound.h"
++#include <cstdio>
++#include <cstdlib>
+ 
+ #include "include/core/SkFont.h"
+ #include "include/private/SkTemplates.h"
+@@ -422,6 +424,7 @@
+     auto guard = scan_bound::safe;
+     long double padEnvelope = 0;
+     if (parent->experimentalPadded()) {
++        ++parent->scanWork.guardVisits;
+         guard = scan_bound::platform<SkScalar>();
+         SkScalar maxPad=0;
+         if (!scan_bound::finite(maxWidth)) guard=scan_bound::width;
+@@ -434,8 +437,10 @@
+         // slack covers rounding even for the largest representable vector size.
+         padEnvelope=4.L*maxPad*(parent->runs().size()+1.L);
+         if (padEnvelope > std::numeric_limits<SkScalar>::max()/4.L) guard=scan_bound::intermediate;
+-        if (guard==scan_bound::safe) {
++        if (parent->scanMode && guard==scan_bound::safe) {
+             scratch.reserve(span.size());
++            parent->scanWork.scratchCapacity=scratch.capacity();
++            parent->scanWork.scratchBytes=scratch.capacity()*sizeof(Candidate);
+         }
+     }
+     while (fEndLine.endCluster() != end) {
+@@ -457,14 +462,16 @@
+             Cluster* firstUnitEnd = nullptr;
+             auto reason=guard;
+             scratch.clear();
+-            if (reason==scan_bound::safe) {
++            if (parent->scanMode && reason==scan_bound::safe) {
+                 SkScalar sum=0;
+                 for (auto c=lineStart; c<end; ++c) {
++                    ++parent->scanWork.preprocessing;
+                     sum += c->width();
+                     if (!scan_bound::finite(c->width()) || !scan_bound::finite(sum)) reason=scan_bound::intermediate;
+                     auto t=c+1;
+                     SkScalar trimmed=sum;
+                     while (t>lineStart && (t-1)->isWhitespaceBreak()) {
++                        ++parent->scanWork.trimming;
+                         --t; trimmed -= t->width();
+                         if (!scan_bound::finite(trimmed)) reason=scan_bound::intermediate;
+                     }
+@@ -477,19 +484,27 @@
+                     scratch.push_back({c+1,t,trimmed,trimmed,eligible});
+                     if (c->isHardBreak()) break;
+                 }
++                parent->scanWork.scratchSize=std::max(parent->scanWork.scratchSize,scratch.size());
+                 if (reason==scan_bound::safe) {
+                     scan_bound::suffix(scratch);
+-                }
+-            }
+-            if (reason==scan_bound::safe) {
++                    parent->scanWork.suffixComparisons+=scratch.empty()?0:scratch.size()-1;
++                }
++            }
++            ++parent->scanWork.lines;
++            if (parent->scanMode==2 && reason==scan_bound::safe) {
+                 for (size_t i=0;i<scratch.size();++i) {
+                     if (scan_bound::skip(scratch[i].lower,maxWidth)) {
++                        parent->scanWork.skipped+=scratch.size()-i;
+                         break;
+                     }
+                     const auto& e=scratch[i];
++                    ++parent->phaseCandidates;
++                    ++parent->scanWork.evaluations;
+                     TextRange range(lineStart->textRange().start,
+                         e.trimmedEnd>lineStart ? (e.trimmedEnd-1)->textRange().end : lineStart->textRange().start);
++                    parent->phaseFitting=true;
+                     auto required=e.trimmed+parent->experimentalPadding(range);
++                    parent->phaseFitting=false;
+                     if (!scan_bound::finite(required)) { reason=scan_bound::intermediate; break; }
+                     if (required<=maxWidth && e.eligible) {
+                         fallbackEnd=e.end;
+@@ -497,20 +512,26 @@
+                     }
+                 }
+             }
+-            if (reason!=scan_bound::safe) {
++            if (!parent->scanMode || reason!=scan_bound::safe || parent->scanMode==1) {
++                if (parent->scanMode && reason!=scan_bound::safe) ++parent->scanWork.fallback[reason];
+                 bare=0;
+                 legalEnd=fallbackEnd=firstUnitEnd=nullptr;
+             for (auto candidate = lineStart; candidate < end; ++candidate) {
++                ++parent->phaseCandidates;
+                 bare += candidate->width();
+                 auto trimmedEnd = candidate + 1;
+                 SkScalar trimmedWidth = bare;
+                 while (trimmedEnd > lineStart && (trimmedEnd-1)->isWhitespaceBreak()) {
++                    ++parent->phaseWhitespace;
+                     --trimmedEnd;
+                     trimmedWidth -= trimmedEnd->width();
+                 }
+                 TextRange range(lineStart->textRange().start,
+                     trimmedEnd > lineStart ? (trimmedEnd-1)->textRange().end : lineStart->textRange().start);
++                ++parent->scanWork.evaluations;
++                parent->phaseFitting = true;
+                 auto required = trimmedWidth + parent->experimentalPadding(range);
++                parent->phaseFitting = false;
+                 const auto& edges = parent->fExperimentalGraphemeEdges;
+                 const bool indivisibleEnd = std::binary_search(edges.begin(), edges.end(), candidate->textRange().end);
+                 if (indivisibleEnd && !firstUnitEnd) firstUnitEnd = candidate+1;
+@@ -521,6 +542,23 @@
+                 }
+                 if (candidate->isHardBreak()) break;
+             }
++            }
++            if (parent->scanMode==1 && reason==scan_bound::safe) {
++                bool skipping=false;
++                for (const auto& e:scratch) {
++                    skipping=skipping || scan_bound::skip(e.lower,maxWidth);
++                    if (!skipping) continue;
++                    ++parent->scanWork.skipped;
++                    ++parent->scanWork.shadowChecks;
++                    TextRange range(lineStart->textRange().start,
++                        e.trimmedEnd>lineStart ? (e.trimmedEnd-1)->textRange().end : lineStart->textRange().start);
++                    auto saved0=parent->phaseWork[0];auto saved1=parent->phaseWork[1];
++                    auto savedLookups=parent->ownerLookups;
++                    auto required=e.trimmed+parent->experimentalPadding(range);
++                    parent->phaseWork[0]=saved0;parent->phaseWork[1]=saved1;parent->ownerLookups=savedLookups;
++                    if (!scan_bound::finite(required) || !(required>maxWidth))
++                        { std::fprintf(stderr,"cutoff-proof shadow failure\n"); std::abort(); };
++                }
+             }
+             selectedEnd = legalEnd ? legalEnd : (fallbackEnd ? fallbackEnd : (firstUnitEnd ? firstUnitEnd : end));
+             emergencyEnd = legalEnd == nullptr;

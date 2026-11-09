@@ -1,0 +1,136 @@
+--- a/modules/skparagraph/src/ScanBound.h
++++ b/modules/skparagraph/src/ScanBound.h
+@@ -0,0 +1,35 @@
++// Private experiment helper shared by copied SkParagraph and synthetic tests.
++#pragma once
++#include <algorithm>
++#include <cfenv>
++#include <cfloat>
++#include <cmath>
++#include <cstddef>
++#include <limits>
++#include <type_traits>
++#if defined(__x86_64__) && defined(__SSE2__)
++#include <xmmintrin.h>
++#endif
++namespace scan_bound {
++enum Reason { safe, representation, environment, width, padding, intermediate, reasonCount };
++template<class T> Reason platform() {
++#if defined(__FAST_MATH__) || (defined(__FINITE_MATH_ONLY__) && __FINITE_MATH_ONLY__ > 0)
++    return environment;
++#endif
++    if (!std::is_same<T,float>::value || !std::numeric_limits<T>::is_iec559 ||
++        std::numeric_limits<T>::radix != 2 || sizeof(T) != 4) return representation;
++#if defined(__x86_64__) && defined(__SSE2__) && FLT_EVAL_METHOD == 0
++    if (std::fegetround() != FE_TONEAREST || (_mm_getcsr() & ((1u<<15)|(1u<<6)|(3u<<13)))) return environment;
++    return safe;
++#else
++    return environment;
++#endif
++}
++template<class T> bool finite(T x) { return std::isfinite(x); }
++template<class T> bool skip(T suffix, T available) { return suffix > available; }
++template<class Entries> void suffix(Entries& entries) {
++    for (size_t i=entries.size(); i>0; --i)
++        entries[i-1].lower = i==entries.size() ? entries[i-1].trimmed :
++            std::min(entries[i-1].trimmed, entries[i].lower);
++}
++} // namespace scan_bound
+--- a/modules/skparagraph/src/TextWrapper.cpp
++++ b/modules/skparagraph/src/TextWrapper.cpp
+@@ -1,6 +1,7 @@
+ // Copyright 2019 Google LLC
+ #include "modules/skparagraph/src/ParagraphImpl.h"
+ #include "modules/skparagraph/src/TextWrapper.h"
++#include "modules/skparagraph/src/ScanBound.h"
+ 
+ #include "include/core/SkFont.h"
+ #include "include/private/SkTemplates.h"
+@@ -416,6 +417,27 @@
+     auto end = start + span.size() - 1;
+     InternalLineMetrics maxRunMetrics;
+     bool needEllipsis = false;
++    struct Candidate { Cluster* end; Cluster* trimmedEnd; SkScalar trimmed, lower; bool eligible; };
++    std::vector<Candidate> scratch; // Layout-local, released after wrapping.
++    auto guard = scan_bound::safe;
++    long double padEnvelope = 0;
++    if (parent->experimentalPadded()) {
++        guard = scan_bound::platform<SkScalar>();
++        SkScalar maxPad=0;
++        if (!scan_bound::finite(maxWidth)) guard=scan_bound::width;
++        for (const auto& s : parent->experimentalSpans()) {
++            if (!scan_bound::finite(s.horizontalPadding) || s.horizontalPadding < 0) guard=scan_bound::padding;
++            else maxPad=std::max(maxPad,s.horizontalPadding);
++        }
++        // Conservative envelope keeps every slice sum and required addition finite.
++        // Each run emits at most one slice; at most two pads per slice. Factor four
++        // slack covers rounding even for the largest representable vector size.
++        padEnvelope=4.L*maxPad*(parent->runs().size()+1.L);
++        if (padEnvelope > std::numeric_limits<SkScalar>::max()/4.L) guard=scan_bound::intermediate;
++        if (guard==scan_bound::safe) {
++            scratch.reserve(span.size());
++        }
++    }
+     while (fEndLine.endCluster() != end) {
+ 
+         auto lastLine = (hasEllipsis && unlimitedLines) || fLineNumber >= maxLines;
+@@ -433,6 +455,51 @@
+             Cluster* legalEnd = nullptr;
+             Cluster* fallbackEnd = nullptr;
+             Cluster* firstUnitEnd = nullptr;
++            auto reason=guard;
++            scratch.clear();
++            if (reason==scan_bound::safe) {
++                SkScalar sum=0;
++                for (auto c=lineStart; c<end; ++c) {
++                    sum += c->width();
++                    if (!scan_bound::finite(c->width()) || !scan_bound::finite(sum)) reason=scan_bound::intermediate;
++                    auto t=c+1;
++                    SkScalar trimmed=sum;
++                    while (t>lineStart && (t-1)->isWhitespaceBreak()) {
++                        --t; trimmed -= t->width();
++                        if (!scan_bound::finite(trimmed)) reason=scan_bound::intermediate;
++                    }
++                    if (!scan_bound::finite(trimmed) ||
++                        std::abs(static_cast<long double>(trimmed)) + padEnvelope >
++                            std::numeric_limits<SkScalar>::max()/2.L) reason=scan_bound::intermediate;
++                    const auto& edges=parent->fExperimentalGraphemeEdges;
++                    bool eligible=std::binary_search(edges.begin(),edges.end(),c->textRange().end);
++                    if (eligible && !firstUnitEnd) firstUnitEnd=c+1;
++                    scratch.push_back({c+1,t,trimmed,trimmed,eligible});
++                    if (c->isHardBreak()) break;
++                }
++                if (reason==scan_bound::safe) {
++                    scan_bound::suffix(scratch);
++                }
++            }
++            if (reason==scan_bound::safe) {
++                for (size_t i=0;i<scratch.size();++i) {
++                    if (scan_bound::skip(scratch[i].lower,maxWidth)) {
++                        break;
++                    }
++                    const auto& e=scratch[i];
++                    TextRange range(lineStart->textRange().start,
++                        e.trimmedEnd>lineStart ? (e.trimmedEnd-1)->textRange().end : lineStart->textRange().start);
++                    auto required=e.trimmed+parent->experimentalPadding(range);
++                    if (!scan_bound::finite(required)) { reason=scan_bound::intermediate; break; }
++                    if (required<=maxWidth && e.eligible) {
++                        fallbackEnd=e.end;
++                        if ((e.end-1)->isSoftBreak() || (e.end-1)->isHardBreak() || e.end==end) legalEnd=e.end;
++                    }
++                }
++            }
++            if (reason!=scan_bound::safe) {
++                bare=0;
++                legalEnd=fallbackEnd=firstUnitEnd=nullptr;
+             for (auto candidate = lineStart; candidate < end; ++candidate) {
+                 bare += candidate->width();
+                 auto trimmedEnd = candidate + 1;
+@@ -453,6 +520,7 @@
+                         legalEnd = candidate+1;
+                 }
+                 if (candidate->isHardBreak()) break;
++            }
+             }
+             selectedEnd = legalEnd ? legalEnd : (fallbackEnd ? fallbackEnd : (firstUnitEnd ? firstUnitEnd : end));
+             emergencyEnd = legalEnd == nullptr;

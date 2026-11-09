@@ -1,0 +1,74 @@
+[
+  {
+    "variant": "baseline",
+    "exit": 0,
+    "valid": true,
+    "stage": "complete",
+    "complete": true,
+    "environment": {
+      "dpr": 2,
+      "graphicsApi": 1,
+      "platform": "offscreen",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "b52bcd44bbb6c9e41fdbf5eff26854b0cf6dcdfc39fb314361428160f56a7c98",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "baseline"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "binarySha256": "8b3929a71c2fbd4607d450b37bbbff8dd15644c9e368a4ace386fc1fdd0ff26c",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "runnerSha256": "ce900d6100fc6428fbb226267589134ef0c8a8e7451d3a62ff8f4d667ab41c08",
+    "libraries": {
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a",
+      "/tmp/blur-native-only-min-baseline/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "3c9c60e41c7b60c09eb2d6d5eaf4d8ad75e8b6140b3bc6bc2d4576794384b79a"
+    },
+    "files": {
+      "results.jsonl": "aa3279ee3fbe5c87815465094b4b3bd4a840d596c33536d25bdb36be1c0cd5c1",
+      "stderr.log": "81472afc15836df7c0594823a05ec1eb600e1eb21a848064989a24e427f42981"
+    }
+  },
+  {
+    "variant": "candidate",
+    "exit": 0,
+    "valid": true,
+    "stage": "complete",
+    "complete": true,
+    "environment": {
+      "dpr": 2,
+      "graphicsApi": 1,
+      "platform": "offscreen",
+      "qt": "6.8.0",
+      "source": {
+        "candidateChange": "retained smoothing off only on observed OpenGL/Vulkan",
+        "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+        "instrumentation": "BlurProbe friendship and opt-in first real paint calibration v2",
+        "policy": "native-only-v2",
+        "rendererSha256": "708c64c09a68439415f0172979b738c6c53c86bda95fcb72e3e822d1c67d32ca",
+        "stagerSha256": "89d30bbb5d032609e2cfa3e804876fbf3b97621867f5ae4c9bb135045a73f69c",
+        "variant": "candidate"
+      },
+      "timing": "capture-trace, not display frame rate",
+      "type": "environment"
+    },
+    "binarySha256": "a6cd089be25a9e18b79dd9effd03cc7b9d9b9324e6fca8784919f946acb8f853",
+    "harnessSha256": "a9d335cc54fdd8fcc1ba8b8150c0f389697a4c1ad090a2162c679c658cf3ddc8",
+    "runnerSha256": "ce900d6100fc6428fbb226267589134ef0c8a8e7451d3a62ff8f4d667ab41c08",
+    "libraries": {
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61",
+      "/tmp/blur-native-only-min-candidate/qmarkdown/src/QMarkdown/libQMarkdown.so.1.18.0": "110f981836e0db6b2a1964740110172f4a38d4cfc551c107901c7eecd179dc61"
+    },
+    "files": {
+      "results.jsonl": "6a07986fa1bf21f621209b8ae2e35b9b77f0e9d47b576d407d6732b2ecf031c5",
+      "stderr.log": "81472afc15836df7c0594823a05ec1eb600e1eb21a848064989a24e427f42981"
+    }
+  }
+]

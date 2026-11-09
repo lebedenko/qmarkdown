@@ -1,0 +1,47 @@
+[
+  {
+    "name": "qt-development",
+    "command": [
+      "build-ci/073-demo-development/qt-selection",
+      "specs/073-rendering-architecture/evidence/correctness/geometry-fixtures.json"
+    ],
+    "exit": 0,
+    "failures": 0,
+    "binarySha256": "22c25eb748aa38b696921209b9787e9bce954a9345db7308c5bbf9b2f0067d7f",
+    "manifestSha256": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b"
+  },
+  {
+    "name": "qt-minimum",
+    "command": [
+      "build-ci/073-demo-minimum/qt-selection",
+      "specs/073-rendering-architecture/evidence/correctness/geometry-fixtures.json"
+    ],
+    "exit": 0,
+    "failures": 0,
+    "binarySha256": "cf6273106f33dbc732c8576ae3b2fe440c71bec741524ef4f79e13f0db53fa50",
+    "manifestSha256": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b"
+  },
+  {
+    "name": "skia",
+    "command": [
+      "build-ci/073-skia-demo/skia-selection",
+      "specs/073-rendering-architecture/evidence/correctness/geometry-fixtures.json"
+    ],
+    "exit": 1,
+    "failures": 1785,
+    "binarySha256": "7d91fb7b0fbc799395244604b9ae31925234a0fab40ca189a8fe311e0a169040",
+    "manifestSha256": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b"
+  },
+  {
+    "name": "skia-trial",
+    "command": [
+      "build-ci/073-skia-demo/skia-selection",
+      "specs/073-rendering-architecture/evidence/correctness/geometry-fixtures.json",
+      "--fragment-trial"
+    ],
+    "exit": 1,
+    "failures": 1374,
+    "binarySha256": "7d91fb7b0fbc799395244604b9ae31925234a0fab40ca189a8fe311e0a169040",
+    "manifestSha256": "26bb21d9df412685b1ce440b81beb738b8d8392ac22bcadce5bf37c68f68b92b"
+  }
+]

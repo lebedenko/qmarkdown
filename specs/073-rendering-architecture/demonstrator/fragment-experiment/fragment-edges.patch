@@ -1,0 +1,58 @@
+--- a/modules/skparagraph/src/ParagraphImpl.h
++++ b/modules/skparagraph/src/ParagraphImpl.h
+@@ -105,6 +105,23 @@
+
+     ~ParagraphImpl() override;
+
++    // Isolated QMarkdown feasibility probe, not a supported layout API.
++    struct ExperimentalFragmentSpan {
++        size_t identity;
++        TextRange source;
++        SkScalar horizontalPadding;
++    };
++    struct ExperimentalFragmentIssue {
++        size_t identity;
++        TextIndex edge;
++        TextRange cluster;
++        size_t glyphCount;
++    };
++    // Run after shaping. An empty result only passes the cluster-edge preflight;
++    // it does not mean padding has been applied or that layout is supported.
++    std::vector<ExperimentalFragmentIssue> experimentalCheckFragmentEdges(
++            const std::vector<ExperimentalFragmentSpan>& spans) const;
++
+     void layout(SkScalar width) override;
+     void paint(SkCanvas* canvas, SkScalar x, SkScalar y) override;
+     void paint(ParagraphPainter* canvas, SkScalar x, SkScalar y) override;
+--- a/modules/skparagraph/src/ParagraphImpl.cpp
++++ b/modules/skparagraph/src/ParagraphImpl.cpp
+@@ -139,6 +139,29 @@
+             fUnresolvedCodepoints->emplace(unichar);
+         }
+     );
++}
++
++std::vector<ParagraphImpl::ExperimentalFragmentIssue>
++ParagraphImpl::experimentalCheckFragmentEdges(
++        const std::vector<ExperimentalFragmentSpan>& spans) const {
++    SkASSERT(fState >= kShaped);
++    std::vector<ExperimentalFragmentIssue> issues;
++    for (const auto& span : spans) {
++        if (span.horizontalPadding == 0) {
++            continue;
++        }
++        // Keep adjacent identities separate, even when their ranges touch.
++        for (auto edge : {span.source.start, span.source.end}) {
++            for (const auto& cluster : fClusters) {
++                const auto range = cluster.textRange();
++                if (range.start < edge && edge < range.end) {
++                    issues.push_back({span.identity, edge, range, cluster.size()});
++                    break;
++                }
++            }
++        }
++    }
++    return issues;
+ }
+
+ void ParagraphImpl::layout(SkScalar rawWidth) {

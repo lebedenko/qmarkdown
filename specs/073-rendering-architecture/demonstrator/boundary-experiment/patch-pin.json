@@ -1,0 +1,10 @@
+{
+  "sha256": "8b3c77c50d6424ae57c206a9c667f60e6e09fcf3ee13e9b4fc9be9767a335f25",
+  "files": [
+    "modules/skparagraph/src/OneLineShaper.cpp",
+    "modules/skparagraph/src/ParagraphImpl.cpp",
+    "modules/skparagraph/src/ParagraphImpl.h",
+    "modules/skparagraph/src/TextLine.cpp",
+    "modules/skparagraph/src/TextWrapper.cpp"
+  ]
+}

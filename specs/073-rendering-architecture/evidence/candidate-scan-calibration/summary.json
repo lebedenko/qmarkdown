@@ -1,0 +1,636 @@
+{
+  "retentionEstablished": false,
+  "calibration": "unresolved",
+  "recommendation": "Propose a separately approved measurement-design revision before path isolation or qualification.",
+  "seed": 73077,
+  "resamples": 10000,
+  "cells": [
+    {
+      "case": "prose-480-4096",
+      "operation": "initial",
+      "applicable": true,
+      "completedPairs": 20,
+      "medianDifferenceNs": -16764.0,
+      "medianImprovement": 0.004476815250517473,
+      "overheadPerParagraphNs": -16764.0,
+      "intervals95": {
+        "AMedianNs": [
+          3753701.5,
+          3837905.0
+        ],
+        "BMedianNs": [
+          3733069.5,
+          3816454.0
+        ],
+        "medianDifferenceNs": [
+          -74012.0,
+          44924.0
+        ],
+        "medianImprovement": [
+          -0.011985347400149044,
+          0.01943212496301848
+        ],
+        "APerParagraphNs": [
+          3753701.5,
+          3837905.0
+        ],
+        "BPerParagraphNs": [
+          3733069.5,
+          3816454.0
+        ],
+        "overheadPerParagraphNs": [
+          -74012.0,
+          44924.0
+        ]
+      },
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 12,
+      "ratioThresholdNs": 1200,
+      "timerLimited": false,
+      "AMedianNs": 3773931.5,
+      "BMedianNs": 3765167.0,
+      "APerParagraphNs": 3773931.5,
+      "BPerParagraphNs": 3765167.0,
+      "descriptive": {
+        "median": -16764.0,
+        "mad": 69445.0,
+        "minimum": -534770.0,
+        "maximum": 149182.0,
+        "positive": 8,
+        "negative": 12,
+        "zero": 0
+      },
+      "order": {
+        "A": {
+          "overheadPerParagraphNs": -68660.0,
+          "armMedianNs": {
+            "A": 3837905.0,
+            "B": 3768579.0
+          }
+        },
+        "B": {
+          "overheadPerParagraphNs": 1829.0,
+          "armMedianNs": {
+            "A": 3755972.0,
+            "B": 3750264.0
+          }
+        }
+      },
+      "halves": {
+        "firstTen": {
+          "overheadPerParagraphNs": 18856.5,
+          "armMedianNs": {
+            "A": 3764066.5,
+            "B": 3816454.0
+          }
+        },
+        "lastTen": {
+          "overheadPerParagraphNs": -39118.0,
+          "armMedianNs": {
+            "A": 3784551.0,
+            "B": 3754756.0
+          }
+        }
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "operation": "reflow",
+      "applicable": true,
+      "completedPairs": 20,
+      "medianDifferenceNs": -414.5,
+      "medianImprovement": 0.004230561811350107,
+      "overheadPerParagraphNs": -414.5,
+      "intervals95": {
+        "AMedianNs": [
+          96503.5,
+          104210.5
+        ],
+        "BMedianNs": [
+          96968.0,
+          102158.0
+        ],
+        "medianDifferenceNs": [
+          -6296.5,
+          2560.0
+        ],
+        "medianImprovement": [
+          -0.02615951947496872,
+          0.05994970530494899
+        ],
+        "APerParagraphNs": [
+          96503.5,
+          104210.5
+        ],
+        "BPerParagraphNs": [
+          96968.0,
+          102158.0
+        ],
+        "overheadPerParagraphNs": [
+          -6296.5,
+          2560.0
+        ]
+      },
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 12,
+      "ratioThresholdNs": 1200,
+      "timerLimited": false,
+      "AMedianNs": 100650.0,
+      "BMedianNs": 98883.5,
+      "APerParagraphNs": 100650.0,
+      "BPerParagraphNs": 98883.5,
+      "descriptive": {
+        "median": -414.5,
+        "mad": 5936.0,
+        "minimum": -30130.0,
+        "maximum": 40836.0,
+        "positive": 10,
+        "negative": 10,
+        "zero": 0
+      },
+      "order": {
+        "A": {
+          "overheadPerParagraphNs": -2062.5,
+          "armMedianNs": {
+            "A": 102836.5,
+            "B": 99426.5
+          }
+        },
+        "B": {
+          "overheadPerParagraphNs": 740.0,
+          "armMedianNs": {
+            "A": 98317.5,
+            "B": 98131.0
+          }
+        }
+      },
+      "halves": {
+        "firstTen": {
+          "overheadPerParagraphNs": 2560.0,
+          "armMedianNs": {
+            "A": 96873.5,
+            "B": 100836.0
+          }
+        },
+        "lastTen": {
+          "overheadPerParagraphNs": -6854.5,
+          "armMedianNs": {
+            "A": 104885.5,
+            "B": 96968.0
+          }
+        }
+      },
+      "referenceLimitPerParagraphNs": 4819.525000000001,
+      "resolved": false
+    },
+    {
+      "case": "prose-480-4096",
+      "operation": "repeat",
+      "applicable": true,
+      "completedPairs": 20,
+      "medianDifferenceNs": 6.0,
+      "medianImprovement": null,
+      "overheadPerParagraphNs": 6.0,
+      "intervals95": {
+        "AMedianNs": [
+          119.5,
+          137.5
+        ],
+        "BMedianNs": [
+          118.0,
+          141.0
+        ],
+        "medianDifferenceNs": [
+          -8.5,
+          19.5
+        ],
+        "medianImprovement": null,
+        "APerParagraphNs": [
+          119.5,
+          137.5
+        ],
+        "BPerParagraphNs": [
+          118.0,
+          141.0
+        ],
+        "overheadPerParagraphNs": [
+          -8.5,
+          19.5
+        ]
+      },
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 12,
+      "ratioThresholdNs": 1200,
+      "timerLimited": true,
+      "AMedianNs": 122.5,
+      "BMedianNs": 129.5,
+      "APerParagraphNs": 122.5,
+      "BPerParagraphNs": 129.5,
+      "descriptive": {
+        "median": 6.0,
+        "mad": 15.0,
+        "minimum": -54.0,
+        "maximum": 62.0,
+        "positive": 11,
+        "negative": 9,
+        "zero": 0
+      },
+      "order": {
+        "A": {
+          "overheadPerParagraphNs": 9.0,
+          "armMedianNs": {
+            "A": 122.5,
+            "B": 124.0
+          }
+        },
+        "B": {
+          "overheadPerParagraphNs": -0.5,
+          "armMedianNs": {
+            "A": 124.0,
+            "B": 133.0
+          }
+        }
+      },
+      "halves": {
+        "firstTen": {
+          "overheadPerParagraphNs": -7.5,
+          "armMedianNs": {
+            "A": 126.0,
+            "B": 129.5
+          }
+        },
+        "lastTen": {
+          "overheadPerParagraphNs": 9.0,
+          "armMedianNs": {
+            "A": 122.0,
+            "B": 131.0
+          }
+        }
+      }
+    },
+    {
+      "case": "prose-480-4096",
+      "operation": "metadata",
+      "applicable": false,
+      "completedPairs": 20,
+      "timerLimited": false,
+      "intervals95": null,
+      "descriptive": null
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "initial",
+      "applicable": true,
+      "completedPairs": 20,
+      "medianDifferenceNs": -3913.0,
+      "medianImprovement": 0.001046232013445844,
+      "overheadPerParagraphNs": -3913.0,
+      "intervals95": {
+        "AMedianNs": [
+          3548271.5,
+          3673232.5
+        ],
+        "BMedianNs": [
+          3532432.5,
+          3607960.0
+        ],
+        "medianDifferenceNs": [
+          -113841.5,
+          39244.0
+        ],
+        "medianImprovement": [
+          -0.01110519971942572,
+          0.03194678926599248
+        ],
+        "APerParagraphNs": [
+          3548271.5,
+          3673232.5
+        ],
+        "BPerParagraphNs": [
+          3532432.5,
+          3607960.0
+        ],
+        "overheadPerParagraphNs": [
+          -113841.5,
+          39244.0
+        ]
+      },
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 12,
+      "ratioThresholdNs": 1200,
+      "timerLimited": false,
+      "AMedianNs": 3586905.0,
+      "BMedianNs": 3573344.5,
+      "APerParagraphNs": 3586905.0,
+      "BPerParagraphNs": 3573344.5,
+      "descriptive": {
+        "median": -3913.0,
+        "mad": 79798.0,
+        "minimum": -402716.0,
+        "maximum": 108528.0,
+        "positive": 10,
+        "negative": 10,
+        "zero": 0
+      },
+      "order": {
+        "A": {
+          "overheadPerParagraphNs": -8367.5,
+          "armMedianNs": {
+            "A": 3617236.5,
+            "B": 3549515.5
+          }
+        },
+        "B": {
+          "overheadPerParagraphNs": -3913.0,
+          "armMedianNs": {
+            "A": 3586905.0,
+            "B": 3595722.0
+          }
+        }
+      },
+      "halves": {
+        "firstTen": {
+          "overheadPerParagraphNs": 5918.0,
+          "armMedianNs": {
+            "A": 3574391.5,
+            "B": 3570013.5
+          }
+        },
+        "lastTen": {
+          "overheadPerParagraphNs": -35935.5,
+          "armMedianNs": {
+            "A": 3663913.5,
+            "B": 3575489.5
+          }
+        }
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "reflow",
+      "applicable": true,
+      "completedPairs": 20,
+      "medianDifferenceNs": -2764.0,
+      "medianImprovement": 0.009023226772109927,
+      "overheadPerParagraphNs": -2764.0,
+      "intervals95": {
+        "AMedianNs": [
+          303760.0,
+          308668.0
+        ],
+        "BMedianNs": [
+          301004.0,
+          305036.0
+        ],
+        "medianDifferenceNs": [
+          -4313.0,
+          -41.0
+        ],
+        "medianImprovement": [
+          0.00013511687648128524,
+          0.014054644781225253
+        ],
+        "APerParagraphNs": [
+          303760.0,
+          308668.0
+        ],
+        "BPerParagraphNs": [
+          301004.0,
+          305036.0
+        ],
+        "overheadPerParagraphNs": [
+          -4313.0,
+          -41.0
+        ]
+      },
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 12,
+      "ratioThresholdNs": 1200,
+      "timerLimited": false,
+      "AMedianNs": 304438.5,
+      "BMedianNs": 302540.0,
+      "APerParagraphNs": 304438.5,
+      "BPerParagraphNs": 302540.0,
+      "descriptive": {
+        "median": -2764.0,
+        "mad": 2723.0,
+        "minimum": -45568.0,
+        "maximum": 51311.0,
+        "positive": 6,
+        "negative": 14,
+        "zero": 0
+      },
+      "order": {
+        "A": {
+          "overheadPerParagraphNs": -1048.0,
+          "armMedianNs": {
+            "A": 303845.0,
+            "B": 303390.5
+          }
+        },
+        "B": {
+          "overheadPerParagraphNs": -3744.5,
+          "armMedianNs": {
+            "A": 308668.0,
+            "B": 302456.5
+          }
+        }
+      },
+      "halves": {
+        "firstTen": {
+          "overheadPerParagraphNs": -2453.0,
+          "armMedianNs": {
+            "A": 304438.5,
+            "B": 301541.5
+          }
+        },
+        "lastTen": {
+          "overheadPerParagraphNs": -3075.0,
+          "armMedianNs": {
+            "A": 304520.5,
+            "B": 304771.5
+          }
+        }
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "repeat",
+      "applicable": true,
+      "completedPairs": 20,
+      "medianDifferenceNs": -0.5,
+      "medianImprovement": null,
+      "overheadPerParagraphNs": -0.5,
+      "intervals95": {
+        "AMedianNs": [
+          116.5,
+          134.0
+        ],
+        "BMedianNs": [
+          111.0,
+          133.0
+        ],
+        "medianDifferenceNs": [
+          -13.0,
+          9.5
+        ],
+        "medianImprovement": null,
+        "APerParagraphNs": [
+          116.5,
+          134.0
+        ],
+        "BPerParagraphNs": [
+          111.0,
+          133.0
+        ],
+        "overheadPerParagraphNs": [
+          -13.0,
+          9.5
+        ]
+      },
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 12,
+      "ratioThresholdNs": 1200,
+      "timerLimited": true,
+      "AMedianNs": 126.0,
+      "BMedianNs": 123.0,
+      "APerParagraphNs": 126.0,
+      "BPerParagraphNs": 123.0,
+      "descriptive": {
+        "median": -0.5,
+        "mad": 13.0,
+        "minimum": -53.0,
+        "maximum": 79.0,
+        "positive": 10,
+        "negative": 10,
+        "zero": 0
+      },
+      "order": {
+        "A": {
+          "overheadPerParagraphNs": 2.5,
+          "armMedianNs": {
+            "A": 125.0,
+            "B": 123.5
+          }
+        },
+        "B": {
+          "overheadPerParagraphNs": -14.0,
+          "armMedianNs": {
+            "A": 126.5,
+            "B": 122.0
+          }
+        }
+      },
+      "halves": {
+        "firstTen": {
+          "overheadPerParagraphNs": 5.5,
+          "armMedianNs": {
+            "A": 120.0,
+            "B": 126.5
+          }
+        },
+        "lastTen": {
+          "overheadPerParagraphNs": -12.0,
+          "armMedianNs": {
+            "A": 130.5,
+            "B": 123.0
+          }
+        }
+      }
+    },
+    {
+      "case": "dense-240-4096",
+      "operation": "metadata",
+      "applicable": true,
+      "completedPairs": 20,
+      "medianDifferenceNs": -1289.5,
+      "medianImprovement": 0.0006297627698091087,
+      "overheadPerParagraphNs": -1289.5,
+      "intervals95": {
+        "AMedianNs": [
+          2011743.5,
+          2049042.0
+        ],
+        "BMedianNs": [
+          2008559.0,
+          2033470.0
+        ],
+        "medianDifferenceNs": [
+          -26529.5,
+          13065.5
+        ],
+        "medianImprovement": [
+          -0.006472732091893614,
+          0.012931715998634295
+        ],
+        "APerParagraphNs": [
+          2011743.5,
+          2049042.0
+        ],
+        "BPerParagraphNs": [
+          2008559.0,
+          2033470.0
+        ],
+        "overheadPerParagraphNs": [
+          -26529.5,
+          13065.5
+        ]
+      },
+      "clockPeriodNs": 1.0,
+      "empiricalResolutionNs": 12,
+      "ratioThresholdNs": 1200,
+      "timerLimited": false,
+      "AMedianNs": 2030609.0,
+      "BMedianNs": 2020947.5,
+      "APerParagraphNs": 2030609.0,
+      "BPerParagraphNs": 2020947.5,
+      "descriptive": {
+        "median": -1289.5,
+        "mad": 25240.0,
+        "minimum": -251150.0,
+        "maximum": 135115.0,
+        "positive": 10,
+        "negative": 10,
+        "zero": 0
+      },
+      "order": {
+        "A": {
+          "overheadPerParagraphNs": 2156.0,
+          "armMedianNs": {
+            "A": 2029306.0,
+            "B": 2018377.0
+          }
+        },
+        "B": {
+          "overheadPerParagraphNs": -8325.0,
+          "armMedianNs": {
+            "A": 2033486.5,
+            "B": 2021778.0
+          }
+        }
+      },
+      "halves": {
+        "firstTen": {
+          "overheadPerParagraphNs": -21265.5,
+          "armMedianNs": {
+            "A": 2041073.0,
+            "B": 2019891.5
+          }
+        },
+        "lastTen": {
+          "overheadPerParagraphNs": 5030.0,
+          "armMedianNs": {
+            "A": 2019232.0,
+            "B": 2020947.5
+          }
+        }
+      },
+      "referenceLimitPerParagraphNs": 101542.07500000001,
+      "resolved": true
+    }
+  ],
+  "processCount": 82,
+  "wallSeconds": 10.103995885996483,
+  "maximumSampledRssBytes": 34697216,
+  "maximumHighWaterRssBytes": 74305536
+}

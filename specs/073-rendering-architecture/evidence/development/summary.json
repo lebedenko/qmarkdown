@@ -1,0 +1,269 @@
+{
+  "schema": "qmarkdown-architecture-placement-v1",
+  "identities": {
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-development/placement-probe": "d465068e0c5adca6b2ad845020d853f7aa67d6f68db2b94746c8d49a04380f5f",
+    "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/probe/CMakeLists.txt": "d4be248538c420b7fcbfb253caec6f4424871733aed50ebd4bfa9e9b3aedaf36",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/probe/main.cpp": "5f925e3ac8d3f299a00bd306adbfa0725cbd444f61fee88e39db36ed12d6f506",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/probe/run.py": "b99d0640605789c62ce33e887af6e8b130263f38803cfe9b77d421b58a0be613"
+  },
+  "results": [
+    {
+      "backend": "opengl",
+      "renderer": "distance",
+      "requestedDpr": 1,
+      "observed": {
+        "api": 3,
+        "dpr": 1,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.5711944329996186,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "opengl",
+      "renderer": "distance",
+      "requestedDpr": 1.25,
+      "observed": {
+        "api": 3,
+        "dpr": 1.25,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.6210371699999087,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "opengl",
+      "renderer": "distance",
+      "requestedDpr": 1.5,
+      "observed": {
+        "api": 3,
+        "dpr": 1.5,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.6214810570018017,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "opengl",
+      "renderer": "distance",
+      "requestedDpr": 2,
+      "observed": {
+        "api": 3,
+        "dpr": 2,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.6715151720018184,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "opengl",
+      "renderer": "curve",
+      "requestedDpr": 1,
+      "observed": {
+        "api": 3,
+        "dpr": 1,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.6218433860012738,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "opengl",
+      "renderer": "curve",
+      "requestedDpr": 1.25,
+      "observed": {
+        "api": 3,
+        "dpr": 1.25,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.621864626002207,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "opengl",
+      "renderer": "curve",
+      "requestedDpr": 1.5,
+      "observed": {
+        "api": 3,
+        "dpr": 1.5,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.6725127339996106,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "opengl",
+      "renderer": "curve",
+      "requestedDpr": 2,
+      "observed": {
+        "api": 3,
+        "dpr": 2,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.7222063040026114,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "distance",
+      "requestedDpr": 1,
+      "observed": {
+        "api": 5,
+        "dpr": 1,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.521100834997924,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "distance",
+      "requestedDpr": 1.25,
+      "observed": {
+        "api": 5,
+        "dpr": 1.25,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.621397542003251,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "distance",
+      "requestedDpr": 1.5,
+      "observed": {
+        "api": 5,
+        "dpr": 1.5,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.6221168550000584,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "distance",
+      "requestedDpr": 2,
+      "observed": {
+        "api": 5,
+        "dpr": 2,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.6730291540006874,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "curve",
+      "requestedDpr": 1,
+      "observed": {
+        "api": 5,
+        "dpr": 1,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.5723222410015296,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "curve",
+      "requestedDpr": 1.25,
+      "observed": {
+        "api": 5,
+        "dpr": 1.25,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.5713372309983242,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "curve",
+      "requestedDpr": 1.5,
+      "observed": {
+        "api": 5,
+        "dpr": 1.5,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.571020311999746,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    },
+    {
+      "backend": "vulkan",
+      "renderer": "curve",
+      "requestedDpr": 2,
+      "observed": {
+        "api": 5,
+        "dpr": 2,
+        "platform": "wayland",
+        "refreshHz": 59.99700164794922,
+        "stage": "capture-before"
+      },
+      "exit": 0,
+      "seconds": 2.621941063000122,
+      "lastStage": "exit",
+      "placementGateVerified": true
+    }
+  ],
+  "architectureQualified": false
+}

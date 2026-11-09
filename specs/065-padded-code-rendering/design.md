@@ -132,3 +132,90 @@ update() calls still repaint content, decorations, selection, Find and focus;
 window/DPR lifecycle continues through existing handling. Native eligibility,
 atom rendering and unsupported-grid fallback remain unchanged. Fractional motion
 transforms cached pixels; fresh-painter phase equality is no longer required.
+
+## Smoothing-off motion diagnostic — approved 2026-11-04
+
+The owner-approved supplied plan extends feature 065 only (B1–B5). Export HEAD
+into two fresh source trees. Add identical private counter access in both; change
+only `RasterTextSurface::place()`'s `setSmooth(retained)` to `setSmooth(false)` in
+the candidate. The constructor and atom/unsupported-scale behavior already use
+false; do not modify placement, painter, layout, interaction or shipping files.
+Record the commit and renderer hashes. Preserve the existing stationary harness.
+
+A separate executable owns a real QML Flickable and links one staged library.
+Stationary offsets are physical fractions divided by observed DPR. A separately
+painted retained image inherits exactly the surface position, size and DPR, with
+nearest sampling. A second clipped viewport begins exactly 800 logical pixels away (an integer
+physical phase at every qualified DPR), permitting simultaneous framebuffer
+comparison during live motion. It never calls `update()` on the measured surface. Freeze paint counters
+only after constructing/warming this independent control. Movement checks retain
+layout signals, all character cells, surface pointer, position and allocation.
+Capture timing is explicitly not display frame rate. Mutation gates run afterward.
+
+Native preview uses the same source pixels through switchable nearest/linear
+sampling controls within one viewport; qualify this proxy against the isolated
+baseline/candidate stationary outputs before accepting it as a source comparison.
+Labels stay outside the clipped document. Actual source variants remain isolated
+for all correctness/performance measurements. No perceptual acceptance is inferred
+from automated equality or contrast metrics. Results and gaps are recorded in
+`blur-probe/motion-verification.md` separately from this design.
+
+## Native-only diagnostic design — approved 2026-11-04
+
+The supplied plan authorizes N1–N5. Keep previous rejection evidence immutable.
+The stager pins `43d6bba842bb5b7ab23889e49d5f138c6f22a7fb`, records its own
+hash and policy identity, and adds identical opt-in first-paint instrumentation to
+both isolated renderers. Candidate policy consults the exposed window's observed
+graphics API. Construct measured text after exposure/backend initialization.
+
+Calibration precedes qualification: independently paint a transparent image with
+the real raster device's format/size/DPR and painter transform, clip and hints;
+retain actual and independent images. The authoritative control is a separate
+QQuickPaintedItem holding those independent pixels, matching source geometry,
+antialiasing and sampling. Opacity switching holds viewport coordinates fixed.
+Raw/control mismatches are calibration failures, never geometry regressions.
+Instrumentation is disabled outside calibration, especially performance runs.
+
+A failed calibration stops the later matrix, pose replay, performance and native
+review delivery. Record those stages as not reached, retain failing captures and
+never qualify the old unconditional candidate or narrow this candidate to OpenGL.
+
+The revised motion harness captures the source alone during live motion. After
+settling, a static container under the same clipped viewport replaces the
+Flickable content parent, using each captured actual content-item position.
+Every replay compares source/live first, then opacity-switches the independent
+painted control at that same pose. Counter, surface and interaction assertions
+follow each pose. Replay failures and control-calibration failures have separate
+record types/guards. The translated direct-node control remains a stationary
+non-authoritative diagnostic observation.
+
+`qualify_native.py` sequences fresh focused calibration on both exact SDKs,
+then full Vulkan/OpenGL/software correctness and finally five new alternating
+Release pairs for every target/backend. It stops at the first failing stage.
+Interrupted/incomplete comparisons are missing evidence, not geometry mismatch.
+Software preservation compares matching stationary source captures from both
+variants. Calibration/raw capture instrumentation is disabled in performance mode.
+
+Post-gate diagnostic refinements keep the existing timing boundaries: performance
+asserts expected smoothing before warming and after every timed frame; assertions
+sit outside the timers. Raw capture directories are unique per fixture. The
+separate review executable validates native comparison evidence and proxy pixels,
+labels a performance rejection outside the document, and supports both exact SDKs.
+Visual review cannot replace the performance gate. See the
+[actual native-only outcome](blur-probe/native-only-verification.md) for the frozen
+attempt, missing raw artifact, post-gate smoke scope and stages not reached.
+
+## Actual-source diagnosis design — approved 2026-11-05
+
+Use shared fixture definitions/configuration in motion and review. Build review
+separately against each immutable native-only-v2 staged source. Label the linked
+variant actual source; proxy remains explicitly unqualified. Preserve initialization
+at y=40 before moving each paragraph to 40+i*120, clipping and child order.
+Record timestamps, requested/actual content positions, paragraph transforms,
+visibility, draw order and clip bounds. Freeze within the same Flickable hierarchy;
+stop attribution on replay failure. Save source/proxy/difference viewport images.
+After reproduction, replay both exact SDKs, OpenGL/Vulkan and both alignment modes.
+Require exact whole viewport parity at failing poses, all sixteen Cartesian phases,
+entry/exit, origin and complete trace; zero warmed paints/layout rebuilds and stable
+surfaces/interaction geometry. Keep binaries/library/renderer/harness hashes.
+Missing screenshot or replay evidence is an explicit limitation, not a pass.

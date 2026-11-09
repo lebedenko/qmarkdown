@@ -1,0 +1,40 @@
+{
+  "outcome": "feasible-for-tested-isolated-slice",
+  "productionBackendSelected": false,
+  "approval": "2026-11-05: approved B1-B8, revised design and mapped tasks",
+  "geometry": {
+    "fixtures": 751,
+    "blocks": 775,
+    "exactJSON": true
+  },
+  "boundaryRegressions": 14,
+  "transitionBrackets": 41,
+  "transitionProbeBlocks": 147,
+  "verticalCells": 14272,
+  "visualFragments": 2901,
+  "nativePasses": 120,
+  "observedDprs": [
+    1
+  ],
+  "unavailableDprs": [
+    1.25,
+    1.5,
+    2
+  ],
+  "containmentTolerance": 0.05,
+  "ownerVisual": "pending",
+  "qt68Vulkan": "independent historical shutdown blocker; unchanged",
+  "patch": {
+    "files": 5,
+    "addedLines": 198,
+    "removedLines": 12,
+    "commit": "00227028b0c3cb3052432a456af2027a49e598b2"
+  },
+  "limits": [
+    "No performance qualification",
+    "No production API/dependency or Qt-control changes",
+    "Explicit font fallback only; historical unresolved glyphs remain visible",
+    "Near-edge hit snapping retained; nonzero-width interior cells checked in both selection directions",
+    "Selectable ghost whitespace remains unpainted using upstream trailing-space semantics"
+  ]
+}

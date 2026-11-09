@@ -1,0 +1,8 @@
+{
+  "commit": "43d6bba842bb5b7ab23889e49d5f138c6f22a7fb",
+  "purpose": "preparation-only; explicit fixture objects",
+  "files": {
+    "src/QMarkdown/private/formattedtext.h": "220e3679609d9606fcac7e3ee6c2bb29dc323ecd39a86d1120e3bcd84526f1ac",
+    "src/QMarkdown/private/formattedtext.cpp": "c8d49103c596d2a383598c510d3696d0da8fa586032848e7285276a9faaab7cc"
+  }
+}
