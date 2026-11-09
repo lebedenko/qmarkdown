@@ -1,0 +1,10 @@
+{
+  "sha256": "3f7b47c241a3bf07e805d7b5464fc06577709af576245b8bb10f9ef54df5999f",
+  "members": {
+    "study.py": "544e9bf08a8ce9119fe1defe96a7d1ca02a5eea52233650aeb84c6ab3636331b",
+    "report.py": "807a7eb1bd2a104ef3ea55ecd2222fdb9557d1b5df650c02027e322c6fe6cdd4",
+    "test_study.py": "28dee94a7dfc31c3f1831e9eedab17476b4866ed6fe4fa8874e86ee09f07d5ca",
+    "README.md": "4b30703ab02c97eba34733c5f7261538e59f8c7e764e94380c9152b182fd3c78"
+  },
+  "readBack": true
+}

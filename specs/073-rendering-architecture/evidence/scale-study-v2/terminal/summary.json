@@ -1,0 +1,7495 @@
+{
+  "cells": [
+    {
+      "id": "000",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "001",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "002",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "003",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "004",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "005",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "006",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "007",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "008",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "009",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "010",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "011",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "012",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "013",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "014",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "015",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "016",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "017",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "018",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "019",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "020",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "021",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "022",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "023",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "024",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "025",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "026",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "027",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "028",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "029",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "030",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "031",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "032",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "033",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "034",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "035",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "036",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "037",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "038",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "039",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "040",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "041",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "042",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "043",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "044",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "045",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "046",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "047",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "048",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "049",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "050",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "051",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "052",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "053",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "054",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "055",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "056",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "057",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "058",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "059",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "060",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "061",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "062",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "063",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "064",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "065",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "066",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "067",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "068",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "069",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "070",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "071",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "072",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "073",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "074",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "075",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "076",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "077",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "078",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "079",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "080",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "081",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "082",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "083",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "084",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "085",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "086",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "087",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "088",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "089",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "090",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "091",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "092",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "093",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "094",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "095",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "096",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "097",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "098",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "099",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "100",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "101",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "102",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "103",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "104",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "105",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "106",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "107",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "108",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "109",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "110",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "111",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "112",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "113",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "114",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "115",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "116",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "117",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "118",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "119",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "120",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "121",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "122",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "123",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "124",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "125",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "126",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "127",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "128",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "129",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "130",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "131",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "132",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "133",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "134",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "135",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "136",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "137",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "138",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "139",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "140",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "141",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "142",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "143",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "144",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "145",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "146",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "147",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "148",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "149",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "150",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "151",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "152",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "153",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "154",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "155",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "156",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "157",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "158",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "159",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "160",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "161",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "162",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "163",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "164",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "165",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "166",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "167",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "168",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "169",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "170",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "171",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "172",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "173",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "174",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "175",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "176",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "177",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "178",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "179",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "180",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "181",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "182",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "183",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "184",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "185",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "186",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "187",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "188",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "189",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "190",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "191",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "192",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "193",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "194",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "195",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "196",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "197",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "198",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "199",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "200",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "201",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "202",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "203",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "204",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "205",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "206",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "207",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "208",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "209",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "210",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "211",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "212",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "213",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "214",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "215",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "216",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "217",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "218",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "219",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "220",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "221",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "222",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "223",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "224",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "225",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "226",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "227",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "228",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "229",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "230",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "231",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "232",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "233",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "234",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "235",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "236",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "237",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "238",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "239",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "240",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "241",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "242",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "243",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "244",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "245",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "246",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "247",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "248",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "249",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "250",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "251",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "252",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "253",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "254",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "255",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "256",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "257",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "258",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "259",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "260",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "261",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "262",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "263",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "264",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "265",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "266",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "267",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "268",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "269",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "270",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "271",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "272",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "273",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "274",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "275",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "276",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "277",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "278",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "279",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "280",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "281",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "282",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "283",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "284",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "285",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "286",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "287",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "288",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "289",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "290",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "291",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "292",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "293",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "294",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "295",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "296",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "297",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "298",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "299",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "300",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "301",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "302",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "303",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "304",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "305",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "306",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "307",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "308",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "309",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "310",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "311",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "312",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "313",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "314",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "315",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "316",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "317",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "318",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "319",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "320",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "321",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "322",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "323",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "324",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "325",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "326",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "327",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "328",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "329",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "330",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "331",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "332",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "333",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "334",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "335",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "336",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "337",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "338",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "339",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "340",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "341",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "342",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "343",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "344",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "345",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "346",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "347",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "348",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "349",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "350",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "351",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "352",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "353",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "354",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "355",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "356",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "357",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "358",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "359",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "360",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "361",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "362",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "363",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "364",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "365",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "366",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "367",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "368",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "369",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "370",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "371",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "372",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "373",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "374",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "375",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "376",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "377",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "378",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "379",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "380",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "381",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "382",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "383",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "384",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "385",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "386",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "387",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "388",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "389",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "390",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "391",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "392",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "393",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "394",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "395",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "396",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "397",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "398",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "399",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "400",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "401",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "402",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "403",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "404",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "405",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "406",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "407",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "408",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "409",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "410",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "411",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "412",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "413",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "414",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "415",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "416",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "417",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "418",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "419",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "420",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "421",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "422",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "423",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "424",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "425",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "426",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "427",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "428",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "429",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "430",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "431",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "432",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "433",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "434",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "435",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "436",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "437",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "438",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "439",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "440",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "441",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "442",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "443",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "444",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "445",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "446",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "447",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "448",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "449",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "450",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "451",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "452",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "453",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "454",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "455",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "456",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "457",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "458",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "459",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "460",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "461",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "462",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "463",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "464",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "465",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "466",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "467",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "468",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "469",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "470",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "471",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "472",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "473",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "474",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "475",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "476",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "477",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "478",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "479",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "480",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "481",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "482",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "483",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "484",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "485",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "486",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "487",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "488",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "489",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "490",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "491",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "492",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "493",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "494",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "495",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "496",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "497",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "498",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "499",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "500",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "501",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "502",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "503",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "504",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "505",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "506",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "507",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "508",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "509",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "510",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "511",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "512",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "513",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "514",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "515",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "516",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "517",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "518",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "519",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "520",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "521",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "522",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "523",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "524",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "525",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "526",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "527",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "528",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "529",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "530",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "531",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "532",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "533",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "534",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "535",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "536",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "537",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "538",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "539",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "540",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "541",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "542",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "543",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "544",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "545",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "546",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "547",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "548",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "549",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "550",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "551",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "552",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "553",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "554",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "555",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "556",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "557",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "558",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "559",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "560",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "561",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "562",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "563",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "564",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "565",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "566",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "567",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "568",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "569",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "570",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "571",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "572",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "573",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "574",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "575",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ]
+    },
+    {
+      "id": "576",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "577",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": []
+    },
+    {
+      "id": "578",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "579",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "580",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "581",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "582",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "583",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "584",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "585",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "586",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "587",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "588",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "589",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "590",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "591",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "592",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "593",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "594",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "595",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "596",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "597",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "598",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "599",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "600",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "601",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "602",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "603",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "604",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "605",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "606",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "607",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "608",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "609",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "610",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "611",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "612",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "613",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "614",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "615",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "616",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "617",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "618",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "619",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "620",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "621",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "622",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "623",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "624",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "625",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "626",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "627",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "628",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "629",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "630",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "631",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "632",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "633",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "634",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "635",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "636",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "637",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "638",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "639",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "640",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "641",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "642",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "643",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "644",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "645",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "646",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "647",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "648",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "649",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "650",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "651",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "652",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "653",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "654",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "655",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "656",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "657",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "658",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "659",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "660",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "661",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "662",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "663",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "664",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "665",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "666",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "667",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "668",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "669",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "670",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "671",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "672",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "673",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "674",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "675",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "676",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "677",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "678",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "679",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "id": "680",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "681",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "682",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "683",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "684",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "685",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "686",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "687",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "688",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "id": "689",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "Expecting value: line 1 column 1 (char 0)"
+      ]
+    }
+  ],
+  "counts": {
+    "passed": 544,
+    "failed": 130,
+    "skipped": 16
+  },
+  "launches": 674,
+  "configuration": "see per-attempt identities and output records",
+  "correctness": "see per-cell assertions; missing cells untested",
+  "comparability": "untested pending physical mapping review",
+  "transitions": "untested",
+  "ownerVisual": "untested",
+  "restoration": {
+    "command": [
+      "wlr-randr",
+      "--json"
+    ],
+    "exit": 0,
+    "outputs": [
+      {
+        "name": "DP-1",
+        "description": "Samsung Electric Company U32J59x H4ZM900512 (DP-1)",
+        "make": "Samsung Electric Company",
+        "model": "U32J59x",
+        "serial": "H4ZM900512",
+        "physical_size": {
+          "width": 700,
+          "height": 390
+        },
+        "enabled": true,
+        "modes": [
+          {
+            "width": 3840,
+            "height": 2160,
+            "refresh": 59.997002,
+            "preferred": true,
+            "current": true
+          },
+          {
+            "width": 3840,
+            "height": 2160,
+            "refresh": 30,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 3840,
+            "height": 2160,
+            "refresh": 29.969999,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 2560,
+            "height": 1440,
+            "refresh": 59.951,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1920,
+            "height": 1080,
+            "refresh": 60,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1920,
+            "height": 1080,
+            "refresh": 59.938999,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1680,
+            "height": 1050,
+            "refresh": 59.953999,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1600,
+            "height": 900,
+            "refresh": 60,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1280,
+            "height": 1024,
+            "refresh": 75.025002,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1280,
+            "height": 1024,
+            "refresh": 60.02,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1440,
+            "height": 900,
+            "refresh": 59.887001,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1280,
+            "height": 800,
+            "refresh": 59.810001,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1152,
+            "height": 864,
+            "refresh": 75,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1280,
+            "height": 720,
+            "refresh": 60,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "refresh": 75.028999,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "refresh": 70.069,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "refresh": 60.004002,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 800,
+            "height": 600,
+            "refresh": 75,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 800,
+            "height": 600,
+            "refresh": 72.188004,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 800,
+            "height": 600,
+            "refresh": 60.317001,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 800,
+            "height": 600,
+            "refresh": 56.25,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 640,
+            "height": 480,
+            "refresh": 75,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 640,
+            "height": 480,
+            "refresh": 72.808998,
+            "preferred": false,
+            "current": false
+          },
+          {
+            "width": 640,
+            "height": 480,
+            "refresh": 59.939999,
+            "preferred": false,
+            "current": false
+          }
+        ],
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "transform": "normal",
+        "scale": 1.25,
+        "adaptive_sync": false
+      }
+    ],
+    "verified": true,
+    "userConfirmed": true
+  }
+}

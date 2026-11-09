@@ -563,3 +563,115 @@ Evidence and detailed results are recorded in [verification](verification.md).
 Subsequent owner approval (2026-11-09): “commit” authorizes committing the
 completed experiment, tooling and evidence. Push, merge, publication, production
 integration and further experiments remain outside this approval.
+
+## Architecture decision review — approved 2026-11-09
+
+- [x] AR-T1 (AR1): Inspect cutoff reports, machine-readable support/decision/scale
+  evidence and frozen-source cleanup provenance; reconcile partial passes/failures.
+- [x] AR-T2 (AR1–AR2): Add current R1–R8 gates and candidate disposition; label
+  historical status and add specification-index navigation.
+- [x] AR-T3 (AR3): Recommend one prerequisite-driven milestone with deliverables,
+  prerequisites, exclusions, ordered tasks and acceptance/stop criteria; leave pending.
+- [x] AR-T4 (AR4): Run documentation/link, Light and tracked/new whitespace checks;
+  record actual results and deliver without commits or publication.
+
+## Coordinated four-scale study — approved 2026-11-09
+
+The supplied-plan implementation request approves SS1–SS5, the design and
+SS-T1–SS-T5 in the [study protocol](scale-study-protocol.md), including the fixed
+690-process ceiling. This supersedes the proposed design-only milestone; all
+historical approvals and evidence remain unchanged.
+
+### Scale-study actual disposition — 2026-11-09
+
+- [x] SS-T1: Provenance and original output recorded; history preserved.
+- [x] SS-T2: Isolated viewers built; 14 offline tests and 45 observer checks pass.
+  Actual execution exposed missing xdg-output name coverage in the validator;
+  the frozen harness is not qualified for another study without correction.
+- [ ] SS-T3: One of 680 fresh cells attempted; terminal validation failure.
+- [ ] SS-T4: Ten persistent-window cells untested. Original scale restored and verified.
+- [x] SS-T5: All 690 cells accounted for; failure evidence, captures and frozen inputs
+  archived/read back; decision and verification updated. No retry or publication.
+
+## Corrected complete scale study — approved 2026-11-09
+
+The owner's “Well, let's proceed” approves correcting the harness and running a
+new complete study, following the explicit proposal of 691 total graphical launches:
+one preserved failed attempt plus a fresh 690-process schedule. This supersedes the
+suggested untouched-cell continuation. The original terminal run and frozen sources
+remain immutable. Renderer/platform failures retain the existing independent-cell
+and dependent-recreation rules; no additional adaptive samples are authorized.
+
+Requirements: SS1–SS5 remain unchanged except the explicit replacement study budget.
+Design: use a sibling `scale-study-v2` supervisor with both wl_output names and
+xdg-output object bindings; reject conflicts, missing bindings and wrong outputs.
+Persist exit, elapsed time, sampled peak RSS and capture hashes before validation;
+record a failed result and journal completion even if validation raises. Reuse the
+byte-identical verified viewers/libraries; no renderer or instrumentation rebuild.
+Reserve the original failed attempt's 120 seconds conservatively against the same
+four-hour automated budget, excluding build time and human waits.
+
+Tasks: test the actual retained trace and negative identity cases; test failure
+recording and terminal recovery; verify original evidence and reused binary hashes;
+freeze a separately identified full schedule; coordinate all four scales and live
+transitions, validate/archive results and restore the original scale. No commits,
+publication, performance qualification or backend selection are authorized.
+
+## Atomic live handoff repair and bounded continuation proposal — 2026-11-09
+
+The v2 live supervisor stopped at live-5 when it observed a confirmation file
+between creation and JSON write. All fresh sets and live-0 through live-4 remain
+immutable. The owner restored 125%; read-back matched the original output.
+Fixing the harness within the approved study is authorized; replacing terminated
+windows is a separate, concrete execution amendment pending owner approval.
+
+Repair requirements/design: write a sibling temporary file, serialize/flush/fsync
+it, atomically publish using a no-overwrite hard link on the same filesystem, sync
+the directory, and remove the temporary name. Final filenames are never exposed
+with partial content; duplicates must fail without changing existing evidence.
+Test the original race, a deliberately paused writer, concurrent publishers,
+serialization/fsync/link failures and duplicate rejection without graphical runs.
+Reuse the frozen v2 supervisor and byte-identical viewers via an isolated wrapper;
+change only publication and the recovery schedule/budget enforcement.
+
+Proposed execution: ten new persistent bidi-objects windows, initial desktop 2,
+then 1.5 → 1.25 → 1 → 1.25 → 1.5 → 2, with the original checks/limits. No fresh
+matrix rerun. Prior actual launches are 675 (one original, 664 v2 fresh, ten v2
+live); the proposal totals 685, within the ceiling of 691. This explicitly replaces
+ten live attempts; unused fresh recreation slots do not silently grant approval.
+Conservatively reserve 120 seconds for each historical harness failure alongside
+completed fresh automated time within the unchanged four-hour budget.
+
+Tasks: preserve/validate terminal evidence and restoration; implement/test atomic
+publication; prepare/hash a ten-cell continuation with no-launch preflight; obtain
+explicit approval of that replacement scope; execute once, restore 125%, archive
+and reconcile complete versus failed/untested coverage. No publication or commit.
+
+Owner approval (2026-11-09): **“Proceed with ten replacement windows”** explicitly
+approves the prepared live-only continuation above, its atomic handoff repair and
+ten-cell frozen schedule. No fresh-window rerun; total actual launches after this
+continuation are bounded to 685 within the existing ceiling of 691. All other
+checks, exclusions and restoration requirements remain unchanged.
+
+## Scale-study delivery reconciliation — complete, 2026-11-09
+
+- [x] SS-T1: Provenance, output identification and original setting verified.
+- [x] SS-T2: Isolated instrumentation and both documented harness repairs tested;
+  executed frozen sources and failed attempts preserved.
+- [x] SS-T3: All four fresh sets completed: 544 passes, 120 Qt 6.8 Vulkan failures,
+  sixteen protocol-required dependent skips. No missing scheduled fresh cells.
+- [x] SS-T4: Approved replacement live pass completed all seventy checkpoints and
+  thirty repeated comparisons; eight clean exits, two Vulkan failures. Restored 125%.
+- [x] SS-T5: Logical 690-cell accounting, 685 actual launches, immutable evidence,
+  archive read-back, consolidated report and current architecture disposition.
+
+Completed delivery does not mean all gates passed: physical-size comparability and
+minimum-Qt Vulkan lifecycle fail; owner visual acceptance and production
+qualification remain untested. Earlier unchecked tasks describe their historical
+terminated cohorts. [Final result](scale-study-results.md).
+
+Owner delivery approval (2026-11-09): **“commit then propose the next step”**
+authorizes a local commit of the completed architecture review, scale-study
+harnesses, specifications and preserved evidence. Earlier no-commit statements
+record their historical scope. Push, merge, publication and implementation of the
+proposed next step remain outside this approval.

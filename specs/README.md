@@ -381,3 +381,13 @@ record the approved fractional-scaling line consistency fix; the
 [tasks](073-rendering-architecture/tasks.md), [coordinate audit](073-rendering-architecture/audit.md)
 and [actual verification](073-rendering-architecture/verification.md) track the approved
 Linux Wayland OpenGL/Vulkan investigation. No 2.x backend or production rewrite is selected.
+
+The [architecture decision and scale-study disposition](073-rendering-architecture/migration.md#current-decision--evidence-through-ba843e0)
+reconcile evidence through `ba843e0`; native Skia is feasible for an isolated slice,
+not production-qualified. The design-only proposal was superseded by the approved
+and completed scale study below.
+
+The completed Feature 073 [four-scale study](073-rendering-architecture/scale-study-results.md)
+records fresh-window and live-transition correctness, physical-size mismatches,
+Qt 6.8 Vulkan shutdown failures, preserved harness failures and verified restoration.
+It does not select or production-qualify a rendering backend.

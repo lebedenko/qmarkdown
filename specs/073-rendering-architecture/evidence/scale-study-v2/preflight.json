@@ -1,0 +1,11 @@
+{
+  "originalFrozenInputsUnchanged": true,
+  "originalEvidenceHashesVerified": true,
+  "offlineTests": 18,
+  "viewerBuild": "build-ci/073-scale-study-final",
+  "viewerRebuild": false,
+  "totalAuthorizedLaunches": 691,
+  "oldAttempts": 1,
+  "newLaunchCeiling": 690,
+  "priorAutomatedSecondsReserved": 120
+}

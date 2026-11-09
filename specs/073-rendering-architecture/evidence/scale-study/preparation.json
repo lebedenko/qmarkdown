@@ -1,0 +1,143 @@
+{
+  "verified": {
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/OneLineShaper.cpp": "9209b8b05ecc644abbf67caeafceb55499c30e9cac7e050bf12b5fffd12346ce",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/ParagraphImpl.cpp": "5c42382a6dab4aaed90ee4d81f0c6be5096a166ca11952b1c6c4cc34ef2a37ed",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/ParagraphImpl.h": "a19e8af0887caef14f8be3ca408826317cd26ccc5becb8c601e97dd0119f06b9",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/TextLine.cpp": "a39a9fe26074d6b8ca736653511478b8f59138ca3ba0929811f900c6a659c126",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/TextWrapper.cpp": "1fd4b7e209f85368d47d90da8b0ca6201bbdfcfe6dd2bb112228e3bff49ac8f6",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/args.gn": "d4117ccea50b4246b2ef60eacf8bd65a2e4a29d8e8c5a419f77cd96bb16fc896",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/bin/gn": "8fa12442a4d0fc4d754e89ec732aa015cdaf8d4bcbbedf68468c652531ea482c",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskcms.a": "7ed5b468e8c241f51b7295c73fae509a84c60f1b4b48843118a07a4c29b53834",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskia.a": "3fbc2e92896f392501aa933886bb19ddab5d4cf0911060adc2d208527cba2e40",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskparagraph.a": "bfd9456de5c86e593e4c306e66720febc7bd1a49a24e5ff34c51e608ddaf535c",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskshaper.a": "d05918b1d5dfe011ff08230ba05e75e14d1e9e6a8cabd833a08220252b4e988b",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskunicode_core.a": "7e50bb2518edce70ab1304e9d398c73046ca60b13005a121ae366ee962882259",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskunicode_icu.a": "e03834c7df63a0c27173fe02fd51677deeb3319186c788963b44e521bda61ede",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-prepared/src/QMarkdown/private/formattedtext.h": "220e3679609d9606fcac7e3ee6c2bb29dc323ecd39a86d1120e3bcd84526f1ac",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-prepared/src/QMarkdown/private/formattedtext.cpp": "3c4eff632ba83f707ec4144abc99796637b4b61fbd4f59832c6ceeb33595fcea",
+    "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+    "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+    "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6"
+  },
+  "skiaMetadata": {
+    "commit": "00227028b0c3cb3052432a456af2027a49e598b2",
+    "dependencies": {
+      "vulkanmemoryallocator": "eb744ea7a2b17040121b4bbb4d6f9e8a77e3cae7",
+      "vulkan-headers": "9fbc2a782ee3f8a4db64e7d991e23da75e893f44",
+      "highway": "457c891775a7397bdb0376bb1031e6e027af1c48"
+    },
+    "systemPackageVersions": [
+      "2.32.74",
+      "26.7.20",
+      "15.1.0",
+      "78.3",
+      "1.6.59",
+      "1.4.363"
+    ],
+    "gn": "is_official_build=true is_debug=false skia_enable_tools=false skia_enable_skparagraph=true skia_enable_skshaper=true skia_use_gl=true skia_use_vulkan=true skia_use_system_freetype2=true skia_use_system_harfbuzz=true skia_use_system_icu=true skia_use_partition_alloc=false skia_use_perfetto=false skia_use_wuffs=false skia_use_piex=false skia_enable_pdf=false skia_enable_skottie=false skia_enable_svg=false skia_use_libjpeg_turbo_decode=false skia_use_libjpeg_turbo_encode=false skia_use_libwebp_decode=false skia_use_libwebp_encode=false",
+    "seconds": 455.83803981699975,
+    "gnSha256": "8fa12442a4d0fc4d754e89ec732aa015cdaf8d4bcbbedf68468c652531ea482c",
+    "libraries": {
+      "libskcms.a": {
+        "bytes": 200650,
+        "sha256": "7ed5b468e8c241f51b7295c73fae509a84c60f1b4b48843118a07a4c29b53834"
+      },
+      "libskia.a": {
+        "bytes": 26508666,
+        "sha256": "3fbc2e92896f392501aa933886bb19ddab5d4cf0911060adc2d208527cba2e40"
+      },
+      "libskunicode_core.a": {
+        "bytes": 22056,
+        "sha256": "7e50bb2518edce70ab1304e9d398c73046ca60b13005a121ae366ee962882259"
+      },
+      "libskunicode_icu.a": {
+        "bytes": 123712,
+        "sha256": "e03834c7df63a0c27173fe02fd51677deeb3319186c788963b44e521bda61ede"
+      },
+      "libskshaper.a": {
+        "bytes": 190342,
+        "sha256": "d05918b1d5dfe011ff08230ba05e75e14d1e9e6a8cabd833a08220252b4e988b"
+      },
+      "libskparagraph.a": {
+        "bytes": 910122,
+        "sha256": "8f08dad575b9b3b05fc1cc8a8513af3ca4a4f70470425b8a6287f55a239795a6"
+      }
+    }
+  },
+  "inheritedBoundaryBuild": "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/evidence/boundary-experiment/build.json",
+  "commands": [
+    [
+      "cmake",
+      "-S",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source",
+      "-B",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/minimum",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DSTUDY_QT=ON",
+      "-DEXPECTED_QT=6.8.0",
+      "-DCMAKE_PREFIX_PATH=/home/andrii/Projects/pet/qmarkdown/build-ci/065-scenegraph/native-sdk",
+      "-DPREPARED_STAGE=/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-prepared",
+      "-DPREPARED_LIBRARY=/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so"
+    ],
+    [
+      "cmake",
+      "--build",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/minimum",
+      "--target",
+      "qt-compare",
+      "-j",
+      "2"
+    ],
+    [
+      "cmake",
+      "-S",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source",
+      "-B",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/development",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DSTUDY_QT=ON",
+      "-DEXPECTED_QT=6.12.0",
+      "-DCMAKE_PREFIX_PATH=/usr",
+      "-DPREPARED_STAGE=/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-prepared",
+      "-DPREPARED_LIBRARY=/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so"
+    ],
+    [
+      "cmake",
+      "--build",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/development",
+      "--target",
+      "qt-compare",
+      "-j",
+      "2"
+    ],
+    [
+      "cmake",
+      "-S",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source",
+      "-B",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/skia",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DSKIA=/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline"
+    ],
+    [
+      "cmake",
+      "--build",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/skia",
+      "--target",
+      "skia-compare",
+      "-j",
+      "2"
+    ]
+  ]
+}

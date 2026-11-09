@@ -1469,3 +1469,230 @@ Delivery: [archive manifest](evidence/candidate-scan-prepared-isolation/archives
 [compressed full analysis](evidence/candidate-scan-prepared-isolation/analysis.json.gz),
 [report](evidence/candidate-scan-prepared-isolation/report.md),
 [decision](evidence/candidate-scan-prepared-isolation/decision.json).
+
+## Architecture decision review — actual verification, 2026-11-09
+
+The owner's supplied-plan request approved AR1–AR4, design and AR-T1–AR-T4.
+Evidence cutoff and starting HEAD were `ba843e0`; the initial working tree was
+clean. This review changes only the specification index and Feature 073
+requirements, design, tasks, migration and this verification record.
+
+Reviewed the original requirements, audit/decision history, correctness and
+boundary support, scale/performance recovery, phase/ownership/runtime findings,
+scanner diagnosis and latest path-isolation report. Cross-checks read existing
+JSON rather than rerunning analyses:
+
+- Boundary support records 751 fixtures/775 blocks, 120 native passes, historical
+  drawable/window ratio 1, unavailable ratios 1.25/1.5/2 and no backend selection.
+- GL/Vulkan scale records agree on desktop 1.25, 800×600 buffer/window and
+  640×480 viewport. Historical “DPR 1” is reconciled as a ratio, not desktop scale
+  or equal Qt physical font sizing. Compositor sampling remains unknown.
+- Continuation summary has 176 cells: 162 pass, eight regression-fail and six
+  not-applicable, with retention false. The latest decision is complete with
+  mixed diagnostic support and retention false; report intervals preserve the
+  distinction between dense metadata and prepared prose.
+- Native summary contains 324 original processes (323 completed, one failed) plus
+  one separate completed post-reboot retry. Four completed original processes
+  have feedback gaps. The retry's 300 presented samples and p95 16.799 ms still
+  fail the 16.6675 ms refresh target. It neither erases the original failure nor
+  repeats the other four gaps. Vulkan GPU elapsed remains unavailable.
+- Read frozen archive member `tool/test_isolation.py` from multipart archive 010;
+  its SHA-256 matches both the archive file map and `source-cleanup.json`
+  (`2a3de11b6c4a78bbc942be68ed48f25dc13fde4eac9e9ba8a0b259a9be0de691`).
+  The delivered source hash also matches the cleanup record and parsed ASTs are
+  equal. This was a targeted source-provenance check, not a complete archive
+  revalidation. No frozen runner was imported or executed.
+
+Apparent contradictions were resolved by mechanism (reservation trial versus
+approved shaping boundaries), time (pending earlier visual review versus later
+limited owner acceptance), configuration (SDL ratio versus desktop scale) and
+cohort (original versus post-reboot). Genuine gaps remain blockers: minimum-Qt
+Vulkan shutdown, missing feedback, full tables/cross-block selection, comparable
+scale coverage and historical source unavailability. No new causal conclusion,
+quality tolerance, support relaxation or production qualification was adopted.
+
+Actual checks:
+
+- `python3 scripts/check-docs.py`: passed current 1.18.0 documentation and local
+  links. An additional read-only heading check resolved every fragment link in
+  the updated migration record and index.
+- `task check`: passed once, including documentation, configuration/evidence
+  syntax and all 87 Qt-independent Python tests. No runtime tests were added or
+  run; the test suite's publication messages are fixture output, not publication.
+- `git diff --check` and a changed-tracked/new-file trailing-whitespace and conflict
+  marker scan: passed. No new files were introduced.
+- Manual gate review: every R1–R8 has explicit status, tested configuration,
+  evidence and remaining limitation. The sole recommended milestone traces to
+  unmet R2/R5 comparable-scale prerequisites and retains R3/R6 invariants.
+
+The comparable-scale diagnostic-design milestone is **proposed and awaiting
+approval**. This review performed no builds, new measurements, historical runner
+execution, analysis regeneration, archive mutation, renderer changes, commit,
+push, merge or publication. No broader check was repeated merely to record its
+result; final verification-record edits received lightweight checks only.
+
+## Coordinated scale study preparation — 2026-11-09
+
+The supplied implementation plan approves SS1–SS5 and SS-T1–SS-T5. Exact Qt
+6.8.0/6.12.0 and pinned explicit-boundary Skia instrumented viewers build with two
+workers against retained libraries. Archived fixture/font/source checks and
+historical Qt library hashes pass. Forty-five offline fixture observer checks
+preserve checked geometry/shaping and pass coordinate, containment and source-copy
+assertions; fourteen supervisor tests pass. The 690-command schedule is frozen.
+
+[Evidence](evidence/scale-study/README.md) records original DP-1 scale 1.25 and the
+preparation identities. No graphical study processes have launched; first-scale
+coordination is pending. Fresh, transition and comparability results are untested.
+No production qualification, backend selection, commit or publication occurred.
+
+## Coordinated scale study terminal delivery — 2026-11-09
+
+The owner confirmed desktop scale 1; read-back verified DP-1 before launch. Exactly
+one graphical process ran: Qt 6.8.0, distance-field, OpenGL, document. It recorded
+exit 0, 60 motion frames, exact captured-pose/replay/reset comparisons, passing
+inverse-coordinate/object-containment checks and exact source in both selection
+directions. Ten captures and complete stdout/Wayland traces are retained.
+
+The frozen supervisor then raised `surface/output association missing or not DP-1`
+because its parser accepts only wl_output names. Actual Qt 6.8 protocol names the
+output through zxdg_output_v1. Offline read-back proves output identity using
+get_xdg_output binding, name and surface enter; this does not turn the terminal
+failed attempt into a pass. One cell is failed; 689 are untested. No retries,
+replacement samples, later scales or transition windows were launched. Process
+wall duration and sampled RSS were not persisted before the exception and remain
+unknown; the viewer's monotonic exit record is retained separately.
+
+The owner restored 1.25; wlr-randr read-back matches the complete original output
+configuration. Frozen-input identities, historical evidence and raw captures were
+verified; terminal resume rejects launch under a fatal process-launch sentinel.
+The original validator failure reproduces offline. Raw evidence and frozen
+sources/binaries/libraries/fonts have archive hashes and member read-back.
+The agent inspected the contact sheet; owner visual acceptance, comparability and
+transition qualification remain untested. See the [consolidated report](evidence/scale-study/README.md).
+
+Final repository Light/document/link and whitespace results are recorded below.
+
+Final checks: `python3 scripts/check.py` passed documentation/local links,
+configuration/evidence syntax and all 87 repository Python tests. Tracked diff and
+modified/new text-file whitespace checks pass. The [check log](evidence/scale-study/light-check.log)
+and [whitespace result](evidence/scale-study/whitespace-check.json) are retained.
+No shipping files changed and no commit or publication occurred.
+
+## Corrected scale-study preparation — 2026-11-09
+
+Following explicit owner approval, a sibling supervisor fixes wl_output/xdg-output
+identity resolution and persists process facts before validation. Eighteen offline
+tests pass, including the entire retained first attempt, negative identity cases
+and failed-result/terminal-recovery recording. Original frozen inputs and evidence
+hashes are unchanged. Existing verified viewers/libraries are reused byte-for-byte.
+The corrected 690-process schedule is frozen; one historical attempt plus this
+study is bounded to 691 launches. Original output scale remains 1.25. The owner
+confirmed 100%, read-back passed, and fresh execution began. See the
+[corrected study](evidence/scale-study-v2/README.md) for actual set results.
+
+### Corrected study: 100% fresh set
+
+Completed and archived/read back: 136 passed, 30 Qt 6.8 Vulkan shutdown failures
+(signal 11), four dependent document recreations skipped, 166 launched processes.
+Every scheduled 100% cell is accounted for. Qt 6.8 OpenGL, Qt 6.12 all modes/APIs,
+and Skia both APIs pass. Capture hashes, frozen identities and journal results
+validate. Representative Qt/Skia document mappings at this desktop scale are 1:1.
+The contact sheet was inspected by the agent; no owner visual acceptance is inferred.
+See the [100% set](evidence/scale-study-v2/sets/100/set-validation.json).
+
+### Corrected study: 125% fresh set
+
+Owner handoff/read-back passed. All 170 cells are accounted for: 136 passes,
+30 Qt 6.8 Vulkan shutdown failures and four dependent recreations skipped;
+166 launches. Capture hashes, frozen identities and archived member read-back pass.
+All ten stationary document cases establish unequal nominal physical sizes:
+Qt 27.5 versus Skia 22 physical pixels for the nominal 22-unit font, with zoom 1.
+The viewport/window/buffer mappings have exact integer dimensions, so rounding
+cannot explain the difference. Comparability fails independently of the retained
+correctness passes. Contact sheet inspected by the agent, not owner acceptance.
+[Dimensional evidence](evidence/scale-study-v2/sets/125/physical-mappings.json)
+and [set results](evidence/scale-study-v2/sets/125/set-validation.json) are retained.
+
+### Corrected study: 150% fresh set
+
+Owner handoff/read-back passed. All 170 cells are accounted for: 136 passes,
+30 Qt 6.8 Vulkan shutdown failures (signal 11) and four dependent recreations
+skipped, from 166 launches. Frozen inputs, capture hashes and archive read-back
+validate. Qt 6.8 OpenGL, Qt 6.12 all configurations and Skia both APIs pass.
+All ten stationary document cases retain a physical-size mismatch: nominal font
+height 33 pixels in Qt versus 22 in Skia. SDL surface-width rounding accounts for
+0.5 physical pixel horizontally, not the exact 50% vertical size ratio. No renderer
+or font adjustment was made. Contact sheet inspected; no owner acceptance inferred.
+[Set results](evidence/scale-study-v2/sets/150/set-validation.json) and
+[dimensional evidence](evidence/scale-study-v2/sets/150/physical-mappings.json).
+
+### Corrected study: 200% fresh set and live startup
+
+Owner handoff/read-back passed. Final fresh set: 136 passed, 30 Qt 6.8 Vulkan
+shutdown failures and four dependent recreations skipped; 166 launches. All fresh
+cells across four scales are accounted for: 544 passed, 120 failed, 16 skipped.
+Frozen identities, capture hashes and archive read-back pass. At 200%, stationary
+document mappings in all ten configurations show nominal font height 44 physical
+pixels in Qt versus 22 in Skia, with no rounding ambiguity. Agent inspected the
+contact sheet. [Set evidence](evidence/scale-study-v2/sets/200/set-validation.json)
+and [mappings](evidence/scale-study-v2/sets/200/physical-mappings.json).
+
+Ten persistent bidi-objects windows launched once and reached live-0 at 200%.
+Their initial inverse-coordinate, object-containment and bidirectional-source
+checks pass. Windows remain alive awaiting live-1 at 150%; transitions and final
+shutdown results remain pending. The original restoration setting remains 125%.
+
+### Live handoff race, preservation and prepared repair
+
+At live-5 the reader saw the confirmation file before JSON serialization completed.
+The supervisor stopped and killed all ten windows. Fresh results are unchanged:
+544 passed, 120 Qt 6.8 Vulkan shutdown failures and 16 skipped recreations. Ten
+live attempts are failed due to harness interruption. Fifty checkpoints and ten
+exact repeated-125% states are retained; twenty final checkpoints are untested.
+Eight retained SDL checkpoint mappings differ in nominal physical size from fresh
+windows at the same desktop scale. Full output restoration to 125% is verified.
+Terminal evidence/archive read-back and the [checkpoint review](evidence/scale-study-v2/terminal/live-checkpoints.json)
+retain these distinctions. No graphical retry ran.
+
+The sibling atomic publisher passes eleven focused tests, including a deterministic
+reproduction of the old race, paused writers and concurrent publication. Final
+records are exposed only after serialization and file sync, with no overwrite.
+The [live-only continuation](evidence/scale-study-live-recovery/README.md) is frozen:
+ten proposed windows, 685 total launches including history, below the 691 ceiling.
+Prior frozen identities, terminal journals, capture hashes and restoration validate.
+The approval gate rejects execution under a fatal launch sentinel. Execution scope
+approval remains pending; the already completed fresh matrix is not scheduled again.
+
+## Completed coordinated scale study — 2026-11-09
+
+The owner approved the ten-window replacement pass. Atomic handoffs completed all
+seven checkpoints in all ten persistent windows. Seventy semantic/coordinate/
+containment checks pass; all thirty repeated-state comparisons match exactly.
+Eight processes shut down normally; Qt 6.8 Vulkan distance/curve exited with
+signal 11. Original DP-1 scale 125% is restored, with complete output read-back
+matching the original configuration. No windows were recreated during this pass.
+
+Consolidated logical schedule: **552 passed, 122 failed, 16 skipped** across 690
+cells. This uses the complete fresh matrix (544/120/16) and completed live pass
+(8/2/0). Eleven superseded harness-failed attempts remain separate diagnostics.
+Actual launches across all runs: **685**, below 691. Conservative automated time
+including historical failure reservations is 1409.077 seconds, below four hours;
+explicit human waits and builds are excluded. No performance inference is made.
+
+Ten lower-scale SDL live checkpoints have different inferred nominal physical
+sizes from fresh windows at the same settings. All traces retain their initial
+fractional preference. Fresh comparability fails above 100%; semantic repeatability
+does not close that gate. No owner visual acceptance, backend selection or
+production qualification is claimed. See the [consolidated report](scale-study-results.md).
+
+Frozen inputs, historical evidence, complete journal recovery and duplicate-launch
+rejection under a fatal sentinel validate. Seventy final live capture hashes and
+all archive members pass read-back. The agent inspected the raw-buffer contact
+sheet; it is not a compositor screenshot. Final Light checks are recorded below.
+
+Final Light verification: `python3 scripts/check.py` passes documentation/local
+links, evidence/configuration syntax and all **87 repository Python tests**.
+[Final log](evidence/scale-study-live-recovery/final-light-check.log). Focused repair
+coverage remains eleven passing tests; sources did not change after that run.
+Tracked-diff and modified/new text whitespace checks pass. No shipping files,
+commits, merges or publication were changed or performed.
