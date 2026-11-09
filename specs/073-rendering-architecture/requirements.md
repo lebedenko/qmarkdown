@@ -635,3 +635,9 @@ approves the prepared live-only continuation above, its atomic handoff repair an
 ten-cell frozen schedule. No fresh-window rerun; total actual launches after this
 continuation are bounded to 685 within the existing ceiling of 691. All other
 checks, exclusions and restoration requirements remain unchanged.
+
+## Correct scale mapping — approved 2026-11-09
+
+SC1–SC4 define the approved bounded requirements.
+The owner explicitly requested implementation of the supplied plan. See the
+[approved protocol](scale-contract-protocol.md). Historical approvals remain intact.

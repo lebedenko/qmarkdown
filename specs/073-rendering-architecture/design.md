@@ -879,3 +879,28 @@ approves the prepared live-only continuation above, its atomic handoff repair an
 ten-cell frozen schedule. No fresh-window rerun; total actual launches after this
 continuation are bounded to 685 within the existing ceiling of 691. All other
 checks, exclusions and restoration requirements remain unchanged.
+
+## Correct scale mapping — approved 2026-11-09
+
+The isolated SDL3 adapter and coordinate contract are approved; no shipping API changes.
+The owner explicitly requested implementation of the supplied plan. See the
+[approved protocol](scale-contract-protocol.md). Historical approvals remain intact.
+
+Scale-contract architecture disposition: the direct SDL3 candidate demonstrates
+correct 125% nominal mapping and receives live 125 → 150 → 125% updates in a
+mapped minimal probe. This removes the observed SDL2-compatible integration issue
+in that diagnostic coverage. Architecture selection remains blocked on the frozen
+complete matrix and ten persistent-window pass; Qt 6.8 Vulkan lifecycle remains
+an independent known prerequisite. No production or performance conclusion.
+
+## Scale-contract final architecture disposition — 2026-11-09
+
+The isolated direct-SDL3 integration corrects fresh nominal physical mapping at
+all four scales. It is not accepted as a fully comparable live renderer: fifty
+lower-scale live checkpoints retain initial density 2. A minimal SDL3-only probe
+started at 200% reproduces missing incoming fractional-scale preferences on the
+recorded labwc/wlroots runtime. Do not compensate with requested desktop scale or
+replace windows. The prerequisite is an external notification correction followed
+by authorized live verification, with Qt 6.8 Vulkan lifecycle and three incomplete
+fresh cells separately unresolved. No backend selection or shipping migration.
+See [final decision evidence](scale-contract-results.md).

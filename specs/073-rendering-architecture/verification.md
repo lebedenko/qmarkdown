@@ -1696,3 +1696,164 @@ links, evidence/configuration syntax and all **87 repository Python tests**.
 coverage remains eleven passing tests; sources did not change after that run.
 Tracked-diff and modified/new text whitespace checks pass. No shipping files,
 commits, merges or publication were changed or performed.
+
+## Scale-contract implementation — 2026-11-09, final execution pending
+
+Owner-approved scope: [protocol](scale-contract-protocol.md). Implemented isolated
+SDL3 3.4.18 integration and shared mapping, generation-tagged captures, exact-Qt
+instrumentation, toolkit probes, bounded diagnostic/final supervisors and separate
+physical/raster reporting. Shipping code and frozen historical inputs are unchanged.
+
+Actual verification: C++ coordinate checks pass; eight new Python checks pass;
+existing atomic-handoff and v2 runner tests pass. Exact Qt 6.8.0/6.12.0 and SDL3
+candidate builds pass with two workers. All fifteen offline fixture checks pass
+for each of the three builds (45 checks). Final implementation Light checks pass;
+tracked and new-file whitespace checks pass. Mapped minimal probes also build for
+both Qt versions and SDL2/SDL3.
+
+Ten diagnostic launches are preserved. d005 exposed a one-frame stale-scroll
+mapping in the initial adapter; the correction passed d006, then final OpenGL,
+Vulkan and Qt instrumentation smokes d008–d010 exited cleanly with original replay,
+reset and source assertions. A single mapped SDL3 probe received fractional-scale
+updates through 125 → 150 → 125% with matching buffer extents and unchanged process.
+This is diagnostic coverage, not completion of the four-scale matrix.
+
+The final candidate and 690-cell schedule are frozen at
+`build-ci/073-scale-contract-run`; no final cells have launched. The owner has been
+asked to set DP-1 to 100%; execution awaits that handoff. Original 125% was read
+back after the diagnostic reverse transition. All diagnostic windows are closed.
+Complete matrix, ten-window transitions, final contact sheets/archive read-back
+and final restoration remain pending. No commit, push or publication occurred.
+See [evidence](evidence/scale-contract/README.md).
+
+## Final 100% set — completed 2026-11-09
+
+Owner confirmed DP-1 at 100%; identity and scale were read back before execution
+and between cells. The frozen candidate was unchanged. All 170 scheduled cells
+are accounted for: 166 launches, **135 passes, 31 failures, four dependent skips**.
+Thirty failures are the known Qt 6.8 Vulkan signal-11 shutdowns with captures
+retained. Cell 014 (Qt 6.8 distance/OpenGL, whole-lam-alef) stopped during motion
+at frame 28 and hit the ten-second operation deadline; it retains its partial
+trace and stationary capture, with no retry or replacement. All independent
+cells continued. Both SDL3 Skia backends passed all fifteen fixtures and two
+recreations. All Qt 6.12 configurations passed.
+
+All **1,635 captured mapping observations** satisfy separate physical-mapping and
+raster-density assertions at 100%. This covers obtained captures, not the missing
+operations in cell 014. Frozen identity verification and completed capture-hash
+read-back pass. The 125%, 150%, 200% and persistent-window sets remain unexecuted;
+no all-scale comparability or transition gate is declared passed.
+
+All windows are closed. The owner has been asked to set 125% for the next set;
+latest verified scale after this set is 100%, so final restoration is not yet
+claimed. See [cell accounting](evidence/scale-contract/fresh-100-summary.json).
+
+## Final 125% set — completed 2026-11-09
+
+Owner confirmed the requested 125% handoff; DP-1 identity/scale read-back passed
+before and throughout execution. All 170 cells are accounted for: 166 launches,
+**136 passes, 30 failures, four dependent skips**. All failures are Qt 6.8 Vulkan
+signal-11 shutdowns; no operation deadlines occurred in this set. Both Qt 6.8
+OpenGL configurations, all Qt 6.12 configurations and both SDL3 Skia backends pass
+all fifteen fixtures and their two dependent document recreations.
+
+All **1,644 captured mapping observations** pass separate physical-mapping and
+raster-density assertions. Baseline Qt and SDL3 Skia records agree: 800 × 600
+logical/surface extent, 1000 × 750 buffer, 1.25 forward scale (nominal 22 units →
+27.5 buffer pixels). Frozen identities and completed capture hashes verify.
+[Cell accounting](evidence/scale-contract/fresh-125-summary.json).
+
+Cumulative final execution: 332 launches, 271 passes, 61 failures and eight skips.
+The 150%, 200% and ten-window transition pass remain pending. All windows are
+closed; latest verified scale is 125%, matching the original setting. The owner
+has been asked for 150% next; this is not final restoration or all-scale acceptance.
+
+## Final 150% set — completed 2026-11-09
+
+The owner confirmed 150%; DP-1 identity and scale were read back before execution
+and between cells. All 170 scheduled cells are accounted for: 166 launches,
+**136 passes, 30 failures, four dependent skips**. All failures are the known Qt
+6.8 Vulkan signal-11 shutdowns. Both Qt 6.8 OpenGL configurations, all Qt 6.12
+configurations and both SDL3 Skia backends pass their fixtures and recreations.
+No operation deadline occurred in this set.
+
+All **1,644 captured mapping observations** pass separate physical-size and
+raster-density assertions. Baseline Qt and SDL3 records agree on the 800 × 600
+logical surface, 1200 × 900 buffer and 1.5 forward scale (22 nominal units → 33
+buffer pixels). Frozen inputs and completed capture hashes verify.
+[Cell accounting](evidence/scale-contract/fresh-150-summary.json).
+
+Cumulative final execution: 498 launches, 407 passes, 91 failures and twelve
+skips. The 200% fresh set and ten persistent windows remain pending. All windows
+are closed; latest verified scale is 150%. The owner has been asked for 200% next.
+Final restoration to the recorded 125% setting remains a required delivery step.
+
+## Final 200% set and live start — 2026-11-09
+
+200% completed: 166 launches, **136 passes, 30 failures, four dependent skips**.
+All Qt 6.8 OpenGL, Qt 6.12 and SDL3 Skia configurations pass. Of the thirty Qt 6.8
+Vulkan failures, cell 562 (curve/padded) also hit an operation deadline during the
+selected capture, and cell 563 (curve/adjacent) failed motion replay before its
+signal-11 exit. The latter trace includes a Space key event (keycode 57), and
+scroll advances beyond the scripted steps; interactive motion contaminated that
+attempt. Neither cell was retried. The other 28 failures are shutdown-only.
+All 1,636 obtained mapping observations pass physical and density assertions.
+[Accounting](evidence/scale-contract/fresh-200-summary.json).
+
+Complete fresh matrix: **543 passes, 121 failures, sixteen dependent skips**, 664
+launches. All 6,559 obtained capture mappings pass physical-size and density
+assertions; incomplete capture sequences remain failures. Frozen inputs and
+capture hashes verify. No replacement cells were launched.
+
+Ten persistent windows started once at 200%. All initial checkpoints pass mapping,
+selection and containment checks, and all ten captures exactly match the fresh
+200% bidi-objects captures. [Initial audit](evidence/scale-contract/live-0-summary.json).
+
+At live-1 (150%), all ten retain scale 2 and 1600×1200 buffers. Physical sizing,
+inverse mapping, containment and exact copied-source checks pass, with unchanged
+window IDs, but **raster density and exact fresh-capture equivalence fail**.
+The raw Qt 6.8/6.12 and SDL3 traces show output logical-size updates to 2560×1440,
+yet only the initial preferred_scale(240), with no new fractional preference.
+This locates the missing notification at the protocol boundary in this run; it
+is not yet a complete minimal-reproduction attribution. Continue all obtainable
+checkpoints without replacing windows. [150% live audit](evidence/scale-contract/live-1-summary.json).
+
+The live supervisor remains active (exec session 97299), waiting for live-2 at
+125%. All ten windows must remain open. Original 125% restoration is still pending
+completion of the live sequence; no final acceptance is claimed.
+
+## Scale-contract bounded delivery — complete, acceptance blocked
+
+All four fresh sets and all seventy checkpoints in ten unchanged persistent
+windows have completed. All thirty repeated-scale comparisons pass. Final schedule:
+551 runner-assertion/exit passes, 123 failures, sixteen dependent skips (674
+launches). Eleven preserved diagnostics bring the total to **685/750 launches**.
+Recorded automated time is **1,278.612 seconds**, within four hours.
+
+Physical mapping assertions pass for all 6,629 obtained capture observations.
+Fresh raster-density assertions pass for all 6,559 observations; live density
+passes only twenty 200% checkpoints and fails fifty lower-scale checkpoints.
+Exactly twenty live captures match their same-scale fresh counterparts; fifty do
+not. All seventy inverse/source/containment checks pass in the same window IDs.
+Three fresh cells have incomplete/contaminated correctness coverage (014, 562,
+563). Lifecycle counts: 551 exit 0, 121 signal-11 exits, two deadline kills.
+No failure was retried or relabeled successful.
+
+Minimal SDL3-only diagnostic d011, starting at 200%, reproduces the missing
+fractional preference after 150% and 125% output updates. Its incoming Wayland
+trace retains preferred_scale(240); SDL queries retain density 2. The same probe
+started at 125% in d007 received both fractional updates correctly. This supports
+external compositor/protocol-path attribution on labwc/wlroots 0.20.2 with the
+recorded NVIDIA runtime, without asserting a particular source-code cause.
+No toolkit/compositor patch or rendering-scale override was introduced.
+
+Original DP-1 configuration restored to 125% and compared exactly with its initial
+record; all windows closed. Archive read-back verifies **9,599 members**, fourteen
+parts and the concatenated SHA-256. Raw traces/captures, source/runtime identities,
+failed attempts and contact sheets are preserved. The agent inspected fresh and
+live contact sheets; owner visual acceptance remains separate.
+
+[Final findings](scale-contract-results.md) record the external notification fix,
+authorized follow-up verification, minimum-Qt Vulkan lifecycle and three incomplete
+cells as remaining prerequisites. Architecture/backend selection and production
+qualification remain blocked. No commit, push or publication was performed.

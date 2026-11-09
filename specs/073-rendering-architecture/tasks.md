@@ -675,3 +675,40 @@ authorizes a local commit of the completed architecture review, scale-study
 harnesses, specifications and preserved evidence. Earlier no-commit statements
 record their historical scope. Push, merge, publication and implementation of the
 proposed next step remain outside this approval.
+
+## Correct scale mapping — approved 2026-11-09
+
+SC-T1–SC-T7 are approved. Actual completion is recorded separately in verification.md.
+The owner explicitly requested implementation of the supplied plan. See the
+[approved protocol](scale-contract-protocol.md). Historical approvals remain intact.
+
+Scale-contract status: SC-T1–SC-T3 implemented and offline-verified; SC-T4 has
+ten preserved diagnostics and a frozen final candidate. SC-T5–SC-T7 remain pending
+the requested 100% handoff and subsequent matrix/live execution. No final gate is
+claimed passed from the diagnostic subset. See [verification](verification.md).
+
+## Scale-contract delivery reconciliation — 2026-11-09
+
+- [x] SC-T1: Approval, coordinate contract, pinned runtime and original output.
+- [x] SC-T2: Isolated SDL3 adapter, Qt instrumentation and minimal probes built.
+- [x] SC-T3: Mapping/generation tests, inherited supervisor/atomic-handoff coverage,
+  and fifteen-fixture layout/shaping/source checks on all three builds.
+- [x] SC-T4: Eleven preserved diagnostics, including the minimal external
+  reproduction; final candidate frozen before the matrix and never changed.
+- [x] SC-T5: All 680 fresh cells accounted for: 543 passed, 121 failed, sixteen
+  dependent skips. No final retries or replacement attempts.
+- [x] SC-T6: Ten persistent windows, seventy checkpoints and thirty repeated-scale
+  comparisons completed. Density/fresh-equivalence failures remain failures.
+- [x] SC-T7: Runtime/source identities, raw evidence, contact sheets, archive
+  hash/read-back and exact original-output restoration recorded. Final Light passed
+  on implementation inputs; documentation and whitespace checks follow evidence.
+
+Bounded delivery completion does not close failed acceptance gates. The correction
+remains blocked on the prerequisites in the [final findings](scale-contract-results.md).
+Owner visual acceptance and production qualification remain separate. No publication.
+
+Owner delivery approval (2026-11-09): **“commit all”** authorizes a local commit
+of the completed scale-contract implementation, specifications and preserved
+evidence. Earlier no-commit statements record their historical execution scope.
+Push, merge and publication remain outside this approval; failed acceptance gates
+and remaining prerequisites are unchanged.
