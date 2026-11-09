@@ -1,5 +1,8 @@
 # Scale diagnosis and performance qualification
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 Measurement continuation approved by the owner on 2026-11-06. Recovery and
 measurement reporting are complete; the results do not qualify performance. The owner's visual
 review is accepted for the cases inspected, without extending acceptance to other
@@ -134,7 +137,7 @@ unavailable pre-reboot facts remain unknown.
 ## Native rendering, presentation and memory
 
 The [per-process table](native-scenarios.md) keeps every scenario, repetition and
-attempt separate. The [full native summary](native-summary.json) includes phase
+attempt separate. The full native summary (removed artifact: `native-summary.json`) includes phase
 median/p95/maximum, cache/RSS, scale, presentation flags, gaps and supervisor status.
 Stationary, slow scrolling, flick/reversal, settling and selection changes trigger
 **zero measured layout calls** in the completed original matrix; resizing performs

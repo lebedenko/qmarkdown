@@ -539,3 +539,20 @@ PI1–PI6 requirements, source/build design and PI-T1–PI-T6 tasks, with a prop
 2,001-process budget and contemporaneous controls. Only protocol drafting is
 authorized. Implementation/build/execution approval is pending; no next-experiment
 sample has been collected. Retention remains **not established**.
+
+## Repository storage safeguards — approved 2026-11-09
+
+The owner's supplied-plan request approves SG1–SG4 and these tasks, including
+protected PR delivery. Actual results belong in verification.md.
+
+- [x] SG-T1 (SG4): Refresh main, create an isolated focused branch, selectively
+  port safeguards and preserve the research checkout.
+- [x] SG-T2 (SG1–SG2): Add checker/integration/ignore rules and regression tests
+  for archive variants, ELF, libraries, captures/logs, size boundary, source
+  assets, Git discovery and force-added staged artifacts.
+- [x] SG-T3 (SG3): Port policy/links and repair historical artifact references;
+  exclude unpublished research and adapt cleanup documentation.
+- [x] SG-T4 (SG1–SG4): Run focused tests, repository/link/whitespace checks,
+  inspect shipping/dependency/release exclusions and record actual results.
+- [ ] SG-T5 (SG4): Commit/push one PR, wait for required Full matrix/review,
+  squash merge with protections intact, verify merge and report disk usage.

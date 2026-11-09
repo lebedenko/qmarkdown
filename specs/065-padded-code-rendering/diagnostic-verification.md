@@ -1,5 +1,8 @@
 # Retained glyph-image diagnosis — actual verification
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 2026-10-23: **do not integrate the retained glyph-image candidate**. The local
 coordinate formula introduces rasterization differences. Keeping original glyph
 coordinates and translating by integer physical pixels eliminates that component
@@ -39,8 +42,8 @@ according to fixture). Decorations were consistently disabled.
 
 Complete per-case/per-glyph logs, including flags, font identity, indexes,
 positions, origins, phases, bounds, transforms and DPR, are retained as
-[6.8 JSONL gzip](evidence/diagnostic/qt-6.8.0/results.jsonl.gz) and
-[6.12 JSONL gzip](evidence/diagnostic/qt-6.12.0/results.jsonl.gz).
+6.8 JSONL gzip (removed artifact: `evidence/diagnostic/qt-6.8.0/results.jsonl.gz`) and
+6.12 JSONL gzip (removed artifact: `evidence/diagnostic/qt-6.12.0/results.jsonl.gz`).
 Decompress to run `summarize.py`. The readable summaries retain every historical
 metric and aggregate totals: [6.8](evidence/diagnostic/qt-6.8.0/summary.json),
 [6.12](evidence/diagnostic/qt-6.12.0/summary.json). Max channel differences are

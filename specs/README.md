@@ -1,5 +1,8 @@
 # Specifications
 
+Generated evidence was removed from Git history during the owner-authorized cleanup.
+See [artifact storage](../docs/artifact-storage.md) for retained summaries and reproducibility limits.
+
 ## Current release
 
 <!-- current-release:start -->

@@ -1,5 +1,8 @@
 # Actual-source artifact diagnosis — 2026-11-05
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 **Attribution stopped: final native replay stage stalled.** The performance
 rejection remains independently binding. Production source is unchanged; no
 renderer correction, timing pairs or renewed owner motion acceptance was attempted.
@@ -47,7 +50,7 @@ Qt 6.12.0 Wayland OpenGL, observed DPR 1.25, pixelAligned true:
   unconditional proxy capture saving. Their hashes are retained separately.
   **They do not qualify complete-trace replay on the final binaries.**
 
-The supplied [owner screenshot](evidence/native-only/owner-proxy-artifacts.png)
+The supplied owner screenshot (removed artifact: `evidence/native-only/owner-proxy-artifacts.png`)
 was visually inspected against actual-source captures. Scroll 320 reproduces the
 visible paragraph arrangement, including narrow wrapped text, strikeouts and the
 unclipped tiny paragraph overlapping its successor. The candidate has visibly
@@ -58,8 +61,8 @@ Representative authoritative captures at requested scroll 320:
 
 | Linked source | Source | Matching proxy | Exact difference |
 | --- | --- | --- | --- |
-| Baseline | [source](evidence/artifact-diagnosis/pose-baseline-6.12-opengl-aligned-source.png) | [proxy](evidence/artifact-diagnosis/pose-baseline-6.12-opengl-aligned-proxy.png) | [zero diff](evidence/artifact-diagnosis/pose-baseline-6.12-opengl-aligned-diff.png) |
-| Candidate | [source](evidence/artifact-diagnosis/pose-candidate-6.12-opengl-aligned-source.png) | [proxy](evidence/artifact-diagnosis/pose-candidate-6.12-opengl-aligned-proxy.png) | [zero diff](evidence/artifact-diagnosis/pose-candidate-6.12-opengl-aligned-diff.png) |
+| Baseline | source (removed artifact: `evidence/artifact-diagnosis/pose-baseline-6.12-opengl-aligned-source.png`) | proxy (removed artifact: `evidence/artifact-diagnosis/pose-baseline-6.12-opengl-aligned-proxy.png`) | zero diff (removed artifact: `evidence/artifact-diagnosis/pose-baseline-6.12-opengl-aligned-diff.png`) |
+| Candidate | source (removed artifact: `evidence/artifact-diagnosis/pose-candidate-6.12-opengl-aligned-source.png`) | proxy (removed artifact: `evidence/artifact-diagnosis/pose-candidate-6.12-opengl-aligned-proxy.png`) | zero diff (removed artifact: `evidence/artifact-diagnosis/pose-candidate-6.12-opengl-aligned-diff.png`) |
 
 Metadata records intersecting logical bounds at paragraph indices 4, 7, 12, 15
 and 20. Clip state is recorded separately; an intersection with clipping enabled

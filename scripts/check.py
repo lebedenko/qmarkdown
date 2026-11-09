@@ -24,6 +24,7 @@ def main():
         paths = runpy.run_path(str(ROOT / 'scripts/ci-toolchain/check-scope.py'))['changed_paths'](args.base)
     else:
         paths = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=ROOT).decode().split('\0')
+    runpy.run_path(str(ROOT / 'scripts/check-storage.py'))['validate'](ROOT, paths)
     for name in paths:
         path = ROOT / name
         if not path.is_file():

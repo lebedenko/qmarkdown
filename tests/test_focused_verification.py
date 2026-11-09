@@ -136,13 +136,14 @@ class Snapshots(unittest.TestCase):
 
 
 class EvidenceSyntax(unittest.TestCase):
-    def test_malformed_compressed_jsonl_is_rejected(self):
-        import gzip
+    def test_malformed_jsonl_is_rejected(self):
+        import shutil
         checks = load('checks066', 'scripts/check.py')
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            with gzip.open(root / 'evidence.jsonl.gz', 'wt') as output:
-                output.write('{"valid": true}\n{broken}\n')
+            (root / 'scripts').mkdir()
+            shutil.copyfile(ROOT / 'scripts/check-storage.py', root / 'scripts/check-storage.py')
+            (root / 'fixture.jsonl').write_text('{"valid": true}\n{broken}\n')
             with patch.object(checks, 'ROOT', root), patch.object(checks.subprocess, 'run'), patch('sys.argv', ['check', '--all-files']):
                 import json
                 with self.assertRaises(json.JSONDecodeError):

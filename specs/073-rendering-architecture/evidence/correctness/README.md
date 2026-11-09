@@ -1,7 +1,10 @@
 # Bounded correctness evidence
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 The authoritative final records are [geometry-lines.json](geometry-lines.json),
-[native.json](native.json), [lifecycle-native.json](lifecycle-native.json) and
+native.json (removed artifact: `native.json`), [lifecycle-native.json](lifecycle-native.json) and
 [support.json](support.json). Full logs, commands, input/font/binary identities
 and captures are in the matching archives. [archives.json](archives.json) records
 archive hashes; [current-binaries.json](current-binaries.json) confirms the viewer
