@@ -1,0 +1,14 @@
+{
+  "scale": 1.5,
+  "counts": {
+    "passed": 136,
+    "failed": 30,
+    "skipped": 4
+  },
+  "scheduled": 170,
+  "launched": 166,
+  "captureHashesVerified": true,
+  "frozenIdentitiesVerified": true,
+  "archiveReadBack": true,
+  "automatedSecondsWithPriorReservation": 942.4673351120036
+}

@@ -1,0 +1,7990 @@
+{
+  "cells": [
+    {
+      "id": "000",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "001",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "002",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "003",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "004",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "005",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "006",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "007",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "008",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "009",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "010",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "011",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "012",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "013",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "014",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "015",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "016",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "017",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "018",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "019",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "020",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "021",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "022",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "023",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "024",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "025",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "026",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "027",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "028",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "029",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "030",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "031",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "032",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "033",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "034",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "035",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "036",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "037",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "038",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "039",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "040",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "041",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "042",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "043",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "044",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "045",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "046",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "047",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "048",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "049",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "050",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "051",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "052",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "053",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "054",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "055",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "056",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "057",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "058",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "059",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "060",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "061",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "062",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "063",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "064",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "065",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "066",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "067",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "068",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "069",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "070",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "071",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "072",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "073",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "074",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "075",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "076",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "077",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "078",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "079",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "080",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "081",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "082",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "083",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "084",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "085",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "086",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "087",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "088",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "089",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "090",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "091",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "092",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "093",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "094",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "095",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "096",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "097",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "098",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "099",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "100",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "101",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "102",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "103",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "104",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "105",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "106",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "107",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "108",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "109",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "110",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "111",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "112",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "113",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "114",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "115",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "116",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "117",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "118",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "119",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "120",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "121",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "122",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "123",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "124",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "125",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "126",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "127",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "128",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "129",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "130",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "131",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "132",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "133",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "134",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "135",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "136",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "137",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "138",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "139",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "140",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "141",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "142",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "143",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "144",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "145",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "146",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "147",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "148",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "149",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "150",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "151",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "152",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "153",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "154",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "155",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "156",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "157",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "158",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "159",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "160",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "161",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "162",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "163",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "164",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "165",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "166",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "167",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "168",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "169",
+      "kind": "fresh",
+      "scale": 1,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "170",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "171",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "172",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "173",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "174",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "175",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "176",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "177",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "178",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "179",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "180",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "181",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "182",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "183",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "184",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "185",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "186",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "187",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "188",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "189",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "190",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "191",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "192",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "193",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "194",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "195",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "196",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "197",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "198",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "199",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "200",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "201",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "202",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "203",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "204",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "205",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "206",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "207",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "208",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "209",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "210",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "211",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "212",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "213",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "214",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "215",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "216",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "217",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "218",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "219",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "220",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "221",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "222",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "223",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "224",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "225",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "226",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "227",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "228",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "229",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "230",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "231",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "232",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "233",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "234",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "235",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "236",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "237",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "238",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "239",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "240",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "241",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "242",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "243",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "244",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "245",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "246",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "247",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "248",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "249",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "250",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "251",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "252",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "253",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "254",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "255",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "256",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "257",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "258",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "259",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "260",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "261",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "262",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "263",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "264",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "265",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "266",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "267",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "268",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "269",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "270",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "271",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "272",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "273",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "274",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "275",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "276",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "277",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "278",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "279",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "280",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "281",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "282",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "283",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "284",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "285",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "286",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "287",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "288",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "289",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "290",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "291",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "292",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "293",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "294",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "295",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "296",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "297",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "298",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "299",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "300",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "301",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "302",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "303",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "304",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "305",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "306",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "307",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "308",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "309",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "310",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "311",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "312",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "313",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "314",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "315",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "316",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "317",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "318",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "319",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "320",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "321",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "322",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "323",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "324",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "325",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "326",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "327",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "328",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "329",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "330",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "331",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "332",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "333",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "334",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "335",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "336",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "337",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "338",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "339",
+      "kind": "fresh",
+      "scale": 1.25,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "340",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "341",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "342",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "343",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "344",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "345",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "346",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "347",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "348",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "349",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "350",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "351",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "352",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "353",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "354",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "355",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "356",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "357",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "358",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "359",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "360",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "361",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "362",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "363",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "364",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "365",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "366",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "367",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "368",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "369",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "370",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "371",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "372",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "373",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "374",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "375",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "376",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "377",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "378",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "379",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "380",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "381",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "382",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "383",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "384",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "385",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "386",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "387",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "388",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "389",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "390",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "391",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "392",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "393",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "394",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "395",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "396",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "397",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "398",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "399",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "400",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "401",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "402",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "403",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "404",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "405",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "406",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "407",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "408",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "409",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "410",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "411",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "412",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "413",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "414",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "415",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "416",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "417",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "418",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "419",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "420",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "421",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "422",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "423",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "424",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "425",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "426",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "427",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "428",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "429",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "430",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "431",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "432",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "433",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "434",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "435",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "436",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "437",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "438",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "439",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "440",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "441",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "442",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "443",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "444",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "445",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "446",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "447",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "448",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "449",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "450",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "451",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "452",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "453",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "454",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "455",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "456",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "457",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "458",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "459",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "460",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "461",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "462",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "463",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "464",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "465",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "466",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "467",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "468",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "469",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "470",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "471",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "472",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "473",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "474",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "475",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "476",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "477",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "478",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "479",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "480",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "481",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "482",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "483",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "484",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "485",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "486",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "487",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "488",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "489",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "490",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "491",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "492",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "493",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "494",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "495",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "496",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "497",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "498",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "499",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "500",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "501",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "502",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "503",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "504",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "505",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "506",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "507",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "508",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "509",
+      "kind": "fresh",
+      "scale": 1.5,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "510",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "511",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "512",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "513",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "514",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "515",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "516",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "517",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "518",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "519",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "520",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "521",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "522",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "523",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "524",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "525",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "526",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "527",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "528",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "529",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "530",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "531",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "532",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "533",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "534",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "535",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "536",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "537",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "538",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "539",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "540",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "541",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "542",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "543",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "544",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "545",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "546",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "547",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "548",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "549",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "550",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "551",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "552",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "553",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "554",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "555",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "556",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "557",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "558",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "559",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "560",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "561",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "562",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "563",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "564",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "565",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "566",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "567",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "568",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "569",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "570",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "571",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "572",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "573",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "574",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "575",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "missing exit record",
+        "nonzero process exit"
+      ],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "576",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "577",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "skipped",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "578",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "579",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "580",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "581",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "582",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "583",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "584",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "585",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "586",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "587",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "588",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "589",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "590",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "591",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "592",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "593",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "594",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "595",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "596",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "597",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "598",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "599",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "600",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "601",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "602",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "603",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "604",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "605",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "606",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "607",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "608",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "609",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "610",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "611",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "612",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "613",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "614",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "615",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "616",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "617",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "618",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "619",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "620",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "621",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "622",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "623",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "624",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "625",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "626",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "627",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "628",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "629",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "630",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "631",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "632",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "633",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "634",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "635",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "636",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "637",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "638",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "639",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "640",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "641",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "642",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "643",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "644",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "645",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "646",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "647",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "648",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "649",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "650",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "651",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "652",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "653",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "654",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "655",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "656",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "657",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "658",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "659",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "660",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "661",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "662",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "663",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "664",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "padded",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "665",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "666",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "mixed",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "667",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "wrapping",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "668",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "669",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "ligatures",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "670",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "combining",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "671",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "fallback",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "672",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "overhang",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "673",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "674",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "675",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "unicode-code",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "676",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "677",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "whole-lam-alef",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "678",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 1,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "679",
+      "kind": "fresh",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "document",
+      "cycle": 2,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-v2"
+    },
+    {
+      "id": "680",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "681",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "nonzero shutdown"
+      ],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "682",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "683",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "failed",
+      "errors": [
+        "nonzero shutdown"
+      ],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "684",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-distance-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "685",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "686",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-curve-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "687",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "6.12.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "688",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "skia-opengl",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    },
+    {
+      "id": "689",
+      "kind": "live",
+      "scale": 2,
+      "configuration": "skia-vulkan",
+      "fixture": "bidi-objects",
+      "cycle": 0,
+      "status": "passed",
+      "errors": [],
+      "evidenceRun": "scale-study-live-recovery"
+    }
+  ],
+  "counts": {
+    "passed": 552,
+    "failed": 122,
+    "skipped": 16
+  },
+  "graphicalLaunches": 685,
+  "launchCeiling": 691,
+  "fresh": {
+    "passed": 544,
+    "failed": 120,
+    "skipped": 16,
+    "launched": 664
+  },
+  "live": {
+    "passed": 8,
+    "failed": 2,
+    "launched": 10,
+    "checkpoints": 70,
+    "repeatedComparisons": 30
+  },
+  "historicalHarnessFailures": {
+    "originalAttempts": 1,
+    "interruptedLiveAttempts": 10
+  },
+  "automatedSecondsConservative": 1409.0773876100102,
+  "automatedSecondsCeiling": 14400,
+  "maxSampledProcessRSS": 395264000,
+  "historicalEvidenceUnchanged": true,
+  "restorationVerified": true,
+  "ownerVisual": "untested",
+  "comparability": "failed above 100%; live SDL sizing also differs from fresh below 200%",
+  "note": "Logical coverage uses complete fresh matrix and approved replacement live pass. All eleven superseded harness-failed attempts remain separately preserved; they are included in actual launch accounting."
+}

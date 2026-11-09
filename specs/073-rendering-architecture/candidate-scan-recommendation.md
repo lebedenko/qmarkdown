@@ -294,3 +294,30 @@ now specifies a private padded-only wrapper, baseline/unchanged/isolated compari
 contemporaneous self controls, a fixed proposed budget, analysis and stop rules.
 This is a reviewable design, not approved implementation or execution. Retention
 remains **not established**. No follow-up builds or measurements have run.
+
+## Prepared-state path isolation — 2026-11-09
+
+The separately approved 2,001-process experiment completed with **mixed diagnostic
+support**. All six contemporaneous controls resolved. Dense metadata's I−C interval
+is [-63191.75, -24420.0] ns/paragraph and its I−B interval is [-23239.0, -4792.75],
+meeting both diagnostic criteria. Prepared prose's I−C interval is
+[-700.3125, 921.578125], which includes zero; its residual I−B interval fits the
+diagnostic envelope but improvement is not established. This does not prove no
+effect. Historical measurements were neither pooled nor subtracted.
+
+**Stop this iteration. Retention remains not established.** The result authorizes
+no further samples, production integration or publication. See the
+[report](evidence/candidate-scan-prepared-isolation/report.md),
+[decision](evidence/candidate-scan-prepared-isolation/decision.json) and
+[actual verification](verification.md). Earlier recommendations and approvals
+remain historical records.
+
+Delivery is complete: zero-launch completed recovery and byte-identical reanalysis
+passed; 15 focused tests, repository Light checks (87 tests), documentation and
+whitespace checks passed. All 4,257 members in the
+[ten evidence archives](evidence/candidate-scan-prepared-isolation/archives.json)
+passed read-back. The full analysis (removed artifact: `evidence/candidate-scan-prepared-isolation/analysis.json.gz`)
+is available compressed. Frozen source bytes are authoritative for strict replay;
+the [delivery cleanup record](evidence/candidate-scan-prepared-isolation/source-cleanup.json)
+identifies a subsequent whitespace-only offline-test edit. No executable or
+measurement changed.

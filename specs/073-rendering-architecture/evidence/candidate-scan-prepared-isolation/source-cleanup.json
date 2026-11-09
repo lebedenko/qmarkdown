@@ -1,0 +1,8 @@
+{
+  "file": "specs/073-rendering-architecture/demonstrator/candidate-scan-prepared-isolation/test_isolation.py",
+  "frozenSha256": "2a3de11b6c4a78bbc942be68ed48f25dc13fde4eac9e9ba8a0b259a9be0de691",
+  "deliveredSha256": "51a7ee9ac87f950fc75750d88f488b51bfc8d088fad605ffc2dd854f76f7ded5",
+  "change": "Removed trailing spaces on two blank lines only; AST unchanged.",
+  "frozenArchiveMember": "tool/test_isolation.py",
+  "replay": "Strict frozen-input replay requires the archived test source at its original identity path. Completed replay and byte-identical reanalysis passed before this presentation-only cleanup. No executable or measurement changed."
+}

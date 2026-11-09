@@ -1,0 +1,200 @@
+{
+  "command": [
+    "wlr-randr",
+    "--json"
+  ],
+  "exit": 0,
+  "outputs": [
+    {
+      "name": "DP-1",
+      "description": "Samsung Electric Company U32J59x H4ZM900512 (DP-1)",
+      "make": "Samsung Electric Company",
+      "model": "U32J59x",
+      "serial": "H4ZM900512",
+      "physical_size": {
+        "width": 700,
+        "height": 390
+      },
+      "enabled": true,
+      "modes": [
+        {
+          "width": 3840,
+          "height": 2160,
+          "refresh": 59.997002,
+          "preferred": true,
+          "current": true
+        },
+        {
+          "width": 3840,
+          "height": 2160,
+          "refresh": 30,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 3840,
+          "height": 2160,
+          "refresh": 29.969999,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 2560,
+          "height": 1440,
+          "refresh": 59.951,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "refresh": 60,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1920,
+          "height": 1080,
+          "refresh": 59.938999,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1680,
+          "height": 1050,
+          "refresh": 59.953999,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1600,
+          "height": 900,
+          "refresh": 60,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1280,
+          "height": 1024,
+          "refresh": 75.025002,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1280,
+          "height": 1024,
+          "refresh": 60.02,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "refresh": 59.887001,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1280,
+          "height": 800,
+          "refresh": 59.810001,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1152,
+          "height": 864,
+          "refresh": 75,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1280,
+          "height": 720,
+          "refresh": 60,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "refresh": 75.028999,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "refresh": 70.069,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "refresh": 60.004002,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 800,
+          "height": 600,
+          "refresh": 75,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 800,
+          "height": 600,
+          "refresh": 72.188004,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 800,
+          "height": 600,
+          "refresh": 60.317001,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 800,
+          "height": 600,
+          "refresh": 56.25,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 640,
+          "height": 480,
+          "refresh": 75,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 640,
+          "height": 480,
+          "refresh": 72.808998,
+          "preferred": false,
+          "current": false
+        },
+        {
+          "width": 640,
+          "height": 480,
+          "refresh": 59.939999,
+          "preferred": false,
+          "current": false
+        }
+      ],
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "transform": "normal",
+      "scale": 1.25,
+      "adaptive_sync": false
+    }
+  ],
+  "verified": true,
+  "userConfirmed": true
+}

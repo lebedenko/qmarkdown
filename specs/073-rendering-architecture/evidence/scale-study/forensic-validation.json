@@ -1,0 +1,14 @@
+{
+  "attempt": "000",
+  "supervisorOutcome": "terminal failure",
+  "retrospectiveOutputAssociation": "DP-1 proven by xdg-output object binding and surface enter",
+  "sourceCopyMatches": true,
+  "inverseAndContainment": true,
+  "motionFrames": 60,
+  "replaysExact": true,
+  "scheduled": 690,
+  "launched": 1,
+  "failed": 1,
+  "untested": 689,
+  "retry": false
+}

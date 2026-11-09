@@ -1,0 +1,7 @@
+{
+  "specs/073-rendering-architecture/demonstrator/scale-contract/baseline/check.cpp": "61656dba6c6748b8aa75aa1976a23d16dda718fe91b5a50944fde64de5d9257e",
+  "specs/073-rendering-architecture/demonstrator/scale-contract/baseline/CMakeLists.txt": "56bbdc5624471b251ccaa3fa74ff3f03585ea709aa4025e881130fb0bfcd0de6",
+  "specs/073-rendering-architecture/demonstrator/scale-contract/baseline/layout.h": "eee87716c06a5dcc7a6fc12a8e2b613c696cb0b3f0e1b530742f9a646e836103",
+  "specs/073-rendering-architecture/demonstrator/scale-contract/baseline/native.cpp": "82066dd7853197f9ef770f8391b3e1cdafb23bfe670bc8eacbc9d3bbaf27e9ea",
+  "specs/073-rendering-architecture/demonstrator/scale-contract/baseline/qt.cpp": "e85d8b8b2ef77b6a433e4965bf2ac4c9984f4a1288a0e025cd75b4455c1756ab"
+}

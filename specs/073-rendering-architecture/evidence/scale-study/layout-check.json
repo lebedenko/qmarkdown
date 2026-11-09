@@ -1,0 +1,20 @@
+[
+  {
+    "role": "minimum",
+    "exit": 0,
+    "checks": 15,
+    "failures": []
+  },
+  {
+    "role": "development",
+    "exit": 0,
+    "checks": 15,
+    "failures": []
+  },
+  {
+    "role": "skia",
+    "exit": 0,
+    "checks": 15,
+    "failures": []
+  }
+]

@@ -1358,6 +1358,509 @@ observations. Runtime tests were not rerun for these prose-only changes. PI-T1 i
 complete; PI-T2–PI-T6 remain pending. Approval of this concrete protocol is required
 before implementation or execution. Retention remains **not established**.
 
+## Prepared-state path-isolation execution — 2026-11-09
+
+The supplied-plan implementation request approved PI1–PI6, design, PI-T2–PI-T6 and
+the unchanged 2,001-process budget. Source/tooling, build workspace, output and
+evidence use the new `candidate-scan-prepared-isolation` sibling names. No shipping
+source, public API, package version or historical evidence was changed.
+
+Preflight verified 7,030 historical identities and the refinement's 7,046 pinned
+identities, then froze 49,918 reused/new input identities. Historical archives were
+read back before builds. The unchanged B/C original drivers and B prepared driver
+were reused. Matched C/I prepared and I original drivers were built with two
+workers; only I's changed SkParagraph archive was rebuilt for timed use. Separate
+C/I diagnostic copies carry the scanner/fallback instrumentation. Driver flags
+match; no LTO or unrelated flag changes were introduced.
+
+The mechanical source audit confirms exact B false-wrapper body preservation,
+including repeated predicates, and C padded-algorithm preservation modulo the
+private helper and redundant outer predicate. ScanBound and other implementation
+files remain unchanged. Final disassembly confirms an entry predicate branches to
+a private out-of-line helper, with no candidate allocation/cleanup or numerical
+guard instructions in the false wrapper. Measured fixtures were explicitly checked
+against the actual predicate: prose has no spans; dense has spans with zero
+horizontal/vertical padding, and metadata mutation changes identity only.
+
+All six functional processes passed, including vertical-only padding and an
+injected late fallback through the actual extracted scanner. All 72 original
+correctness processes preserved archived geometry, glyph/source mappings,
+generation and cache expectations. All three prepared correctness processes
+preserved independent instances, geometry, cache sharing and mutation isolation.
+The complete 81-result gate passed before any timing process.
+
+Exactly **2,001 attempted and completed processes** were retained: six functional,
+75 correctness and 1,920 timing. The schedule used seed 73084, twelve configurations
+and forty balanced contiguous four-process groups each. No warm-up, retry,
+replacement, discarded observation or adaptive extension occurred. Execution used
+the existing lock and ordinary shared-workstation conditions. Per-process resource
+maxima were:
+
+| Stage | Processes | Maximum wall seconds | Maximum sampled RSS bytes |
+| --- | ---: | ---: | ---: |
+| Functional | 6 | 3.9847375440003816 | 25,976,832 |
+| Correctness | 75 | 4.9911766370000805 | 443,731,968 |
+| Timing | 1,920 | 0.5232672920001278 | 281,915,392 |
+
+All were below the 60-second and 4 GiB limits. Sampling does not establish
+unobserved RSS peaks. Parent telemetry and unavailable reasons are preserved.
+
+Analysis used the fixed normalized four-process differences and 10,000 whole-group
+bootstrap draws with seed 73085 reset per configuration. All six contemporaneous
+self-target intervals fit their exact historical diagnostic tolerances, with no
+target timer limitation. The outcome is **mixed diagnostic support**:
+
+| Target | I−C median ns/paragraph | I−C 95% interval | I−B median ns/paragraph | I−B 95% interval | Diagnostic support |
+| --- | ---: | --- | ---: | --- | --- |
+| Prepared prose reflow, 96 | 317.5078125 | [-700.3125, 921.578125] | 173.75520833333334 | [-743.6328125, 945.1171875] | No |
+| Original dense metadata | -48073.25 | [-63191.75, -24420.0] | -11001.5 | [-23239.0, -4792.75] | Yes |
+
+Both residual intervals fit their respective envelopes, but prose's I−C interval
+includes zero. This does not establish absence of an effect. Dense metadata meets
+both diagnostic criteria. Dense repeat cells remain timer-limited and descriptive;
+prose metadata nulls are retained in correctness observations. All thirty cells,
+raw/normalized observations, order/half summaries, ratios and resource evidence
+are preserved. No pooling, subtraction, equivalence or aggregate speedup is claimed.
+Code layout and dispatch also changed; no stack-only causal attribution follows.
+
+Fifteen focused offline tests passed under fatal launch sentinels before execution.
+An initial offline-test adaptation had two stale calibration-specific expectations;
+these were corrected before freezing. An initial audit-tool import name collision
+was likewise corrected before audit evaluation. Neither involved an experimental
+executable launch. The initial and passing test logs are retained. Completed-run
+recovery, byte-identical reanalysis and final delivery checks are recorded below
+when complete.
+
+Result: stop this iteration. **Retention remains not established.** No additional
+experiment, production integration, commit, push, merge or publication was performed.
+Evidence: [report](evidence/candidate-scan-prepared-isolation/report.md) and
+[decision](evidence/candidate-scan-prepared-isolation/decision.json).
+
+Delivery checks completed before archiving: full-run validation passed;
+completed-run resume launched zero executables and reproduced `analysis.json`,
+`decision.json` and `report.md` byte-for-byte. A second independent reanalysis was
+also byte-identical; deliberate archive/member corruption was rejected under fatal
+launch sentinels. `task check` passed documentation, syntax and all 87 repository
+Python tests. `git diff --check` passed. A supplementary scan found two
+whitespace-only lines in the frozen offline test; its exact executed bytes will be
+archived before presentation-only cleanup, with old/new hashes recorded alongside
+the final delivery checkpoint. No executable or measurement changes are involved.
+The complete 757 MiB analysis is retained inside the archive and as a compressed
+sidecar, whose decompressed bytes are verified against the original.
+
+Final delivery checkpoint: **4,257/4,257 member hashes** passed read-back across
+ten archives using the historical 64 MiB member grouping convention. All 4,256
+members of the first verified single archive remain byte-identical; the additional
+member is the multipart packaging tool. The first archive is preserved in the new
+build workspace. The compressed analysis sidecar's decompressed SHA-256 matches
+the original analysis. Historical input identities were revalidated unchanged.
+The archives include frozen context, attempted/completed journals, every raw output,
+binary bytes, source/diagnostic patches and copies, build/audit logs, dependencies
+or verified historical references, analyses and check logs. The specification
+snapshot precedes this final checkpoint and PI-T6 completion.
+
+After successful frozen-input recovery and archiving, only trailing spaces on two
+blank lines in the delivered offline test were removed; AST equality was verified.
+The exact frozen source remains in archive member `tool/test_isolation.py` and a
+new workspace copy. [Cleanup hashes](evidence/candidate-scan-prepared-isolation/source-cleanup.json)
+record both versions. Strict identity replay requires the archived source version;
+current runtime executables, measurements and frozen manifests were not altered.
+Final tracked and new-file whitespace checks passed. No additional experimental
+process was launched. PI-T2–PI-T6 are complete.
+
+Delivery: [archive manifest](evidence/candidate-scan-prepared-isolation/archives.json),
+compressed full analysis (removed artifact: `evidence/candidate-scan-prepared-isolation/analysis.json.gz`),
+[report](evidence/candidate-scan-prepared-isolation/report.md),
+[decision](evidence/candidate-scan-prepared-isolation/decision.json).
+
+## Architecture decision review — actual verification, 2026-11-09
+
+The owner's supplied-plan request approved AR1–AR4, design and AR-T1–AR-T4.
+Evidence cutoff and starting HEAD were `ba843e0`; the initial working tree was
+clean. This review changes only the specification index and Feature 073
+requirements, design, tasks, migration and this verification record.
+
+Reviewed the original requirements, audit/decision history, correctness and
+boundary support, scale/performance recovery, phase/ownership/runtime findings,
+scanner diagnosis and latest path-isolation report. Cross-checks read existing
+JSON rather than rerunning analyses:
+
+- Boundary support records 751 fixtures/775 blocks, 120 native passes, historical
+  drawable/window ratio 1, unavailable ratios 1.25/1.5/2 and no backend selection.
+- GL/Vulkan scale records agree on desktop 1.25, 800×600 buffer/window and
+  640×480 viewport. Historical “DPR 1” is reconciled as a ratio, not desktop scale
+  or equal Qt physical font sizing. Compositor sampling remains unknown.
+- Continuation summary has 176 cells: 162 pass, eight regression-fail and six
+  not-applicable, with retention false. The latest decision is complete with
+  mixed diagnostic support and retention false; report intervals preserve the
+  distinction between dense metadata and prepared prose.
+- Native summary contains 324 original processes (323 completed, one failed) plus
+  one separate completed post-reboot retry. Four completed original processes
+  have feedback gaps. The retry's 300 presented samples and p95 16.799 ms still
+  fail the 16.6675 ms refresh target. It neither erases the original failure nor
+  repeats the other four gaps. Vulkan GPU elapsed remains unavailable.
+- Read frozen archive member `tool/test_isolation.py` from multipart archive 010;
+  its SHA-256 matches both the archive file map and `source-cleanup.json`
+  (`2a3de11b6c4a78bbc942be68ed48f25dc13fde4eac9e9ba8a0b259a9be0de691`).
+  The delivered source hash also matches the cleanup record and parsed ASTs are
+  equal. This was a targeted source-provenance check, not a complete archive
+  revalidation. No frozen runner was imported or executed.
+
+Apparent contradictions were resolved by mechanism (reservation trial versus
+approved shaping boundaries), time (pending earlier visual review versus later
+limited owner acceptance), configuration (SDL ratio versus desktop scale) and
+cohort (original versus post-reboot). Genuine gaps remain blockers: minimum-Qt
+Vulkan shutdown, missing feedback, full tables/cross-block selection, comparable
+scale coverage and historical source unavailability. No new causal conclusion,
+quality tolerance, support relaxation or production qualification was adopted.
+
+Actual checks:
+
+- `python3 scripts/check-docs.py`: passed current 1.18.0 documentation and local
+  links. An additional read-only heading check resolved every fragment link in
+  the updated migration record and index.
+- `task check`: passed once, including documentation, configuration/evidence
+  syntax and all 87 Qt-independent Python tests. No runtime tests were added or
+  run; the test suite's publication messages are fixture output, not publication.
+- `git diff --check` and a changed-tracked/new-file trailing-whitespace and conflict
+  marker scan: passed. No new files were introduced.
+- Manual gate review: every R1–R8 has explicit status, tested configuration,
+  evidence and remaining limitation. The sole recommended milestone traces to
+  unmet R2/R5 comparable-scale prerequisites and retains R3/R6 invariants.
+
+The comparable-scale diagnostic-design milestone is **proposed and awaiting
+approval**. This review performed no builds, new measurements, historical runner
+execution, analysis regeneration, archive mutation, renderer changes, commit,
+push, merge or publication. No broader check was repeated merely to record its
+result; final verification-record edits received lightweight checks only.
+
+## Coordinated scale study preparation — 2026-11-09
+
+The supplied implementation plan approves SS1–SS5 and SS-T1–SS-T5. Exact Qt
+6.8.0/6.12.0 and pinned explicit-boundary Skia instrumented viewers build with two
+workers against retained libraries. Archived fixture/font/source checks and
+historical Qt library hashes pass. Forty-five offline fixture observer checks
+preserve checked geometry/shaping and pass coordinate, containment and source-copy
+assertions; fourteen supervisor tests pass. The 690-command schedule is frozen.
+
+[Evidence](evidence/scale-study/README.md) records original DP-1 scale 1.25 and the
+preparation identities. No graphical study processes have launched; first-scale
+coordination is pending. Fresh, transition and comparability results are untested.
+No production qualification, backend selection, commit or publication occurred.
+
+## Coordinated scale study terminal delivery — 2026-11-09
+
+The owner confirmed desktop scale 1; read-back verified DP-1 before launch. Exactly
+one graphical process ran: Qt 6.8.0, distance-field, OpenGL, document. It recorded
+exit 0, 60 motion frames, exact captured-pose/replay/reset comparisons, passing
+inverse-coordinate/object-containment checks and exact source in both selection
+directions. Ten captures and complete stdout/Wayland traces are retained.
+
+The frozen supervisor then raised `surface/output association missing or not DP-1`
+because its parser accepts only wl_output names. Actual Qt 6.8 protocol names the
+output through zxdg_output_v1. Offline read-back proves output identity using
+get_xdg_output binding, name and surface enter; this does not turn the terminal
+failed attempt into a pass. One cell is failed; 689 are untested. No retries,
+replacement samples, later scales or transition windows were launched. Process
+wall duration and sampled RSS were not persisted before the exception and remain
+unknown; the viewer's monotonic exit record is retained separately.
+
+The owner restored 1.25; wlr-randr read-back matches the complete original output
+configuration. Frozen-input identities, historical evidence and raw captures were
+verified; terminal resume rejects launch under a fatal process-launch sentinel.
+The original validator failure reproduces offline. Raw evidence and frozen
+sources/binaries/libraries/fonts have archive hashes and member read-back.
+The agent inspected the contact sheet; owner visual acceptance, comparability and
+transition qualification remain untested. See the [consolidated report](evidence/scale-study/README.md).
+
+Final repository Light/document/link and whitespace results are recorded below.
+
+Final checks: `python3 scripts/check.py` passed documentation/local links,
+configuration/evidence syntax and all 87 repository Python tests. Tracked diff and
+modified/new text-file whitespace checks pass. The check log (removed artifact: `evidence/scale-study/light-check.log`)
+and [whitespace result](evidence/scale-study/whitespace-check.json) are retained.
+No shipping files changed and no commit or publication occurred.
+
+## Corrected scale-study preparation — 2026-11-09
+
+Following explicit owner approval, a sibling supervisor fixes wl_output/xdg-output
+identity resolution and persists process facts before validation. Eighteen offline
+tests pass, including the entire retained first attempt, negative identity cases
+and failed-result/terminal-recovery recording. Original frozen inputs and evidence
+hashes are unchanged. Existing verified viewers/libraries are reused byte-for-byte.
+The corrected 690-process schedule is frozen; one historical attempt plus this
+study is bounded to 691 launches. Original output scale remains 1.25. The owner
+confirmed 100%, read-back passed, and fresh execution began. See the
+[corrected study](evidence/scale-study-v2/README.md) for actual set results.
+
+### Corrected study: 100% fresh set
+
+Completed and archived/read back: 136 passed, 30 Qt 6.8 Vulkan shutdown failures
+(signal 11), four dependent document recreations skipped, 166 launched processes.
+Every scheduled 100% cell is accounted for. Qt 6.8 OpenGL, Qt 6.12 all modes/APIs,
+and Skia both APIs pass. Capture hashes, frozen identities and journal results
+validate. Representative Qt/Skia document mappings at this desktop scale are 1:1.
+The contact sheet was inspected by the agent; no owner visual acceptance is inferred.
+See the [100% set](evidence/scale-study-v2/sets/100/set-validation.json).
+
+### Corrected study: 125% fresh set
+
+Owner handoff/read-back passed. All 170 cells are accounted for: 136 passes,
+30 Qt 6.8 Vulkan shutdown failures and four dependent recreations skipped;
+166 launches. Capture hashes, frozen identities and archived member read-back pass.
+All ten stationary document cases establish unequal nominal physical sizes:
+Qt 27.5 versus Skia 22 physical pixels for the nominal 22-unit font, with zoom 1.
+The viewport/window/buffer mappings have exact integer dimensions, so rounding
+cannot explain the difference. Comparability fails independently of the retained
+correctness passes. Contact sheet inspected by the agent, not owner acceptance.
+[Dimensional evidence](evidence/scale-study-v2/sets/125/physical-mappings.json)
+and [set results](evidence/scale-study-v2/sets/125/set-validation.json) are retained.
+
+### Corrected study: 150% fresh set
+
+Owner handoff/read-back passed. All 170 cells are accounted for: 136 passes,
+30 Qt 6.8 Vulkan shutdown failures (signal 11) and four dependent recreations
+skipped, from 166 launches. Frozen inputs, capture hashes and archive read-back
+validate. Qt 6.8 OpenGL, Qt 6.12 all configurations and Skia both APIs pass.
+All ten stationary document cases retain a physical-size mismatch: nominal font
+height 33 pixels in Qt versus 22 in Skia. SDL surface-width rounding accounts for
+0.5 physical pixel horizontally, not the exact 50% vertical size ratio. No renderer
+or font adjustment was made. Contact sheet inspected; no owner acceptance inferred.
+[Set results](evidence/scale-study-v2/sets/150/set-validation.json) and
+[dimensional evidence](evidence/scale-study-v2/sets/150/physical-mappings.json).
+
+### Corrected study: 200% fresh set and live startup
+
+Owner handoff/read-back passed. Final fresh set: 136 passed, 30 Qt 6.8 Vulkan
+shutdown failures and four dependent recreations skipped; 166 launches. All fresh
+cells across four scales are accounted for: 544 passed, 120 failed, 16 skipped.
+Frozen identities, capture hashes and archive read-back pass. At 200%, stationary
+document mappings in all ten configurations show nominal font height 44 physical
+pixels in Qt versus 22 in Skia, with no rounding ambiguity. Agent inspected the
+contact sheet. [Set evidence](evidence/scale-study-v2/sets/200/set-validation.json)
+and [mappings](evidence/scale-study-v2/sets/200/physical-mappings.json).
+
+Ten persistent bidi-objects windows launched once and reached live-0 at 200%.
+Their initial inverse-coordinate, object-containment and bidirectional-source
+checks pass. Windows remain alive awaiting live-1 at 150%; transitions and final
+shutdown results remain pending. The original restoration setting remains 125%.
+
+### Live handoff race, preservation and prepared repair
+
+At live-5 the reader saw the confirmation file before JSON serialization completed.
+The supervisor stopped and killed all ten windows. Fresh results are unchanged:
+544 passed, 120 Qt 6.8 Vulkan shutdown failures and 16 skipped recreations. Ten
+live attempts are failed due to harness interruption. Fifty checkpoints and ten
+exact repeated-125% states are retained; twenty final checkpoints are untested.
+Eight retained SDL checkpoint mappings differ in nominal physical size from fresh
+windows at the same desktop scale. Full output restoration to 125% is verified.
+Terminal evidence/archive read-back and the [checkpoint review](evidence/scale-study-v2/terminal/live-checkpoints.json)
+retain these distinctions. No graphical retry ran.
+
+The sibling atomic publisher passes eleven focused tests, including a deterministic
+reproduction of the old race, paused writers and concurrent publication. Final
+records are exposed only after serialization and file sync, with no overwrite.
+The [live-only continuation](evidence/scale-study-live-recovery/README.md) is frozen:
+ten proposed windows, 685 total launches including history, below the 691 ceiling.
+Prior frozen identities, terminal journals, capture hashes and restoration validate.
+The approval gate rejects execution under a fatal launch sentinel. Execution scope
+approval remains pending; the already completed fresh matrix is not scheduled again.
+
+## Completed coordinated scale study — 2026-11-09
+
+The owner approved the ten-window replacement pass. Atomic handoffs completed all
+seven checkpoints in all ten persistent windows. Seventy semantic/coordinate/
+containment checks pass; all thirty repeated-state comparisons match exactly.
+Eight processes shut down normally; Qt 6.8 Vulkan distance/curve exited with
+signal 11. Original DP-1 scale 125% is restored, with complete output read-back
+matching the original configuration. No windows were recreated during this pass.
+
+Consolidated logical schedule: **552 passed, 122 failed, 16 skipped** across 690
+cells. This uses the complete fresh matrix (544/120/16) and completed live pass
+(8/2/0). Eleven superseded harness-failed attempts remain separate diagnostics.
+Actual launches across all runs: **685**, below 691. Conservative automated time
+including historical failure reservations is 1409.077 seconds, below four hours;
+explicit human waits and builds are excluded. No performance inference is made.
+
+Ten lower-scale SDL live checkpoints have different inferred nominal physical
+sizes from fresh windows at the same settings. All traces retain their initial
+fractional preference. Fresh comparability fails above 100%; semantic repeatability
+does not close that gate. No owner visual acceptance, backend selection or
+production qualification is claimed. See the [consolidated report](scale-study-results.md).
+
+Frozen inputs, historical evidence, complete journal recovery and duplicate-launch
+rejection under a fatal sentinel validate. Seventy final live capture hashes and
+all archive members pass read-back. The agent inspected the raw-buffer contact
+sheet; it is not a compositor screenshot. Final Light checks are recorded below.
+
+Final Light verification: `python3 scripts/check.py` passes documentation/local
+links, evidence/configuration syntax and all **87 repository Python tests**.
+Final log (removed artifact: `evidence/scale-study-live-recovery/final-light-check.log`). Focused repair
+coverage remains eleven passing tests; sources did not change after that run.
+Tracked-diff and modified/new text whitespace checks pass. No shipping files,
+commits, merges or publication were changed or performed.
+
+## Scale-contract implementation — 2026-11-09, final execution pending
+
+Owner-approved scope: [protocol](scale-contract-protocol.md). Implemented isolated
+SDL3 3.4.18 integration and shared mapping, generation-tagged captures, exact-Qt
+instrumentation, toolkit probes, bounded diagnostic/final supervisors and separate
+physical/raster reporting. Shipping code and frozen historical inputs are unchanged.
+
+Actual verification: C++ coordinate checks pass; eight new Python checks pass;
+existing atomic-handoff and v2 runner tests pass. Exact Qt 6.8.0/6.12.0 and SDL3
+candidate builds pass with two workers. All fifteen offline fixture checks pass
+for each of the three builds (45 checks). Final implementation Light checks pass;
+tracked and new-file whitespace checks pass. Mapped minimal probes also build for
+both Qt versions and SDL2/SDL3.
+
+Ten diagnostic launches are preserved. d005 exposed a one-frame stale-scroll
+mapping in the initial adapter; the correction passed d006, then final OpenGL,
+Vulkan and Qt instrumentation smokes d008–d010 exited cleanly with original replay,
+reset and source assertions. A single mapped SDL3 probe received fractional-scale
+updates through 125 → 150 → 125% with matching buffer extents and unchanged process.
+This is diagnostic coverage, not completion of the four-scale matrix.
+
+The final candidate and 690-cell schedule are frozen at
+`build-ci/073-scale-contract-run`; no final cells have launched. The owner has been
+asked to set DP-1 to 100%; execution awaits that handoff. Original 125% was read
+back after the diagnostic reverse transition. All diagnostic windows are closed.
+Complete matrix, ten-window transitions, final contact sheets/archive read-back
+and final restoration remain pending. No commit, push or publication occurred.
+See [evidence](evidence/scale-contract/README.md).
+
+## Final 100% set — completed 2026-11-09
+
+Owner confirmed DP-1 at 100%; identity and scale were read back before execution
+and between cells. The frozen candidate was unchanged. All 170 scheduled cells
+are accounted for: 166 launches, **135 passes, 31 failures, four dependent skips**.
+Thirty failures are the known Qt 6.8 Vulkan signal-11 shutdowns with captures
+retained. Cell 014 (Qt 6.8 distance/OpenGL, whole-lam-alef) stopped during motion
+at frame 28 and hit the ten-second operation deadline; it retains its partial
+trace and stationary capture, with no retry or replacement. All independent
+cells continued. Both SDL3 Skia backends passed all fifteen fixtures and two
+recreations. All Qt 6.12 configurations passed.
+
+All **1,635 captured mapping observations** satisfy separate physical-mapping and
+raster-density assertions at 100%. This covers obtained captures, not the missing
+operations in cell 014. Frozen identity verification and completed capture-hash
+read-back pass. The 125%, 150%, 200% and persistent-window sets remain unexecuted;
+no all-scale comparability or transition gate is declared passed.
+
+All windows are closed. The owner has been asked to set 125% for the next set;
+latest verified scale after this set is 100%, so final restoration is not yet
+claimed. See [cell accounting](evidence/scale-contract/fresh-100-summary.json).
+
+## Final 125% set — completed 2026-11-09
+
+Owner confirmed the requested 125% handoff; DP-1 identity/scale read-back passed
+before and throughout execution. All 170 cells are accounted for: 166 launches,
+**136 passes, 30 failures, four dependent skips**. All failures are Qt 6.8 Vulkan
+signal-11 shutdowns; no operation deadlines occurred in this set. Both Qt 6.8
+OpenGL configurations, all Qt 6.12 configurations and both SDL3 Skia backends pass
+all fifteen fixtures and their two dependent document recreations.
+
+All **1,644 captured mapping observations** pass separate physical-mapping and
+raster-density assertions. Baseline Qt and SDL3 Skia records agree: 800 × 600
+logical/surface extent, 1000 × 750 buffer, 1.25 forward scale (nominal 22 units →
+27.5 buffer pixels). Frozen identities and completed capture hashes verify.
+[Cell accounting](evidence/scale-contract/fresh-125-summary.json).
+
+Cumulative final execution: 332 launches, 271 passes, 61 failures and eight skips.
+The 150%, 200% and ten-window transition pass remain pending. All windows are
+closed; latest verified scale is 125%, matching the original setting. The owner
+has been asked for 150% next; this is not final restoration or all-scale acceptance.
+
+## Final 150% set — completed 2026-11-09
+
+The owner confirmed 150%; DP-1 identity and scale were read back before execution
+and between cells. All 170 scheduled cells are accounted for: 166 launches,
+**136 passes, 30 failures, four dependent skips**. All failures are the known Qt
+6.8 Vulkan signal-11 shutdowns. Both Qt 6.8 OpenGL configurations, all Qt 6.12
+configurations and both SDL3 Skia backends pass their fixtures and recreations.
+No operation deadline occurred in this set.
+
+All **1,644 captured mapping observations** pass separate physical-size and
+raster-density assertions. Baseline Qt and SDL3 records agree on the 800 × 600
+logical surface, 1200 × 900 buffer and 1.5 forward scale (22 nominal units → 33
+buffer pixels). Frozen inputs and completed capture hashes verify.
+[Cell accounting](evidence/scale-contract/fresh-150-summary.json).
+
+Cumulative final execution: 498 launches, 407 passes, 91 failures and twelve
+skips. The 200% fresh set and ten persistent windows remain pending. All windows
+are closed; latest verified scale is 150%. The owner has been asked for 200% next.
+Final restoration to the recorded 125% setting remains a required delivery step.
+
+## Final 200% set and live start — 2026-11-09
+
+200% completed: 166 launches, **136 passes, 30 failures, four dependent skips**.
+All Qt 6.8 OpenGL, Qt 6.12 and SDL3 Skia configurations pass. Of the thirty Qt 6.8
+Vulkan failures, cell 562 (curve/padded) also hit an operation deadline during the
+selected capture, and cell 563 (curve/adjacent) failed motion replay before its
+signal-11 exit. The latter trace includes a Space key event (keycode 57), and
+scroll advances beyond the scripted steps; interactive motion contaminated that
+attempt. Neither cell was retried. The other 28 failures are shutdown-only.
+All 1,636 obtained mapping observations pass physical and density assertions.
+[Accounting](evidence/scale-contract/fresh-200-summary.json).
+
+Complete fresh matrix: **543 passes, 121 failures, sixteen dependent skips**, 664
+launches. All 6,559 obtained capture mappings pass physical-size and density
+assertions; incomplete capture sequences remain failures. Frozen inputs and
+capture hashes verify. No replacement cells were launched.
+
+Ten persistent windows started once at 200%. All initial checkpoints pass mapping,
+selection and containment checks, and all ten captures exactly match the fresh
+200% bidi-objects captures. [Initial audit](evidence/scale-contract/live-0-summary.json).
+
+At live-1 (150%), all ten retain scale 2 and 1600×1200 buffers. Physical sizing,
+inverse mapping, containment and exact copied-source checks pass, with unchanged
+window IDs, but **raster density and exact fresh-capture equivalence fail**.
+The raw Qt 6.8/6.12 and SDL3 traces show output logical-size updates to 2560×1440,
+yet only the initial preferred_scale(240), with no new fractional preference.
+This locates the missing notification at the protocol boundary in this run; it
+is not yet a complete minimal-reproduction attribution. Continue all obtainable
+checkpoints without replacing windows. [150% live audit](evidence/scale-contract/live-1-summary.json).
+
+The live supervisor remains active (exec session 97299), waiting for live-2 at
+125%. All ten windows must remain open. Original 125% restoration is still pending
+completion of the live sequence; no final acceptance is claimed.
+
+## Scale-contract bounded delivery — complete, acceptance blocked
+
+All four fresh sets and all seventy checkpoints in ten unchanged persistent
+windows have completed. All thirty repeated-scale comparisons pass. Final schedule:
+551 runner-assertion/exit passes, 123 failures, sixteen dependent skips (674
+launches). Eleven preserved diagnostics bring the total to **685/750 launches**.
+Recorded automated time is **1,278.612 seconds**, within four hours.
+
+Physical mapping assertions pass for all 6,629 obtained capture observations.
+Fresh raster-density assertions pass for all 6,559 observations; live density
+passes only twenty 200% checkpoints and fails fifty lower-scale checkpoints.
+Exactly twenty live captures match their same-scale fresh counterparts; fifty do
+not. All seventy inverse/source/containment checks pass in the same window IDs.
+Three fresh cells have incomplete/contaminated correctness coverage (014, 562,
+563). Lifecycle counts: 551 exit 0, 121 signal-11 exits, two deadline kills.
+No failure was retried or relabeled successful.
+
+Minimal SDL3-only diagnostic d011, starting at 200%, reproduces the missing
+fractional preference after 150% and 125% output updates. Its incoming Wayland
+trace retains preferred_scale(240); SDL queries retain density 2. The same probe
+started at 125% in d007 received both fractional updates correctly. This supports
+external compositor/protocol-path attribution on labwc/wlroots 0.20.2 with the
+recorded NVIDIA runtime, without asserting a particular source-code cause.
+No toolkit/compositor patch or rendering-scale override was introduced.
+
+Original DP-1 configuration restored to 125% and compared exactly with its initial
+record; all windows closed. Archive read-back verifies **9,599 members**, fourteen
+parts and the concatenated SHA-256. Raw traces/captures, source/runtime identities,
+failed attempts and contact sheets are preserved. The agent inspected fresh and
+live contact sheets; owner visual acceptance remains separate.
+
+[Final findings](scale-contract-results.md) record the external notification fix,
+authorized follow-up verification, minimum-Qt Vulkan lifecycle and three incomplete
+cells as remaining prerequisites. Architecture/backend selection and production
+qualification remain blocked. No commit, push or publication was performed.
+
 ## Repository storage safeguards — actual verification, 2026-11-09
 
 Base: refreshed `origin/main` at `a018b22`. The focused branch selectively ports
@@ -1383,3 +1886,16 @@ Hosted Full verification and protected squash merge are pending at this commit.
 Deleted SDKs were not rebuilt locally solely to duplicate hosted verification.
 Prior cleanup statistics are historical; this change performs no history rewrite,
 renderer experiment, external upload or release publication.
+
+## Research branch integration — 2026-11-09
+
+Merged `origin/main` at `e1dd3d2` into the published research branch without
+rewriting history. Conflict resolution preserves the completed research records,
+approvals and scale-contract baseline while retaining main's storage safeguards,
+including `.tgz` rejection and staged-snapshot regression coverage.
+
+Actual verification: `python3 scripts/check.py` passes all 94 Python tests,
+documentation/local links, configuration/evidence syntax and storage policy.
+`git diff --check` passes. No renderer code changed during conflict resolution;
+historical graphical studies were not rerun. Checkout disk usage is about 43 MiB;
+the check log is outside the repository in `/tmp`.

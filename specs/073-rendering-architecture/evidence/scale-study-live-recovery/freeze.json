@@ -1,0 +1,256 @@
+{
+  "build": "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final",
+  "identities": {
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/OneLineShaper.cpp": "9209b8b05ecc644abbf67caeafceb55499c30e9cac7e050bf12b5fffd12346ce",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/ParagraphImpl.cpp": "5c42382a6dab4aaed90ee4d81f0c6be5096a166ca11952b1c6c4cc34ef2a37ed",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/ParagraphImpl.h": "a19e8af0887caef14f8be3ca408826317cd26ccc5becb8c601e97dd0119f06b9",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/TextLine.cpp": "a39a9fe26074d6b8ca736653511478b8f59138ca3ba0929811f900c6a659c126",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/modules/skparagraph/src/TextWrapper.cpp": "1fd4b7e209f85368d47d90da8b0ca6201bbdfcfe6dd2bb112228e3bff49ac8f6",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/args.gn": "d4117ccea50b4246b2ef60eacf8bd65a2e4a29d8e8c5a419f77cd96bb16fc896",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/bin/gn": "8fa12442a4d0fc4d754e89ec732aa015cdaf8d4bcbbedf68468c652531ea482c",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskcms.a": "7ed5b468e8c241f51b7295c73fae509a84c60f1b4b48843118a07a4c29b53834",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskia.a": "3fbc2e92896f392501aa933886bb19ddab5d4cf0911060adc2d208527cba2e40",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskparagraph.a": "bfd9456de5c86e593e4c306e66720febc7bd1a49a24e5ff34c51e608ddaf535c",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskshaper.a": "d05918b1d5dfe011ff08230ba05e75e14d1e9e6a8cabd833a08220252b4e988b",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskunicode_core.a": "7e50bb2518edce70ab1304e9d398c73046ca60b13005a121ae366ee962882259",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-phase-workspace-v3/headline/out/comparison/libskunicode_icu.a": "e03834c7df63a0c27173fe02fd51677deeb3319186c788963b44e521bda61ede",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-prepared/src/QMarkdown/private/formattedtext.h": "220e3679609d9606fcac7e3ee6c2bb29dc323ecd39a86d1120e3bcd84526f1ac",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-correctness-prepared/src/QMarkdown/private/formattedtext.cpp": "3c4eff632ba83f707ec4144abc99796637b4b61fbd4f59832c6ceeb33595fcea",
+    "/usr/share/fonts/TTF/DejaVuSans.ttf": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c",
+    "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf": "b5d64817b6331723b5e59eaaa6db90057cbed58e9733f65687f110638192359f",
+    "/usr/share/fonts/TTF/DejaVuSans-Oblique.ttf": "cf41fd01245e40e783ce3eae0bba5c38927a2497889dde1266d8757b9c84de1a",
+    "/usr/share/fonts/TTF/DejaVuSansMono.ttf": "b5babc084554ebdd142fe099d8b7c573ff161738bca913723d3e84f5c3df1c78",
+    "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc": "b76b0433203017ca80401b2ee0dd69350349871c4b19d504c34dbdd80541690a",
+    "/usr/share/fonts/noto/NotoColorEmoji.ttf": "15671215ab769fdc7162a045d56fd7d7e477c51b04e6b3c761d914d8fdd6cc44",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json": "aa4384ec7e368dc18512a7af67dfaa0eb279cf491c1efde9f6b9a22e3b5ebcbd",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source/qt.cpp": "e85d8b8b2ef77b6a433e4965bf2ac4c9984f4a1288a0e025cd75b4455c1756ab",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source/native.cpp": "82066dd7853197f9ef770f8391b3e1cdafb23bfe670bc8eacbc9d3bbaf27e9ea",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source/layout.h": "eee87716c06a5dcc7a6fc12a8e2b613c696cb0b3f0e1b530742f9a646e836103",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source/CMakeLists.txt": "56bbdc5624471b251ccaa3fa74ff3f03585ea709aa4025e881130fb0bfcd0de6",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/minimum/qt-compare": "9f74bfbeec181cc16cb05fb607eff30d3497c56fdeb5ba71a33430fcbceb9aaa",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/development/qt-compare": "7e4cd01f31fe5afcf783b48e5052f1eb26909d702a999f12253352f733ad0781",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/skia/skia-compare": "cf38cb7fdab30f8fe7685da30998e15c1cfbe8a8f369567da86f1632e017ce43",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/source/check.cpp": "61656dba6c6748b8aa75aa1976a23d16dda718fe91b5a50944fde64de5d9257e",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/layout-check.json": "39962414d2cacd426a24721ae7828be715d6a7e027904a31d5f360182617d791",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/preflight.json": "39189a47f4f2625187c2c869b7faf9d2a1d86f9adbe19c6456e340734b333b1c",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-v2/study.py": "544e9bf08a8ce9119fe1defe96a7d1ca02a5eea52233650aeb84c6ab3636331b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-v2/report.py": "807a7eb1bd2a104ef3ea55ecd2222fdb9557d1b5df650c02027e322c6fe6cdd4",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-v2/test_study.py": "28dee94a7dfc31c3f1831e9eedab17476b4866ed6fe4fa8874e86ee09f07d5ca",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-v2/README.md": "4b30703ab02c97eba34733c5f7261538e59f8c7e764e94380c9152b182fd3c78",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-live-recovery/handoff.py": "d353b65b84b71a2ef90e8302b27549131851ea223d804c4ae89e95655104d9c2",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-live-recovery/run.py": "a9f815d30b31473a50e97dd545e4dd16ea7ac5883fded3ef1409d529a1295bd3",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-live-recovery/test_handoff.py": "41868ff60f0e1ff718ea9790aaa28c74957b407e3f8d3179d5268f76d783eb3b",
+    "/home/andrii/Projects/pet/qmarkdown/specs/073-rendering-architecture/demonstrator/scale-study-live-recovery/README.md": "b1e3ea5874fa871dc338f067c350e8ac36a49e9f1d9adb4ee9340f8da1d86c6a",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-v2-run/attempts.jsonl": "578c6f1596915a67307a211f2ba6e64e17318424939a7a94a739aa9723a1dd1e",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-v2-run/restoration.json": "9a48911009340c72fde7c8dfcab2e9012bd302b978c20b94cbca1d5c9b8fe43c"
+  },
+  "scheduleHash": "81166a42043d90addbfaa155bce2b0be08582c54d34912047c852cf253c1b2c4",
+  "original": {
+    "name": "DP-1",
+    "description": "Samsung Electric Company U32J59x H4ZM900512 (DP-1)",
+    "make": "Samsung Electric Company",
+    "model": "U32J59x",
+    "serial": "H4ZM900512",
+    "physical_size": {
+      "width": 700,
+      "height": 390
+    },
+    "enabled": true,
+    "modes": [
+      {
+        "width": 3840,
+        "height": 2160,
+        "refresh": 59.997002,
+        "preferred": true,
+        "current": true
+      },
+      {
+        "width": 3840,
+        "height": 2160,
+        "refresh": 30.0,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 3840,
+        "height": 2160,
+        "refresh": 29.969999,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 2560,
+        "height": 1440,
+        "refresh": 59.951,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "refresh": 60.0,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1920,
+        "height": 1080,
+        "refresh": 59.938999,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1680,
+        "height": 1050,
+        "refresh": 59.953999,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1600,
+        "height": 900,
+        "refresh": 60.0,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1280,
+        "height": 1024,
+        "refresh": 75.025002,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1280,
+        "height": 1024,
+        "refresh": 60.02,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1440,
+        "height": 900,
+        "refresh": 59.887001,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1280,
+        "height": 800,
+        "refresh": 59.810001,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1152,
+        "height": 864,
+        "refresh": 75.0,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "refresh": 60.0,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "refresh": 75.028999,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "refresh": 70.069,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 1024,
+        "height": 768,
+        "refresh": 60.004002,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 800,
+        "height": 600,
+        "refresh": 75.0,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 800,
+        "height": 600,
+        "refresh": 72.188004,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 800,
+        "height": 600,
+        "refresh": 60.317001,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 800,
+        "height": 600,
+        "refresh": 56.25,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 640,
+        "height": 480,
+        "refresh": 75.0,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 640,
+        "height": 480,
+        "refresh": 72.808998,
+        "preferred": false,
+        "current": false
+      },
+      {
+        "width": 640,
+        "height": 480,
+        "refresh": 59.939999,
+        "preferred": false,
+        "current": false
+      }
+    ],
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "transform": "normal",
+    "scale": 1.25,
+    "adaptive_sync": false
+  },
+  "maxLaunches": 10,
+  "priorLaunches": 675,
+  "totalProposedLaunches": 685,
+  "totalAuthorizedCeiling": 691,
+  "priorAutomatedSeconds": 1382.2918517900089,
+  "automatedSeconds": 14400,
+  "transitions": [
+    2,
+    1.5,
+    1.25,
+    1,
+    1.25,
+    1.5,
+    2
+  ],
+  "priorStudy": "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-v2-run",
+  "approvalAtPreparation": "pending"
+}

@@ -790,6 +790,121 @@ PI1–PI6 requirements, source/build design and PI-T1–PI-T6 tasks, with a prop
 authorized. Implementation/build/execution approval is pending; no next-experiment
 sample has been collected. Retention remains **not established**.
 
+## Prepared-state path-isolation implementation approval — 2026-11-09
+
+The owner's supplied-plan implementation request approves PI1–PI6, the design,
+PI-T2–PI-T6 and the fixed 2,001-process budget in the
+[path-isolation protocol](prepared-path-isolation-proposal.md). Historical approvals
+and evidence remain intact. Execution is conditional on every preflight gate;
+failed or ambiguous attempts are terminal. Evidence delivery is authorized;
+commits, push, merge, publication and production integration are excluded.
+Retention remains **not established**.
+
+## Architecture decision review — approved 2026-11-09
+
+Use `ba843e0` as the frozen evidence cutoff. Put the current decision first in
+[migration.md](migration.md#current-decision--evidence-through-ba843e0), followed by
+the preserved historical record with its superseded status labelled. Map R1–R8
+to explicit subgate statuses, configuration, evidence and remaining limitations.
+Resolve apparent conflicts by date/mechanism/scale; preserve genuine blockers.
+Read machine-readable summaries and archived frozen sources when identity matters;
+do not execute historical runners or regenerate analyses. Compare public Qt
+composition, patched Skia and continued shipping-renderer use. Propose one bounded
+diagnostic-design milestone targeting comparable-scale prerequisites; approval
+for this review does not approve that milestone or any executable protocol.
+
+## Coordinated four-scale study — approved 2026-11-09
+
+The supplied-plan implementation request approves SS1–SS5, the design and
+SS-T1–SS-T5 in the [study protocol](scale-study-protocol.md), including the fixed
+690-process ceiling. This supersedes the proposed design-only milestone; all
+historical approvals and evidence remain unchanged.
+
+## Corrected complete scale study — approved 2026-11-09
+
+The owner's “Well, let's proceed” approves correcting the harness and running a
+new complete study, following the explicit proposal of 691 total graphical launches:
+one preserved failed attempt plus a fresh 690-process schedule. This supersedes the
+suggested untouched-cell continuation. The original terminal run and frozen sources
+remain immutable. Renderer/platform failures retain the existing independent-cell
+and dependent-recreation rules; no additional adaptive samples are authorized.
+
+Requirements: SS1–SS5 remain unchanged except the explicit replacement study budget.
+Design: use a sibling `scale-study-v2` supervisor with both wl_output names and
+xdg-output object bindings; reject conflicts, missing bindings and wrong outputs.
+Persist exit, elapsed time, sampled peak RSS and capture hashes before validation;
+record a failed result and journal completion even if validation raises. Reuse the
+byte-identical verified viewers/libraries; no renderer or instrumentation rebuild.
+Reserve the original failed attempt's 120 seconds conservatively against the same
+four-hour automated budget, excluding build time and human waits.
+
+Tasks: test the actual retained trace and negative identity cases; test failure
+recording and terminal recovery; verify original evidence and reused binary hashes;
+freeze a separately identified full schedule; coordinate all four scales and live
+transitions, validate/archive results and restore the original scale. No commits,
+publication, performance qualification or backend selection are authorized.
+
+## Atomic live handoff repair and bounded continuation proposal — 2026-11-09
+
+The v2 live supervisor stopped at live-5 when it observed a confirmation file
+between creation and JSON write. All fresh sets and live-0 through live-4 remain
+immutable. The owner restored 125%; read-back matched the original output.
+Fixing the harness within the approved study is authorized; replacing terminated
+windows is a separate, concrete execution amendment pending owner approval.
+
+Repair requirements/design: write a sibling temporary file, serialize/flush/fsync
+it, atomically publish using a no-overwrite hard link on the same filesystem, sync
+the directory, and remove the temporary name. Final filenames are never exposed
+with partial content; duplicates must fail without changing existing evidence.
+Test the original race, a deliberately paused writer, concurrent publishers,
+serialization/fsync/link failures and duplicate rejection without graphical runs.
+Reuse the frozen v2 supervisor and byte-identical viewers via an isolated wrapper;
+change only publication and the recovery schedule/budget enforcement.
+
+Proposed execution: ten new persistent bidi-objects windows, initial desktop 2,
+then 1.5 → 1.25 → 1 → 1.25 → 1.5 → 2, with the original checks/limits. No fresh
+matrix rerun. Prior actual launches are 675 (one original, 664 v2 fresh, ten v2
+live); the proposal totals 685, within the ceiling of 691. This explicitly replaces
+ten live attempts; unused fresh recreation slots do not silently grant approval.
+Conservatively reserve 120 seconds for each historical harness failure alongside
+completed fresh automated time within the unchanged four-hour budget.
+
+Tasks: preserve/validate terminal evidence and restoration; implement/test atomic
+publication; prepare/hash a ten-cell continuation with no-launch preflight; obtain
+explicit approval of that replacement scope; execute once, restore 125%, archive
+and reconcile complete versus failed/untested coverage. No publication or commit.
+
+Owner approval (2026-11-09): **“Proceed with ten replacement windows”** explicitly
+approves the prepared live-only continuation above, its atomic handoff repair and
+ten-cell frozen schedule. No fresh-window rerun; total actual launches after this
+continuation are bounded to 685 within the existing ceiling of 691. All other
+checks, exclusions and restoration requirements remain unchanged.
+
+## Correct scale mapping — approved 2026-11-09
+
+The isolated SDL3 adapter and coordinate contract are approved; no shipping API changes.
+The owner explicitly requested implementation of the supplied plan. See the
+[approved protocol](scale-contract-protocol.md). Historical approvals remain intact.
+
+Scale-contract architecture disposition: the direct SDL3 candidate demonstrates
+correct 125% nominal mapping and receives live 125 → 150 → 125% updates in a
+mapped minimal probe. This removes the observed SDL2-compatible integration issue
+in that diagnostic coverage. Architecture selection remains blocked on the frozen
+complete matrix and ten persistent-window pass; Qt 6.8 Vulkan lifecycle remains
+an independent known prerequisite. No production or performance conclusion.
+
+## Scale-contract final architecture disposition — 2026-11-09
+
+The isolated direct-SDL3 integration corrects fresh nominal physical mapping at
+all four scales. It is not accepted as a fully comparable live renderer: fifty
+lower-scale live checkpoints retain initial density 2. A minimal SDL3-only probe
+started at 200% reproduces missing incoming fractional-scale preferences on the
+recorded labwc/wlroots runtime. Do not compensate with requested desktop scale or
+replace windows. The prerequisite is an external notification correction followed
+by authorized live verification, with Qt 6.8 Vulkan lifecycle and three incomplete
+fresh cells separately unresolved. No backend selection or shipping migration.
+See [final decision evidence](scale-contract-results.md).
+
 ## Repository storage safeguards — approved 2026-11-09
 
 The owner's supplied-plan request approves this bounded design and SG1–SG4.

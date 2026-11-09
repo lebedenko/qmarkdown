@@ -1,0 +1,10 @@
+{
+  "sha256": "fc943936748effaec9cdf23f69446cd865eb1a36f5a03bce674a0ea968860ffc",
+  "members": {
+    "handoff.py": "d353b65b84b71a2ef90e8302b27549131851ea223d804c4ae89e95655104d9c2",
+    "run.py": "a9f815d30b31473a50e97dd545e4dd16ea7ac5883fded3ef1409d529a1295bd3",
+    "test_handoff.py": "41868ff60f0e1ff718ea9790aaa28c74957b407e3f8d3179d5268f76d783eb3b",
+    "README.md": "b1e3ea5874fa871dc338f067c350e8ac36a49e9f1d9adb4ee9340f8da1d86c6a"
+  },
+  "readBack": true
+}

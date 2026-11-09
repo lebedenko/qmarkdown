@@ -1,0 +1,13 @@
+{
+  "archives": {
+    "native.tar.gz": "2f41b7488a19f820bd3c4e43af3e650dcd6e92dedd983d8cd185c80d37e2f2c7",
+    "geometry.tar.gz": "495096145be6c1648c95f8e5f53a5eba16df30366be1078889ddf379cebbb2a5"
+  },
+  "fixtureArchiveReadBack": true,
+  "historicalFonts": true,
+  "originalLayoutBodies": {
+    "qt.cpp": "original preparation/layout/paint region retained verbatim",
+    "native.cpp": "original preparation/layout/paint region retained verbatim"
+  },
+  "publicAPIChanges": false
+}
