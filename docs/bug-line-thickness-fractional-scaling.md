@@ -1,5 +1,8 @@
 # Inconsistent table-border and separator thickness at fractional scaling and scroll offsets
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 **Type:** Rendering bug / request for consistent device-pixel alignment\
 **Affected version:** QMarkdown 1.18.0\
 **Observed in:** md-viewer and an independent public-API QMarkdown probe\
@@ -216,8 +219,8 @@ No application or provider source files were changed. No native GPU/compositor a
 The original investigation artifacts are preserved in [../specs/071-pixel-aligned-lines/evidence/](../specs/071-pixel-aligned-lines/evidence/):
 
 - [QML probe](../specs/071-pixel-aligned-lines/evidence/mdv-lines-probe.qml) and [C++ capture host](../specs/071-pixel-aligned-lines/evidence/mdv-lines-probe.cpp).
-- [Original md-viewer screenshot](../specs/071-pixel-aligned-lines/evidence/codex-clipboard-61fwEA.png).
-- Representative 125% captures: [offset 0](../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.25-0-0.png), [offset 0.5](../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.25-0-0.5.png), [pixel-aligned offset 0.5](../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.25-1-0.5.png).
-- Representative 150% captures: [offset 0](../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.5-0-0.png), [offset 0.5](../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.5-0-0.5.png), [pixel-aligned offset 0.5](../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.5-1-0.5.png).
+- Original md-viewer screenshot (removed artifact: `../specs/071-pixel-aligned-lines/evidence/codex-clipboard-61fwEA.png`).
+- Representative 125% captures: offset 0 (removed artifact: `../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.25-0-0.png`), offset 0.5 (removed artifact: `../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.25-0-0.5.png`), pixel-aligned offset 0.5 (removed artifact: `../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.25-1-0.5.png`).
+- Representative 150% captures: offset 0 (removed artifact: `../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.5-0-0.png`), offset 0.5 (removed artifact: `../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.5-0-0.5.png`), pixel-aligned offset 0.5 (removed artifact: `../specs/071-pixel-aligned-lines/evidence/mdv-lines-1.5-1-0.5.png`).
 
 The repository keeps the probe sources, the original screenshot and the representative captures above. The full set of 30 captures and the environment-specific probe executable stay with the original report outside the repository. Capture filenames encode `DPR-pixelAligned-scrollOffset`; `0`/`1` denotes disabled/enabled pixel alignment. The C++ host retains its original absolute `/tmp` input/output paths; restore the QML probe there or adjust those paths before rerunning it.

@@ -1,5 +1,8 @@
 # Smoothing-off retained motion qualification
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 Diagnostic revision approved by the owner's supplied implementation plan on
 2026-11-04. No shipping source, public API, dependency or package changed. Earlier
 stationary diagnostics and captures remain intact. This record distinguishes
@@ -59,8 +62,8 @@ Qt 6.12.0 candidate at the same phase. No tolerance was substituted for equality
 
 The left half is the candidate paragraph; the right half is the independently
 retained nearest image. Captures are unmodified application framebuffer grabs:
-[Qt 6.12.0 failure](evidence/motion/qt-6.12.0-vulkan-nearest-failure.png) and
-[Qt 6.8.0 failure](evidence/motion/qt-6.8.0-vulkan-nearest-failure.png), with
+Qt 6.12.0 failure (removed artifact: `evidence/motion/qt-6.12.0-vulkan-nearest-failure.png`) and
+Qt 6.8.0 failure (removed artifact: `evidence/motion/qt-6.8.0-vulkan-nearest-failure.png`), with
 [6.12.0 metadata](evidence/motion/qt-6.12.0-vulkan-nearest-failure.json) and
 [6.8.0 metadata](evidence/motion/qt-6.8.0-vulkan-nearest-failure.json).
 The 6.12.0 image differs in 87 pixels between halves, maximum channel difference
@@ -118,7 +121,7 @@ that was actually recorded showed a geometry or font-file mismatch.
 
 The unchanged software baseline also failed its **linear image proxy** equality
 at DPR 1.25/1.5. This is a control-parity gap, not evidence of a newly introduced
-baseline regression. See the [representative capture](evidence/motion/qt-6.12.0-software-1.25-baseline-control-failure.png)
+baseline regression. See the representative capture (removed artifact: `evidence/motion/qt-6.12.0-software-1.25-baseline-control-failure.png`)
 and [metadata](evidence/motion/qt-6.12.0-software-1.25-baseline-control-failure.json).
 
 Five alternating Release pairs ran per Qt target on software DPR 1.25 and native
@@ -152,8 +155,8 @@ the same viewport, preserving content position. It repeats the code/combined and
 retained-scroll fixtures; click the header to switch, drag slowly, reverse and
 release to inspect settling. Labels remain outside the document.
 
-[Baseline resting capture](evidence/motion/qt-6.12.0-opengl-baseline-halfphase.png) and
-[candidate resting capture](evidence/motion/qt-6.12.0-opengl-candidate-halfphase.png)
+Baseline resting capture (removed artifact: `evidence/motion/qt-6.12.0-opengl-baseline-halfphase.png`) and
+candidate resting capture (removed artifact: `evidence/motion/qt-6.12.0-opengl-candidate-halfphase.png`)
 show the same combined fixture/half-pixel Y phase. These are framebuffer captures;
 they do not establish perceptual acceptance or post-compositor display quality.
 

@@ -1,5 +1,8 @@
 # Corrected complete scale study
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 **Fresh matrix complete; live pass terminated by a confirmation-file race.**
 Original scale 125% is restored and verified. Its approved replacement live pass
 is now complete: see the [consolidated report](../../scale-study-results.md).
@@ -25,8 +28,8 @@ The failed initial document attempts make their two later recreations ineligible
 Both Qt 6.8 OpenGL modes, all four Qt 6.12 configurations and both Skia APIs pass.
 
 [Cell summary](sets/100/summary.json), [set validation](sets/100/set-validation.json),
-[raw archive](sets/100/study.tar.gz), [archive hashes/read-back](sets/100/archive.json),
-[member hashes](sets/100/members.json), and [document contact sheet](sets/100/document-contact-sheet.png).
+raw archive (removed artifact: `sets/100/study.tar.gz`), [archive hashes/read-back](sets/100/archive.json),
+[member hashes](sets/100/members.json), and document contact sheet (removed artifact: `sets/100/document-contact-sheet.png`).
 Capture hashes and frozen inputs pass validation. Agent inspected the contact
 sheet; this is not owner acceptance. Sampled metrics and process exits are retained
 for every launched attempt, including Vulkan failures.
@@ -53,10 +56,10 @@ This finding blocks equal-size cross-engine visual/performance comparisons, whil
 the independent correctness results remain useful.
 
 [Summary](sets/125/summary.json), [set validation](sets/125/set-validation.json),
-[raw archive](sets/125/study.tar.gz), [archive read-back](sets/125/archive.json),
+raw archive (removed artifact: `sets/125/study.tar.gz`), [archive read-back](sets/125/archive.json),
 [physical mappings](sets/125/physical-mappings.json),
 [read-only review script](sets/125/review_mappings.py), and
-[contact sheet at a common pixel scale](sets/125/document-contact-sheet.png).
+contact sheet at a common pixel scale (removed artifact: `sets/125/document-contact-sheet.png`).
 The agent inspected the contact sheet; no owner visual acceptance is inferred.
 Surface IDs are linked to their viewports. SDL explicitly unsets viewport source
 cropping with (-1,-1,-1,-1); the analysis retains these requests and treats them
@@ -83,10 +86,10 @@ rounding difference. The vertical dimensions are exact; the 50% size ratio canno
 be explained by rounding. Rendering/font behavior remains unchanged.
 
 [Summary](sets/150/summary.json), [set validation](sets/150/set-validation.json),
-[raw archive](sets/150/study.tar.gz), [archive read-back](sets/150/archive.json),
+raw archive (removed artifact: `sets/150/study.tar.gz`), [archive read-back](sets/150/archive.json),
 [physical mappings](sets/150/physical-mappings.json),
 [review script](sets/150/review_mappings.py), and
-[contact sheet at a common pixel scale](sets/150/document-contact-sheet.png).
+contact sheet at a common pixel scale (removed artifact: `sets/150/document-contact-sheet.png`).
 The agent inspected the contact sheet; owner visual acceptance is untested.
 At this checkpoint the 200% set and live transitions were pending; subsequent results follow.
 
@@ -104,10 +107,10 @@ Skia: 400 × 300 surface, 800 × 600 buffer. Desktop scale 2, document zoom 1;
 all dimensions are exact integers. Equal-physical-size comparability fails.
 
 [Summary](sets/200/summary.json), [set validation](sets/200/set-validation.json),
-[raw archive](sets/200/study.tar.gz), [archive read-back](sets/200/archive.json),
+raw archive (removed artifact: `sets/200/study.tar.gz`), [archive read-back](sets/200/archive.json),
 [physical mappings](sets/200/physical-mappings.json),
 [review script](sets/200/review_mappings.py), and
-[common-pixel-scale contact sheet](sets/200/document-contact-sheet.png).
+common-pixel-scale contact sheet (removed artifact: `sets/200/document-contact-sheet.png`).
 The agent inspected the contact sheet; owner visual acceptance remains untested.
 
 All ten persistent bidi-objects windows started at 200% and reached checkpoint
@@ -146,13 +149,13 @@ remains that of the initial 200% state. This is a measured mapping/lifecycle gap
 no compositor sampling or renderer-specific cause is claimed.
 
 The owner restored 125%, and the complete output read-back matches the original.
-[Terminal archive](terminal/study.tar.gz) and [read-back](terminal/archive.json)
+Terminal archive (removed artifact: `terminal/study.tar.gz`) and [read-back](terminal/archive.json)
 preserve all attempts and restoration. The [live-only repair proposal](../scale-study-live-recovery/README.md)
 contains the tested atomic publisher and a frozen ten-window schedule. It subsequently received explicit replacement-scope approval and completed;
 original failed attempts remain unchanged. See the consolidated report above.
 
 The exact executed v2 supervisor sources are preserved in
-[frozen-supervisor.tar.gz](frozen-supervisor.tar.gz), with
+frozen-supervisor.tar.gz (removed artifact: `frozen-supervisor.tar.gz`), with
 [hashes and member read-back](frozen-supervisor-archive.json). The unchanged
 viewers, libraries and fonts are preserved in the original study's frozen-input
 archive. The completed replacement pass and final findings are summarized in the

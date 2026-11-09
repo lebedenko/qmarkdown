@@ -1,5 +1,8 @@
 # Four-scale study evidence
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 **Terminal harness failure after one graphical process; 689 scheduled cells remain
 untested.** DP-1's original **1.25** scale was restored by the owner and verified
 against the complete original output configuration. No retry or replacement ran.
@@ -22,9 +25,9 @@ failure. The original terminal journal and validator are preserved unchanged.
 | Visual review | Agent inspected the retained contact sheet; owner acceptance untested. |
 | Restoration | Passed: full output configuration matches the original read-back. |
 
-[Complete 690-cell summary](results/summary.json), [raw evidence archive](results/study.tar.gz),
+[Complete 690-cell summary](results/summary.json), raw evidence archive (removed artifact: `results/study.tar.gz`),
 [archive read-back](results/archive.json), [member hashes](results/members.json),
-[forensic checks](forensic-validation.json), [contact sheet](contact-sheet.png),
+[forensic checks](forensic-validation.json), contact sheet (removed artifact: `contact-sheet.png`),
 [restoration](restoration.json), [delivery validation](delivery-validation.json),
 and [frozen source/binary/library/font archive identities](frozen-inputs.json)
 retain the failed attempt without relabelling it a pass. The raw archive includes
@@ -62,5 +65,5 @@ Historical evidence is unchanged. Final check results are recorded in the
 [verification record](../../verification.md#coordinated-scale-study-terminal-delivery--2026-11-09).
 
 Final Light checks pass: documentation/local links, evidence/configuration syntax
-and 87 repository Python tests. [Log](light-check.log); [whitespace](whitespace-check.json).
+and 87 repository Python tests. Log (removed artifact: `light-check.log`); [whitespace](whitespace-check.json).
 [Artifact hashes](artifacts.json) cover the delivered evidence files.

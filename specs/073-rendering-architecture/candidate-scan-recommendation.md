@@ -1,5 +1,8 @@
 # Candidate-scan cutoff recommendation
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 Status: **runtime study terminated; retention is not established**.
 The owner approved the supplied runtime plan on 2026-11-06.
 
@@ -313,7 +316,7 @@ Delivery is complete: zero-launch completed recovery and byte-identical reanalys
 passed; 15 focused tests, repository Light checks (87 tests), documentation and
 whitespace checks passed. All 4,257 members in the
 [ten evidence archives](evidence/candidate-scan-prepared-isolation/archives.json)
-passed read-back. The [full analysis](evidence/candidate-scan-prepared-isolation/analysis.json.gz)
+passed read-back. The full analysis (removed artifact: `evidence/candidate-scan-prepared-isolation/analysis.json.gz`)
 is available compressed. Frozen source bytes are authoritative for strict replay;
 the [delivery cleanup record](evidence/candidate-scan-prepared-isolation/source-cleanup.json)
 identifies a subsequent whitespace-only offline-test edit. No executable or

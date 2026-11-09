@@ -1,15 +1,18 @@
 # Scale-contract evidence — complete bounded execution
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 **Fresh physical sizing is corrected; live raster-density acceptance is blocked
 by a minimal SDL3 reproduction of missing fractional-scale notifications.**
 [Consolidated findings and prerequisite](../../scale-contract-results.md).
 DP-1's original 125% configuration is restored and verified; all windows are closed.
 
-- [Final cell/gate results](final-results.json): 690 accounted cells, 674 final
+- Final cell/gate results (removed artifact: `final-results.json`): 690 accounted cells, 674 final
   launches, sixteen dependent skips. Runner assertions/exit: 551 passed, 123 failed.
   These statuses do not override fifty failed live density/fresh-equivalence checks.
 - [Restoration](restoration.json): exact original output configuration read-back.
-- [Archives and SHA-256 manifest](archives.json): fourteen sequential 32 MiB parts
+- Archives and SHA-256 manifest (removed artifact: `archives.json`): fourteen sequential 32 MiB parts
   (last shorter); all 9,599 members and concatenated parts verified by read-back.
   Concatenate `scale-contract-part-001.tar.gz` through `scale-contract-part-014.tar.gz`
   in numeric order to recover the gzip tar archive. The archive contains raw traces,
@@ -17,10 +20,10 @@ DP-1's original 125% configuration is restored and verified; all windows are clo
   candidate/probe binaries, source variants and runtime/build records.
 - [Runtime inventory](runtime-inventory.json) and
   [compositor/library identities](compositor-identities.json).
-- [Layout checks](layout-check.json), [Light log](light.log),
-  [atomic-handoff tests](handoff-tests.log), [runner tests](runner-tests.log).
-- [Fresh 200% contact sheet](contact-sheets/fresh-2.png) and
-  [live 150% contact sheet](contact-sheets/live-1.png). The directory contains all
+- [Layout checks](layout-check.json), Light log (removed artifact: `light.log`),
+  atomic-handoff tests (removed artifact: `handoff-tests.log`), runner tests (removed artifact: `runner-tests.log`).
+- Fresh 200% contact sheet (removed artifact: `contact-sheets/fresh-2.png`) and
+  live 150% contact sheet (removed artifact: `contact-sheets/live-1.png`). The directory contains all
   four fresh scales and seven live checkpoints; these are raw-buffer thumbnails,
   not compositor screenshots or owner visual acceptance.
 

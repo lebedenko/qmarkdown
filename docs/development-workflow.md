@@ -8,6 +8,14 @@ Follow the cycle in [AGENTS.md](../AGENTS.md): requirements → design → tasks
 
 Integration, evidence recording, and publication are delivery tasks within the meaningful change. Do not automatically create separate numbered initiatives for them. Publication still requires authorization for that action; including it in delivery guidance does not grant authorization.
 
+## Generated data and repository size
+
+Follow [artifact storage](artifact-storage.md): retain source and concise text
+results in Git; keep raw captures, logs, binaries and archives outside it. Do not
+split archives to bypass file-size limits. `task check` rejects generated artifacts
+and files larger than 1 MiB. Remove obsolete local build copies at delivery.
+Historical evidence retention instructions do not override this storage policy.
+
 ## Changes and review
 
 Use one PR per meaningful change and squash merge by default. Keep implementation, tests, documentation, and verification together so reviewers can assess behavior and evidence in the same change. Prefer small, reviewable changes and preserve existing conventions.

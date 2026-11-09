@@ -39,3 +39,12 @@ ctest --test-dir build-ci/073-scale-contract/probes --output-on-failure
 ```
 
 Evidence and actual coverage: [record](../../evidence/scale-contract/README.md).
+
+## Source retention after cleanup
+
+The five files in `baseline/` are the exact source inputs previously copied from
+an ignored scale-study build tree. `frozen-inputs.json` verifies their unchanged
+bytes at repository-owned paths. Source generation and mapping tests work without
+old builds or raw archives. Full graphical builds still require rebuilding the
+pinned Qt/Skia dependencies described by the historical preparation scripts.
+Removed raw traces/captures are not available for historical revalidation.

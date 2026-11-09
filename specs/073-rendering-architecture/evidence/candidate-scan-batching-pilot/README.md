@@ -1,5 +1,8 @@
 # Fixed prepared-state batching pilot evidence
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 The owner's supplied-plan request approved this isolated harness and one fixed
 297-process pilot on 2026-11-08. All 297 processes completed validly: nine correctness
 and 288 timing, with no smoke runs, warm-ups, retries or replacements. No renderer
@@ -16,7 +19,7 @@ No threshold or budget was changed after observing results.
   differences, signs, MAD/ranges, order/half summaries and matched-round telemetry.
 - [Selection](selection.json): deterministic completed/no-selection result.
 - [Archive manifest](archives.json): SHA-256 for the archive and every member.
-- [Read-back log](archive-verification.log): 631 members verified and historical
+- Read-back log (removed artifact: `archive-verification.log`): 631 members verified and historical
   pinned identities revalidated after packaging.
 
 The archive contains the new source, build and check logs, source/compiler/binary/

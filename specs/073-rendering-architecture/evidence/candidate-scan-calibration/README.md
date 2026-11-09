@@ -1,5 +1,8 @@
 # Candidate-scan calibration evidence
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 Outcome: **unresolved calibration; retention not established**.
 All 82 scheduled processes completed. Prose reflow exceeds its reference envelope;
 dense metadata fits. Neither target is timer-limited. A separately approved
@@ -9,7 +12,7 @@ measurement-design revision is recommended before path isolation or qualificatio
 - [Machine-readable summary](summary.json): intervals, descriptive statistics,
   timer limitations, order/early-late summaries, duration and RSS.
 - [Archive index](archives.json): SHA-256 for the archive and all 4,589 members.
-- [Complete archive](073-candidate-calibration.tar.gz): raw operation observations,
+- Complete archive (removed artifact: `073-candidate-calibration.tar.gz`): raw operation observations,
   sources, fixtures, historical references, environment fingerprints, exact commands,
   authoritative schedule, durable attempt/completion journals and check logs.
 - [Reproduction tool](../../demonstrator/candidate-scan-calibration/README.md).

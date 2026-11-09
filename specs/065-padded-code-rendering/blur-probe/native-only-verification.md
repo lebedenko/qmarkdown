@@ -1,5 +1,8 @@
 # Native-only smoothing diagnostic qualification
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 The owner approved the supplied plan on 2026-11-04 (N1–N5 in feature 065).
 **Qualification is rejected at the Qt 6.8.0 software performance gate.** No
 production correction, merge or publication is recommended or performed.
@@ -180,7 +183,7 @@ being opened.
 The owner reports scroll-position-dependent artifacts in **CANDIDATE image proxy**
 on both Qt 6.8.0/6.12.0, both OpenGL/Vulkan, and pixelAligned off/on. The
 **BASELINE source** looks correct in every reported combination. The supplied
-[annotated screenshot](evidence/native-only/owner-proxy-artifacts.png) shows Qt
+annotated screenshot (removed artifact: `evidence/native-only/owner-proxy-artifacts.png`) shows Qt
 6.12.0 OpenGL DPR 1.25 with pixelAligned true. The other combinations are owner
 observations; separate captures were not supplied.
 

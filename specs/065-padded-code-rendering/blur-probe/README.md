@@ -1,5 +1,8 @@
 # Inline-code paragraph blur investigation
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 The sections through Delivery verification record the original stationary study.
 The retained motion qualification revision follows that historical evidence.
 
@@ -52,8 +55,8 @@ body text; DejaVu Sans Mono additionally for inline code. No font fallback famil
 was observed. Bold, italic and link-only fixtures use a scene-graph surface;
 inline code and combined fixtures use one raster surface for the whole paragraph.
 Full per-capture physical surface positions, smoothing state, fonts, height and
-metrics are in [software records](evidence/software/results.jsonl) and
-[Wayland records](evidence/wayland/results.jsonl). PNGs with matching capture names
+metrics are in software records (removed artifact: `evidence/software/results.jsonl`) and
+Wayland records (removed artifact: `evidence/wayland/results.jsonl`). PNGs with matching capture names
 are stored beside each record file. These are application framebuffer grabs,
 not photographs or post-compositor display captures.
 
@@ -85,7 +88,7 @@ similar edge contrast, but do not claim exact pixel equality. The unchanged
 retained raster has integer local coordinates on a common DPR grid; ancestor
 placement reintroduces fractional physical texture translation.
 
-[Enlarged native comparison](evidence/comparison.png) shows the plain, retained,
+Enlarged native comparison (removed artifact: `evidence/comparison.png`) shows the plain, retained,
 smoothing-off and aligned regular-text regions at scroll .5. Visual inspection
 confirms broader grey edges in the retained control. Original full-resolution
 captures remain authoritative; the comparison uses nearest-neighbour enlargement.

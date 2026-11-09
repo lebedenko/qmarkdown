@@ -17,7 +17,7 @@ def generate(destination):
     for name,digest in pins.items():
         if hashlib.sha256((ROOT/name).read_bytes()).hexdigest()!=digest:
             raise ValueError('frozen source changed: '+name)
-    source=ROOT/'build-ci/073-scale-study-final/source'
+    source=HERE/'baseline'
     destination.mkdir(parents=True,exist_ok=False)
     for p in source.iterdir():
         if p.is_file():shutil.copyfile(p,destination/p.name)

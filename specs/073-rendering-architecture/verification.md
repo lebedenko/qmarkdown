@@ -1,5 +1,8 @@
 # Actual verification — 2026-11-05
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 **Partial evaluation; no architecture selected.** This work establishes the
 coordinate audit and a narrow public Qt adapter blocker. It does not complete
 the owner's requested Skia comparison, authoritative Markdown demonstrator or
@@ -33,7 +36,7 @@ qualified. QSG logging produced empty stderr in these runs, so no device details
 are inferred from it. The separate [hardware record](evidence/hardware.txt) records
 the system GPU; it is not proof of the render device chosen by each process.
 
-The [bounded debugger reproduction](evidence/minimum-vulkan-backtrace.log) stops
+The bounded debugger reproduction (removed artifact: `evidence/minimum-vulkan-backtrace.log`) stops
 on SIGSEGV in `QSGRenderThread`, inside NVIDIA's `libnvidia-glcore.so.615.78.08`,
 called through the minimum SDK's QtGui/QtQuick libraries. This locates the crash;
 it does not establish driver versus Qt versus harness root cause. It occurs
@@ -108,10 +111,10 @@ Readable summaries:
 [Archive inventory](evidence/continuation/archives.json) contains hashes/sizes for
 retained archives with every capture, pre/post identity record and raw log.
 Representative actual-source captures:
-[Qt distance document](evidence/continuation/qt-distance-document.png),
-[Qt curve fractional pose](evidence/continuation/qt-curve-fractional-pose.png),
-[Skia GL](evidence/continuation/skia-opengl-document.png),
-[Skia Vulkan](evidence/continuation/skia-vulkan-document.png).
+Qt distance document (removed artifact: `evidence/continuation/qt-distance-document.png`),
+Qt curve fractional pose (removed artifact: `evidence/continuation/qt-curve-fractional-pose.png`),
+Skia GL (removed artifact: `evidence/continuation/skia-opengl-document.png`),
+Skia Vulkan (removed artifact: `evidence/continuation/skia-vulkan-document.png`).
 These were visually inspected for visible text, padding, objects and block layout.
 Owner inspection and temporal quality acceptance remain pending.
 
@@ -140,7 +143,7 @@ SDL-resolved GL functions replace the incompatible native loader; library ABI
 defines are imported into the helper build; explicit fonts use the asset manager;
 the Wayland client supplies an initial extent; the present queue is initialized
 before failed-swapchain cleanup; and sRGB VkFormat maps to Skia's sRGB color type.
-The retained [initialization backtrace](evidence/continuation/skia-initialization-backtrace.log)
+The retained initialization backtrace (removed artifact: `evidence/continuation/skia-initialization-backtrace.log`)
 and before-fix archives document these changes. A driver frame alone was not used
 to assign fault.
 
@@ -151,15 +154,15 @@ window. Both Qt SDKs pass full-source geometry and object edge/source-copy check
 One formatted-selection check fails on both: the narrow bidi/object fixture's
 reported code edges copy “ode” instead of “code”. That fixture is **unsupported
 for Qt code-edge selection**; no shipping fix is implied.
-See [development geometry](evidence/continuation/qt-selection-development.jsonl)
-and [minimum geometry](evidence/continuation/qt-selection-minimum.jsonl).
+See development geometry (removed artifact: `evidence/continuation/qt-selection-development.jsonl`)
+and minimum geometry (removed artifact: `evidence/continuation/qt-selection-minimum.jsonl`).
 
 Skia passes source-map monotonicity, formatted-range edge checks and object
 edge/source-copy checks, including reversed visual edges in bidi. See
-[Skia geometry](evidence/continuation/skia-selection.jsonl).
+Skia geometry (removed artifact: `evidence/continuation/skia-selection.jsonl`).
 Inserted reservations still do not implement padding on every wrapped code
 fragment. The wrapping and narrow bidi/object fixtures are **unsupported for
-per-line padding**; retain [this capture](evidence/continuation/skia-wrapping-unsupported.png).
+per-line padding**; retain this capture (removed artifact: `evidence/continuation/skia-wrapping-unsupported.png`).
 Other reservation cases remain unqualified, rather than silently making code
 atomic or substituting Qt layout.
 
@@ -222,7 +225,7 @@ time-based, so mailbox throughput does not determine movement speed.
 These rendered-step samples are not compositor presentation feedback.
 
 See [motion summary](evidence/continuation/motion.json) and
-[full motion evidence](evidence/continuation/motion.tar.gz). This opt-in extension
+full motion evidence (removed artifact: `evidence/continuation/motion.tar.gz`). This opt-in extension
 does not retroactively relabel the earlier static/pose matrix as motion evidence.
 
 Final lightweight verification passed: repository documentation/configuration
@@ -273,8 +276,8 @@ require exact copied source and nonempty selection geometry. The native verifier
 also rejects selected captures identical to the unselected reset capture.
 The interrupted run is explicitly **not accepted**; its
 [record](evidence/correctness/interrupted-native.json),
-[before image](evidence/correctness/qt-before-reverse-selection.png),
-[after image](evidence/correctness/qt-after-reverse-selection.png) and
+before image (removed artifact: `evidence/correctness/qt-before-reverse-selection.png`),
+after image (removed artifact: `evidence/correctness/qt-after-reverse-selection.png`) and
 [source snapshot](evidence/correctness/qt-before-ordered-selection.cpp) remain.
 
 The dense geometry scan covers 751 fixture/width combinations per SDK: integer
@@ -286,7 +289,7 @@ and 6.12.0 pass 944 formatted-range checks, 1,888 directional copy checks and
 prepared cells, raw cursor affinities and hit-test results. Actual commands,
 binaries, staged libraries, patch, manifests and font identities are in the
 [geometry summary](evidence/correctness/geometry-lines.json) and
-[full geometry archive](evidence/correctness/geometry-lines.tar.gz).
+full geometry archive (removed artifact: `evidence/correctness/geometry-lines.tar.gz`).
 
 ### Skia reservation trial
 
@@ -334,9 +337,9 @@ NVIDIA library frames; this does not by itself establish driver fault.
 No diagnostic variant qualifies as a harness workaround.
 
 See the [lifecycle summary](evidence/correctness/lifecycle-native.json) and
-[full callbacks/backtraces](evidence/correctness/lifecycle-native.tar.gz).
+full callbacks/backtraces (removed artifact: `evidence/correctness/lifecycle-native.tar.gz`).
 The initial sandbox attempt could not connect to Wayland and is retained
-separately as [environment-denied evidence](evidence/correctness/lifecycle-sandbox-denied.tar.gz);
+separately as environment-denied evidence (removed artifact: `evidence/correctness/lifecycle-sandbox-denied.tar.gz`);
 it is not counted as a backend test. Native runs used authorized GPU access.
 
 
@@ -359,11 +362,11 @@ reservation layout runs as a diagnostic control despite failed geometry; the
 rejected trial is never enabled in GPU runs. Total supervised process time is
 approximately 24.1 minutes, not a performance-qualification measurement.
 
-See [native summary](evidence/correctness/native.json),
-[full captures and input identities](evidence/correctness/native.tar.gz), and
+See native summary (removed artifact: `evidence/correctness/native.json`),
+full captures and input identities (removed artifact: `evidence/correctness/native.tar.gz`), and
 [current viewer binary identities](evidence/correctness/current-binaries.json).
-The representative [before](evidence/correctness/qt-before-bidi-cursor.png) and
-[after](evidence/correctness/qt-after-bidi-cursor.png) stills show the `c` included
+The representative before (removed artifact: `evidence/correctness/qt-before-bidi-cursor.png`) and
+after (removed artifact: `evidence/correctness/qt-after-bidi-cursor.png`) stills show the `c` included
 in the corrected code background. Automated replay and inspection of these stills
 do not establish owner temporal visual acceptance.
 
@@ -371,7 +374,7 @@ A final test-only refinement groups Skia fragments by authoritative line bounds
 and visual adjacency, rather than font-dependent ink centers. It preserves
 separate bidi fragments and avoids splitting one line solely because of fallback
 font metrics. The earlier checker evidence remains in
-[its archive](evidence/correctness/geometry-final.tar.gz). The final scan retains
+its archive (removed artifact: `evidence/correctness/geometry-final.tar.gz`). The final scan retains
 1,785 original-layout padding failures versus 1,414 trial padding failures, plus
 60 object-containment failures in each. All exact directional source checks pass;
 no cycles/non-convergence are observed. The final geometry executables return 0
@@ -387,8 +390,8 @@ remains the dependency/provenance reference. No Qt SDK or system driver changed.
 Supervisor tests pass (9 tests); repository lightweight checks pass (87 tests,
 document links and configuration/evidence syntax); tracked and new-text whitespace
 checks pass. These are standalone experiment checks, not shipping/runtime or
-performance qualification. See [supervisor log](evidence/correctness/supervisor-tests.log)
-and [repository check log](evidence/correctness/repository-check.log).
+performance qualification. See supervisor log (removed artifact: `evidence/correctness/supervisor-tests.log`)
+and repository check log (removed artifact: `evidence/correctness/repository-check.log`).
 Owner visual acceptance, merge and publication remain separate gates.
 
 Evidence packaging preserves all 15,267 native files. Identical files are stored
@@ -461,7 +464,7 @@ a corrected padded vertical reservation.
 
 [Build identities and commands](evidence/fragment-experiment/build.json),
 [regression summary/input-output hashes](evidence/fragment-experiment/summary.json),
-[historical object trace](evidence/fragment-experiment/historical-objects.jsonl),
+historical object trace (removed artifact: `evidence/fragment-experiment/historical-objects.jsonl`),
 and [support status](evidence/fragment-experiment/support.json) retain the results.
 The [offline review launcher](demonstrator/fragment-experiment/README.md) displays
 CPU images of unchanged joined shaping and separately shaped counterfactuals;
@@ -1466,7 +1469,7 @@ Final tracked and new-file whitespace checks passed. No additional experimental
 process was launched. PI-T2–PI-T6 are complete.
 
 Delivery: [archive manifest](evidence/candidate-scan-prepared-isolation/archives.json),
-[compressed full analysis](evidence/candidate-scan-prepared-isolation/analysis.json.gz),
+compressed full analysis (removed artifact: `evidence/candidate-scan-prepared-isolation/analysis.json.gz`),
 [report](evidence/candidate-scan-prepared-isolation/report.md),
 [decision](evidence/candidate-scan-prepared-isolation/decision.json).
 
@@ -1574,7 +1577,7 @@ Final repository Light/document/link and whitespace results are recorded below.
 
 Final checks: `python3 scripts/check.py` passed documentation/local links,
 configuration/evidence syntax and all 87 repository Python tests. Tracked diff and
-modified/new text-file whitespace checks pass. The [check log](evidence/scale-study/light-check.log)
+modified/new text-file whitespace checks pass. The check log (removed artifact: `evidence/scale-study/light-check.log`)
 and [whitespace result](evidence/scale-study/whitespace-check.json) are retained.
 No shipping files changed and no commit or publication occurred.
 
@@ -1692,7 +1695,7 @@ sheet; it is not a compositor screenshot. Final Light checks are recorded below.
 
 Final Light verification: `python3 scripts/check.py` passes documentation/local
 links, evidence/configuration syntax and all **87 repository Python tests**.
-[Final log](evidence/scale-study-live-recovery/final-light-check.log). Focused repair
+Final log (removed artifact: `evidence/scale-study-live-recovery/final-light-check.log`). Focused repair
 coverage remains eleven passing tests; sources did not change after that run.
 Tracked-diff and modified/new text whitespace checks pass. No shipping files,
 commits, merges or publication were changed or performed.
