@@ -1354,3 +1354,118 @@ processes) = 2,001 proposed executable processes. These are planned counts, not
 observations. Runtime tests were not rerun for these prose-only changes. PI-T1 is
 complete; PI-T2–PI-T6 remain pending. Approval of this concrete protocol is required
 before implementation or execution. Retention remains **not established**.
+
+## Prepared-state path-isolation execution — 2026-11-09
+
+The supplied-plan implementation request approved PI1–PI6, design, PI-T2–PI-T6 and
+the unchanged 2,001-process budget. Source/tooling, build workspace, output and
+evidence use the new `candidate-scan-prepared-isolation` sibling names. No shipping
+source, public API, package version or historical evidence was changed.
+
+Preflight verified 7,030 historical identities and the refinement's 7,046 pinned
+identities, then froze 49,918 reused/new input identities. Historical archives were
+read back before builds. The unchanged B/C original drivers and B prepared driver
+were reused. Matched C/I prepared and I original drivers were built with two
+workers; only I's changed SkParagraph archive was rebuilt for timed use. Separate
+C/I diagnostic copies carry the scanner/fallback instrumentation. Driver flags
+match; no LTO or unrelated flag changes were introduced.
+
+The mechanical source audit confirms exact B false-wrapper body preservation,
+including repeated predicates, and C padded-algorithm preservation modulo the
+private helper and redundant outer predicate. ScanBound and other implementation
+files remain unchanged. Final disassembly confirms an entry predicate branches to
+a private out-of-line helper, with no candidate allocation/cleanup or numerical
+guard instructions in the false wrapper. Measured fixtures were explicitly checked
+against the actual predicate: prose has no spans; dense has spans with zero
+horizontal/vertical padding, and metadata mutation changes identity only.
+
+All six functional processes passed, including vertical-only padding and an
+injected late fallback through the actual extracted scanner. All 72 original
+correctness processes preserved archived geometry, glyph/source mappings,
+generation and cache expectations. All three prepared correctness processes
+preserved independent instances, geometry, cache sharing and mutation isolation.
+The complete 81-result gate passed before any timing process.
+
+Exactly **2,001 attempted and completed processes** were retained: six functional,
+75 correctness and 1,920 timing. The schedule used seed 73084, twelve configurations
+and forty balanced contiguous four-process groups each. No warm-up, retry,
+replacement, discarded observation or adaptive extension occurred. Execution used
+the existing lock and ordinary shared-workstation conditions. Per-process resource
+maxima were:
+
+| Stage | Processes | Maximum wall seconds | Maximum sampled RSS bytes |
+| --- | ---: | ---: | ---: |
+| Functional | 6 | 3.9847375440003816 | 25,976,832 |
+| Correctness | 75 | 4.9911766370000805 | 443,731,968 |
+| Timing | 1,920 | 0.5232672920001278 | 281,915,392 |
+
+All were below the 60-second and 4 GiB limits. Sampling does not establish
+unobserved RSS peaks. Parent telemetry and unavailable reasons are preserved.
+
+Analysis used the fixed normalized four-process differences and 10,000 whole-group
+bootstrap draws with seed 73085 reset per configuration. All six contemporaneous
+self-target intervals fit their exact historical diagnostic tolerances, with no
+target timer limitation. The outcome is **mixed diagnostic support**:
+
+| Target | I−C median ns/paragraph | I−C 95% interval | I−B median ns/paragraph | I−B 95% interval | Diagnostic support |
+| --- | ---: | --- | ---: | --- | --- |
+| Prepared prose reflow, 96 | 317.5078125 | [-700.3125, 921.578125] | 173.75520833333334 | [-743.6328125, 945.1171875] | No |
+| Original dense metadata | -48073.25 | [-63191.75, -24420.0] | -11001.5 | [-23239.0, -4792.75] | Yes |
+
+Both residual intervals fit their respective envelopes, but prose's I−C interval
+includes zero. This does not establish absence of an effect. Dense metadata meets
+both diagnostic criteria. Dense repeat cells remain timer-limited and descriptive;
+prose metadata nulls are retained in correctness observations. All thirty cells,
+raw/normalized observations, order/half summaries, ratios and resource evidence
+are preserved. No pooling, subtraction, equivalence or aggregate speedup is claimed.
+Code layout and dispatch also changed; no stack-only causal attribution follows.
+
+Fifteen focused offline tests passed under fatal launch sentinels before execution.
+An initial offline-test adaptation had two stale calibration-specific expectations;
+these were corrected before freezing. An initial audit-tool import name collision
+was likewise corrected before audit evaluation. Neither involved an experimental
+executable launch. The initial and passing test logs are retained. Completed-run
+recovery, byte-identical reanalysis and final delivery checks are recorded below
+when complete.
+
+Result: stop this iteration. **Retention remains not established.** No additional
+experiment, production integration, commit, push, merge or publication was performed.
+Evidence: [report](evidence/candidate-scan-prepared-isolation/report.md) and
+[decision](evidence/candidate-scan-prepared-isolation/decision.json).
+
+Delivery checks completed before archiving: full-run validation passed;
+completed-run resume launched zero executables and reproduced `analysis.json`,
+`decision.json` and `report.md` byte-for-byte. A second independent reanalysis was
+also byte-identical; deliberate archive/member corruption was rejected under fatal
+launch sentinels. `task check` passed documentation, syntax and all 87 repository
+Python tests. `git diff --check` passed. A supplementary scan found two
+whitespace-only lines in the frozen offline test; its exact executed bytes will be
+archived before presentation-only cleanup, with old/new hashes recorded alongside
+the final delivery checkpoint. No executable or measurement changes are involved.
+The complete 757 MiB analysis is retained inside the archive and as a compressed
+sidecar, whose decompressed bytes are verified against the original.
+
+Final delivery checkpoint: **4,257/4,257 member hashes** passed read-back across
+ten archives using the historical 64 MiB member grouping convention. All 4,256
+members of the first verified single archive remain byte-identical; the additional
+member is the multipart packaging tool. The first archive is preserved in the new
+build workspace. The compressed analysis sidecar's decompressed SHA-256 matches
+the original analysis. Historical input identities were revalidated unchanged.
+The archives include frozen context, attempted/completed journals, every raw output,
+binary bytes, source/diagnostic patches and copies, build/audit logs, dependencies
+or verified historical references, analyses and check logs. The specification
+snapshot precedes this final checkpoint and PI-T6 completion.
+
+After successful frozen-input recovery and archiving, only trailing spaces on two
+blank lines in the delivered offline test were removed; AST equality was verified.
+The exact frozen source remains in archive member `tool/test_isolation.py` and a
+new workspace copy. [Cleanup hashes](evidence/candidate-scan-prepared-isolation/source-cleanup.json)
+record both versions. Strict identity replay requires the archived source version;
+current runtime executables, measurements and frozen manifests were not altered.
+Final tracked and new-file whitespace checks passed. No additional experimental
+process was launched. PI-T2–PI-T6 are complete.
+
+Delivery: [archive manifest](evidence/candidate-scan-prepared-isolation/archives.json),
+[compressed full analysis](evidence/candidate-scan-prepared-isolation/analysis.json.gz),
+[report](evidence/candidate-scan-prepared-isolation/report.md),
+[decision](evidence/candidate-scan-prepared-isolation/decision.json).

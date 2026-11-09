@@ -539,3 +539,27 @@ PI1–PI6 requirements, source/build design and PI-T1–PI-T6 tasks, with a prop
 2,001-process budget and contemporaneous controls. Only protocol drafting is
 authorized. Implementation/build/execution approval is pending; no next-experiment
 sample has been collected. Retention remains **not established**.
+
+## Prepared-state path-isolation implementation approval — 2026-11-09
+
+The owner's supplied-plan implementation request approves PI1–PI6, the design,
+PI-T2–PI-T6 and the fixed 2,001-process budget in the
+[path-isolation protocol](prepared-path-isolation-proposal.md). Historical approvals
+and evidence remain intact. Execution is conditional on every preflight gate;
+failed or ambiguous attempts are terminal. Evidence delivery is authorized;
+commits, push, merge, publication and production integration are excluded.
+Retention remains **not established**.
+
+- [x] PI-T2: Record explicit implementation, requirements/design/tasks and fixed-budget approval.
+- [x] PI-T3: Implement the split, matched drivers, isolated diagnostics, frozen runner and recovery.
+- [x] PI-T4: Pass 15 offline tests under fatal executable-launch sentinels before execution.
+- [x] PI-T5: Verify inputs/audits and complete exactly 2,001 processes once.
+- [x] PI-T6: Finish deterministic reanalysis, completed recovery, Light checks and archive read-back.
+
+Actual outcome: **mixed diagnostic support**; all six controls resolve, dense
+metadata meets both criteria, prepared prose does not establish improvement.
+Evidence and detailed results are recorded in [verification](verification.md).
+
+Subsequent owner approval (2026-11-09): “commit” authorizes committing the
+completed experiment, tooling and evidence. Push, merge, publication, production
+integration and further experiments remain outside this approval.

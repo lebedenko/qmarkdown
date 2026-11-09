@@ -543,3 +543,13 @@ PI1–PI6 requirements, source/build design and PI-T1–PI-T6 tasks, with a prop
 2,001-process budget and contemporaneous controls. Only protocol drafting is
 authorized. Implementation/build/execution approval is pending; no next-experiment
 sample has been collected. Retention remains **not established**.
+
+## Prepared-state path-isolation implementation approval — 2026-11-09
+
+The owner's supplied-plan implementation request approves PI1–PI6, the design,
+PI-T2–PI-T6 and the fixed 2,001-process budget in the
+[path-isolation protocol](prepared-path-isolation-proposal.md). Historical approvals
+and evidence remain intact. Execution is conditional on every preflight gate;
+failed or ambiguous attempts are terminal. Evidence delivery is authorized;
+commits, push, merge, publication and production integration are excluded.
+Retention remains **not established**.
