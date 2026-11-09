@@ -5,7 +5,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_BYTES = 1024 * 1024
-ARCHIVES = ('.gz', '.zip', '.tar', '.xz', '.bz2', '.zst', '.7z', '.rar')
+ARCHIVES = ('.tgz', '.gz', '.zip', '.tar', '.xz', '.bz2', '.zst', '.7z', '.rar')
 COMPILED = ('.o', '.obj', '.a', '.so', '.dll', '.dylib', '.exe', '.bin', '.pyc')
 CAPTURES = ('.png', '.jpg', '.jpeg', '.webp', '.gif', '.pdf', '.mp4', '.webm')
 RAW_OUTPUT = ('.log', '.jsonl', '.stderr', '.stdout', '.build')

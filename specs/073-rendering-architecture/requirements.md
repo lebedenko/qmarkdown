@@ -641,3 +641,20 @@ checks, exclusions and restoration requirements remain unchanged.
 SC1–SC4 define the approved bounded requirements.
 The owner explicitly requested implementation of the supplied plan. See the
 [approved protocol](scale-contract-protocol.md). Historical approvals remain intact.
+
+## Repository storage safeguards — approved 2026-11-09
+
+The owner's supplied-plan implementation request approves SG1–SG4, the design
+and mapped tasks below, including commit, push, one PR and squash merge after
+required checks/review. Existing research work must remain intact.
+
+- SG1: Reject files over 1 MiB, compiled binaries (including extensionless ELF
+  and versioned libraries), archives including `.tgz`, generated experiment
+  captures and raw evidence logs; permit source fonts/images and small reports.
+- SG2: Apply the policy to tracked/non-ignored new files and immutable staged
+  snapshots, including force-added ignored artifacts.
+- SG3: Document retention and repair removed-artifact references in existing
+  main documents, preserving historical conclusions without availability claims.
+- SG4: Port selectively from `eeb0ce0` onto refreshed `origin/main`; exclude
+  unpublished scale-contract sources/results, shipping changes, dependency or
+  release changes, history rewrites, system changes and artifact uploads.

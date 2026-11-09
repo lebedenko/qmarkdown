@@ -904,3 +904,20 @@ replace windows. The prerequisite is an external notification correction followe
 by authorized live verification, with Qt 6.8 Vulkan lifecycle and three incomplete
 fresh cells separately unresolved. No backend selection or shipping migration.
 See [final decision evidence](scale-contract-results.md).
+
+## Repository storage safeguards — approved 2026-11-09
+
+The owner's supplied-plan request approves this bounded design and SG1–SG4.
+A dependency-free Python checker combines a strict greater-than-1-MiB size
+limit, extension/path rules and ELF magic detection. Git discovery includes
+tracked and non-ignored untracked files; explicit paths let existing immutable
+hook snapshots use the same rules. Ignore rules reduce accidental staging but
+are not enforcement. Existing `check.py` calls the checker before syntax/tests.
+This keeps policy centralized without changing hook snapshot semantics or CI
+classification. Tooling changes retain Full hosted coverage on both Qt targets.
+
+Port only applicable storage/documentation changes from the local cleanup
+commit. Historical links become labelled removed paths; cleanup documentation
+separates prior cleanup from current verification and excludes unpublished
+research. Temporary Git fixtures exercise discovery and staged blobs without
+altering the user's index. No public API or shipping implementation changes.

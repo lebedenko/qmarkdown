@@ -1860,3 +1860,42 @@ live contact sheets; owner visual acceptance remains separate.
 authorized follow-up verification, minimum-Qt Vulkan lifecycle and three incomplete
 cells as remaining prerequisites. Architecture/backend selection and production
 qualification remain blocked. No commit, push or publication was performed.
+
+## Repository storage safeguards — actual verification, 2026-11-09
+
+Base: refreshed `origin/main` at `a018b22`. The focused branch selectively ports
+storage safeguards from `eeb0ce0`; the research branch and its unpublished work
+remain unchanged. No scale-contract implementation, baseline or results are added.
+
+- Focused storage suite: **7 tests pass**, covering all configured archive,
+  binary, capture and raw-output extensions (including uppercase), `.tgz`,
+  extensionless ELF, versioned libraries, exactly 1 MiB and one byte above it,
+  permitted source fonts/images/reports, deleted paths and temporary Git repos.
+- Git fixture checks pass: ignored outputs are excluded, non-ignored untracked
+  archives fail, and a force-added `.tgz` fails from the exported staged blob
+  even after the working file is removed.
+- `python3 scripts/check.py`: **94 tests pass**, with repository storage,
+  documentation links and configuration/evidence syntax checks passing.
+- `git diff --check`: passes. Diff inspection finds no shipping source,
+  dependency version, release asset or CI classification changes.
+- Active GitHub ruleset requires a PR, resolved review threads and successful
+  `packaging (minimum)` / `packaging (development)` checks with strict base
+  freshness. No approving review count is required. Protections remain enabled.
+
+Hosted Full verification and protected squash merge are pending at this commit.
+Deleted SDKs were not rebuilt locally solely to duplicate hosted verification.
+Prior cleanup statistics are historical; this change performs no history rewrite,
+renderer experiment, external upload or release publication.
+
+## Research branch integration — 2026-11-09
+
+Merged `origin/main` at `e1dd3d2` into the published research branch without
+rewriting history. Conflict resolution preserves the completed research records,
+approvals and scale-contract baseline while retaining main's storage safeguards,
+including `.tgz` rejection and staged-snapshot regression coverage.
+
+Actual verification: `python3 scripts/check.py` passes all 94 Python tests,
+documentation/local links, configuration/evidence syntax and storage policy.
+`git diff --check` passes. No renderer code changed during conflict resolution;
+historical graphical studies were not rerun. Checkout disk usage is about 43 MiB;
+the check log is outside the repository in `/tmp`.
