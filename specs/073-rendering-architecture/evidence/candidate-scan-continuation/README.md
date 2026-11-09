@@ -1,5 +1,8 @@
 # Cache-aware runtime continuation — retention not established
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 CC1–CC4 approved 2026-11-07 by the owner's supplied-plan implementation request.
 The terminal predecessor and its archives remain unchanged (all 2,605 source/build
 identities verified). The harness correction is isolated in the sibling
@@ -42,7 +45,7 @@ nonzero slowdown. No extra samples, tuning or alternative optimization were run.
 | spans-480-1 | zero | reflow | 20.267 | 19.757 |
 | spans-480-1 | zero | metadata | 201.596 | 164.677 |
 
-The [full report](report.md) and [machine-readable summary](summary.json) preserve
+The [full report](report.md) and machine-readable summary (removed artifact: `summary.json`) preserve
 all 176 cells, paired absolute differences, per-paragraph estimates, intervals,
 timer resolution and process RSS. No pooled headline speedup is claimed.
 

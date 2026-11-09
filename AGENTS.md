@@ -4,6 +4,7 @@
 
 - Communicate in English, including plans, recaps, status updates, tool commentary, and final answers. Generate Russian or Ukrainian only when explicitly requested in the current message; never infer language from locale or context.
 - Prefer small, reviewable changes. Inspect repository structure, specifications, and existing conventions before editing.
+- Follow [artifact storage](docs/artifact-storage.md): never commit generated binaries, archives, captures or raw execution logs; retain concise results and clean obsolete build trees.
 - Preserve existing style. Use simple, maintainable code; introduce libraries, frameworks, or large abstractions only with clear justification. Explain architectural trade-offs.
 - Use one PR per meaningful change and squash merge by default. Keep implementation, tests, documentation, and verification together.
 - Follow [development workflow](docs/development-workflow.md) for current delivery guidance; it supersedes historical delivery procedures while preserving historical approvals and verification records.

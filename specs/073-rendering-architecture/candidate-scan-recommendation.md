@@ -1,5 +1,8 @@
 # Candidate-scan cutoff recommendation
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 Status: **runtime study terminated; retention is not established**.
 The owner approved the supplied runtime plan on 2026-11-06.
 

@@ -1,5 +1,8 @@
 # Actual verification
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 2026-10-22: **prototype gate failed; production integration stopped**.
 No production renderer, public interface, dependency or version changes.
 
@@ -19,8 +22,8 @@ Configure/build succeeded. Probe exited 1, reporting:
 Qt 6.12.0 DPR 1.00 different pixels 732 lost ink pixels 0
 ```
 
-[Reference](evidence/reference.png) paints only italic `f`.
-[Selection emission](evidence/selected.png) paints `fX`, including the transparent
+Reference (removed artifact: `evidence/reference.png`) paints only italic `f`.
+Selection emission (removed artifact: `evidence/selected.png`) paints `fX`, including the transparent
 unselected source interval. Both captures were visually inspected. This violates
 R3's prohibition on duplicated hidden paragraph content: coalesced fragments
 cannot safely compose the paragraph using this method on this required backend.

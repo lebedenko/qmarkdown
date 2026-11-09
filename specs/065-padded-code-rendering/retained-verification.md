@@ -1,5 +1,8 @@
 # Retained glyph-texture experiment — actual verification
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 2026-10-22 decision: **no-go for this candidate; expansion stopped at preparation
 image correctness**. Production integration remains excluded. This does not
 reject every possible retained-texture design or establish visible degradation.
@@ -63,8 +66,8 @@ tile edges. Differences are small antialiasing changes, including alpha support
 changes; their root cause and perceptual significance are unresolved. No
 shimmer resolution or visible quality regression is claimed.
 
-[Qt 6.12 comparison](evidence/retained/qt-6.12.0-comparison.png) and
-[Qt 6.8 comparison](evidence/retained/qt-6.8.0-comparison.png) show reference,
+Qt 6.12 comparison (removed artifact: `evidence/retained/qt-6.12.0-comparison.png`) and
+Qt 6.8 comparison (removed artifact: `evidence/retained/qt-6.8.0-comparison.png`) show reference,
 candidate on white, then alpha difference amplified 8x on black. The 6.12
 comparison was visually inspected; both glyphs are present, with no gross
 truncation. Transparent source captures are retained alongside the comparisons.

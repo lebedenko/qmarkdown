@@ -1,5 +1,8 @@
 # Offline candidate-scan characterization evidence
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 Retention remains **not established**. No new benchmark process or build was run.
 The closed calibration revision remains unresolved; historical gates are unchanged.
 
@@ -25,12 +28,12 @@ for actual checks and the archive read-back record here for delivery integrity.
 ## Delivered artifacts and checks
 
 - [Concise diagnostic report](report.md).
-- [Complete matrix JSON](matrix.json): all observations and eight cell summaries.
+- Complete matrix JSON (removed artifact: `matrix.json`): all observations and eight cell summaries.
 - CSV: [process timings](processes.csv), [group diagnostics](groups.csv),
   [cell summaries](cells.csv). Nulls are literal `null`; nested summaries use JSON.
 - [Draft 297-command schedule](pilot-schedule.json): data only, never executed.
-- [Analysis archive](073-candidate-characterization.tar.gz) and [member manifest](archives.json).
-- [Archive read-back log](archive-verification.log).
+- Analysis archive (removed artifact: `073-candidate-characterization.tar.gz`) and [member manifest](archives.json).
+- Archive read-back log (removed artifact: `archive-verification.log`).
 
 Twelve focused tests and repository lightweight checks (87 Python tests plus
 syntax/documentation checks) passed. Independent full reanalysis produced nine

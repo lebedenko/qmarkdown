@@ -1,14 +1,17 @@
 # Explicit-boundary experiment evidence — 2026-11-05
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 **Feasible for the tested isolated slice; owner visual acceptance pending.**
 See [support](support.json), [geometry summary](geometry-summary.json),
 [extent audit](extent-audit.json), [native summary](native-summary.json) and
 [reproduction/viewer instructions](../../demonstrator/boundary-experiment/README.md).
 Historical evidence under `fragment-experiment` is unchanged.
 
-- [Build record](build.json) and [build log](build.log): clean pinned source,
+- [Build record](build.json) and build log (removed artifact: `build.log`): clean pinned source,
   checked patch, dependencies/configuration, two-worker build and identities.
-- [Geometry archive](geometry.tar.gz): manifests, full compressed traces, invalid
+- Geometry archive (removed artifact: `geometry.tar.gz`): manifests, full compressed traces, invalid
   input diagnostics, transition probes and actual results. Metadata-free control
   comparison is exact for 751 cases / 775 blocks. Boundary-enabled zero padding
   is the separate shaping baseline. The padded scan and 14 added regressions pass.
@@ -18,11 +21,11 @@ Historical evidence under `fragment-experiment` is unchanged.
   95 differences between 0.01-pixel near-edge probes and stable interior probes
   remain recorded as upstream snapping behavior. The 0.05 containment tolerance
   is unchanged.
-- [Native archive](native.tar.gz): 120 serial OpenGL/Vulkan processes with
+- Native archive (removed artifact: `native.tar.gz`): 120 serial OpenGL/Vulkan processes with
   stationary/selected, resize/reset, motion/replay and three normal recreations
   per fixture/API. Deadlines and pre/post input hashes are retained. DPR 1 was
   observed; DPR 1.25/1.5/2 were unavailable.
-- [Supervisor log](supervisor.log): nine tests pass. [Repository checks](repository-check.log):
+- Supervisor log (removed artifact: `supervisor.log`): nine tests pass. Repository checks (removed artifact: `repository-check.log`):
   documentation/configuration checks and 87 Python tests pass.
 - [Artifact hashes](artifacts.json): SHA-256 of retained evidence files.
 
@@ -52,12 +55,12 @@ The logical object top/bottom are 3/39; its isolated antialiased DPR-1 raster bo
 are also vertically 3/39. Both pass containment. Original raw ascent/descent and
 all logical/painted bounds are retained in the geometry archive.
 
-Representative matched captures: [GL adjacent](opengl-adjacent.png),
-[Vulkan adjacent](vulkan-adjacent.png), [GL objects](opengl-objects.png),
-[Vulkan objects](vulkan-objects.png), [GL adjacent lam–alef](opengl-adjacent-lam-alef.png),
-[Vulkan adjacent lam–alef](vulkan-adjacent-lam-alef.png),
-[GL whole lam–alef](opengl-whole-lam-alef.png),
-[Vulkan whole lam–alef](vulkan-whole-lam-alef.png).
+Representative matched captures: GL adjacent (removed artifact: `opengl-adjacent.png`),
+Vulkan adjacent (removed artifact: `vulkan-adjacent.png`), GL objects (removed artifact: `opengl-objects.png`),
+Vulkan objects (removed artifact: `vulkan-objects.png`), GL adjacent lam–alef (removed artifact: `opengl-adjacent-lam-alef.png`),
+Vulkan adjacent lam–alef (removed artifact: `vulkan-adjacent-lam-alef.png`),
+GL whole lam–alef (removed artifact: `opengl-whole-lam-alef.png`),
+Vulkan whole lam–alef (removed artifact: `vulkan-whole-lam-alef.png`).
 
 No performance qualification, backend selection, Qt-control change, production
 integration, merge or publication is claimed. Qt 6.8 Vulkan shutdown remains an

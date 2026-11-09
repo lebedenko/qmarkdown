@@ -1,5 +1,8 @@
 # Fragment experiment evidence
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 Outcome: **blocked**, not a successful fragment-aware layout implementation.
 
 - [Summary](summary.json): exact disabled comparison across 751 fixtures / 775
@@ -7,7 +10,7 @@ Outcome: **blocked**, not a successful fragment-aware layout implementation.
 - [Build](build.json): pinned source, checked patch, tools, dependency revisions,
   GN configuration, output hashes and unchanged original control identities.
 - [Support](support.json): gate status and next architecture decision.
-- [Object trace](historical-objects.jsonl): historical rounding/containment failure.
+- Object trace (removed artifact: `historical-objects.jsonl`): historical rounding/containment failure.
 - `control-disabled.jsonl.gz` and `patched-disabled.jsonl.gz`: complete comparable
   geometry records. `minimal-*.jsonl.gz` retain joined and reshaped diagnostics.
 - `control-images/` and `images/`: byte-identical CPU before/after diagnostic-patch

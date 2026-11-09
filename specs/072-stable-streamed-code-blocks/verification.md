@@ -1,5 +1,8 @@
 # Actual verification
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
 ## Scope and approval
 
 The supplied plan was approved for implementation and verification on 2026-11-04 by the explicit request to implement it. Version 1.18.0 / QML 1.18 is unchanged. Consumer viewport-height configuration, merge, publication and system-package replacement are excluded.
@@ -42,9 +45,9 @@ Initial sandbox attempts could not access `/var/run/docker.sock`; authorized unr
 
 The offscreen Qt 6.12.0 sequence was captured with `QMARKDOWN_STREAM_CAPTURE` while running `qmarkdown-codeblocks-test streamedViewport`:
 
-- [Before overflow](rendered/01-before-overflow.png)
-- [Following appended code](rendered/02-following.png)
-- [Paused above the bottom](rendered/03-paused.png)
+- Before overflow (removed artifact: `rendered/01-before-overflow.png`)
+- Following appended code (removed artifact: `rendered/02-following.png`)
+- Paused above the bottom (removed artifact: `rendered/03-paused.png`)
 
 The images were opened and inspected: the short block begins at line 1, the followed block shows its last lines, and the paused block keeps the earlier source rows and horizontal offset. The numerical tests verify the positions; these images are offscreen rendering evidence only. Native interactive visual acceptance has not been obtained and is not implied by these results.
 

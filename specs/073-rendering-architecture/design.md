@@ -789,3 +789,20 @@ PI1–PI6 requirements, source/build design and PI-T1–PI-T6 tasks, with a prop
 2,001-process budget and contemporaneous controls. Only protocol drafting is
 authorized. Implementation/build/execution approval is pending; no next-experiment
 sample has been collected. Retention remains **not established**.
+
+## Repository storage safeguards — approved 2026-11-09
+
+The owner's supplied-plan request approves this bounded design and SG1–SG4.
+A dependency-free Python checker combines a strict greater-than-1-MiB size
+limit, extension/path rules and ELF magic detection. Git discovery includes
+tracked and non-ignored untracked files; explicit paths let existing immutable
+hook snapshots use the same rules. Ignore rules reduce accidental staging but
+are not enforcement. Existing `check.py` calls the checker before syntax/tests.
+This keeps policy centralized without changing hook snapshot semantics or CI
+classification. Tooling changes retain Full hosted coverage on both Qt targets.
+
+Port only applicable storage/documentation changes from the local cleanup
+commit. Historical links become labelled removed paths; cleanup documentation
+separates prior cleanup from current verification and excludes unpublished
+research. Temporary Git fixtures exercise discovery and staged blobs without
+altering the user's index. No public API or shipping implementation changes.
