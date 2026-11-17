@@ -1,4 +1,4 @@
-# Prepared-state path-isolation experiment — draft
+# Prepared-state path-isolation experiment
 
 ## Status and approval boundary
 
@@ -16,6 +16,15 @@ budgets. Original prose reflow remained descriptive and failed its envelope. Tha
 result supports drafting this proposal, not reusing calibration observations as
 new controls or evidence of metric equivalence. Historical archives, tools, gates,
 approvals and unsuccessful observations remain unchanged.
+
+## Implementation approval — 2026-11-09
+
+The owner's supplied-plan request to “Implement the plan in a fresh context”
+explicitly approves PI1–PI6, this design, PI-T2–PI-T6 and the fixed 2,001-process
+budget. The design-only boundary above is historical and superseded only for this
+bounded experiment and evidence delivery. Stop rules and thresholds are unchanged.
+Commits, push, merge, publication, production integration and further experiments
+remain outside scope. Retention remains **not established**.
 
 ## Question and scope (PI1)
 
@@ -222,13 +231,13 @@ publication. Retention remains not established throughout.
 - [x] PI-T1 (PI1–PI6): Inspect preserved evidence and source boundaries; draft this
   concrete protocol and record design-only authorization. Run document/whitespace
   checks; record their actual results separately from these planned checks.
-- [ ] PI-T2: Obtain explicit approval of PI1–PI6, this design, PI-T3–PI-T6 and the
+- [x] PI-T2: Obtain explicit approval of PI1–PI6, this design, PI-T3–PI-T6 and the
   fixed 2,001-process budget. This task is an approval prerequisite, not implied
   by authorization to design or by the earlier calibration approval.
-- [ ] PI-T3 (PI1–PI4): After approval, implement isolated source split, audited
+- [x] PI-T3 (PI1–PI4): After approval, implement isolated source split, audited
   diagnostic copies, matched new drivers, frozen manifest/schedule, strict
   lifecycle/telemetry validators, supervision and terminal/prefix recovery.
-- [ ] PI-T4 (PI3–PI6): Before functional/benchmark launches, use fatal launch
+- [x] PI-T4 (PI3–PI6): Before functional/benchmark launches, use fatal launch
   sentinels to test all identities/counts/order/balance/contiguity/arm mapping;
   source split/call-graph audit rejection; unchanged timer/cache/preparation;
   optional telemetry/raw-delta consistency; group normalization/bootstrap
@@ -237,10 +246,10 @@ publication. Retention remains not established throughout.
   altered hashes, missing/duplicate/misordered records, resource failures,
   terminal/ambiguous journals, partial files and prefix/completed recovery.
   Implement forensic reports/archives for build, execution and analysis failures.
-- [ ] PI-T5 (PI2–PI5): Verify archives/pins, build audited targets once, freeze
+- [x] PI-T5 (PI2–PI5): Verify archives/pins, build audited targets once, freeze
   every command/input/environment, then execute the six functional, 75 correctness
   and 1,920 timing processes once. Stop on terminal failure; never retry a slot.
-- [ ] PI-T6 (PI5–PI6): Require byte-identical reanalysis and completed-run resume
+- [x] PI-T6 (PI5–PI6): Require byte-identical reanalysis and completed-run resume
   with zero launches under fatal sentinels. Run focused and repository Light
   checks/whitespace validation. Archive new tooling, changed-source patches and
   source copies, reused/new binary bytes, libraries/recipes or verified historical
@@ -248,3 +257,13 @@ publication. Retention remains not established throughout.
   analyses/decision and check logs. Read back every archive member hash; revalidate
   preservation of history. Update actual verification/recommendation/tasks,
   including incomplete results. Stop after evidence delivery.
+
+## Execution outcome — 2026-11-09
+
+The approved 2,001 processes completed once: six functional, 75 correctness and
+1,920 timing processes. All six contemporaneous controls resolved. The result is
+**mixed diagnostic support**: original dense metadata meets both diagnostic
+criteria; prepared prose has a zero-inclusive I−C interval and does not establish
+an improvement. See the [actual report](evidence/candidate-scan-prepared-isolation/report.md)
+and [verification record](verification.md). No threshold, budget or stop rule changed.
+Stop this iteration; retention remains **not established**.

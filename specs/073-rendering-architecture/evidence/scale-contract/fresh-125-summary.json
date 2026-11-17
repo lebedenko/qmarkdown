@@ -1,0 +1,252 @@
+{
+  "scale": 1.25,
+  "scheduled": 170,
+  "launches": 166,
+  "counts": {
+    "passed": 136,
+    "failed": 30
+  },
+  "skipped": [
+    {
+      "sequence": 400,
+      "event": "skip",
+      "id": "202",
+      "reason": "preceding document attempt failed/interrupted"
+    },
+    {
+      "sequence": 401,
+      "event": "skip",
+      "id": "203",
+      "reason": "preceding document attempt failed/interrupted"
+    },
+    {
+      "sequence": 466,
+      "event": "skip",
+      "id": "236",
+      "reason": "preceding document attempt failed/interrupted"
+    },
+    {
+      "sequence": 467,
+      "event": "skip",
+      "id": "237",
+      "reason": "preceding document attempt failed/interrupted"
+    }
+  ],
+  "mappingObservations": 1644,
+  "physicalMappingFailures": 0,
+  "rasterDensityFailures": 0,
+  "failures": [
+    {
+      "id": "187",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "188",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "189",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "190",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "191",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "192",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "193",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "194",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "195",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "196",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "197",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "198",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "199",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "200",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "201",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "221",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "222",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "223",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "224",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "225",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "226",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "227",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "228",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "229",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "230",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "231",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "232",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "233",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "234",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "235",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    }
+  ],
+  "frozenIdentitiesVerified": true,
+  "completedCaptureHashesVerified": true
+}

@@ -1,0 +1,334 @@
+{
+  "gate": "failed",
+  "coverage": "Stationary document, all ten configurations, desktop 200%. First/restored viewport destinations agree; source crop unset.",
+  "method": "physical window = viewport destination \u00d7 verified desktop scale; document unit = physical window / window coordinates at zoom 1",
+  "qtNominalFontPhysicalPixels": 44.0,
+  "skiaNominalFontPhysicalPixels": 22,
+  "integerRoundingExplanation": "All compared dimensions and destinations are exact integers. The 100% size difference cannot be integer buffer rounding.",
+  "rows": [
+    {
+      "id": "510",
+      "configuration": "6.8.0-distance-opengl",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "33",
+      "viewport": "43",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "527",
+      "configuration": "6.8.0-distance-vulkan",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "32",
+      "viewport": "37",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "544",
+      "configuration": "6.8.0-curve-opengl",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "33",
+      "viewport": "43",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "561",
+      "configuration": "6.8.0-curve-vulkan",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "32",
+      "viewport": "37",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "578",
+      "configuration": "6.12.0-distance-opengl",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "35",
+      "viewport": "42",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "595",
+      "configuration": "6.12.0-distance-vulkan",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "34",
+      "viewport": "36",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "612",
+      "configuration": "6.12.0-curve-opengl",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "35",
+      "viewport": "42",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "629",
+      "configuration": "6.12.0-curve-vulkan",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        1600,
+        1200
+      ],
+      "surface": "34",
+      "viewport": "36",
+      "destination": [
+        800,
+        600
+      ],
+      "sourceRequests": [],
+      "desktopScale": 2.0,
+      "zoom": 1,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        1600.0,
+        1200.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        2.0,
+        2.0
+      ],
+      "nominalFontPhysicalPixels": 44.0
+    },
+    {
+      "id": "646",
+      "configuration": "skia-opengl",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        800,
+        600
+      ],
+      "surface": "37",
+      "viewport": "43",
+      "destination": [
+        400,
+        300
+      ],
+      "sourceRequests": [
+        [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ]
+      ],
+      "desktopScale": 2.0,
+      "zoom": 1.0,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        800.0,
+        600.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        1.0,
+        1.0
+      ],
+      "nominalFontPhysicalPixels": 22.0
+    },
+    {
+      "id": "663",
+      "configuration": "skia-vulkan",
+      "window": [
+        800,
+        600
+      ],
+      "buffer": [
+        800,
+        600
+      ],
+      "surface": "3",
+      "viewport": "37",
+      "destination": [
+        400,
+        300
+      ],
+      "sourceRequests": [
+        [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ]
+      ],
+      "desktopScale": 2.0,
+      "zoom": 1.0,
+      "nominalFontSize": 22,
+      "physicalWindow": [
+        800.0,
+        600.0
+      ],
+      "physicalPixelsPerDocumentUnit": [
+        1.0,
+        1.0
+      ],
+      "nominalFontPhysicalPixels": 22.0
+    }
+  ]
+}

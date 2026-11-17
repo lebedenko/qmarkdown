@@ -1,0 +1,220 @@
+[
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.8.0-distance-opengl",
+      "role": "minimum",
+      "qt": "6.8.0",
+      "renderer": "distance",
+      "api": "opengl"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "680",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/680",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.8.0-distance-vulkan",
+      "role": "minimum",
+      "qt": "6.8.0",
+      "renderer": "distance",
+      "api": "vulkan"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "681",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/681",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.8.0-curve-opengl",
+      "role": "minimum",
+      "qt": "6.8.0",
+      "renderer": "curve",
+      "api": "opengl"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "682",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/682",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.8.0-curve-vulkan",
+      "role": "minimum",
+      "qt": "6.8.0",
+      "renderer": "curve",
+      "api": "vulkan"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "683",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/minimum/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/683",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.12.0-distance-opengl",
+      "role": "development",
+      "qt": "6.12.0",
+      "renderer": "distance",
+      "api": "opengl"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "684",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/684",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.12.0-distance-vulkan",
+      "role": "development",
+      "qt": "6.12.0",
+      "renderer": "distance",
+      "api": "vulkan"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "685",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "distance",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/685",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.12.0-curve-opengl",
+      "role": "development",
+      "qt": "6.12.0",
+      "renderer": "curve",
+      "api": "opengl"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "686",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/686",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "6.12.0-curve-vulkan",
+      "role": "development",
+      "qt": "6.12.0",
+      "renderer": "curve",
+      "api": "vulkan"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "687",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/development/qt-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "curve",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/687",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "skia-opengl",
+      "role": "skia",
+      "renderer": "skia",
+      "api": "opengl"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "688",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/skia/skia-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "opengl",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/688",
+      "--scale-live"
+    ]
+  },
+  {
+    "scale": 2,
+    "config": {
+      "id": "skia-vulkan",
+      "role": "skia",
+      "renderer": "skia",
+      "api": "vulkan"
+    },
+    "fixture": "bidi-objects",
+    "cycle": 0,
+    "kind": "live",
+    "id": "689",
+    "command": [
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/skia/skia-compare",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-final/fixtures.json",
+      "bidi-objects",
+      "vulkan",
+      "/home/andrii/Projects/pet/qmarkdown/build-ci/073-scale-study-live-recovery-run/attempts/689",
+      "--scale-live"
+    ]
+  }
+]

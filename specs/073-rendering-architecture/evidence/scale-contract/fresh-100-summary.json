@@ -1,0 +1,264 @@
+{
+  "scale": 1,
+  "scheduled": 170,
+  "launches": 166,
+  "counts": {
+    "passed": 135,
+    "failed": 31
+  },
+  "skipped": [
+    {
+      "sequence": 64,
+      "event": "skip",
+      "id": "032",
+      "reason": "preceding document attempt failed/interrupted"
+    },
+    {
+      "sequence": 65,
+      "event": "skip",
+      "id": "033",
+      "reason": "preceding document attempt failed/interrupted"
+    },
+    {
+      "sequence": 130,
+      "event": "skip",
+      "id": "066",
+      "reason": "preceding document attempt failed/interrupted"
+    },
+    {
+      "sequence": 131,
+      "event": "skip",
+      "id": "067",
+      "reason": "preceding document attempt failed/interrupted"
+    }
+  ],
+  "mappingObservations": 1635,
+  "physicalMappingFailures": 0,
+  "rasterDensityFailures": 0,
+  "failures": [
+    {
+      "id": "014",
+      "configuration": "6.8.0-distance-opengl",
+      "fixture": "whole-lam-alef",
+      "exit": -9,
+      "correctnessErrors": [
+        "operation deadline",
+        "missing captures",
+        "incomplete motion/replay",
+        "copied source mismatch"
+      ]
+    },
+    {
+      "id": "017",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "document",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "018",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "padded",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "019",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "020",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "mixed",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "021",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "wrapping",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "022",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "023",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "ligatures",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "024",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "combining",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "025",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "fallback",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "026",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "overhang",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "027",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "028",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "bidi-objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "029",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "unicode-code",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "030",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "031",
+      "configuration": "6.8.0-distance-vulkan",
+      "fixture": "whole-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "051",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "document",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "052",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "padded",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "053",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "054",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "mixed",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "055",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "wrapping",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "056",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "057",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "ligatures",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "058",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "combining",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "059",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "fallback",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "060",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "overhang",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "061",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "062",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "bidi-objects",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "063",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "unicode-code",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "064",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "adjacent-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    },
+    {
+      "id": "065",
+      "configuration": "6.8.0-curve-vulkan",
+      "fixture": "whole-lam-alef",
+      "exit": -11,
+      "correctnessErrors": []
+    }
+  ],
+  "frozenIdentitiesVerified": true,
+  "completedCaptureHashesVerified": true
+}

@@ -1,5 +1,118 @@
 # 2.x architecture decision record
 
+> Storage cleanup: generated artifacts linked below were removed from Git history.
+> See the [retention policy](../../docs/artifact-storage.md); historical results remain, raw-data revalidation requires regenerated inputs.
+
+## Current decision — evidence through ba843e0
+
+Reviewed 2026-11-09. **Evaluation incomplete; no backend selected; no production
+rewrite approved.** Native Skia is implemented and feasible for a tested isolated
+slice; it is not production-qualified. Continue using the existing renderer while
+these gates remain open. This is a disposition of existing evidence, not a claim
+that the existing renderer meets the 2.x quality/performance requirements.
+
+At the historical review cutoff, the owner approved the documentation review and
+next-milestone proposal only. The later scale-study approval below supersedes that
+execution restriction within its bounded scope.
+No measurement, analysis regeneration, renderer implementation, backend selection,
+integration, commit or publication is authorized. The historical sections below
+retain their original scope and approvals; this section supersedes their current
+status claims. Support requirements, host-controlled styling, architectural
+boundaries and quality thresholds are unchanged.
+
+### Requirements and evidence gates
+
+“Passed within stated coverage” closes only the named subgate. “Failed” preserves
+an observed failure; “unavailable” means required evidence could not be obtained;
+“untested” means the required qualification has not been performed. Multiple rows
+per requirement deliberately prevent a partial pass from becoming an overall pass.
+All evidence predates or is included in `ba843e0`.
+
+| Requirement / gate | Status | Evidence and tested configuration | Remaining limitation |
+| --- | --- | --- | --- |
+| R1 — coordinate/layout audit and defect isolation | Passed within stated coverage | [Audit](audit.md), [phase diagnosis](evidence/phase-experiment/README.md) and [corrected scale facts](evidence/performance-experiment/scale.json): retained Qt controls and pinned Skia on the shared Wayland workstation; 24 zero/padded diagnostic cases. | Counts are not CPU-time shares; compositor sampling filter and exact final coverage remain unknown. No universal defect attribution. |
+| R2 — public Qt distance-field/curve direct padded-run adapter | Failed | [Initial verification](verification.md#implemented-and-measured) and [correctness support](evidence/correctness/support.json): Qt 6.8.0/6.12.0 public QSGTextNode accepts layouts, not arbitrary adjusted glyph runs. | Rejects this adapter, not either Qt backend. Alternative native composition is untested; padded/object demonstrator output uses labelled raster fallback. |
+| R2 — comparable independent native controls | Untested | [Scale explanation](evidence/performance-experiment/README.md#corrected-scale-explanation): SDL2-compat 2.32.74-1, Ganesh GL/Vulkan, desktop 1.25, drawable/window ratio 1. Qt controls cover observed window DPR 1/1.25/1.5/2. | Equal physical text sizing across Qt/Skia is not established; browser references are visual references, not qualification controls. |
+| R3 — padding, shaping, source mapping, selection and objects | Passed within stated coverage | [Boundary support](evidence/boundary-experiment/support.json), [geometry summary](evidence/boundary-experiment/geometry-summary.json): pinned Skia `00227028b0c3cb3052432a456af2027a49e598b2`, five-file explicit shaping-boundary patch; 751 fixtures/775 blocks, 14 regressions, 41 transition brackets, 14,272 vertical cells and 2,901 fragments; containment tolerance 0.05. | Code edges deliberately delimit shaping under B1–B8. Explicit fallback only, unresolved glyphs and near-edge snapping remain documented; not general document acceptance. Qt staged selection correction does not create native padded-run support. |
+| R3 — old whole-paragraph reservation adapter | Failed | [Correctness support](evidence/correctness/support.json): wrapping loses fragment padding and fractional object bounds fail. [Fragment support](evidence/fragment-experiment/support.json) records the intact cross-span glyph constraint. | Later approved shaping boundaries supersede that constraint for the new patch only; neither failure rejects all SkParagraph mechanisms. |
+| R4 — explicit geometry/resource reuse | Passed within stated coverage | [Performance report](evidence/performance-experiment/README.md#native-rendering-presentation-and-memory), native summary (removed artifact: `evidence/performance-experiment/native-summary.json`): completed native stationary/motion/selection scenarios have zero measured layout calls; resize lays out. [Recovery counters](evidence/performance-experiment/recovery/diagnostic-summary.json) verify completed shaping-reuse cases. | Resource reuse in an isolated renderer does not establish bounded total production memory, invalidation correctness for every resource or Qt integration. |
+| R4 — scanner retention | Failed | Continuation summary (removed artifact: `evidence/candidate-scan-continuation/summary.json`) and [diagnosis](evidence/candidate-scan-diagnosis/report.md): 176 cells, 20 pairs each, eight overhead gates fail despite all six primary gates passing. [Latest decision](evidence/candidate-scan-prepared-isolation/decision.json): retention false. | Failure to establish the budget is not proof of a nonzero slowdown. Later calibration and two diagnostic targets do not repair the historical qualification. |
+| R5 — native API/lifecycle coverage | Passed within stated coverage | [Boundary native summary](evidence/boundary-experiment/native-summary.json): 120 GL/Vulkan processes at observed SDL drawable/window ratio 1. [Correctness verification](verification.md#final-native-matrix-and-checks): Qt 6.12.0 both APIs and Qt 6.8.0 OpenGL. | Isolated SDL success does not qualify a Qt/Skia bridge or erase Qt lifecycle failures. |
+| R5 — minimum-Qt Vulkan lifecycle | Failed | [Correctness support](evidence/correctness/support.json), [lifecycle reduction](verification.md#vulkan-lifecycle-reduction): Qt 6.8.0 empty windows fail default/basic/live-release variants; three recreations each. Qt 6.12.0 passes those reductions. | Ownership/cause unresolved; no approved minimum-version relaxation or corrected integration path. |
+| R5 — required comparable scale matrix and transitions | Unavailable | [Scale facts](evidence/performance-experiment/scale.json) and [boundary support](evidence/boundary-experiment/support.json): native ratio 1 only; historical 1.25/1.5/2 ratio cases unavailable. | Desktop scale is 1.25, not 1. No full equal-size Qt/Skia matrix at required scales or qualified cross-output scale transitions. |
+| R6 — full-document composition | Untested | [Selection/composition limits](verification.md#selection-and-composition-limits), [correctness support](evidence/correctness/support.json): document fixture uses separated table rows; selection is within blocks. | General tables and cross-block drag selection remain unsupported. Paragraph, overhang, object and replay passes do not close this gate. |
+| R6 — owner visual acceptance | Passed within stated coverage | [Performance review scope](evidence/performance-experiment/README.md): owner's visual review accepted only for inspected cases. | Blanket temporal/quality acceptance across fixtures, APIs, outputs and scales is untested. Earlier `ownerVisual: pending` describes the earlier boundary stage, not a contradiction or blanket later approval. |
+| R7 — actual presentation pacing | Failed | [Native scenarios](evidence/performance-experiment/native-scenarios.md), [post-reboot retry](evidence/performance-experiment/recovery/native-retry-summary.json): refresh 16.6675 ms; retry p95 16.799 ms, maximum 16.824 ms, target false. | Strict p95 <= one refresh / maximum <= two remains unchanged. Four original missing-feedback cases remain gaps; GL interval-1 and Vulkan mailbox are not equal scheduling. |
+| R7 — CPU/GPU and memory qualification | Unavailable | [CPU summary](evidence/performance-experiment/cpu-summary.json) and [performance report](evidence/performance-experiment/README.md): CPU/layout/paint, GL Ganesh GPU elapsed, process RSS and GPU-cache bytes measured on shared workstation. | Vulkan GPU elapsed unavailable; RSS is whole-process, GPU cache is not total GPU memory. Partial/time-limited workloads and unavailable historical environment facts preclude complete qualification; no new memory threshold is inferred. |
+| R8 — dependencies, maintenance, integration and selection | Untested | [Boundary maintenance](demonstrator/boundary-experiment/README.md), [recovery provenance](evidence/performance-experiment/README.md#recovery-completion--2026-11-06): pinned private SkParagraph patch, Skia/font/Unicode/shaping dependencies and experimental SDL/upstream window helpers. | Pin updates need patch/rebase/ABI and full regression review. Shipping build/license/package/resource budgets and Qt bridge ownership/lifecycle are not qualified. R3/R5/R6/R7 gaps forbid selection or migration. |
+
+### Candidate disposition and reconciled findings
+
+| Option | Current disposition | Decision cost / unmet prerequisite |
+| --- | --- | --- |
+| Public Qt distance-field or curve composition | Keep as unproven alternatives; direct adjusted-run adapter rejected. | Must demonstrate native padding/objects and source-preserving composition through public APIs. Hybrid raster captures cannot supply that proof. Existing Qt cache/lifecycle ownership reduces new dependency work but does not resolve the minimum-Qt Vulkan failure. |
+| Patched native Skia | Feasible isolated paragraph mechanism; not selected. | Requires comparable scales, complete composition, lifecycle/integration, broader visual acceptance, pacing and resource qualification; carries private upstream patch and dependency maintenance. |
+| Continue existing renderer | Current operational disposition while evaluation remains incomplete. | Preserves shipping behavior and host styling without a speculative migration. Historical blur/sampling/performance concerns remain; continued use is not acceptance as the 2.x replacement. |
+
+The 2026-11-06 scale correction supersedes the interpretation of earlier “DPR 1”
+labels, not their raw observations. At desktop 1.25 the 800×600 buffer/window maps
+through a 640×480 viewport: 1.25 pixels per surface unit, one document unit per
+buffer pixel at zoom 1. A 22-unit font is 22 buffer pixels, not the 27.5 pixels of
+22 surface units. No explicit buffer-scale request was observed; compositor
+sampling is unknown. Comparisons among those native variants remain useful;
+Qt/Skia size equivalence and the four-scale gate remain open.
+
+[Path isolation](evidence/candidate-scan-prepared-isolation/report.md) completed
+2,001 processes and resolved all six contemporaneous controls. Dense metadata's
+I−C interval is [-63191.75, -24420.0] ns/paragraph; prepared prose's is
+[-700.3125, 921.578125]. Both residual envelopes fit, but only dense meets the
+strict improvement criterion. This is **mixed diagnostic support**, not scanner
+retention, equivalence, absence of a prose effect or stack-only causal attribution.
+No further scanner study follows merely from the favorable dense result.
+
+The old whole-paragraph padding and object failures belong to the reservation
+adapter; B1–B8 explicitly revised cross-span shaping and passed the new mechanism.
+Conversely, native feasibility cannot repair minimum-Qt Vulkan shutdown, missing
+presentation feedback, full-document gaps or failed pacing. The post-reboot retry
+is a separate cohort, not a replacement for original failures. Historical source
+loss listed in the [availability record](evidence/performance-experiment/recovery/timed-source-availability.json)
+remains a provenance limitation. Frozen sources, including the archived
+`tool/test_isolation.py`, take precedence for identity-sensitive review; the
+[cleanup record](evidence/candidate-scan-prepared-isolation/source-cleanup.json)
+does not authorize replay with the whitespace-cleaned working copy.
+
+### Coordinated scale study — approved 2026-11-09
+
+The owner approved implementation and execution of the [bounded four-scale
+study](scale-study-protocol.md), replacing the earlier design-only proposal.
+The [corrected study](evidence/scale-study-v2/README.md) completed all four fresh
+sets: 544 passes, 120 Qt 6.8 Vulkan shutdown failures and 16 dependent recreations
+skipped. Qt 6.8 OpenGL, all Qt 6.12 configurations and both Skia APIs pass their
+fresh correctness checks. Equal-size comparability fails above 100%: Qt nominal
+font height follows desktop scale (27.5/33/44 pixels), while SDL/Skia stays at 22.
+
+An approved atomic-handoff repair and ten-window replacement completed the live
+sequence: seventy semantic/coordinate/containment checks and thirty repeated-state
+comparisons pass, with eight clean shutdowns and two Qt 6.8 Vulkan shutdown failures.
+The two earlier harness failures remain diagnostic evidence. Total actual launches
+are 685 within the 691 ceiling; original scale 125% is restored and verified.
+
+Retained SDL live mappings differ from fresh mappings at lower scales; Qt retains
+its initial buffer resolution. Consequently R2/R5 comparability remains failed,
+while the named source/coordinate/repeatability subgates pass within coverage.
+Attribution to compositor/toolkit/adapter behavior needs bounded diagnosis, and the
+minimum-Qt Vulkan lifecycle failure remains unresolved. No backend is selected or
+production qualification established. The [consolidated study result](scale-study-results.md)
+defines these limits and the next prerequisites. Historical R1–R8 dispositions
+above remain the cutoff record.
+
+## Historical decision record — superseded status summary
+
+The following opening assessment predates native implementation. Its statement
+that Skia was unimplemented is historical only; use the current decision above.
+Subsequent dated sections preserve the evolution of constraints and approvals.
+
+
 Status: **evaluation incomplete; no backend selected; no production rewrite approved**.
 
 ## Established direction

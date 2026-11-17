@@ -1,0 +1,8 @@
+{
+  "source": "../correctness/geometry-final.json",
+  "libraries": {
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-minimum/prepared/src/QMarkdown/libQMarkdown.so": "7b8a73cc8c6b235a20b78642b7ffdece9f0aaee9d4da52e7c6d3d3590515e812",
+    "/home/andrii/Projects/pet/qmarkdown/build-ci/073-demo-development/prepared/src/QMarkdown/libQMarkdown.so": "6a1e572e612fccb3daa07b385d2050f7ac6e9c41ad01ceea2c88cc12d0d559f6"
+  },
+  "matchedHistoricalHashes": true
+}

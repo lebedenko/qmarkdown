@@ -1,0 +1,7 @@
+{
+  "frozenIdentities": true,
+  "historicalEvidenceUnchanged": true,
+  "terminalResumeRejectedWithoutLaunch": true,
+  "validatorFailureReproducedOffline": true,
+  "restorationMatchesEntireOriginalOutputRecord": true
+}

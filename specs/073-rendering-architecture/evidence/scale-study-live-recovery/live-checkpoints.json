@@ -1,0 +1,1944 @@
+{
+  "checkpoints": 70,
+  "missingCheckpoints": [],
+  "stableWindowIdentities": true,
+  "sourceAndCoordinateChecks": true,
+  "repeatedChecks": 30,
+  "repeatedPasses": 30,
+  "freshPhysicalSizeMismatches": 10,
+  "basis": "Physical nominal font height inferred from verified desktop scale and recorded viewport/window mapping; no compositor image-quality or sampling-kernel claim.",
+  "states": [
+    {
+      "id": "680",
+      "configuration": "6.8.0-distance-opengl",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "680",
+      "configuration": "6.8.0-distance-opengl",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "680",
+      "configuration": "6.8.0-distance-opengl",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "680",
+      "configuration": "6.8.0-distance-opengl",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "680",
+      "configuration": "6.8.0-distance-opengl",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "680",
+      "configuration": "6.8.0-distance-opengl",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "680",
+      "configuration": "6.8.0-distance-opengl",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "681",
+      "configuration": "6.8.0-distance-vulkan",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "681",
+      "configuration": "6.8.0-distance-vulkan",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "681",
+      "configuration": "6.8.0-distance-vulkan",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "681",
+      "configuration": "6.8.0-distance-vulkan",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "681",
+      "configuration": "6.8.0-distance-vulkan",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "681",
+      "configuration": "6.8.0-distance-vulkan",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "681",
+      "configuration": "6.8.0-distance-vulkan",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "682",
+      "configuration": "6.8.0-curve-opengl",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "682",
+      "configuration": "6.8.0-curve-opengl",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "682",
+      "configuration": "6.8.0-curve-opengl",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "682",
+      "configuration": "6.8.0-curve-opengl",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "682",
+      "configuration": "6.8.0-curve-opengl",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "682",
+      "configuration": "6.8.0-curve-opengl",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "682",
+      "configuration": "6.8.0-curve-opengl",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "683",
+      "configuration": "6.8.0-curve-vulkan",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "683",
+      "configuration": "6.8.0-curve-vulkan",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "683",
+      "configuration": "6.8.0-curve-vulkan",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "683",
+      "configuration": "6.8.0-curve-vulkan",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "683",
+      "configuration": "6.8.0-curve-vulkan",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "683",
+      "configuration": "6.8.0-curve-vulkan",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "683",
+      "configuration": "6.8.0-curve-vulkan",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "684",
+      "configuration": "6.12.0-distance-opengl",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "684",
+      "configuration": "6.12.0-distance-opengl",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "684",
+      "configuration": "6.12.0-distance-opengl",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "684",
+      "configuration": "6.12.0-distance-opengl",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "684",
+      "configuration": "6.12.0-distance-opengl",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "684",
+      "configuration": "6.12.0-distance-opengl",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "684",
+      "configuration": "6.12.0-distance-opengl",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "685",
+      "configuration": "6.12.0-distance-vulkan",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "685",
+      "configuration": "6.12.0-distance-vulkan",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "685",
+      "configuration": "6.12.0-distance-vulkan",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "685",
+      "configuration": "6.12.0-distance-vulkan",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "685",
+      "configuration": "6.12.0-distance-vulkan",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "685",
+      "configuration": "6.12.0-distance-vulkan",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "685",
+      "configuration": "6.12.0-distance-vulkan",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "686",
+      "configuration": "6.12.0-curve-opengl",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "686",
+      "configuration": "6.12.0-curve-opengl",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "686",
+      "configuration": "6.12.0-curve-opengl",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "686",
+      "configuration": "6.12.0-curve-opengl",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "686",
+      "configuration": "6.12.0-curve-opengl",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "686",
+      "configuration": "6.12.0-curve-opengl",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "686",
+      "configuration": "6.12.0-curve-opengl",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "687",
+      "configuration": "6.12.0-curve-vulkan",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "687",
+      "configuration": "6.12.0-curve-vulkan",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "687",
+      "configuration": "6.12.0-curve-vulkan",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "687",
+      "configuration": "6.12.0-curve-vulkan",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "687",
+      "configuration": "6.12.0-curve-vulkan",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 27.5,
+      "freshNominalFontPhysicalPixels": 27.5,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "687",
+      "configuration": "6.12.0-curve-vulkan",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 33.0,
+      "freshNominalFontPhysicalPixels": 33.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "687",
+      "configuration": "6.12.0-curve-vulkan",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": 2,
+      "ratio": null,
+      "surface": [
+        800,
+        600
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 44.0,
+      "freshNominalFontPhysicalPixels": 44.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "688",
+      "configuration": "skia-opengl",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "688",
+      "configuration": "skia-opengl",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 16.5,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "688",
+      "configuration": "skia-opengl",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 13.75,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "688",
+      "configuration": "skia-opengl",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 11.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "688",
+      "configuration": "skia-opengl",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 13.75,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "688",
+      "configuration": "skia-opengl",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 16.5,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "688",
+      "configuration": "skia-opengl",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "689",
+      "configuration": "skia-vulkan",
+      "checkpoint": 0,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    },
+    {
+      "id": "689",
+      "configuration": "skia-vulkan",
+      "checkpoint": 1,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 16.5,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "689",
+      "configuration": "skia-vulkan",
+      "checkpoint": 2,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 13.75,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "689",
+      "configuration": "skia-vulkan",
+      "checkpoint": 3,
+      "desktopScale": 1,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": null,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 11.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "689",
+      "configuration": "skia-vulkan",
+      "checkpoint": 4,
+      "desktopScale": 1.25,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 13.75,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "689",
+      "configuration": "skia-vulkan",
+      "checkpoint": 5,
+      "desktopScale": 1.5,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 16.5,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": false
+    },
+    {
+      "id": "689",
+      "configuration": "skia-vulkan",
+      "checkpoint": 6,
+      "desktopScale": 2,
+      "sameWindowId": true,
+      "sourcePreserved": true,
+      "inverse": true,
+      "contained": true,
+      "repeatPassed": true,
+      "window": [
+        800,
+        600
+      ],
+      "dpr": null,
+      "ratio": [
+        1.0,
+        1.0
+      ],
+      "surface": [
+        400,
+        300
+      ],
+      "fractionalPreferences120ths": [
+        240
+      ],
+      "nominalFontPhysicalPixels": 22.0,
+      "freshNominalFontPhysicalPixels": 22.0,
+      "matchesFreshPhysicalFontSize": true
+    }
+  ]
+}

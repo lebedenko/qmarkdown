@@ -40,11 +40,22 @@ and tests needing deleted raw captures require those inputs to be regenerated;
 they must not be reported as passing merely because a summary remains.
 
 Shipping source, test code, vendored dependencies/fonts and example assets were
-preserved. Compiled experiment dependencies and deleted raw captures must be
-regenerated when needed. Unpublished scale-contract work and baseline sources
-remain on the research branch and are not part of this safeguards change.
+preserved. The scale-contract generator's small, hash-pinned source baseline is
+now tracked directly, so source generation no longer needs an ignored build tree
+or a deleted evidence archive. Compiled experiment dependencies must be rebuilt.
 
-The cleanup was completed before this safeguards PR. This PR does not rewrite
-history, upload artifacts or modify release assets. Historical cleanup checks and
-disk-size observations are not new verification of this PR; see Feature 073's
-[actual verification](../specs/073-rendering-architecture/verification.md).
+Rewritten published history requires coordinated remote updates and fresh clones
+or deliberate local migration; do not merge old history back into the cleaned
+repository. Cleanup does not modify release download assets or external caches.
+
+Local verification: all remaining reachable history blobs are below 1 MiB;
+`git fsck --full --no-reflogs` passes. The complete Python/Light suite passes
+(91 tests), including storage-policy and staged-snapshot coverage. Eight focused
+scale-contract tests and the independent C++ mapping check pass after moving the
+source baseline. Shipping builds were not rerun: shipping source is byte-identical,
+and rebuilding deleted SDK/cache trees is not required to verify data removal.
+
+The local checkout was reduced from approximately 83 GiB to 44 MiB, including
+about 5.6 MiB of Git metadata. No old-history bundle or replacement archive was
+created. Generated build directories were removed, including foreign-owned SDK
+files removed by the owner after local sudo required a password.
